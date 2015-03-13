@@ -1,0 +1,14 @@
+<div header class="view-container__header"></div>
+
+<div class="centered-section-account">
+    <tabset vertical="true">
+        <tab heading="Profile">
+            <div class="account__sections" ui-view="profile" profile-form-toggle></div>
+        </tab>
+        <tab heading="Preferences">
+            <div class="account__sections" ui-view="preferences"></div>
+        </tab>
+    </tabset>
+</div>
+
+<div footer class="view-container__footer"></div>

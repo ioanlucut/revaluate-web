@@ -1,0 +1,79 @@
+<div header-home class="view-container__header"></div>
+
+<div class="home">
+
+    <div class="home__signup">
+        <div class="centered-section-home">
+
+            <h1 class="home__signup__title">Create email reminders in seconds!</h1>
+
+            <h3 class="home__signup__description">The sole purpose of Reme is to remind you the things that matter. Create a reminder and forget about it! Reme will not.</h3>
+
+            <!-- Register  section -->
+            <div class="home__signup__sections" account-form-toggle>
+
+                <!-- Request registration section -->
+                <div class="home__signup__sections__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistration" ng-controller="RequestSignUpRegistrationCtrl">
+
+                    <!-- Request registration form -->
+                    <form name="requestSignUpRegistrationForm" ng-submit="requestSignUpRegistration()" novalidate focus-first-error>
+
+                        <!-- Account controls -->
+                        <div class="home__signup__sections__section__controls">
+
+                            <!-- Email input -->
+                            <div class="home__signup__sections__section__controls--information">
+                                <input class="form-control home__signup__sections__section__controls__email" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}" type="email" placeholder="Email address" name="email" ng-model="requestSignUpRegistrationData.email" required valid-email unique-email />
+
+                                <!-- Error messages -->
+                                <div class="home__signup__sections__section__validation-messages" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}" ng-messages="requestSignUpRegistrationForm.email.$error" ng-if="requestSignUpRegistrationForm.$submitted">
+                                    <div ng-message="required">Your email address is mandatory.</div>
+                                    <div ng-message="validEmail">This email address is not valid.</div>
+                                    <div ng-message="uniqueEmail">This email address is already used.</div>
+                                </div>
+                            </div>
+
+                            <!-- Button container -->
+                            <button type="submit" ladda="isRequestPending" data-style="expand-left" data-spinner-size="20" class="btn home__signup__sections__section__controls__button">Get started for FREE!</button>
+                        </div>
+                    </form>
+
+                    <div class="text-center text-muted home__signup__sections__section--migration">
+                        Rest assured, the reminders created in old Reme will be imported in your account after you sign up.
+                    </div>
+                </div>
+
+                <!-- Request registration email sent section -->
+                <div class="home__signup__sections__section home__signup__sections__section--success alert alert-success" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent">
+
+                    <!-- Title -->
+                    <h1 class="home__signup__sections__section__submitted-title">Thanks for signing up!</h1>
+
+                    <!-- Explain -->
+                    <span class="home__signup__sections__section__submitted-message">
+                        Please check your email. There's one more step in order to create your account.
+                    </span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="home__testimonials">
+        <div class="centered-section-home">
+            <div class="img_sprite press_logo lifehacker">Lifehacker</div>
+            <div class="img_sprite press_logo producthunt">ProductHunt</div>
+            <div class="img_sprite press_logo makeuseof">MakeUseOf</div>
+            <div class="img_sprite press_logo feedmyapp">FeedMyApp</div>
+            <div class="img_sprite press_logo newstartups">NewStartups</div>
+            <div class="img_sprite press_logo addictivetips">AddictiveTips</div>
+            <a class="img_sprite chromewebstore" target="_blank" href="https://chrome.google.com/webstore/detail/remeio/jagdnkmjmgengjocecgcilbpgffmlmep">
+                <span class="">Reme</span> is available on <br> Chrome Web Store
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<div footer-home class="view-container__footer"></div>
+
