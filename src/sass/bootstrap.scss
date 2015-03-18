@@ -6,7 +6,8 @@
 /*BOURBON*/
 @import "../../bower_components/bourbon/app/assets/stylesheets/bourbon";
 /*BITTERS*/
-@import "bitters/app/assets/stylesheets/base";
+@import "bitters/base";
+@import "grid-settings";
 /*NEAT*/
 @import "../../bower_components/neat/app/assets/stylesheets/neat";
 
