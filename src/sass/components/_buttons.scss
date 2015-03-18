@@ -1,3 +1,4 @@
 .btn-default {
-  @include button-variant(#fff, #555, #000);
+  color: white;
+  background-color: blue;
 }
