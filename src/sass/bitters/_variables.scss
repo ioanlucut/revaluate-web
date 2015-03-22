@@ -1,11 +1,14 @@
 // Typography
-$base-font-family: $helvetica;
+$base-font-family: "Open Sans", "Verdana", "Roboto", "Arial", sans-serif;
 $heading-font-family: $base-font-family;
 
-
 // Font Sizes
-$base-font-size: 1em;
+$base-font-size: 14px;
 
+// Font Weights
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-bold: 700;
 
 // Line height
 $base-line-height: 1.5;
