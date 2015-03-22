@@ -2,26 +2,27 @@
 button {
   @include appearance(none);
   -webkit-font-smoothing: antialiased;
-  background-color: $action-color;
+  background-color: $brand-default;
   border-radius: $base-border-radius;
   border: none;
-  color: #fff;
+  color: $dark-gray;
   cursor: pointer;
   display: inline-block;
   font-family: $base-font-family;
   font-size: $base-font-size;
-  font-weight: 600;
-  line-height: 1;
+  font-weight: $font-weight-regular;
+  //height: 30px;
+  line-height: 0.4;
   padding: 0.75em 1em;
   text-decoration: none;
   user-select: none;
   vertical-align: middle;
   white-space: nowrap;
+  box-shadow: 0 2px 0 $brand-default-dark;
 
   &:hover,
   &:focus {
-    background-color: darken($action-color, 15%);
-    color: #fff;
+    background-color: darken($brand-default, 15%);
   }
 
   &:disabled {
