@@ -1,0 +1,41 @@
+.header-home {
+  @include outer-container;
+  @include clearfix;
+  height: 60px;
+  line-height: 55px;
+
+  //border: solid 1px green;
+}
+
+.header-home__brand {
+  float: left;
+  height: 60px;
+
+  //border: solid 1px red;
+}
+
+.header-home__brand--logo {
+  display: inline-block;
+  //border: solid 3px $brand-primary;
+  height: 32px;
+  width: 32px;
+}
+
+.header-home__brand--name {
+  display: inline-block;
+  font-size: 1em;
+  color: $black;
+  font-weight: $font-weight-bold;
+}
+
+.header-home__navigation {
+  float: right;
+  padding-left: 5px;
+  height: 60px;
+
+  //border: solid 1px blue;
+
+  li {
+    display: inline-block;
+  }
+}
