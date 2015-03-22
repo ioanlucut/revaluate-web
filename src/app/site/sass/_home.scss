@@ -1,0 +1,25 @@
+.home {
+  @include outer-container();
+}
+
+.home__title {
+
+}
+
+.home__description {
+
+}
+
+.home__btn {
+  height: 70px;
+  width: 320px;
+}
+
+.home__btn--label {
+  color: $black;
+  font-weight: $font-weight-bold;
+}
+
+.home__btn--pricing {
+
+}
