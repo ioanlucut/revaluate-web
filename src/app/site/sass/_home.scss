@@ -3,7 +3,7 @@
 }
 
 .home__title {
-
+  font-size: 32px;
 }
 
 .home__description {
@@ -11,8 +11,7 @@
 }
 
 .home__btn {
-  height: 70px;
-  width: 320px;
+  @include size(320px 70px);
 }
 
 .home__btn--label {
