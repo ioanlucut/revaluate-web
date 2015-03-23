@@ -22,7 +22,7 @@ button {
 
   &:hover,
   &:focus {
-    background-color: darken($brand-default, 5%);
+    background-color: lighten($brand-default, 3%);
   }
 
   &:disabled {
