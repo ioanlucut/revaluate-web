@@ -3,22 +3,16 @@
   @include clearfix;
   height: 60px;
   line-height: 55px;
-
-  //border: solid 1px green;
 }
 
 .header-home__brand {
   float: left;
   height: 60px;
-
-  //border: solid 1px red;
 }
 
 .header-home__brand--logo {
+  @include size(32px 32px);
   display: inline-block;
-  //border: solid 3px $brand-primary;
-  height: 32px;
-  width: 32px;
 }
 
 .header-home__brand--name {
