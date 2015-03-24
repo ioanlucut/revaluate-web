@@ -1,9 +1,8 @@
 // The btn mixin
 // -------------
 // Color: any color, but will use the brand colors from variables
-// Size: regular (default), small, big or block
 
-@mixin btn($color, $size: regular) {
+@mixin btn($color) {
   display: inline-block;
   height: 35px;
   min-width: 150px;
@@ -15,24 +14,6 @@
   text-align: center;
   @include border-radius($base-border-radius);
 
-  @if $size == small {
-    height: 30px;
-    min-width: 80px;
-    line-height: 30px;
-  }
-
-  @if $size == big {
-    height: 40px;
-    min-width: 250px;
-    line-height: 40px;
-  }
-
-  @if $size == block {
-    height: 45px;
-    width: 100%;
-    line-height: 45px;
-  }
-
   &:hover,
   &:focus {
     background-color: lighten($color, 3%);
@@ -43,4 +24,25 @@
     cursor: not-allowed;
     opacity: 0.5;
   }
+}
+
+@mixin btn-small($color) {
+  @include btn($color);
+  height: 30px;
+  min-width: 80px;
+  line-height: 30px;
+}
+
+@mixin btn-big($color) {
+  @include btn($color);
+  height: 40px;
+  min-width: 250px;
+  line-height: 40px;
+}
+
+@mixin btn-block($color) {
+  @include btn($color);
+  height: 45px;
+  width: 100%;
+  line-height: 45px;
 }
