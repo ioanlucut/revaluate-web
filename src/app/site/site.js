@@ -18,17 +18,17 @@ angular
                 url: "/",
                 templateUrl: "app/site/partials/home.html",
                 controller: "LandingPageCtrl",
-                title: "Create email reminders in seconds - Reme"
+                title: "Improve the way you spend your money"
             })
             .state("privacy", {
                 url: "/privacy",
                 templateUrl: "app/site/partials/privacy.html",
-                title: "Privacy - Reme"
+                title: "Privacy - Revaluate"
             })
             .state("about", {
                 url: "/about",
                 templateUrl: "app/site/partials/about.html",
-                title: "About - Reme"
+                title: "About - Revaluate"
             })
             .state("404", {
                 url: "/404",
