@@ -1,6 +1,7 @@
 .home {
   @include outer-container();
   text-align: center;
+  padding: 100px 10px;
 }
 
 .home__title {
@@ -9,6 +10,8 @@
 }
 
 .home__description {
+  padding: 30px 10px 90px 10px;
+  color: $dark-gray;
   font-size: 22px;
   font-weight: $font-weight-light;
 }
@@ -32,4 +35,10 @@
 .home__action-btn--pricing {
   font-size: 14px;
   font-weight: $font-weight-light;
+}
+
+.home__action-btn--info {
+  padding: 3px 10px;
+  font-size: 12px;
+  color: $medium-gray;
 }
