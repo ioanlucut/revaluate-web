@@ -1,7 +1,11 @@
 .home {
   @include outer-container();
   text-align: center;
-  padding: 100px 10px;
+}
+
+.home__section {
+  //@include outer-container();
+  //border: solid 1px red;
 }
 
 .home__title {
@@ -10,10 +14,42 @@
 }
 
 .home__description {
-  padding: 30px 10px 90px 10px;
+  //padding: 30px 10px 90px 10px;
   color: $dark-gray;
   font-size: 22px;
   font-weight: $font-weight-light;
+}
+
+.home__section__features,
+.home__section__signup {
+  @include span-columns(6);
+
+  //border: solid 1px green;
+}
+
+.home__section__features {
+  padding: 10px 10px 10px 30px;
+  text-align: left;
+}
+
+.home__section__features--list {
+
+  li {
+    color: $dark-gray;
+    font-size: 18px;
+    font-weight: $font-weight-light;
+
+    span{
+      display: inline-block;
+      color: $brand-primary;
+      margin-right: 20px;
+    }
+  }
+}
+
+.home__section__signup {
+  border: solid 1px $light-gray;
+  @include border-radius($base-border-radius);
 }
 
 .home__action-btn {
@@ -21,7 +57,7 @@
   @include size(320px 70px);
   box-shadow: 0 3px 0 darken($brand-primary, 15%);
   line-height: 1.2;
-  padding-top: 14px;
+  //padding-top: 14px;
   @include transition-property(all);
   @include transition-duration(.2s);
 }
