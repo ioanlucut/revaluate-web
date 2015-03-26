@@ -22,6 +22,7 @@ button {
   &:hover,
   &:focus {
     background-color: lighten($brand-default, 3%);
+    outline: 0;
   }
 
   &:disabled {
