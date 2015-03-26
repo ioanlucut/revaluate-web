@@ -21,22 +21,69 @@
 
         <div class="home__section__signup">
 
-            HERE GOES THE SIGNUP FORM
+            <!-- Sign-up form -->
+            <form name="signUpForm" ng-submit="signUp(signUpData)" novalidate focus-first-error>
 
-            <div class="home__action-btn">
-                <div class="home__action-btn--label">Sign up</div>
-                <div class="home__action-btn--pricing">It's free for 15 days, then $7/month.</div>
-            </div>
-            <div class="home__action-btn--info">
-                No credit card required.
-            </div>
+                <!-- Flash messages. -->
+                <!--<div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>-->
+
+                <!-- Form groups -->
+                <div class="form-group-input"  ng-class="{'has-error': signUpForm.$submitted && (signUpForm.firstName.$invalid || badPostSubmitResponse)}">
+                    <span class="form-group-input__label">First Name</span>
+                    <input type="text" name="firstName" ng-model="signUpData.firstName" required />
+                    <div class="form-group-input__message" ng-if="signUpForm.firstName.$invalid && signUpForm.$submitted">Please tell us your First Name.</div>
+                </div>
+
+                <!-- Form group -->
+                <div class="form-group-input" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.lastName.$invalid || badPostSubmitResponse)}">
+                    <span class="form-group-input__label">Last Name</span>
+                    <input type="text" name="lastName" ng-model="signUpData.lastName" required />
+                    <div class="form-group-input__message" ng-if="signUpForm.lastName.$invalid && signUpForm.$submitted">Please tell us your Last Name.</div>
+                </div>
+
+                <!-- Email input -->
+                <div class="form-group-input" ng-class="{'has-error': signUpForm.email.$invalid && signUpForm.$submitted}">
+                    <span class="form-group-input__label">Email</span>
+                    <input type="email" name="email" ng-model="signUpData.email" required valid-email unique-email />
+                    <!-- Error messages -->
+                    <div class="form-group-input__message" ng-class="{'has-error': signUpForm.email.$invalid && signUpForm.$submitted}" ng-messages="signUpForm.email.$error" ng-if="signUpForm.$submitted">
+                        <div ng-message="required">Your email address is mandatory.</div>
+                        <div ng-message="validEmail">This email address is not valid.</div>
+                        <div ng-message="uniqueEmail">This email address is already used.</div>
+                    </div>
+                </div>
+
+                <!-- Form groups -->
+                <div class="form-group-input">
+                    <span class="form-group-input__label">Password</span>
+                    <input type="password" name="password" ng-model="signUpData.password" required strong-password />
+                    <div class="form-group-input__message" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.password.$invalid || badPostSubmitResponse)}">
+                        <div class="help-message" ng-messages="signUpForm.password.$error" ng-if="signUpForm.$submitted">
+                            <div ng-message="required">Please choose a password.</div>
+                            <div ng-message="strongPassword">Your password needs to be at least 7 characters long.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Button container -->
+                <button class="home__section__signup__btn" type="submit">Start my 14 day free trial</button>
+            </form>
+
+            <!--<div class="home__action-btn">-->
+                <!--<div class="home__action-btn--label">Sign up</div>-->
+                <!--<div class="home__action-btn--pricing">It's free for 15 days, then $7/month.</div>-->
+            <!--</div>-->
+            <!--<div class="home__action-btn--info">-->
+                <!--No credit card required.-->
+            <!--</div>-->
         </div>
+    </div>
 
-
-
+    <div class="home__section">
 
     </div>
+
 </div>
 
-<!--<div footer-home class="view-container__footer"></div>-->
+<div footer-home class="view-container__footer"></div>
 

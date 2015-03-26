@@ -13,6 +13,11 @@ select {
   font-size: $base-font-size;
 }
 
+input {
+  @include size(320px 45px);
+  max-width: 320px;
+}
+
 label {
   font-weight: 600;
   margin-bottom: $small-spacing / 2;
@@ -29,7 +34,7 @@ label {
 #{$all-text-inputs},
 select[multiple=multiple],
 textarea {
-  background-color: $base-background-color;
+  background-color: $white;
   border: $base-border;
   border-radius: $base-border-radius;
   box-shadow: $form-box-shadow;
@@ -47,7 +52,7 @@ textarea {
 
   &:focus {
     border-color: $action-color;
-    box-shadow: $form-box-shadow-focus;
+    //box-shadow: $form-box-shadow-focus;
     outline: none;
   }
 }
@@ -75,4 +80,24 @@ select {
   margin-bottom: $base-spacing;
   max-width: 100%;
   width: auto;
+}
+
+input {
+  @include size(320px 45px);
+  //max-width: 320px;
+  margin: 0 !important;
+}
+
+.form-group-input {
+  text-align: left;
+  padding-bottom: 10px;
+}
+
+.form-group-input__label {
+  text-align: left;
+}
+
+.form-group-input__message {
+  color: $brand-danger;
+  text-align: center;
 }
