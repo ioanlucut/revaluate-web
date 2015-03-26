@@ -1,0 +1,6 @@
+.home__section__signup__btn {
+  @include btn-block($brand-primary);
+  margin-top: 25px;
+  font-size: 16px;
+  font-weight: $font-weight-bold;
+}
