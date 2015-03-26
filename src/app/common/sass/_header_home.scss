@@ -27,9 +27,11 @@
   padding-left: 5px;
   height: 60px;
 
-  //border: solid 1px blue;
-
   li {
     display: inline-block;
   }
+}
+
+.header-home__navigation--btn {
+  @include btn-small($brand-primary);
 }
