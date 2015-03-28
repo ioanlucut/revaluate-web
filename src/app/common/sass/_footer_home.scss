@@ -1,0 +1,14 @@
+.footer {
+  @include outer-container();
+  padding: 50px 10px 30px 10px;
+}
+
+.footer__logo {
+  @include span-columns(6);
+}
+
+
+.footer__links {
+  @include span-columns(3);
+  @include shift(3);
+}
