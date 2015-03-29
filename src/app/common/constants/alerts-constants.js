@@ -4,6 +4,7 @@ angular
         login: "login",
         signUp: "signUp",
         signUpConfirm: "signUpConfirm",
+        signUpSetUp: "signUpSetUp",
         forgotPassword: "forgotPassword",
         requestSignUpRegistration: "requestSignUpRegistration",
         resetPassword: "resetPassword",

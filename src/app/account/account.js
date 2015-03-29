@@ -128,6 +128,16 @@ angular
                 templateUrl: "app/account/partials/signup_confirm_invalid.html",
                 controller: "SignUpConfirmInvalidCtrl",
                 title: "Register - Reme.io"
+            })
+
+            // ---
+            // Account - second step of registration (set up).
+            // ---
+            .state("setup", {
+                url: "/setup",
+                templateUrl: 'app/account/partials/signup_setup.html',
+                controller: "SignUpSetUpRegistrationCtrl",
+                title: "Reminders - Reme.io"
             });
     })
 

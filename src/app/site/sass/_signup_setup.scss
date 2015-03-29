@@ -1,0 +1,61 @@
+.sign-up__setup {
+  @include outer-container();
+  text-align: center;
+}
+
+.sign-up__setup__section__sign-up {
+  @include span-columns(6);
+  @include shift(3);
+  @include border-radius($base-border-radius);
+  padding: 40px;
+}
+
+.sign-up__setup__title {
+  padding-top: 50px;
+  font-size: $base-font-size;
+  font-weight: $font-weight-bold;
+  text-align: left;
+}
+
+.sign-up__setup__tip {
+  padding-top: 50px;
+  font-size: $base-font-size;
+  text-align: left;
+}
+
+.sign-up__setup__description {
+  padding: 10px 10px 40px 10px;
+  color: $medium-gray;
+  font-size: 22px;
+  font-weight: $font-weight-light;
+}
+
+.sign-up__section__categories {
+  @include outer-container();
+  padding-top: 30px;
+
+  .sign-up__section__categories__category {
+    @include span-columns(3);
+    @include omega(4n);
+    padding-bottom: 10px;
+    font-size: $base-font-size-xs;
+  }
+
+  .category-name {
+    @include border-radius($base-border-radius);
+    @include user-select(none);
+    border: solid 1px transparent;
+    cursor: pointer;
+    color: $white;
+    font-weight: bold;
+    padding: 2px 2px;
+    text-transform: uppercase;
+
+    &.category-name--unselected {
+      background-color: $white !important;
+      border-color: $medium-gray;;
+      color: $medium-gray;
+    }
+  }
+
+}
