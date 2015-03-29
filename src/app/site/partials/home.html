@@ -24,12 +24,8 @@
             <!-- Sign-up form -->
             <form name="signUpForm" ng-submit="signUp(signUpData)" novalidate focus-first-error>
 
-
-                <!--@TODO: The flash message displays the X for closing even if no message is displayed. Fix this before-->
-                <!--uncommentig the message below-->
-                
-                <!--&lt;!&ndash; Flash messages. &ndash;&gt;-->
-                <!--<div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>-->
+                <!-- Flash messages. -->
+                <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
                 <!-- Form groups -->
                 <div class="form-group-input" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.firstName.$invalid || badPostSubmitResponse)}">
