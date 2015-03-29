@@ -1,40 +1,62 @@
-/**
- * Request registration controller responsible for first sign up action on the home page, having only the email.
- */
 angular
     .module("account")
-    .controller("RequestSignUpRegistrationCtrl", function ($scope, AuthService, ACCOUNT_FORM_STATE, AccountFormToggle, MIXPANEL_EVENTS) {
+    .controller("FirstStepSignUpRegistrationCtrl", function ($scope, $timeout, flash, ALERTS_CONSTANTS, StatesHandler, User, AuthService, TimezoneProvider, MIXPANEL_EVENTS) {
 
         /**
-         * Request registration up user information.
+         * Alert identifier
          */
-        $scope.requestSignUpRegistrationData = {
-            email: ""
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.signUpConfirm;
+
+        /**
+         * Sign up user information.
+         * @type {{firstName: string, lastName: string, email: string, password: string}}
+         */
+        $scope.signUpData = {
+            firstName: "",
+            lastName: "",
+            password: "",
+            email: "",
+            timezone: jstz.determine().name(),
+            currency: {
+                "currencyCode": "EUR"
+            }
         };
 
         /**
-         * Request registration functionality.
+         * Timezone details
          */
-        $scope.requestSignUpRegistration = function () {
+        $scope.timezoneDetails = TimezoneProvider.getTimezoneDescription($scope.signUpData.timezone);
 
-            if ( $scope.requestSignUpRegistrationForm.$valid ) {
+        /*
+         * Sign up functionality.
+         * @param signUpData
+         */
+        $scope.signUp = function (signUpData) {
+            if ( $scope.signUpForm.$valid ) {
 
-                // Show the loading bar
-                $scope.isRequestPending = true;
-
-                AuthService
-                    .requestSignUpRegistration($scope.requestSignUpRegistrationData.email)
+                // Create a new user
+                User.$new()
+                    .$create(signUpData)
                     .then(function () {
                         /**
                          * Track event.
                          */
-                        mixpanel.track(MIXPANEL_EVENTS.signUpRequested);
+                        mixpanel.track(MIXPANEL_EVENTS.signUpCompleted);
 
-                        AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent);
-                    }).finally(function () {
-                        // Stop the loading bar
-                        $scope.isRequestPending = false;
+                        // Log in the user
+                        AuthService
+                            .login(signUpData.email, signUpData.password)
+                            .then(function () {
+                                StatesHandler.goToReminders();
+                            });
                     })
+                    .catch(function () {
+                        /* If bad feedback from server */
+                        $scope.badPostSubmitResponse = true;
+
+                        flash.to($scope.alertIdentifierId).error = "Sorry, something went wrong.";
+                    });
             }
         };
+
     });
