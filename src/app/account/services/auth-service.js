@@ -102,7 +102,7 @@ angular
          */
         this.validatePasswordResetToken = function (email, token) {
             return $http
-                .get(URLTo.api(AUTH_URLS.validatePasswordResetToken, { ":email": email, ":token": token }),
+                .post(URLTo.api(AUTH_URLS.validatePasswordResetToken, { ":email": email, ":token": token }),
                 {
                     skipAuthorization: true
                 }).then(function (response) {
