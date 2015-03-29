@@ -4,6 +4,7 @@
 // MIT License
 
 @import "variables";
+@import "mixins";
 
 // Neat Settings -- uncomment if using Neat -- must be imported before Neat
 @import "grid-settings";
@@ -15,3 +16,5 @@
 @import "typography";
 @import "blocks";
 @import "links";
+@import "alerts";
+@import "close";

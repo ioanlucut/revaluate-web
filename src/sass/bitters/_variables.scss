@@ -49,6 +49,18 @@ $brand-warning: #FFCE54;
 $brand-warning-dark: #F6BB42;
 
 
+// Alert
+$alert-color: #fff6bf !default;
+$error-color: #fbe3e4 !default;
+$notice-color: #e5edf8 !default;
+$success-color: #e6efc2 !default;
+
+// Close
+// ------------------------
+$close-font-weight: bold !default;
+$close-color: #000 !default;
+$close-text-shadow: 0 1px 0 #fff !default;
+
 // Font Colors
 $base-background-color: #fff;
 $base-font-color: $black;
