@@ -3,7 +3,7 @@
   text-align: center;
 }
 
-.sign-up__setup__section__sign-up {
+.sign-up__setup__section {
   @include span-columns(6);
   @include shift(3);
   @include border-radius($base-border-radius);
