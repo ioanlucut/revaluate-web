@@ -11,6 +11,7 @@ angular
         home: "home",
         profile: "profile",
         reminders: "reminders.regular",
+        expenses: "expenses",
         account: "account"
     })
     .constant("ACCESS_LEVEL", {

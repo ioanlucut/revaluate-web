@@ -26,6 +26,10 @@ angular
             $state.go(state);
         };
 
+        this.goToExpenses = function () {
+            this.go(STATES.reminders);
+        };
+
         this.refreshCurrentState = function () {
             $state.transitionTo($state.current, $stateParams, {
                 reload: true,
