@@ -1,0 +1,70 @@
+<!--// Expense list box header-->
+<div class="expense-list-box__header" ng-click="togglePastExpensesContent()" ng-bind-html="expenses.length | expensesHeader : reverseOrder" ng-show="expenses.length"></div>
+
+<!--Expense list content.-->
+<div ng-show="showExpensesContent" class="expense-list-box" ng-class="{ 'expense-list-box--past-expenses': reverseOrder}">
+
+    <!--Expense list is empty-->
+    <div class="expense__empty empty-state--text" ng-if="showEmptyExpensesContent && ! expenses.length">
+        You have no expenses. Don't be shy, go ahead and create one! :)
+    </div>
+
+    <div class="expense-groups"
+         ng-repeat="expensesGrouped in expenses | groupExpenses:reverseOrder | groupLimit:expenses:expensesLimit track by expensesGrouped.name">
+
+        <!--Expense group-->
+        <div class="expense-group"> {{expensesGrouped.name}}</div>
+
+        <!--Expense list-->
+        <div class="expense"
+             ng-click="openUpdateExpenseModalService(expense, $index)"
+             ng-repeat="expense in expensesGrouped.values | orderObjectBy : 'model.dueOn' : reverseOrder | filter:{model:{text:searchByText}} as filteredExpenses track by expense.model.expenseId">
+
+            <!--Expense title-->
+            <div class="expense__title" ng-bind-html="expense.model.text | highlightSearch:searchByText"></div>
+
+            <!--Expense edit/delete-->
+            <div class="expense__menu">
+                <a class="expense__menu__option expense__menu__option--delete simptip-position-left simptip-fade simptip-smooth" data-tooltip="Delete expense" href="javascript:void(0)" ng-click="expense.isCreatedBy(currentUserEmail) ? openDeleteExpenseModalService(expense, $index) : openUnSubscribeExpenseModalService(expense, $index); $event.stopPropagation();">
+                    <span class="icon-trash"></span>
+                </a>
+            </div>
+
+            <!--Expense info-->
+            <div class="expense__info">
+
+                <!--Expense date-->
+                <div class="expense__info__item expense__info__item--date">
+                    <span class="icon-calendar"></span>
+                    {{expense.model.dueOn | friendlyDate}}
+                </div>
+
+                <!--Expense hour-->
+                <div class="expense__info__item expense__info__item--time">
+                    <span class="icon-clock"></span>
+                    {{expense.model.dueOn | friendlyHour}}
+                </div>
+
+                <!--Expense icons-->
+                <div class="expense__info__item expense__info__item--additional">
+                    <div class="expense__info__item__icon expense__info__item__icon--user">
+                        <span ng-if="! expense.isCreatedBy(currentUserEmail)" class="simptip-position-bottom simptip-fade simptip-smooth simptip-multiline" data-tooltip="Created by: {{expense.model.createdByUser.firstName}} {{expense.model.createdByUser.lastName}} {{expense.model.createdByUser.email}}">
+                            <span class="icon-user"></span>
+                        </span>
+                    </div>
+                    <div class="expense__info__item__icon expense__info__item__icon--email">
+                        <span ng-if="expense.isManyRecipients()" class="simptip-position-bottom simptip-fade simptip-smooth simptip-multiline" data-tooltip="Recipients: {{expense.model.recipients | friendlyRecipients}}">
+                            <span class="icon-email"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div ng-if="isStillExpensesToBeLoaded()" class="load-more-expenses">
+        <button type="submit" ladda="isLoadingMore" data-style="expand-left" data-spinner-size="20" class="btn btn--load-more" ng-click="loadMoreExpenses()">LOAD MORE</button>
+    </div>
+
+</div>
