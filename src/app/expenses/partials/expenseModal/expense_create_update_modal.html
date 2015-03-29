@@ -1,0 +1,52 @@
+<!--Expense form-->
+<div class="expense-modal">
+
+    <div class="expense-modal__header">Create a new expense</div>
+
+    <div class="expense-modal__form__cancel">
+        <button type="button" class="close" ng-click="dismissFeedbackModal()" aria-label="Close">
+            <span aria-hidden="true">×</span></button>
+    </div>
+
+    <!-- Flash messages. -->
+    <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
+    <!--Expense form-->
+    <form class="expense-modal__form" name="expenseForm" ng-submit="saveExpense(expenseForm)" novalidate focus-first-error>
+
+        <!--Expense text-->
+        <div class="form-group form-group--expense-text" ng-class="{'has-error': expenseForm.text.$invalid && expenseForm.$submitted}">
+            <label>Remind me to:</label>
+            <input class="form-control form-control--expense" type="text" placeholder="{{randomExample}}" name="text" maxlength="140" ng-model="expense.model.text" nlp-date date="expense.model.dueOn" separator="@" min-date="{{minDate}}" max-date="2018-01-01" auto-focus="isModalOpened" required />
+        </div>
+
+        <!--Expense info-->
+        <div class="expense-modal__form__info" ng-class="{'has-error': expenseForm.selectedDate.$invalid}">
+
+            <!--Hidden input of the expense chosen date-->
+            <input type="hidden" name="selectedDate" ng-model="expense.model.dueOn" valid-date />
+
+            <!--Expense date picker-->
+            <div class="expense-modal__form__info--date">
+                <button type="button" class="btn btn--expense-popup" datepicker-popup min="minDate" ng-model="expense.model.dueOn" show-weeks="false" datepicker-options="{starting_day:1}" animate animate-on="nlpDate:dateChange" animate-class="highlight-button"> {{expense.model.dueOn | friendlyDate}}</button>
+            </div>
+
+            <!--Expense time picker-->
+            <div class="expense-modal__form__info--time" timepicker-popup dropdown ng-model="expense.model.dueOn" step="30"></div>
+
+            <!--Error messages-->
+            <div class="has-error-messages" ng-messages="expenseForm.selectedDate.$error">
+                <div ng-message="validDate">Please make sure that the date and time are in the future.</div>
+            </div>
+        </div>
+
+        <!--Expense addresses-->
+        <div class="expense-modal__form__addressees">
+
+            <div email-list ng-model="expense.model.recipients" max-emails="6" parent-form="expenseForm"></div>
+        </div>
+
+        <!--Submit form button-->
+        <button type="submit" ladda="isSaving" data-style="expand-left" data-spinner-size="20" class="btn btn--create-expense">{{isNew ? "Create expense" : "Update expense"}}</button>
+    </form>
+</div>
