@@ -36,9 +36,9 @@ angular
                             email: email
                         });
                     }, this))
-                    .catch(function (response) {
+                    .catch(function () {
                         deferred.resolve({
-                            isUnique: _.isEmpty(response.data && response.data.errors),
+                            isUnique: false,
                             email: email
                         });
                     });

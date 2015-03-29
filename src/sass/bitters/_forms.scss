@@ -101,3 +101,10 @@ input {
   color: $brand-danger;
   text-align: center;
 }
+
+.has-error {
+
+  .form-group-input__input {
+    border-color: $brand-danger;
+  }
+}

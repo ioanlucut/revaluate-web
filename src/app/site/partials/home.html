@@ -19,7 +19,7 @@
             </ul>
         </div>
 
-        <div class="home__section__signup" ng-controller="FirstStepSignUpRegistrationCtrl">
+        <div class="home__section__signup" ng-controller="HomeSignUpRegistrationCtrl">
 
             <!-- Sign-up form -->
             <form name="signUpForm" ng-submit="signUp(signUpData)" novalidate focus-first-error>
@@ -28,23 +28,25 @@
                 <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
                 <!-- Form groups -->
-                <div class="form-group-input"  ng-class="{'has-error': signUpForm.$submitted && (signUpForm.firstName.$invalid || badPostSubmitResponse)}">
+                <div class="form-group-input" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.firstName.$invalid || badPostSubmitResponse)}">
                     <span class="form-group-input__label">First Name</span>
-                    <input type="text" name="firstName" ng-model="signUpData.firstName" required />
+                    <input class="form-group-input__input" type="text" name="firstName" ng-model="signUpData.firstName" required />
+
                     <div class="form-group-input__message" ng-if="signUpForm.firstName.$invalid && signUpForm.$submitted">Please tell us your First Name.</div>
                 </div>
 
                 <!-- Form group -->
                 <div class="form-group-input" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.lastName.$invalid || badPostSubmitResponse)}">
                     <span class="form-group-input__label">Last Name</span>
-                    <input type="text" name="lastName" ng-model="signUpData.lastName" required />
+                    <input class="form-group-input__input" type="text" name="lastName" ng-model="signUpData.lastName" required />
+
                     <div class="form-group-input__message" ng-if="signUpForm.lastName.$invalid && signUpForm.$submitted">Please tell us your Last Name.</div>
                 </div>
 
                 <!-- Email input -->
                 <div class="form-group-input" ng-class="{'has-error': signUpForm.email.$invalid && signUpForm.$submitted}">
                     <span class="form-group-input__label">Email</span>
-                    <input type="email" name="email" ng-model="signUpData.email" required valid-email unique-email />
+                    <input class="form-group-input__input" type="email" name="email" ng-model="signUpData.email" required valid-email unique-email />
                     <!-- Error messages -->
                     <div class="form-group-input__message" ng-class="{'has-error': signUpForm.email.$invalid && signUpForm.$submitted}" ng-messages="signUpForm.email.$error" ng-if="signUpForm.$submitted">
                         <div ng-message="required">Your email address is mandatory.</div>
@@ -56,7 +58,8 @@
                 <!-- Form groups -->
                 <div class="form-group-input">
                     <span class="form-group-input__label">Password</span>
-                    <input type="password" name="password" ng-model="signUpData.password" required strong-password />
+                    <input class="form-group-input__input" type="password" name="password" ng-model="signUpData.password" required strong-password />
+
                     <div class="form-group-input__message" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.password.$invalid || badPostSubmitResponse)}">
                         <div class="help-message" ng-messages="signUpForm.password.$error" ng-if="signUpForm.$submitted">
                             <div ng-message="required">Please choose a password.</div>
@@ -70,11 +73,11 @@
             </form>
 
             <!--<div class="home__action-btn">-->
-                <!--<div class="home__action-btn--label">Sign up</div>-->
-                <!--<div class="home__action-btn--pricing">It's free for 15 days, then $7/month.</div>-->
+            <!--<div class="home__action-btn--label">Sign up</div>-->
+            <!--<div class="home__action-btn--pricing">It's free for 15 days, then $7/month.</div>-->
             <!--</div>-->
             <!--<div class="home__action-btn--info">-->
-                <!--No credit card required.-->
+            <!--No credit card required.-->
             <!--</div>-->
         </div>
     </div>
