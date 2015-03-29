@@ -47,7 +47,7 @@ angular
                         AuthService
                             .login(signUpData.email, signUpData.password)
                             .then(function () {
-                                StatesHandler.goToReminders();
+                                StatesHandler.goToSetUp();
                             });
                     })
                     .catch(function () {
