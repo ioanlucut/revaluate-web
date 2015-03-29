@@ -1,0 +1,45 @@
+@import "variables";
+
+@mixin flash($color) {
+  background-color: $color;
+  color: darken($color, 60%);
+  display: block;
+  font-weight: 600;
+  margin-bottom: $base-spacing / 2;
+  padding: $base-spacing / 2;
+  text-align: center;
+
+  a {
+    color: darken($color, 70%);
+    text-decoration: underline;
+
+    &:focus,
+    &:hover {
+      color: darken($color, 90%);
+    }
+  }
+}
+
+.alert-error {
+  @include flash($error-color);
+}
+
+.alert-notice {
+  @include flash($notice-color);
+}
+
+.alert-success {
+  @include flash($success-color);
+}
+
+.alert--center {
+  width: 100%;
+  max-width: 500px;
+  margin: 10px auto 20px;
+  text-align: center;
+  display: none;
+}
+
+.alert {
+  display: block;
+}

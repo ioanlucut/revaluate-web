@@ -1,0 +1,24 @@
+@import "variables";
+@import "mixins";
+
+//
+// Close icons
+// --------------------------------------------------
+
+.close {
+  float: right;
+  font-size: ($base-font-size * 1.5);
+  font-weight: $close-font-weight;
+  line-height: 1;
+  color: $close-color;
+  text-shadow: $close-text-shadow;
+  @include opacity(.2);
+
+  &:hover,
+  &:focus {
+    color: $close-color;
+    text-decoration: none;
+    cursor: pointer;
+    @include opacity(.5);
+  }
+}
