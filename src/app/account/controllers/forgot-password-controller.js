@@ -27,8 +27,11 @@ angular
                     .then(function () {
                         AccountFormToggle.setState(ACCOUNT_FORM_STATE.forgotPasswordEmailSent);
                     })
-                    .catch(function (response) {
-                        flash.to($scope.alertIdentifierId).error = response.data && response.data.errors && response.data.errors[0];
+                    .catch(function () {
+                        /* If bad feedback from server */
+                        $scope.badPostSubmitResponse = true;
+
+                        flash.to($scope.alertIdentifierId).error = 'This email does not exist in our database.';
                     });
             }
         };

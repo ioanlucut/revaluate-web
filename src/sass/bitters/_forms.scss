@@ -14,8 +14,7 @@ select {
 }
 
 input {
-  @include size(320px 45px);
-  max-width: 320px;
+  @include size(100%x 45px);
 }
 
 label {

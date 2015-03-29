@@ -61,7 +61,7 @@
                     <input class="form-group-input__input" type="password" name="password" ng-model="signUpData.password" required strong-password />
 
                     <div class="form-group-input__message" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.password.$invalid || badPostSubmitResponse)}">
-                        <div class="help-message" ng-messages="signUpForm.password.$error" ng-if="signUpForm.$submitted">
+                        <div class="form-group-input__message" ng-messages="signUpForm.password.$error" ng-if="signUpForm.$submitted">
                             <div ng-message="required">Please choose a password.</div>
                             <div ng-message="strongPassword">Your password needs to be at least 7 characters long.</div>
                         </div>
