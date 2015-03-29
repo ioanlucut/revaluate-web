@@ -18,18 +18,17 @@
                 <!--Category group-->
                 <div class="category-name" ng-style="{'background':category.color}" ng-class="{ 'category-name--unselected': !category.selected }" ng-click="toggleCategorySelection($index)"> {{category.name}}</div>
             </div>
-
-            <!-- Set up form -->
-            <form name="setUpForm" ng-submit="setUp()" novalidate>
-
-                <!-- Flash messages. -->
-                <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
-
-                <!-- Button container -->
-                <button class="sign-up__setup__btn" type="submit">Done! Let's start!</button>
-            </form>
         </div>
 
+        <!-- Set up form -->
+        <form name="setUpForm" ng-submit="setUp()" novalidate>
+
+            <!-- Flash messages. -->
+            <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
+            <!-- Button container -->
+            <button class="sign-up__setup__btn" type="submit">Done! Let's start!</button>
+        </form>
 
     </div>
 
