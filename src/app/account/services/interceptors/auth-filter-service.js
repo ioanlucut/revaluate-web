@@ -10,8 +10,8 @@ angular
 
                 // Prevent transition
                 event.preventDefault();
-                StatesHandler.goToReminders();
-            } else if ( (toState.url.indexOf("/settings") > -1 || toState.url.indexOf("/reminders") > -1) && !AuthService.isAuthenticated() ) {
+                StatesHandler.goToExpenses();
+            } else if ( (toState.url.indexOf("/settings") > -1 || toState.url.indexOf("/expenses") > -1) && !AuthService.isAuthenticated() ) {
 
                 // Prevent transition
                 event.preventDefault();

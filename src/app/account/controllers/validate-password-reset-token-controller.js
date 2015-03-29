@@ -31,12 +31,12 @@ angular
                         $scope.successfullyReseted = true;
                         ProfileFormToggle.setState(ACCOUNT_FORM_STATE.resetPasswordSuccessfully);
 
-                        // Log in the user, and forward it to the reminders page.
+                        // Log in the user, and forward it to the expenses page.
                         AuthService
                             .login(resetPasswordData.email, resetPasswordData.password)
                             .then(function () {
                                 $timeout(function () {
-                                    StatesHandler.goToReminders();
+                                    StatesHandler.goToExpenses();
                                 }, 1500);
                             });
                     })

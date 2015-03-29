@@ -14,7 +14,7 @@ angular
         "site",
         "feedback",
         "common",
-        "reminders",
+        "expenses",
         "account",
         "angular.filter"
     ])

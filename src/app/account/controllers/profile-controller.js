@@ -60,6 +60,6 @@ angular
         };
 
         $scope.getMeBack = function () {
-            StatesHandler.goToReminders();
+            StatesHandler.goToExpenses();
         };
     });

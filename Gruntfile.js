@@ -72,8 +72,8 @@ module.exports = function (grunt) {
                     "src/app/site/site.js",
                     "src/app/site/**/*.js",
 
-                    "src/app/reminders/reminders.js",
-                    "src/app/reminders/**/*.js",
+                    "src/app/expenses/expenses.js",
+                    "src/app/expenses/**/*.js",
 
                     "src/app/app.js",
                     "src/app/app.ctrl.js",
@@ -238,7 +238,7 @@ module.exports = function (grunt) {
                 src: [
 
                     "src/app/site/partials/**/*.html",
-                    "src/app/reminders/partials/**/*.html",
+                    "src/app/expenses/partials/**/*.html",
                     "src/app/account/partials/**/*.html",
                     "src/app/feedback/**/*.html",
                     "src/app/common/**/*.html"
@@ -268,7 +268,7 @@ module.exports = function (grunt) {
                     "src/app/site/partials/**/*.html",
                     "src/app/account/partials/**/*.html",
                     "src/app/feedback/**/*.html",
-                    "src/app/reminders/partials/**/*.html",
+                    "src/app/expenses/partials/**/*.html",
                     "src/app/common/**/*.html"
                 ],
                 tasks: ["html2js", "concat"]

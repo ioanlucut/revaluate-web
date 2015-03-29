@@ -90,12 +90,12 @@ angular.module("common").
                  * Validate if the date is in the past always after setting the time.
                  */
                 function reForceCheckValidity() {
-                    var isDateInPast = moment().diff(scope.date || scope.$parent.reminderForm.selectedDate) > 0;
-                    if ( scope.$parent.reminderForm.selectedDate.$invalid && !isDateInPast ) {
-                        scope.$parent.reminderForm.selectedDate.$setValidity('validDate', true);
+                    var isDateInPast = moment().diff(scope.date || scope.$parent.expenseForm.selectedDate) > 0;
+                    if ( scope.$parent.expenseForm.selectedDate.$invalid && !isDateInPast ) {
+                        scope.$parent.expenseForm.selectedDate.$setValidity('validDate', true);
                     }
-                    else if ( scope.$parent.reminderForm.selectedDate.$valid && isDateInPast ) {
-                        scope.$parent.reminderForm.selectedDate.$setValidity('validDate', false);
+                    else if ( scope.$parent.expenseForm.selectedDate.$valid && isDateInPast ) {
+                        scope.$parent.expenseForm.selectedDate.$setValidity('validDate', false);
                     }
                 }
 

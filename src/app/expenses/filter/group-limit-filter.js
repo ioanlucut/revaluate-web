@@ -1,5 +1,5 @@
 angular
-    .module("reminders")
+    .module("expenses")
     .filter('groupLimit', function () {
         return function (inputGrouped, input, limit) {
             if ( limit > input.length )
@@ -9,18 +9,18 @@ angular
 
             // Should not exceed the limit
             var commonSumIndex = 0;
-            var inputGroupedReminders;
+            var inputGroupedExpenses;
             var currentGroupIndex;
 
-            // Remove every reminder from grouped reminders which are more than the limit
+            // Remove every expense from grouped expenses which are more than the limit
             for ( var idx = 0; idx < inputGrouped.length; idx++ ) {
-                inputGroupedReminders = inputGrouped[idx].values;
+                inputGroupedExpenses = inputGrouped[idx].values;
 
-                for ( currentGroupIndex = 0; currentGroupIndex < inputGroupedReminders.length; currentGroupIndex++ ) {
+                for ( currentGroupIndex = 0; currentGroupIndex < inputGroupedExpenses.length; currentGroupIndex++ ) {
                     commonSumIndex += 1;
 
                     if ( commonSumIndex > limit ) {
-                        inputGroupedReminders.splice(currentGroupIndex, 1);
+                        inputGroupedExpenses.splice(currentGroupIndex, 1);
                     }
                 }
             }
