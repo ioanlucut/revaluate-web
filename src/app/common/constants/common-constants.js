@@ -11,6 +11,7 @@ angular
         home: "home",
         profile: "profile",
         reminders: "reminders.regular",
+        setUp: "setup",
         expenses: "expenses",
         account: "account"
     })

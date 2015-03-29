@@ -14,6 +14,10 @@ angular
             this.go(STATES.reminders);
         };
 
+        this.goToSetUp = function () {
+            this.go(STATES.setUp);
+        };
+
         this.goToLogin = function () {
             this.go(STATES.account);
         };
