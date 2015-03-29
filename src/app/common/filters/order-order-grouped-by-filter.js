@@ -1,48 +1,48 @@
 angular
     .module('common')
-    .filter('groupReminders', function ($parse, filterWatcher) {
-        return function (reminders, reverse) {
+    .filter('groupExpenses', function ($parse, filterWatcher) {
+        return function (expenses, reverse) {
 
             var isObject = angular.isObject,
                 forEach = angular.forEach;
 
-            if ( !isObject(reminders) ) {
-                return reminders;
+            if ( !isObject(expenses) ) {
+                return expenses;
             }
 
             return filterWatcher.isMemoized('groupBy', arguments) ||
                 filterWatcher.memoize('groupBy', arguments, this,
-                    _groupBy(reminders));
+                    _groupBy(expenses));
 
             // ---
-            // Group by reminders function.
+            // Group by expenses function.
             // ---
 
-            function _groupBy(reminders) {
-                var groupedReminders = [];
+            function _groupBy(expenses) {
+                var groupedExpenses = [];
                 var matchingGroup;
                 var matchingGroupName;
 
-                forEach(reminders, function (reminder) {
-                    matchingGroup = reminder.matchingGroup;
+                forEach(expenses, function (expense) {
+                    matchingGroup = expense.matchingGroup;
                     matchingGroupName = matchingGroup.name;
 
-                    if ( !_.some(groupedReminders, function (group) {
+                    if ( !_.some(groupedExpenses, function (group) {
                             return group.name === matchingGroupName;
                         }) ) {
-                        groupedReminders.push({ name: matchingGroupName, matchingGroup: matchingGroup, values: [] });
+                        groupedExpenses.push({ name: matchingGroupName, matchingGroup: matchingGroup, values: [] });
                     }
 
-                    _.find(groupedReminders, function (group) {
+                    _.find(groupedExpenses, function (group) {
                         return group.name === matchingGroupName;
-                    }).values.push(reminder);
+                    }).values.push(expense);
                 });
 
                 // ---
-                // Comparator to sort reminders.
+                // Comparator to sort expenses.
                 // ---
 
-                function remindersSortComparator(a, b) {
+                function expensesSortComparator(a, b) {
                     // A less than B
                     if ( a.matchingGroup.diff.date < b.matchingGroup.diff.date )
                         return -1;
@@ -57,16 +57,16 @@ angular
                 }
 
                 // ---
-                // Sort reminders - +-reversed.
+                // Sort expenses - +-reversed.
                 // ---
 
-                groupedReminders.sort(remindersSortComparator);
+                groupedExpenses.sort(expensesSortComparator);
 
                 if ( reverse ) {
-                    groupedReminders.reverse();
+                    groupedExpenses.reverse();
                 }
 
-                return groupedReminders;
+                return groupedExpenses;
             }
         }
     });

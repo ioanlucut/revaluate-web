@@ -137,7 +137,7 @@ angular
                 url: "/setup",
                 templateUrl: 'app/account/partials/signup_setup.html',
                 controller: "SignUpSetUpRegistrationCtrl",
-                title: "Reminders - Reme.io"
+                title: "Expenses - Reme.io"
             });
     })
 

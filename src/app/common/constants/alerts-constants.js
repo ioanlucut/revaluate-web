@@ -10,8 +10,8 @@ angular
         resetPassword: "resetPassword",
         updatePassword: "updatePassword",
         validatePassword: "validatePassword",
-        createUpdateReminder: "createUpdateReminder",
-        reminderList: "reminderList",
+        createUpdateExpense: "createUpdateExpense",
+        expenseList: "expenseList",
         updateProfile: "updateProfile",
         preferences: "preferences"
     });

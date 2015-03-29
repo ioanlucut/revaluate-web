@@ -1,8 +1,8 @@
 angular
     .module("common")
-    .service("ReminderMatchingGroupService", function () {
+    .service("ExpenseMatchingGroupService", function () {
 
-        this.getRemindersGroups = function () {
+        this.getExpensesGroups = function () {
             var now = moment();
 
             return [
@@ -34,42 +34,42 @@ angular
         };
 
         /**
-         * Populate reminders with matching groups
+         * Populate expenses with matching groups
          */
-        this.populateRemindersWithMatchingGroups = function (reminders, reverseOrder) {
-            var remindersGroup = this.getRemindersGroups();
+        this.populateExpensesWithMatchingGroups = function (expenses, reverseOrder) {
+            var expensesGroup = this.getExpensesGroups();
 
-            _.each(reminders, function (reminder) {
-                var matchingGroupFound = _.find(remindersGroup, function (remindersGroup) {
-                    return remindersGroup.diff.date.isSame(reminder.model.dueOn, remindersGroup.diff.unit);
+            _.each(expenses, function (expense) {
+                var matchingGroupFound = _.find(expensesGroup, function (expensesGroup) {
+                    return expensesGroup.diff.date.isSame(expense.model.dueOn, expensesGroup.diff.unit);
                 });
 
                 if ( !matchingGroupFound ) {
-                    var reminderDueOn = moment(reminder.model.dueOn);
-                    var isSameYear = moment(moment().year()).isSame(reminderDueOn.year());
+                    var expenseDueOn = moment(expense.model.dueOn);
+                    var isSameYear = moment(moment().year()).isSame(expenseDueOn.year());
 
                     // ---
-                    // If no matching group is found, create one with reminders month.
+                    // If no matching group is found, create one with expenses month.
                     // ---
 
-                    reminder.matchingGroup = {
-                        name: reminderDueOn.format(isSameYear ? 'MMMM' : 'MMMM, YYYY'),
+                    expense.matchingGroup = {
+                        name: expenseDueOn.format(isSameYear ? 'MMMM' : 'MMMM, YYYY'),
                         diff: {
-                            date: moment(reminderDueOn), unit: 'month'
+                            date: moment(expenseDueOn), unit: 'month'
                         }
                     };
                 }
                 else {
-                    reminder.matchingGroup = matchingGroupFound;
+                    expense.matchingGroup = matchingGroupFound;
                 }
             });
         };
 
         /**
-         * Populate reminder with matching group
+         * Populate expense with matching group
          */
-        this.populateReminderWithMatchingGroup = function (reminder, reverseOrder) {
-            return this.populateRemindersWithMatchingGroups([reminder], reverseOrder);
+        this.populateExpenseWithMatchingGroup = function (expense, reverseOrder) {
+            return this.populateExpensesWithMatchingGroups([expense], reverseOrder);
         };
 
     });

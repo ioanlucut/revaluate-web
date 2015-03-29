@@ -38,7 +38,7 @@ angular
                     .login(loginData.email, loginData.password)
                     .then(function () {
 
-                        StatesHandler.goToReminders();
+                        StatesHandler.goToExpenses();
                     })
                     .catch(function () {
                         /* If bad feedback from server */

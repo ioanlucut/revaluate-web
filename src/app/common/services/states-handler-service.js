@@ -10,10 +10,6 @@ angular
             this.go(STATES.profile);
         };
 
-        this.goToReminders = function () {
-            this.go(STATES.reminders);
-        };
-
         this.goToSetUp = function () {
             this.go(STATES.setUp);
         };
@@ -31,7 +27,7 @@ angular
         };
 
         this.goToExpenses = function () {
-            this.go(STATES.reminders);
+            this.go(STATES.expenses);
         };
 
         this.refreshCurrentState = function () {
