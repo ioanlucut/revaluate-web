@@ -8,7 +8,7 @@
   @include span-columns(6);
   @include shift(3);
   @include border-radius($base-border-radius);
-  border: solid 1px $light-gray;
+  border: solid 1px $lightest-gray;
   padding: 40px;
 }
 
@@ -72,14 +72,15 @@
     border: solid 1px transparent;
     cursor: pointer;
     color: $white;
-    font-weight: bold;
     padding: 2px 2px;
     text-transform: uppercase;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
 
     &.category-name--unselected {
       background-color: $white !important;
-      border-color: $medium-gray;;
-      color: $medium-gray;
+      border-color: $lightest-gray;
+      color: $dark-gray;
+      text-shadow: none;
     }
   }
 
