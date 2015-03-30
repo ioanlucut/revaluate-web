@@ -2,8 +2,15 @@
 
     <div class="sign-up__setup__box">
 
-        <div class="sign-up__setup__title">
-            Great! Let's choose the currency and add a few categories to get you started.
+        <div class="sign-up__setup__section">
+            <strong>Great! Let's choose the currency and add a few categories to get you started.</strong>
+        </div>
+
+        <div class="sign-up__setup__section sign-up__setup__section__currency">
+            <div class="sign-up__setup__section__currency__label">Choose your currency:</div>
+            <div class="sign-up__setup__section__currency__dropdown">
+                European EURO
+            </div>
         </div>
 
         <div class="sign-up__setup__tip">
@@ -20,16 +27,16 @@
             </div>
         </div>
 
-        <!-- Set up form -->
-        <form name="setUpForm" ng-submit="setUp()" novalidate>
-
-            <!-- Flash messages. -->
-            <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
-
-            <!-- Button container -->
-            <button class="sign-up__setup__btn" type="submit">Done! Let's start!</button>
-        </form>
-
     </div>
+
+    <!-- Set up form -->
+    <form name="setUpForm" ng-submit="setUp()" novalidate>
+
+        <!-- Flash messages. -->
+        <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
+        <!-- Button container -->
+        <button class="sign-up__setup__btn" type="submit">Done! Let's start!</button>
+    </form>
 
 </div>
