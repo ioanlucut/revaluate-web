@@ -1,6 +1,6 @@
 <div class="sign-up__setup">
 
-    <div class="sign-up__setup__section">
+    <div class="sign-up__setup__box">
 
         <div class="sign-up__setup__title">
             Great! Let's choose the currency and add a few categories to get you started.
@@ -11,9 +11,9 @@
             <strong>at least 3</strong> categories we suggested or add your own. No worries, you can change, add or remove them later as well.
         </div>
 
-        <div class="sign-up__section__categories">
+        <div class="sign-up__box__categories">
 
-            <div class="sign-up__section__categories__category" ng-repeat="category in categories track by category.name">
+            <div class="sign-up__box__categories__category" ng-repeat="category in categories track by category.name">
 
                 <!--Category group-->
                 <div class="category-name" ng-style="{'background':category.color}" ng-class="{ 'category-name--unselected': !category.selected }" ng-click="toggleCategorySelection($index)"> {{category.name}}</div>

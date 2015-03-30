@@ -3,7 +3,7 @@
   text-align: center;
 }
 
-.sign-up__setup__section {
+.sign-up__setup__box {
   @include span-columns(6);
   @include shift(3);
   @include border-radius($base-border-radius);
@@ -30,11 +30,11 @@
   font-weight: $font-weight-light;
 }
 
-.sign-up__section__categories {
+.sign-up__box__categories {
   @include outer-container();
   padding-top: 30px;
 
-  .sign-up__section__categories__category {
+  .sign-up__box__categories__category {
     @include span-columns(3);
     @include omega(4n);
     padding-bottom: 10px;
