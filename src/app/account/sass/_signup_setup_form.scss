@@ -1,7 +1,5 @@
 .sign-up__setup__btn {
-  @include btn-block($brand-primary);
-  @include span-columns(6);
-  @include shift(3);
+  @include btn-big($brand-primary);
   margin-top: 25px;
   font-size: 16px;
   font-weight: $font-weight-bold;
