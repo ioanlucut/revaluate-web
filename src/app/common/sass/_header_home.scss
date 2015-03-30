@@ -16,10 +16,7 @@
 }
 
 .header-home__brand--name {
-  display: inline-block;
-  font-size: 1em;
-  color: $black;
-  font-weight: $font-weight-bold;
+  @include brand-inline();
 }
 
 .header-home__navigation {
