@@ -31,13 +31,7 @@
 }
 
 .sign-up__setup__section__currency__dropdown {
-  display: inline-block;
-  border: solid 1px $light-gray;
-  @include border-radius(3px);
-  min-width: 150px;
-  padding: 5px 10px;
-  color: $dark-gray;
-
+  @include dropdown();
   float: right;
   width: 180px;
 }
