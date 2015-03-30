@@ -18,7 +18,7 @@ angular
                 url: "/",
                 templateUrl: "app/site/partials/home.html",
                 controller: "LandingPageCtrl",
-                title: "Improve the way you spend your money"
+                title: "Change the way you spend your money"
             })
             .state("privacy", {
                 url: "/privacy",
