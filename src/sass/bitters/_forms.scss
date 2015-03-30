@@ -14,7 +14,7 @@ select {
 }
 
 input {
-  @include size(100%x 45px);
+  @include size(100% 45px);
 }
 
 label {
