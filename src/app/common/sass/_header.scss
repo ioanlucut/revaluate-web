@@ -1,5 +1,38 @@
-.navbar {
-  @include outer-container();
+.header {
+  @include outer-container;
+  @include clearfix;
+  height: 60px;
+  line-height: 55px;
 
-  border: solid 1px red;
+  border: solid 1px blue;
+}
+
+.header__brand {
+  float: left;
+  height: 60px;
+}
+
+.header__brand--logo {
+  @include size(32px 32px);
+  display: inline-block;
+}
+
+.header__brand--name {
+  @include brand-inline();
+}
+
+.header__navigation {
+  //float: left;
+  margin: 0 auto;
+  padding: 0;
+  height: 60px;
+  width: 300px;
+  border: solid 1px green;
+
+  li {
+    display: inline-block;
+    border-bottom: solid 4px black;
+    width: 85px;
+    text-align: center;
+  }
 }
