@@ -1,3 +1,5 @@
 .navbar {
   @include outer-container();
+
+  border: solid 1px red;
 }
