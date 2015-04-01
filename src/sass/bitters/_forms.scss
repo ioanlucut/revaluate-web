@@ -90,15 +90,12 @@ input {
 .form-group-input {
   text-align: left;
   padding-bottom: 10px;
-}
-
-.form-group-input__label {
-  text-align: left;
+  margin-top: 20px;
 }
 
 .form-group-input__message {
   color: $brand-danger;
-  text-align: center;
+  text-align: right;
 }
 
 .has-error {
