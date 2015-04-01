@@ -3,7 +3,7 @@
  */
 angular
     .module("account")
-    .controller("ForgotPasswordCtrl", function ($state, $scope, flash, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle) {
+    .controller("ForgotPasswordCtrl", function ($state, $scope, flash, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountModal) {
 
         /**
          * Alert identifier
@@ -25,7 +25,7 @@ angular
                 AuthService
                     .requestPasswordReset($scope.forgotPasswordData.email)
                     .then(function () {
-                        AccountFormToggle.setState(ACCOUNT_FORM_STATE.forgotPasswordEmailSent);
+                        AccountModal.setState(ACCOUNT_FORM_STATE.forgotPasswordEmailSent);
                     })
                     .catch(function () {
                         /* If bad feedback from server */

@@ -11,14 +11,10 @@ module.exports = function (grunt) {
                 src: [
                     "bower_components/jquery/dist/jquery.js",
                     "bower_components/lodash/lodash.js",
-                    "bower_components/underscore.string/dist/underscore.string.min.js",
                     "bower_components/mousetrap/mousetrap.js",
                     "bower_components/uploader/uploader.js",
                     "bower_components/moment/moment.js",
                     "bower_components/url-to/url-to.js",
-                    "bower_components/hello/dist/hello.all.js",
-                    "bower_components/hello/src/modules/facebook.js",
-                    "bower_components/hello/src/modules/google.js",
                     "bower_components/angular/angular.js",
                     "bower_components/angular-animate/angular-animate.js",
                     "bower_components/angular-sanitize/angular-sanitize.js",
@@ -49,10 +45,7 @@ module.exports = function (grunt) {
                     "bower_components/angular-chosen-localytics/chosen.js",
                     "bower_components/bootstrap/js/collapse.js",
                     "bower_components/bootstrap/js/dropdown.js",
-                    "bower_components/angular-filter/dist/angular-filter.js",
-                    "src/js/modernizr.custom.js",
-                    "src/js/classie.js",
-                    "src/js/uisearch.js"
+                    "bower_components/angular-filter/dist/angular-filter.js"
                 ],
                 dest: "build/js/frameworks.js"
             },

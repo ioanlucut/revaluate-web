@@ -15,14 +15,6 @@ angular
         // Home
         $stateProvider
 
-            // Login page
-            .state("account", {
-                url: "/account",
-                controller: "LoginCtrl",
-                templateUrl: "app/account/partials/account.html",
-                title: "Login - Revaluate"
-            })
-
             // Settings page
             .state("settings", {
                 url: "/account/settings",
