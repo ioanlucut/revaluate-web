@@ -37,7 +37,6 @@ angular
         forgotPassword: "forgotPassword",
         forgotPasswordEmailSent: "forgotPasswordEmailSent",
         requestSignUpRegistration: "requestSignUpRegistration",
-        requestSignUpRegistrationEmailSent: "requestSignUpRegistrationEmailSent",
         updateProfile: "updateProfile",
         resetPassword: "resetPassword",
         resetPasswordSuccessfully: "resetPasswordSuccessfully",

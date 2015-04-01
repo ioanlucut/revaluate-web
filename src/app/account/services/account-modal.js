@@ -6,6 +6,7 @@ angular
 
         // By default the modal is closed
         this.isOpen = false;
+        this.state = null;
 
         // Open the modal
         this.open = function () {
@@ -20,8 +21,6 @@ angular
                 this.isOpen = false;
             }, this));
         };
-
-        this.state = null;
 
         // Set state
         this.setState = function (state) {
