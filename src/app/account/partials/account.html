@@ -54,43 +54,35 @@
 
             <!-- Form groups -->
             <div class="form-group-input" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.firstName.$invalid || badPostSubmitResponse)}">
-                <span class="form-group-input__label">First Name</span>
-                <input class="form-group-input__input" type="text" name="firstName" ng-model="signUpData.firstName" required />
-
                 <div class="form-group-input__message" ng-if="signUpForm.firstName.$invalid && signUpForm.$submitted">Please tell us your First Name.</div>
+                <input class="form-group-input__input" type="text" name="firstName" placeholder="First Name" ng-model="signUpData.firstName" required />
             </div>
 
             <!-- Form group -->
             <div class="form-group-input" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.lastName.$invalid || badPostSubmitResponse)}">
-                <span class="form-group-input__label">Last Name</span>
-                <input class="form-group-input__input" type="text" name="lastName" ng-model="signUpData.lastName" required />
-
                 <div class="form-group-input__message" ng-if="signUpForm.lastName.$invalid && signUpForm.$submitted">Please tell us your Last Name.</div>
+                <input class="form-group-input__input" type="text" name="lastName" placeholder="Last Name" ng-model="signUpData.lastName" required />
             </div>
 
             <!-- Email input -->
             <div class="form-group-input" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.email.$invalid || badPostSubmitResponse)}">
-                <span class="form-group-input__label">Email</span>
-                <input class="form-group-input__input" type="email" name="email" ng-model="signUpData.email" required valid-email unique-email />
-
                 <!-- Error messages -->
                 <div class="form-group-input__message" ng-class="{'has-error': signUpForm.email.$invalid && signUpForm.$submitted}" ng-messages="signUpForm.email.$error" ng-if="signUpForm.$submitted">
                     <div ng-message="required">Your email address is mandatory.</div>
                     <div ng-message="validEmail">This email address is not valid.</div>
                     <div ng-message="uniqueEmail">This email address is already used.</div>
                 </div>
+                <input class="form-group-input__input" type="email" name="email" placeholder="Email" ng-model="signUpData.email" required valid-email unique-email />
             </div>
 
             <!-- Form groups -->
             <div class="form-group-input" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.password.$invalid || badPostSubmitResponse)}">
-                <span class="form-group-input__label">Password</span>
-                <input class="form-group-input__input" type="password" name="password" ng-model="signUpData.password" required strong-password />
-
                 <!-- Error messages -->
                 <div class="form-group-input__message" ng-class="{'has-error': signUpForm.$submitted && signUpForm.password.$invalid}" ng-messages="signUpForm.password.$error" ng-if="signUpForm.$submitted">
                     <div ng-message="required">Please choose a password.</div>
                     <div ng-message="strongPassword">Your password needs to be at least 7 characters long.</div>
                 </div>
+                <input class="form-group-input__input" type="password" name="password" placeholder="Password" ng-model="signUpData.password" required strong-password />
             </div>
 
             <!-- Button container -->

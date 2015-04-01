@@ -91,11 +91,18 @@ input {
   text-align: left;
   padding-bottom: 10px;
   margin-top: 20px;
+  position: relative;
 }
 
 .form-group-input__message {
   color: $brand-danger;
   text-align: right;
+  display: block;
+  position: absolute;
+  top: -15px;
+  right: 0;
+  font-size: 11px;
+  margin: 0;
 }
 
 .has-error {
