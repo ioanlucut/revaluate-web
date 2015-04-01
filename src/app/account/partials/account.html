@@ -9,6 +9,9 @@
     <!--Sign in-->
     <div class="account__section" ng-if="AccountModal.state === ACCOUNT_FORM_STATE.login" ng-controller="LoginCtrl">
 
+        <!--Close-->
+        <div account-modal-close></div>
+
         <!-- Title -->
         <h1 class="account__title">Welcome!</h1>
 
@@ -42,6 +45,9 @@
 
     <!--Sign up-->
     <div class="account__section" ng-if="AccountModal.state == ACCOUNT_FORM_STATE.requestSignUpRegistration" ng-controller="HomeSignUpRegistrationCtrl">
+
+        <!--Close-->
+        <div account-modal-close></div>
 
         <!-- Title -->
         <h1 class="account__title">Let's get you started!</h1>
@@ -93,21 +99,11 @@
 
     </div>
 
-    <!-- Sign up email sent section -->
-    <div class="account__section" ng-if="AccountModal.state == ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent">
-
-        <!-- Title -->
-        <h1 class="account__title">Yey! Email has been sent!</h1>
-
-        <!-- Explain -->
-        <span class="account__explain">Please check your email to finish your account creation.</span>
-
-        <!-- Button container -->
-        <a href="javascript:void(0)" class="link-navigation" ng-click="AccountModal.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration)">I think I've misspelled my email</a>
-    </div>
-
     <!-- Recover password section -->
     <div class="account__section" ng-if="AccountModal.state == ACCOUNT_FORM_STATE.forgotPassword" ng-controller="ForgotPasswordCtrl">
+
+        <!--Close-->
+        <div account-modal-close></div>
 
         <!-- Title -->
         <h1 class="account__title">Can't remember your password?</h1>
@@ -143,6 +139,9 @@
 
     <!-- Password recovery email sent section -->
     <div class="account__section" ng-if="AccountModal.state == ACCOUNT_FORM_STATE.forgotPasswordEmailSent">
+
+        <!--Close-->
+        <div account-modal-close></div>
 
         <!-- Title -->
         <h1 class="account__title">Email has been sent!</h1>

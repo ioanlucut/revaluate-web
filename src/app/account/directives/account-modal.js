@@ -17,8 +17,6 @@ angular
                 scope.AccountModal = AccountModal;
 
                 var CLASS_OPEN = "account-modal--open";
-                var CLASS_OPENING = "account-modal--opening";
-                var CLASS_CLOSING = "account-modal--closing";
 
                 // Open or close the modal
                 scope.$watch("AccountModal.isOpen", function (isOpen, isOpenOld) {
@@ -26,10 +24,7 @@ angular
                         $animate.addClass(el, CLASS_OPEN);
                     }
                     else if ( isOpen === false && isOpenOld === true ) {
-                        $animate.addClass(el, CLASS_CLOSING, function () {
-                            $animate.removeClass(el, CLASS_CLOSING);
-                            $animate.removeClass(el, CLASS_OPEN);
-                        });
+                        $animate.removeClass(el, CLASS_OPEN);
                     }
                 });
             }

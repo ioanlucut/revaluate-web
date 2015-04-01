@@ -15,12 +15,20 @@
 }
 
 .account-modal--open {
-  @include fadeIn(0.4s);
   display: block;
 }
 
-.account-modal__close {
+.account-modal.account-modal--open-add-active {
+  display: block;
+  @include fadeIn(0.4s);
+}
+
+.account-modal.account-modal--open-remove-active {
+  display: block;
   @include fadeOut(0.4s);
+}
+
+.account__close {
   position: absolute;
   top: -20px;
   right: -20px;
