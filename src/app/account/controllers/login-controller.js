@@ -3,7 +3,7 @@
  */
 angular
     .module("account")
-    .controller("LoginCtrl", function ($scope, flash, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, StatesHandler, $timeout) {
+    .controller("LoginCtrl", function ($scope, flash, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountModal, StatesHandler, $timeout) {
 
         /**
          * Alert identifier
@@ -13,7 +13,7 @@ angular
         /**
          * Set default state.
          */
-        AccountFormToggle.setState(ACCOUNT_FORM_STATE.login);
+        AccountModal.setState(ACCOUNT_FORM_STATE.login);
 
         /**
          * Login user information.

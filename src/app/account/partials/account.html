@@ -2,12 +2,12 @@
 <div class="brand-logo-block"><a ui-sref="home"></a></div>
 
 <!-- Account sections -->
-<div class="account" account-form-toggle>
+<div class="account">
 
     <div class="account__brand">Revaluate</div>
 
     <!--Sign in-->
-    <div class="account__section" ng-if="AccountFormToggle.state === ACCOUNT_FORM_STATE.login" ng-controller="LoginCtrl">
+    <div class="account__section" ng-if="AccountModal.state === ACCOUNT_FORM_STATE.login" ng-controller="LoginCtrl">
 
         <!-- Title -->
         <h1 class="account__title">Welcome!</h1>
@@ -30,18 +30,18 @@
             </div>
 
             <!-- Reset password -->
-            <a class="link-navigation" href="javascript:void(0)" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.forgotPassword)">Forgot login details?</a>
+            <a class="link-navigation" href="javascript:void(0)" ng-click="AccountModal.setState(ACCOUNT_FORM_STATE.forgotPassword)">Forgot login details?</a>
 
             <!-- Button container -->
             <button ladda="isRequestPending" data-style="expand-left" data-spinner-size="20" class="account__btn" type="submit">Log in</button>
         </form>
 
-        <a class="link-primary link--lg" href="javascript:void(0)" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration)">Don't have an account yet? Sign up!</a>
+        <a class="link-primary link--lg" href="javascript:void(0)" ng-click="AccountModal.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration)">Don't have an account yet? Sign up!</a>
 
     </div>
 
     <!--Sign up-->
-    <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistration" ng-controller="HomeSignUpRegistrationCtrl">
+    <div class="account__section" ng-if="AccountModal.state == ACCOUNT_FORM_STATE.requestSignUpRegistration" ng-controller="HomeSignUpRegistrationCtrl">
 
         <!-- Title -->
         <h1 class="account__title">Let's get you started!</h1>
@@ -89,12 +89,12 @@
             <button class="home__section__signup__btn" type="submit">Start my 14 day free trial</button>
         </form>
 
-        <a class="link-primary link--lg" href="javascript:void(0)" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)">Already have an account? Sign in here!</a>
+        <a class="link-primary link--lg" href="javascript:void(0)" ng-click="AccountModal.setState(ACCOUNT_FORM_STATE.login)">Already have an account? Sign in here!</a>
 
     </div>
 
     <!-- Sign up email sent section -->
-    <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent">
+    <div class="account__section" ng-if="AccountModal.state == ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent">
 
         <!-- Title -->
         <h1 class="account__title">Yey! Email has been sent!</h1>
@@ -103,11 +103,11 @@
         <span class="account__explain">Please check your email to finish your account creation.</span>
 
         <!-- Button container -->
-        <a href="javascript:void(0)" class="link-navigation" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration)">I think I've misspelled my email</a>
+        <a href="javascript:void(0)" class="link-navigation" ng-click="AccountModal.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration)">I think I've misspelled my email</a>
     </div>
 
     <!-- Recover password section -->
-    <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.forgotPassword" ng-controller="ForgotPasswordCtrl">
+    <div class="account__section" ng-if="AccountModal.state == ACCOUNT_FORM_STATE.forgotPassword" ng-controller="ForgotPasswordCtrl">
 
         <!-- Title -->
         <h1 class="account__title">Can't remember your password?</h1>
@@ -138,11 +138,11 @@
             <button class="account__btn" type="submit">Reset password</button>
         </form>
 
-        <a href="javascript:void(0)" class="link-navigation" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)">Nevermind, take me back!</a>
+        <a href="javascript:void(0)" class="link-navigation" ng-click="AccountModal.setState(ACCOUNT_FORM_STATE.login)">Nevermind, take me back!</a>
     </div>
 
     <!-- Password recovery email sent section -->
-    <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.forgotPasswordEmailSent">
+    <div class="account__section" ng-if="AccountModal.state == ACCOUNT_FORM_STATE.forgotPasswordEmailSent">
 
         <!-- Title -->
         <h1 class="account__title">Email has been sent!</h1>
@@ -151,7 +151,7 @@
         <span class="account__explain">Please check your email. We've sent you a link to reset your password.</span>
 
         <!-- Button container -->
-        <a href="javascript:void(0)" class="link-navigation" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)">Actually I remember the password</a>
+        <a href="javascript:void(0)" class="link-navigation" ng-click="AccountModal.setState(ACCOUNT_FORM_STATE.login)">Actually I remember the password</a>
     </div>
 
 </div>
