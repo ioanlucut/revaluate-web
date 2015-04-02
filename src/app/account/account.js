@@ -20,7 +20,7 @@ angular
                 url: "/account",
                 controller: "LoginCtrl",
                 templateUrl: "app/account/partials/account.html",
-                title: "Login - Reme.io"
+                title: "Login - Revaluate"
             })
 
             // Settings page
@@ -38,7 +38,7 @@ angular
                         templateUrl: "app/account/partials/settings/settings.preferences.html"
                     }
                 },
-                title: "Settings - Reme.io"
+                title: "Settings - Revaluate"
             })
 
             // Logout page
@@ -53,7 +53,7 @@ angular
                         return true;
                     }
                 },
-                title: "Logout - Reme.io"
+                title: "Logout - Revaluate"
             })
 
             ///////////////////////////////////////////////
@@ -91,7 +91,7 @@ angular
                         return deferred.promise;
                     }
                 },
-                title: "Reset password - Reme.io"
+                title: "Reset password - Revaluate"
             })
             // Validate password reset token - invalid token
             .state({
@@ -99,7 +99,7 @@ angular
                 url: "/invalid-token",
                 templateUrl: "app/account/partials/validate_password_reset_token_invalid.html",
                 controller: "ValidatePasswordResetTokenInvalidCtrl",
-                title: "Reset password - Reme.io"
+                title: "Reset password - Revaluate"
             })
 
             /////////////////////////
@@ -119,7 +119,7 @@ angular
                 url: "",
                 templateUrl: "app/account/partials/signup_confirm_valid.html",
                 controller: "SignUpConfirmCtrl",
-                title: "Register - Reme.io"
+                title: "Register - Revaluate"
             })
             // Sign up confirm - invalid
             .state({
@@ -127,7 +127,7 @@ angular
                 url: "/registration-failed",
                 templateUrl: "app/account/partials/signup_confirm_invalid.html",
                 controller: "SignUpConfirmInvalidCtrl",
-                title: "Register - Reme.io"
+                title: "Register - Revaluate"
             })
 
             // ---
@@ -137,7 +137,7 @@ angular
                 url: "/setup",
                 templateUrl: 'app/account/partials/signup_setup.html',
                 controller: "SignUpSetUpRegistrationCtrl",
-                title: "Expenses - Reme.io"
+                title: "Expenses - Revaluate"
             });
     })
 
