@@ -1,0 +1,32 @@
+<!--Add a new expense-->
+<div class="expenses__form">
+
+    <form name="addExpenseForm" novalidate>
+
+        <!-- Price input-->
+        <div class="expense__form__price">
+            <input class="expense__form__price__amount" type="text" name="price" value="0.00" required />
+            <span class="expense__form__price__currency">RON</span>
+        </div>
+
+        <div class="expense__form__category">
+            <input class="expense__form__category__input" type="text" name="category" placeholder="Add category"/>
+        </div>
+
+        <div class="expense__form__details">
+            <input class="expense__form__details__input" type="text" name="details" placeholder="Add details (optional)"/>
+        </div>
+
+        <div class="expense__form__date">
+            <input class="expense__form__date__input" type="text" name="date" value="Today"/>
+        </div>
+
+    </form>
+
+</div>
+
+        <!--We should split the add expense form and the expenses list-->
+
+
+<!--Expenses list-->
+<div class="expense-list" expense-list expenses="upcomingExpenses" search-by-text="searchByText" sort="asc" show-empty-content="true"></div>
