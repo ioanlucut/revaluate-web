@@ -10,13 +10,15 @@ angular
         /**
          * Initialize or reset the state
          */
-        $scope.initOrReset = function () {
+        $scope.initOrReset = function (categoryForm) {
             $scope.masterCategory = Category.build();
             $scope.category = angular.copy($scope.masterCategory);
 
-            if ( $scope.categoryForm ) {
-                $scope.categoryForm.$setPristine();
+            if ( categoryForm ) {
+                categoryForm.$setPristine();
             }
+
+            $scope.badPostSubmitResponse = false;
         };
 
         /**
@@ -25,21 +27,10 @@ angular
         $scope.initOrReset();
 
         /**
-         * Flag which says whether category is new or not.
-         */
-        $scope.isNew = $scope.category.isNew();
-
-        /**
-         * Flag which represents whether the category is currently saving.
-         * @type {boolean}
-         */
-        $scope.isSaving = false;
-
-        /**
          * Saves the category or updates it.
          */
-        $scope.saveCategory = function () {
-            if ( $scope.categoryForm.$valid && !$scope.isSaving ) {
+        $scope.saveCategory = function (categoryForm) {
+            if ( categoryForm.$valid && !$scope.isSaving ) {
 
                 // Is saving category
                 $scope.isSaving = true;
@@ -54,36 +45,24 @@ angular
                         /**
                          * Track event.
                          */
-                        mixpanel.track($scope.isNew ? MIXPANEL_EVENTS.categoryCreated : MIXPANEL_EVENTS.categoryUpdated);
+                        mixpanel.track(MIXPANEL_EVENTS.categoryCreated);
 
-                        if ( $scope.isNew ) {
-                            $timeout(function () {
-                                $scope.isSaving = false;
+                        const TIMEOUT_DURATION = 800;
+                        
+                        $timeout(function () {
+                            $scope.isSaving = false;
 
-                                $rootScope.$broadcast(CATEGORY_EVENTS.isCreated, {
-                                    category: $scope.masterCategory
-                                });
+                            $rootScope.$broadcast(CATEGORY_EVENTS.isCreated, {
+                                category: $scope.masterCategory
+                            });
 
-                                flash.to($scope.alertIdentifierId).error = "Category successfully saved!";
-                            }, 800);
-                        }
-                        else {
-                            $timeout(function () {
-                                $scope.isSaving = false;
+                            flash.to($scope.alertIdentifierId).error = "Category successfully saved!";
 
-                                // Close the modal
-                                $rootScope.$broadcast(CATEGORY_EVENTS.isUpdated, {
-                                    category: $scope.masterCategory
-                                });
-
-                                flash.to($scope.alertIdentifierId).error = "Category successfully updated!";
-                            }, 800);
-                        }
-
-                        /**
-                         * Finally, reset the form.
-                         */
-                        $scope.initOrReset();
+                            /**
+                             * Finally, reset the form.
+                             */
+                            $scope.initOrReset(categoryForm);
+                        }, TIMEOUT_DURATION);
                     })
                     .catch(function () {
 

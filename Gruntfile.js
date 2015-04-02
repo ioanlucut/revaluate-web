@@ -26,6 +26,7 @@ module.exports = function (grunt) {
                     "bower_components/angular-flash/dist/angular-flash.js",
                     "bower_components/angular-mocks/angular-mocks.js",
                     "bower_components/angular-ui-bootstrap/src/bindHtml/bindHtml.js",
+                    "bower_components/allmighty-autocomplete/script/autocomplete.js",
                     "bower_components/jstz-detect/jstz.js",
                     "bower_components/humps/humps.js",
                     "bower_components/perfect-scrollbar/src/perfect-scrollbar.js",

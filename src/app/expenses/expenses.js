@@ -4,11 +4,6 @@
 angular
     .module("expenses", [
         "ui.router",
-        "ui.bootstrap.transition",
-        "ui.bootstrap.datepicker",
-        "ui.bootstrap.dropdown",
-        "ui.bootstrap.modal",
-        "ui.bootstrap.tabs",
         "angular-ladda",
         "common"
     ])
@@ -29,16 +24,18 @@ angular
 
                     'action': {
                         templateUrl: "app/expenses/partials/expense/expenses.action.html",
-                        controller: "ExpenseCtrl"
+                        controller: "ExpenseModalCtrl"
                     },
 
                     'list': {
                         templateUrl: "app/expenses/partials/expense/expenses.list.html",
                         controller: "ExpenseListCtrl",
                         resolve: {
-                            pastAndUpcomingExpenses: function (ExpenseService) {
-                                return ExpenseService
-                                    .getAllExpensesGrouped();
+                            expenses: function (ExpenseService) {
+                                return ExpenseService.getAllExpenses();
+                            },
+                            categories: function (CategoryService) {
+                                return CategoryService.getAllCategories();
                             }
                         }
                     }

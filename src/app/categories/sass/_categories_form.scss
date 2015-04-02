@@ -40,7 +40,11 @@ $add-category-form-height: 50px;
   @include btn-big($brand-danger);
 }
 
-.categories__add__btn, .categories__cancel__btn {
+.categories__new__btn {
+  @include btn-big($brand-info);
+}
+
+.categories__add__btn, .categories__cancel__btn, .categories__new__btn {
   font-size: 16px;
   font-weight: $font-weight-bold;
   display: inline-block;

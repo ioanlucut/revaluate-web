@@ -9,6 +9,7 @@ angular
         "ui.router",
         "angular-flash.service",
         "angular-flash.flash-alert-directive",
+        "autocomplete",
         "ngStorage",
         "partials",
         "site",
