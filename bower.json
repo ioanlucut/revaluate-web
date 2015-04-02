@@ -34,6 +34,8 @@
     "angular-filter": "~0.5.2",
     "bourbon": "~4.2.1",
     "bitters": "~1.0.0",
-    "neat": "~1.7.1"
+    "neat": "~1.7.1",
+    "allmighty-autocomplete": "*",
+    "ngDialog": "~0.3.12"
   }
 }

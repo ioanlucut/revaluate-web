@@ -29,7 +29,7 @@ angular
             var categoryDto = CategoryTransformerService.toCategoryDto(category);
 
             return $http
-                .put(URLTo.api(CATEGORY_URLS.update, { ":id": categoryDto.id }), categoryDto)
+                .post(URLTo.api(CATEGORY_URLS.update), categoryDto)
                 .then(function (response) {
                     CategoryTransformerService.toCategory(response.data, category);
 

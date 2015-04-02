@@ -6,7 +6,7 @@ angular
     .constant("CATEGORY_URLS", {
         isUnique: "categories/isUniqueCategory",
         create: "categories/create",
-        update: "categories/:categoryId",
+        update: "categories/update",
         delete: "categories/remove/:id",
         allCategories: "categories/retrieve"
     })
