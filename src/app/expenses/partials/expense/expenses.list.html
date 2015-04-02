@@ -1,6 +1,18 @@
 <!--Add a new expense-->
-<div class="expenses__header">
-    THE ADD EXPENSE FORM GOES HERE
+<div class="expenses__form">
+
+    <form name="addExpenseForm" novalidate>
+
+        <!-- Price input-->
+        <div class="expense__form__price">
+            <input class="expense__form__price__amount" type="text" name="price" placeholder="0.00" min="0" required />
+            <span class="expense__form__price__currency">RON</span>
+        </div>
+
+
+
+    </form>
+
 </div>
 
         <!--We should split the add expense form and the expenses list-->

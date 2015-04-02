@@ -1,0 +1,45 @@
+$add-expense-form-height: 50px;
+
+.expenses__form {
+  @include clearfix();
+  //border: solid 2px $lightest-gray;
+  width: 750px;
+  margin: 0 auto;
+  color: $black;
+  font-weight: $font-weight-bold;
+}
+
+.expense__form__price {
+  @include clearfix();
+
+  .expense__form__price__amount {
+    float: left;
+    width: 160px;
+    height: $add-expense-form-height;
+    line-height: $add-expense-form-height;
+    border: solid 2px $lightest-gray;
+    border-right: solid 1px $lightest-gray;
+    @include border-right-radius(0);
+    text-align: right;
+    padding-right: 50px;
+
+    &:focus {
+      border-width: 2px;
+      padding-right: 49px;
+      @include border-right-radius($base-border-radius);
+    }
+  }
+
+  .expense__form__price__currency {
+    //display: inline;
+    float: left;
+    margin-left: -40px;
+    height: $add-expense-form-height;
+    //line-height: $add-expense-form-height;
+    //@include calc(line-height, "#{$add-expense-form-height} + 1px");
+    line-height: $add-expense-form-height;
+    color: $light-gray;
+    font-weight: $font-weight-regular;
+    //border: solid 1px red;
+  }
+}
