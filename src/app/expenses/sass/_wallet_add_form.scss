@@ -57,14 +57,12 @@ $add-expense-form-height: 50px;
 
 // Description input styling
 // -------------------------
-.expense__form__description {
+.expense__form__details {
   float: left;
   width: 250px;
 
-  .expense__form__description__input {
+  .expense__form__details__input {
     height: $add-expense-form-height;
     margin: 0;
-    //border-color: $lightest-gray;
   }
-
 }
