@@ -112,7 +112,7 @@ module.exports = function (grunt) {
                 constants: {
                     ENV: {
                         name: 'production',
-                        apiEndpoint: 'http://api.reme.io',
+                        apiEndpoint: 'http://api.Revaluate',
                         mixPanelId: '56fe410177092150db2338e36196a1ff'
                     }
                 }

@@ -43,7 +43,7 @@ angular
                         }
                     }
                 },
-                title: "Expenses - Reme.io"
+                title: "Expenses - Revaluate"
             })
 
             // Review case
@@ -88,7 +88,7 @@ angular
                         }
                     }
                 },
-                title: "Preview expense - Reme.io"
+                title: "Preview expense - Revaluate"
             })
 
             // Opened modal
@@ -112,7 +112,7 @@ angular
                         }
                     }
                 },
-                title: "Preview expense - Reme.io"
+                title: "Preview expense - Revaluate"
             })
 
     }]);
