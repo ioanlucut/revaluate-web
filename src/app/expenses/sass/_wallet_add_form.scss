@@ -2,12 +2,14 @@ $add-expense-form-height: 50px;
 
 .expenses__form {
   @include clearfix();
-  //border: solid 2px $lightest-gray;
   width: 750px;
   margin: 0 auto;
   color: $black;
   font-weight: $font-weight-bold;
 }
+
+// Price input styling
+// ----------------------
 
 .expense__form__price {
   @include clearfix();
@@ -21,16 +23,8 @@ $add-expense-form-height: 50px;
     height: $add-expense-form-height;
     line-height: $add-expense-form-height;
     border: solid 2px $lightest-gray;
-    //border-right-width: 1px;
-    //@include border-right-radius(0);
     text-align: right;
     padding-right: 50px;
-
-    &:focus {
-      //border-width: 2px;
-      //padding-right: 49px;
-      //@include border-right-radius($base-border-radius);
-    }
   }
 
   .expense__form__price__currency {
@@ -40,29 +34,21 @@ $add-expense-form-height: 50px;
     line-height: $add-expense-form-height;
     color: $light-gray;
     font-weight: $font-weight-regular;
-    //border: solid 1px red;
   }
 }
 
 
 // Category input styling
 // ----------------------
+
 .expense__form__category {
   float: left;
   margin: 0;
   padding: 0;
 
   .expense__form__category__input {
-    //@include border-radius(0);
     height: $add-expense-form-height;
     margin: 0;
     border-color: $lightest-gray;
-    //border-left-width: 0;
-    //border-right-width: 1px;
-
-    &:focus {
-      //border-width: 2px;
-      //@include border-radius($base-border-radius);
-    }
   }
 }
