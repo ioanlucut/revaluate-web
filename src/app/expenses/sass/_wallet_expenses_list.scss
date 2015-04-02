@@ -61,3 +61,10 @@
   }
 }
 
+.expenses__list__loadbtn {
+  @include btn($lightest-gray);
+  width: 120px;
+  color: $dark-gray;
+  margin: 50px auto;
+  display: block;
+}
