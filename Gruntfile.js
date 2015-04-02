@@ -65,6 +65,9 @@ module.exports = function (grunt) {
                     "src/app/site/site.js",
                     "src/app/site/**/*.js",
 
+                    "src/app/categories/category.js",
+                    "src/app/categories/**/*.js",
+
                     "src/app/expenses/expenses.js",
                     "src/app/expenses/**/*.js",
 
@@ -231,6 +234,7 @@ module.exports = function (grunt) {
                 src: [
 
                     "src/app/site/partials/**/*.html",
+                    "src/app/categories/partials/**/*.html",
                     "src/app/expenses/partials/**/*.html",
                     "src/app/account/partials/**/*.html",
                     "src/app/feedback/**/*.html",
@@ -261,6 +265,7 @@ module.exports = function (grunt) {
                     "src/app/site/partials/**/*.html",
                     "src/app/account/partials/**/*.html",
                     "src/app/feedback/**/*.html",
+                    "src/app/categories/partials/**/*.html",
                     "src/app/expenses/partials/**/*.html",
                     "src/app/common/**/*.html"
                 ],
