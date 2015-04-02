@@ -1,0 +1,20 @@
+.page-wrapper {
+  background-color: $lightest-gray;
+}
+
+.header-wrapper {
+  background-color: $white;
+}
+
+.centered-section-expenses {
+  border: solid 2 px green;
+}
+
+.list-wrapper {
+  @include outer-container();
+  @include border-radius(3px);
+  min-height: 500px;
+  background-color: $white;
+  margin-top: 20px;
+  box-shadow: 0 0 2px $lightest-gray;
+}

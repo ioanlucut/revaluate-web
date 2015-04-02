@@ -1,4 +1,9 @@
 /* Import sub-modules */
-@import "components/datepicker";
-@import "components/timepicker";
+
+// Uncomment if we will still use this components, but define the variables used
+//@import "components/datepicker";
+//@import "components/timepicker";
+
 @import "components/perfect-scrollbar";
+
+@import "wallet_layout";
