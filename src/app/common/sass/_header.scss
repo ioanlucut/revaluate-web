@@ -3,8 +3,6 @@
   @include clearfix;
   height: 60px;
   line-height: 55px;
-
-  border: solid 1px blue;
 }
 
 .header__brand {
@@ -22,17 +20,15 @@
 }
 
 .header__navigation {
-  //float: left;
   margin: 0 auto;
   padding: 0;
   height: 60px;
-  width: 300px;
-  border: solid 1px green;
+  width: 400px;
 
   li {
     display: inline-block;
-    border-bottom: solid 4px black;
-    width: 85px;
+    //border-bottom: solid 4px black;
+    width: 130px;
     margin: 0;
     text-align: center;
   }
