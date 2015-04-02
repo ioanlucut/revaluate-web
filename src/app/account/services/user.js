@@ -17,6 +17,7 @@ angular
                         email: "",
                         password: "",
                         timezone: "",
+                        initiated: false,
                         helpdeskAuthToken: "",
                         currency: {
                             "currencyCode": ""
@@ -29,6 +30,14 @@ angular
                      */
                     isAuthenticated: function () {
                         return SessionService.sessionExists();
+                    },
+
+                    /**
+                     * Is user already initiated
+                     * @returns {*}
+                     */
+                    isInitiated: function () {
+                        return isAuthenticated() && this.model.initiated;
                     },
 
                     /**

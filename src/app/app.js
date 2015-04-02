@@ -14,6 +14,7 @@ angular
         "site",
         "feedback",
         "common",
+        "categories",
         "expenses",
         "account",
         "angular.filter"
