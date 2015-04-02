@@ -13,8 +13,9 @@
 .list-wrapper {
   @include outer-container();
   @include border-radius(3px);
-  min-height: 500px;
+  min-height: 600px;
   background-color: $white;
   margin-top: 20px;
   box-shadow: 0 0 2px $lightest-gray;
+  padding: 25px;
 }
