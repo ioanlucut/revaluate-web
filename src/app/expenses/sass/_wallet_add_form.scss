@@ -66,3 +66,20 @@ $add-expense-form-height: 50px;
     margin: 0;
   }
 }
+
+
+// Date input styling
+// -------------------------
+.expense__form__date {
+  float: left;
+  overflow: auto;
+  display: block;
+  width: 160px;
+
+  .expense__form__date__input {
+    height: $add-expense-form-height;
+    margin: 0;
+    padding: 0 15px;
+    text-align: right;
+  }
+}
