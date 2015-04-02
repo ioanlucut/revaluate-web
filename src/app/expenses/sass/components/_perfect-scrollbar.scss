@@ -14,7 +14,7 @@
 
 .ps-container .ps-scrollbar-x-rail:hover,
 .ps-container .ps-scrollbar-x-rail.hover {
-  background-color: $gray-lighter;
+  background-color: $lightest-gray;
   opacity: 0.9;
 }
 
@@ -38,7 +38,7 @@
 
 .ps-container .ps-scrollbar-y-rail:hover,
 .ps-container .ps-scrollbar-y-rail.hover {
-  background-color: $gray-lighter;
+  background-color: $lightest-gray;
   opacity: 0.9;
 }
 
@@ -50,7 +50,7 @@
   position: absolute;
   bottom: 0;
   height: 8px;
-  background-color: $gray-light;
+  background-color: $light-gray;
 
   //.transition(~"background-color 0.2s linear");
 }
@@ -61,14 +61,14 @@
 
 .ps-container .ps-scrollbar-x-rail:hover .ps-scrollbar-x,
 .ps-container .ps-scrollbar-x-rail.hover .ps-scrollbar-x {
-  background-color: $gray-light;
+  background-color: $light-gray;
 }
 
 .ps-container .ps-scrollbar-y {
   position: absolute;
   right: 0;
   width: 8px;
-  background-color: $gray-light;
+  background-color: $light-gray;
 
   //.transition(~"background-color 0.2s linear");
 }
@@ -79,5 +79,5 @@
 
 .ps-container .ps-scrollbar-y-rail:hover .ps-scrollbar-y,
 .ps-container .ps-scrollbar-y-rail.hover .ps-scrollbar-y {
-  background-color: $gray-light;
+  background-color: $light-gray;
 }
