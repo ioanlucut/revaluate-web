@@ -10,7 +10,7 @@
   border: solid 2 px green;
 }
 
-.list-wrapper {
+.expenses-wrapper {
   @include outer-container();
   @include border-radius(3px);
   min-height: 600px;
