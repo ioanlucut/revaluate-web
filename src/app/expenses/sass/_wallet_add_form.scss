@@ -16,10 +16,10 @@ $add-expense-form-height: 50px;
   float: left;
   margin: 0;
   padding: 0;
+  width: 130px;
 
   .expense__form__price__amount {
     float: left;
-    width: 160px;
     height: $add-expense-form-height;
     line-height: $add-expense-form-height;
     border: solid 2px $lightest-gray;
@@ -45,7 +45,7 @@ $add-expense-form-height: 50px;
   float: left;
   margin: 0;
   padding: 0;
-  width: 170px;
+  width: 200px;
 
   .expense__form__category__input {
     height: $add-expense-form-height;
@@ -55,15 +55,16 @@ $add-expense-form-height: 50px;
 }
 
 
-// Description input styling
+// Details input styling
 // -------------------------
 .expense__form__details {
   float: left;
-  width: 250px;
+  width: 280px;
 
   .expense__form__details__input {
     height: $add-expense-form-height;
     margin: 0;
+    border-color: $lightest-gray;
   }
 }
 
@@ -74,12 +75,13 @@ $add-expense-form-height: 50px;
   float: left;
   overflow: auto;
   display: block;
-  width: 160px;
+  width: 130px;
 
   .expense__form__date__input {
     height: $add-expense-form-height;
     margin: 0;
     padding: 0 15px;
     text-align: right;
+    border-color: $lightest-gray;
   }
 }
