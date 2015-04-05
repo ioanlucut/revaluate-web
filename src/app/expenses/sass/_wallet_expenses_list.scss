@@ -1,4 +1,63 @@
+@mixin category-label($color) {
+  @include border-radius(2px);
+  height: 20px;
+  line-height: 18px;
+  color: $white;
+  text-transform: uppercase;
+  font-size: $base-font-size-xs;
+  font-weight: $font-weight-bold;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
+  background-color: $color;
+}
+
+
 .expenses__list {
-  border: solid 1px red;
+  //border: solid 1px red;
+
   padding: 40px 15px;
 }
+
+.expenses__list__entry {
+  //border: solid 1px $light-gray;
+
+  width: 100%;
+  max-width: 730px;
+  margin: 15px auto;
+
+  div {
+    display: inline-block;
+    padding: 2px 10px;
+
+    //border: solid 1px blue;
+  }
+
+  .expenses__list__entry__price {
+    width: 120px;
+    text-align: right;
+    font-weight: $font-weight-bold;
+
+    span {
+      padding-left: 10px;
+      color: $medium-gray;
+      font-weight: $font-weight-light;
+    }
+  }
+
+  .expenses__list__entry__category {
+    @include category-label(#ED8687);
+  }
+
+  .expenses__list__entry__details {
+    //width: 250px;
+    color: $medium-gray;
+
+  }
+
+  .expenses__list__entry__date {
+    width: 100px;
+    float: right;
+    text-align: right;
+    color: $medium-gray;
+  }
+}
+
