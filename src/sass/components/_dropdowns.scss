@@ -1,19 +1,19 @@
 @mixin dropdown {
+  @include border-radius(3px);
   display: inline-block;
-  min-width: 150px;
-  padding: 5px 10px;
+  min-width: 100px;
+  //padding: 5px 10px;
   color: $dark-gray;
   border: solid 1px $light-gray;
-  @include border-radius(3px);
   position: relative;
   cursor: pointer;
 
   &::after {
+    @include transform(rotate(90deg));
     position: absolute;
     right: 14px;
     top: 5px;
     content: "\276f";
-    @include transform(rotate(90deg));
     color: $medium-gray;
   }
 }
