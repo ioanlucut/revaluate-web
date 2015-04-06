@@ -1,4 +1,6 @@
 $add-expense-form-height: 50px;
+$add-expense-form-border-color: $lightest-gray;
+//$add-expense-form-border-color-hover: $dark-gray;
 
 .expenses__form {
   @include clearfix();
@@ -8,7 +10,17 @@ $add-expense-form-height: 50px;
   font-weight: $font-weight-bold;
 
   //border: solid 1px red;
+  .expense__form__price__input,
+  .expense__form__category__input,
+  .expense__form__details__input,
+  .expense__form__date__input {
+    border-top: solid 2px $add-expense-form-border-color;
+    border-bottom: solid 2px $add-expense-form-border-color;
+    border-left: solid 2px transparent;
+    border-right: solid 2px transparent;
+  }
 }
+
 
 // Price input styling
 // ----------------------
@@ -16,17 +28,19 @@ $add-expense-form-height: 50px;
 .expense__form__price {
   @include clearfix();
   float: left;
-  margin: 0;
+  //margin: 0;
   padding: 0;
   width: 130px;
 
-  .expense__form__price__amount {
+  .expense__form__price__input {
     float: left;
     height: $add-expense-form-height;
     line-height: $add-expense-form-height;
-    border: solid 2px $lightest-gray;
+    //border: solid 2px $lightest-gray;
+    border-left: solid 2px $add-expense-form-border-color;
     text-align: right;
     padding-right: 50px;
+    //margin-left: 0;
   }
 
   .expense__form__price__currency {
@@ -36,6 +50,7 @@ $add-expense-form-height: 50px;
     line-height: $add-expense-form-height;
     color: $light-gray;
     font-weight: $font-weight-regular;
+    z-index: -999;
   }
 }
 
@@ -45,14 +60,14 @@ $add-expense-form-height: 50px;
 
 .expense__form__category {
   float: left;
-  margin: 0;
+  //margin: 0;
   padding: 0;
   width: 200px;
 
   .expense__form__category__input {
     height: $add-expense-form-height;
-    margin: 0;
-    border-color: $lightest-gray;
+    //margin: 0;
+    //border-color: $lightest-gray;
   }
 }
 
@@ -65,8 +80,8 @@ $add-expense-form-height: 50px;
 
   .expense__form__details__input {
     height: $add-expense-form-height;
-    margin: 0;
-    border-color: $lightest-gray;
+    //margin: 0;
+    //border-color: $lightest-gray;
   }
 }
 
@@ -81,9 +96,10 @@ $add-expense-form-height: 50px;
 
   .expense__form__date__input {
     height: $add-expense-form-height;
-    margin: 0;
+    //margin: 0;
     padding: 0 15px;
     text-align: right;
-    border-color: $lightest-gray;
+    //border-color: $lightest-gray;
+    border-right: solid 2px $add-expense-form-border-color;
   }
 }
