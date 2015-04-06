@@ -1,8 +1,10 @@
+$header-height: 60px;
+
 .header {
-  @include outer-container;
-  @include clearfix;
-  height: 60px;
-  line-height: 55px;
+  @include outer-container();
+  @include clearfix();
+  height: $header-height;
+  line-height: $header-height;
 }
 
 .header__brand {
@@ -23,13 +25,46 @@
   margin: 0 auto;
   padding: 0;
   height: 60px;
-  width: 400px;
+  width: 340px;
 
   li {
     display: inline-block;
-    //border-bottom: solid 4px black;
-    width: 130px;
+    width: 110px;
     margin: 0;
     text-align: center;
+  }
+}
+
+.header__dropdown {
+  @include dropdown();
+  //display: inline-block;
+  border: solid 0 transparent;
+  float: right;
+  height: 60px;
+  width: 200px;
+
+  &::after {
+    top: 1px;
+  }
+
+  .header__dropdown__avatar {
+    display: inline-block;
+    margin: 0 5px;
+    width: 40px;
+    height: 40px;
+    @include border-radius(50%);
+    background: url("http://api.randomuser.me/portraits/thumb/men/55.jpg") no-repeat;
+    background-size: contain;
+    line-height: 40px;
+    text-align: center;
+    text-indent: -9999px;
+  }
+
+  .header__dropdown__button {
+
+  }
+
+  .header__dropdown__menu {
+    visibility: hidden;
   }
 }
