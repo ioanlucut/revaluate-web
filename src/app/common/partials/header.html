@@ -5,27 +5,23 @@
         <a href="javascript:void(0)" class="header__brand--name">Revaluate</a>
     </div>
 
+    <div class="header__dropdown">
+        <span class="header__dropdown__avatar">AV</span>
+        <!--<a class="header__dropdown__button" ng-show="currentUser.model.email" href="javascript:void(0)" data-toggle="dropdown" role="button" aria-expanded="false">-->
+        <!--Sorin Pantis &lt;!&ndash; {{currentUser.model.email}}&ndash;&gt;-->
+        <!--</a>-->
+        <span class="header__dropdown__button" href="#">Sorin Pantis</span>
+        <ul class="header__dropdown__menu">
+            <li><a href="javascript:void(0)" ui-sref="settings">Preferences</a></li>
+            <li><a ng-controller="FeedbackModalCtrl" id="feedback-trigger" href="javascript:void(0)" ng-click="openFeedbackModal()">Help / Feedback</a></li>
+            <li><a href="javascript:void(0)" ui-sref="account:logout">Logout</a></li>
+        </ul>
+    </div>
 
     <ul class="header__navigation">
         <li><a href="javascript:void(0)">Wallet</a></li>
         <li><a href="javascript:void(0)">Insights</a></li>
         <li><a href="javascript:void(0)">Goals</a></li>
     </ul>
-
-    <!--<div class="dropdown">-->
-        <!--<div class="dropdown-container">-->
-            <!--<p class="dropdown-avatar">Avatar</p>-->
-            <!--<p class="dropdown-button">-->
-                <!--<a ng-show="currentUser.model.email" href="javascript:void(0)" data-toggle="dropdown" role="button" aria-expanded="false">-->
-                    <!--Sorin Pantis &lt;!&ndash; {{currentUser.model.email}}&ndash;&gt;-->
-                <!--</a>-->
-            <!--</p>-->
-            <!--<ul class="dropdown-menu dropdown-select">-->
-                <!--<li><a class="nav-link" href="javascript:void(0)" ui-sref="settings">Preferences</a></li>-->
-                <!--<li><a ng-controller="FeedbackModalCtrl" id="feedback-trigger" class="navbar__wrapper__feedback navbar__link" href="javascript:void(0)" ng-click="openFeedbackModal()">Help / Feedback</a></li>-->
-                <!--<li><a class="nav-link" href="javascript:void(0)" ui-sref="account:logout">Logout</a></li>-->
-            <!--</ul>-->
-        <!--</div>-->
-    <!--</div>-->
 
 </header>
