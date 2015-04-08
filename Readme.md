@@ -6,7 +6,7 @@
 4. Build in dev : `grunt build`
 5. Build in prod : `grunt build-prod`
 
-#Others
+#Others >
 0. Our commit conventions can be found here : https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit
 1. Our package structure convention can be found here : https://docs.google.com/document/d/1XXMvReO8-Awi1EZXAXS4PzDzdNvV6pGcuaF4Q9821Es/mobilebasic?pli=1
 
