@@ -31,15 +31,6 @@ angular
 
             TransformerUtils.copyKeysFromTo(categoryDto, category.model, skipKeys);
 
-            //handle addresses conversion
-            var recipient = category.model.recipients;
-            if ( _.isEmpty(recipient) ) {
-                category.model.recipients = [];
-            }
-            else if ( _.isArray(recipient) ) {
-                category.model.recipients = recipient;
-            }
-
             return category;
         };
 

@@ -1,5 +1,5 @@
 angular
-    .module("common")
+    .module("categories")
     .service("SetupCategoriesProvider", function () {
 
         this.categories = [
@@ -16,22 +16,22 @@ angular
             {
                 "name": "Food",
                 "color": "#8471B1",
-                selected: true
+                selected: false
             },
             {
                 "name": "Car",
                 "color": "#FFDD00",
-                selected: true
+                selected: false
             },
             {
                 "name": "Donations",
                 "color": "#826274",
-                selected: true
+                selected: false
             },
             {
                 "name": "Bills",
                 "color": "#FFDD00",
-                selected: true
+                selected: false
             },
             {
                 "name": "Health",
