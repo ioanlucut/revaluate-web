@@ -1,9 +1,5 @@
-/**
- * Main category module declaration including ui templates.
- */
 angular
     .module("categories", [
-        "ui.router",
         "common"
     ])
     .config(["$stateProvider", function ($stateProvider) {
