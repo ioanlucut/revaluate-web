@@ -12,7 +12,10 @@ angular
         expenseCreated: "Expense created",
         expenseUpdated: "Expense updated",
         expenseDeleted: "Expense deleted",
-        expenseUnSubscribed: "Expense unsubscribed",
+        categoriesPage: "Categories page (site visited)",
+        categoryCreated: "Category created",
+        categoryUpdated: "Category updated",
+        categoryDeleted: "Category deleted",
         settings: "Settings",
         error404: "error-404",
         error500: "error-500"

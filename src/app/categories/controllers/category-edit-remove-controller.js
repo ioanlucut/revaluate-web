@@ -8,7 +8,12 @@ angular
         $scope.alertIdentifierId = ALERTS_CONSTANTS.createUpdateCategory;
 
         /**
-         * Saves the category or updates it.
+         * Edit/update timeout
+         */
+        const TIMEOUT_DURATION = 300;
+
+        /**
+         * Update the category.
          */
         $scope.updateCategory = function (categoryForm, category) {
             if ( categoryForm.$valid && !$scope.isUpdating ) {
@@ -20,7 +25,6 @@ angular
                     .save()
                     .then(function () {
 
-                        const TIMEOUT_DURATION = 800;
                         /**
                          * Track event.
                          */
@@ -47,7 +51,7 @@ angular
         };
 
         /**
-         * Remove category - owner action;
+         * Remove category;
          */
         $scope.deleteCategory = function (category) {
             if ( !$scope.isDeleting ) {

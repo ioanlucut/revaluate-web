@@ -4,10 +4,11 @@ angular
         return {
             restrict: "A",
             controller: 'CategoryCreateCtrl',
-            templateUrl: "app/categories/partials/add-category.html",
+            templateUrl: "app/categories/partials/add-category-directive.html",
             link: function (scope, el, attrs) {
+
                 /**
-                 * Show block content
+                 * Show block content flag.
                  * @type {boolean}
                  */
                 scope.showContent = false;

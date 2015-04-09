@@ -8,11 +8,15 @@ angular
         $scope.alertIdentifierId = ALERTS_CONSTANTS.createUpdateCategory;
 
         /**
+         * Saving timeout
+         */
+        const TIMEOUT_DURATION = 300;
+
+        /**
          * Initialize or reset the state
          */
         $scope.initOrReset = function (categoryForm) {
-            $scope.masterCategory = Category.build();
-            $scope.category = angular.copy($scope.masterCategory);
+            $scope.category = Category.build();
 
             if ( categoryForm ) {
                 categoryForm.$setPristine();
@@ -35,10 +39,7 @@ angular
                 // Is saving category
                 $scope.isSaving = true;
 
-                // Ok, update master category.
-                angular.copy($scope.category, $scope.masterCategory);
-
-                $scope.masterCategory
+                $scope.category
                     .save()
                     .then(function () {
 
@@ -47,13 +48,11 @@ angular
                          */
                         mixpanel.track(MIXPANEL_EVENTS.categoryCreated);
 
-                        const TIMEOUT_DURATION = 800;
-                        
                         $timeout(function () {
                             $scope.isSaving = false;
 
                             $rootScope.$broadcast(CATEGORY_EVENTS.isCreated, {
-                                category: $scope.masterCategory
+                                category: $scope.category
                             });
 
                             flash.to($scope.alertIdentifierId).error = "Category successfully saved!";

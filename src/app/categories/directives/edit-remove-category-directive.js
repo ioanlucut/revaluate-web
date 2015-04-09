@@ -7,8 +7,14 @@ angular
             scope: {
                 category: "="
             },
-            templateUrl: "app/categories/partials/edit-remove-category.html",
+            templateUrl: "app/categories/partials/edit-remove-category-directive.html",
             link: function (scope, el, attrs) {
+
+                /**
+                 * Keep the master backup
+                 */
+                scope.masterCategory = angular.copy(scope.category);
+
                 /**
                  * Show block content
                  * @type {boolean}
@@ -23,11 +29,25 @@ angular
                 };
 
                 /**
+                 * Toggle and discard changes.
+                 */
+                scope.cancel = function () {
+                    scope.toggleContent();
+
+                    scope.category = angular.copy(scope.masterCategory);
+                };
+
+                /**
                  * On category updated/deleted - hide everything.
                  */
                 $rootScope.$on(CATEGORY_EVENTS.isUpdated, function (event, args) {
                     if ( scope.category.model.id === args.category.model.id ) {
                         scope.toggleContent();
+
+                        // ---
+                        // Update the master category.
+                        // ---
+                        scope.masterCategory = angular.copy(scope.category);
                     }
                 });
                 scope.$on(CATEGORY_EVENTS.isDeleted, function (event, args) {
