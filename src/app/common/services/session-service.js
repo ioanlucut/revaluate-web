@@ -3,7 +3,7 @@
  */
 angular
     .module("common")
-    .service("SessionService", function ($localStorage, CamelCaseTransform) {
+    .service("SessionService", function ($localStorage) {
 
         /**
          * Local storage key for session data.
@@ -29,7 +29,6 @@ angular
          * @param data
          */
         this.setData = function (data) {
-            CamelCaseTransform.transform(data, CamelCaseTransform.TRANSFORMATION_TYPE.CAMELIZE);
 
             $localStorage[sessionDataKey] = angular.toJson(data);
         };
