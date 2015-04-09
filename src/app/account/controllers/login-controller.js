@@ -11,9 +11,11 @@ angular
         $scope.alertIdentifierId = ALERTS_CONSTANTS.login;
 
         /**
-         * Set default state.
+         * If not opened, open it.
          */
-        AccountModal.setState(ACCOUNT_FORM_STATE.login);
+        if ( !AccountModal.isOpen ) {
+            AccountModal.openWithState(ACCOUNT_FORM_STATE.login)
+        }
 
         /**
          * Login user information.

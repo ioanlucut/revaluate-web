@@ -15,7 +15,7 @@ angular
         };
 
         this.goToLogin = function () {
-            this.go(STATES.home);
+            this.go(STATES.account);
         };
 
         this.goToResetPassword = function () {
