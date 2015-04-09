@@ -4,7 +4,7 @@ angular
         return {
             restrict: "A",
             controller: 'CategoryCreateCtrl',
-            templateUrl: "app/categories/partials/add-category-directive.html",
+            templateUrl: "app/categories/partials/add-category-directive-template.html",
             link: function (scope, el, attrs) {
 
                 /**
