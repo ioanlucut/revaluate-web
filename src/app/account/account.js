@@ -4,8 +4,8 @@
 angular
     .module("account", [
         "ui.router",
-        "restmod",
-        "common"
+        "common",
+        "categories"
     ])
     .config(function ($stateProvider, $httpProvider) {
 
