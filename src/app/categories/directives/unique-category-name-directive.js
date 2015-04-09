@@ -4,21 +4,31 @@ angular
         return {
             require: "ngModel",
             scope: {
-                ngModel: "="
+                ngModel: "=",
+                except: "="
             },
             link: function (scope, el, attr, ngModel) {
 
+                function isValidCategoryName(categoryName) {
+                    return /^([A-Za-z\d\s]){2,20}$/.test(categoryName);
+                }
+
+                // Re-validate on change
                 scope.$watch("ngModel", function (value) {
 
-                    // Set validity
-                    CategoryService.isUnique(value)
-                        .then(function (data) {
+                    if ( isValidCategoryName(value) && ngModel.$viewValue !== scope.except ) {
 
-                            // Make sure we are validating the latest value of the model (asynchronous responses)
-                            if ( data.name == ngModel.$viewValue ) {
-                                ngModel.$setValidity('uniqueCategoryName', data.isUnique);
-                            }
-                        });
+                        // Set validity
+                        CategoryService
+                            .isUnique(value)
+                            .then(function (data) {
+
+                                // Make sure we are validating the latest value of the model (asynchronous responses)
+                                if ( data.name === ngModel.$viewValue ) {
+                                    ngModel.$setValidity('uniqueCategoryName', data.isUnique);
+                                }
+                            });
+                    }
                 });
 
             }

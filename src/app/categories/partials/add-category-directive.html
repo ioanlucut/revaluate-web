@@ -10,16 +10,22 @@
     <div class="categories__add__input-group" ng-class="{'has-error': categoryForm.$submitted && (categoryForm.name.$invalid || badPostSubmitResponse)}">
         <!-- Error messages -->
         <div class="form-group-input__message" ng-class="{'has-error': categoryForm.name.$invalid && categoryForm.$submitted}" ng-messages="categoryForm.name.$error" ng-if="categoryForm.$submitted">
-            <div ng-message="required">Category name is mandatory.</div>
-            <div ng-message="uniqueCategoryName">This category name is already used.</div>
+            <div ng-message="required">Name is mandatory.</div>
+            <div ng-message="validCategoryName">Name is not valid.</div>
+            <div ng-message="uniqueCategoryName">Name is already used.</div>
         </div>
-        <input class="categories__add__input-group__name" type="text" placeholder="Category name" name="name" ng-model="category.model.name" auto-focus required unique-category-name />
+        <input class="categories__add__input-group__name" type="text" placeholder="Category name" name="name" ng-model="category.model.name" auto-focus required valid-category-name unique-category-name />
     </div>
 
     <!-- Form group -->
     <div class="categories__add__input-group" ng-class="{'has-error': categoryForm.$submitted && (categoryForm.color.$invalid || badPostSubmitResponse)}">
         <input class="categories__add__input-group__color" type="text" placeholder="Category color" name="color" ng-model="category.model.color" required />
-        <span class="form-group-input__message" ng-if="categoryForm.color.$invalid && categoryForm.$submitted">Category color is mandatory.</span>
+
+        <!-- Error messages -->
+        <div class="form-group-input__message" ng-class="{'has-error': categoryForm.color.$invalid && categoryForm.$submitted}" ng-messages="categoryForm.color.$error" ng-if="categoryForm.$submitted">
+            <div ng-message="required">Color is mandatory.</div>
+            <div ng-message="validCategoryColor">Color is not valid.</div>
+        </div>
     </div>
 
     <!-- Button container -->
