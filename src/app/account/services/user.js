@@ -37,7 +37,7 @@ angular
                      * @returns {*}
                      */
                     isInitiated: function () {
-                        return isAuthenticated() && this.model.initiated;
+                        return this.isAuthenticated() && this.model.initiated;
                     },
 
                     /**

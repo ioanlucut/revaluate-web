@@ -1,6 +1,6 @@
 angular
     .module("account")
-    .controller("SignUpSetUpRegistrationCtrl", function ($q, $rootScope, $scope, $timeout, flash, ALERTS_CONSTANTS, SetupCategoriesProvider, StatesHandler, Category) {
+    .controller("SignUpSetUpRegistrationCtrl", function ($q, $rootScope, $scope, $timeout, flash, AuthService, AUTH_EVENTS, ALERTS_CONSTANTS, SetupCategoriesProvider, SessionService, StatesHandler, Category) {
 
         /**
          * Alert identifier
@@ -92,8 +92,8 @@ angular
                 .then(function () {
                     $scope.user
                         .$save($scope.setUpData)
-                        .then(function () {
-                            deferred.resolve();
+                        .then(function (response) {
+                            deferred.resolve(response);
                         })
                         .catch(function (response) {
                             return deferred.reject(response);
@@ -108,8 +108,17 @@ angular
             // ---
             deferred
                 .promise
-                .then(function () {
+                .then(function (response) {
                     $timeout(function () {
+                        // ---
+                        // We need to set the data and refresh the user.
+                        // ---
+                        SessionService.setData(response.data);
+                        $rootScope.$broadcast(AUTH_EVENTS.refreshUser, response);
+
+                        // ---
+                        // Show some feedback.
+                        // ---
                         $scope.isSaving = false;
                         flash.to($scope.alertIdentifierId).error = "Set up successfully!";
 

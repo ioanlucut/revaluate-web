@@ -32,6 +32,14 @@ angular
         });
 
         /**
+         * Sometimes we need to refresh the user from the local storage.
+         */
+        $scope.$on(AUTH_EVENTS.refreshUser, function () {
+            $rootScope.currentUser = User.$new().loadFromSession();
+            $log.log("Refreshed user: ", $rootScope.currentUser);
+        });
+
+        /**
          * Listen to the session timeout event
          */
         $scope.$on(AUTH_EVENTS.sessionTimeout, function () {

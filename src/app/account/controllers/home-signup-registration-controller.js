@@ -9,7 +9,6 @@ angular
 
         /**
          * Sign up user information.
-         * @type {{firstName: string, lastName: string, email: string, password: string}}
          */
         $scope.signUpData = {
             firstName: "",
