@@ -129,7 +129,7 @@ angular
                 url: "/setup",
                 templateUrl: 'app/account/partials/signup_setup.html',
                 controller: "SignUpSetUpRegistrationCtrl",
-                title: "Expenses - Revaluate"
+                title: "Setup - Revaluate"
             });
     })
 
