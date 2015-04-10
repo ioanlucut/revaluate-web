@@ -14,6 +14,5 @@ angular
         isErrorOccurred: "category-error-occurred",
         isCreated: "category-is-created",
         isDeleted: "category-is-deleted",
-        isUpdated: "category-is-updated",
-        colorSelected: "category-color-is-selected"
+        isUpdated: "category-is-updated"
     });
