@@ -28,6 +28,10 @@ module.exports = function (grunt) {
                     "bower_components/jstz-detect/jstz.js",
                     "bower_components/perfect-scrollbar/src/perfect-scrollbar.js",
                     "bower_components/perfect-scrollbar/src/jquery.mousewheel.js",
+
+                    /* These are the angular ui used bootstrap */
+                    "bower_components/angular-ui-bootstrap/src/tooltip/tooltip.js",
+                    "bower_components/angular-ui-bootstrap/src/popover/popover.js",
                     "bower_components/angular-ui-bootstrap/src/bindHtml/bindHtml.js",
                     "bower_components/angular-ui-bootstrap/src/position/position.js",
                     "bower_components/angular-ui-bootstrap/src/transition/transition.js",
@@ -35,6 +39,8 @@ module.exports = function (grunt) {
                     "bower_components/angular-ui-bootstrap/src/dropdown/dropdown.js",
                     "bower_components/angular-ui-bootstrap/src/modal/modal.js",
                     "bower_components/angular-ui-bootstrap/src/tabs/tabs.js",
+                    /* End angular ui used bootstrap */
+
                     "bower_components/ngstorage/ngStorage.js",
                     "bower_components/ladda/js/spin.js",
                     "bower_components/ladda/js/ladda.js",

@@ -1,40 +1,71 @@
-//---------------- REME specific styles - START
-// Import Google Font
+// ---
+// BOOTSTRAP.
+// ---
+@import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/mixins";
+@import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/component-animations";
+@import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/variables";
+@import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/tooltip";
+@import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/popovers";
+
+// ---
+// GOOGLE FONT.
+// ---
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
 @import url(http://fonts.googleapis.com/css?family=Indie+Flower);
 
-/*BOURBON*/
+// ---
+// BOURBON.
+// ---
 @import "../../bower_components/bourbon/app/assets/stylesheets/bourbon";
-/*BITTERS*/
+
+// ---
+// BITTERS.
+// ---
 @import "bitters/base";
 @import "grid-settings";
-/*NEAT*/
+
+// ---
+// NEAT.
+// ---
 @import "../../bower_components/neat/app/assets/stylesheets/neat";
 
-// Normalize/Reset
+// ---
+// Normalize/Reset.
+// ---
 @import "layouts/normalize";
 
-// Animate SCSS
+// ---
+// Animate SCSS.
+// ---
 @import "../../bower_components/animate.css-scss/animate";
 
-// Simptip
+// ---
+// Simptip.
+// ---
 @import "../../bower_components/simptip/simptip";
 @import "simptip";
 
-// Ladda
+// ---
+// Ladda styles.
+// ---
 @import "../../bower_components/ladda/css/ladda";
 @import "../../bower_components/ladda/css/ladda-themed";
 @import "../../bower_components/animate.css-scss/animate";
-//---------------- VENDOR specific styles - END
 
-// Fonts
+// ---
+// App icons.
+// ---
 @import "fonts/app-icons";
 
-//Components
+// ---
+// Revaluate Components.
+// ---
 @import "components/buttons";
 @import "components/dropdowns";
 
-// Revaluate styles
+// ---
+// Revaluate styles.
+// ---
 @import "../app/common/sass/common";
 @import "../app/site/sass/site";
 @import "../app/account/sass/account";

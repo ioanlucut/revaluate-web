@@ -1,0 +1,17 @@
+<div class="color-picker-box {{placement}}" ng-class="{ in: isOpen(), fade: animation() }">
+    <div class="arrow"></div>
+
+    <div class="color-picker__popover">
+
+        <div class="color-picker__popover__colors">
+
+            <div class="color-picker__popover__colors__color" ng-repeat="color in colors">
+
+                <!--Color picker-->
+                <div class="color-picker__popover__colors__color__name" ng-style="{'background':color.color}" ng-click="chose(color)"></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

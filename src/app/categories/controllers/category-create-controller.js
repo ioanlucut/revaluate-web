@@ -25,6 +25,13 @@ angular
             $scope.badPostSubmitResponse = false;
         };
 
+        // ---
+        // Listen for color select.
+        // ---
+        $scope.$on(CATEGORY_EVENTS.colorSelected, function (event, data) {
+            $scope.category.model.color = data.color;
+        });
+
         /**
          * Perform the first initialization.
          */
