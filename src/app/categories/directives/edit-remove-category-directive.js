@@ -37,13 +37,6 @@ angular
                     scope.category = angular.copy(scope.masterCategory);
                 };
 
-                // ---
-                // Listen for color select.
-                // ---
-                scope.$on(CATEGORY_EVENTS.colorSelected, function (event, data) {
-                    scope.category.model.color = data.color;
-                });
-
                 /**
                  * On category updated/deleted - hide everything.
                  */
