@@ -11,6 +11,7 @@ angular
         allCategories: "categories/retrieve"
     })
     .constant("CATEGORY_EVENTS", {
+        isErrorOccurred: "category-error-occurred",
         isCreated: "category-is-created",
         isDeleted: "category-is-deleted",
         isUpdated: "category-is-updated",

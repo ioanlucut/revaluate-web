@@ -1,11 +1,6 @@
 angular
     .module("categories")
-    .controller("CategoryCreateCtrl", function ($scope, $rootScope, Category, $timeout, CATEGORY_EVENTS, flash, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
-
-        /**
-         * Alert identifier
-         */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.createUpdateCategory;
+    .controller("CategoryCreateCtrl", function ($scope, $rootScope, Category, $timeout, CATEGORY_EVENTS, MIXPANEL_EVENTS) {
 
         /**
          * Saving timeout
@@ -24,13 +19,6 @@ angular
 
             $scope.badPostSubmitResponse = false;
         };
-
-        // ---
-        // Listen for color select.
-        // ---
-        $scope.$on(CATEGORY_EVENTS.colorSelected, function (event, data) {
-            $scope.category.model.color = data.color;
-        });
 
         /**
          * Perform the first initialization.
@@ -62,8 +50,6 @@ angular
                                 category: $scope.category
                             });
 
-                            flash.to($scope.alertIdentifierId).error = "Category successfully saved!";
-
                             /**
                              * Finally, reset the form.
                              */
@@ -75,7 +61,8 @@ angular
                         // Error
                         $scope.isSaving = false;
                         $scope.badPostSubmitResponse = true;
-                        flash.to($scope.alertIdentifierId).error = "This category could not have been added.";
+
+                        $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, {});
                     });
             }
         };

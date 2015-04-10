@@ -1,0 +1,50 @@
+.categories__add {
+  @include span-columns(9);
+  @include shift(1);
+  @include border-radius($base-border-radius);
+  text-align: right;
+  margin-bottom: 40px;
+}
+
+.categories__add__form {
+  text-align: left;
+}
+
+.categories__add__form__content__left {
+  @include span-columns(6 of 8);
+}
+
+.categories__add__form__content__right {
+  @include span-columns(2 of 8);
+
+  .categories__add__form__content__right__add {
+    @include span-columns(1 of 2);
+    @include btn-big($brand-info);
+  }
+  .categories__add__form__content__right__cancel {
+    @include span-columns(1 of 2);
+    @include btn-big($brand-danger);
+  }
+
+  .categories__add__form__content__right__add, .categories__add__form__content__right__cancel {
+    min-width: 40px;
+    font-weight: $font-weight-bold;
+    font-size: 13px;
+  }
+}
+
+.categories__add__controls {
+  @include span-columns(2 of 8);
+  @include shift(6);
+
+  .categories__add__controls__btn {
+    @include btn-big($brand-primary);
+    font-size: 13px;
+    font-weight: $font-weight-bold;
+    display: inline-block;
+    min-width: 40px;
+    vertical-align: middle;
+    position: relative;
+    width: 100%;
+  }
+}
