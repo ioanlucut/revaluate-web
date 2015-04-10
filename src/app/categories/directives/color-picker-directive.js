@@ -28,7 +28,7 @@ angular
                 // ---
                 var input = el.prev('input');
 
-                input.on("click", function () {
+                input.on("focus", function () {
                     scope.$apply(function () {
                         scope.open();
                     });
