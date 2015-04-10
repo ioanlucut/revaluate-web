@@ -7,7 +7,7 @@ angular
         /**
          * Alert identifier
          */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.categoryList;
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.createUpdateCategory;
 
         /**
          * Track event.
@@ -25,11 +25,18 @@ angular
          */
         $scope.categories = categories;
 
+        $scope.$on(CATEGORY_EVENTS.isErrorOccurred, function () {
+
+            flash.to($scope.alertIdentifierId).error = "Error occurred!";
+        });
+
         /**
          * On category created, display a success message, and add category to the list.
          */
         $scope.$on(CATEGORY_EVENTS.isCreated, function (event, args) {
             $scope.categories.push(args.category);
+
+            flash.to($scope.alertIdentifierId).success = "Category successfully saved!";
         });
 
         /**
@@ -44,6 +51,8 @@ angular
                 removeCategoryFrom($scope.categories, args.category);
                 $scope.categories.push(args.category);
             }
+
+            flash.to($scope.alertIdentifierId).success = "Category successfully updated!";
         });
 
         /**
@@ -51,6 +60,8 @@ angular
          */
         $scope.$on(CATEGORY_EVENTS.isDeleted, function (event, args) {
             removeCategoryFrom($scope.categories, args.category);
+
+            flash.to($scope.alertIdentifierId).success = "Category successfully deleted!";
         });
 
         /**

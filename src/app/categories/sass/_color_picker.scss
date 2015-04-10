@@ -1,6 +1,31 @@
+.color-picker-box {
+  position: absolute;
+  top: -52px;
+  right: 0;
+  width: 175px;
+  height: 100%;
+  z-index: 1200;
+  font-size: 15px;
+  background-color: rgba(255, 255, 255, 0.97);
+  display: none;
+}
+
+.color-picker-box--open {
+  display: block;
+}
+
+.color-picker-box.color-picker-box--open-add-active {
+  display: block;
+  @include fadeIn(0.4s);
+}
+
+.color-picker-box.color-picker-box--open-remove-active {
+  display: block;
+  @include fadeOut(0.4s);
+}
+
 .color-picker__popover {
-  @include border-radius($base-border-radius);
-  border: solid 1px $lightest-gray;
+  width: 175px;
 }
 
 .color-picker__popover__colors {

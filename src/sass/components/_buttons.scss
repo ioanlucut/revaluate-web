@@ -12,7 +12,6 @@
   color: #ffffff;
   text-align: center;
   @include border-radius($base-border-radius);
-  @include transition(all 0.2s);
 
   &:hover,
   &:focus {

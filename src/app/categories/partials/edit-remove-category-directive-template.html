@@ -1,46 +1,55 @@
 <!--Category group-->
-<div class="categories__box__categories__category__name" ng-if="! showContent" ng-style="{'background':category.model.color}"> {{category.model.name}}</div>
+<div class="categories__edit__category__name" ng-if="! showContent" ng-style="{'background':category.model.color}"> {{category.model.name}}</div>
 
-<div class="categories__box__categories__category__controls" ng-if="! showContent">
+<div class="categories__edit__category__controls" ng-if="! showContent">
 
     <!--Show content-->
-    <div class="categories__box__categories__category__edit" ng-click="toggleContent()">Edit</div>
-    <button ladda="isDeleting" data-style="expand-left" data-spinner-size="20" class="categories__box__categories__category__delete" ng-click="deleteCategory(category)">Del</button>
+    <div class="categories__edit__category__edit" ng-click="toggleContent()">Edit</div>
+    <button ladda="isDeleting" data-style="expand-left" data-spinner-size="15" class="categories__edit__category__delete" ng-click="deleteCategory(category)">Delete</button>
 </div>
 
 <!-- Update category form -->
-<form name="categoryForm" ng-if="showContent" ng-submit="updateCategory(categoryForm, category)" novalidate focus-first-error>
+<form name="categoryForm" class="categories__edit__form" ng-if="showContent" ng-submit="updateCategory(categoryForm, category)" novalidate focus-first-error>
 
-    <!-- Flash messages. -->
-    <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+    <!--Content left-->
+    <div class="categories__edit__form__content__left">
 
-    <div class="categories__add__input-group" ng-class="{'has-error': categoryForm.$submitted && (categoryForm.name.$invalid || badPostSubmitResponse)}">
-        <input class="categories__add__input-group__name" type="text" placeholder="Category name" name="name" ng-model="category.model.name" auto-focus required valid-category-name unique-category-name except="masterCategory.model.name" />
+        <div class="categories__form__input-group" ng-class="{'has-error': categoryForm.$submitted && (categoryForm.name.$invalid || badPostSubmitResponse)}">
+            <input class="categories__form__input-group__name" type="text" placeholder="Category name" name="name" ng-model="category.model.name" auto-focus required valid-category-name unique-category-name except="masterCategory.model.name" />
 
-        <!-- Error messages -->
-        <div class="form-group-input__message" ng-class="{'has-error': categoryForm.name.$invalid && categoryForm.$submitted}" ng-messages="categoryForm.name.$error" ng-if="categoryForm.$submitted">
-            <div ng-message="required">Name is mandatory.</div>
-            <div ng-message="validCategoryName">Name is not valid.</div>
-            <div ng-message="uniqueCategoryName">Name is already used.</div>
-        </div>
-    </div>
-
-    <!-- Form group -->
-    <div class="categories__add__input-group" ng-class="{'has-error': categoryForm.$submitted && (categoryForm.color.$invalid || badPostSubmitResponse)}">
-        <input class="categories__add__input-group__color" type="text" placeholder="Category color" name="color" ng-model="category.model.color" required valid-category-color/>
-
-        <!-- Error messages -->
-        <div class="form-group-input__message" ng-class="{'has-error': categoryForm.color.$invalid && categoryForm.$submitted}" ng-messages="categoryForm.color.$error" ng-if="categoryForm.$submitted">
-            <div ng-message="required">Color is mandatory.</div>
-            <div ng-message="validCategoryColor">Color is not valid.</div>
+            <!-- Error messages -->
+            <div class="form-group-input__message" ng-class="{'has-error': categoryForm.name.$invalid && categoryForm.$submitted}" ng-messages="categoryForm.name.$error" ng-if="categoryForm.$submitted">
+                <div ng-message="required">Name is mandatory.</div>
+                <div ng-message="validCategoryName">Name is not valid.</div>
+                <div ng-message="uniqueCategoryName">Name is already used.</div>
+            </div>
         </div>
 
-        <div color-picker category-color="category.model.color"></div>
+        <!-- Form group -->
+        <div class="categories__form__input-group" ng-class="{'has-error': categoryForm.$submitted && (categoryForm.color.$invalid || badPostSubmitResponse)}">
+            <!--Color preview-->
+            <label class="categories__form__color__preview" ng-style="{'background':category.model.color}"></label>
+
+            <input class="categories__form__input-group__color" type="text" placeholder="Category color" name="color" ng-model="category.model.color" required valid-category-color />
+
+            <!-- Error messages -->
+            <div class="form-group-input__message" ng-class="{'has-error': categoryForm.color.$invalid && categoryForm.$submitted}" ng-messages="categoryForm.color.$error" ng-if="categoryForm.$submitted">
+                <div ng-message="required">Color is mandatory.</div>
+                <div ng-message="validCategoryColor">Color is not valid.</div>
+            </div>
+
+            <div color-picker category-color="category.model.color"></div>
+        </div>
+
     </div>
 
-    <!-- Button container -->
-    <button ladda="isUpdating" data-style="expand-left" data-spinner-size="20" class="categories__add__btn" type="submit">Update</button>
+    <!--Content right-->
+    <div class="categories__edit__form__content__right">
+        <!-- Button container -->
+        <button ladda="isUpdating" data-style="expand-left" data-spinner-size="15" class="categories__edit__form__content__right__update" type="submit">Update</button>
 
-    <!--Reset-->
-    <div class="categories__cancel__btn" ng-click="cancel();">Cancel</div>
+        <!--Reset-->
+        <div class="categories__edit__form__content__right__cancel" ng-click="cancel();">X</div>
+    </div>
+
 </form>

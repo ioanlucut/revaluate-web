@@ -1,11 +1,6 @@
 angular
     .module("categories")
-    .controller("CategoryEditRemoveCtrl", function ($scope, $rootScope, Category, $timeout, CATEGORY_EVENTS, flash, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
-
-        /**
-         * Alert identifier
-         */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.createUpdateCategory;
+    .controller("CategoryEditRemoveCtrl", function ($scope, $rootScope, Category, $timeout, CATEGORY_EVENTS, MIXPANEL_EVENTS) {
 
         /**
          * Edit/update timeout
@@ -37,7 +32,6 @@ angular
                                 category: category
                             });
 
-                            flash.to($scope.alertIdentifierId).error = "Category successfully updated!";
                         }, TIMEOUT_DURATION);
                     })
                     .catch(function () {
@@ -45,7 +39,7 @@ angular
                         // Error
                         $scope.isUpdating = false;
                         $scope.badPostSubmitResponse = true;
-                        flash.to($scope.alertIdentifierId).error = "This category could not have been updated.";
+                        $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, {});
                     });
             }
         };
@@ -77,7 +71,7 @@ angular
 
                         // Error
                         $scope.isDeleting = false;
-                        alert("Something went wrong. Please try again.");
+                        $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, {});
                     });
             }
         };

@@ -35,9 +35,9 @@ angular
                 });
 
                 input.on("blur", function () {
-                    scope.$apply(function () {
+                  /*  scope.$apply(function () {
                         scope.close();
-                    });
+                    });*/
                 });
 
                 var CLASS_OPEN = "color-picker-box--open";
