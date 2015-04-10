@@ -11,7 +11,7 @@ angular
                  * Show block content flag.
                  * @type {boolean}
                  */
-                scope.showContent = true;
+                scope.showContent = false;
 
                 /**
                  * Toggle content
