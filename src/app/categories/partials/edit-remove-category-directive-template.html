@@ -27,7 +27,7 @@
 
     <!-- Form group -->
     <div class="categories__add__input-group" ng-class="{'has-error': categoryForm.$submitted && (categoryForm.color.$invalid || badPostSubmitResponse)}">
-        <input class="categories__add__input-group__color" type="text" placeholder="Category color" name="color" ng-model="category.model.color" required valid-category-color/>
+        <input class="categories__add__input-group__color" type="text" placeholder="Category color" name="color" ng-model="category.model.color" required valid-category-color popover-color-picker="On the <b>Top!</b>" popover-trigger="click"/>
 
         <!-- Error messages -->
         <div class="form-group-input__message" ng-class="{'has-error': categoryForm.color.$invalid && categoryForm.$submitted}" ng-messages="categoryForm.color.$error" ng-if="categoryForm.$submitted">

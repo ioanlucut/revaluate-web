@@ -13,5 +13,6 @@ angular
     .constant("CATEGORY_EVENTS", {
         isCreated: "category-is-created",
         isDeleted: "category-is-deleted",
-        isUpdated: "category-is-updated"
+        isUpdated: "category-is-updated",
+        colorSelected: "category-color-is-selected"
     });
