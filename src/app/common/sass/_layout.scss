@@ -2,18 +2,25 @@ html, body {
   height: 100%;
 }
 
-.view-container {
-  min-height: 100%;
-  position: relative;
+.page-wrapper {
+  background-color: $lightest-gray;
 }
 
 .view-container__header {
+  background-color: $white;
+}
 
+.view-container__content {
+  @include outer-container();
+  @include border-radius(3px);
+  min-height: 600px;
+  position: relative;
+  background-color: $white;
+  margin-top: 20px;
+  box-shadow: 0 0 2px $lightest-gray;
+  padding: 25px;
 }
 
 .view-container__footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  min-height: 180px;
+
 }
