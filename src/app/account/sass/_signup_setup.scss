@@ -13,7 +13,6 @@
 }
 
 .sign-up__setup__section {
-  //border: solid 1px red;
   padding: 10px 0;
   text-align: left;
 }
@@ -21,21 +20,24 @@
 .sign-up__setup__section__currency {
   @include clearfix();
   padding: 20px 0;
+
+  .sign-up__setup__section__currency__label {
+    display: inline-block;
+    float: left;
+    padding: 5px;
+  }
+
+  .sign-up__setup__section__currency__input {
+    display: inline-block;
+    float: right;
+    width: 220px;
+    height: 35px;
+    //border: solid 1px $light-gray;
+    padding: 5px 10px;
+  }
 }
 
-.sign-up__setup__section__currency__label {
-  display: inline-block;
-//  border: solid 1px blue;
-  float: left;
-  padding: 5px;
-}
 
-.sign-up__setup__section__currency__dropdown {
-  @include dropdown();
-  float: right;
-  width: 180px;
-  padding: 5px 10px;
-}
 
 .sign-up__setup__tip {
   padding-top: 50px;
@@ -55,8 +57,8 @@
   padding-top: 30px;
 
   .sign-up__box__categories__category {
-    @include span-columns(3);
-    @include omega(4n);
+    @include span-columns(4);
+    @include omega(3n);
     padding-bottom: 10px;
     font-size: $base-font-size-xs;
   }
@@ -64,10 +66,12 @@
   .category-name {
     @include border-radius($base-border-radius);
     @include user-select(none);
+    height: 30px;
+    line-height: 25px;
+    padding: 2px 2px;
     border: solid 1px transparent;
     cursor: pointer;
     color: $white;
-    padding: 2px 2px;
     text-transform: uppercase;
     text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
 
@@ -79,4 +83,21 @@
     }
   }
 
+  .sign-up__box__categories__addbtn {
+    @include span-columns(4);
+    @include omega(3n);
+    height: 30px;
+    padding: 0;
+    font-size: $base-font-size-xs;
+  }
+
+  .sign-up__box__categories__addinput {
+    @include span-columns(4);
+    @include omega(3n);
+    height: 30px;
+    font-size: $base-font-size-xs;
+    text-align: center;
+    text-transform: uppercase;
+    position: relative;
+  }
 }

@@ -1,4 +1,4 @@
-<div class="sign-up__setup">
+<div class="sign-up__setup" xmlns="http://www.w3.org/1999/html">
 
     <div class="sign-up__setup__box">
 
@@ -8,9 +8,7 @@
 
         <div class="sign-up__setup__section sign-up__setup__section__currency">
             <div class="sign-up__setup__section__currency__label">Choose your currency:</div>
-            <div class="sign-up__setup__section__currency__dropdown">
-                European EURO
-            </div>
+            <input class="sign-up__setup__section__currency__input" name="currency" type="text" placeholder="Start typing your currency..." required />
         </div>
 
         <div class="sign-up__setup__tip">
@@ -21,10 +19,12 @@
         <div class="sign-up__box__categories">
 
             <div class="sign-up__box__categories__category" ng-repeat="category in categories track by category.name">
-
                 <!--Category group-->
                 <div class="category-name" ng-style="{'background':category.color}" ng-class="{ 'category-name--unselected': !category.selected }" ng-click="toggleCategorySelection($index)"> {{category.name}}</div>
             </div>
+
+            <button class="sign-up__box__categories__addbtn">+ Add category</button>
+            <input class="sign-up__box__categories__addinput simptip-position-bottom simptip-info" data-tooltip="Just hit Enter to save" type="text"/>
         </div>
 
         <!-- Set up form -->
