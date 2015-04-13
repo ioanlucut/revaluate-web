@@ -1,8 +1,7 @@
 .categories__add {
-  @include span-columns(9);
-  @include shift(1);
+  @include span-columns(8);
+  @include shift(2);
   @include border-radius($base-border-radius);
-  text-align: right;
   margin-bottom: 40px;
 }
 
@@ -11,35 +10,33 @@
 }
 
 .categories__add__form__content__left {
-  @include span-columns(6 of 8);
+  float: left;
 }
 
 .categories__add__form__content__right {
-  @include span-columns(2 of 8);
+  float: right;
 
   .categories__add__form__content__right__add {
-    @include span-columns(1 of 2);
-    @include btn-big($brand-info);
+    @include btn-big($brand-primary);
   }
   .categories__add__form__content__right__cancel {
-    @include span-columns(1 of 2);
-    @include btn-big($brand-danger);
+    @include btn-big($brand-default);
+    color: $gray-dark;
   }
 
-  .categories__add__form__content__right__add, .categories__add__form__content__right__cancel {
-    min-width: 40px;
-    font-weight: $font-weight-bold;
-    font-size: 13px;
+  .categories__add__form__content__right__add,
+  .categories__add__form__content__right__cancel {
+    float: right;
+    margin-left: 10px;
   }
 }
 
 .categories__add__controls {
-  @include span-columns(2 of 8);
-  @include shift(6);
 
   .categories__add__controls__btn {
     @include btn-big($brand-primary);
-    min-width: 40px;
-    position: relative;
+    display: block;
+    float: right;
+    width: 140px;
   }
 }
