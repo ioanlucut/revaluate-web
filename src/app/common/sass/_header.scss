@@ -12,11 +12,6 @@ $header-height: 60px;
   height: 60px;
 }
 
-.header__brand--logo {
-  @include size(32px 32px);
-  display: inline-block;
-}
-
 .header__brand--name {
   @include brand-inline();
 }
