@@ -1,11 +1,13 @@
 <!--Category group-->
-<div class="categories__edit__category__name" ng-if="! showContent" ng-style="{'background':category.model.color}"> {{category.model.name}}</div>
+<div class="categories__edit__category__name" ng-if="! showContent">
+    <span class="categories__edit__category__color" ng-if="! showContent" ng-style="{'background':category.model.color}">C</span>
+    <span class="categories__edit__category__label" ng-if="! showContent">{{category.model.name}}</span>
+</div>
 
 <div class="categories__edit__category__controls" ng-if="! showContent">
-
     <!--Show content-->
-    <div class="categories__edit__category__edit" ng-click="toggleContent()">Edit</div>
-    <button ladda="isDeleting" data-style="expand-left" data-spinner-size="15" class="categories__edit__category__delete" ng-click="deleteCategory(category)">Delete</button>
+    <a class="categories__edit__category__delete" href="javascript:void(0)" ng-click="deleteCategory(category)">Delete</a>
+    <a class="categories__edit__category__edit" href="javascript:void(0)" ng-click="toggleContent()">Edit</a>
 </div>
 
 <!-- Update category form -->
