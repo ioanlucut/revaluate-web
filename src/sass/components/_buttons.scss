@@ -5,7 +5,6 @@
 @mixin btn($color) {
   display: inline-block;
   height: 35px;
-  min-width: 150px;
   background-color: $color;
   padding: 0 15px;
   line-height: 35px;
@@ -28,14 +27,12 @@
 @mixin btn-small($color) {
   @include btn($color);
   height: 30px;
-  min-width: 80px;
   line-height: 30px;
 }
 
 @mixin btn-big($color) {
   @include btn($color);
   height: 40px;
-  min-width: 250px;
   line-height: 40px;
 }
 
