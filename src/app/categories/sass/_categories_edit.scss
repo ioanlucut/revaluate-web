@@ -9,10 +9,6 @@
   @include clearfix();
   @include border-radius($base-border-radius);
   padding: 7px 5px 7px 10px;
-
-//  &:hover {
-//    background-color: #f8f8f8;
-//  }
 }
 
 .categories__edit__category__name {
@@ -84,7 +80,5 @@
     float: right;
     min-width: 40px;
     margin-left: 10px;
-    //font-weight: $font-weight-bold;
-    //font-size: 13px;
   }
 }
