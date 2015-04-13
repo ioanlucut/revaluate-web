@@ -17,18 +17,26 @@
   width: 50%;
 }
 
-.categories__form__input-group__name, .categories__form__input-group__color {
+.categories__form__input-group__name,
+.categories__form__input-group__color {
   height: $add-category-form-height;
   line-height: $add-category-form-height;
-  border: solid 2px $lightest-gray;
-  text-align: right;
   padding-right: 50px;
   display: inline-block;
 }
 
+.categories__form__input-group__name {
+}
+
+.categories__form__input-group__color {
+  text-align: right;
+  width: 30%;
+}
+
 .has-error {
 
-  .categories__form__input-group__name, .categories__form__input-group__color {
+  .categories__form__input-group__name,
+  .categories__form__input-group__color {
     border-color: $brand-danger;
   }
 }
