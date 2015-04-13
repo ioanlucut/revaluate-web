@@ -4,17 +4,17 @@ angular
 
         this.categories = [
             {
-                "name": "Hobby",
+                "name": "Bills",
                 "color": "#8471B1",
                 selected: false
             },
             {
-                "name": "Travel",
+                "name": "Food",
                 "color": "#826274",
                 selected: false
             },
             {
-                "name": "Food",
+                "name": "Clothes",
                 "color": "#8471B1",
                 selected: false
             },
@@ -29,19 +29,29 @@ angular
                 selected: false
             },
             {
-                "name": "Bills",
+                "name": "Hobby",
                 "color": "#FFDD00",
                 selected: false
             },
             {
                 "name": "Health",
                 "color": "#826274",
-                selected: true
+                selected: false
             },
             {
                 "name": "Education",
                 "color": "#8471B1",
-                selected: true
+                selected: false
+            },
+            {
+                "name": "Investments",
+                "color": "#8471B1",
+                selected: false
+            },
+            {
+                "name": "House",
+                "color": "#8471B1",
+                selected: false
             }];
 
         this.getCategories = function () {
