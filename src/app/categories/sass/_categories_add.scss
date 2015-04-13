@@ -39,12 +39,7 @@
 
   .categories__add__controls__btn {
     @include btn-big($brand-primary);
-    font-size: 13px;
-    font-weight: $font-weight-bold;
-    display: inline-block;
     min-width: 40px;
-    vertical-align: middle;
     position: relative;
-    width: 100%;
   }
 }
