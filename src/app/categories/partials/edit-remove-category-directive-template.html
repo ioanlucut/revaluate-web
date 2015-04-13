@@ -6,8 +6,8 @@
 
 <div class="categories__edit__category__controls" ng-if="! showContent">
     <!--Show content-->
-    <a class="categories__edit__category__delete" href="javascript:void(0)" ng-click="deleteCategory(category)">Delete</a>
-    <a class="categories__edit__category__edit" href="javascript:void(0)" ng-click="toggleContent()">Edit</a>
+    <button class="categories__edit__category__delete" ng-click="deleteCategory(category)">Delete</button>
+    <button class="categories__edit__category__edit" ng-click="toggleContent()">Edit</button>
 </div>
 
 <!-- Update category form -->
@@ -49,7 +49,7 @@
     <!--Content right-->
     <div class="categories__edit__form__content__right">
         <!--Reset-->
-        <div class="categories__edit__form__content__right__cancel" ng-click="cancel();">Nevermind</div>
+        <button class="categories__edit__form__content__right__cancel" ng-click="cancel();">Nevermind</button>
         <!-- Button container -->
         <button class="categories__edit__form__content__right__update" type="submit">Save changes</button>
     </div>
