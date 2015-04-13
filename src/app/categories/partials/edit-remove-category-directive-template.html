@@ -16,18 +16,7 @@
     <!--Content left-->
     <div class="categories__edit__form__content__left">
 
-        <div class="categories__form__input-group" ng-class="{'has-error': categoryForm.$submitted && (categoryForm.name.$invalid || badPostSubmitResponse)}">
-            <input class="categories__form__input-group__name" type="text" placeholder="Category name" name="name" ng-model="category.model.name" auto-focus required valid-category-name unique-category-name except="masterCategory.model.name" />
-
-            <!-- Error messages -->
-            <div class="form-group-input__message" ng-class="{'has-error': categoryForm.name.$invalid && categoryForm.$submitted}" ng-messages="categoryForm.name.$error" ng-if="categoryForm.$submitted">
-                <div ng-message="required">Name is mandatory.</div>
-                <div ng-message="validCategoryName">Name is not valid.</div>
-                <div ng-message="uniqueCategoryName">Name is already used.</div>
-            </div>
-        </div>
-
-        <!-- Form group -->
+        <!-- Category color form group -->
         <div class="categories__form__input-group" ng-class="{'has-error': categoryForm.$submitted && (categoryForm.color.$invalid || badPostSubmitResponse)}">
             <!--Color preview-->
             <label class="categories__form__color__preview" ng-style="{'background':category.model.color}"></label>
@@ -43,15 +32,26 @@
             <div color-picker category-color="category.model.color"></div>
         </div>
 
+        <!-- Category label form group-->
+        <div class="categories__form__input-group" ng-class="{'has-error': categoryForm.$submitted && (categoryForm.name.$invalid || badPostSubmitResponse)}">
+            <input class="categories__form__input-group__name" type="text" placeholder="Category name" name="name" ng-model="category.model.name" auto-focus required valid-category-name unique-category-name except="masterCategory.model.name" />
+
+            <!-- Error messages -->
+            <div class="form-group-input__message" ng-class="{'has-error': categoryForm.name.$invalid && categoryForm.$submitted}" ng-messages="categoryForm.name.$error" ng-if="categoryForm.$submitted">
+                <div ng-message="required">Name is mandatory.</div>
+                <div ng-message="validCategoryName">Name is not valid.</div>
+                <div ng-message="uniqueCategoryName">Name is already used.</div>
+            </div>
+        </div>
+
     </div>
 
     <!--Content right-->
     <div class="categories__edit__form__content__right">
-        <!-- Button container -->
-        <button ladda="isUpdating" data-style="expand-left" data-spinner-size="15" class="categories__edit__form__content__right__update" type="submit">Save</button>
-
         <!--Reset-->
-        <div class="categories__edit__form__content__right__cancel" ng-click="cancel();">X</div>
+        <div class="categories__edit__form__content__right__cancel" ng-click="cancel();">Nevermind</div>
+        <!-- Button container -->
+        <button class="categories__edit__form__content__right__update" type="submit">Save changes</button>
     </div>
 
 </form>

@@ -8,11 +8,11 @@
   @include span-columns(12);
   @include clearfix();
   @include border-radius($base-border-radius);
-  padding: 5px 5px 5px 10px;
+  padding: 7px 5px 7px 10px;
 
-  &:hover {
-    background-color: #f8f8f8;
-  }
+//  &:hover {
+//    background-color: #f8f8f8;
+//  }
 }
 
 .categories__edit__category__name {
@@ -53,7 +53,8 @@
     }
   }
 
-  .categories__edit__category__edit, .categories__edit__category__delete {
+  .categories__edit__category__edit,
+  .categories__edit__category__delete {
     float: right;
     display: inline-block;
     margin: 0 5px;
@@ -63,24 +64,27 @@
 }
 
 .categories__edit__form__content__left {
-  @include span-columns(6 of 8);
+  @include span-columns(4 of 8);
 }
 
 .categories__edit__form__content__right {
-  @include span-columns(2 of 8);
+  @include span-columns(4 of 8);
 
   .categories__edit__form__content__right__update {
-    @include span-columns(1 of 2);
-    @include btn-big($brand-info);
-  }
-  .categories__edit__form__content__right__cancel {
-    @include span-columns(1 of 2);
-    @include btn-big($brand-danger);
+    @include btn($brand-primary);
   }
 
-  .categories__edit__form__content__right__update, .categories__edit__form__content__right__cancel {
-    font-weight: $font-weight-bold;
+  .categories__edit__form__content__right__cancel {
+    @include btn($brand-default);
+    color: $gray-dark;
+  }
+
+  .categories__edit__form__content__right__update,
+  .categories__edit__form__content__right__cancel {
+    float: right;
     min-width: 40px;
-    font-size: 13px;
+    margin-left: 10px;
+    //font-weight: $font-weight-bold;
+    //font-size: 13px;
   }
 }
