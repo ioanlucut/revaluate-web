@@ -9,16 +9,6 @@
     <!--Content left-->
     <div class="categories__add__form__content__left">
 
-        <div class="categories__form__input-group" ng-class="{'has-error': categoryForm.$submitted && (categoryForm.name.$invalid || badPostSubmitResponse)}">
-            <!-- Error messages -->
-            <div class="form-group-input__message" ng-class="{'has-error': categoryForm.name.$invalid && categoryForm.$submitted}" ng-messages="categoryForm.name.$error" ng-if="categoryForm.$submitted">
-                <div ng-message="required">Name is mandatory.</div>
-                <div ng-message="validCategoryName">Name is not valid.</div>
-                <div ng-message="uniqueCategoryName">Name is already used.</div>
-            </div>
-            <input class="categories__form__input-group__name" type="text" placeholder="Category name" name="name" ng-model="category.model.name" auto-focus required valid-category-name unique-category-name />
-        </div>
-
         <!-- Form group -->
         <div class="categories__form__input-group" ng-class="{'has-error': categoryForm.$submitted && (categoryForm.color.$invalid || badPostSubmitResponse)}">
             <!--Color preview-->
@@ -35,14 +25,23 @@
             <div color-picker category-color="category.model.color"></div>
         </div>
 
+        <div class="categories__form__input-group" ng-class="{'has-error': categoryForm.$submitted && (categoryForm.name.$invalid || badPostSubmitResponse)}">
+            <!-- Error messages -->
+            <div class="form-group-input__message" ng-class="{'has-error': categoryForm.name.$invalid && categoryForm.$submitted}" ng-messages="categoryForm.name.$error" ng-if="categoryForm.$submitted">
+                <div ng-message="required">Name is mandatory.</div>
+                <div ng-message="validCategoryName">Name is not valid.</div>
+                <div ng-message="uniqueCategoryName">Name is already used.</div>
+            </div>
+            <input class="categories__form__input-group__name" type="text" placeholder="Category name" name="name" ng-model="category.model.name" auto-focus required valid-category-name unique-category-name />
+        </div>
+
     </div>
 
     <!--Content right-->
     <div class="categories__add__form__content__right">
-        <!-- Button container -->
-        <button ladda="isSaving" data-style="expand-left" data-spinner-size="15" class="categories__add__form__content__right__add" type="submit">Add</button>
-
         <!--Reset-->
-        <div class="categories__add__form__content__right__cancel" ng-click="toggleContent();initOrReset(categoryForm)">X</div>
+        <button class="categories__add__form__content__right__cancel" ng-click="toggleContent();initOrReset(categoryForm)">Nevermind</button>
+        <!-- Button container -->
+        <button class="categories__add__form__content__right__add" type="submit">Add</button>
     </div>
 </form>

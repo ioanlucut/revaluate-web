@@ -3,11 +3,12 @@
 }
 
 .categories__form__color__preview {
+  @include border-radius(50%);
+  @include size(23px 23px);
   position: absolute;
-  margin: 10px;
-  width: 20px;
-  height: 20px;
+  margin: 8px;
   left: 0;
+  top: 0;
 }
 
 .categories__form__input-group {
