@@ -57,46 +57,46 @@ angular
                 // ---
                 scope.colors = [
                     {
-                        color: "#4FC1E9"
+                        color: "#C3272B"
                     },
                     {
-                        color: "#826274"
+                        color: "#DB5A6B"
                     },
                     {
-                        color: "#8471B1"
+                        color: "#875F9A"
                     },
                     {
-                        color: "#FFDD00"
+                        color: "#22A7F0"
                     },
                     {
-                        color: "#bfdadc"
+                        color: "#317589"
                     },
                     {
-                        color: "#009800"
+                        color: "#1F4788"
                     },
                     {
-                        color: "#207de5"
+                        color: "#006442"
                     },
                     {
-                        color: "#FFDD00"
+                        color: "#26A65B"
                     },
                     {
-                        color: "#ED5565"
+                        color: "#36D7B7"
                     },
                     {
-                        color: "#009800"
+                        color: "#FFB61E"
                     },
                     {
-                        color: "#826274"
+                        color: "#CA6924"
                     },
                     {
-                        color: "#009800"
+                        color: "#6C7A89"
                     },
                     {
-                        color: "#207de5"
+                        color: "#121212"
                     },
                     {
-                        color: "#d4c5f9"
+                        color: "#BDC3C7"
                     }];
 
                 // ---
