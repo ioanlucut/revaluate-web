@@ -52,6 +52,11 @@ angular
                 "name": "House",
                 "color": "#8471B1",
                 selected: false
+            },
+            {
+                "name": "Entertainment",
+                "color": "#8471B1",
+                selected: false
             }];
 
         this.getCategories = function () {
