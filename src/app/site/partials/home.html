@@ -43,9 +43,9 @@
                 <div class="form-group-input" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.email.$invalid || badPostSubmitResponse)}">
                     <!-- Error messages -->
                     <div class="form-group-input__message" ng-class="{'has-error': signUpForm.email.$invalid && signUpForm.$submitted}" ng-messages="signUpForm.email.$error" ng-if="signUpForm.$submitted">
-                        <div ng-message="required">Your email address is mandatory.</div>
-                        <div ng-message="validEmail">This email address is not valid.</div>
-                        <div ng-message="uniqueEmail">This email address is already used.</div>
+                        <div ng-message="required">Please add your email address.</div>
+                        <div ng-message="validEmail">Missed a letter? It looks like an invalid email address.</div>
+                        <div ng-message="uniqueEmail">This email address is already used. <a href="javascript:void(0)" account-modal-toggle="forgotPassword">Forgot your password?</a></div>
                     </div>
                     <input class="form-group-input__input" type="email" name="email" placeholder="Email" ng-model="signUpData.email" required valid-email unique-email />
                 </div>
@@ -55,7 +55,7 @@
                     <!-- Error messages -->
                     <div class="form-group-input__message" ng-class="{'has-error': signUpForm.$submitted && signUpForm.password.$invalid}" ng-messages="signUpForm.password.$error" ng-if="signUpForm.$submitted">
                         <div ng-message="required">Please choose a password.</div>
-                        <div ng-message="strongPassword">Your password needs to be at least 7 characters long.</div>
+                        <div ng-message="strongPassword">Please choose a password with at least 7 characters.</div>
                     </div>
                     <input class="form-group-input__input" type="password" name="password" placeholder="Password" ng-model="signUpData.password" required strong-password />
                 </div>
