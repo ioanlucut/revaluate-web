@@ -12,10 +12,11 @@ $add-expense-form-border-color: $lightest-gray;
   .expense__form__category__input,
   .expense__form__details__input,
   .expense__form__date__input {
+    @include border-radius(0);
     border-top: solid 2px $add-expense-form-border-color;
     border-bottom: solid 2px $add-expense-form-border-color;
-    border-left: solid 2px transparent;
-    border-right: solid 2px transparent;
+    border-left: solid 0 transparent;
+    border-right: solid 0 transparent;
   }
 }
 
@@ -30,13 +31,13 @@ $add-expense-form-border-color: $lightest-gray;
   width: 130px;
 
   .expense__form__price__input {
+    @include border-left-radius($border-radius-base);
     float: left;
     height: $add-expense-form-height;
     line-height: $add-expense-form-height;
     border-left: solid 2px $add-expense-form-border-color;
     text-align: right;
     padding-right: 50px;
-    //margin-left: 0;
   }
 
   .expense__form__price__currency {
@@ -90,5 +91,6 @@ $add-expense-form-border-color: $lightest-gray;
     padding: 0 15px;
     text-align: right;
     border-right: solid 2px $add-expense-form-border-color;
+    @include border-right-radius($base-border-radius);
   }
 }
