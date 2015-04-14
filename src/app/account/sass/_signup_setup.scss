@@ -12,32 +12,27 @@
   padding: 40px;
 }
 
+.sign-up__setup__title {
+  margin: 0;
+  padding-bottom: 20px;
+  font-size: $font-size-h2;
+}
+
 .sign-up__setup__section {
   padding: 10px 0;
   text-align: left;
 }
 
-.sign-up__setup__section__currency {
-  @include clearfix();
+.sign-up__setup__section--currency {
   padding: 20px 0;
+  text-align: center;
 
-  .sign-up__setup__section__currency__label {
-    display: inline-block;
-    float: left;
-    padding: 5px;
-  }
-
-  .sign-up__setup__section__currency__input {
-    display: inline-block;
-    float: right;
+  .sign-up__setup__section--currency__input {
     width: 220px;
     height: 35px;
-    //border: solid 1px $light-gray;
     padding: 5px 10px;
   }
 }
-
-
 
 .sign-up__setup__tip {
   padding-top: 50px;

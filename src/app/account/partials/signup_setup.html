@@ -2,13 +2,14 @@
 
     <div class="sign-up__setup__box">
 
+        <h2 class="sign-up__setup__title">Awesome! Just one more step.</h2>
+
         <div class="sign-up__setup__section">
-            <strong>Great! Let's choose the currency and add a few categories to get you started.</strong>
+            Let's choose the currency and add a few categories to get you started.
         </div>
 
-        <div class="sign-up__setup__section sign-up__setup__section__currency">
-            <div class="sign-up__setup__section__currency__label">Choose your currency:</div>
-            <input class="sign-up__setup__section__currency__input" name="currency" type="text" placeholder="Start typing your currency..." required />
+        <div class="sign-up__setup__section--currency">
+            <input class="sign-up__setup__section--currency__input" name="currency" type="text" placeholder="Start typing your currency..." required />
         </div>
 
         <div class="sign-up__setup__tip">
@@ -23,7 +24,7 @@
                 <div class="category-name" ng-style="{'background':category.color}" ng-class="{ 'category-name--unselected': !category.selected }" ng-click="toggleCategorySelection($index)"> {{category.name}}</div>
             </div>
 
-            <button class="sign-up__box__categories__addbtn">+ Add category</button>
+            <button class="sign-up__box__categories__addbtn">+ Add another</button>
             <input class="sign-up__box__categories__addinput simptip-position-bottom simptip-info" data-tooltip="Just hit Enter to save" type="text"/>
         </div>
 
