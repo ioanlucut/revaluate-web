@@ -49,7 +49,7 @@
                 <!--Toggle form-->
                 <button ng-if="! showCategoryOnTheFlyInput" class="sign-up__box__categories__addbtn" ng-click="toggleContent()">+ Add another</button>
 
-                <ng-form submit-on="add-category-on-the-fly-event" ng-submit="onSubmitted()" name="categoryOnTheFlyForm" class="sign-up__box__categories__category__form" ng-show="showCategoryOnTheFlyInput">
+                <ng-form submit-on="add-category-on-the-fly-event" ng-submit="onSubmitted($event)" name="categoryOnTheFlyForm" class="sign-up__box__categories__category__form" ng-if="showCategoryOnTheFlyInput">
 
                     <div ng-class="{'has-error': categoryOnTheFlyForm.$submitted && categoryOnTheFlyForm.name.$invalid}">
 
@@ -60,7 +60,7 @@
                         </div>
 
                         <!--The on the fly input category-->
-                        <input class="sign-up__box__categories__addinput simptip-position-bottom simptip-info" type="text" placeholder="Just hit Enter to save" name="name" ng-model="categoryOnTheFly" data-tooltip="Just hit Enter to save" ng-enter="triggerSubmit()" auto-focus required valid-category-name />
+                        <input class="sign-up__box__categories__addinput simptip-position-bottom simptip-info" type="text" placeholder="Just hit Enter to save" name="name" ng-model="$parent.categoryOnTheFly" data-tooltip="Just hit Enter to save" ng-enter="triggerSubmit()" auto-focus required valid-category-name />
                     </div>
                 </ng-form>
             </div>

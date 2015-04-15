@@ -64,7 +64,9 @@ angular
         /**
          * Add a custom category to existing ones (only if name is unique)
          */
-        $scope.onSubmitted = function () {
+        $scope.onSubmitted = function ($event) {
+            $event.stopPropagation();
+
             $scope.setUpForm.categoryOnTheFlyForm.$submitted = true;
             if ( $scope.setUpForm.categoryOnTheFlyForm.$invalid ) {
                 return;
