@@ -8,28 +8,48 @@
             Let's choose the currency and add a few categories to get you started.
         </div>
 
-        <div class="sign-up__setup__section--currency">
-            <input class="sign-up__setup__section--currency__input" name="currency" type="text" placeholder="Start typing your currency..." required />
-        </div>
-
-        <div class="sign-up__setup__tip">
-            Choose
-            <strong>at least 3</strong> categories we suggested or add your own. No worries, you can change, add or remove them later as well.
-        </div>
-
-        <div class="sign-up__box__categories">
-
-            <div class="sign-up__box__categories__category" ng-repeat="category in categories track by category.name">
-                <!--Category group-->
-                <div class="category-name" ng-style="{'background':category.color}" ng-class="{ 'category-name--unselected': !category.selected }" ng-click="toggleCategorySelection($index)"> {{category.name}}</div>
-            </div>
-
-            <button class="sign-up__box__categories__addbtn">+ Add another</button>
-            <input class="sign-up__box__categories__addinput simptip-position-bottom simptip-info" data-tooltip="Just hit Enter to save" type="text"/>
-        </div>
-
         <!-- Set up form -->
         <form name="setUpForm" ng-submit="setUp()" novalidate>
+
+            <div class="sign-up__setup__section--currency">
+                <div angucomplete-alt
+                     selected-object="currency"
+                     local-data="currencies"
+                     search-fields="displayName,currencyCode"
+                     title-field="currencyCode,displayName"
+                     field-required="true"
+                     field-required-class="sign-up__setup__section--currency--invalid"
+                     id="ex1"
+                     placeholder="Start typing your currency..."
+                     maxlength="50"
+                     pause="100"
+                     minlength="1"
+                     input-class="sign-up__setup__section--currency__input"
+                     match-class="highlight">
+                </div>
+                <div ng-show="selectedCountry">
+                    You selected
+                    <span class="bold-span">{{selectedCountry.originalObject.name}}</span> which has a country code of
+                    <span class="bold-span">{{selectedCountry.originalObject.code}}</span>
+                </div>
+            </div>
+
+            <div class="sign-up__setup__tip">
+                Choose
+                <strong>at least 3</strong> categories we suggested or add your own. No worries, you can change, add or remove them later as well.
+            </div>
+
+            <div class="sign-up__box__categories">
+
+                <div class="sign-up__box__categories__category" ng-repeat="category in categories track by category.name">
+                    <!--Category group-->
+                    <div class="category-name" ng-style="{'background':category.color}" ng-class="{ 'category-name--unselected': !category.selected }" ng-click="toggleCategorySelection($index)"> {{category.name}}</div>
+                </div>
+
+                <button class="sign-up__box__categories__addbtn">+ Add another</button>
+                <input class="sign-up__box__categories__addinput simptip-position-bottom simptip-info" data-tooltip="Just hit Enter to save" type="text" />
+            </div>
+
 
             <!-- Flash messages. -->
             <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>

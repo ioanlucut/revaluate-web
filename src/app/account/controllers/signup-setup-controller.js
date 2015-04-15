@@ -1,6 +1,12 @@
 angular
     .module("account")
-    .controller("SignUpSetUpRegistrationCtrl", function ($q, $rootScope, $scope, $timeout, flash, AuthService, AUTH_EVENTS, ALERTS_CONSTANTS, SetupCategoriesProvider, SessionService, StatesHandler, Category) {
+    .controller("SignUpSetUpRegistrationCtrl", function ($q, $rootScope, $scope, $timeout, flash, AuthService, AUTH_EVENTS, ALERTS_CONSTANTS, SetupCategoriesProvider, SessionService, StatesHandler, Category, currencies) {
+
+        /**
+         * All given currencies.
+         * @type {currencies|*}
+         */
+        $scope.currencies = currencies;
 
         /**
          * Alert identifier
@@ -14,14 +20,10 @@ angular
         $scope.user = $rootScope.currentUser;
 
         /**
-         * Profile user information
+         * Selected currency
+         * @type {{}}
          */
-        $scope.setUpData = {
-            currency: {
-                "currencyCode": "EUR"
-            },
-            initiated: true
-        };
+        $scope.currency = {};
 
         /**
          * Saving timeout
@@ -49,6 +51,10 @@ angular
          * Update profile functionality.
          */
         $scope.setUp = function () {
+            if ( $scope.setUpForm.$invalid ) {
+
+                return;
+            }
 
             var selectedCategories = _.filter($scope.categories, 'selected', true);
 
@@ -65,6 +71,11 @@ angular
             if ( $scope.isSaving ) {
                 return;
             }
+
+            var toBeSaved = {
+                currency: $scope.currency.originalObject,
+                initiated: true
+            };
 
             // ---
             // Put all promises in one array.
@@ -91,7 +102,7 @@ angular
                 .all(promises)
                 .then(function () {
                     $scope.user
-                        .$save($scope.setUpData)
+                        .$save(toBeSaved)
                         .then(function (response) {
                             deferred.resolve(response);
                         })
