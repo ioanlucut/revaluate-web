@@ -5,6 +5,7 @@ angular
     .module("account", [
         "ui.router",
         "common",
+        "currencies",
         "categories"
     ])
     .config(function ($stateProvider, $httpProvider) {
@@ -137,7 +138,12 @@ angular
                 url: "/setup",
                 templateUrl: 'app/account/partials/signup_setup.html',
                 controller: "SignUpSetUpRegistrationCtrl",
-                title: "Setup - Revaluate"
+                title: "Setup - Revaluate",
+                resolve: {
+                    currencies: function (CurrencyService) {
+                        return CurrencyService.getAllCurrencies();
+                    }
+                }
             });
     })
 

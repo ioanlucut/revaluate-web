@@ -69,6 +69,9 @@ module.exports = function (grunt) {
                     "src/app/site/site.js",
                     "src/app/site/**/*.js",
 
+                    "src/app/currencies/currencies.js",
+                    "src/app/currencies/**/*.js",
+
                     "src/app/categories/category.js",
                     "src/app/categories/**/*.js",
 

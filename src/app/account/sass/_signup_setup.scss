@@ -34,6 +34,13 @@
   }
 }
 
+.ng-invalid-sign-up__setup__section--currency--invalid {
+
+  .sign-up__setup__section--currency__input {
+    border: 1px solid $brand-danger;
+  }
+}
+
 .sign-up__setup__tip {
   padding-top: 50px;
   font-size: $base-font-size;
