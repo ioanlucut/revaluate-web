@@ -55,11 +55,16 @@ angular
         };
 
         /**
+         * Trigger submit of the category on the fly nested form
+         */
+        $scope.triggerSubmit = function () {
+            $scope.$broadcast('add-category-on-the-fly-event');
+        };
+
+        /**
          * Add a custom category to existing ones (only if name is unique)
          */
-        $scope.addCustomCategory = function () {
-            $scope.$broadcast('$validate');
-
+        $scope.onSubmitted = function () {
             $scope.setUpForm.categoryOnTheFlyForm.$submitted = true;
             if ( $scope.setUpForm.categoryOnTheFlyForm.$invalid ) {
                 return;
@@ -84,7 +89,7 @@ angular
                 // ---
                 $scope.showCategoryOnTheFlyInput = false;
                 $scope.categoryOnTheFly = "";
-                $scope.setUpForm.categoryOnTheFlyForm.$setPristine()
+                $scope.setUpForm.categoryOnTheFlyForm.$setPristine();
             }
         };
 
