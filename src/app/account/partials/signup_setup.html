@@ -46,10 +46,24 @@
                     <div class="category-name" ng-style="{'background':category.color}" ng-class="{ 'category-name--unselected': !category.selected }" ng-click="toggleCategorySelection($index)"> {{category.name}}</div>
                 </div>
 
-                <button class="sign-up__box__categories__addbtn">+ Add another</button>
-                <input class="sign-up__box__categories__addinput simptip-position-bottom simptip-info" data-tooltip="Just hit Enter to save" type="text" />
-            </div>
+                <!--Toggle form-->
+                <button ng-if="! showCategoryOnTheFlyInput" class="sign-up__box__categories__addbtn" ng-click="toggleContent()">+ Add another</button>
 
+                <ng-form name="categoryOnTheFlyForm" class="sign-up__box__categories__category__form" ng-show="showCategoryOnTheFlyInput">
+
+                    <div ng-class="{'has-error': categoryOnTheFlyForm.name.$invalid}">
+
+                        <!-- Error messages -->
+                        <div class="form-group-input__message" ng-class="{'has-error': categoryOnTheFlyForm.name.$invalid}" ng-messages="categoryOnTheFlyForm.name.$error">
+                            <div ng-message="required">Name is mandatory.</div>
+                            <div ng-message="validCategoryName">Name is not valid.</div>
+                        </div>
+
+                        <!--The on the fly input category-->
+                        <input class="sign-up__box__categories__addinput simptip-position-bottom simptip-info" type="text" placeholder="Just hit Enter to save" name="name" ng-model="categoryOnTheFly" data-tooltip="Just hit Enter to save" ng-enter="addCustomCategory()" auto-focus required valid-category-name />
+                    </div>
+                </ng-form>
+            </div>
 
             <!-- Flash messages. -->
             <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>

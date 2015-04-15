@@ -30,8 +30,8 @@ angular
                 && User.$new().loadFromSession().isInitiated() ) {
 
                 // Prevent transition
-                event.preventDefault();
-                StatesHandler.goToExpenses();
+               /* event.preventDefault();
+                StatesHandler.goToExpenses();*/
             }
         };
 
