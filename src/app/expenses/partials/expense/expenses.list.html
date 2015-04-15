@@ -56,4 +56,15 @@
         Load more
     </div>
 
+    <div class="dropdown" dropdown is-open="status.isopen">
+        <button class="dropdown-toggle" dropdown-toggle data-toggle="dropdown" role="button" aria-expanded="false">
+            Generic dropdown
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li><a class="nav-link" href="javascript:void(0)" ui-sref="settings">Preferences</a></li>
+            <li><a class="nav-link" href="javascript:void(0)" ui-sref="account:logout">Logout</a></li>
+        </ul>
+    </div>
+
 </div>
