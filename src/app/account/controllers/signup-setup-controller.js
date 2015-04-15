@@ -1,6 +1,6 @@
 angular
     .module("account")
-    .controller("SignUpSetUpRegistrationCtrl", function ($q, $rootScope, $scope, $timeout, flash, AuthService, AUTH_EVENTS, ALERTS_CONSTANTS, SetupCategoriesProvider, SessionService, StatesHandler, Category, currencies) {
+    .controller("SignUpSetUpRegistrationCtrl", function ($q, $rootScope, $scope, $timeout, flash, AuthService, AUTH_EVENTS, ALERTS_CONSTANTS, SetupCategoriesProvider, CategoryColorService, SessionService, StatesHandler, Category, currencies) {
 
         /**
          * All given currencies.
@@ -34,6 +34,59 @@ angular
          * Define categories
          */
         $scope.categories = SetupCategoriesProvider.getCategories();
+
+        /**
+         * Category to be added on the fly
+         * @type {string}
+         */
+        $scope.categoryOnTheFly = "";
+
+        /**
+         * Show block content
+         * @type {boolean}
+         */
+        $scope.showCategoryOnTheFlyInput = false;
+
+        /**
+         * Toggle content
+         */
+        $scope.toggleContent = function () {
+            $scope.showCategoryOnTheFlyInput = !$scope.showCategoryOnTheFlyInput;
+        };
+
+        /**
+         * Add a custom category to existing ones (only if name is unique)
+         */
+        $scope.addCustomCategory = function () {
+            $scope.$broadcast('$validate');
+
+            $scope.setUpForm.categoryOnTheFlyForm.$submitted = true;
+            if ( $scope.setUpForm.categoryOnTheFlyForm.$invalid ) {
+                return;
+            }
+
+            var result = _.some($scope.categories, function (category) {
+                return category.name === $scope.categoryOnTheFly;
+            });
+
+            if ( result ) {
+                flash.to($scope.alertIdentifierId).success = "Category is not unique";
+            }
+            else {
+                $scope.categories.push({
+                    name: $scope.categoryOnTheFly,
+                    color: CategoryColorService.generateColor(),
+                    selected: true
+                });
+
+                // ---
+                // Reinitialize the value and form.
+                // ---
+                $scope.showCategoryOnTheFlyInput = false;
+                $scope.categoryOnTheFly = "";
+                $scope.setUpForm.categoryOnTheFlyForm.$setPristine()
+            }
+        };
 
         /**
          * Toggle category selection

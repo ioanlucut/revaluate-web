@@ -65,6 +65,10 @@
     font-size: $base-font-size-xs;
   }
 
+  .sign-up__box__categories__category__form {
+    position: relative;
+  }
+
   .category-name {
     @include border-radius($base-border-radius);
     @include user-select(none);
