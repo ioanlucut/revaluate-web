@@ -10,6 +10,7 @@
   @include border-radius($base-border-radius);
   border: solid 1px $lightest-gray;
   padding: 40px;
+  font-weight: $font-weight-light;
 }
 
 .sign-up__setup__title {
@@ -19,32 +20,40 @@
 }
 
 .sign-up__setup__section {
-  padding: 10px 0;
-  text-align: left;
+
 }
 
 .sign-up__setup__section--currency {
-  padding: 20px 0;
-  text-align: center;
+  padding-top: 10px;
 
   .sign-up__setup__section--currency__input {
-    width: 220px;
+    display: inline-block;
+    width: $setup-currency-input-width;
     height: 35px;
     padding: 5px 10px;
+    border: solid 2px $lightest-gray;
+    @include border-radius($border-radius-base);
+
+    &:hover {
+      border-color: $light-gray;
+    }
+
+    &:focus {
+      border-color: $brand-primary;
+      outline: none;
+    }
   }
 }
 
 .ng-invalid-sign-up__setup__section--currency--invalid {
 
   .sign-up__setup__section--currency__input {
-    border: 1px solid $brand-danger;
+
   }
 }
 
 .sign-up__setup__tip {
-  padding-top: 50px;
-  font-size: $base-font-size;
-  text-align: left;
+  padding-top: 40px;
 }
 
 .sign-up__setup__description {
@@ -104,6 +113,11 @@
     font-size: $base-font-size-xs;
     text-align: center;
     text-transform: uppercase;
-    position: relative;
   }
+}
+
+.sign-up__setup__btn {
+  @include btn-big($brand-primary);
+  margin-top: 25px;
+  font-size: $base-font-size;
 }
