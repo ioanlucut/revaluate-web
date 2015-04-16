@@ -1,11 +1,57 @@
 angular
     .module("categories")
     .service('CategoryColorService', function () {
-        var hexPool = ["#fbd039", "#4dc5d9", "#f26f26", "#00ac4d", "#29aae1", "#ff4d00", "#c0392b", "#f39c12", "#2980b9", "#f39c12", "#16a085", "#370c33"];
+        var hexPool = [
+            {
+                color: "#C3272B"
+            },
+            {
+                color: "#DB5A6B"
+            },
+            {
+                color: "#875F9A"
+            },
+            {
+                color: "#22A7F0"
+            },
+            {
+                color: "#317589"
+            },
+            {
+                color: "#1F4788"
+            },
+            {
+                color: "#006442"
+            },
+            {
+                color: "#26A65B"
+            },
+            {
+                color: "#36D7B7"
+            },
+            {
+                color: "#FFB61E"
+            },
+            {
+                color: "#CA6924"
+            },
+            {
+                color: "#6C7A89"
+            },
+            {
+                color: "#121212"
+            },
+            {
+                color: "#BDC3C7"
+            }];
 
         return {
             randomizedColor: function () {
                 return hexPool[Math.floor(Math.random() * hexPool.length)];
+            },
+
+            getColorsPool: function () {
+                return hexPool;
             },
 
             generateColor: function () {
