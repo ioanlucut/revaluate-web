@@ -4,39 +4,33 @@
 
         <h2 class="sign-up__setup__title">Awesome! Just one more step.</h2>
 
-        <div class="sign-up__setup__section">
-            Let's choose the currency and add a few categories to get you started.
-        </div>
-
         <!-- Set up form -->
         <form name="setUpForm" ng-submit="setUp()" novalidate>
 
-            <div class="sign-up__setup__section--currency">
-                <div angucomplete-alt
-                     selected-object="currency"
-                     local-data="currencies"
-                     search-fields="displayName,currencyCode"
-                     title-field="currencyCode,displayName"
-                     field-required="true"
-                     field-required-class="sign-up__setup__section--currency--invalid"
-                     id="ex1"
-                     placeholder="Start typing your currency..."
-                     maxlength="50"
-                     pause="100"
-                     minlength="1"
-                     input-class="sign-up__setup__section--currency__input"
-                     match-class="highlight">
-                </div>
-                <div ng-show="selectedCountry">
-                    You selected
-                    <span class="bold-span">{{selectedCountry.originalObject.name}}</span> which has a country code of
-                    <span class="bold-span">{{selectedCountry.originalObject.code}}</span>
+            <div class="sign-up__setup__section">
+                Please choose your currency:
+                <div class="sign-up__setup__section--currency">
+                    <div angucomplete-alt
+                         selected-object="currency"
+                         local-data="currencies"
+                         search-fields="displayName,currencyCode"
+                         title-field="currencyCode,displayName"
+                         field-required="true"
+                         field-required-class="sign-up__setup__section--currency--invalid"
+                         id="ex1"
+                         placeholder="Start typing your currency..."
+                         maxlength="50"
+                         pause="1"
+                         minlength="1"
+                         input-class="sign-up__setup__section--currency__input"
+                         match-class="highlight">
+                    </div>
                 </div>
             </div>
 
             <div class="sign-up__setup__tip">
-                Choose
-                <strong>at least 3</strong> categories we suggested or add your own. No worries, you can change, add or remove them later as well.
+                Please choose
+                <strong>at least 3</strong> categories we suggested or add your own. You can change them later as well.
             </div>
 
             <div class="sign-up__box__categories">
@@ -49,7 +43,10 @@
                 <!--Toggle form-->
                 <button ng-if="! showCategoryOnTheFlyInput" class="sign-up__box__categories__addbtn" ng-click="toggleContent()">+ Add another</button>
 
-                <ng-form submit-on="add-category-on-the-fly-event" ng-submit="onSubmitted($event)" name="categoryOnTheFlyForm" class="sign-up__box__categories__category__form" ng-if="showCategoryOnTheFlyInput">
+                <ng-form class="sign-up__box__categories__category__form" name="categoryOnTheFlyForm"
+                         submit-on="add-category-on-the-fly-event"
+                         ng-submit="onSubmitted($event)"
+                         ng-if="showCategoryOnTheFlyInput">
 
                     <div ng-class="{'has-error': categoryOnTheFlyForm.$submitted && categoryOnTheFlyForm.name.$invalid}">
 
@@ -60,7 +57,11 @@
                         </div>
 
                         <!--The on the fly input category-->
-                        <input class="sign-up__box__categories__addinput simptip-position-bottom simptip-info" type="text" placeholder="Just hit Enter to save" name="name" ng-model="$parent.categoryOnTheFly" data-tooltip="Just hit Enter to save" ng-enter="triggerSubmit()" auto-focus required valid-category-name />
+                        <input class="sign-up__box__categories__addinput" type="text" name="name"
+                               ng-model="$parent.categoryOnTheFly"
+                               ng-enter="triggerSubmit()"
+                               auto-focus required valid-category-name />
+
                     </div>
                 </ng-form>
             </div>

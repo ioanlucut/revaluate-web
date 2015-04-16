@@ -1,0 +1,22 @@
+.angucomplete-holder {
+  position: relative;
+}
+
+.angucomplete-dropdown {
+  position: absolute;
+  top: 40px;
+  @include calc(left, "50% - (#{$setup-currency-input-width}/2)");
+  width: $setup-currency-input-width;
+  text-align: left;
+  font-weight: $font-weight-light;
+}
+
+.angucomplete-selected-row {
+  background-color: $lightest-gray;
+  color: $black;
+}
+
+.highlight {
+  //color: $brand-danger;
+  font-weight: $font-weight-bold;
+}
