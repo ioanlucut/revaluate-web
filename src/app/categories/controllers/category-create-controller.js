@@ -1,6 +1,6 @@
 angular
     .module("categories")
-    .controller("CategoryCreateCtrl", function ($scope, $rootScope, Category, $timeout, CATEGORY_EVENTS, MIXPANEL_EVENTS) {
+    .controller("CategoryCreateCtrl", function ($scope, $rootScope, CategoryColorService, Category, $timeout, CATEGORY_EVENTS, MIXPANEL_EVENTS) {
 
         /**
          * Saving timeout
@@ -11,7 +11,7 @@ angular
          * Initialize or reset the state
          */
         $scope.initOrReset = function (categoryForm) {
-            $scope.category = Category.build();
+            $scope.category = Category.build({ color: CategoryColorService.randomizedColor().color });
 
             if ( categoryForm ) {
                 categoryForm.$setPristine();
