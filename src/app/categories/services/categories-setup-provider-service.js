@@ -1,6 +1,6 @@
 angular
     .module("categories")
-    .service("SetupCategoriesProvider", function () {
+    .service("CategoriesSetupProvider", function () {
 
         this.categories = [
             {

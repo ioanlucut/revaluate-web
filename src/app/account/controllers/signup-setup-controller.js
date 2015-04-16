@@ -1,6 +1,6 @@
 angular
     .module("account")
-    .controller("SignUpSetUpRegistrationCtrl", function ($q, $rootScope, $scope, $timeout, flash, AuthService, AUTH_EVENTS, ALERTS_CONSTANTS, SetupCategoriesProvider, CategoryColorService, SessionService, StatesHandler, Category, currencies) {
+    .controller("SignUpSetUpRegistrationCtrl", function ($q, $rootScope, $scope, $timeout, flash, AuthService, AUTH_EVENTS, ALERTS_CONSTANTS, CategoriesSetupProvider, CategoryColorService, SessionService, StatesHandler, Category, currencies) {
 
         /**
          * All given currencies.
@@ -33,7 +33,7 @@ angular
         /**
          * Define categories
          */
-        $scope.categories = SetupCategoriesProvider.getCategories();
+        $scope.categories = CategoriesSetupProvider.getCategories();
 
         /**
          * Category to be added on the fly
@@ -82,7 +82,7 @@ angular
             else {
                 $scope.categories.push({
                     name: $scope.categoryOnTheFly,
-                    color: CategoryColorService.generateColor(),
+                    color: CategoryColorService.randomizedColor().color,
                     selected: true
                 });
 
@@ -107,33 +107,29 @@ angular
          */
         var minimumCategoriesToSelect = 3;
 
+        function getSelectedCategories() {
+            return _.filter($scope.categories, 'selected', true);
+        }
+
+        /**
+         * Is enough selected categories
+         */
+        $scope.isEnoughSelectedCategories = function () {
+            return getSelectedCategories().length >= minimumCategoriesToSelect;
+        };
+
         /**
          * Update profile functionality.
          */
         $scope.setUp = function () {
-            if ( $scope.setUpForm.$invalid ) {
+            if ( $scope.setUpForm.$invalid || $scope.isSaving ) {
 
                 return;
             }
 
-            var selectedCategories = _.filter($scope.categories, 'selected', true);
-
-            // ---
-            // If categories are not selected, do not update the user.
-            // ---
-            if ( selectedCategories.length < minimumCategoriesToSelect ) {
-
-                flash.to($scope.alertIdentifierId).error = 'You need to select at least three categories.';
-
-                return;
-            }
-
-            if ( $scope.isSaving ) {
-                return;
-            }
-
+            var selectedCategories = angular.copy(getSelectedCategories());
             var toBeSaved = {
-                currency: $scope.currency.originalObject,
+                currency: angular.copy($scope.currency.originalObject),
                 initiated: true
             };
 
