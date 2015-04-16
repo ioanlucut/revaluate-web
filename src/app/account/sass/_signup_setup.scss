@@ -75,7 +75,8 @@
   }
 
   .sign-up__box__categories__category__form {
-    position: relative;
+    @include span-columns(4);
+    @include omega(3n);
   }
 
   .category-name {
@@ -107,8 +108,6 @@
   }
 
   .sign-up__box__categories__addinput {
-    @include span-columns(4);
-    @include omega(3n);
     height: 30px;
     font-size: $base-font-size-xs;
     text-align: center;
