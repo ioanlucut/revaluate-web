@@ -1,21 +1,22 @@
 @import "variables";
 
 @mixin flash($color) {
-  background-color: $color;
-  color: darken($color, 60%);
+  background-color: lighten($color, 32%);
+  color: $color;
   display: block;
-  font-weight: 600;
   margin-bottom: $base-spacing / 2;
   padding: $base-spacing / 2;
   text-align: center;
+  border: solid 1px $color;
+  @include border-radius($base-border-radius);
 
   a {
-    color: darken($color, 70%);
+    color: $color;
     text-decoration: underline;
 
     &:focus,
     &:hover {
-      color: darken($color, 90%);
+      color: darken($color, 10%);
     }
   }
 }
@@ -34,7 +35,7 @@
 
 .alert--center {
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
   margin: 10px auto 20px;
   text-align: center;
   display: none;
