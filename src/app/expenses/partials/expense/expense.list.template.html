@@ -9,16 +9,14 @@
         You have no expenses. Don't be shy, go ahead and create one! :)
     </div>
 
-    <div class="expenses__list expense-groups"
-         ng-repeat="expensesGrouped in expenses | groupExpenses:reverseOrder | groupLimit:expenses:expensesLimit track by expensesGrouped.name">
+    <div class="expenses__list">
 
         <!--Expense group-->
         <div class="expense-group"> {{expensesGrouped.name}}</div>
 
         <!--Expense list-->
         <div class="expenses__list__entry"
-             ng-click="openUpdateExpenseModalService(expense, $index)"
-             ng-repeat="expense in expensesGrouped.values | orderObjectBy : 'model.spentDate' : reverseOrder | filter:{model:{text:searchByText}} as filteredExpenses track by expense.model.id">
+             ng-repeat="expense in expenses | orderObjectBy : 'model.spentDate' : reverseOrder | limitTo: expensesLimit | filter:{model:{text:searchByText}} as filteredExpenses track by expense.model.id">
 
             <div class="expenses__list__entry__price">
                 {{expense.model.value}}

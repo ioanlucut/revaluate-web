@@ -65,6 +65,7 @@ $add-expense-form-border-color: $lightest-gray;
 
   .expense__form__category__input {
     height: $add-expense-form-height;
+    width: 100%;
   }
 }
 

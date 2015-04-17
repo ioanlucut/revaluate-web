@@ -17,7 +17,6 @@ angular
             TransformerUtils.copyKeysFromTo(expense.model, expenseDto, skipKeys);
             if ( expenseDto.spentDate ) {
                 expenseDto.spentDate = moment(expenseDto.spentDate).format("YYYY-MM-DDTHH:mm:ss.hhh");
-                console.log(expenseDto.spentDate);
             }
 
             return expenseDto;
