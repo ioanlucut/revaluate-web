@@ -1,6 +1,6 @@
 angular
     .module("expenses")
-    .controller("ExpenseDeleteModalCtrl", function ($scope, $rootScope, $stateParams, $window, ExpenseDeleteModalService, $timeout, StatesHandler, EXPENSE_EVENTS, expense, expenseIndex, MIXPANEL_EVENTS) {
+    .controller("ExpenseDeleteModalCtrl", function ($scope, $rootScope, $stateParams, $window, $timeout, StatesHandler, EXPENSE_EVENTS, expense, expenseIndex, MIXPANEL_EVENTS) {
 
         /**
          * Expense to be created (injected with few default values)
@@ -18,15 +18,6 @@ angular
          * @type {boolean}
          */
         $scope.isDeleting = false;
-
-        /**
-         * Dismiss the modal.
-         */
-        $scope.dismiss = function () {
-            ExpenseDeleteModalService.modalInstance.dismiss("cancel");
-
-            $scope.isModalOpened = false;
-        };
 
         /**
          * Remove expense - owner action;
@@ -48,7 +39,6 @@ angular
 
                         // Wait 2 seconds, and close the modal
                         $timeout(function () {
-                            ExpenseDeleteModalService.modalInstance.close();
                             $rootScope.$broadcast(EXPENSE_EVENTS.isDeleted, {
                                 expense: $scope.expense,
                                 expenseIndex: expenseIndex,
@@ -83,7 +73,6 @@ angular
                         mixpanel.track(MIXPANEL_EVENTS.expenseUnSubscribed);
 
                         $timeout(function () {
-                            ExpenseDeleteModalService.modalInstance.close();
                             $rootScope.$broadcast(EXPENSE_EVENTS.isUnSubscribed, {
                                 expense: $scope.expense,
                                 expenseIndex: expenseIndex,

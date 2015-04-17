@@ -21,6 +21,15 @@ angular
             .state("expenses.regular", {
                 url: "",
                 views: {
+                    'add': {
+                        templateUrl: "app/expenses/partials/expense/expenses.add.html",
+                        controller: "ExpenseCreateController",
+                        resolve: {
+                            categories: function (CategoryService) {
+                                return CategoryService.getAllCategories();
+                            }
+                        }
+                    },
 
                     'list': {
                         templateUrl: "app/expenses/partials/expense/expenses.list.html",
@@ -28,9 +37,6 @@ angular
                         resolve: {
                             expenses: function (ExpenseService) {
                                 return ExpenseService.getAllExpenses();
-                            },
-                            categories: function (CategoryService) {
-                                return CategoryService.getAllCategories();
                             }
                         }
                     }
@@ -40,7 +46,7 @@ angular
 
             // Review case
             .state("expenses.update", {
-                url: "/{expenseId}/update",
+                url: "/{id}/update",
                 views: {
 
                     'action': {
@@ -50,7 +56,7 @@ angular
                                 var deferred = $q.defer();
 
                                 ExpenseService
-                                    .getDetails($stateParams.expenseId)
+                                    .getDetails($stateParams.id)
                                     .then(function (response) {
                                         deferred.resolve(response);
 
@@ -72,9 +78,8 @@ angular
                         templateUrl: "app/expenses/partials/expense/expenses.list.html",
                         controller: "ExpenseListCtrl",
                         resolve: {
-                            pastAndUpcomingExpenses: function (ExpenseService) {
-                                return ExpenseService
-                                    .getAllExpensesGrouped();
+                            expenses: function (ExpenseService) {
+                                return ExpenseService.getAllExpenses();
                             }
                         }
                     }
@@ -91,9 +96,8 @@ angular
                         templateUrl: "app/expenses/partials/expense/expenses.list.html",
                         controller: "ExpenseListCtrl",
                         resolve: {
-                            pastAndUpcomingExpenses: function (ExpenseService) {
-                                return ExpenseService
-                                    .getAllExpensesGrouped();
+                            expenses: function (ExpenseService) {
+                                return ExpenseService.getAllExpenses();
                             }
                         }
                     }

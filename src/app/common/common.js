@@ -5,6 +5,7 @@ angular
     .module("common", [
         "a8m.filter-watcher",
         "ui.router",
+        "ngSanitize",
         "ui.bootstrap.transition",
         "ui.bootstrap.datepicker",
         "ui.bootstrap.dateparser",

@@ -1,9 +1,20 @@
 <div class="page-wrapper">
 
-    <div class="view-container__header" header></div>
+    <div header class="view-container__header"></div>
 
-    <div class="view-container__content" ui-view="list"></div>
+    <div class="view-container__content">
 
-    <div class="view-container__footer" footer></div>
+        <!-- Flash messages. -->
+        <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
+        <div class="view-container__content">
+            <div ui-view="add"></div>
+
+            <div ui-view="list"></div>
+        </div>
+
+    </div>
+
+    <div footer class="view-container__footer"></div>
 
 </div>
