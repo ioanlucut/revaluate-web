@@ -21,12 +21,12 @@ angular
          * Initialize or reset the state
          */
         $scope.initOrReset = function (expenseForm) {
+
             /**
              * Keep master expense.
              * @type {XMLList|XML|*}
              */
             $scope.masterExpense = Expense.build({
-                category: categories[0].model,
                 spentDate: moment().toDate()
             });
 
@@ -91,8 +91,7 @@ angular
                 $scope.isSaving = true;
 
                 // Update the  chosen category
-                $scope.masterExpense.category = angular.copy($scope.category.originalObject);
-
+                $scope.expense.model.category = angular.copy($scope.category.originalObject.model);
                 // Ok, update master expense.
                 angular.copy($scope.expense, $scope.masterExpense);
 
@@ -104,12 +103,13 @@ angular
                          */
                         mixpanel.track($scope.isNew ? MIXPANEL_EVENTS.expenseCreated : MIXPANEL_EVENTS.expenseUpdated);
 
+                        var expenseToBePushed = angular.copy($scope.masterExpense);
                         if ( $scope.isNew ) {
                             $timeout(function () {
                                 $scope.isSaving = false;
 
                                 $rootScope.$broadcast(EXPENSE_EVENTS.isCreated, {
-                                    expense: $scope.masterExpense
+                                    expense: expenseToBePushed
                                 });
                             }, TIMEOUT_DURATION);
                         }
@@ -119,7 +119,7 @@ angular
 
                                 // Close the modal
                                 $rootScope.$broadcast(EXPENSE_EVENTS.isUpdated, {
-                                    expense: $scope.masterExpense
+                                    expense: expenseToBePushed
                                 });
                             }, TIMEOUT_DURATION);
                         }
