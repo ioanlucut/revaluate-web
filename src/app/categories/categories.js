@@ -1,7 +1,6 @@
 angular
     .module("categories", [
-        "common",
-        "ui.bootstrap.popover"
+        "common"
     ])
     .config(["$stateProvider", function ($stateProvider) {
 
