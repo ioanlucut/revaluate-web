@@ -31,13 +31,11 @@ angular
          * Existing expenses.
          */
         $scope.expenses = expenses;
-        ExpenseMatchingGroupService.populateExpensesWithMatchingGroups($scope.expenses, false);
 
         /**
          * On expense created, display a success message, and add expense to the list.
          */
         $scope.$on(EXPENSE_EVENTS.isCreated, function (event, args) {
-            ExpenseMatchingGroupService.populateExpensesWithMatchingGroups(args.expense, false);
             $scope.expenses.push(args.expense);
 
             flash.to($scope.alertIdentifierId).success = "Expense successfully saved!";
