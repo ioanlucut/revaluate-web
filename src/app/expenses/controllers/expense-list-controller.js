@@ -33,7 +33,6 @@ angular
 
         // gives another movie array on change
         $scope.updateCategories = function (typed) {
-
         };
 
         /**
@@ -41,4 +40,11 @@ angular
          * @type {string}
          */
         $scope.searchByText = "";
+
+        $scope.open = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            $scope.opened = true;
+        };
     });

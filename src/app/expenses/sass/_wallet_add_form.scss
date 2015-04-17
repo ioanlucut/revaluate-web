@@ -31,6 +31,7 @@ $add-expense-form-border-color: $lightest-gray;
   float: left;
   padding: 0;
   width: 130px;
+  position: relative;
 
   .expense__form__price__input {
     @include border-left-radius($border-radius-base);
@@ -53,7 +54,6 @@ $add-expense-form-border-color: $lightest-gray;
   }
 }
 
-
 // Category input styling
 // ----------------------
 
@@ -61,24 +61,24 @@ $add-expense-form-border-color: $lightest-gray;
   float: left;
   padding: 0;
   width: 200px;
+  position: relative;
 
   .expense__form__category__input {
     height: $add-expense-form-height;
   }
 }
 
-
 // Details input styling
 // -------------------------
 .expense__form__details {
   float: left;
   width: 280px;
+  position: relative;
 
   .expense__form__details__input {
     height: $add-expense-form-height;
   }
 }
-
 
 // Date input styling
 // -------------------------

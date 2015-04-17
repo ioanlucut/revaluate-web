@@ -22,11 +22,6 @@ angular
                 url: "",
                 views: {
 
-                    'action': {
-                        templateUrl: "app/expenses/partials/expense/expenses.action.html",
-                        controller: "ExpenseModalCtrl"
-                    },
-
                     'list': {
                         templateUrl: "app/expenses/partials/expense/expenses.list.html",
                         controller: "ExpenseListCtrl",
@@ -49,7 +44,6 @@ angular
                 views: {
 
                     'action': {
-                        templateUrl: "app/expenses/partials/expense/expenses.action.html",
                         controller: "ExpenseAutoEditCtrl",
                         resolve: {
                             expenseToReview: function ($stateParams, $q, $state, ExpenseService) {
@@ -92,11 +86,6 @@ angular
             .state("expenses.new", {
                 url: "/new",
                 views: {
-
-                    'action': {
-                        templateUrl: "app/expenses/partials/expense/expenses.action.html",
-                        controller: "ExpenseAutoOpenCtrl"
-                    },
 
                     'list': {
                         templateUrl: "app/expenses/partials/expense/expenses.list.html",

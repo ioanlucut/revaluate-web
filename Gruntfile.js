@@ -30,13 +30,13 @@ module.exports = function (grunt) {
                     "bower_components/perfect-scrollbar/src/jquery.mousewheel.js",
 
                     /* These are the angular ui used bootstrap */
-                    "bower_components/angular-ui-bootstrap/src/tooltip/tooltip.js",
-                    "bower_components/angular-ui-bootstrap/src/popover/popover.js",
                     "bower_components/angular-ui-bootstrap/src/bindHtml/bindHtml.js",
                     "bower_components/angular-ui-bootstrap/src/position/position.js",
                     "bower_components/angular-ui-bootstrap/src/transition/transition.js",
                     "bower_components/angular-ui-bootstrap/src/bindHtml/bindHtml.js",
                     "bower_components/angular-ui-bootstrap/src/dropdown/dropdown.js",
+                    "bower_components/angular-ui-bootstrap/src/dateparser/dateparser.js",
+                    "bower_components/angular-ui-bootstrap/src/datepicker/datepicker.js",
                     "bower_components/angular-ui-bootstrap/src/modal/modal.js",
                     "bower_components/angular-ui-bootstrap/src/tabs/tabs.js",
                     /* End angular ui used bootstrap */
@@ -45,10 +45,6 @@ module.exports = function (grunt) {
                     "bower_components/ladda/js/spin.js",
                     "bower_components/ladda/js/ladda.js",
                     "bower_components/angular-ladda/src/angular-ladda.js",
-                    "bower_components/chosen/chosen.jquery.js",
-                    "bower_components/angular-chosen-localytics/chosen.js",
-                    "bower_components/bootstrap/js/collapse.js",
-                    "bower_components/bootstrap/js/dropdown.js",
                     "bower_components/angular-filter/dist/angular-filter.js"
                 ],
                 dest: "build/js/frameworks.js"
@@ -231,6 +227,8 @@ module.exports = function (grunt) {
                     // For the Angular UI Bootstrap templates, rewrite the module path
                     if ( modulePath.indexOf("app/common/partials/ui-bootstrap") > -1 ) {
                         return modulePath.replace("app/common/partials/ui-bootstrap", "template");
+                    } else if ( modulePath.indexOf("../bower_components/angular-ui-bootstrap/") > -1 ) {
+                        return modulePath.replace("../bower_components/angular-ui-bootstrap/", "");
                     }
 
                     return modulePath;
@@ -245,7 +243,8 @@ module.exports = function (grunt) {
                     "src/app/expenses/partials/**/*.html",
                     "src/app/account/partials/**/*.html",
                     "src/app/feedback/**/*.html",
-                    "src/app/common/**/*.html"
+                    "src/app/common/**/*.html",
+                    "bower_components/angular-ui-bootstrap/template/**/*.html"
                 ],
                 dest: "build/partials/partials.js"
             }

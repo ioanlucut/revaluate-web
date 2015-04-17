@@ -7,9 +7,9 @@ angular
         "ui.router",
         "ui.bootstrap.transition",
         "ui.bootstrap.datepicker",
+        "ui.bootstrap.dateparser",
         "ui.bootstrap.dropdown",
-        "ui.bootstrap.modal",
-        "localytics.directives"
+        "ui.bootstrap.modal"
     ])
     .config(function ($httpProvider) {
         $httpProvider.interceptors.push("JWTInterceptor");
