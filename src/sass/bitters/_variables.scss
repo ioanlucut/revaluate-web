@@ -43,8 +43,8 @@ $brand-primary: #4A90E2;
 $brand-default: #E7E7E7;
 $brand-default-dark: #D6D6D6;
 
-$brand-success: #48CFAD;
-$brand-success-dark: #37BC9B;
+$brand-success: #A0D468;//#48CFAD;
+$brand-success-dark: #8CC152;//#37BC9B;
 
 $brand-info: #4FC1E9;
 $brand-info-dark: #3BAFDA;
@@ -57,10 +57,10 @@ $brand-warning-dark: #F6BB42;
 
 
 // Alert
-$alert-color: #fff6bf !default;
-$error-color: #fbe3e4 !default;
-$notice-color: #e5edf8 !default;
-$success-color: #e6efc2 !default;
+$alert-color: $brand-warning;//#fff6bf !default;
+$error-color: $brand-danger;//#fbe3e4 !default;
+$notice-color: $brand-info;//#e5edf8 !default;
+$success-color: $brand-success;//#b9df90;//#e6efc2 !default;
 
 // Close
 // ------------------------
