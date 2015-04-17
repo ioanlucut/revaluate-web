@@ -9,10 +9,8 @@ angular
             link: function (scope, el, attr, ngModel) {
 
                 function isValidDate(date) {
-                    if ( date === "" || _.isUndefined(date) ) {
-                        return false;
-                    }
-                    return moment().diff(date) <= 0;
+                    return !(date === "" || _.isUndefined(date));
+
                 }
 
                 ngModel.$validators.validDate = function (date) {

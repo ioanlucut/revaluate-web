@@ -13,23 +13,44 @@ angular
         $scope.categories = categories;
 
         /**
-         * Keep master expense.
-         * @type {XMLList|XML|*}
+         * Saving timeout
          */
-        $scope.masterExpense = Expense.build({
-            category: categories[0].model,
-            spentDate: moment().year(2000)
-        });
+        const TIMEOUT_DURATION = 800;
 
         /**
-         * Work with a copy of master expense
+         * Initialize or reset the state
          */
-        $scope.expense = angular.copy($scope.masterExpense);
+        $scope.initOrReset = function (expenseForm) {
+            /**
+             * Keep master expense.
+             * @type {XMLList|XML|*}
+             */
+            $scope.masterExpense = Expense.build({
+                category: categories[0].model,
+                spentDate: moment().toDate()
+            });
+
+            /**
+             * Work with a copy of master expense
+             */
+            $scope.expense = angular.copy($scope.masterExpense);
+
+            /**
+             * Flag which says whether expense is new or not.
+             */
+            $scope.isNew = $scope.expense.isNew();
+
+            if ( expenseForm ) {
+                expenseForm.$setPristine();
+            }
+
+            $scope.badPostSubmitResponse = false;
+        };
 
         /**
-         * Flag which says whether expense is new or not.
+         * Perform the first initialization.
          */
-        $scope.isNew = $scope.expense.isNew();
+        $scope.initOrReset();
 
         /**
          * Flag which represents whether
@@ -81,7 +102,7 @@ angular
                                 $rootScope.$broadcast(EXPENSE_EVENTS.isCreated, {
                                     expense: $scope.masterExpense
                                 });
-                            }, 800);
+                            }, TIMEOUT_DURATION);
                         }
                         else {
                             $timeout(function () {
@@ -91,8 +112,13 @@ angular
                                 $rootScope.$broadcast(EXPENSE_EVENTS.isUpdated, {
                                     expense: $scope.masterExpense
                                 });
-                            }, 800);
+                            }, TIMEOUT_DURATION);
                         }
+
+                        /**
+                         * Finally, reset the form.
+                         */
+                        $scope.initOrReset();
                     })
                     .catch(function () {
 

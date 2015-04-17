@@ -39,7 +39,7 @@
 
             <!--Expense date picker-->
             <div class="expense__form__date__input">
-                <button ng-click="open($event)" type="button" datepicker-popup is-open="opened" min="minDate" ng-model="expense.model.spentDate" show-weeks="false" datepicker-options="{starting_day:1}">{{expense.model.spentDate | friendlyDate}}</button>
+                <button ng-click="open($event)" type="button" datepicker-popup is-open="opened" min-date="minDate" ng-model="expense.model.spentDate" show-weeks="false" datepicker-options="{starting_day:1}">{{expense.model.spentDate | friendlyDate}}</button>
             </div>
 
             <!--Error messages-->
