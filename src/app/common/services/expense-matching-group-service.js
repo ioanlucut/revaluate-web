@@ -41,11 +41,11 @@ angular
 
             _.each(expenses, function (expense) {
                 var matchingGroupFound = _.find(expensesGroup, function (expensesGroup) {
-                    return expensesGroup.diff.date.isSame(expense.model.dueOn, expensesGroup.diff.unit);
+                    return expensesGroup.diff.date.isSame(expense.model.spentDate, expensesGroup.diff.unit);
                 });
 
                 if ( !matchingGroupFound ) {
-                    var expenseDueOn = moment(expense.model.dueOn);
+                    var expenseDueOn = moment(expense.model.spentDate);
                     var isSameYear = moment(moment().year()).isSame(expenseDueOn.year());
 
                     // ---

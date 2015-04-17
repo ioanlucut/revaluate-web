@@ -15,11 +15,10 @@ angular
             var expenseDto = {};
 
             TransformerUtils.copyKeysFromTo(expense.model, expenseDto, skipKeys);
-            if ( expenseDto.dueOn ) {
-                expenseDto.dueOn = expenseDto.dueOn.format("{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}");
+            if ( expenseDto.spentDate ) {
+                expenseDto.spentDate = moment(expenseDto.spentDate).format("YYYY-MM-DDTHH:mm:ss.hhh");
+                console.log(expenseDto.spentDate);
             }
-            expenseDto.text = $.trim(expenseDto.text.split("@")[0]);
-            expenseDto.recipients = TransformerUtils.sanitizeRecipients(expenseDto.recipients);
 
             return expenseDto;
         };
@@ -37,16 +36,8 @@ angular
             TransformerUtils.copyKeysFromTo(expenseDto, expense.model, skipKeys);
 
             // handle date conversion
-            if ( expense.model.dueOn ) {
-                expense.model.dueOn = moment(expense.model.dueOn).toDate();
-            }
-            //handle addresses conversion
-            var recipient = expense.model.recipients;
-            if ( _.isEmpty(recipient) ) {
-                expense.model.recipients = [];
-            }
-            else if ( _.isArray(recipient) ) {
-                expense.model.recipients = recipient;
+            if ( expense.model.spentDate ) {
+                expense.model.spentDate = moment(expense.model.spentDate).toDate();
             }
 
             return expense;

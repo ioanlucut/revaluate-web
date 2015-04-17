@@ -3,7 +3,7 @@
  */
 angular
     .module("expenses")
-    .service("ExpenseService", function (EXPENSE_URLS, $q, $http, $injector, ExpenseGroupService, ExpenseTransformerService) {
+    .service("ExpenseService", function (EXPENSE_URLS, $q, $http, $injector, ExpenseTransformerService) {
 
         /**
          * Update a expense.
@@ -29,7 +29,7 @@ angular
             var expenseDto = ExpenseTransformerService.toExpenseDto(expense);
 
             return $http
-                .put(URLTo.api(EXPENSE_URLS.update, { ":expenseId": expenseDto.expenseId }), expenseDto)
+                .put(URLTo.api(EXPENSE_URLS.update, { ":id": expenseDto.id }), expenseDto)
                 .then(function (response) {
                     ExpenseTransformerService.toExpense(response.data, expense);
 
@@ -46,7 +46,7 @@ angular
             var expenseDto = ExpenseTransformerService.toExpenseDto(expense);
 
             return $http
-                .post(URLTo.api(EXPENSE_URLS.unSubscribeExpense, { ":expenseId": expenseDto.expenseId }), expenseDto);
+                .post(URLTo.api(EXPENSE_URLS.unSubscribeExpense, { ":id": expenseDto.id }), expenseDto);
         };
 
         /**
@@ -58,7 +58,7 @@ angular
             var expenseDto = ExpenseTransformerService.toExpenseDto(expense);
 
             return $http
-                .delete(URLTo.api(EXPENSE_URLS.delete, { ":expenseId": expenseDto.expenseId }), expenseDto)
+                .delete(URLTo.api(EXPENSE_URLS.delete, { ":id": expenseDto.id }), expenseDto)
                 .then(function (response) {
                     ExpenseTransformerService.toExpense(response.data, expense);
 
@@ -82,31 +82,13 @@ angular
         };
 
         /**
-         * Gets all expenses grouped by upcoming and past expenses.
-         * @returns {*}
-         */
-        this.getAllExpensesGrouped = function () {
-            var deferred = $q.defer();
-
-            this
-                .getAllExpenses()
-                .then(function (response) {
-                    deferred.resolve(ExpenseGroupService.getPastAndUpcomingExpenses(response));
-                }).catch(function () {
-                    deferred.resolve(ExpenseGroupService.getPastAndUpcomingExpenses([]));
-                });
-
-            return deferred.promise;
-        };
-
-        /**
          * Get details of a expense.
-         * @param expenseId
+         * @param id
          * @returns {*}
          */
-        this.getDetails = function (expenseId) {
+        this.getDetails = function (id) {
             return $http
-                .get(URLTo.api(EXPENSE_URLS.details, { ":expenseId": expenseId }))
+                .get(URLTo.api(EXPENSE_URLS.details, { ":id": id }))
                 .then(function (response) {
                     return ExpenseTransformerService.toExpense(response.data, $injector.get('Expense').build());
                 });

@@ -1,0 +1,55 @@
+<!-- Add a new expense form -->
+<div class="expenses__form">
+
+    <form name="expenseForm" ng-submit="saveExpense()" novalidate focus-first-error>
+
+        <!-- Flash messages. -->
+        <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
+        <!-- Form groups -->
+        <div class="expense__form__price" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.value.$invalid || badPostSubmitResponse)}">
+            <input class="expense__form__price__input" type="number" name="value" placeholder="The value" ng-model="expense.model.value" required />
+            <span class="expense__form__price__currency">RON</span>
+
+            <!-- Error messages -->
+            <div class="form-group-input__message" ng-if="expenseForm.value.$invalid && expenseForm.$submitted">Please add currency.</div>
+        </div>
+
+        <!-- Form group -->
+        <div class="expense__form__category" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.category.$invalid || badPostSubmitResponse)}">
+            <input class="expense__form__category__input" type="text" name="category" placeholder="Add category" ng-model="expense.model.category" required />
+
+            <!-- Error messages -->
+            <div class="form-group-input__message" ng-if="expenseForm.category.$invalid && expenseForm.$submitted">Please add a category.</div>
+        </div>
+
+        <!-- Description input -->
+        <div class="expense__form__details" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.description.$invalid || badPostSubmitResponse)}">
+            <input class="expense__form__details__input" type="text" name="description" placeholder="Description" ng-model="expense.model.description" />
+
+            <!-- Error messages -->
+            <div class="form-group-input__message" ng-if="expenseForm.description.$invalid && expenseForm.$submitted">Something is wrong.</div>
+        </div>
+
+        <!-- Date input -->
+        <div class="expense__form__date" ng-class="{'has-error': expenseForm.selectedDate.$invalid}">
+
+            <!--Hidden input of the expense chosen date-->
+            <input type="hidden" name="selectedDate" ng-model="expense.model.spentDate" valid-date />
+
+            <!--Expense date picker-->
+            <div class="expense__form__date__input">
+                <button ng-click="open($event)" type="button" datepicker-popup is-open="opened" min="minDate" ng-model="expense.model.spentDate" show-weeks="false" datepicker-options="{starting_day:1}">{{expense.model.spentDate | friendlyDate}}</button>
+            </div>
+
+            <!--Error messages-->
+            <div class="form-group-input__message" ng-messages="expenseForm.selectedDate.$error">
+                <div ng-message="validDate">Please make sure that the date and time are in the future.</div>
+            </div>
+        </div>
+
+        <!-- Button container -->
+        <button type="submit">Add</button>
+    </form>
+
+</div>

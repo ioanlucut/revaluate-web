@@ -9,7 +9,7 @@ describe('Expense', function () {
 
     it('Should perform isCreatedBy method correctly', inject(function (Expense, ExpenseTransformerService) {
         var expenseDto = {
-            expenseId: "1",
+            id: "1",
             text: "ABC",
             dueOn: new Date(),
             createdByUser: { email: "createdByEmail@email.email" },
@@ -18,7 +18,7 @@ describe('Expense', function () {
 
         var actual = ExpenseTransformerService.toExpense(expenseDto);
         expect(actual.model).toBeTruthy();
-        expect(actual.model.expenseId).toEqual(expenseDto.expenseId);
+        expect(actual.model.id).toEqual(expenseDto.id);
         expect(actual.model.dueOn).toEqual(expenseDto.dueOn);
         expect(actual.model.recipients).toEqual([{ email: "xx@xx" }, { email: "yy@yy" }]);
 
@@ -28,7 +28,7 @@ describe('Expense', function () {
 
     it('Should perform isManyRecipients method correctly - if only 1 recipient is there', inject(function (Expense, ExpenseTransformerService) {
         var expenseDto = {
-            expenseId: "1",
+            id: "1",
             text: "ABC",
             dueOn: new Date(),
             recipients: [{ email: "xx@xx" }]
@@ -43,7 +43,7 @@ describe('Expense', function () {
 
     it('Should perform isManyRecipients method correctly - if only 0 recipient is there', inject(function (Expense, ExpenseTransformerService) {
         var expenseDto = {
-            expenseId: "1",
+            id: "1",
             text: "ABC",
             dueOn: new Date(),
             recipients: []
@@ -58,7 +58,7 @@ describe('Expense', function () {
 
     it('Should perform isManyRecipients method correctly - if 2 recipients are there', inject(function (Expense, ExpenseTransformerService) {
         var expenseDto = {
-            expenseId: "1",
+            id: "1",
             text: "ABC",
             dueOn: new Date(),
             recipients: [{ email: "xx@xx" }, { email: "yy@yy" }]

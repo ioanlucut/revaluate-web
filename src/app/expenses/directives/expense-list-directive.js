@@ -2,7 +2,7 @@
 
 angular
     .module("expenses")
-    .directive("expenseList", function ($rootScope, $timeout, ExpenseDeleteModalService, ExpenseUpdateModalService, ExpenseMatchingGroupService, EXPENSE_EVENTS) {
+    .directive("expenseList", function ($rootScope, $timeout, EXPENSE_EVENTS) {
         return {
             restrict: "A",
             scope: {
@@ -111,7 +111,6 @@ angular
                  * @param expenseIndex
                  */
                 scope.openDeleteExpenseModalService = function (expense, expenseIndex) {
-                    ExpenseDeleteModalService.open(expense, expenseIndex);
                 };
 
                 /**
@@ -120,7 +119,6 @@ angular
                  * @param expenseIndex
                  */
                 scope.openUnSubscribeExpenseModalService = function (expense, expenseIndex) {
-                    ExpenseDeleteModalService.open(expense, expenseIndex);
                 };
 
                 /**
@@ -129,31 +127,21 @@ angular
                  * @param expenseIndex
                  */
                 scope.openUpdateExpenseModalService = function (expense, expenseIndex) {
-                    if ( expense.isCreatedBy(scope.currentUserEmail) ) {
-                        ExpenseUpdateModalService.open(expense, expenseIndex);
-                    }
                 };
 
                 scope.showGroupIfFirst = function (expense, expenseIndex) {
-                    if ( expense.isCreatedBy(scope.currentUserEmail) ) {
-                        ExpenseUpdateModalService.open(expense, expenseIndex);
-                    }
                 };
 
                 /**
                  * On expense deleted flag the deleted index.
                  */
                 scope.$on(EXPENSE_EVENTS.isDeleted, function (event, args) {
-                    // Set the current removed expense index.
-                    scope.removedExpenseIndex = args.expenseIndex;
                 });
 
                 /**
                  * On expense updated flag the updated index.
                  */
                 scope.$on(EXPENSE_EVENTS.isUpdated, function (event, args) {
-                    // Set the current updated expense index.
-                    scope.updatedExpenseIndex = args.expenseIndex;
                 });
             }
         }
