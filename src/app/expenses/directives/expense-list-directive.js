@@ -28,7 +28,7 @@ angular
                  * Default number of expenses to be displayed.
                  * @type {number}
                  */
-                scope.defaultExpensesLimit = 50;
+                scope.defaultExpensesLimit = 10;
 
                 /**
                  * Number of the filtered expenses

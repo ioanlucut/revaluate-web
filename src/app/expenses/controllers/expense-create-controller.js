@@ -36,6 +36,12 @@ angular
             $scope.expense = angular.copy($scope.masterExpense);
 
             /**
+             * Selected category
+             * @type {{}}
+             */
+            $scope.category = {};
+
+            /**
              * Flag which says whether expense is new or not.
              */
             $scope.isNew = $scope.expense.isNew();
@@ -83,6 +89,9 @@ angular
 
                 // Is saving expense
                 $scope.isSaving = true;
+
+                // Update the  chosen category
+                $scope.masterExpense.category = angular.copy($scope.category.originalObject);
 
                 // Ok, update master expense.
                 angular.copy($scope.expense, $scope.masterExpense);

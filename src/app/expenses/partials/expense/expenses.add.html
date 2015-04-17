@@ -9,7 +9,7 @@
         <!-- Form groups -->
         <div class="expense__form__price" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.value.$invalid || badPostSubmitResponse)}">
             <input class="expense__form__price__input" type="number" name="value" placeholder="The value" ng-model="expense.model.value" required />
-            <span class="expense__form__price__currency">RON</span>
+            <span class="expense__form__price__currency">{{user.model.currency.currencyCode}}</span>
 
             <!-- Error messages -->
             <div class="form-group-input__message" ng-if="expenseForm.value.$invalid && expenseForm.$submitted">Please add currency.</div>
@@ -17,7 +17,19 @@
 
         <!-- Form group -->
         <div class="expense__form__category" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.category.$invalid || badPostSubmitResponse)}">
-            <input class="expense__form__category__input" type="text" name="category" placeholder="Add category" ng-model="expense.model.category" required />
+            <div angucomplete-alt
+                 selected-object="category"
+                 local-data="categories"
+                 search-fields="model.name"
+                 title-field="model.name"
+                 field-required="true"
+                 placeholder="Add category"
+                 maxlength="50"
+                 pause="1"
+                 minlength="1"
+                 input-class="expense__form__category__input"
+                 match-class="highlight">
+            </div>
 
             <!-- Error messages -->
             <div class="form-group-input__message" ng-if="expenseForm.category.$invalid && expenseForm.$submitted">Please add a category.</div>
