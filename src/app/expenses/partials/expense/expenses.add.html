@@ -8,7 +8,7 @@
 
         <!-- Form groups -->
         <div class="expense__form__price" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.value.$invalid || badPostSubmitResponse)}">
-            <input class="expense__form__price__input" type="number" name="value" placeholder="The value" ng-model="expense.model.value" required />
+            <input class="expense__form__price__input" type="text" name="value" placeholder="The value" ng-model="expense.model.value" money precision="2" min="0" max="2147483647" required />
             <span class="expense__form__price__currency">{{user.model.currency.currencyCode}}</span>
 
             <!-- Error messages -->
