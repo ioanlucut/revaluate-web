@@ -22,6 +22,9 @@ angular
          */
         $scope.initOrReset = function (expenseForm) {
 
+            //clear the input
+            $scope.$broadcast('angucomplete-alt:clearInput');
+
             /**
              * Keep master expense.
              * @type {XMLList|XML|*}
@@ -117,7 +120,6 @@ angular
                             $timeout(function () {
                                 $scope.isSaving = false;
 
-                                // Close the modal
                                 $rootScope.$broadcast(EXPENSE_EVENTS.isUpdated, {
                                     expense: expenseToBePushed
                                 });
@@ -125,9 +127,9 @@ angular
                         }
 
                         /**
-                         * Finally, reset the form.
+                         * Finally, reset.
                          */
-                        $scope.initOrReset();
+                        $scope.initOrReset($scope.expenseForm);
                     })
                     .catch(function () {
 

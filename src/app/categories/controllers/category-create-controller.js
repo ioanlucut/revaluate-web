@@ -14,7 +14,6 @@ angular
             $scope.category = Category.build({ color: CategoryColorService.randomizedColor().color });
 
             if ( categoryForm ) {
-                categoryForm.$submitted = false;
                 categoryForm.$setPristine();
             }
 
