@@ -19,10 +19,9 @@ angular
                 scope.reverseOrder = attrs.sort === "desc";
 
                 /**
-                 * Current user email.
-                 * @type {User.$new.model.email|*|.$new.model.email}
+                 * Current user.
                  */
-                scope.currentUserEmail = $rootScope.currentUser.model.email;
+                scope.user = $rootScope.currentUser;
 
                 /**
                  * Default number of expenses to be displayed.

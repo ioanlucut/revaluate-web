@@ -31,6 +31,7 @@
     "bitters": "~1.0.0",
     "neat": "~1.7.1",
     "angucomplete-alt": "0.0.38",
-    "ngDialog": "~0.3.12"
+    "ngDialog": "~0.3.12",
+    "angular-money-directive": "~1.1.0"
   }
 }

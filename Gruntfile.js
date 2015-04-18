@@ -27,8 +27,10 @@ module.exports = function (grunt) {
                     "bower_components/angucomplete-alt/dist/angucomplete-alt.min.js",
                     "bower_components/jstz-detect/jstz.js",
                     "bower_components/perfect-scrollbar/src/perfect-scrollbar.js",
-                    "bower_components/perfect-scrollbar/src/jquery.mousewheel.js",
 
+                    "bower_components/perfect-scrollbar/src/jquery.mousewheel.js",
+                    /* These are the angular ui used bootstrap */
+                    "bower_components/angular-money-directive/angular-money-directive.js",
                     /* These are the angular ui used bootstrap */
                     "bower_components/angular-ui-bootstrap/src/bindHtml/bindHtml.js",
                     "bower_components/angular-ui-bootstrap/src/position/position.js",

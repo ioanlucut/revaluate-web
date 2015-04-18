@@ -11,16 +11,13 @@
 
     <div class="expenses__list">
 
-        <!--Expense group-->
-        <div class="expense-group"> {{expensesGrouped.name}}</div>
-
         <!--Expense list-->
         <div class="expenses__list__entry"
              ng-repeat="expense in expenses | orderObjectBy : 'model.spentDate' : reverseOrder | limitTo: expensesLimit | filter:{model:{text:searchByText}} as filteredExpenses track by expense.model.id">
 
             <div class="expenses__list__entry__price">
                 {{expense.model.value}}
-                <span class="expenses__list__entry__currency">{{expense.model.currency}}</span>
+                <span class="expenses__list__entry__currency">{{user.model.currency.currencyCode}}</span>
             </div>
 
             <!--Expense category-->

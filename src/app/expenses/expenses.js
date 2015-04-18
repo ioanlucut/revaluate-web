@@ -5,6 +5,7 @@ angular
     .module("expenses", [
         "ui.router",
         "angular-ladda",
+        "fiestah.money",
         "common"
     ])
     .config(["$stateProvider", function ($stateProvider) {

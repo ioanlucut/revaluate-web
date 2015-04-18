@@ -26,17 +26,12 @@ angular
                 /**
                  * The expense value
                  */
-                value: "",
+                value: 0,
 
                 /**
                  * The expense description.
                  */
                 description: "",
-
-                /**
-                 * The expense creation date
-                 */
-                createdAt: "",
 
                 /**
                  * Create date of the expense.
