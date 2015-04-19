@@ -44,7 +44,7 @@
 
         <!-- Description input -->
         <div class="expense__form__details" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.description.$invalid || badPostSubmitResponse)}">
-            <input class="expense__form__details__input" type="text" name="description" ng-maxlength="20" placeholder="Description (optional)" ng-model="expense.model.description" />
+            <input class="expense__form__details__input" type="text" name="description" ng-maxlength="20" placeholder="Description (optional)" ng-model="expense.model.description" escape-html />
 
             <!-- Error messages -->
             <div class="form-group-input__message" ng-class="{'has-error': expenseForm.description.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.$error" ng-if="expenseForm.$submitted">
