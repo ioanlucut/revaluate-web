@@ -8,15 +8,18 @@
 
         <!-- Form groups -->
         <div class="expense__form__price" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.value.$invalid || badPostSubmitResponse)}">
-            <input class="expense__form__price__input" type="text" name="value" placeholder="The value" ng-model="expense.model.value" format-price format="number" required />
+            <input class="expense__form__price__input" type="text" name="value" placeholder="The value" ng-model="expense.model.value" format-price format="number" required valid-price />
             <span class="expense__form__price__currency">{{user.model.currency.currencyCode}}</span>
 
             <!-- Error messages -->
-            <div class="form-group-input__message" ng-if="expenseForm.value.$invalid && expenseForm.$submitted">Please add currency.</div>
+            <div class="form-group-input__message" ng-class="{'has-error': expenseForm.value.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.$error" ng-if="expenseForm.$submitted">
+                <div ng-message="required">Please add a price.</div>
+                <div ng-message="validPrice">Price is invalid</div>
+            </div>
         </div>
 
         <!-- Form group -->
-        <div class="expense__form__category" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.category.$invalid || badPostSubmitResponse)}">
+        <div class="expense__form__category" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.$error['autocomplete-required'] || expenseForm.category.$invalid || badPostSubmitResponse)}">
             <div angucomplete-alt
                  selected-object="category"
                  local-data="categories"
@@ -31,13 +34,21 @@
                  match-class="highlight">
             </div>
 
+            <div class="form-group-input__message" ng-messages="expenseForm.selectedDate.$error">
+                <div ng-message="validDate">Please make sure that the date and time are in the future.</div>
+            </div>
+
             <!-- Error messages -->
+            <div class="form-group-input__message" ng-class="{'has-error': expenseForm.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.$error" ng-if="expenseForm.$submitted">
+                <div ng-message="autocomplete-required">Category is missing or is invalid.</div>
+            </div>
+
             <div class="form-group-input__message" ng-if="expenseForm.category.$invalid && expenseForm.$submitted">Please add a category.</div>
         </div>
 
         <!-- Description input -->
         <div class="expense__form__details" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.description.$invalid || badPostSubmitResponse)}">
-            <input class="expense__form__details__input" type="text" name="description" placeholder="Description" ng-model="expense.model.description" />
+            <input class="expense__form__details__input" type="text" name="description" placeholder="Description (optional)" ng-model="expense.model.description" />
 
             <!-- Error messages -->
             <div class="form-group-input__message" ng-if="expenseForm.description.$invalid && expenseForm.$submitted">Something is wrong.</div>
