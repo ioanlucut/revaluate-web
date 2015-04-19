@@ -23,6 +23,18 @@ $add-expense-form-border-color: $lightest-gray;
   }
 }
 
+.expense__form__price,
+.expense__form__category,
+.expense__form__details,
+.expense__form__date {
+  &.has-error {
+
+    input {
+      border-color: $brand-danger;
+    }
+  }
+}
+
 // Price input styling
 // ----------------------
 
