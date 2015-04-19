@@ -19,7 +19,6 @@
 .dropup,
 .dropdown {
   position: relative;
-  //border: solid 1px red;
   padding: 0;
 }
 
@@ -27,7 +26,6 @@
 .dropdown-toggle {
   @include border-radius(3px);
   border: solid 1px $light-gray;
-  //height: 100%;
   padding: 5px;
   color: $dark-gray;
   background-color: $white;
