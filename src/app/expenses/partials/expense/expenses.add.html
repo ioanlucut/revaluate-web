@@ -34,10 +34,6 @@
                  match-class="highlight">
             </div>
 
-            <div class="form-group-input__message" ng-messages="expenseForm.selectedDate.$error">
-                <div ng-message="validDate">Please make sure that the date and time are in the future.</div>
-            </div>
-
             <!-- Error messages -->
             <div class="form-group-input__message" ng-class="{'has-error': expenseForm.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.$error" ng-if="expenseForm.$submitted">
                 <div ng-message="autocomplete-required">Category is missing or is invalid.</div>
@@ -57,19 +53,20 @@
         </div>
 
         <!-- Date input -->
-        <div class="expense__form__date" ng-class="{'has-error': expenseForm.selectedDate.$invalid}">
+        <div class="expense__form__date" ng-class="{'has-error': expenseForm.spentDate.$invalid && expenseForm.$submitted}">
 
             <!--Hidden input of the expense chosen date-->
-            <input type="hidden" name="selectedDate" ng-model="expense.model.spentDate" valid-date />
+            <input type="hidden" name="spentDate" ng-model="expense.model.spentDate" required valid-date />
 
             <!--Expense date picker-->
             <div class="expense__form__date__input">
-                <button ng-click="open($event)" type="button" datepicker-popup is-open="opened" min-date="minDate" ng-model="expense.model.spentDate" show-weeks="false" datepicker-options="{starting_day:1}">{{expense.model.spentDate | friendlyDate}}</button>
+                <button ng-click="open($event)" type="button" datepicker-popup is-open="opened" min-date="minDate" max-date="maxDate" ng-model="expense.model.spentDate" show-weeks="false" datepicker-options="{starting_day:1}">{{expense.model.spentDate | friendlyDate}}</button>
             </div>
 
             <!--Error messages-->
-            <div class="form-group-input__message" ng-messages="expenseForm.selectedDate.$error">
-                <div ng-message="validDate">Please make sure that the date and time are in the future.</div>
+            <div class="form-group-input__message" ng-class="{'has-error': expenseForm.spentDate.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.$error" ng-if="expenseForm.$submitted">
+                <div ng-message="required">Please make that you add a date.</div>
+                <div ng-message="validDate">Date should be in the past.</div>
             </div>
         </div>
 
