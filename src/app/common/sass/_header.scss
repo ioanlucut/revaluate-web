@@ -31,15 +31,19 @@
 
 .header__dropdown {
   float: right;
-  height: 60px;
-  border-width: 0;
+  @include calc(height, "#{$header-height} - 2px");
+  border: solid 0px $medium-gray;
+  position: relative;
 
   .header__dropdown__toggle {
     @include btn($white);
-    color: $medium-gray;
     border-width: 0;
     height: 100%;
-    box-shadow: inset 0 0 0;
+    color: $medium-gray;
+
+    &:hover {
+      background-color: #fafafa;
+    }
   }
 
   .header__dropdown__avatar {
@@ -50,16 +54,11 @@
     @include border-radius(50%);
     background: url("http://api.randomuser.me/portraits/thumb/men/55.jpg") no-repeat;
     background-size: contain;
-    line-height: 40px;
     text-align: center;
     text-indent: -9999px;
   }
 
-  .header__dropdown__button {
-
-  }
-
   .header__dropdown__menu {
-    float: right;
+    right: 0;
   }
 }
