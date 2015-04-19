@@ -74,6 +74,11 @@ angular
         $scope.minDate = moment().year(2000);
 
         /**
+         * Max date to create expense
+         */
+        $scope.maxDate = moment().hours(0).minutes(0).seconds(0);
+
+        /**
          * Open date picker
          * @param $event
          */
@@ -89,6 +94,13 @@ angular
          */
         $scope.saveExpense = function () {
             if ( $scope.expenseForm.$valid && !$scope.isSaving ) {
+
+                var isDateInFuture = moment().diff($scope.expense.model.spentDate || $scope.expenseForm.spentDate) <= 0;
+                if ( isDateInFuture ) {
+                    $scope.expenseForm.spentDate.$setValidity('validDate', false);
+
+                    return;
+                }
 
                 // Is saving expense
                 $scope.isSaving = true;

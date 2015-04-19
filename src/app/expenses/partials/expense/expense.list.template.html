@@ -4,11 +4,6 @@
 <!--Expense list content.-->
 <div ng-show="showExpensesContent" class="expense-list-box" ng-class="{ 'expense-list-box--past-expenses': reverseOrder}">
 
-    <!--Expense list is empty-->
-    <div class="expense__empty empty-state--text" ng-if="showEmptyExpensesContent && ! expenses.length">
-        You have no expenses. Don't be shy, go ahead and create one! :)
-    </div>
-
     <div class="expenses__list">
 
         <!--Expense list-->
