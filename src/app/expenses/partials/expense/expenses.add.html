@@ -37,7 +37,7 @@
 
         <!-- Description input -->
         <div class="expense__form__details" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.description.$invalid || badPostSubmitResponse)}">
-            <input class="expense__form__details__input" type="text" name="description" placeholder="Description" ng-model="expense.model.description" />
+            <input class="expense__form__details__input" type="text" name="description" placeholder="Add details (optional)" ng-model="expense.model.description" />
 
             <!-- Error messages -->
             <div class="form-group-input__message" ng-if="expenseForm.description.$invalid && expenseForm.$submitted">Something is wrong.</div>
@@ -51,7 +51,16 @@
 
             <!--Expense date picker-->
             <div class="expense__form__date__input">
-                <button ng-click="open($event)" type="button" datepicker-popup is-open="opened" min-date="minDate" ng-model="expense.model.spentDate" show-weeks="false" datepicker-options="{starting_day:1}">{{expense.model.spentDate | friendlyDate}}</button>
+                <button type="button"
+                        datepicker-popup
+                        ng-click="open($event)"
+                        ng-model="expense.model.spentDate"
+                        is-open="opened"
+                        min-date="minDate"
+                        show-weeks="false"
+                        datepicker-options="{starting_day:1}">
+                    {{expense.model.spentDate | friendlyDate}}
+                </button>
             </div>
 
             <!--Error messages-->
@@ -61,7 +70,11 @@
         </div>
 
         <!-- Button container -->
-        <button type="submit" style="display: none;">Add</button>
+        <div class="expense__form__submit">
+            <span>Hit Enter to</span>
+            <button type="submit"> save </button>
+            <span>the expense.</span>
+        </div>
     </form>
 
 </div>
