@@ -2,6 +2,10 @@
 
 }
 
+.angucomplete-image-holder{
+  position: relative;
+}
+
 .categories__form__color__preview {
   @include border-radius(50%);
   @include size(23px 23px);
