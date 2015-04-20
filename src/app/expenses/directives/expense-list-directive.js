@@ -27,7 +27,7 @@ angular
                  * Default number of expenses to be displayed.
                  * @type {number}
                  */
-                scope.defaultExpensesLimit = 10;
+                scope.defaultExpensesLimit = 20;
 
                 /**
                  * Number of the filtered expenses
@@ -89,10 +89,10 @@ angular
                  * Load more upcoming expenses.
                  */
                 scope.loadMoreExpenses = function () {
-                    scope.isLoadingMore = true;
+                    scope.isLoadingMore = !scope.isLoadingMore;
                     $timeout(function () {
                         scope.expensesLimit = scope.expensesLimit + scope.defaultExpensesLimit;
-                        scope.isLoadingMore = false;
+                        scope.isLoadingMore = !scope.isLoadingMore;
                     }, 500);
                 };
 

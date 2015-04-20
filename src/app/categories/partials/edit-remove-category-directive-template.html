@@ -1,12 +1,12 @@
 <!--Category group-->
 <div class="categories__edit__category__name" ng-if="! showContent">
-    <span class="categories__edit__category__color" ng-if="! showContent" ng-style="{'background':category.model.color}">C</span>
-    <span class="categories__edit__category__label" ng-if="! showContent">{{category.model.name}}</span>
+    <span class="categories__edit__category__color" ng-style="{'background':category.model.color}">C</span>
+    <span class="categories__edit__category__label">{{category.model.name}}</span>
 </div>
 
 <div class="categories__edit__category__controls" ng-if="! showContent">
     <!--Show content-->
-    <button class="categories__edit__category__delete" ng-click="deleteCategory(category)">Delete</button>
+    <button class="categories__edit__category__delete" ng-click="deleteCategory(category)">{{isDeleting ? 'Deleting..' : 'Delete'}}</button>
     <button class="categories__edit__category__edit" ng-click="toggleContent()">Edit</button>
 </div>
 
@@ -51,7 +51,7 @@
         <!--Reset-->
         <button class="categories__edit__form__content__right__cancel" ng-click="cancel();">Nevermind</button>
         <!-- Button container -->
-        <button class="categories__edit__form__content__right__update" type="submit">Save changes</button>
+        <button class="categories__edit__form__content__right__update" type="submit">{{isUpdating ? 'Saving..' : 'Save changes'}}</button>
     </div>
 
 </form>

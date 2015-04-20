@@ -8,15 +8,39 @@
 
         <!-- Form groups -->
         <div class="expense__form__price" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.value.$invalid || badPostSubmitResponse)}">
-            <input class="expense__form__price__input" type="text" name="value" placeholder="The value" ng-model="expense.model.value" money precision="2" min="0" max="2147483647" required />
+            <input class="expense__form__price__input" type="text" name="value" placeholder="The value" ng-model="expense.model.value" format-price format="number" required valid-price />
             <span class="expense__form__price__currency">{{user.model.currency.currencyCode}}</span>
 
             <!-- Error messages -->
-            <div class="form-group-input__message" ng-if="expenseForm.value.$invalid && expenseForm.$submitted">Please add currency.</div>
+            <div class="form-group-input__message" ng-class="{'has-error': expenseForm.value.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.$error" ng-if="expenseForm.$submitted">
+                <div ng-message="required">Please add a price.</div>
+                <div ng-message="validPrice">Price is invalid</div>
+            </div>
         </div>
 
         <!-- Form group -->
-        <div class="expense__form__category" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.category.$invalid || badPostSubmitResponse)}">
+        <div class="expense__form__category" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.$error['autocomplete-required'] || expenseForm.category.$invalid || badPostSubmitResponse)}">
+
+            <script type="text/ng-template" id="/expense-color-template.html">
+                <div class="angucomplete-holder" ng-class="{'angucomplete-dropdown-visible': showDropdown}">
+                    <input id="{{id}}_value" ng-model="searchStr" ng-disabled="disableInput" type="{{type}}" placeholder="{{placeholder}}" maxlength="{{maxlength}}" ng-focus="onFocusHandler()" class="{{inputClass}}" ng-focus="resetHideResults()" ng-blur="hideResults($event)" autocapitalize="off" autocorrect="off" autocomplete="off" ng-change="inputChangeHandler(searchStr)" />
+
+                    <div id="{{id}}_dropdown" class="angucomplete-dropdown" ng-show="showDropdown">
+                        <div class="angucomplete-searching" ng-show="searching" ng-bind="textSearching"></div>
+                        <div class="angucomplete-searching" ng-show="!searching && (!results || results.length == 0) || true" ng-bind="textNoResults"></div>
+                        <div class="angucomplete-row" ng-repeat="result in results" ng-click="selectResult(result)" ng-mouseenter="hoverRow($index)" ng-class="{'angucomplete-selected-row': $index == currentIndex}">
+                            <div class="angucomplete-image-holder">
+                                <label class="categories__form__color__preview" ng-style="{'background':result.originalObject.model.color}"></label>
+                            </div>
+                            <div class="angucomplete-title" ng-if="matchClass" ng-bind-html="result.title"></div>
+                            <div class="angucomplete-title" ng-if="!matchClass">{{ result.title }}</div>
+                            <div ng-if="matchClass && result.description && result.description != ''" class="angucomplete-description" ng-bind-html="result.description"></div>
+                            <div ng-if="!matchClass && result.description && result.description != ''" class="angucomplete-description">{{result.description}}</div>
+                        </div>
+                    </div>
+                </div>
+            </script>
+
             <div angucomplete-alt
                  selected-object="category"
                  local-data="categories"
@@ -26,55 +50,50 @@
                  placeholder="Add category"
                  maxlength="50"
                  pause="1"
-                 minlength="1"
+                 minlength="0"
                  input-class="expense__form__category__input"
-                 match-class="highlight">
+                 match-class="highlight"
+                 template-url="/expense-color-template.html">
             </div>
 
             <!-- Error messages -->
+            <div class="form-group-input__message" ng-class="{'has-error': expenseForm.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.$error" ng-if="expenseForm.$submitted">
+                <div ng-message="autocomplete-required">Category is missing or is invalid.</div>
+            </div>
+
             <div class="form-group-input__message" ng-if="expenseForm.category.$invalid && expenseForm.$submitted">Please add a category.</div>
         </div>
 
         <!-- Description input -->
         <div class="expense__form__details" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.description.$invalid || badPostSubmitResponse)}">
-            <input class="expense__form__details__input" type="text" name="description" placeholder="Add details (optional)" ng-model="expense.model.description" />
+            <input class="expense__form__details__input" type="text" name="description" ng-maxlength="20" placeholder="Description (optional)" ng-model="expense.model.description" escape-html />
 
             <!-- Error messages -->
-            <div class="form-group-input__message" ng-if="expenseForm.description.$invalid && expenseForm.$submitted">Something is wrong.</div>
+            <div class="form-group-input__message" ng-class="{'has-error': expenseForm.description.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.$error" ng-if="expenseForm.$submitted">
+                <div ng-message="maxlength">Hmm. Too long.</div>
+            </div>
         </div>
 
         <!-- Date input -->
-        <div class="expense__form__date" ng-class="{'has-error': expenseForm.selectedDate.$invalid}">
+        <div class="expense__form__date" ng-class="{'has-error': expenseForm.spentDate.$invalid && expenseForm.$submitted}">
 
             <!--Hidden input of the expense chosen date-->
-            <input type="hidden" name="selectedDate" ng-model="expense.model.spentDate" valid-date />
+            <input type="hidden" name="spentDate" ng-model="expense.model.spentDate" required valid-date />
 
             <!--Expense date picker-->
             <div class="expense__form__date__input">
-                <button type="button"
-                        datepicker-popup
-                        ng-click="open($event)"
-                        ng-model="expense.model.spentDate"
-                        is-open="opened"
-                        min-date="minDate"
-                        show-weeks="false"
-                        datepicker-options="{starting_day:1}">
-                    {{expense.model.spentDate | friendlyDate}}
-                </button>
+                <button ng-click="open($event)" type="button" datepicker-popup is-open="opened" min-date="minDate" max-date="maxDate" ng-model="expense.model.spentDate" show-weeks="false" datepicker-options="{starting_day:1}">{{expense.model.spentDate | friendlyDate}}</button>
             </div>
 
             <!--Error messages-->
-            <div class="form-group-input__message" ng-messages="expenseForm.selectedDate.$error">
-                <div ng-message="validDate">Please make sure that the date and time are in the future.</div>
+            <div class="form-group-input__message" ng-class="{'has-error': expenseForm.spentDate.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.$error" ng-if="expenseForm.$submitted">
+                <div ng-message="required">Please make that you add a date.</div>
+                <div ng-message="validDate">Date should be in the past.</div>
             </div>
         </div>
 
         <!-- Button container -->
-        <div class="expense__form__submit">
-            <span>Hit Enter to</span>
-            <button type="submit"> save </button>
-            <span>the expense.</span>
-        </div>
+        <button type="submit" style="display: none;">Add</button>
     </form>
 
 </div>

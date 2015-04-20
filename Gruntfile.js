@@ -29,8 +29,8 @@ module.exports = function (grunt) {
                     "bower_components/perfect-scrollbar/src/perfect-scrollbar.js",
 
                     "bower_components/perfect-scrollbar/src/jquery.mousewheel.js",
-                    /* These are the angular ui used bootstrap */
                     "bower_components/angular-money-directive/angular-money-directive.js",
+
                     /* These are the angular ui used bootstrap */
                     "bower_components/angular-ui-bootstrap/src/bindHtml/bindHtml.js",
                     "bower_components/angular-ui-bootstrap/src/position/position.js",
@@ -47,7 +47,9 @@ module.exports = function (grunt) {
                     "bower_components/ladda/js/spin.js",
                     "bower_components/ladda/js/ladda.js",
                     "bower_components/angular-ladda/src/angular-ladda.js",
-                    "bower_components/angular-filter/dist/angular-filter.js"
+                    "bower_components/angular-filter/dist/angular-filter.js",
+                    /* Vendor styles */
+                    "src/app/vendor/js/jquery.price_format.2.0.js"
                 ],
                 dest: "build/js/frameworks.js"
             },
