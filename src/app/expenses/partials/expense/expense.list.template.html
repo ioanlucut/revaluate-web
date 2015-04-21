@@ -1,6 +1,3 @@
-<!--// Expense list box header-->
-<div class="expense-list-box__header" ng-click="togglePastExpensesContent()" ng-bind-html="expenses.length | expensesHeader : reverseOrder" ng-show="expenses.length"></div>
-
 <!--Expense list content.-->
 <div ng-show="showExpensesContent" class="expense-list-box" ng-class="{ 'expense-list-box--past-expenses': reverseOrder}">
 
