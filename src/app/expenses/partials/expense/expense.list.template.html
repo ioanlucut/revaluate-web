@@ -11,7 +11,7 @@
              ng-repeat="expense in expenses | orderObjectBy : 'model.spentDate' : reverseOrder | limitTo: expensesLimit | filter:{model:{description:searchByText}} as filteredExpenses track by expense.model.id">
 
             <div class="expenses__list__entry__price">
-                {{expense.model.value | currency}}
+                {{expense.model.value | currency:""}}
                 <span class="expenses__list__entry__currency">{{user.model.currency.currencyCode}}</span>
             </div>
 
