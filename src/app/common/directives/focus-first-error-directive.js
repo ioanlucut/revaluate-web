@@ -7,7 +7,7 @@ angular
             restrict: "A",
             link: function (scope, el, attrs) {
 
-                var errorSelector = attrs.focusFirstError || ".form-control.ng-invalid";
+                var errorSelector = attrs.focusFirstError || ".has-error input";
 
                 el.on("submit", function () {
                     el.find(errorSelector).first().focus();
