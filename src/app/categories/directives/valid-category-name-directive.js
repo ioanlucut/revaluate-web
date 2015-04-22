@@ -9,7 +9,7 @@ angular
             link: function (scope, el, attr, ngModel) {
 
                 function isValidCategoryName(categoryName) {
-                    return /^([A-Za-z\d\s]){2,20}$/.test(categoryName);
+                    return /^([A-Za-z\d\s!@#\$%\^&*\)\(+=._-]){2,20}$/.test(categoryName);
                 }
 
                 ngModel.$validators.validCategoryName = function (categoryName) {
