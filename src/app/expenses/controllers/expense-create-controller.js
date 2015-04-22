@@ -44,16 +44,16 @@ angular
              */
             $scope.category = {};
 
-            /**
-             * Flag which says whether expense is new or not.
-             */
-            $scope.isNew = $scope.expense.isNew();
-
             if ( expenseForm ) {
                 expenseForm.$setPristine();
             }
 
             $scope.badPostSubmitResponse = false;
+
+            /**
+             * Max date to create expense
+             */
+            $scope.maxDate = moment().hours(0).minutes(0).seconds(0);
         };
 
         /**
@@ -72,11 +72,6 @@ angular
          * @type {Date}
          */
         $scope.minDate = moment().year(2000);
-
-        /**
-         * Max date to create expense
-         */
-        $scope.maxDate = moment().hours(0).minutes(0).seconds(0);
 
         /**
          * Open date picker
@@ -116,27 +111,16 @@ angular
                         /**
                          * Track event.
                          */
-                        mixpanel.track($scope.isNew ? MIXPANEL_EVENTS.expenseCreated : MIXPANEL_EVENTS.expenseUpdated);
+                        mixpanel.track(MIXPANEL_EVENTS.expenseCreated);
 
                         var expenseToBePushed = angular.copy($scope.masterExpense);
-                        if ( $scope.isNew ) {
-                            $timeout(function () {
-                                $scope.isSaving = false;
+                        $timeout(function () {
+                            $scope.isSaving = false;
 
-                                $rootScope.$broadcast(EXPENSE_EVENTS.isCreated, {
-                                    expense: expenseToBePushed
-                                });
-                            }, TIMEOUT_DURATION);
-                        }
-                        else {
-                            $timeout(function () {
-                                $scope.isSaving = false;
-
-                                $rootScope.$broadcast(EXPENSE_EVENTS.isUpdated, {
-                                    expense: expenseToBePushed
-                                });
-                            }, TIMEOUT_DURATION);
-                        }
+                            $rootScope.$broadcast(EXPENSE_EVENTS.isCreated, {
+                                expense: expenseToBePushed
+                            });
+                        }, TIMEOUT_DURATION);
 
                         /**
                          * Finally, reset.
