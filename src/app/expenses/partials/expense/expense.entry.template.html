@@ -19,7 +19,7 @@
 <!-- Display expense form -->
 <div class="expenses__form" ng-if="showContent">
 
-    <form name="expenseForm" ng-submit="updateExpense(expenseForm, expense)" novalidate focus-first-error>
+    <form name="expenseForm" ng-submit="updateExpense(expenseForm, expense, category)" novalidate focus-first-error>
 
         <!-- Form groups -->
         <div class="expense__form__price" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.value.$invalid || badPostSubmitResponse)}">

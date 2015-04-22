@@ -22,6 +22,12 @@ angular
                 scope.masterExpense = angular.copy(scope.expense);
 
                 /**
+                 * Selected category
+                 * @type {{}}
+                 */
+                scope.category = {};
+
+                /**
                  * Show block content
                  * @type {boolean}
                  */

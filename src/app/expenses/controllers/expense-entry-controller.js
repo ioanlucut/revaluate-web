@@ -8,19 +8,25 @@ angular
         const TIMEOUT_DURATION = 300;
 
         /**
-         * Selected category
-         * @type {{}}
-         */
-        $scope.category = {};
-
-        /**
          * Update the expense.
          */
-        $scope.updateExpense = function (expenseForm, expense) {
+        $scope.updateExpense = function (expenseForm, expense, category) {
             if ( expenseForm.$valid && !$scope.isUpdating ) {
+
+                var isDateInFuture = moment().diff(expense.model.spentDate || expenseForm.spentDate) <= 0;
+                if ( isDateInFuture ) {
+                    expenseForm.spentDate.$setValidity('validDate', false);
+
+                    return;
+                }
 
                 // Is saving expense
                 $scope.isUpdating = true;
+
+                // Update the  chosen category - if defined
+                if ( category && category.originalObject ) {
+                    expense.model.category = angular.copy(category.originalObject.model);
+                }
 
                 expense
                     .save()
@@ -37,17 +43,16 @@ angular
                             $rootScope.$broadcast(EXPENSE_EVENTS.isUpdated, {
                                 expense: expense
                             });
-
                         }, TIMEOUT_DURATION);
                     })
                     .catch(function () {
 
                         // Error
+                        $scope.category = {};
                         $scope.isUpdating = false;
                         $scope.badPostSubmitResponse = true;
                         $rootScope.$broadcast(EXPENSE_EVENTS.isErrorOccurred, {});
                     });
             }
         };
-
     });
