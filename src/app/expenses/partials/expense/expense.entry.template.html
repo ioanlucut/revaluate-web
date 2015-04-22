@@ -1,0 +1,108 @@
+<!--Display expense-->
+<div class="expenses__list__entry__display" ng-if="! showContent" ng-click="toggleContent()">
+
+    <div class="expenses__list__entry__price">
+        {{expense.model.value | currency:""}}
+        <span class="expenses__list__entry__currency">{{user.model.currency.currencyCode}}</span>
+    </div>
+
+    <!--Expense category-->
+    <div class="expenses__list__entry__category" ng-style="{'background':expense.model.category.color}" ng-bind-html="expense.model.category.name"></div>
+
+    <!--Expense description-->
+    <div class="expenses__list__entry__details" ng-bind-html="expense.model.description | highlightSearch:searchByText"></div>
+
+    <!--Expense date-->
+    <div class="expenses__list__entry__date">{{expense.model.spentDate | friendlyDate}}</div>
+</div>
+
+<!-- Display expense form -->
+<div class="expenses__form" ng-if="showContent">
+
+    <form name="expenseForm" ng-submit="updateExpense(expenseForm, expense)" novalidate focus-first-error>
+
+        <!-- Form groups -->
+        <div class="expense__form__price" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.value.$invalid || badPostSubmitResponse)}">
+            <input class="expense__form__price__input" type="text" name="value" placeholder="The value" ng-model="expense.model.value" format-price format="number" required valid-price />
+            <span class="expense__form__price__currency">{{user.model.currency.currencyCode}}</span>
+
+            <!-- Error messages -->
+            <div class="form-group-input__message" ng-class="{'has-error': expenseForm.value.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.$error" ng-if="expenseForm.$submitted">
+                <div ng-message="required">Please add a price.</div>
+                <div ng-message="validPrice">Price is invalid</div>
+            </div>
+        </div>
+
+        <!-- Form group -->
+        <div class="expense__form__category" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.$error['autocomplete-required'] || expenseForm.category.$invalid || badPostSubmitResponse)}">
+
+            <div angucomplete-alt
+                 selected-object="category"
+                 local-data="expenses"
+                 search-fields="model.name"
+                 title-field="model.name"
+                 field-required="true"
+                 placeholder="Add category"
+                 maxlength="50"
+                 pause="1"
+                 minlength="0"
+                 initial-value="{{expense.model.category.name}}"
+                 input-class="expense__form__category__input"
+                 match-class="highlight"
+                 template-url="app/expenses/partials/expense.category.template.html">
+            </div>
+
+            <!-- Error messages -->
+            <div class="form-group-input__message" ng-class="{'has-error': expenseForm.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.$error" ng-if="expenseForm.$submitted">
+                <div ng-message="autocomplete-required">Category is missing or is invalid.</div>
+            </div>
+
+            <div class="form-group-input__message" ng-if="expenseForm.category.$invalid && expenseForm.$submitted">Please add a category.</div>
+        </div>
+
+        <!-- Description input -->
+        <div class="expense__form__details" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.description.$invalid || badPostSubmitResponse)}">
+            <input class="expense__form__details__input" type="text" name="description" ng-maxlength="20" placeholder="Add details (optional)" ng-model="expense.model.description" escape-html />
+
+            <!-- Error messages -->
+            <div class="form-group-input__message" ng-class="{'has-error': expenseForm.description.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.$error" ng-if="expenseForm.$submitted">
+                <div ng-message="maxlength">Hmm. Too long.</div>
+            </div>
+        </div>
+
+        <!-- Date input -->
+        <div class="expense__form__date" ng-class="{'has-error': expenseForm.spentDate.$invalid && expenseForm.$submitted}">
+
+            <!--Hidden input of the expense chosen date-->
+            <input type="hidden" name="spentDate" ng-model="expense.model.spentDate" required valid-date />
+
+            <!--Expense date picker-->
+            <div class="expense__form__date__input">
+                <button ng-click="open($event)" type="button" datepicker-popup is-open="opened" min-date="minDate" max-date="maxDate" ng-model="expense.model.spentDate" show-weeks="false" datepicker-options="{starting_day:1}">{{expense.model.spentDate | friendlyDate}}</button>
+            </div>
+
+            <!--Error messages-->
+            <div class="form-group-input__message" ng-class="{'has-error': expenseForm.spentDate.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.$error" ng-if="expenseForm.$submitted">
+                <div ng-message="required">Please make that you add a date.</div>
+                <div ng-message="validDate">Date should be in the past.</div>
+            </div>
+        </div>
+
+        <!-- Button container -->
+        <div class="expense__form__submit">
+            <span>Hit Enter to</span>
+            <button type="submit"> save</button>
+            <span>the expense.</span>
+        </div>
+
+        <!--Content right-->
+        <div class="expenses__edit__form__content__right">
+
+            <!--Reset-->
+            <button class="expenses__edit__form__content__right__cancel" ng-click="cancel();">Nevermind</button>
+            <!-- Button container -->
+            <button class="expenses__edit__form__content__right__update" type="submit">{{isUpdating ? 'Saving..' : 'Save changes'}}</button>
+        </div>
+    </form>
+
+</div>

@@ -34,10 +34,13 @@ angular
 
                     'list': {
                         templateUrl: "app/expenses/partials/expense/expenses.list.html",
-                        controller: "ExpenseListCtrl",
+                        controller: "ExpenseListController",
                         resolve: {
                             expenses: function (ExpenseService) {
                                 return ExpenseService.getAllExpenses();
+                            },
+                            categories: function (CategoryService) {
+                                return CategoryService.getAllCategories();
                             }
                         }
                     }
@@ -77,7 +80,7 @@ angular
 
                     'list': {
                         templateUrl: "app/expenses/partials/expense/expenses.list.html",
-                        controller: "ExpenseListCtrl",
+                        controller: "ExpenseListController",
                         resolve: {
                             expenses: function (ExpenseService) {
                                 return ExpenseService.getAllExpenses();
@@ -95,7 +98,7 @@ angular
 
                     'list': {
                         templateUrl: "app/expenses/partials/expense/expenses.list.html",
-                        controller: "ExpenseListCtrl",
+                        controller: "ExpenseListController",
                         resolve: {
                             expenses: function (ExpenseService) {
                                 return ExpenseService.getAllExpenses();

@@ -29,7 +29,7 @@ angular
             var expenseDto = ExpenseTransformerService.toExpenseDto(expense);
 
             return $http
-                .put(URLTo.api(EXPENSE_URLS.update, { ":id": expenseDto.id }), expenseDto)
+                .post(URLTo.api(EXPENSE_URLS.update), expenseDto)
                 .then(function (response) {
                     ExpenseTransformerService.toExpense(response.data, expense);
 
