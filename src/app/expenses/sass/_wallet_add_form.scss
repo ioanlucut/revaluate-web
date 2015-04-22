@@ -3,10 +3,11 @@ $add-expense-form-border-color: $lightest-gray;
 
 .expenses__form {
   @include clearfix();
-  width: 750px;
+  width: 800px;
   margin: 0 auto;
   color: $black;
   font-weight: $font-weight-bold;
+  //border: solid 1px red;
 
   .expense__form__price__input,
   .expense__form__category__input,
@@ -42,7 +43,8 @@ $add-expense-form-border-color: $lightest-gray;
   @include clearfix();
   float: left;
   padding: 0;
-  width: 130px;
+  //width: 170px;
+  width: 20%;
   position: relative;
 
   .expense__form__price__input {
@@ -72,7 +74,8 @@ $add-expense-form-border-color: $lightest-gray;
 .expense__form__category {
   float: left;
   padding: 0;
-  width: 200px;
+  //width: 200px;
+  width: 35%;
   position: relative;
 
   .expense__form__category__input {
@@ -90,7 +93,8 @@ $add-expense-form-border-color: $lightest-gray;
 // -------------------------
 .expense__form__details {
   float: left;
-  width: 280px;
+  //width: 210px;
+  width: 25%;
   position: relative;
 
   .expense__form__details__input {
@@ -104,7 +108,8 @@ $add-expense-form-border-color: $lightest-gray;
   float: left;
   overflow: auto;
   display: block;
-  width: 130px;
+  //width: 150px;
+  width: 20%;
   padding: 0;
 
   .expense__form__date__input {
