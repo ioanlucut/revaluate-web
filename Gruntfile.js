@@ -24,7 +24,7 @@ module.exports = function (grunt) {
                     "bower_components/angular-messages/angular-messages.js",
                     "bower_components/angular-flash/dist/angular-flash.js",
                     "bower_components/angular-mocks/angular-mocks.js",
-                    "bower_components/angucomplete-alt/dist/angucomplete-alt.min.js",
+                    "bower_components/angucomplete-alt/angucomplete-alt.js",
                     "bower_components/jstz-detect/jstz.js",
                     "bower_components/perfect-scrollbar/src/perfect-scrollbar.js",
 
