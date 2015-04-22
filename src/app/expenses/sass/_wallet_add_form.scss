@@ -7,6 +7,7 @@ $add-expense-form-border-color: $lightest-gray;
   margin: 0 auto;
   color: $black;
   font-weight: $font-weight-bold;
+  position: relative;
 
   .expense__form__price__input,
   .expense__form__category__input,

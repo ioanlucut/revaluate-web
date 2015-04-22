@@ -5,7 +5,7 @@ angular
     .module("expenses")
     .constant("EXPENSE_URLS", {
         create: "expenses/create",
-        update: "expenses/update/:id",
+        update: "expenses/update",
         details: "expenses/:id",
         delete: "/expenses/remove/:id",
         allExpenses: "expenses/retrieve",

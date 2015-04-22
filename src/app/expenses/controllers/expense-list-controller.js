@@ -3,7 +3,7 @@
  */
 angular
     .module("expenses")
-    .controller("ExpenseListCtrl", function ($scope, $rootScope, flash, ExpenseMatchingGroupService, EXPENSE_EVENTS, $timeout, expenses, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
+    .controller("ExpenseListController", function ($scope, $rootScope, flash, ExpenseMatchingGroupService, EXPENSE_EVENTS, $timeout, categories, expenses, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
 
         /**
          * Alert identifier
@@ -31,6 +31,11 @@ angular
          * Existing expenses.
          */
         $scope.expenses = expenses;
+
+        /**
+         * Existing categories.
+         */
+        $scope.categories = categories;
 
         /**
          * On expense created, display a success message, and add expense to the list.

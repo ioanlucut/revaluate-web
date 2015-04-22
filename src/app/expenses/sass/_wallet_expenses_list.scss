@@ -10,26 +10,14 @@
   background-color: $color;
 }
 
-
 .expenses__list {
-  //border: solid 1px red;
-
   padding: 40px 15px;
 }
 
 .expenses__list__entry {
-  //border: solid 1px $light-gray;
-
   width: 100%;
   max-width: 730px;
   margin: 15px auto;
-
-  div {
-    display: inline-block;
-    padding: 2px 10px;
-
-    //border: solid 1px blue;
-  }
 
   .expenses__list__entry__price {
     width: 180px;
@@ -43,12 +31,20 @@
     }
   }
 
+  .expenses__list__entry__display {
+    width: 100%;
+
+    div {
+      display: inline-block;
+      padding: 2px 10px;
+    }
+  }
+
   .expenses__list__entry__category {
     @include category-label(#ED8687);
   }
 
   .expenses__list__entry__details {
-    //width: 250px;
     color: $medium-gray;
 
   }
@@ -58,6 +54,14 @@
     float: right;
     text-align: right;
     color: $medium-gray;
+  }
+
+  .expenses__list__entry__edit {
+    float: right;
+    display: inline-block;
+    margin: 0 5px;
+    padding: 2px 10px;
+    font-size: $font-size-base;
   }
 }
 

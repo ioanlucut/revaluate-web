@@ -7,6 +7,7 @@ angular
             restrict: "A",
             scope: {
                 expenses: "=",
+                categories: "=",
                 searchByText: "="
             },
             templateUrl: "app/expenses/partials/expense/expense.list.template.html",

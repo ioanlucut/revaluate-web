@@ -8,22 +8,8 @@
 
         <!--Expense list-->
         <div class="expenses__list__entry"
-             ng-repeat="expense in expenses | orderObjectBy : 'model.spentDate' : reverseOrder | limitTo: expensesLimit | filter:{model:{description:searchByText}} as filteredExpenses track by expense.model.id">
-
-            <div class="expenses__list__entry__price">
-                {{expense.model.value | currency:""}}
-                <span class="expenses__list__entry__currency">{{user.model.currency.currencyCode}}</span>
-            </div>
-
-            <!--Expense category-->
-            <div class="expenses__list__entry__category" ng-style="{'background':expense.model.category.color}" ng-bind-html="expense.model.category.name"></div>
-
-            <!--Expense description-->
-            <div class="expenses__list__entry__details" ng-bind-html="expense.model.description | highlightSearch:searchByText"></div>
-
-            <!--Expense date-->
-            <div class="expenses__list__entry__date">{{expense.model.spentDate | friendlyDate}}</div>
-
+             ng-repeat="expense in expenses | orderObjectBy : 'model.spentDate' : reverseOrder | limitTo: expensesLimit | filter:{model:{description:searchByText}} as filteredExpenses track by expense.model.id"
+             expense-entry expense="expense" categories="categories">
         </div>
     </div>
 
