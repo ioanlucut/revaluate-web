@@ -31,3 +31,12 @@
 6. git add src/app/app.env.config.js --force
 7. git commit -m "2.1.0 - LIVE"
 8. git push
+
+# Heroku - install
+* `heroku apps:info` if you want to see the apps you have
+* `heroku logs -t --app revaluate-www-dev` to open logs of a specific app (dev in our case).
+* `heroku config:set BUILDPACK_URL=https://github.com/heroku/heroku-buildpack-php --app revaluate-www-dev` to add apache buildpack
+* `echo '{}' > composer.json` to add an empty json for apache buildpack.
+* `git add .`
+* `git commit -m "add composer"`
+* `git push`
