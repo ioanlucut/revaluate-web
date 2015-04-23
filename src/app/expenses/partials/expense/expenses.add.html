@@ -74,9 +74,14 @@
 
         <!-- Button container -->
         <div class="expense__form__submit">
-            <span>Hit Enter to</span>
-            <button type="submit"> save</button>
-            <span>the expense.</span>
+            <span ng-if="isSaving">
+                <span>saving..</span>
+            </span>
+            <span ng-if="! isSaving">
+                <span>Hit Enter to</span>
+                <button type="submit">save</button>
+                <span>the expense.</span>
+            </span>
         </div>
     </form>
 

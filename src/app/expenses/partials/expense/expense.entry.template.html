@@ -90,9 +90,14 @@
 
         <!-- Button container -->
         <div class="expense__form__submit">
-            <span>Hit Enter to</span>
-            <button type="submit"> save</button>
-            <span>the expense.</span>
+            <span ng-if="isUpdating">
+                <span>saving..</span>
+            </span>
+            <span ng-if="! isUpdating">
+                <span>Hit Enter to</span>
+                <button type="submit">save</button>
+                <span>the expense.</span>
+            </span>
         </div>
 
         <!--Content right-->
@@ -100,8 +105,6 @@
 
             <!--Reset-->
             <button class="expenses__edit__form__content__right__cancel" ng-click="cancel();">Nevermind</button>
-            <!-- Button container -->
-            <button class="expenses__edit__form__content__right__update" type="submit">{{isUpdating ? 'Saving..' : 'Save changes'}}</button>
         </div>
     </form>
 
