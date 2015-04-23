@@ -71,7 +71,7 @@
     @include span-columns(4);
     @include omega(3n);
     padding-bottom: 10px;
-    font-size: $base-font-size-xs;
+    font-size: $font-size-small;
   }
 
   .sign-up__box__categories__category__form {
@@ -104,12 +104,12 @@
     @include omega(3n);
     height: 30px;
     padding: 0;
-    font-size: $base-font-size-xs;
+    font-size: $font-size-small;
   }
 
   .sign-up__box__categories__addinput {
     height: 30px;
-    font-size: $base-font-size-xs;
+    font-size: $font-size-small;
     text-align: center;
     text-transform: uppercase;
   }
@@ -118,5 +118,5 @@
 .sign-up__setup__btn {
   @include btn-big($brand-primary);
   margin-top: 25px;
-  font-size: $base-font-size;
+  font-size: $font-size-base;
 }
