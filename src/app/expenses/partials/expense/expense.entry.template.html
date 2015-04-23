@@ -1,5 +1,5 @@
 <!--Display expense-->
-<div class="expenses__list__entry__display" ng-if="! showContent" ng-click="toggleContent()">
+<div class="expenses__list__entry__display" ng-if="! showContent" ng-click="toggleContent();$event.stopPropagation();">
 
     <div class="expenses__list__entry__price">
         {{expense.model.value | currency:""}}
@@ -19,7 +19,7 @@
 <!-- Display expense form -->
 <div class="expenses__form" ng-if="showContent">
 
-    <form name="expenseForm" ng-submit="updateExpense(expenseForm, expense, category)" novalidate focus-first-error>
+    <form name="expenseForm" ng-submit="updateExpense(expenseForm, expense, category)" outside-click="cancel();" novalidate focus-first-error>
 
         <!-- Form groups -->
         <div class="expense__form__price" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.value.$invalid || badPostSubmitResponse)}">
@@ -96,15 +96,8 @@
             <span ng-if="! isUpdating">
                 <span>Hit Enter to</span>
                 <button type="submit">save</button>
-                <span>the expense.</span>
+                <span>the expense. Click outside the form to cancel.</span>
             </span>
-        </div>
-
-        <!--Content right-->
-        <div class="expenses__edit__form__content__right">
-
-            <!--Reset-->
-            <button class="expenses__edit__form__content__right__cancel" ng-click="cancel();">Nevermind</button>
         </div>
     </form>
 
