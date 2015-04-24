@@ -67,26 +67,6 @@ $add-expense-form-border-color: $lightest-gray;
   }
 }
 
-// Category input styling
-// ----------------------
-
-.expense__form__category {
-  float: left;
-  padding: 0;
-  width: 30%;
-  position: relative;
-
-  .expense__form__category__input {
-    height: $add-expense-form-height;
-    width: 100%;
-    padding-left: 15px;
-
-    &:focus {
-      outline: none;
-    }
-  }
-}
-
 // Details input styling
 // -------------------------
 .expense__form__details {

@@ -1,3 +1,23 @@
+// Category input styling
+// ----------------------
+
+.expense__form__category {
+  float: left;
+  padding: 0;
+  width: 30%;
+  position: relative;
+
+  .expense__form__category__input {
+    height: $add-expense-form-height;
+    width: 100%;
+    padding-left: 15px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
 .expense__form__category__angucomplete-dropdown {
   width: 310px;
   left: -10px;
