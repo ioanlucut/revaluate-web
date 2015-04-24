@@ -11,14 +11,7 @@
     </div>
 
     <div ng-if="isStillExpensesToBeLoaded()">
-        <button type="submit"
-                class="expenses__list__loadbtn"
-                ladda="isLoadingMore"
-                data-style="expand-left"
-                data-spinner-size="20"
-                ng-click="loadMoreExpenses()">
-            Load more
-        </button>
+        <button type="submit" class="expenses__list__loadbtn" ng-click="loadMoreExpenses()">{{isLoadingMore ? 'Loading..' : 'Load more'}}</button>
     </div>
 
 </div>
