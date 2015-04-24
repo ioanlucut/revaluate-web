@@ -56,7 +56,8 @@ angular
          * @returns {*}
          */
         this.requestPasswordReset = function (email) {
-            return $http.post(URLTo.api(AUTH_URLS.requestPasswordReset, { ":email": email }));
+            return $http
+                .post(URLTo.api(AUTH_URLS.requestPasswordReset, { ":email": email }));
         };
 
         /**
@@ -65,9 +66,10 @@ angular
          * @returns {*}
          */
         this.requestSignUpRegistration = function (email) {
-            return $http.post(URLTo.api(AUTH_URLS.requestSignUpRegistration), {
-                email: email
-            });
+            return $http
+                .post(URLTo.api(AUTH_URLS.requestSignUpRegistration), {
+                    email: email
+                });
         };
 
         /**
@@ -119,7 +121,7 @@ angular
          */
         this.validateRegistrationToken = function (email, token) {
             return $http
-                .get(URLTo.api(AUTH_URLS.validateRegistrationToken, { ":email": email, ":token": token }),
+                .post(URLTo.api(AUTH_URLS.validateRegistrationToken, { ":email": email, ":token": token }),
                 {
                     skipAuthorization: true
                 })
@@ -138,7 +140,7 @@ angular
          */
         this.updatePassword = function (oldPassword, newPassword, newPasswordConfirmation) {
             return $http
-                .post(URLTo.api(AUTH_URLS.updatePassword),
+                .put(URLTo.api(AUTH_URLS.updatePassword),
                 {
                     oldPassword: oldPassword,
                     newPassword: newPassword,

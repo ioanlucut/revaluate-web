@@ -29,24 +29,12 @@ angular
             var expenseDto = ExpenseTransformerService.toExpenseDto(expense);
 
             return $http
-                .post(URLTo.api(EXPENSE_URLS.update), expenseDto)
+                .put(URLTo.api(EXPENSE_URLS.update), expenseDto)
                 .then(function (response) {
                     ExpenseTransformerService.toExpense(response.data, expense);
 
                     return response;
                 });
-        };
-
-        /**
-         * UnSubscribe from a expense.
-         * @param expense
-         * @returns {*}
-         */
-        this.unSubscribeFromExpense = function (expense) {
-            var expenseDto = ExpenseTransformerService.toExpenseDto(expense);
-
-            return $http
-                .post(URLTo.api(EXPENSE_URLS.unSubscribeExpense, { ":id": expenseDto.id }), expenseDto);
         };
 
         /**

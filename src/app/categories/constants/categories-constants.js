@@ -5,9 +5,9 @@ angular
     .module("categories")
     .constant("CATEGORY_URLS", {
         isUnique: "categories/isUniqueCategory",
-        create: "categories/create",
-        update: "categories/update",
-        delete: "categories/remove/:id",
+        create: "categories",
+        update: "categories",
+        delete: "categories/:id",
         allCategories: "categories/retrieve"
     })
     .constant("CATEGORY_EVENTS", {
