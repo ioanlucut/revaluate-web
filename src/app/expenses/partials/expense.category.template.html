@@ -7,7 +7,6 @@
             <div class="angucomplete-image-holder expense__form__category__angucomplete-image-holder">
                 <label class="expense__form__category__color__preview" ng-style="{'background':result.originalObject.model.color}"></label>
             </div>
-            <!--<div class="expense__form__category__color__preview" ng-style="{'background':result.originalObject.model.color}"></div>-->
             <div class="angucomplete-title" ng-if="matchClass" ng-bind-html="result.title"></div>
             <div class="angucomplete-title" ng-if="!matchClass">{{ result.title }}</div>
             <div ng-if="matchClass && result.description && result.description != ''" class="angucomplete-description" ng-bind-html="result.description"></div>
