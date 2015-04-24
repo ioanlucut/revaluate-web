@@ -1,0 +1,11 @@
+.datepicker {
+  width: 500px;
+}
+
+.datepicker-jump-controls {
+
+}
+
+.datepicker__btn {
+  @include btn($brand-default);
+}
