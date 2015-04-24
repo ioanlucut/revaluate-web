@@ -8,7 +8,7 @@
 
         <!-- Form groups -->
         <div class="expense__form__price" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.value.$invalid || badPostSubmitResponse)}">
-            <input class="expense__form__price__input" type="text" name="value" placeholder="The value" ng-model="expense.model.value" format-price format="number" caret-price-position required valid-price />
+            <input class="expense__form__price__input" type="text" name="value" placeholder="The value" maxlength="14" ng-model="expense.model.value" format-price format="number" caret-price-position required valid-price />
             <span class="expense__form__price__currency">{{user.model.currency.currencyCode}}</span>
 
             <!-- Error messages -->
@@ -46,7 +46,7 @@
 
         <!-- Description input -->
         <div class="expense__form__details" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.description.$invalid || badPostSubmitResponse)}">
-            <input class="expense__form__details__input" type="text" name="description" ng-maxlength="20" placeholder="Add details (optional)" ng-model="expense.model.description" escape-html />
+            <input class="expense__form__details__input" type="text" name="description" ng-maxlength="30" placeholder="Add details (optional)" ng-model="expense.model.description" escape-html />
 
             <!-- Error messages -->
             <div class="form-group-input__message" ng-class="{'has-error': expenseForm.description.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.$error" ng-if="expenseForm.$submitted">
