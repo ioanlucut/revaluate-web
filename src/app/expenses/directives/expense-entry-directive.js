@@ -31,13 +31,37 @@ angular
                  * Show block content
                  * @type {boolean}
                  */
-                scope.showContent = false;
+                scope.showContent = true;
+
+                /**
+                 * We need an object in the scope as this model is changed by the
+                 * datePicker and we want to see those changes. Remember '.' notation.
+                 */
+                scope.datePickerStatus = {};
 
                 /**
                  * Toggle content
                  */
                 scope.toggleContent = function () {
                     scope.showContent = !scope.showContent;
+
+                    /**
+                     * Max date to create expense
+                     */
+                    if ( scope.showContent ) {
+                        scope.maxDate = moment().hours(0).minutes(0).seconds(0);
+                    }
+                };
+
+                /**
+                 * Open date picker
+                 * @param $event
+                 */
+                scope.open = function ($event) {
+                    $event.preventDefault();
+                    $event.stopPropagation();
+
+                    scope.datePickerStatus.opened = true;
                 };
 
                 /**
