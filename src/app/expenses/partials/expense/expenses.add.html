@@ -13,8 +13,8 @@
 
             <!-- Error messages -->
             <div class="form-group-input__message" ng-class="{'has-error': expenseForm.value.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.$error" ng-if="expenseForm.$submitted">
-                <div ng-message="required">Please add a price.</div>
-                <div ng-message="validPrice">Price is invalid</div>
+                <div ng-message="required">Don't forget the price.</div>
+                <div ng-message="validPrice">Oops, you missed the price.</div>
             </div>
         </div>
 
