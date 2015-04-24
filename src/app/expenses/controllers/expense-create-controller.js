@@ -77,11 +77,11 @@ angular
          * Open date picker
          * @param $event
          */
-        $scope.open = function ($event) {
+        $scope.openDatePicker = function ($event) {
             $event.preventDefault();
             $event.stopPropagation();
 
-            $scope.opened = true;
+            $scope.datePickerOpened = true;
         };
 
         /**

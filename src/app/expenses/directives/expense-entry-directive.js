@@ -31,7 +31,7 @@ angular
                  * Show block content
                  * @type {boolean}
                  */
-                scope.showContent = true;
+                scope.showContent = false;
 
                 /**
                  * We need an object in the scope as this model is changed by the
@@ -57,7 +57,7 @@ angular
                  * Open date picker
                  * @param $event
                  */
-                scope.open = function ($event) {
+                scope.openDatePicker = function ($event) {
                     $event.preventDefault();
                     $event.stopPropagation();
 
