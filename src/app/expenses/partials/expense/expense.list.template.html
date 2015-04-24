@@ -10,8 +10,15 @@
         </div>
     </div>
 
-    <div ng-if="isStillExpensesToBeLoaded()" class="expenses__list__loadbtn">
-        <button type="submit" ladda="isLoadingMore" data-style="expand-left" data-spinner-size="20" ng-click="loadMoreExpenses()">LOAD MORE</button>
+    <div ng-if="isStillExpensesToBeLoaded()">
+        <button type="submit"
+                class="expenses__list__loadbtn"
+                ladda="isLoadingMore"
+                data-style="expand-left"
+                data-spinner-size="20"
+                ng-click="loadMoreExpenses()">
+            Load more
+        </button>
     </div>
 
 </div>
