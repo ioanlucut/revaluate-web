@@ -19,7 +19,7 @@ angular
             // Login page
             .state("account", {
                 url: "/account",
-                controller: "LoginCtrl",
+                controller: "LoginController",
                 templateUrl: "app/site/partials/home.html",
                 title: "Login - Revaluate"
             })
@@ -45,7 +45,7 @@ angular
             // Logout page
             .state("account:logout", {
                 url: "/account/logout",
-                controller: "LogoutCtrl",
+                controller: "LogoutController",
                 templateUrl: "app/account/partials/logout.html",
                 resolve: {
                     isSuccessfullyLoggedOut: function ($q, AuthService) {
@@ -73,7 +73,7 @@ angular
                 name: "account:validatePasswordResetToken.valid",
                 url: "/{email}/{token}",
                 templateUrl: "app/account/partials/validate_password_reset_token_valid.html",
-                controller: "ValidatePasswordResetTokenCtrl",
+                controller: "ValidatePasswordResetTokenController",
                 resolve: {
                     validateTokenResult: function ($stateParams, $q, AuthService, $state) {
                         var deferred = $q.defer();
@@ -99,7 +99,7 @@ angular
                 name: "account:validatePasswordResetToken.invalid",
                 url: "/invalid-token",
                 templateUrl: "app/account/partials/validate_password_reset_token_invalid.html",
-                controller: "ValidatePasswordResetTokenInvalidCtrl",
+                controller: "ValidatePasswordResetTokenInvalidController",
                 title: "Reset password - Revaluate"
             })
 
@@ -119,7 +119,7 @@ angular
                 name: "account:confirmRegistration.valid",
                 url: "",
                 templateUrl: "app/account/partials/signup_confirm_valid.html",
-                controller: "SignUpConfirmCtrl",
+                controller: "SignUpConfirmController",
                 title: "Register - Revaluate"
             })
             // Sign up confirm - invalid
@@ -127,7 +127,7 @@ angular
                 name: "account:confirmRegistration.invalid",
                 url: "/registration-failed",
                 templateUrl: "app/account/partials/signup_confirm_invalid.html",
-                controller: "SignUpConfirmInvalidCtrl",
+                controller: "SignUpConfirmInvalidController",
                 title: "Register - Revaluate"
             })
 
@@ -137,7 +137,7 @@ angular
             .state("setup", {
                 url: "/setup",
                 templateUrl: 'app/account/partials/signup_setup.html',
-                controller: "SignUpSetUpRegistrationCtrl",
+                controller: "SignUpSetUpRegistrationController",
                 title: "Setup - Revaluate",
                 resolve: {
                     currencies: function (CurrencyService) {

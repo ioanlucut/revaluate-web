@@ -3,7 +3,7 @@
  */
 angular
     .module("account")
-    .controller("PreferencesCtrl", function ($q, $scope, $rootScope, TimezoneProvider, flash, ALERTS_CONSTANTS) {
+    .controller("PreferencesController", function ($q, $scope, $rootScope, TimezoneProvider, flash, ALERTS_CONSTANTS) {
 
         /**
          * Alert identifier

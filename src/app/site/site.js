@@ -17,7 +17,7 @@ angular
             .state("home", {
                 url: "/",
                 templateUrl: "app/site/partials/home.html",
-                controller: "LandingPageCtrl",
+                controller: "LandingPageController",
                 title: "Change the way you spend your money"
             })
             .state("privacy", {
@@ -33,13 +33,13 @@ angular
             .state("404", {
                 url: "/404",
                 templateUrl: "app/site/partials/404.html",
-                controller: "Error404PageCtrl",
+                controller: "Error404PageController",
                 title: "Hmm... looks like a 404"
             })
             .state("500", {
                 url: "/500",
                 templateUrl: "app/site/partials/500.html",
-                controller: "Error500PageCtrl",
+                controller: "Error500PageController",
                 title: "Oops... You found a 500"
             });
     });

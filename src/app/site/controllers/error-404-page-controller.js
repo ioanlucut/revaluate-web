@@ -3,12 +3,12 @@
  */
 angular
     .module("common")
-    .controller("Error404PageCtrl", function ($scope, $controller, MIXPANEL_EVENTS) {
+    .controller("Error404PageController", function ($scope, $controller, MIXPANEL_EVENTS) {
 
         /**
          * Inherit from this controller
          */
-        $controller('AbstractErrorPageCtrl', { $scope: $scope });
+        $controller('AbstractErrorPageController', { $scope: $scope });
 
         /**
          * Track error event

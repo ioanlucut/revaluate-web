@@ -54,7 +54,7 @@ angular
                 views: {
 
                     'action': {
-                        controller: "ExpenseAutoEditCtrl",
+                        controller: "ExpenseAutoEditController",
                         resolve: {
                             expenseToReview: function ($stateParams, $q, $state, ExpenseService) {
                                 var deferred = $q.defer();
