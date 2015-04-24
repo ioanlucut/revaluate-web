@@ -1,6 +1,6 @@
 angular
     .module("account")
-    .controller("ValidatePasswordResetTokenCtrl", function ($scope, $timeout, flash, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult, ALERTS_CONSTANTS) {
+    .controller("ValidatePasswordResetTokenController", function ($scope, $timeout, flash, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult, ALERTS_CONSTANTS) {
 
         /**
          * Alert identifier

@@ -3,7 +3,7 @@
  */
 angular
     .module("categories")
-    .controller("CategoryListCtrl", function ($scope, $rootScope, Category, flash, CATEGORY_EVENTS, $timeout, categories, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
+    .controller("CategoryListController", function ($scope, $rootScope, Category, flash, CATEGORY_EVENTS, $timeout, categories, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
         /**
          * Alert identifier
          */

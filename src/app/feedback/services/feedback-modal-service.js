@@ -17,7 +17,7 @@ angular
 
             this.modalInstance = $modal.open({
                 templateUrl: "app/feedback/partials/feedback-modal.html",
-                controller: "FeedbackModalCtrl",
+                controller: "FeedbackModalController",
                 windowClass: "modal-feedback"
             });
         };

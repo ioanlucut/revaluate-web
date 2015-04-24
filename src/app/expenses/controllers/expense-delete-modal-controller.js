@@ -1,6 +1,6 @@
 angular
     .module("expenses")
-    .controller("ExpenseDeleteModalCtrl", function ($scope, $rootScope, $stateParams, $window, $timeout, StatesHandler, EXPENSE_EVENTS, expense, expenseIndex, MIXPANEL_EVENTS) {
+    .controller("ExpenseDeleteModalController", function ($scope, $rootScope, $stateParams, $window, $timeout, StatesHandler, EXPENSE_EVENTS, expense, expenseIndex, MIXPANEL_EVENTS) {
 
         /**
          * Expense to be created (injected with few default values)

@@ -3,7 +3,7 @@ angular
     .directive("addCategory", function ($rootScope, CATEGORY_EVENTS) {
         return {
             restrict: "A",
-            controller: 'CategoryCreateCtrl',
+            controller: 'CategoryCreateController',
             templateUrl: "app/categories/partials/add-category-directive-template.html",
             link: function (scope, el, attrs) {
 
