@@ -25,7 +25,7 @@ angular
         function callbackCalendarFormatter() {
             var isSameYear = moment(moment().year()).isSame(this.year());
 
-            return isSameYear ? 'dddd, D MMMM' : 'dddd, D MMMM YYYY';
+            return isSameYear ? 'ddd, MMM D' : 'ddd, MMM D YYYY';
         }
 
         // Initialize moment configuration
