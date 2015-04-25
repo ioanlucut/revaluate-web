@@ -20,8 +20,8 @@
 
 .expense__form__category__angucomplete-dropdown {
   width: 310px;
-  left: -10px;
-  top: 48px;
+  left: 0;
+  top: 52px;
   border-color: $medium-gray;
   @include box-shadow(0 2px 5px rgba(0, 0, 0, .2));
 }
