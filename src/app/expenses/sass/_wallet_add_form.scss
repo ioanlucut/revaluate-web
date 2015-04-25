@@ -18,8 +18,9 @@ $add-expense-form-border-color: $lightest-gray;
     border-width: 2px 0;
     border-color: $add-expense-form-border-color transparent;
 
-    &:hover {
-      border-color: $medium-gray;
+    &:focus {
+      border-color: $brand-primary;
+      background-color: lighten($brand-primary, 35%);
     }
   }
 }
