@@ -25,6 +25,21 @@ angular
          * @param expense
          * @returns {*}
          */
+        this.createExpense = function (expense) {
+            return $http
+                .post(URLTo.api(EXPENSE_URLS.bulkCreate), ExpenseTransformerService.toExpenseDto(expense))
+                .then(function (response) {
+                    ExpenseTransformerService.toExpense(response.data, expense);
+
+                    return response;
+                });
+        };
+
+        /**
+         * Update a expense.
+         * @param expense
+         * @returns {*}
+         */
         this.updateExpense = function (expense) {
             var expenseDto = ExpenseTransformerService.toExpenseDto(expense);
 

@@ -8,6 +8,7 @@ angular
         update: "expenses",
         details: "expenses/:id",
         delete: "expenses/:id",
+        bulkDelete: "expenses/bulkDelete",
         allExpenses: "expenses/retrieve",
         pastExpenses: "expenses/past?:local_time&:local_time_zone",
         upcomingExpenses: "expenses/upcoming?:local_time&:local_time_zone",
