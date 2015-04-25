@@ -7,7 +7,7 @@
         <div class="expenses__list__entry"
              ng-repeat="expense in expenses | orderObjectBy : 'model.spentDate' : reverseOrder | limitTo: expensesLimit | filter:{model:{description:searchByText}} as filteredExpenses track by expense.model.id"
              ng-class="expense.marked ? 'expense__bulk--marked' : ''"
-             expense-entry expense="expense" categories="categories">
+             expense-entry expense="expense" categories="categories" is-enough-expenses-for-bulk-action="expenses.length > 1">
         </div>
     </div>
 
