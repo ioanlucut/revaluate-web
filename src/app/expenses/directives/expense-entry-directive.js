@@ -17,9 +17,9 @@ angular
                 scope.user = $rootScope.currentUser;
 
                 /**
-                 * Keep the master backup
+                 * Keep the master backup. Work only with shownExpense.
                  */
-                scope.masterExpense = angular.copy(scope.expense);
+                scope.shownExpense = angular.copy(scope.expense);
 
                 /**
                  * Selected category
@@ -58,6 +58,11 @@ angular
                  */
                 scope.toggleMark = function () {
                     scope.expense.marked = !scope.expense.marked;
+
+                    // ---
+                    // We need this info also in the parent scope, so we synchronize the master too.
+                    // ---
+                    scope.shownExpense.marked = scope.expense.marked;
                 };
 
                 /**
@@ -77,20 +82,16 @@ angular
                 scope.cancel = function () {
                     scope.toggleContent();
 
-                    scope.expense = angular.copy(scope.masterExpense);
+                    scope.shownExpense = angular.copy(scope.expense);
                 };
 
                 /**
-                 * On expense updated/deleted - hide everything.
+                 * On expense updated/deleted - cancel edit mode.
                  */
                 $rootScope.$on(EXPENSE_EVENTS.isUpdated, function (event, args) {
                     if ( scope.expense.model.id === args.expense.model.id ) {
-                        scope.toggleContent();
 
-                        // ---
-                        // Update the master expense.
-                        // ---
-                        scope.masterExpense = angular.copy(scope.expense);
+                        scope.cancel();
                     }
                 });
             }
