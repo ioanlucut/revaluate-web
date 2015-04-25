@@ -56,4 +56,19 @@ angular
 
             return expenses;
         };
+
+        /**
+         * Transform a list of expenses as business objects to a list of DTOs.
+         * @param expenses
+         * @returns {Array}
+         */
+        this.toExpenses = function (expenses) {
+            var expenseDTOs = [];
+
+            _.each(expenses, _.bind(function (expense) {
+                expenses.push(this.toExpenseDto(expense));
+            }, this));
+
+            return expenseDTOs;
+        };
     });
