@@ -70,6 +70,32 @@ angular
         };
 
         /**
+         * Bulk create action of a list of categories.
+         * @returns {*}
+         */
+        this.bulkCreate = function (categories) {
+            return $http
+                .post(URLTo.api(CATEGORY_URLS.bulkCreate), CategoryTransformerService.toCategoryDTOs(categories))
+                .then(function (response) {
+
+                    return CategoryTransformerService.toCategories(response.data);
+                });
+        };
+
+        /**
+         * Bulk delete action of a list of categories.
+         * @returns {*}
+         */
+        this.bulkDelete = function (categories) {
+            return $http
+                .delete(URLTo.api(CATEGORY_URLS.bulkDelete), CategoryTransformerService.toCategoryDTOs(categories))
+                .then(function (response) {
+
+                    return response.data;
+                });
+        };
+
+        /**
          * Check if a category name is unique.
          *
          * @param name

@@ -142,6 +142,9 @@ angular
                 resolve: {
                     currencies: function (CurrencyService) {
                         return CurrencyService.getAllCurrencies();
+                    },
+                    predefinedCategories: function (CategoriesSetupProvider) {
+                        return CategoriesSetupProvider.getCategories();
                     }
                 }
             });

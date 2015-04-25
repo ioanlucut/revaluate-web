@@ -1,4 +1,4 @@
-<div class="sign-up__setup" xmlns="http://www.w3.org/1999/html">
+<div class="sign-up__setup">
 
     <div class="sign-up__setup__box">
 
@@ -17,7 +17,6 @@
                          title-field="currencyCode,displayName"
                          field-required="true"
                          field-required-class="sign-up__setup__section--currency--invalid"
-                         id="ex1"
                          placeholder="Start typing your currency..."
                          maxlength="50"
                          pause="1"
@@ -60,6 +59,7 @@
                         <input class="sign-up__box__categories__addinput" type="text" name="name"
                                ng-model="$parent.categoryOnTheFly"
                                ng-enter="triggerSubmit()"
+                               ng-blur="cancelAddCategoryOnTheFly()"
                                auto-focus required valid-category-name />
 
                     </div>
@@ -70,7 +70,7 @@
             <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
             <!-- Button -->
-            <button ladda="isSaving" data-style="expand-left" data-spinner-size="20" class="sign-up__setup__btn" ng-disabled="! isEnoughSelectedCategories()" type="submit">Done! Let's start!</button>
+            <button class="sign-up__setup__btn" ng-disabled="! isEnoughSelectedCategories()" type="submit">{{isSaving ? 'Loading..' : 'Done! Let\'s start!'}}</button>
         </form>
 
     </div>
