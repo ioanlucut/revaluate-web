@@ -103,6 +103,14 @@ input {
   right: 0;
   font-size: 11px;
   margin: 0;
+  font-weight: bold;
+}
+
+.form-group-input__message--currency {
+  text-align: center;
+  top: 45px;
+  right: 0;
+  left: 0;
 }
 
 .has-error {

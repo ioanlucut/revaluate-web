@@ -75,6 +75,7 @@ angular
             $scope.showCategoryOnTheFlyInput = false;
             $scope.categoryOnTheFly = "";
             $scope.setUpForm.categoryOnTheFlyForm.$setPristine();
+            $scope.badPostSubmitResponse = false;
 
             // ---
             // If there was a previously error, just clear it.
@@ -147,7 +148,7 @@ angular
             }
 
             var selectedCategories = angular.copy(getSelectedCategories());
-            var toBeSaved = {
+            var userProfileToBeUpdated = {
                 currency: angular.copy($scope.currency.originalObject),
                 initiated: true
             };
@@ -176,7 +177,7 @@ angular
                 .bulkCreate(selectedCategoriesToBeSaved)
                 .then(function () {
                     $scope.user
-                        .$save(toBeSaved)
+                        .$save(userProfileToBeUpdated)
                         .then(function (response) {
                             deferred.resolve(response);
                         })
@@ -205,7 +206,7 @@ angular
                         // Show some feedback.
                         // ---
                         $scope.isSaving = false;
-                        flash.to($scope.alertIdentifierId).success = "Set up successfully!";
+                        flash.to($scope.alertIdentifierId).success = "Set up successfully! Preparing expenses..";
 
                         /**
                          * Finally, go to expenses.
@@ -218,6 +219,7 @@ angular
                     // Error
                     $scope.isSaving = false;
                     flash.to($scope.alertIdentifierId).error = "Set up could not have been performed.";
+                    $scope.badPostSubmitResponse = true;
                 });
         };
 

@@ -25,6 +25,14 @@
 
 .sign-up__setup__section--currency {
   padding-top: 10px;
+  position: relative;
+
+  &.has-error {
+
+    input {
+      border-color: $brand-danger;
+    }
+  }
 
   .sign-up__setup__section--currency__input {
     display: inline-block;
@@ -42,13 +50,6 @@
       border-color: $brand-primary;
       outline: none;
     }
-  }
-}
-
-.ng-invalid-sign-up__setup__section--currency--invalid {
-
-  .sign-up__setup__section--currency__input {
-
   }
 }
 
