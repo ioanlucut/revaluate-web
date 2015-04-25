@@ -68,8 +68,8 @@
                         ng-model="expense.model.spentDate"
                         datepicker-popup
                         is-open="datePickerOpened"
-                        min-date="minDate"
-                        max-date="maxDate"
+                        min-date="datePickerMinDate"
+                        max-date="datePickerMaxDate"
                         show-weeks="false"
                         datepicker-options="{starting_day:1}">{{expense.model.spentDate | friendlyDate}}</button>
             </div>

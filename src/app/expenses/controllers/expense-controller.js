@@ -73,7 +73,7 @@ angular
             $scope.badPostSubmitResponse = false;
 
             /**
-             * Flag which represents whether
+             * Flag which represents whether the save is in progress.
              * @type {boolean}
              */
             $scope.isSaving = false;
@@ -81,19 +81,19 @@ angular
             /**
              * Max date to create expense
              */
-            $scope.maxDate = moment().hours(0).minutes(0).seconds(0);
+            $scope.datePickerMaxDate = moment().hours(0).minutes(0).seconds(0);
         };
-
-        /**
-         * Perform the first initialization.
-         */
-        $scope.initOrReset();
 
         /**
          * Minimum date to create expense.
          * @type {Date}
          */
-        $scope.minDate = moment().year(2000);
+        $scope.datePickerMinDate = moment().year(2000);
+
+        /**
+         * Perform the first initialization.
+         */
+        $scope.initOrReset();
 
         /**
          * Open date picker
@@ -107,7 +107,7 @@ angular
         };
 
         /**
-         * Saves the expense or updates it.
+         * Saves the expense.
          */
         $scope.saveExpense = function () {
             if ( $scope.expenseForm.$valid && !$scope.isSaving ) {
@@ -118,16 +118,14 @@ angular
 
                     return;
                 }
-
-                // Is saving expense
                 $scope.isSaving = true;
 
-                // Update the  chosen category
+                // Update the  chosen category and master expense.
                 $scope.expense.model.category = angular.copy($scope.category.originalObject.model);
-                // Ok, update master expense.
                 angular.copy($scope.expense, $scope.masterExpense);
 
-                $scope.masterExpense.save()
+                $scope.masterExpense
+                    .save()
                     .then(function () {
 
                         /**
@@ -148,7 +146,7 @@ angular
                     })
                     .catch(function () {
 
-                        flash.to($scope.alertIdentifierId).error = "Could not add the expense.";
+                        flash.to($scope.alertIdentifierId).error = "Could not add expense.";
                         $scope.isSaving = false;
                         $scope.badPostSubmitResponse = true;
                     });
@@ -156,7 +154,7 @@ angular
         };
 
         // ---
-        // EVENT LISTENERS.
+        // EVENT LISTENERS (listen for events from e.g. entries list).
         // ---
 
         /**
@@ -193,6 +191,9 @@ angular
             flash.to($scope.alertIdentifierId).success = "Expense successfully deleted!";
         });
 
+        /**
+         * On error occurred.
+         */
         $scope.$on(EXPENSE_EVENTS.isErrorOccurred, function () {
 
             flash.to($scope.alertIdentifierId).error = "Error occurred!";
