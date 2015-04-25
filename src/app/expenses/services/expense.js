@@ -40,6 +40,12 @@ angular
             };
 
             /**
+             * Shows if this expense is marked (can be used e.g. in a bulk list)
+             * @type {boolean}
+             */
+            this.marked = false;
+
+            /**
              * Is expense new.
              * @returns {boolean}
              */

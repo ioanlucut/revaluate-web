@@ -88,7 +88,7 @@ angular
          */
         this.bulkDelete = function (categories) {
             return $http
-                .delete(URLTo.api(EXPENSE_URLS.bulkDelete), ExpenseTransformerService.toExpenseDTOs(categories))
+                .put(URLTo.api(EXPENSE_URLS.bulkDelete), ExpenseTransformerService.toExpenseDTOs(categories))
                 .then(function (response) {
 
                     return response.data;

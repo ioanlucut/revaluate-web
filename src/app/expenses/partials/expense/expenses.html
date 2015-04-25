@@ -70,7 +70,8 @@
                         is-open="datePickerOpened"
                         min-date="datePickerMinDate"
                         max-date="datePickerMaxDate"
-                        datepicker-options="{startingDay:1,showWeeks:false}">{{expense.model.spentDate | friendlyDate}}</button>
+                        datepicker-options="{startingDay:1,showWeeks:false}">{{expense.model.spentDate | friendlyDate}}
+                </button>
             </div>
 
             <!--Error messages-->
@@ -92,6 +93,23 @@
             </span>
         </div>
     </form>
+
+</div>
+
+<!--Expense bulk actions-->
+<div class="expenses__bulk-actions" ng-if="isBulkActionEnabled()">
+
+    <div class="expenses__bulk-actions__buttons">
+
+        <div class="expenses__bulk-actions__delete">
+            <button class="expenses__bulk-actions__delete__btn-delete" ng-click="performBulkDelete()">{{isBulkDeleting ? 'Deleting..' : 'Delete all'}}</button>
+        </div>
+
+        <div class="expenses__bulk-actions__cancel">
+            <button class="expenses__bulk-actions__delete__btn-cancel" ng-click="cancelBulkAction()">Discard</button>
+        </div>
+
+    </div>
 
 </div>
 

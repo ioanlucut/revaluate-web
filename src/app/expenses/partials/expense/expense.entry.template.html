@@ -1,5 +1,9 @@
 <!--Display expense-->
-<div class="expenses__list__entry__display" ng-if="! showContent" ng-click="toggleContent();$event.stopPropagation();">
+<div class="expenses__list__entry__display" ng-if="! showContent">
+
+    <div class="expenses__list__entry__select">
+        <input type="checkbox" ng-checked="expense.marked" ng-click="toggleMark()" />
+    </div>
 
     <div class="expenses__list__entry__price">
         {{expense.model.value | currency:""}}

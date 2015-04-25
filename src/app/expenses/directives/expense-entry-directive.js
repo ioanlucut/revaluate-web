@@ -54,6 +54,13 @@ angular
                 };
 
                 /**
+                 * Toggle mark for bulk action
+                 */
+                scope.toggleMark = function () {
+                    scope.expense.marked = !scope.expense.marked;
+                };
+
+                /**
                  * Open date picker
                  * @param $event
                  */

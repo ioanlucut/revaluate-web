@@ -11,13 +11,29 @@
 }
 
 .expenses__list {
-  padding: 40px 15px;
+  padding: 50px 15px;
 }
 
 .expenses__list__entry {
   width: 100%;
   max-width: 800px;
-  margin: 15px auto;
+  margin: 0 auto;
+  padding-top: 7.5px;
+  padding-bottom: 7.5px;
+
+  .expenses__list__entry__select {
+    width: 30px;
+    text-align: right;
+    margin-right: 15px;
+    display: inline-block;
+    height: 25px;
+    line-height: 25px;
+
+    input {
+      height: 100%;
+      width: 100%;
+    }
+  }
 
   .expenses__list__entry__price {
     width: 160px;

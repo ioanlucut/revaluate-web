@@ -1,6 +1,6 @@
 angular
     .module("expenses")
-    .controller("ExpenseController", function ($scope, $rootScope, $stateParams, Expense, expenses, categories, $window, DatesUtils, $timeout, StatesHandler, EXPENSE_EVENTS, flash, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
+    .controller("ExpenseController", function ($scope, $rootScope, $stateParams, Expense, expenses, ExpenseService, categories, $window, DatesUtils, $timeout, StatesHandler, EXPENSE_EVENTS, flash, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
 
         /**
          * Alert identifier
@@ -153,6 +153,68 @@ angular
             }
         };
 
+        /**
+         * Minimum expenses to enable bulk actions
+         */
+        var minimumExpensesToSelectForBulkAction = 2;
+
+        function getSelectedExpensesForBulkAction() {
+            return _.filter($scope.expenses, 'marked', true);
+        }
+
+        /**
+         * Is enough selected expenses for bulk action
+         */
+        $scope.isBulkActionEnabled = function () {
+            return getSelectedExpensesForBulkAction().length >= minimumExpensesToSelectForBulkAction;
+        };
+
+        /**
+         * Cancels bulk action
+         */
+        $scope.cancelBulkAction = function () {
+            var allCurrentlySelected = getSelectedExpensesForBulkAction();
+
+            _.each(allCurrentlySelected, function (currentlySelected) {
+                currentlySelected.marked = !currentlySelected.marked;
+            });
+        };
+
+        /**
+         * Performs bulk delete action
+         */
+        $scope.performBulkDelete = function () {
+            if ( $scope.isBulkDeleting ) {
+
+                return;
+            }
+
+            var selectedExpenses = angular.copy(getSelectedExpensesForBulkAction());
+
+            // ---
+            // Set the deleting flag.
+            // ---
+            $scope.isBulkDeleting = true;
+
+            // ---
+            // Try to save them at once and if successfully, update the user.
+            // ---
+            ExpenseService
+                .bulkDelete(selectedExpenses)
+                .then(function () {
+                    $timeout(function () {
+                        removeAllExpenseFrom($scope.expenses, selectedExpenses);
+                        $scope.isBulkDeleting = false;
+                    }, TIMEOUT_DURATION);
+                })
+                .catch(function () {
+
+                    // Error
+                    $scope.isBulkDeleting = false;
+                    flash.to($scope.alertIdentifierId).error = "Could not perform bulk action.";
+                });
+        };
+
         // ---
         // EVENT LISTENERS (listen for events from e.g. entries list).
         // ---
@@ -213,6 +275,17 @@ angular
                 }
 
                 return expenseFromArrayId === expenseId;
+            });
+        }
+
+        /**
+         * Remove a list of expenses from given existing list.
+         * @param expenseList
+         * @param expensesToBeRemoved
+         */
+        function removeAllExpenseFrom(expenseList, expensesToBeRemoved) {
+            _.each(expensesToBeRemoved, function (expenseToBeRemoved) {
+                removeExpenseFrom(expenseList, expenseToBeRemoved);
             });
         }
 
