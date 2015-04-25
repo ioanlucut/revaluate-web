@@ -62,11 +62,11 @@ angular
          * @param expenses
          * @returns {Array}
          */
-        this.toExpenses = function (expenses) {
+        this.toExpenseDTOs = function (expenses) {
             var expenseDTOs = [];
 
             _.each(expenses, _.bind(function (expense) {
-                expenses.push(this.toExpenseDto(expense));
+                expenseDTOs.push(this.toCategoryDto(expense));
             }, this));
 
             return expenseDTOs;
