@@ -64,10 +64,16 @@
     }
 
     li:last-child {
-      //border: solid 1px blue;
-      padding: 2px !important;
+      padding: 5px 2px 2px 2px !important;
       margin: 0 !important;
       text-align: center;
+
+      .btn-group button {
+        &:first-child   { width: 100%; /* Make the "Today button wide */}
+        &:last-child    { display: none; /* Hide the "Clear" button */ }
+      }
+
+      & > button        { display: none; /* Hide the "Done" button */ }
     }
   }
 
