@@ -64,6 +64,7 @@
 
                         <!--The on the fly input category-->
                         <input class="sign-up__box__categories__addinput" type="text" name="name"
+                               maxlength="30"
                                ng-model="$parent.categoryOnTheFly"
                                ng-enter="triggerSubmit()"
                                ng-blur="cancelAddCategoryOnTheFly()"
