@@ -1,6 +1,6 @@
 angular
     .module("account")
-    .controller("SignUpSetUpRegistrationController", function ($q, $rootScope, $scope, $timeout, flash, AuthService, AUTH_EVENTS, ALERTS_CONSTANTS, CategoriesSetupProvider, CategoryColorService, SessionService, StatesHandler, Category, currencies) {
+    .controller("SignUpSetUpRegistrationController", function ($q, $rootScope, $scope, $timeout, flash, AuthService, CategoryService, AUTH_EVENTS, ALERTS_CONSTANTS, predefinedCategories, CategoryColorService, SessionService, StatesHandler, Category, currencies) {
 
         /**
          * All given currencies.
@@ -31,9 +31,9 @@ angular
         const TIMEOUT_DURATION = 300;
 
         /**
-         * Define categories
+         * Existing predefined categories.
          */
-        $scope.categories = CategoriesSetupProvider.getCategories();
+        $scope.categories = predefinedCategories;
 
         /**
          * Category to be added on the fly
@@ -62,6 +62,27 @@ angular
         };
 
         /**
+         * To be called when on blur.
+         */
+        $scope.cancelAddCategoryOnTheFly = function () {
+            resetCategoryOnTheFlyForm();
+        };
+
+        /**
+         * Reset the category on the fly
+         */
+        function resetCategoryOnTheFlyForm() {
+            $scope.showCategoryOnTheFlyInput = false;
+            $scope.categoryOnTheFly = "";
+            $scope.setUpForm.categoryOnTheFlyForm.$setPristine();
+
+            // ---
+            // If there was a previously error, just clear it.
+            // ---
+            flash.to($scope.alertIdentifierId).error = '';
+        }
+
+        /**
          * Add a custom category to existing ones (only if name is unique)
          */
         $scope.onSubmitted = function ($event) {
@@ -77,7 +98,7 @@ angular
             });
 
             if ( result ) {
-                flash.to($scope.alertIdentifierId).success = "Category is not unique";
+                flash.to($scope.alertIdentifierId).error = "Category is not unique";
             }
             else {
                 $scope.categories.push({
@@ -89,9 +110,7 @@ angular
                 // ---
                 // Reinitialize the value and form.
                 // ---
-                $scope.showCategoryOnTheFlyInput = false;
-                $scope.categoryOnTheFly = "";
-                $scope.setUpForm.categoryOnTheFlyForm.$setPristine();
+                resetCategoryOnTheFlyForm();
             }
         };
 
@@ -134,11 +153,10 @@ angular
             };
 
             // ---
-            // Put all promises in one array.
+            // We perform a bulk create.
             // ---
-            var promises = [];
-            _.each(selectedCategories, function (category) {
-                promises.push(Category.build(category).save());
+            var selectedCategoriesToBeSaved = _.map(selectedCategories, function (categoryDTO) {
+                return Category.build(categoryDTO);
             });
 
             // ---
@@ -154,8 +172,8 @@ angular
             // ---
             // Try to save them at once and if successfully, update the user.
             // ---
-            $q
-                .all(promises)
+            CategoryService
+                .bulkCreate(selectedCategoriesToBeSaved)
                 .then(function () {
                     $scope.user
                         .$save(toBeSaved)
@@ -187,7 +205,7 @@ angular
                         // Show some feedback.
                         // ---
                         $scope.isSaving = false;
-                        flash.to($scope.alertIdentifierId).error = "Set up successfully!";
+                        flash.to($scope.alertIdentifierId).success = "Set up successfully!";
 
                         /**
                          * Finally, go to expenses.

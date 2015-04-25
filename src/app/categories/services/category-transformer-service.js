@@ -48,4 +48,19 @@ angular
 
             return categories;
         };
+
+        /**
+         * Transform a list of categories as business objects to a list of DTOs.
+         * @param categories
+         * @returns {Array}
+         */
+        this.toCategoryDTOs = function (categories) {
+            var categoryDTOs = [];
+
+            _.each(categories, _.bind(function (category) {
+                categoryDTOs.push(this.toCategoryDto(category));
+            }, this));
+
+            return categoryDTOs;
+        };
     });
