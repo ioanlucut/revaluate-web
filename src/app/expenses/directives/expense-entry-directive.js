@@ -91,6 +91,12 @@ angular
                 $rootScope.$on(EXPENSE_EVENTS.isUpdated, function (event, args) {
                     if ( scope.expense.model.id === args.expense.model.id ) {
 
+                        // ---
+                        // Now update the master expense, and remove the marked sign.
+                        // ---
+                        scope.shownExpense.marked = false;
+                        scope.expense = angular.copy(scope.shownExpense);
+
                         scope.cancel();
                     }
                 });
