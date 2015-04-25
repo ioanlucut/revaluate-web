@@ -62,7 +62,16 @@
 
             <!--Expense date picker-->
             <div class="expense__form__date__input">
-                <button ng-click="openDatePicker($event)" type="button" datepicker-popup is-open="datePickerOpened" min-date="minDate" max-date="maxDate" ng-model="expense.model.spentDate" show-weeks="false" datepicker-options="{starting_day:1}">{{expense.model.spentDate | friendlyDate}}</button>
+                <button type="button"
+                        class="expense__form__date__input__btn"
+                        ng-click="openDatePicker($event)"
+                        ng-model="expense.model.spentDate"
+                        datepicker-popup
+                        is-open="datePickerOpened"
+                        min-date="minDate"
+                        max-date="maxDate"
+                        show-weeks="false"
+                        datepicker-options="{starting_day:1}">{{expense.model.spentDate | friendlyDate}}</button>
             </div>
 
             <!--Error messages-->
