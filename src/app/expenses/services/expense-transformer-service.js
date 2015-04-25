@@ -66,7 +66,7 @@ angular
             var expenseDTOs = [];
 
             _.each(expenses, _.bind(function (expense) {
-                expenseDTOs.push(this.toCategoryDto(expense));
+                expenseDTOs.push(this.toExpenseDto(expense));
             }, this));
 
             return expenseDTOs;

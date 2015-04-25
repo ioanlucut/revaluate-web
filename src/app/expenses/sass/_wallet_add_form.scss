@@ -138,3 +138,48 @@ $add-expense-form-border-color: $lightest-gray;
   border-radius: 3px;
   line-height: 1;
 }
+
+.expense__bulk--marked {
+  background: whitesmoke;
+}
+
+.expenses__bulk-actions {
+  @include clearfix();
+  width: 800px;
+  margin: 0 auto;
+  color: $black;
+  font-weight: $font-weight-bold;
+  position: relative;
+
+  .expenses__bulk-actions__buttons {
+    position: absolute;
+    left: 0;
+    right: 0;
+
+    .expenses__bulk-actions__delete {
+
+      .expenses__bulk-actions__delete__btn-delete {
+        @include btn-big($brand-primary);
+        display: block;
+        float: left;
+        width: 120px;
+      }
+    }
+
+    .expenses__bulk-actions__cancel {
+
+      .expenses__bulk-actions__delete__btn-cancel {
+        @include btn-big($brand-danger);
+        display: block;
+        float: left;
+        width: 80px;
+      }
+    }
+
+    .expenses__bulk-actions__delete,
+    .expenses__bulk-actions__cancel {
+      display: inline-block;
+    }
+  }
+
+}
