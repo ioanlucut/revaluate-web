@@ -6,7 +6,8 @@ angular
             controller: 'ExpenseEntryController',
             scope: {
                 categories: "=",
-                expense: "="
+                expense: "=",
+                isEnoughExpensesForBulkAction: "&"
             },
             templateUrl: "app/expenses/partials/expense/expense.entry.template.html",
             link: function (scope, el, attrs) {
