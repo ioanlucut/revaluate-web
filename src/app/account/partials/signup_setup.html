@@ -9,14 +9,13 @@
 
             <div class="sign-up__setup__section">
                 Please choose your currency:
-                <div class="sign-up__setup__section--currency">
+                <div class="sign-up__setup__section--currency" ng-class="{'has-error': setUpForm.$submitted && (setUpForm.$error['autocomplete-required'] || setUpForm.currency.$invalid || badPostSubmitResponse)}">
                     <div angucomplete-alt
                          selected-object="currency"
                          local-data="currencies"
                          search-fields="displayName,currencyCode"
                          title-field="currencyCode,displayName"
                          field-required="true"
-                         field-required-class="sign-up__setup__section--currency--invalid"
                          placeholder="Start typing your currency..."
                          maxlength="50"
                          pause="1"
@@ -24,6 +23,14 @@
                          input-class="sign-up__setup__section--currency__input"
                          match-class="angucomplete-highlight">
                     </div>
+
+                    <!-- Error messages -->
+                    <div class="form-group-input__message form-group-input__message--currency" ng-class="{'has-error': setUpForm.$invalid && setUpForm.$submitted}" ng-messages="setUpForm.$error" ng-if="setUpForm.$submitted">
+                        <div ng-message="autocomplete-required">Currency is missing or is invalid.</div>
+                        <div ng-message="required">Please add</div>
+                    </div>
+
+                    <div class="form-group-input__message form-group-input__message--currency" ng-if="setUpForm.category.$invalid && setUpForm.$submitted">Please add a currency.</div>
                 </div>
             </div>
 
@@ -35,14 +42,14 @@
             <div class="sign-up__box__categories">
 
                 <div class="sign-up__box__categories__category" ng-repeat="category in categories track by category.name">
-                    <!--Category group-->
                     <div class="category-name" ng-style="{'background':category.color}" ng-class="{ 'category-name--unselected': !category.selected }" ng-click="toggleCategorySelection($index)"> {{category.name}}</div>
                 </div>
 
                 <!--Toggle form-->
                 <button ng-if="! showCategoryOnTheFlyInput" class="sign-up__box__categories__addbtn" ng-click="toggleContent()">+ Add another</button>
 
-                <ng-form class="sign-up__box__categories__category__form" name="categoryOnTheFlyForm"
+                <ng-form class="sign-up__box__categories__category__form"
+                         name="categoryOnTheFlyForm"
                          submit-on="add-category-on-the-fly-event"
                          ng-submit="onSubmitted($event)"
                          ng-if="showCategoryOnTheFlyInput">
@@ -70,7 +77,7 @@
             <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
             <!-- Button -->
-            <button class="sign-up__setup__btn" ng-disabled="! isEnoughSelectedCategories()" type="submit">{{isSaving ? 'Loading..' : 'Done! Let\'s start!'}}</button>
+            <button class="sign-up__setup__btn" ng-disabled="! isEnoughSelectedCategories()" type="submit">{{isSaving ? 'Saving..' : 'Done! Let\'s start!'}}</button>
         </form>
 
     </div>
