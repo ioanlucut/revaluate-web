@@ -23,11 +23,11 @@
 <!-- Display expense form -->
 <div class="expenses__form" ng-if="showContent">
 
-    <form name="expenseForm" ng-submit="updateExpense(expenseForm, expense, category)" outside-click="cancel();" novalidate focus-first-error>
+    <form name="expenseForm" ng-submit="updateExpense(expenseForm, shownExpense, category)" outside-click="cancel();" novalidate focus-first-error>
 
         <!-- Form groups -->
         <div class="expense__form__price" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.value.$invalid || badPostSubmitResponse)}">
-            <input class="expense__form__price__input" type="text" name="value" placeholder="The value" ng-model="expense.model.value" format-price format="number" caret-price-position required valid-price />
+            <input class="expense__form__price__input" type="text" name="value" placeholder="The value" ng-model="shownExpense.model.value" format-price format="number" caret-price-position required valid-price />
             <span class="expense__form__price__currency">{{user.model.currency.currencyCode}}</span>
 
             <!-- Error messages -->
@@ -50,7 +50,7 @@
                  maxlength="50"
                  pause="1"
                  minlength="0"
-                 initial-value="{{expense.model.category.name}}"
+                 initial-value="{{shownExpense.model.category.name}}"
                  input-class="expense__form__category__input"
                  match-class="highlight"
                  template-url="app/expenses/partials/expense.category.template.html">
@@ -66,7 +66,7 @@
 
         <!-- Description input -->
         <div class="expense__form__details" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.description.$invalid || badPostSubmitResponse)}">
-            <input class="expense__form__details__input" type="text" name="description" ng-maxlength="20" placeholder="Add details (optional)" ng-model="expense.model.description" escape-html />
+            <input class="expense__form__details__input" type="text" name="description" ng-maxlength="20" placeholder="Add details (optional)" ng-model="shownExpense.model.description" escape-html />
 
             <!-- Error messages -->
             <div class="form-group-input__message" ng-class="{'has-error': expenseForm.description.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.$error" ng-if="expenseForm.$submitted">
@@ -78,7 +78,7 @@
         <div class="expense__form__date" ng-class="{'has-error': expenseForm.spentDate.$invalid && expenseForm.$submitted}">
 
             <!--Hidden input of the expense chosen date-->
-            <input type="hidden" name="spentDate" ng-model="expense.model.spentDate" required valid-date />
+            <input type="hidden" name="spentDate" ng-model="shownExpense.model.spentDate" required valid-date />
 
             <!--Expense date picker-->
             <div class="expense__form__date__input">
@@ -86,9 +86,9 @@
                         datepicker-popup is-open="datePickerStatus.opened"
                         min-date="minDate"
                         max-date="maxDate"
-                        ng-model="expense.model.spentDate"
+                        ng-model="shownExpense.model.spentDate"
                         datepicker-options="{startingDay:1,showWeeks:false}">
-                    {{expense.model.spentDate | friendlyDate}}
+                    {{shownExpense.model.spentDate | friendlyDate}}
                 </button>
             </div>
 
