@@ -22,19 +22,9 @@ angular
             .state("expenses.regular", {
                 url: "",
                 views: {
-                    'add': {
-                        templateUrl: "app/expenses/partials/expense/expenses.add.html",
-                        controller: "ExpenseCreateController",
-                        resolve: {
-                            categories: function (CategoryService) {
-                                return CategoryService.getAllCategories();
-                            }
-                        }
-                    },
-
-                    'list': {
-                        templateUrl: "app/expenses/partials/expense/expenses.list.html",
-                        controller: "ExpenseListController",
+                    'expenses': {
+                        templateUrl: "app/expenses/partials/expense/expenses.html",
+                        controller: "ExpenseController",
                         resolve: {
                             expenses: function (ExpenseService) {
                                 return ExpenseService.getAllExpenses();
@@ -79,7 +69,7 @@ angular
                     },
 
                     'list': {
-                        templateUrl: "app/expenses/partials/expense/expenses.list.html",
+                        templateUrl: "partials/expense/expenses.html",
                         controller: "ExpenseListController",
                         resolve: {
                             expenses: function (ExpenseService) {
@@ -97,7 +87,7 @@ angular
                 views: {
 
                     'list': {
-                        templateUrl: "app/expenses/partials/expense/expenses.list.html",
+                        templateUrl: "partials/expense/expenses.html",
                         controller: "ExpenseListController",
                         resolve: {
                             expenses: function (ExpenseService) {
