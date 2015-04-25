@@ -1,11 +1,33 @@
 angular
     .module("expenses")
-    .controller("ExpenseCreateController", function ($scope, $rootScope, $stateParams, Expense, categories, $window, DatesUtils, $timeout, StatesHandler, EXPENSE_EVENTS, flash, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
+    .controller("ExpenseController", function ($scope, $rootScope, $stateParams, Expense, expenses, categories, $window, DatesUtils, $timeout, StatesHandler, EXPENSE_EVENTS, flash, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
 
         /**
          * Alert identifier
          */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.createUpdateExpense;
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.expenseList;
+
+        /**
+         * Track event.
+         */
+        mixpanel.track(MIXPANEL_EVENTS.expensesPage);
+
+        /**
+         * Search by text
+         * @type {string}
+         */
+        $scope.searchByText = "";
+
+        /**
+         * The current user
+         * @type {$rootScope.currentUser|*}
+         */
+        $scope.user = $rootScope.currentUser;
+
+        /**
+         * Existing expenses.
+         */
+        $scope.expenses = expenses;
 
         /**
          * Existing categories.
@@ -15,7 +37,7 @@ angular
         /**
          * Saving timeout
          */
-        const TIMEOUT_DURATION = 800;
+        const TIMEOUT_DURATION = 300;
 
         /**
          * Initialize or reset the state
@@ -51,6 +73,12 @@ angular
             $scope.badPostSubmitResponse = false;
 
             /**
+             * Flag which represents whether
+             * @type {boolean}
+             */
+            $scope.isSaving = false;
+
+            /**
              * Max date to create expense
              */
             $scope.maxDate = moment().hours(0).minutes(0).seconds(0);
@@ -60,12 +88,6 @@ angular
          * Perform the first initialization.
          */
         $scope.initOrReset();
-
-        /**
-         * Flag which represents whether
-         * @type {boolean}
-         */
-        $scope.isSaving = false;
 
         /**
          * Minimum date to create expense.
@@ -116,28 +138,81 @@ angular
                         var expenseToBePushed = angular.copy($scope.masterExpense);
                         $timeout(function () {
                             $scope.isSaving = false;
-
-                            $rootScope.$broadcast(EXPENSE_EVENTS.isCreated, {
-                                expense: expenseToBePushed
-                            });
+                            $scope.expenses.push(expenseToBePushed);
                         }, TIMEOUT_DURATION);
 
                         /**
-                         * Finally, reset.
+                         * Finally, reset the add form.
                          */
                         $scope.initOrReset($scope.expenseForm);
                     })
                     .catch(function () {
 
-                        // Error
+                        flash.to($scope.alertIdentifierId).error = "Could not add the expense.";
                         $scope.isSaving = false;
-                        alert("Something went wrong. Please try again.");
-                    })
-                    .finally(function () {
-
-                        $scope.isModalOpened = false;
+                        $scope.badPostSubmitResponse = true;
                     });
             }
         };
+
+        // ---
+        // EVENT LISTENERS.
+        // ---
+
+        /**
+         * On expense created, display a success message, and add expense to the list.
+         */
+        $scope.$on(EXPENSE_EVENTS.isCreated, function (event, args) {
+            $scope.expenses.push(args.expense);
+
+            flash.to($scope.alertIdentifierId).success = "Expense successfully saved!";
+        });
+
+        /**
+         * On expense updated.
+         */
+        $scope.$on(EXPENSE_EVENTS.isUpdated, function (event, args) {
+            var result = _.some($scope.expenses, function (topic) {
+                return topic.model.id === args.expense.model.id;
+            });
+
+            if ( result ) {
+                removeExpenseFrom($scope.expenses, args.expense);
+                $scope.expenses.push(args.expense);
+            }
+
+            flash.to($scope.alertIdentifierId).success = "Expense successfully updated!";
+        });
+
+        /**
+         * On expense deleted, display a success message, and remove the expense from the list.
+         */
+        $scope.$on(EXPENSE_EVENTS.isDeleted, function (event, args) {
+            removeExpenseFrom($scope.expenses, args.expense);
+
+            flash.to($scope.alertIdentifierId).success = "Expense successfully deleted!";
+        });
+
+        $scope.$on(EXPENSE_EVENTS.isErrorOccurred, function () {
+
+            flash.to($scope.alertIdentifierId).error = "Error occurred!";
+        });
+
+        /**
+         * Removes given expense from the list.
+         * @param expenseList
+         * @param expenseToBeRemoved
+         */
+        function removeExpenseFrom(expenseList, expenseToBeRemoved) {
+            return _.remove(expenseList, function (expenseFromArray) {
+                var expenseId = _.parseInt(expenseToBeRemoved.model.id, 10);
+                var expenseFromArrayId = _.parseInt(expenseFromArray.model.id, 10);
+                if ( _.isNaN(expenseFromArrayId) || _.isNaN(expenseId) ) {
+                    return false;
+                }
+
+                return expenseFromArrayId === expenseId;
+            });
+        }
 
     });
