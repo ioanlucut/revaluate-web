@@ -32,7 +32,13 @@
                 <div ng-message="validCategoryName">Name is not valid.</div>
                 <div ng-message="uniqueCategoryName">Name is already used.</div>
             </div>
-            <input class="categories__form__input-group__name" type="text" placeholder="Category name" name="name" ng-model="category.model.name" auto-focus required valid-category-name unique-category-name />
+            <input type="text"
+                   name="name"
+                   class="categories__form__input-group__name"
+                   placeholder="Category name"
+                   maxlength="30"
+                   ng-model="category.model.name"
+                   auto-focus required valid-category-name unique-category-name />
         </div>
 
     </div>
