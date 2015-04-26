@@ -11,7 +11,7 @@
 }
 
 .expenses__list {
-  padding: 50px 15px;
+  padding: 50px 15px 20px 15px;
 }
 
 .expenses__list__entry {
@@ -20,8 +20,12 @@
   margin: 0 auto;
   padding-top: 7.5px;
   padding-bottom: 7.5px;
+  position: relative;
 
   .expenses__list__entry__select {
+    position: absolute;
+    left: -30px;
+    top: 7px;
     width: 30px;
     text-align: right;
     margin-right: 15px;
@@ -86,6 +90,6 @@
   @include btn($gray-lightest);
   width: 120px;
   color: $gray-dark;
-  margin: 50px auto;
+  margin: 20px auto 40px auto;
   display: block;
 }
