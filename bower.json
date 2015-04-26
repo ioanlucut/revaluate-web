@@ -30,6 +30,7 @@
     "bitters": "~1.0.0",
     "neat": "~1.7.1",
     "angucomplete-alt": "git@github.com:ioanlucut/angucomplete-alt.git",
-    "ngDialog": "~0.3.12"
+    "ngDialog": "~0.3.12",
+    "angular-chart.js": "~0.7.0"
   }
 }
