@@ -1,28 +1,24 @@
-<div class="page-wrapper">
+<div header class="view-container__header"></div>
 
-    <div header class="view-container__header"></div>
+<div class="view-container__content">
 
-    <div class="view-container__content categories">
+    <!-- Flash messages. -->
+    <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
-        <!-- Flash messages. -->
-        <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+    <!--Add category-->
+    <div class="categories__add" add-category></div>
 
-        <!--Add category-->
-        <div class="categories__add" add-category></div>
+    <!--List all categories-->
+    <div class="categories__edit">
 
-        <!--List all categories-->
-        <div class="categories__edit">
+        <div class="categories__edit__category" ng-repeat="category in categories track by category.model.name">
 
-            <div class="categories__edit__category" ng-repeat="category in categories track by category.model.name">
-
-                <!--Edit/remove category-->
-                <div edit-remove-category category="category"></div>
-            </div>
-
+            <!--Edit/remove category-->
+            <div edit-remove-category category="category"></div>
         </div>
 
     </div>
 
-    <div footer class="view-container__footer"></div>
-
 </div>
+
+<div footer class="view-container__footer"></div>
