@@ -1,5 +1,5 @@
 $add-expense-form-height: 50px;
-$add-expense-form-border-color: $lightest-gray;
+$add-expense-form-border-color: $gray-lightest;
 
 .expenses__form {
   @include clearfix();
@@ -62,7 +62,7 @@ $add-expense-form-border-color: $lightest-gray;
     margin-left: -40px;
     height: $add-expense-form-height;
     line-height: $add-expense-form-height;
-    color: $light-gray;
+    color: $gray-light;
     font-weight: $font-weight-regular;
     z-index: -999;
   }
@@ -113,7 +113,7 @@ $add-expense-form-border-color: $lightest-gray;
   float: left;
   width: 100%;
   text-align: right;
-  color: $medium-gray;
+  color: $gray-medium;
   font-weight: $font-weight-regular;
   font-size: $font-size-small;
   padding-right: 10px;

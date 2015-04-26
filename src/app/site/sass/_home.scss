@@ -16,7 +16,7 @@
 
 .home__description {
   padding: 10px 10px 40px 10px;
-  color: $medium-gray;
+  color: $gray-medium;
   font-size: 22px;
   font-weight: $font-weight-light;
 }
@@ -32,7 +32,7 @@
 
   li {
     padding-bottom: 15px;
-    color: $dark-gray;
+    color: $gray-dark;
     font-size: 18px;
     font-weight: $font-weight-light;
 
@@ -47,7 +47,7 @@
 .home__section__signup {
   @include span-columns(5);
   @include border-radius($base-border-radius);
-  border: solid 1px $light-gray;
+  border: solid 1px $gray-light;
   padding: 10px 40px 40px 40px;
 }
 
@@ -74,5 +74,5 @@
 .home__action-btn--info {
   padding: 3px 10px;
   font-size: 12px;
-  color: $medium-gray;
+  color: $gray-medium;
 }
