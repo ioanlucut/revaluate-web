@@ -84,10 +84,10 @@
         <!-- Button container -->
         <div class="expense__form__submit">
             <span ng-if="isSaving">
-                <span>saving..</span>
+                <span>Saving...</span>
             </span>
             <span ng-if="! isSaving">
-                <span>Hit Enter to</span>
+                <span>Enter to</span>
                 <button type="submit">save</button>
                 <span>the expense.</span>
             </span>
@@ -102,11 +102,11 @@
     <div class="expenses__bulk-actions__buttons">
 
         <div class="expenses__bulk-actions__delete">
-            <button class="expenses__bulk-actions__delete__btn-delete" ng-click="performBulkDelete()">{{isBulkDeleting ? 'Deleting..' : 'Delete all'}}</button>
+            <button class="expenses__bulk-actions__delete__btn-delete" ng-click="performBulkDelete()">{{isBulkDeleting ? 'Deleting...' : 'Delete'}}</button>
         </div>
 
         <div class="expenses__bulk-actions__cancel">
-            <button class="expenses__bulk-actions__delete__btn-cancel" ng-click="cancelBulkAction()">Discard</button>
+            <button class="expenses__bulk-actions__delete__btn-cancel" ng-click="cancelBulkAction()">Nevermind</button>
         </div>
 
     </div>
