@@ -44,9 +44,6 @@ module.exports = function (grunt) {
                     /* End angular ui used bootstrap */
 
                     "bower_components/ngstorage/ngStorage.js",
-                    "bower_components/ladda/js/spin.js",
-                    "bower_components/ladda/js/ladda.js",
-                    "bower_components/angular-ladda/src/angular-ladda.js",
                     "bower_components/angular-filter/dist/angular-filter.js",
                     /* Vendor styles */
                     "src/app/vendor/js/jquery.price_format.2.0.js"

@@ -9,14 +9,10 @@ angular
         details: "expenses/:id",
         delete: "expenses/:id",
         bulkDelete: "expenses/bulkDelete",
-        allExpenses: "expenses/retrieve",
-        pastExpenses: "expenses/past?:local_time&:local_time_zone",
-        upcomingExpenses: "expenses/upcoming?:local_time&:local_time_zone",
-        unSubscribeExpense: "expenses/:id/unsubscribe"
+        allExpenses: "expenses/retrieve"
     })
     .constant("EXPENSE_EVENTS", {
         isCreated: "expense-is-created",
-        isUnSubscribed: "expense-is-unsubscribed",
         isDeleted: "expense-is-deleted",
         isUpdated: "expense-is-updated"
     });
