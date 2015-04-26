@@ -1,21 +1,23 @@
 .home {
-  @include outer-container();
   text-align: center;
+  background-color: $brand-primary;
 }
 
 .home__section {
-  //@include outer-container();
+  @include outer-container();
+  margin-top: 0;
 }
 
 .home__title {
   padding-top: 50px;
   font-size: 40px;
   font-weight: $font-weight-bold;
+  color: $white;
 }
 
 .home__description {
   padding: 10px 10px 40px 10px;
-  color: $gray-medium;
+  color: lighten($brand-primary, 30%);
   font-size: 22px;
   font-weight: $font-weight-light;
 }
@@ -31,13 +33,13 @@
 
   li {
     padding-bottom: 15px;
-    color: $gray-dark;
+    color: darken($brand-primary, 20%);;
     font-size: 18px;
     font-weight: $font-weight-light;
 
     span{
       display: inline-block;
-      color: $brand-primary;
+      color: lighten($brand-primary, 10%);
       margin-right: 20px;
     }
   }
@@ -49,6 +51,7 @@
   border: solid 1px $gray-light;
   padding: 10px 40px 40px 40px;
   background-color: $white;
+  margin-bottom: 30px;
 }
 
 .home__action-btn {

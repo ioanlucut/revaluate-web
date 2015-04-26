@@ -1,3 +1,7 @@
+.header-home__wrapper {
+  background-color: $white;
+}
+
 .header-home {
   @include outer-container;
   @include clearfix;
