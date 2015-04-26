@@ -1,5 +1,5 @@
 <!--Display expense-->
-<div class="expenses__list__entry__display" ng-if="! showContent">
+<div class="expenses__list__entry__display" ng-if="! showContent" ng-class="expense.marked ? 'expense__bulk--marked' : ''">
 
     <div class="expenses__list__entry__select">
         <input type="checkbox" ng-checked="expense.marked" ng-click="toggleMark();$event.stopPropagation();" />
