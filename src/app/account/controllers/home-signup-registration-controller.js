@@ -1,6 +1,6 @@
 angular
     .module("account")
-    .controller("HomeSignUpRegistrationCtrl", function ($scope, $timeout, flash, ALERTS_CONSTANTS, StatesHandler, User, AuthService, TimezoneProvider, MIXPANEL_EVENTS) {
+    .controller("HomeSignUpRegistrationController", function ($scope, $timeout, flash, ALERTS_CONSTANTS, StatesHandler, User, AuthService, TimezoneProvider, MIXPANEL_EVENTS) {
 
         /**
          * Alert identifier

@@ -1,9 +1,9 @@
 $add-expense-form-height: 50px;
-$add-expense-form-border-color: $lightest-gray;
+$add-expense-form-border-color: $gray-lightest;
 
 .expenses__form {
   @include clearfix();
-  width: 750px;
+  width: 800px;
   margin: 0 auto;
   color: $black;
   font-weight: $font-weight-bold;
@@ -18,8 +18,9 @@ $add-expense-form-border-color: $lightest-gray;
     border-width: 2px 0;
     border-color: $add-expense-form-border-color transparent;
 
-    &:hover {
-      border-color: $medium-gray;
+    &:focus {
+      border-color: $brand-primary;
+      background-color: lighten($brand-primary, 35%);
     }
   }
 }
@@ -43,7 +44,7 @@ $add-expense-form-border-color: $lightest-gray;
   @include clearfix();
   float: left;
   padding: 0;
-  width: 130px;
+  width: 20%;
   position: relative;
 
   .expense__form__price__input {
@@ -61,29 +62,9 @@ $add-expense-form-border-color: $lightest-gray;
     margin-left: -40px;
     height: $add-expense-form-height;
     line-height: $add-expense-form-height;
-    color: $light-gray;
+    color: $gray-light;
     font-weight: $font-weight-regular;
     z-index: -999;
-  }
-}
-
-// Category input styling
-// ----------------------
-
-.expense__form__category {
-  float: left;
-  padding: 0;
-  width: 200px;
-  position: relative;
-
-  .expense__form__category__input {
-    height: $add-expense-form-height;
-    width: 100%;
-    padding-left: 15px;
-
-    &:focus {
-      outline: none;
-    }
   }
 }
 
@@ -91,7 +72,7 @@ $add-expense-form-border-color: $lightest-gray;
 // -------------------------
 .expense__form__details {
   float: left;
-  width: 280px;
+  width: 30%;
   position: relative;
 
   .expense__form__details__input {
@@ -105,7 +86,7 @@ $add-expense-form-border-color: $lightest-gray;
   float: left;
   overflow: auto;
   display: block;
-  width: 130px;
+  width: 20%;
   padding: 0;
 
   .expense__form__date__input {
@@ -132,14 +113,10 @@ $add-expense-form-border-color: $lightest-gray;
   float: left;
   width: 100%;
   text-align: right;
-  color: $medium-gray;
+  color: $gray-medium;
   font-weight: $font-weight-regular;
-  font-size: $base-font-size-xs;
-  padding-right: 10px;
-
-  span {
-    display: inline-block;
-  }
+  font-size: $font-size-small;
+  padding: 0 5px;
 
   button {
     padding: 0;
@@ -147,6 +124,20 @@ $add-expense-form-border-color: $lightest-gray;
     background-color: $white;
     color: $brand-primary;
     height: 100%;
+    margin-top: -3px;
+  }
+
+  .expense__edit__form__cancelbtn,
+  .expense__edit__form__savebtn {
+    display: block;
+  }
+
+  .expense__edit__form__cancelbtn {
+    float: left;
+  }
+
+  .expense__edit__form__savebtn {
+    float: right;
   }
 }
 
@@ -156,4 +147,43 @@ $add-expense-form-border-color: $lightest-gray;
   padding: 1px 4px;
   border-radius: 3px;
   line-height: 1;
+}
+
+.expenses__bulk-actions {
+  @include clearfix();
+  width: 800px;
+  margin: 0 auto;
+  color: $black;
+  font-weight: $font-weight-bold;
+  position: relative;
+
+  .expenses__bulk-actions__buttons {
+    position: absolute;
+    left: 0;
+    right: 0;
+
+    .expenses__bulk-actions__delete {
+
+      .expenses__bulk-actions__delete__btn-delete {
+        @include btn($brand-danger);
+        display: block;
+        float: left;
+      }
+    }
+
+    .expenses__bulk-actions__cancel {
+
+      .expenses__bulk-actions__delete__btn-cancel {
+        @include btn($brand-default);
+        color: $gray-dark;
+        display: block;
+        float: left;
+      }
+    }
+
+    .expenses__bulk-actions__delete,
+    .expenses__bulk-actions__cancel {
+      display: inline-block;
+    }
+  }
 }

@@ -1,0 +1,137 @@
+.expense__form__date__input {
+
+  .expense__form__date__input__btn {
+    position: relative;
+  }
+
+  .dropdown-menu {
+    width: 300px;
+    left: 500px !important;
+    top: 50px !important;
+    padding: 0;
+    font-size: $font-size-base;
+    text-align: center;
+
+    li:first-child {
+      padding: 0 !important;
+      margin: 0 !important;
+
+      div table {
+        padding: 0;
+        margin: 0;
+
+        &:focus {
+          outline: none;
+        }
+
+        thead {
+          background-color: $brand-primary;
+          color: $white;
+          padding: 3px;
+
+          tr th {
+            padding: 0 !important;
+            border-bottom: solid 1px darken($brand-primary, 7%);
+
+            .btn {
+              background-color: $brand-primary;
+              color: $white;
+
+              &:hover {
+                background-color: darken($brand-primary, 10%);
+              }
+            }
+          }
+        }
+
+        tbody {
+          padding: 3px;
+
+          tr {
+            border-width: 0;
+
+            td {
+              border-width: 0;
+              padding: 0 !important;
+
+              .btn {
+                padding: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    li:last-child {
+      padding: 5px 2px 2px 2px !important;
+      margin: 0 !important;
+      text-align: center;
+
+      .btn-group button {
+        &:first-child   { width: 100%; /* Make the "Today button wide */}
+        &:last-child    { display: none; /* Hide the "Clear" button */ }
+      }
+
+      & > button        { display: none; /* Hide the "Done" button */ }
+    }
+  }
+
+
+  // Buttons
+  // -------
+
+  .btn {
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 35px;
+  }
+
+  .btn-default {
+    background-color: $white;
+
+    &:hover {
+      background-color: $gray-lightest;
+    }
+  }
+
+  @mixin btn-color($color, $color-hover: darken($color, 10%)) {
+    background-color: $color;
+    color: $white;
+
+    &:hover {
+      background-color: $color-hover;
+    }
+  }
+
+  .btn-success {
+    @include btn-color($brand-success, $brand-success-dark);
+  }
+
+  .btn-danger {
+    @include btn-color($brand-danger, $brand-danger-dark);
+  }
+
+  .btn-info {
+    @include btn-color($brand-primary);
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  // The arrow icons
+  // ---------------
+  .glyphicon {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-style: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .glyphicon-chevron-left     { &:before { content: "\276e"; } }
+  .glyphicon-chevron-right    { &:before { content: "\276f"; } }
+}

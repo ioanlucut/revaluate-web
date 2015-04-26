@@ -1,11 +1,11 @@
 angular
     .module("categories")
-    .controller("CategoryCreateCtrl", function ($scope, $rootScope, CategoryColorService, Category, $timeout, CATEGORY_EVENTS, MIXPANEL_EVENTS) {
+    .controller("CategoryCreateController", function ($scope, $rootScope, CategoryColorService, Category, $timeout, CATEGORY_EVENTS, MIXPANEL_EVENTS) {
 
         /**
          * Saving timeout
          */
-        const TIMEOUT_DURATION = 300;
+        var TIMEOUT_DURATION = 300;
 
         /**
          * Initialize or reset the state

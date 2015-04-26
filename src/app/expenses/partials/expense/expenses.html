@@ -8,13 +8,13 @@
 
         <!-- Form groups -->
         <div class="expense__form__price" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.value.$invalid || badPostSubmitResponse)}">
-            <input class="expense__form__price__input" type="text" name="value" placeholder="The value" ng-model="expense.model.value" format-price format="number" required valid-price />
+            <input class="expense__form__price__input" type="text" name="value" placeholder="The value" maxlength="14" ng-model="expense.model.value" format-price format="number" caret-price-position required valid-price />
             <span class="expense__form__price__currency">{{user.model.currency.currencyCode}}</span>
 
             <!-- Error messages -->
             <div class="form-group-input__message" ng-class="{'has-error': expenseForm.value.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.$error" ng-if="expenseForm.$submitted">
-                <div ng-message="required">Please add a price.</div>
-                <div ng-message="validPrice">Price is invalid</div>
+                <div ng-message="required">Don't forget the price.</div>
+                <div ng-message="validPrice">Oops, you missed the price.</div>
             </div>
         </div>
 
@@ -32,7 +32,7 @@
                  pause="1"
                  minlength="0"
                  input-class="expense__form__category__input"
-                 match-class="highlight"
+                 match-class="angucomplete-highlight"
                  template-url="app/expenses/partials/expense.category.template.html">
             </div>
 
@@ -46,7 +46,7 @@
 
         <!-- Description input -->
         <div class="expense__form__details" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.description.$invalid || badPostSubmitResponse)}">
-            <input class="expense__form__details__input" type="text" name="description" ng-maxlength="20" placeholder="Add details (optional)" ng-model="expense.model.description" escape-html />
+            <input class="expense__form__details__input" type="text" name="description" ng-maxlength="30" maxlength="30" placeholder="Add details (optional)" ng-model="expense.model.description" escape-html />
 
             <!-- Error messages -->
             <div class="form-group-input__message" ng-class="{'has-error': expenseForm.description.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.$error" ng-if="expenseForm.$submitted">
@@ -62,22 +62,56 @@
 
             <!--Expense date picker-->
             <div class="expense__form__date__input">
-                <button ng-click="open($event)" type="button" datepicker-popup is-open="opened" min-date="minDate" max-date="maxDate" ng-model="expense.model.spentDate" show-weeks="false" datepicker-options="{starting_day:1}">{{expense.model.spentDate | friendlyDate}}</button>
+                <button type="button"
+                        class="expense__form__date__input__btn"
+                        ng-click="openDatePicker($event)"
+                        ng-model="expense.model.spentDate"
+                        datepicker-popup
+                        is-open="datePickerOpened"
+                        min-date="datePickerMinDate"
+                        max-date="datePickerMaxDate"
+                        datepicker-options="{startingDay:1,showWeeks:false}">{{expense.model.spentDate | friendlyDate}}
+                </button>
             </div>
 
             <!--Error messages-->
             <div class="form-group-input__message" ng-class="{'has-error': expenseForm.spentDate.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.$error" ng-if="expenseForm.$submitted">
-                <div ng-message="required">Please make that you add a date.</div>
+                <div ng-message="required">Please add a date.</div>
                 <div ng-message="validDate">Date should be in the past.</div>
             </div>
         </div>
 
         <!-- Button container -->
         <div class="expense__form__submit">
-            <span>Hit Enter to</span>
-            <button type="submit"> save</button>
-            <span>the expense.</span>
+            <span ng-if="isSaving">
+                <span>Saving...</span>
+            </span>
+            <span ng-if="! isSaving">
+                <span>Enter to</span>
+                <button type="submit">save</button>
+                <span>the expense.</span>
+            </span>
         </div>
     </form>
 
 </div>
+
+<!--Expense bulk actions-->
+<div class="expenses__bulk-actions" ng-if="isBulkActionEnabled()">
+
+    <div class="expenses__bulk-actions__buttons">
+
+        <div class="expenses__bulk-actions__delete">
+            <button class="expenses__bulk-actions__delete__btn-delete" ng-click="performBulkDelete()">{{isBulkDeleting ? 'Deleting...' : 'Delete'}}</button>
+        </div>
+
+        <div class="expenses__bulk-actions__cancel">
+            <button class="expenses__bulk-actions__delete__btn-cancel" ng-click="cancelBulkAction()">Nevermind</button>
+        </div>
+
+    </div>
+
+</div>
+
+<!--The expenses list-->
+<div expense-list expenses="expenses" categories="categories" search-by-text="searchByText" sort="desc"></div>

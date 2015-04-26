@@ -76,7 +76,6 @@ angular
                     /**
                      * Creates a user account with given fromData.
                      * @param fromData
-                     * @param token
                      * @returns {*}
                      */
                     $create: function (fromData) {
@@ -113,14 +112,11 @@ angular
                     /**
                      * Creates the account.
                      * @param account
-                     * @param token
                      * @returns {*}
                      */
                     createAccount: function (account) {
                         return $http
-                            .post(URLTo.api(AUTH_URLS.create),
-                            account,
-                            { skipAuthorization: true })
+                            .post(URLTo.api(AUTH_URLS.create), account, { skipAuthorization: true })
                             .then(function (response) {
                                 return response.data;
                             });
@@ -132,7 +128,8 @@ angular
                      * @returns {*}
                      */
                     updateAccount: function (account) {
-                        return $http.post(URLTo.api(AUTH_URLS.update), account);
+                        return $http
+                            .put(URLTo.api(AUTH_URLS.update), account);
                     }
 
                 };

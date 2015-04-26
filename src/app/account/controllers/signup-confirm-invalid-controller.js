@@ -1,6 +1,6 @@
 angular
     .module("account")
-    .controller("SignUpConfirmInvalidCtrl", function ($scope, AuthService, StatesHandler) {
+    .controller("SignUpConfirmInvalidController", function ($scope, AuthService, StatesHandler) {
 
         /**
          * Flag which tells if user is currently authenticated while coming to this page.

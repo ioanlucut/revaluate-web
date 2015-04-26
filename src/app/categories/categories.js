@@ -8,7 +8,7 @@ angular
             .state("categories", {
                 url: "/categories",
                 templateUrl: 'app/categories/partials/categories.html',
-                controller: "CategoryListCtrl",
+                controller: "CategoryListController",
                 resolve: {
                     categories: function (CategoryService) {
                         return CategoryService.getAllCategories();

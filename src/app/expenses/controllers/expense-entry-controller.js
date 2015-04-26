@@ -3,9 +3,15 @@ angular
     .controller("ExpenseEntryController", function ($scope, $rootScope, Expense, $timeout, EXPENSE_EVENTS, MIXPANEL_EVENTS) {
 
         /**
+         * Minimum date to create expense.
+         * @type {Date}
+         */
+        $scope.minDate = moment().year(2000);
+
+        /**
          * Edit/update timeout
          */
-        const TIMEOUT_DURATION = 300;
+        var TIMEOUT_DURATION = 300;
 
         /**
          * Update the expense.
