@@ -1,4 +1,4 @@
-angular.module('partials', ['app/site/partials/404.html', 'app/site/partials/500.html', 'app/site/partials/about.html', 'app/site/partials/home.html', 'app/site/partials/privacy.html', 'app/categories/partials/add-category-directive-template.html', 'app/categories/partials/categories.html', 'app/categories/partials/color-picker-directive-template.html', 'app/categories/partials/edit-remove-category-directive-template.html', 'app/expenses/partials/expense.category.template.html', 'app/expenses/partials/expense/expense.entry.template.html', 'app/expenses/partials/expense/expense.list.template.html', 'app/expenses/partials/expense/expenses.add.html', 'app/expenses/partials/expense/expenses.list.html', 'app/expenses/partials/expense/expenses.template.html', 'app/account/partials/account.html', 'app/account/partials/account_close.html', 'app/account/partials/logout.html', 'app/account/partials/settings/settings.html', 'app/account/partials/settings/settings.preferences.html', 'app/account/partials/settings/settings.profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/signup_setup.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/feedback/partials/feedback-modal.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/accordion/accordion-group.html', 'template/accordion/accordion.html', 'template/alert/alert.html', 'template/carousel/carousel.html', 'template/carousel/slide.html', 'template/datepicker/datepicker.html', 'template/datepicker/day.html', 'template/datepicker/month.html', 'template/datepicker/popup.html', 'template/datepicker/year.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/pagination/pager.html', 'template/pagination/pagination.html', 'template/popover/popover.html', 'template/progressbar/bar.html', 'template/progressbar/progress.html', 'template/progressbar/progressbar.html', 'template/rating/rating.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/timepicker/timepicker.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html', 'template/typeahead/typeahead-match.html', 'template/typeahead/typeahead-popup.html']);
+angular.module('partials', ['app/site/partials/404.html', 'app/site/partials/500.html', 'app/site/partials/about.html', 'app/site/partials/home.html', 'app/site/partials/privacy.html', 'app/categories/partials/add-category-directive-template.html', 'app/categories/partials/categories.html', 'app/categories/partials/color-picker-directive-template.html', 'app/categories/partials/edit-remove-category-directive-template.html', 'app/expenses/partials/expense.category.template.html', 'app/expenses/partials/expense/expense.entry.template.html', 'app/expenses/partials/expense/expense.list.template.html', 'app/expenses/partials/expense/expenses.html', 'app/expenses/partials/expense/expenses.template.html', 'app/account/partials/account.html', 'app/account/partials/account_close.html', 'app/account/partials/logout.html', 'app/account/partials/settings/settings.html', 'app/account/partials/settings/settings.preferences.html', 'app/account/partials/settings/settings.profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/signup_setup.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/insights/partials/insights.html', 'app/feedback/partials/feedback-modal.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/accordion/accordion-group.html', 'template/accordion/accordion.html', 'template/alert/alert.html', 'template/carousel/carousel.html', 'template/carousel/slide.html', 'template/datepicker/datepicker.html', 'template/datepicker/day.html', 'template/datepicker/month.html', 'template/datepicker/popup.html', 'template/datepicker/year.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/pagination/pager.html', 'template/pagination/pagination.html', 'template/popover/popover.html', 'template/progressbar/bar.html', 'template/progressbar/progress.html', 'template/progressbar/progressbar.html', 'template/rating/rating.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/timepicker/timepicker.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html', 'template/typeahead/typeahead-match.html', 'template/typeahead/typeahead-popup.html']);
 
 angular.module("app/site/partials/404.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/404.html",
@@ -74,7 +74,7 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "    <div class=\"home__section\">\n" +
     "        <h1 class=\"home__title\">Change the way you spend your money</h1>\n" +
     "\n" +
-    "        <h3 class=\"home__description\">Keep a record of all your expenses. Or just some of them. Your choice.\n" +
+    "        <h3 class=\"home__description\">Keep a record of all your expenses. Or just some of them.\n" +
     "            <br> Have simple insights and set clear goals.</h3>\n" +
     "    </div>\n" +
     "\n" +
@@ -88,7 +88,7 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "            </ul>\n" +
     "        </div>\n" +
     "\n" +
-    "        <div class=\"home__section__signup\" ng-controller=\"HomeSignUpRegistrationCtrl\">\n" +
+    "        <div class=\"home__section__signup\" ng-controller=\"HomeSignUpRegistrationController\">\n" +
     "\n" +
     "            <!-- Sign-up form -->\n" +
     "            <form name=\"signUpForm\" ng-submit=\"signUp(signUpData)\" novalidate focus-first-error>\n" +
@@ -241,7 +241,13 @@ angular.module("app/categories/partials/add-category-directive-template.html", [
     "                <div ng-message=\"validCategoryName\">Name is not valid.</div>\n" +
     "                <div ng-message=\"uniqueCategoryName\">Name is already used.</div>\n" +
     "            </div>\n" +
-    "            <input class=\"categories__form__input-group__name\" type=\"text\" placeholder=\"Category name\" name=\"name\" ng-model=\"category.model.name\" auto-focus required valid-category-name unique-category-name />\n" +
+    "            <input type=\"text\"\n" +
+    "                   name=\"name\"\n" +
+    "                   class=\"categories__form__input-group__name\"\n" +
+    "                   placeholder=\"Category name\"\n" +
+    "                   maxlength=\"30\"\n" +
+    "                   ng-model=\"category.model.name\"\n" +
+    "                   auto-focus required valid-category-name unique-category-name />\n" +
     "        </div>\n" +
     "\n" +
     "    </div>\n" +
@@ -249,8 +255,8 @@ angular.module("app/categories/partials/add-category-directive-template.html", [
     "    <!--Content right-->\n" +
     "    <div class=\"categories__add__form__content__right\">\n" +
     "        <!--Reset-->\n" +
-    "        <button class=\"categories__add__form__content__right__cancel\" ng-click=\"toggleContent();initOrReset(categoryForm)\">Nevermind</button>\n" +
-    "        <!-- Button container -->\n" +
+    "        <button type=\"button\" class=\"categories__add__form__content__right__cancel\" ng-click=\"toggleContent();initOrReset(categoryForm)\">Nevermind</button>\n" +
+    "        <!-- Submit button container -->\n" +
     "        <button class=\"categories__add__form__content__right__add\" type=\"submit\">{{isSaving ? 'Adding..' : 'Add'}}</button>\n" +
     "    </div>\n" +
     "</form>");
@@ -258,34 +264,30 @@ angular.module("app/categories/partials/add-category-directive-template.html", [
 
 angular.module("app/categories/partials/categories.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/categories/partials/categories.html",
-    "<div class=\"page-wrapper\">\n" +
+    "<div header class=\"view-container__header\"></div>\n" +
     "\n" +
-    "    <div header class=\"view-container__header\"></div>\n" +
+    "<div class=\"view-container__content\">\n" +
     "\n" +
-    "    <div class=\"view-container__content categories\">\n" +
+    "    <!-- Flash messages. -->\n" +
+    "    <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
     "\n" +
-    "        <!-- Flash messages. -->\n" +
-    "        <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "    <!--Add category-->\n" +
+    "    <div class=\"categories__add\" add-category></div>\n" +
     "\n" +
-    "        <!--Add category-->\n" +
-    "        <div class=\"categories__add\" add-category></div>\n" +
+    "    <!--List all categories-->\n" +
+    "    <div class=\"categories__edit\">\n" +
     "\n" +
-    "        <!--List all categories-->\n" +
-    "        <div class=\"categories__edit\">\n" +
+    "        <div class=\"categories__edit__category\" ng-repeat=\"category in categories track by category.model.name\">\n" +
     "\n" +
-    "            <div class=\"categories__edit__category\" ng-repeat=\"category in categories track by category.model.name\">\n" +
-    "\n" +
-    "                <!--Edit/remove category-->\n" +
-    "                <div edit-remove-category category=\"category\"></div>\n" +
-    "            </div>\n" +
-    "\n" +
+    "            <!--Edit/remove category-->\n" +
+    "            <div edit-remove-category category=\"category\"></div>\n" +
     "        </div>\n" +
     "\n" +
     "    </div>\n" +
     "\n" +
-    "    <div footer class=\"view-container__footer\"></div>\n" +
+    "</div>\n" +
     "\n" +
-    "</div>");
+    "<div footer class=\"view-container__footer\"></div>");
 }]);
 
 angular.module("app/categories/partials/color-picker-directive-template.html", []).run(["$templateCache", function($templateCache) {
@@ -374,12 +376,11 @@ angular.module("app/expenses/partials/expense.category.template.html", []).run([
     "<div class=\"angucomplete-holder\" ng-class=\"{'angucomplete-dropdown-visible': showDropdown}\">\n" +
     "    <input id=\"{{id}}_value\" ng-model=\"searchStr\" ng-disabled=\"disableInput\" type=\"{{type}}\" placeholder=\"{{placeholder}}\" maxlength=\"{{maxlength}}\" ng-focus=\"onFocusHandler()\" class=\"{{inputClass}}\" ng-focus=\"resetHideResults()\" ng-blur=\"hideResults($event)\" autocapitalize=\"off\" autocorrect=\"off\" autocomplete=\"off\" ng-change=\"inputChangeHandler(searchStr)\" />\n" +
     "\n" +
-    "    <div id=\"{{id}}_dropdown\" class=\"angucomplete-dropdown\" ng-show=\"showDropdown\">\n" +
+    "    <div id=\"{{id}}_dropdown\" class=\"angucomplete-dropdown expense__form__category__angucomplete-dropdown\" ng-show=\"showDropdown\">\n" +
     "        <div class=\"angucomplete-searching\" ng-show=\"searching\" ng-bind=\"textSearching\"></div>\n" +
-    "        <div class=\"angucomplete-searching\" ng-show=\"!searching && (!results || results.length == 0) || true\" ng-bind=\"textNoResults\"></div>\n" +
     "        <div class=\"angucomplete-row\" ng-repeat=\"result in results\" ng-click=\"selectResult(result)\" ng-mouseenter=\"hoverRow($index)\" ng-class=\"{'angucomplete-selected-row': $index == currentIndex}\">\n" +
-    "            <div class=\"angucomplete-image-holder\">\n" +
-    "                <label class=\"categories__form__color__preview\" ng-style=\"{'background':result.originalObject.model.color}\"></label>\n" +
+    "            <div class=\"angucomplete-image-holder expense__form__category__angucomplete-image-holder\">\n" +
+    "                <label class=\"expense__form__category__color__preview\" ng-style=\"{'background':result.originalObject.model.color}\"></label>\n" +
     "            </div>\n" +
     "            <div class=\"angucomplete-title\" ng-if=\"matchClass\" ng-bind-html=\"result.title\"></div>\n" +
     "            <div class=\"angucomplete-title\" ng-if=\"!matchClass\">{{ result.title }}</div>\n" +
@@ -393,7 +394,11 @@ angular.module("app/expenses/partials/expense.category.template.html", []).run([
 angular.module("app/expenses/partials/expense/expense.entry.template.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/expenses/partials/expense/expense.entry.template.html",
     "<!--Display expense-->\n" +
-    "<div class=\"expenses__list__entry__display\" ng-if=\"! showContent\" ng-click=\"toggleContent()\">\n" +
+    "<div class=\"expenses__list__entry__display\" ng-if=\"! showContent\" ng-class=\"expense.marked ? 'expense__bulk--marked' : ''\">\n" +
+    "\n" +
+    "    <div class=\"expenses__list__entry__select\">\n" +
+    "        <input type=\"checkbox\" ng-checked=\"expense.marked\" ng-click=\"toggleMark();$event.stopPropagation();\" />\n" +
+    "    </div>\n" +
     "\n" +
     "    <div class=\"expenses__list__entry__price\">\n" +
     "        {{expense.model.value | currency:\"\"}}\n" +
@@ -408,16 +413,20 @@ angular.module("app/expenses/partials/expense/expense.entry.template.html", []).
     "\n" +
     "    <!--Expense date-->\n" +
     "    <div class=\"expenses__list__entry__date\">{{expense.model.spentDate | friendlyDate}}</div>\n" +
+    "\n" +
+    "    <button class=\"expenses__list__entry__editbtn icon-pen\" type=\"button\" ng-click=\"toggleContent();\"></button>\n" +
     "</div>\n" +
     "\n" +
-    "<!-- Display expense form -->\n" +
+    "\n" +
+    "\n" +
+    "<!-- Display expense in edit mode -->\n" +
     "<div class=\"expenses__form\" ng-if=\"showContent\">\n" +
     "\n" +
-    "    <form name=\"expenseForm\" ng-submit=\"updateExpense(expenseForm, expense, category)\" novalidate focus-first-error>\n" +
+    "    <form name=\"expenseForm\" ng-submit=\"updateExpense(expenseForm, shownExpense, category)\" novalidate focus-first-error>\n" +
     "\n" +
     "        <!-- Form groups -->\n" +
     "        <div class=\"expense__form__price\" ng-class=\"{'has-error': expenseForm.$submitted && (expenseForm.value.$invalid || badPostSubmitResponse)}\">\n" +
-    "            <input class=\"expense__form__price__input\" type=\"text\" name=\"value\" placeholder=\"The value\" ng-model=\"expense.model.value\" format-price format=\"number\" required valid-price />\n" +
+    "            <input class=\"expense__form__price__input\" type=\"text\" name=\"value\" placeholder=\"The value\" ng-model=\"shownExpense.model.value\" format-price format=\"number\" caret-price-position required valid-price />\n" +
     "            <span class=\"expense__form__price__currency\">{{user.model.currency.currencyCode}}</span>\n" +
     "\n" +
     "            <!-- Error messages -->\n" +
@@ -440,7 +449,7 @@ angular.module("app/expenses/partials/expense/expense.entry.template.html", []).
     "                 maxlength=\"50\"\n" +
     "                 pause=\"1\"\n" +
     "                 minlength=\"0\"\n" +
-    "                 initial-value=\"{{expense.model.category.name}}\"\n" +
+    "                 initial-value=\"{{shownExpense.model.category.name}}\"\n" +
     "                 input-class=\"expense__form__category__input\"\n" +
     "                 match-class=\"highlight\"\n" +
     "                 template-url=\"app/expenses/partials/expense.category.template.html\">\n" +
@@ -456,7 +465,7 @@ angular.module("app/expenses/partials/expense/expense.entry.template.html", []).
     "\n" +
     "        <!-- Description input -->\n" +
     "        <div class=\"expense__form__details\" ng-class=\"{'has-error': expenseForm.$submitted && (expenseForm.description.$invalid || badPostSubmitResponse)}\">\n" +
-    "            <input class=\"expense__form__details__input\" type=\"text\" name=\"description\" ng-maxlength=\"20\" placeholder=\"Add details (optional)\" ng-model=\"expense.model.description\" escape-html />\n" +
+    "            <input class=\"expense__form__details__input\" type=\"text\" name=\"description\" ng-maxlength=\"30\" maxlength=\"30\" placeholder=\"Add details (optional)\" ng-model=\"shownExpense.model.description\" escape-html />\n" +
     "\n" +
     "            <!-- Error messages -->\n" +
     "            <div class=\"form-group-input__message\" ng-class=\"{'has-error': expenseForm.description.$invalid && expenseForm.$submitted}\" ng-messages=\"expenseForm.$error\" ng-if=\"expenseForm.$submitted\">\n" +
@@ -468,11 +477,18 @@ angular.module("app/expenses/partials/expense/expense.entry.template.html", []).
     "        <div class=\"expense__form__date\" ng-class=\"{'has-error': expenseForm.spentDate.$invalid && expenseForm.$submitted}\">\n" +
     "\n" +
     "            <!--Hidden input of the expense chosen date-->\n" +
-    "            <input type=\"hidden\" name=\"spentDate\" ng-model=\"expense.model.spentDate\" required valid-date />\n" +
+    "            <input type=\"hidden\" name=\"spentDate\" ng-model=\"shownExpense.model.spentDate\" required valid-date />\n" +
     "\n" +
     "            <!--Expense date picker-->\n" +
     "            <div class=\"expense__form__date__input\">\n" +
-    "                <button ng-click=\"open($event)\" type=\"button\" datepicker-popup is-open=\"opened\" min-date=\"minDate\" max-date=\"maxDate\" ng-model=\"expense.model.spentDate\" show-weeks=\"false\" datepicker-options=\"{starting_day:1}\">{{expense.model.spentDate | friendlyDate}}</button>\n" +
+    "                <button ng-click=\"openDatePicker($event)\" type=\"button\"\n" +
+    "                        datepicker-popup is-open=\"datePickerStatus.opened\"\n" +
+    "                        min-date=\"minDate\"\n" +
+    "                        max-date=\"maxDate\"\n" +
+    "                        ng-model=\"shownExpense.model.spentDate\"\n" +
+    "                        datepicker-options=\"{startingDay:1,showWeeks:false}\">\n" +
+    "                    {{shownExpense.model.spentDate | friendlyDate}}\n" +
+    "                </button>\n" +
     "            </div>\n" +
     "\n" +
     "            <!--Error messages-->\n" +
@@ -484,20 +500,24 @@ angular.module("app/expenses/partials/expense/expense.entry.template.html", []).
     "\n" +
     "        <!-- Button container -->\n" +
     "        <div class=\"expense__form__submit\">\n" +
-    "            <span>Hit Enter to</span>\n" +
-    "            <button type=\"submit\"> save</button>\n" +
-    "            <span>the expense.</span>\n" +
-    "        </div>\n" +
-    "\n" +
-    "        <!--Content right-->\n" +
-    "        <div class=\"expenses__edit__form__content__right\">\n" +
-    "\n" +
-    "            <!--Reset-->\n" +
-    "            <button class=\"expenses__edit__form__content__right__cancel\" ng-click=\"cancel();\">Nevermind</button>\n" +
-    "            <!-- Button container -->\n" +
-    "            <button class=\"expenses__edit__form__content__right__update\" type=\"submit\">{{isUpdating ? 'Saving..' : 'Save changes'}}</button>\n" +
+    "            <span ng-if=\"isUpdating\">\n" +
+    "                <span>Saving the expense...</span>\n" +
+    "            </span>\n" +
+    "            <span ng-if=\"! isUpdating\">\n" +
+    "                <span class=\"expense__edit__form__cancelbtn\" >\n" +
+    "                    <button type=\"button\" ng-click=\"cancel();\">Discard</button>\n" +
+    "                    <span>changes.</span>\n" +
+    "                </span>\n" +
+    "                <span class=\"expense__edit__form__savebtn\" >\n" +
+    "                    <span>Enter to</span>\n" +
+    "                    <button type=\"submit\">save</button>\n" +
+    "                    <span>the changes.</span>\n" +
+    "                </span>\n" +
+    "            </span>\n" +
     "        </div>\n" +
     "    </form>\n" +
+    "\n" +
+    "\n" +
     "\n" +
     "</div>");
 }]);
@@ -512,19 +532,20 @@ angular.module("app/expenses/partials/expense/expense.list.template.html", []).r
     "        <!--Expense list-->\n" +
     "        <div class=\"expenses__list__entry\"\n" +
     "             ng-repeat=\"expense in expenses | orderObjectBy : 'model.spentDate' : reverseOrder | limitTo: expensesLimit | filter:{model:{description:searchByText}} as filteredExpenses track by expense.model.id\"\n" +
+    "\n" +
     "             expense-entry expense=\"expense\" categories=\"categories\">\n" +
     "        </div>\n" +
     "    </div>\n" +
     "\n" +
-    "    <div ng-if=\"isStillExpensesToBeLoaded()\" class=\"expenses__list__loadbtn\">\n" +
-    "        <button type=\"submit\" ladda=\"isLoadingMore\" data-style=\"expand-left\" data-spinner-size=\"20\" ng-click=\"loadMoreExpenses()\">LOAD MORE</button>\n" +
+    "    <div ng-if=\"isStillExpensesToBeLoaded()\">\n" +
+    "        <button type=\"submit\" class=\"expenses__list__loadbtn\" ng-click=\"loadMoreExpenses()\">{{isLoadingMore ? 'Loading..' : 'Load more'}}</button>\n" +
     "    </div>\n" +
     "\n" +
     "</div>");
 }]);
 
-angular.module("app/expenses/partials/expense/expenses.add.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("app/expenses/partials/expense/expenses.add.html",
+angular.module("app/expenses/partials/expense/expenses.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/expenses/partials/expense/expenses.html",
     "<!-- Add a new expense form -->\n" +
     "<div class=\"expenses__form\">\n" +
     "\n" +
@@ -535,13 +556,13 @@ angular.module("app/expenses/partials/expense/expenses.add.html", []).run(["$tem
     "\n" +
     "        <!-- Form groups -->\n" +
     "        <div class=\"expense__form__price\" ng-class=\"{'has-error': expenseForm.$submitted && (expenseForm.value.$invalid || badPostSubmitResponse)}\">\n" +
-    "            <input class=\"expense__form__price__input\" type=\"text\" name=\"value\" placeholder=\"The value\" ng-model=\"expense.model.value\" format-price format=\"number\" required valid-price />\n" +
+    "            <input class=\"expense__form__price__input\" type=\"text\" name=\"value\" placeholder=\"The value\" maxlength=\"14\" ng-model=\"expense.model.value\" format-price format=\"number\" caret-price-position required valid-price />\n" +
     "            <span class=\"expense__form__price__currency\">{{user.model.currency.currencyCode}}</span>\n" +
     "\n" +
     "            <!-- Error messages -->\n" +
     "            <div class=\"form-group-input__message\" ng-class=\"{'has-error': expenseForm.value.$invalid && expenseForm.$submitted}\" ng-messages=\"expenseForm.$error\" ng-if=\"expenseForm.$submitted\">\n" +
-    "                <div ng-message=\"required\">Please add a price.</div>\n" +
-    "                <div ng-message=\"validPrice\">Price is invalid</div>\n" +
+    "                <div ng-message=\"required\">Don't forget the price.</div>\n" +
+    "                <div ng-message=\"validPrice\">Oops, you missed the price.</div>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "\n" +
@@ -559,7 +580,7 @@ angular.module("app/expenses/partials/expense/expenses.add.html", []).run(["$tem
     "                 pause=\"1\"\n" +
     "                 minlength=\"0\"\n" +
     "                 input-class=\"expense__form__category__input\"\n" +
-    "                 match-class=\"highlight\"\n" +
+    "                 match-class=\"angucomplete-highlight\"\n" +
     "                 template-url=\"app/expenses/partials/expense.category.template.html\">\n" +
     "            </div>\n" +
     "\n" +
@@ -573,7 +594,7 @@ angular.module("app/expenses/partials/expense/expenses.add.html", []).run(["$tem
     "\n" +
     "        <!-- Description input -->\n" +
     "        <div class=\"expense__form__details\" ng-class=\"{'has-error': expenseForm.$submitted && (expenseForm.description.$invalid || badPostSubmitResponse)}\">\n" +
-    "            <input class=\"expense__form__details__input\" type=\"text\" name=\"description\" ng-maxlength=\"20\" placeholder=\"Add details (optional)\" ng-model=\"expense.model.description\" escape-html />\n" +
+    "            <input class=\"expense__form__details__input\" type=\"text\" name=\"description\" ng-maxlength=\"30\" maxlength=\"30\" placeholder=\"Add details (optional)\" ng-model=\"expense.model.description\" escape-html />\n" +
     "\n" +
     "            <!-- Error messages -->\n" +
     "            <div class=\"form-group-input__message\" ng-class=\"{'has-error': expenseForm.description.$invalid && expenseForm.$submitted}\" ng-messages=\"expenseForm.$error\" ng-if=\"expenseForm.$submitted\">\n" +
@@ -589,55 +610,75 @@ angular.module("app/expenses/partials/expense/expenses.add.html", []).run(["$tem
     "\n" +
     "            <!--Expense date picker-->\n" +
     "            <div class=\"expense__form__date__input\">\n" +
-    "                <button ng-click=\"open($event)\" type=\"button\" datepicker-popup is-open=\"opened\" min-date=\"minDate\" max-date=\"maxDate\" ng-model=\"expense.model.spentDate\" show-weeks=\"false\" datepicker-options=\"{starting_day:1}\">{{expense.model.spentDate | friendlyDate}}</button>\n" +
+    "                <button type=\"button\"\n" +
+    "                        class=\"expense__form__date__input__btn\"\n" +
+    "                        ng-click=\"openDatePicker($event)\"\n" +
+    "                        ng-model=\"expense.model.spentDate\"\n" +
+    "                        datepicker-popup\n" +
+    "                        is-open=\"datePickerOpened\"\n" +
+    "                        min-date=\"datePickerMinDate\"\n" +
+    "                        max-date=\"datePickerMaxDate\"\n" +
+    "                        datepicker-options=\"{startingDay:1,showWeeks:false}\">{{expense.model.spentDate | friendlyDate}}\n" +
+    "                </button>\n" +
     "            </div>\n" +
     "\n" +
     "            <!--Error messages-->\n" +
     "            <div class=\"form-group-input__message\" ng-class=\"{'has-error': expenseForm.spentDate.$invalid && expenseForm.$submitted}\" ng-messages=\"expenseForm.$error\" ng-if=\"expenseForm.$submitted\">\n" +
-    "                <div ng-message=\"required\">Please make that you add a date.</div>\n" +
+    "                <div ng-message=\"required\">Please add a date.</div>\n" +
     "                <div ng-message=\"validDate\">Date should be in the past.</div>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "\n" +
     "        <!-- Button container -->\n" +
     "        <div class=\"expense__form__submit\">\n" +
-    "            <span>Hit Enter to</span>\n" +
-    "            <button type=\"submit\"> save</button>\n" +
-    "            <span>the expense.</span>\n" +
+    "            <span ng-if=\"isSaving\">\n" +
+    "                <span>Saving...</span>\n" +
+    "            </span>\n" +
+    "            <span ng-if=\"! isSaving\">\n" +
+    "                <span>Enter to</span>\n" +
+    "                <button type=\"submit\">save</button>\n" +
+    "                <span>the expense.</span>\n" +
+    "            </span>\n" +
     "        </div>\n" +
     "    </form>\n" +
     "\n" +
-    "</div>");
-}]);
-
-angular.module("app/expenses/partials/expense/expenses.list.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("app/expenses/partials/expense/expenses.list.html",
+    "</div>\n" +
+    "\n" +
+    "<!--Expense bulk actions-->\n" +
+    "<div class=\"expenses__bulk-actions\" ng-if=\"isBulkActionEnabled()\">\n" +
+    "\n" +
+    "    <div class=\"expenses__bulk-actions__buttons\">\n" +
+    "\n" +
+    "        <div class=\"expenses__bulk-actions__delete\">\n" +
+    "            <button class=\"expenses__bulk-actions__delete__btn-delete\" ng-click=\"performBulkDelete()\">{{isBulkDeleting ? 'Deleting...' : 'Delete'}}</button>\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <div class=\"expenses__bulk-actions__cancel\">\n" +
+    "            <button class=\"expenses__bulk-actions__delete__btn-cancel\" ng-click=\"cancelBulkAction()\">Nevermind</button>\n" +
+    "        </div>\n" +
+    "\n" +
+    "    </div>\n" +
+    "\n" +
+    "</div>\n" +
+    "\n" +
     "<!--The expenses list-->\n" +
     "<div expense-list expenses=\"expenses\" categories=\"categories\" search-by-text=\"searchByText\" sort=\"desc\"></div>");
 }]);
 
 angular.module("app/expenses/partials/expense/expenses.template.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/expenses/partials/expense/expenses.template.html",
-    "<div class=\"page-wrapper\">\n" +
+    "<div header class=\"view-container__header\"></div>\n" +
     "\n" +
-    "    <div header class=\"view-container__header\"></div>\n" +
+    "<div class=\"view-container__content\">\n" +
     "\n" +
-    "    <div class=\"view-container__content\">\n" +
+    "    <!-- Flash messages. -->\n" +
+    "    <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
     "\n" +
-    "        <!-- Flash messages. -->\n" +
-    "        <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "    <div ui-view=\"expenses\"></div>\n" +
     "\n" +
-    "        <div class=\"view-container__content\">\n" +
-    "            <div ui-view=\"add\"></div>\n" +
+    "</div>\n" +
     "\n" +
-    "            <div ui-view=\"list\"></div>\n" +
-    "        </div>\n" +
-    "\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <div footer class=\"view-container__footer\"></div>\n" +
-    "\n" +
-    "</div>");
+    "<div footer class=\"view-container__footer\"></div>");
 }]);
 
 angular.module("app/account/partials/account.html", []).run(["$templateCache", function($templateCache) {
@@ -649,7 +690,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "<div class=\"account\">\n" +
     "\n" +
     "    <!--Sign in-->\n" +
-    "    <div class=\"account__section\" ng-if=\"AccountModal.state === ACCOUNT_FORM_STATE.login\" ng-controller=\"LoginCtrl\">\n" +
+    "    <div class=\"account__section\" ng-if=\"AccountModal.state === ACCOUNT_FORM_STATE.login\" ng-controller=\"LoginController\">\n" +
     "\n" +
     "        <!--Close-->\n" +
     "        <div account-modal-close></div>\n" +
@@ -678,7 +719,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "            <a class=\"link-navigation\" href=\"javascript:void(0)\" ng-click=\"AccountModal.setState(ACCOUNT_FORM_STATE.forgotPassword)\">Forgot login details?</a>\n" +
     "\n" +
     "            <!-- Button container -->\n" +
-    "            <button ladda=\"isRequestPending\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"account__btn\" type=\"submit\">Log in</button>\n" +
+    "            <button class=\"account__btn\" type=\"submit\">{{isRequestPending ? 'Logging in..' : 'Log in'}}</button>\n" +
     "        </form>\n" +
     "\n" +
     "        <a class=\"link-navigation\" href=\"javascript:void(0)\" ng-click=\"AccountModal.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration)\">Don't have an account yet? Sign up!</a>\n" +
@@ -686,7 +727,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "    </div>\n" +
     "\n" +
     "    <!--Sign up-->\n" +
-    "    <div class=\"account__section\" ng-if=\"AccountModal.state == ACCOUNT_FORM_STATE.requestSignUpRegistration\" ng-controller=\"HomeSignUpRegistrationCtrl\">\n" +
+    "    <div class=\"account__section\" ng-if=\"AccountModal.state == ACCOUNT_FORM_STATE.requestSignUpRegistration\" ng-controller=\"HomeSignUpRegistrationController\">\n" +
     "\n" +
     "        <!--Close-->\n" +
     "        <div account-modal-close></div>\n" +
@@ -742,7 +783,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "    </div>\n" +
     "\n" +
     "    <!-- Recover password section -->\n" +
-    "    <div class=\"account__section\" ng-if=\"AccountModal.state == ACCOUNT_FORM_STATE.forgotPassword\" ng-controller=\"ForgotPasswordCtrl\">\n" +
+    "    <div class=\"account__section\" ng-if=\"AccountModal.state == ACCOUNT_FORM_STATE.forgotPassword\" ng-controller=\"ForgotPasswordController\">\n" +
     "\n" +
     "        <!--Close-->\n" +
     "        <div account-modal-close></div>\n" +
@@ -841,7 +882,7 @@ angular.module("app/account/partials/settings/settings.html", []).run(["$templat
 angular.module("app/account/partials/settings/settings.preferences.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/account/partials/settings/settings.preferences.html",
     "<!-- Profile section -->\n" +
-    "<div class=\"account__section\" ng-controller=\"PreferencesCtrl\">\n" +
+    "<div class=\"account__section\" ng-controller=\"PreferencesController\">\n" +
     "\n" +
     "    <!-- Title -->\n" +
     "    <h1 class=\"account__title\">Modify timezone</h1>\n" +
@@ -875,7 +916,7 @@ angular.module("app/account/partials/settings/settings.preferences.html", []).ru
 angular.module("app/account/partials/settings/settings.profile.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/account/partials/settings/settings.profile.html",
     "<!-- Profile section -->\n" +
-    "<div class=\"account__section\" ng-if=\"ProfileFormToggle.state === ACCOUNT_FORM_STATE.updateProfile\" ng-controller=\"ProfileCtrl\">\n" +
+    "<div class=\"account__section\" ng-if=\"ProfileFormToggle.state === ACCOUNT_FORM_STATE.updateProfile\" ng-controller=\"ProfileController\">\n" +
     "\n" +
     "    <!-- Title -->\n" +
     "    <h1 class=\"account__title\">Modify profile</h1>\n" +
@@ -919,7 +960,7 @@ angular.module("app/account/partials/settings/settings.profile.html", []).run(["
     "</div>\n" +
     "\n" +
     "<!-- Update password section -->\n" +
-    "<div class=\"account__section\" ng-if=\"ProfileFormToggle.state === ACCOUNT_FORM_STATE.updatePassword\" ng-controller=\"UpdatePasswordCtrl\">\n" +
+    "<div class=\"account__section\" ng-if=\"ProfileFormToggle.state === ACCOUNT_FORM_STATE.updatePassword\" ng-controller=\"UpdatePasswordController\">\n" +
     "\n" +
     "    <!-- Title -->\n" +
     "    <h1 class=\"account__title\">Welcome!</h1>\n" +
@@ -1083,7 +1124,7 @@ angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$temp
 
 angular.module("app/account/partials/signup_setup.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/account/partials/signup_setup.html",
-    "<div class=\"sign-up__setup\" xmlns=\"http://www.w3.org/1999/html\">\n" +
+    "<div class=\"sign-up__setup\">\n" +
     "\n" +
     "    <div class=\"sign-up__setup__box\">\n" +
     "\n" +
@@ -1094,22 +1135,28 @@ angular.module("app/account/partials/signup_setup.html", []).run(["$templateCach
     "\n" +
     "            <div class=\"sign-up__setup__section\">\n" +
     "                Please choose your currency:\n" +
-    "                <div class=\"sign-up__setup__section--currency\">\n" +
+    "                <div class=\"sign-up__setup__section--currency\" ng-class=\"{'has-error': setUpForm.$submitted && (setUpForm.$error['autocomplete-required'] || setUpForm.currency.$invalid || badPostSubmitResponse)}\">\n" +
     "                    <div angucomplete-alt\n" +
     "                         selected-object=\"currency\"\n" +
     "                         local-data=\"currencies\"\n" +
     "                         search-fields=\"displayName,currencyCode\"\n" +
     "                         title-field=\"currencyCode,displayName\"\n" +
     "                         field-required=\"true\"\n" +
-    "                         field-required-class=\"sign-up__setup__section--currency--invalid\"\n" +
-    "                         id=\"ex1\"\n" +
     "                         placeholder=\"Start typing your currency...\"\n" +
     "                         maxlength=\"50\"\n" +
     "                         pause=\"1\"\n" +
     "                         minlength=\"0\"\n" +
     "                         input-class=\"sign-up__setup__section--currency__input\"\n" +
-    "                         match-class=\"highlight\">\n" +
+    "                         match-class=\"angucomplete-highlight\">\n" +
     "                    </div>\n" +
+    "\n" +
+    "                    <!-- Error messages -->\n" +
+    "                    <div class=\"form-group-input__message form-group-input__message--currency\" ng-class=\"{'has-error': setUpForm.$invalid && setUpForm.$submitted}\" ng-messages=\"setUpForm.$error\" ng-if=\"setUpForm.$submitted\">\n" +
+    "                        <div ng-message=\"autocomplete-required\">Currency is missing or is invalid.</div>\n" +
+    "                        <div ng-message=\"required\">Please add</div>\n" +
+    "                    </div>\n" +
+    "\n" +
+    "                    <div class=\"form-group-input__message form-group-input__message--currency\" ng-if=\"setUpForm.category.$invalid && setUpForm.$submitted\">Please add a currency.</div>\n" +
     "                </div>\n" +
     "            </div>\n" +
     "\n" +
@@ -1121,14 +1168,14 @@ angular.module("app/account/partials/signup_setup.html", []).run(["$templateCach
     "            <div class=\"sign-up__box__categories\">\n" +
     "\n" +
     "                <div class=\"sign-up__box__categories__category\" ng-repeat=\"category in categories track by category.name\">\n" +
-    "                    <!--Category group-->\n" +
     "                    <div class=\"category-name\" ng-style=\"{'background':category.color}\" ng-class=\"{ 'category-name--unselected': !category.selected }\" ng-click=\"toggleCategorySelection($index)\"> {{category.name}}</div>\n" +
     "                </div>\n" +
     "\n" +
     "                <!--Toggle form-->\n" +
     "                <button ng-if=\"! showCategoryOnTheFlyInput\" class=\"sign-up__box__categories__addbtn\" ng-click=\"toggleContent()\">+ Add another</button>\n" +
     "\n" +
-    "                <ng-form class=\"sign-up__box__categories__category__form\" name=\"categoryOnTheFlyForm\"\n" +
+    "                <ng-form class=\"sign-up__box__categories__category__form\"\n" +
+    "                         name=\"categoryOnTheFlyForm\"\n" +
     "                         submit-on=\"add-category-on-the-fly-event\"\n" +
     "                         ng-submit=\"onSubmitted($event)\"\n" +
     "                         ng-if=\"showCategoryOnTheFlyInput\">\n" +
@@ -1143,8 +1190,10 @@ angular.module("app/account/partials/signup_setup.html", []).run(["$templateCach
     "\n" +
     "                        <!--The on the fly input category-->\n" +
     "                        <input class=\"sign-up__box__categories__addinput\" type=\"text\" name=\"name\"\n" +
+    "                               maxlength=\"15\"\n" +
     "                               ng-model=\"$parent.categoryOnTheFly\"\n" +
     "                               ng-enter=\"triggerSubmit()\"\n" +
+    "                               ng-blur=\"cancelAddCategoryOnTheFly()\"\n" +
     "                               auto-focus required valid-category-name />\n" +
     "\n" +
     "                    </div>\n" +
@@ -1155,7 +1204,7 @@ angular.module("app/account/partials/signup_setup.html", []).run(["$templateCach
     "            <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
     "\n" +
     "            <!-- Button -->\n" +
-    "            <button ladda=\"isSaving\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"sign-up__setup__btn\" ng-disabled=\"! isEnoughSelectedCategories()\" type=\"submit\">Done! Let's start!</button>\n" +
+    "            <button class=\"sign-up__setup__btn\" ng-disabled=\"! isEnoughSelectedCategories()\" type=\"submit\">{{isSaving ? 'Saving..' : 'Done! Let\\'s start!'}}</button>\n" +
     "        </form>\n" +
     "\n" +
     "    </div>\n" +
@@ -1235,6 +1284,19 @@ angular.module("app/account/partials/validate_password_reset_token_valid.html", 
     "</div>");
 }]);
 
+angular.module("app/insights/partials/insights.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/insights/partials/insights.html",
+    "<div header class=\"view-container__header\"></div>\n" +
+    "\n" +
+    "<div class=\"view-container__content\">\n" +
+    "\n" +
+    "    <canvas class=\"chart chart-doughnut\" data=\"expenseData\" labels=\"expenseLabels\" colors=\"expenseColors\"></canvas>\n" +
+    "\n" +
+    "</div>\n" +
+    "\n" +
+    "<div footer class=\"view-container__footer\"></div>");
+}]);
+
 angular.module("app/feedback/partials/feedback-modal.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/feedback/partials/feedback-modal.html",
     "<form name=\"feedbackForm\" ng-submit=\"sendFeedbackAndClose(feedbackForm)\" novalidate focus-first-error>\n" +
@@ -1307,13 +1369,12 @@ angular.module("app/common/partials/footer-home.html", []).run(["$templateCache"
     "    </div>\n" +
     "\n" +
     "    <ul class=\"footer__links\">\n" +
-    "        <li><a href=\"http://blog.revaluate.io\">Read our Blog</a></li>\n" +
-    "        <li><a href=\"mailto:hello@revaluate.io\">Send us an Email</a></li>\n" +
-    "        <li><a href=\"https://twitter.com/revaluateapp\">Follow us on Twitter</a></li>\n" +
-    "        <li><a href=\"https://www.facebook.com/revaluateapp\">Like us on Facebook</a></li>\n" +
+    "        <li>Read our <a href=\"http://blog.revaluate.io\">Blog</a></li>\n" +
+    "        <li>Send us an <a href=\"mailto:hello@revaluate.io\">Email</a></li>\n" +
+    "        <li>Follow us on <a href=\"https://twitter.com/revaluateapp\">Twitter</a></li>\n" +
+    "        <li>Like us on <a href=\"https://www.facebook.com/revaluateapp\">Facebook</a></li>\n" +
     "    </ul>\n" +
-    "</footer>\n" +
-    "");
+    "</footer>");
 }]);
 
 angular.module("app/common/partials/footer.html", []).run(["$templateCache", function($templateCache) {
@@ -1324,34 +1385,36 @@ angular.module("app/common/partials/footer.html", []).run(["$templateCache", fun
     "    </div>\n" +
     "\n" +
     "    <ul class=\"footer__links\">\n" +
-    "        <li><a href=\"http://blog.revaluate.io\">Read our Blog</a></li>\n" +
-    "        <li><a href=\"mailto:hello@revaluate.io\">Send us an Email</a></li>\n" +
-    "        <li><a href=\"https://twitter.com/revaluateapp\">Follow us on Twitter</a></li>\n" +
-    "        <li><a href=\"https://www.facebook.com/revaluateapp\">Like us on Facebook</a></li>\n" +
+    "        <li>Read our <a href=\"http://blog.revaluate.io\">Blog</a></li>\n" +
+    "        <li>Send us an <a href=\"mailto:hello@revaluate.io\">Email</a></li>\n" +
+    "        <li>Follow us on <a href=\"https://twitter.com/revaluateapp\">Twitter</a></li>\n" +
+    "        <li>Like us on <a href=\"https://www.facebook.com/revaluateapp\">Facebook</a></li>\n" +
     "    </ul>\n" +
-    "</footer>\n" +
-    "");
+    "</footer>");
 }]);
 
 angular.module("app/common/partials/header-home.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/common/partials/header-home.html",
-    "<header class=\"header-home\">\n" +
+    "<div class=\"header-home__wrapper\">\n" +
     "\n" +
-    "    <div class=\"header-home__brand\">\n" +
-    "        <div class=\"header-home__brand--logo\">Logo</div>\n" +
-    "        <a href=\"javascript:void(0)\" class=\"header-home__brand--name\">Revaluate</a>\n" +
-    "    </div>\n" +
+    "    <header class=\"header-home\">\n" +
+    "\n" +
+    "        <div class=\"header-home__brand\">\n" +
+    "            <div class=\"header-home__brand--logo\">Logo</div>\n" +
+    "            <a href=\"javascript:void(0)\" class=\"header-home__brand--name\">Revaluate</a>\n" +
+    "        </div>\n" +
     "\n" +
     "\n" +
-    "    <ul class=\"header-home__navigation\">\n" +
-    "        <li><a href=\"javascript:void(0)\">Pricing</a></li>\n" +
-    "        <li><a href=\"javascript:void(0)\">Blog</a></li>\n" +
-    "        <li><a href=\"javascript:void(0)\">Contact</a></li>\n" +
-    "        <li><button class=\"header-home__navigation--btn\" account-modal-toggle=\"login\">Log in</button></li>\n" +
-    "    </ul>\n" +
+    "        <ul class=\"header-home__navigation\">\n" +
+    "            <li><a href=\"javascript:void(0)\">Pricing</a></li>\n" +
+    "            <li><a href=\"javascript:void(0)\">Blog</a></li>\n" +
+    "            <li><a href=\"javascript:void(0)\">Contact</a></li>\n" +
+    "            <li><button class=\"header-home__navigation--btn\" account-modal-toggle=\"login\">Log in</button></li>\n" +
+    "        </ul>\n" +
     "\n" +
-    "</header>\n" +
-    "");
+    "    </header>\n" +
+    "\n" +
+    "</div>");
 }]);
 
 angular.module("app/common/partials/header.html", []).run(["$templateCache", function($templateCache) {
@@ -1370,14 +1433,14 @@ angular.module("app/common/partials/header.html", []).run(["$templateCache", fun
     "        </button>\n" +
     "        <ul class=\"dropdown-menu header__dropdown__menu\" role=\"menu\">\n" +
     "            <li><a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"settings\">Preferences</a></li>\n" +
-    "            <li><a class=\"nav-link\" href=\"javascript:void(0)\" id=\"feedback-trigger\" ng-controller=\"FeedbackModalCtrl\" ng-click=\"openFeedbackModal()\">Send feedback</a></li>\n" +
+    "            <li><a class=\"nav-link\" href=\"javascript:void(0)\" id=\"feedback-trigger\" ng-controller=\"FeedbackModalController\" ng-click=\"openFeedbackModal()\">Send feedback</a></li>\n" +
     "            <li><a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"account:logout\">Logout</a></li>\n" +
     "        </ul>\n" +
     "    </div>\n" +
     "\n" +
     "    <ul class=\"header__navigation\">\n" +
-    "        <li><a href=\"javascript:void(0)\">Wallet</a></li>\n" +
-    "        <li><a href=\"javascript:void(0)\">Insights</a></li>\n" +
+    "        <li><a href=\"javascript:void(0)\" ui-sref=\"expenses.regular\">Wallet</a></li>\n" +
+    "        <li><a href=\"javascript:void(0)\" ui-sref=\"insights\">Insights</a></li>\n" +
     "        <li><a href=\"javascript:void(0)\">Goals</a></li>\n" +
     "    </ul>\n" +
     "\n" +

@@ -1,6 +1,6 @@
 angular
     .module("feedback")
-    .controller("FeedbackModalCtrl", function ($scope, FeedbackModalService, Feedback, $timeout) {
+    .controller("FeedbackModalController", function ($scope, FeedbackModalService, Feedback, $timeout) {
 
         /**
          * Feedback.

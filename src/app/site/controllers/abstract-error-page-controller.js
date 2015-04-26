@@ -3,7 +3,7 @@
  */
 angular
     .module("common")
-    .controller("AbstractErrorPageCtrl", function ($scope, StatesHandler) {
+    .controller("AbstractErrorPageController", function ($scope, StatesHandler) {
 
         /**
          * Track event.

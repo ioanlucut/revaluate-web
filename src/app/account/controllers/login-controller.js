@@ -3,7 +3,7 @@
  */
 angular
     .module("account")
-    .controller("LoginCtrl", function ($scope, flash, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountModal, StatesHandler, $timeout) {
+    .controller("LoginController", function ($scope, flash, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountModal, StatesHandler, $timeout) {
 
         /**
          * Alert identifier
@@ -16,6 +16,8 @@ angular
         if ( !AccountModal.isOpen ) {
             AccountModal.openWithState(ACCOUNT_FORM_STATE.login)
         }
+
+        var TIMEOUT_PENDING = 300;
 
         /**
          * Login user information.
@@ -51,7 +53,7 @@ angular
                         // Stop the loading bar
                         $timeout(function () {
                             $scope.isRequestPending = false;
-                        }, 2000);
+                        }, TIMEOUT_PENDING);
                     })
             }
         };

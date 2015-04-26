@@ -3,7 +3,7 @@ angular
     .directive("editRemoveCategory", function ($rootScope, CATEGORY_EVENTS) {
         return {
             restrict: "A",
-            controller: 'CategoryEditRemoveCtrl',
+            controller: 'CategoryEditRemoveController',
             scope: {
                 category: "="
             },

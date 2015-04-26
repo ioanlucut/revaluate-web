@@ -29,7 +29,7 @@ angular
             var categoryDto = CategoryTransformerService.toCategoryDto(category);
 
             return $http
-                .post(URLTo.api(CATEGORY_URLS.update), categoryDto)
+                .put(URLTo.api(CATEGORY_URLS.update), categoryDto)
                 .then(function (response) {
                     CategoryTransformerService.toCategory(response.data, category);
 
@@ -66,6 +66,32 @@ angular
                     return CategoryTransformerService.toCategories(response.data)
                 }).catch(function (response) {
                     return $q.reject(response);
+                });
+        };
+
+        /**
+         * Bulk create action of a list of categories.
+         * @returns {*}
+         */
+        this.bulkCreate = function (categories) {
+            return $http
+                .post(URLTo.api(CATEGORY_URLS.bulkCreate), CategoryTransformerService.toCategoryDTOs(categories))
+                .then(function (response) {
+
+                    return CategoryTransformerService.toCategories(response.data);
+                });
+        };
+
+        /**
+         * Bulk delete action of a list of categories.
+         * @returns {*}
+         */
+        this.bulkDelete = function (categories) {
+            return $http
+                .put(URLTo.api(CATEGORY_URLS.bulkDelete), CategoryTransformerService.toCategoryDTOs(categories))
+                .then(function (response) {
+
+                    return response.data;
                 });
         };
 

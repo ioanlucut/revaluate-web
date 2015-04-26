@@ -1,22 +1,23 @@
 .home {
-  @include outer-container();
   text-align: center;
+  background-color: $brand-primary;
 }
 
 .home__section {
-  //@include outer-container();
-  //border: solid 1px red;
+  @include outer-container();
+  margin-top: 0;
 }
 
 .home__title {
   padding-top: 50px;
   font-size: 40px;
   font-weight: $font-weight-bold;
+  color: $white;
 }
 
 .home__description {
   padding: 10px 10px 40px 10px;
-  color: $medium-gray;
+  color: lighten($brand-primary, 30%);
   font-size: 22px;
   font-weight: $font-weight-light;
 }
@@ -32,13 +33,13 @@
 
   li {
     padding-bottom: 15px;
-    color: $dark-gray;
+    color: darken($brand-primary, 20%);;
     font-size: 18px;
     font-weight: $font-weight-light;
 
     span{
       display: inline-block;
-      color: $brand-primary;
+      color: lighten($brand-primary, 10%);
       margin-right: 20px;
     }
   }
@@ -47,8 +48,10 @@
 .home__section__signup {
   @include span-columns(5);
   @include border-radius($base-border-radius);
-  border: solid 1px $light-gray;
+  border: solid 1px $gray-light;
   padding: 10px 40px 40px 40px;
+  background-color: $white;
+  margin-bottom: 30px;
 }
 
 .home__action-btn {
@@ -74,5 +77,5 @@
 .home__action-btn--info {
   padding: 3px 10px;
   font-size: 12px;
-  color: $medium-gray;
+  color: $gray-medium;
 }

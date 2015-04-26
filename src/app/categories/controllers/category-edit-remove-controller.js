@@ -1,11 +1,11 @@
 angular
     .module("categories")
-    .controller("CategoryEditRemoveCtrl", function ($scope, $rootScope, Category, $timeout, CATEGORY_EVENTS, MIXPANEL_EVENTS) {
+    .controller("CategoryEditRemoveController", function ($scope, $rootScope, Category, $timeout, CATEGORY_EVENTS, MIXPANEL_EVENTS) {
 
         /**
          * Edit/update timeout
          */
-        const TIMEOUT_DURATION = 300;
+        var TIMEOUT_DURATION = 300;
 
         /**
          * Update the category.

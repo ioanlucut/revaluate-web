@@ -3,9 +3,6 @@
  */
 angular
     .module("expenses", [
-        "ui.router",
-        "angular-ladda",
-        "fiestah.money",
         "common"
     ])
     .config(["$stateProvider", function ($stateProvider) {
@@ -22,19 +19,9 @@ angular
             .state("expenses.regular", {
                 url: "",
                 views: {
-                    'add': {
-                        templateUrl: "app/expenses/partials/expense/expenses.add.html",
-                        controller: "ExpenseCreateController",
-                        resolve: {
-                            categories: function (CategoryService) {
-                                return CategoryService.getAllCategories();
-                            }
-                        }
-                    },
-
-                    'list': {
-                        templateUrl: "app/expenses/partials/expense/expenses.list.html",
-                        controller: "ExpenseListController",
+                    'expenses': {
+                        templateUrl: "app/expenses/partials/expense/expenses.html",
+                        controller: "ExpenseController",
                         resolve: {
                             expenses: function (ExpenseService) {
                                 return ExpenseService.getAllExpenses();
@@ -46,67 +33,6 @@ angular
                     }
                 },
                 title: "Expenses - Revaluate"
-            })
-
-            // Review case
-            .state("expenses.update", {
-                url: "/{id}/update",
-                views: {
-
-                    'action': {
-                        controller: "ExpenseAutoEditCtrl",
-                        resolve: {
-                            expenseToReview: function ($stateParams, $q, $state, ExpenseService) {
-                                var deferred = $q.defer();
-
-                                ExpenseService
-                                    .getDetails($stateParams.id)
-                                    .then(function (response) {
-                                        deferred.resolve(response);
-
-                                        return response;
-                                    })
-                                    .catch(function (response) {
-
-                                        $state.go("expenses.regular");
-                                        return response;
-                                    });
-
-                                return deferred.promise;
-                            }
-                        }
-
-                    },
-
-                    'list': {
-                        templateUrl: "app/expenses/partials/expense/expenses.list.html",
-                        controller: "ExpenseListController",
-                        resolve: {
-                            expenses: function (ExpenseService) {
-                                return ExpenseService.getAllExpenses();
-                            }
-                        }
-                    }
-                },
-                title: "Preview expense - Revaluate"
-            })
-
-            // Opened modal
-            .state("expenses.new", {
-                url: "/new",
-                views: {
-
-                    'list': {
-                        templateUrl: "app/expenses/partials/expense/expenses.list.html",
-                        controller: "ExpenseListController",
-                        resolve: {
-                            expenses: function (ExpenseService) {
-                                return ExpenseService.getAllExpenses();
-                            }
-                        }
-                    }
-                },
-                title: "Preview expense - Revaluate"
             })
 
     }]);

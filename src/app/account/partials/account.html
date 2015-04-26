@@ -5,7 +5,7 @@
 <div class="account">
 
     <!--Sign in-->
-    <div class="account__section" ng-if="AccountModal.state === ACCOUNT_FORM_STATE.login" ng-controller="LoginCtrl">
+    <div class="account__section" ng-if="AccountModal.state === ACCOUNT_FORM_STATE.login" ng-controller="LoginController">
 
         <!--Close-->
         <div account-modal-close></div>
@@ -34,7 +34,7 @@
             <a class="link-navigation" href="javascript:void(0)" ng-click="AccountModal.setState(ACCOUNT_FORM_STATE.forgotPassword)">Forgot login details?</a>
 
             <!-- Button container -->
-            <button ladda="isRequestPending" data-style="expand-left" data-spinner-size="20" class="account__btn" type="submit">Log in</button>
+            <button class="account__btn" type="submit">{{isRequestPending ? 'Logging in..' : 'Log in'}}</button>
         </form>
 
         <a class="link-navigation" href="javascript:void(0)" ng-click="AccountModal.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration)">Don't have an account yet? Sign up!</a>
@@ -42,7 +42,7 @@
     </div>
 
     <!--Sign up-->
-    <div class="account__section" ng-if="AccountModal.state == ACCOUNT_FORM_STATE.requestSignUpRegistration" ng-controller="HomeSignUpRegistrationCtrl">
+    <div class="account__section" ng-if="AccountModal.state == ACCOUNT_FORM_STATE.requestSignUpRegistration" ng-controller="HomeSignUpRegistrationController">
 
         <!--Close-->
         <div account-modal-close></div>
@@ -98,7 +98,7 @@
     </div>
 
     <!-- Recover password section -->
-    <div class="account__section" ng-if="AccountModal.state == ACCOUNT_FORM_STATE.forgotPassword" ng-controller="ForgotPasswordCtrl">
+    <div class="account__section" ng-if="AccountModal.state == ACCOUNT_FORM_STATE.forgotPassword" ng-controller="ForgotPasswordController">
 
         <!--Close-->
         <div account-modal-close></div>

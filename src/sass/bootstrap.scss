@@ -34,6 +34,7 @@
 // Normalize/Reset.
 // ---
 @import "layouts/normalize";
+@import "layouts/scafolding";
 
 // ---
 // Animate SCSS.
@@ -44,19 +45,17 @@
 // Simptip.
 // ---
 @import "../../bower_components/simptip/simptip";
-@import "simptip";
+@import "vendor-modified/simptip";
 
 // ---
-// Ladda styles.
+// Animate css.
 // ---
-@import "../../bower_components/ladda/css/ladda";
-@import "../../bower_components/ladda/css/ladda-themed";
 @import "../../bower_components/animate.css-scss/animate";
 
 // ---
 // Angucomplete.
 // ---
-@import "angucomplete";
+@import "vendor-modified/angucomplete";
 
 // ---
 // App icons.
@@ -67,6 +66,7 @@
 // Revaluate Components.
 // ---
 @import "components/buttons";
+@import "components/datepicker";
 @import "components/dropdowns";
 
 // ---

@@ -1,12 +1,11 @@
 <div class="angucomplete-holder" ng-class="{'angucomplete-dropdown-visible': showDropdown}">
     <input id="{{id}}_value" ng-model="searchStr" ng-disabled="disableInput" type="{{type}}" placeholder="{{placeholder}}" maxlength="{{maxlength}}" ng-focus="onFocusHandler()" class="{{inputClass}}" ng-focus="resetHideResults()" ng-blur="hideResults($event)" autocapitalize="off" autocorrect="off" autocomplete="off" ng-change="inputChangeHandler(searchStr)" />
 
-    <div id="{{id}}_dropdown" class="angucomplete-dropdown" ng-show="showDropdown">
+    <div id="{{id}}_dropdown" class="angucomplete-dropdown expense__form__category__angucomplete-dropdown" ng-show="showDropdown">
         <div class="angucomplete-searching" ng-show="searching" ng-bind="textSearching"></div>
-        <div class="angucomplete-searching" ng-show="!searching && (!results || results.length == 0) || true" ng-bind="textNoResults"></div>
         <div class="angucomplete-row" ng-repeat="result in results" ng-click="selectResult(result)" ng-mouseenter="hoverRow($index)" ng-class="{'angucomplete-selected-row': $index == currentIndex}">
-            <div class="angucomplete-image-holder">
-                <label class="categories__form__color__preview" ng-style="{'background':result.originalObject.model.color}"></label>
+            <div class="angucomplete-image-holder expense__form__category__angucomplete-image-holder">
+                <label class="expense__form__category__color__preview" ng-style="{'background':result.originalObject.model.color}"></label>
             </div>
             <div class="angucomplete-title" ng-if="matchClass" ng-bind-html="result.title"></div>
             <div class="angucomplete-title" ng-if="!matchClass">{{ result.title }}</div>

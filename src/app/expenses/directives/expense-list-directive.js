@@ -20,6 +20,12 @@ angular
                 scope.reverseOrder = attrs.sort === "desc";
 
                 /**
+                 * Load more timeout
+                 * @type {number}
+                 */
+                var LOAD_MORE_TIMEOUT = 500;
+
+                /**
                  * Current user.
                  */
                 scope.user = $rootScope.currentUser;
@@ -87,62 +93,24 @@ angular
                 }
 
                 /**
-                 * Load more upcoming expenses.
+                 * Load more expenses.
                  */
                 scope.loadMoreExpenses = function () {
                     scope.isLoadingMore = !scope.isLoadingMore;
+
                     $timeout(function () {
                         scope.expensesLimit = scope.expensesLimit + scope.defaultExpensesLimit;
                         scope.isLoadingMore = !scope.isLoadingMore;
-                    }, 500);
+                    }, LOAD_MORE_TIMEOUT);
                 };
 
                 /**
-                 * Past expenses still to be loaded ?
+                 * Expenses still to be loaded ?
                  * @returns {boolean}
                  */
                 scope.isStillExpensesToBeLoaded = function () {
                     return scope.expensesLimit < scope.expenses.length;
                 };
-
-                /**
-                 * Open DELETE modal
-                 * @param expense
-                 * @param expenseIndex
-                 */
-                scope.openDeleteExpenseModalService = function (expense, expenseIndex) {
-                };
-
-                /**
-                 * Open UN SUBSCRIBE modal - which is the same as DELETE modal.
-                 * @param expense
-                 * @param expenseIndex
-                 */
-                scope.openUnSubscribeExpenseModalService = function (expense, expenseIndex) {
-                };
-
-                /**
-                 * Open UPDATE modal
-                 * @param expense
-                 * @param expenseIndex
-                 */
-                scope.openUpdateExpenseModalService = function (expense, expenseIndex) {
-                };
-
-                scope.showGroupIfFirst = function (expense, expenseIndex) {
-                };
-
-                /**
-                 * On expense deleted flag the deleted index.
-                 */
-                scope.$on(EXPENSE_EVENTS.isDeleted, function (event, args) {
-                });
-
-                /**
-                 * On expense updated flag the updated index.
-                 */
-                scope.$on(EXPENSE_EVENTS.isUpdated, function (event, args) {
-                });
             }
         }
     });

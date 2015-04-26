@@ -9,14 +9,16 @@
  */
 angular
     .module("common", [
-        "a8m.filter-watcher",
+        "chart.js",
         "ui.router",
         "ngSanitize",
         "ui.bootstrap.transition",
         "ui.bootstrap.datepicker",
         "ui.bootstrap.dateparser",
         "ui.bootstrap.dropdown",
-        "ui.bootstrap.modal"
+        "ui.bootstrap.modal",
+        "angular-flash.service",
+        "angular-flash.flash-alert-directive"
     ])
     .config(["$httpProvider", function ($httpProvider) {
         $httpProvider.interceptors.push("JWTInterceptor");
@@ -31,7 +33,7 @@ angular
         function callbackCalendarFormatter() {
             var isSameYear = moment(moment().year()).isSame(this.year());
 
-            return isSameYear ? 'dddd, D MMMM' : 'dddd, D MMMM YYYY';
+            return isSameYear ? 'ddd, MMM D' : 'ddd, MMM D YYYY';
         }
 
         // Initialize moment configuration
@@ -113,6 +115,7 @@ angular
         categoryCreated: "Category created",
         categoryUpdated: "Category updated",
         categoryDeleted: "Category deleted",
+        insightsPage: "Insights page (site visited)",
         settings: "Settings",
         error404: "error-404",
         error500: "error-500"
@@ -204,7 +207,21 @@ angular
             }
         }
     });
-;/**
+;angular
+    .module("common")
+    .directive('escKey', function () {
+        return function (scope, element, attrs) {
+            element.bind('keydown keypress', function (event) {
+                if ( event.which === 27 ) { // 27 = esc key
+                    scope.$apply(function () {
+                        scope.$eval(attrs.escKey);
+                    });
+
+                    event.preventDefault();
+                }
+            });
+        };
+    });;/**
  * Header directive responsible for header common template.
  */
 angular
@@ -423,7 +440,32 @@ angular
             }
         }
     }]);
-;/* Perfect scrollbar */
+;angular
+    .module("common")
+    .directive("outsideClick", ["$document", function ($document) {
+        return {
+            restrict: "A",
+            link: function (scope, elem, attrs) {
+
+                $document.on("click", function (event) {
+
+                    /* please ignore clicks from angucomplete */
+                    if ( event.target.className.indexOf("angucomplete") > -1 ) {
+                        return;
+                    }
+                    var isChild = elem.find(event.target).length > 0;
+
+                    if ( !isChild ) {
+                        scope.$apply(attrs.outsideClick);
+                    }
+                });
+
+                elem.on('$destroy', function () {
+                    $document.off("click");
+                });
+            }
+        }
+    }]);;/* Perfect scrollbar */
 
 angular
     .module("common")
@@ -1286,7 +1328,7 @@ angular
     });
 ;angular
     .module("feedback")
-    .controller("FeedbackModalCtrl", ["$scope", "FeedbackModalService", "Feedback", "$timeout", function ($scope, FeedbackModalService, Feedback, $timeout) {
+    .controller("FeedbackModalController", ["$scope", "FeedbackModalService", "Feedback", "$timeout", function ($scope, FeedbackModalService, Feedback, $timeout) {
 
         /**
          * Feedback.
@@ -1423,7 +1465,7 @@ angular
 
             this.modalInstance = $modal.open({
                 templateUrl: "app/feedback/partials/feedback-modal.html",
-                controller: "FeedbackModalCtrl",
+                controller: "FeedbackModalController",
                 windowClass: "modal-feedback"
             });
         };
@@ -1446,7 +1488,6 @@ angular
  */
 angular
     .module("account", [
-        "ui.router",
         "common",
         "currencies",
         "categories"
@@ -1462,7 +1503,7 @@ angular
             // Login page
             .state("account", {
                 url: "/account",
-                controller: "LoginCtrl",
+                controller: "LoginController",
                 templateUrl: "app/site/partials/home.html",
                 title: "Login - Revaluate"
             })
@@ -1488,7 +1529,7 @@ angular
             // Logout page
             .state("account:logout", {
                 url: "/account/logout",
-                controller: "LogoutCtrl",
+                controller: "LogoutController",
                 templateUrl: "app/account/partials/logout.html",
                 resolve: {
                     isSuccessfullyLoggedOut: ["$q", "AuthService", function ($q, AuthService) {
@@ -1516,7 +1557,7 @@ angular
                 name: "account:validatePasswordResetToken.valid",
                 url: "/{email}/{token}",
                 templateUrl: "app/account/partials/validate_password_reset_token_valid.html",
-                controller: "ValidatePasswordResetTokenCtrl",
+                controller: "ValidatePasswordResetTokenController",
                 resolve: {
                     validateTokenResult: ["$stateParams", "$q", "AuthService", "$state", function ($stateParams, $q, AuthService, $state) {
                         var deferred = $q.defer();
@@ -1542,7 +1583,7 @@ angular
                 name: "account:validatePasswordResetToken.invalid",
                 url: "/invalid-token",
                 templateUrl: "app/account/partials/validate_password_reset_token_invalid.html",
-                controller: "ValidatePasswordResetTokenInvalidCtrl",
+                controller: "ValidatePasswordResetTokenInvalidController",
                 title: "Reset password - Revaluate"
             })
 
@@ -1562,7 +1603,7 @@ angular
                 name: "account:confirmRegistration.valid",
                 url: "",
                 templateUrl: "app/account/partials/signup_confirm_valid.html",
-                controller: "SignUpConfirmCtrl",
+                controller: "SignUpConfirmController",
                 title: "Register - Revaluate"
             })
             // Sign up confirm - invalid
@@ -1570,7 +1611,7 @@ angular
                 name: "account:confirmRegistration.invalid",
                 url: "/registration-failed",
                 templateUrl: "app/account/partials/signup_confirm_invalid.html",
-                controller: "SignUpConfirmInvalidCtrl",
+                controller: "SignUpConfirmInvalidController",
                 title: "Register - Revaluate"
             })
 
@@ -1580,11 +1621,14 @@ angular
             .state("setup", {
                 url: "/setup",
                 templateUrl: 'app/account/partials/signup_setup.html',
-                controller: "SignUpSetUpRegistrationCtrl",
+                controller: "SignUpSetUpRegistrationController",
                 title: "Setup - Revaluate",
                 resolve: {
                     currencies: ["CurrencyService", function (CurrencyService) {
                         return CurrencyService.getAllCurrencies();
+                    }],
+                    predefinedCategories: ["CategoriesSetupProvider", function (CategoriesSetupProvider) {
+                        return CategoriesSetupProvider.getCategories();
                     }]
                 }
             });
@@ -1615,9 +1659,9 @@ angular
         logout: "account/logout",
         currentUser: "account/user",
         auth: "account",
-        create: "account/create",
-        update: "account/update",
-        details: "account/details",
+        create: "account",
+        update: "account",
+        details: "account",
         requestPasswordReset: "account/requestResetPassword/:email",
         resetPasswordWithToken: "account/resetPassword/:email/:token",
         validatePasswordResetToken: "account/validateResetPasswordToken/:email/:token",
@@ -1652,7 +1696,7 @@ angular
  */
 angular
     .module("account")
-    .controller("ForgotPasswordCtrl", ["$state", "$scope", "flash", "ALERTS_CONSTANTS", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountModal", function ($state, $scope, flash, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountModal) {
+    .controller("ForgotPasswordController", ["$state", "$scope", "flash", "ALERTS_CONSTANTS", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountModal", function ($state, $scope, flash, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountModal) {
 
         /**
          * Alert identifier
@@ -1687,7 +1731,7 @@ angular
     }]);
 ;angular
     .module("account")
-    .controller("HomeSignUpRegistrationCtrl", ["$scope", "$timeout", "flash", "ALERTS_CONSTANTS", "StatesHandler", "User", "AuthService", "TimezoneProvider", "MIXPANEL_EVENTS", function ($scope, $timeout, flash, ALERTS_CONSTANTS, StatesHandler, User, AuthService, TimezoneProvider, MIXPANEL_EVENTS) {
+    .controller("HomeSignUpRegistrationController", ["$scope", "$timeout", "flash", "ALERTS_CONSTANTS", "StatesHandler", "User", "AuthService", "TimezoneProvider", "MIXPANEL_EVENTS", function ($scope, $timeout, flash, ALERTS_CONSTANTS, StatesHandler, User, AuthService, TimezoneProvider, MIXPANEL_EVENTS) {
 
         /**
          * Alert identifier
@@ -1751,7 +1795,7 @@ angular
  */
 angular
     .module("account")
-    .controller("LoginCtrl", ["$scope", "flash", "ALERTS_CONSTANTS", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountModal", "StatesHandler", "$timeout", function ($scope, flash, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountModal, StatesHandler, $timeout) {
+    .controller("LoginController", ["$scope", "flash", "ALERTS_CONSTANTS", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountModal", "StatesHandler", "$timeout", function ($scope, flash, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountModal, StatesHandler, $timeout) {
 
         /**
          * Alert identifier
@@ -1764,6 +1808,8 @@ angular
         if ( !AccountModal.isOpen ) {
             AccountModal.openWithState(ACCOUNT_FORM_STATE.login)
         }
+
+        var TIMEOUT_PENDING = 300;
 
         /**
          * Login user information.
@@ -1799,7 +1845,7 @@ angular
                         // Stop the loading bar
                         $timeout(function () {
                             $scope.isRequestPending = false;
-                        }, 2000);
+                        }, TIMEOUT_PENDING);
                     })
             }
         };
@@ -1809,7 +1855,7 @@ angular
  */
 angular
     .module("account")
-    .controller("LogoutCtrl", ["$scope", "$timeout", "StatesHandler", "isSuccessfullyLoggedOut", function ($scope, $timeout, StatesHandler, isSuccessfullyLoggedOut) {
+    .controller("LogoutController", ["$scope", "$timeout", "StatesHandler", "isSuccessfullyLoggedOut", function ($scope, $timeout, StatesHandler, isSuccessfullyLoggedOut) {
 
         $scope.isSuccessfullyLoggedOut = isSuccessfullyLoggedOut;
 
@@ -1826,7 +1872,7 @@ angular
  */
 angular
     .module("account")
-    .controller("PreferencesCtrl", ["$q", "$scope", "$rootScope", "TimezoneProvider", "flash", "ALERTS_CONSTANTS", function ($q, $scope, $rootScope, TimezoneProvider, flash, ALERTS_CONSTANTS) {
+    .controller("PreferencesController", ["$q", "$scope", "$rootScope", "TimezoneProvider", "flash", "ALERTS_CONSTANTS", function ($q, $scope, $rootScope, TimezoneProvider, flash, ALERTS_CONSTANTS) {
 
         /**
          * Alert identifier
@@ -1882,7 +1928,7 @@ angular
  */
 angular
     .module("account")
-    .controller("ProfileCtrl", ["$q", "$scope", "$rootScope", "StatesHandler", "ProfileFormToggle", "ACCOUNT_FORM_STATE", "flash", "ALERTS_CONSTANTS", "MIXPANEL_EVENTS", function ($q, $scope, $rootScope, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+    .controller("ProfileController", ["$q", "$scope", "$rootScope", "StatesHandler", "ProfileFormToggle", "ACCOUNT_FORM_STATE", "flash", "ALERTS_CONSTANTS", "MIXPANEL_EVENTS", function ($q, $scope, $rootScope, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
 
         /**
          * Alert identifier
@@ -1943,7 +1989,7 @@ angular
         };
     }]);;angular
     .module("account")
-    .controller("SignUpConfirmCtrl", ["$scope", "$timeout", "flash", "ALERTS_CONSTANTS", "StatesHandler", "User", "AuthService", "TimezoneProvider", "MIXPANEL_EVENTS", function ($scope, $timeout, flash, ALERTS_CONSTANTS, StatesHandler, User, AuthService, TimezoneProvider, MIXPANEL_EVENTS) {
+    .controller("SignUpConfirmController", ["$scope", "$timeout", "flash", "ALERTS_CONSTANTS", "StatesHandler", "User", "AuthService", "TimezoneProvider", "MIXPANEL_EVENTS", function ($scope, $timeout, flash, ALERTS_CONSTANTS, StatesHandler, User, AuthService, TimezoneProvider, MIXPANEL_EVENTS) {
 
         /**
          * Alert identifier
@@ -2005,7 +2051,7 @@ angular
     }]);
 ;angular
     .module("account")
-    .controller("SignUpConfirmInvalidCtrl", ["$scope", "AuthService", "StatesHandler", function ($scope, AuthService, StatesHandler) {
+    .controller("SignUpConfirmInvalidController", ["$scope", "AuthService", "StatesHandler", function ($scope, AuthService, StatesHandler) {
 
         /**
          * Flag which tells if user is currently authenticated while coming to this page.
@@ -2024,7 +2070,7 @@ angular
     }]);
 ;angular
     .module("account")
-    .controller("SignUpSetUpRegistrationCtrl", ["$q", "$rootScope", "$scope", "$timeout", "flash", "AuthService", "AUTH_EVENTS", "ALERTS_CONSTANTS", "CategoriesSetupProvider", "CategoryColorService", "SessionService", "StatesHandler", "Category", "currencies", function ($q, $rootScope, $scope, $timeout, flash, AuthService, AUTH_EVENTS, ALERTS_CONSTANTS, CategoriesSetupProvider, CategoryColorService, SessionService, StatesHandler, Category, currencies) {
+    .controller("SignUpSetUpRegistrationController", ["$q", "$rootScope", "$scope", "$timeout", "flash", "AuthService", "CategoryService", "AUTH_EVENTS", "ALERTS_CONSTANTS", "predefinedCategories", "CategoryColorService", "SessionService", "StatesHandler", "Category", "currencies", function ($q, $rootScope, $scope, $timeout, flash, AuthService, CategoryService, AUTH_EVENTS, ALERTS_CONSTANTS, predefinedCategories, CategoryColorService, SessionService, StatesHandler, Category, currencies) {
 
         /**
          * All given currencies.
@@ -2052,12 +2098,12 @@ angular
         /**
          * Saving timeout
          */
-        const TIMEOUT_DURATION = 300;
+        var TIMEOUT_DURATION = 300;
 
         /**
-         * Define categories
+         * Existing predefined categories.
          */
-        $scope.categories = CategoriesSetupProvider.getCategories();
+        $scope.categories = predefinedCategories;
 
         /**
          * Category to be added on the fly
@@ -2086,6 +2132,28 @@ angular
         };
 
         /**
+         * To be called when on blur.
+         */
+        $scope.cancelAddCategoryOnTheFly = function () {
+            resetCategoryOnTheFlyForm();
+        };
+
+        /**
+         * Reset the category on the fly
+         */
+        function resetCategoryOnTheFlyForm() {
+            $scope.showCategoryOnTheFlyInput = false;
+            $scope.categoryOnTheFly = "";
+            $scope.setUpForm.categoryOnTheFlyForm.$setPristine();
+            $scope.badPostSubmitResponse = false;
+
+            // ---
+            // If there was a previously error, just clear it.
+            // ---
+            flash.to($scope.alertIdentifierId).error = '';
+        }
+
+        /**
          * Add a custom category to existing ones (only if name is unique)
          */
         $scope.onSubmitted = function ($event) {
@@ -2101,7 +2169,7 @@ angular
             });
 
             if ( result ) {
-                flash.to($scope.alertIdentifierId).success = "Category is not unique";
+                flash.to($scope.alertIdentifierId).error = "Category is not unique";
             }
             else {
                 $scope.categories.push({
@@ -2113,9 +2181,7 @@ angular
                 // ---
                 // Reinitialize the value and form.
                 // ---
-                $scope.showCategoryOnTheFlyInput = false;
-                $scope.categoryOnTheFly = "";
-                $scope.setUpForm.categoryOnTheFlyForm.$setPristine();
+                resetCategoryOnTheFlyForm();
             }
         };
 
@@ -2152,17 +2218,16 @@ angular
             }
 
             var selectedCategories = angular.copy(getSelectedCategories());
-            var toBeSaved = {
+            var userProfileToBeUpdated = {
                 currency: angular.copy($scope.currency.originalObject),
                 initiated: true
             };
 
             // ---
-            // Put all promises in one array.
+            // We perform a bulk create.
             // ---
-            var promises = [];
-            _.each(selectedCategories, function (category) {
-                promises.push(Category.build(category).save());
+            var selectedCategoriesToBeSaved = _.map(selectedCategories, function (categoryDTO) {
+                return Category.build(categoryDTO);
             });
 
             // ---
@@ -2178,11 +2243,11 @@ angular
             // ---
             // Try to save them at once and if successfully, update the user.
             // ---
-            $q
-                .all(promises)
+            CategoryService
+                .bulkCreate(selectedCategoriesToBeSaved)
                 .then(function () {
                     $scope.user
-                        .$save(toBeSaved)
+                        .$save(userProfileToBeUpdated)
                         .then(function (response) {
                             deferred.resolve(response);
                         })
@@ -2211,7 +2276,7 @@ angular
                         // Show some feedback.
                         // ---
                         $scope.isSaving = false;
-                        flash.to($scope.alertIdentifierId).error = "Set up successfully!";
+                        flash.to($scope.alertIdentifierId).success = "Set up successfully! Preparing expenses..";
 
                         /**
                          * Finally, go to expenses.
@@ -2224,6 +2289,7 @@ angular
                     // Error
                     $scope.isSaving = false;
                     flash.to($scope.alertIdentifierId).error = "Set up could not have been performed.";
+                    $scope.badPostSubmitResponse = true;
                 });
         };
 
@@ -2232,7 +2298,7 @@ angular
  */
 angular
     .module("account")
-    .controller("UpdatePasswordCtrl", ["$scope", "flash", "AuthService", "ACCOUNT_FORM_STATE", "ALERTS_CONSTANTS", "ProfileFormToggle", function ($scope, flash, AuthService, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS, ProfileFormToggle) {
+    .controller("UpdatePasswordController", ["$scope", "flash", "AuthService", "ACCOUNT_FORM_STATE", "ALERTS_CONSTANTS", "ProfileFormToggle", function ($scope, flash, AuthService, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS, ProfileFormToggle) {
 
         /**
          * Alert identifier
@@ -2271,7 +2337,7 @@ angular
         };
     }]);;angular
     .module("account")
-    .controller("ValidatePasswordResetTokenCtrl", ["$scope", "$timeout", "flash", "AuthService", "StatesHandler", "ProfileFormToggle", "ACCOUNT_FORM_STATE", "validateTokenResult", "ALERTS_CONSTANTS", function ($scope, $timeout, flash, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult, ALERTS_CONSTANTS) {
+    .controller("ValidatePasswordResetTokenController", ["$scope", "$timeout", "flash", "AuthService", "StatesHandler", "ProfileFormToggle", "ACCOUNT_FORM_STATE", "validateTokenResult", "ALERTS_CONSTANTS", function ($scope, $timeout, flash, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult, ALERTS_CONSTANTS) {
 
         /**
          * Alert identifier
@@ -2323,7 +2389,7 @@ angular
     }]);
 ;angular
     .module("account")
-    .controller("ValidatePasswordResetTokenInvalidCtrl", ["$scope", "AuthService", "StatesHandler", "ProfileFormToggle", "ACCOUNT_FORM_STATE", function ($scope, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE) {
+    .controller("ValidatePasswordResetTokenInvalidController", ["$scope", "AuthService", "StatesHandler", "ProfileFormToggle", "ACCOUNT_FORM_STATE", function ($scope, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE) {
 
         /**
          * Flag which tells if user is currently authenticated while coming to this page.
@@ -2611,7 +2677,8 @@ angular
          * @returns {*}
          */
         this.requestPasswordReset = function (email) {
-            return $http.post(URLTo.api(AUTH_URLS.requestPasswordReset, { ":email": email }));
+            return $http
+                .post(URLTo.api(AUTH_URLS.requestPasswordReset, { ":email": email }));
         };
 
         /**
@@ -2620,9 +2687,10 @@ angular
          * @returns {*}
          */
         this.requestSignUpRegistration = function (email) {
-            return $http.post(URLTo.api(AUTH_URLS.requestSignUpRegistration), {
-                email: email
-            });
+            return $http
+                .post(URLTo.api(AUTH_URLS.requestSignUpRegistration), {
+                    email: email
+                });
         };
 
         /**
@@ -2674,7 +2742,7 @@ angular
          */
         this.validateRegistrationToken = function (email, token) {
             return $http
-                .get(URLTo.api(AUTH_URLS.validateRegistrationToken, { ":email": email, ":token": token }),
+                .post(URLTo.api(AUTH_URLS.validateRegistrationToken, { ":email": email, ":token": token }),
                 {
                     skipAuthorization: true
                 })
@@ -2693,7 +2761,7 @@ angular
          */
         this.updatePassword = function (oldPassword, newPassword, newPasswordConfirmation) {
             return $http
-                .post(URLTo.api(AUTH_URLS.updatePassword),
+                .put(URLTo.api(AUTH_URLS.updatePassword),
                 {
                     oldPassword: oldPassword,
                     newPassword: newPassword,
@@ -2934,7 +3002,6 @@ angular
                     /**
                      * Creates a user account with given fromData.
                      * @param fromData
-                     * @param token
                      * @returns {*}
                      */
                     $create: function (fromData) {
@@ -2971,14 +3038,11 @@ angular
                     /**
                      * Creates the account.
                      * @param account
-                     * @param token
                      * @returns {*}
                      */
                     createAccount: function (account) {
                         return $http
-                            .post(URLTo.api(AUTH_URLS.create),
-                            account,
-                            { skipAuthorization: true })
+                            .post(URLTo.api(AUTH_URLS.create), account, { skipAuthorization: true })
                             .then(function (response) {
                                 return response.data;
                             });
@@ -2990,7 +3054,8 @@ angular
                      * @returns {*}
                      */
                     updateAccount: function (account) {
-                        return $http.post(URLTo.api(AUTH_URLS.update), account);
+                        return $http
+                            .put(URLTo.api(AUTH_URLS.update), account);
                     }
 
                 };
@@ -3016,7 +3081,7 @@ angular
             .state("home", {
                 url: "/",
                 templateUrl: "app/site/partials/home.html",
-                controller: "LandingPageCtrl",
+                controller: "LandingPageController",
                 title: "Change the way you spend your money"
             })
             .state("privacy", {
@@ -3032,13 +3097,13 @@ angular
             .state("404", {
                 url: "/404",
                 templateUrl: "app/site/partials/404.html",
-                controller: "Error404PageCtrl",
+                controller: "Error404PageController",
                 title: "Hmm... looks like a 404"
             })
             .state("500", {
                 url: "/500",
                 templateUrl: "app/site/partials/500.html",
-                controller: "Error500PageCtrl",
+                controller: "Error500PageController",
                 title: "Oops... You found a 500"
             });
     }]);
@@ -3047,7 +3112,7 @@ angular
  */
 angular
     .module("common")
-    .controller("AbstractErrorPageCtrl", ["$scope", "StatesHandler", function ($scope, StatesHandler) {
+    .controller("AbstractErrorPageController", ["$scope", "StatesHandler", function ($scope, StatesHandler) {
 
         /**
          * Track event.
@@ -3068,12 +3133,12 @@ angular
  */
 angular
     .module("common")
-    .controller("Error404PageCtrl", ["$scope", "$controller", "MIXPANEL_EVENTS", function ($scope, $controller, MIXPANEL_EVENTS) {
+    .controller("Error404PageController", ["$scope", "$controller", "MIXPANEL_EVENTS", function ($scope, $controller, MIXPANEL_EVENTS) {
 
         /**
          * Inherit from this controller
          */
-        $controller('AbstractErrorPageCtrl', { $scope: $scope });
+        $controller('AbstractErrorPageController', { $scope: $scope });
 
         /**
          * Track error event
@@ -3085,12 +3150,12 @@ angular
  */
 angular
     .module("common")
-    .controller("Error500PageCtrl", ["$scope", "$controller", "MIXPANEL_EVENTS", function ($scope, $controller, MIXPANEL_EVENTS) {
+    .controller("Error500PageController", ["$scope", "$controller", "MIXPANEL_EVENTS", function ($scope, $controller, MIXPANEL_EVENTS) {
 
         /**
          * Inherit from this controller
          */
-        $controller('AbstractErrorPageCtrl', { $scope: $scope });
+        $controller('AbstractErrorPageController', { $scope: $scope });
 
         /**
          * Track error event
@@ -3101,7 +3166,7 @@ angular
  */
 angular
     .module("common")
-    .controller("LandingPageCtrl", ["$state", "$scope", "ACCOUNT_FORM_STATE", "MIXPANEL_EVENTS", function ($state, $scope, ACCOUNT_FORM_STATE, MIXPANEL_EVENTS) {
+    .controller("LandingPageController", ["$state", "$scope", "ACCOUNT_FORM_STATE", "MIXPANEL_EVENTS", function ($state, $scope, ACCOUNT_FORM_STATE, MIXPANEL_EVENTS) {
 
         /**
          * Track event.
@@ -3149,7 +3214,7 @@ angular
             .state("categories", {
                 url: "/categories",
                 templateUrl: 'app/categories/partials/categories.html',
-                controller: "CategoryListCtrl",
+                controller: "CategoryListController",
                 resolve: {
                     categories: ["CategoryService", function (CategoryService) {
                         return CategoryService.getAllCategories();
@@ -3165,9 +3230,11 @@ angular
     .module("categories")
     .constant("CATEGORY_URLS", {
         isUnique: "categories/isUniqueCategory",
-        create: "categories/create",
-        update: "categories/update",
-        delete: "categories/remove/:id",
+        create: "categories",
+        update: "categories",
+        delete: "categories/:id",
+        bulkDelete: "categories/bulkDelete",
+        bulkCreate: "categories/bulkCreate",
         allCategories: "categories/retrieve"
     })
     .constant("CATEGORY_EVENTS", {
@@ -3177,12 +3244,12 @@ angular
         isUpdated: "category-is-updated"
     });;angular
     .module("categories")
-    .controller("CategoryCreateCtrl", ["$scope", "$rootScope", "CategoryColorService", "Category", "$timeout", "CATEGORY_EVENTS", "MIXPANEL_EVENTS", function ($scope, $rootScope, CategoryColorService, Category, $timeout, CATEGORY_EVENTS, MIXPANEL_EVENTS) {
+    .controller("CategoryCreateController", ["$scope", "$rootScope", "CategoryColorService", "Category", "$timeout", "CATEGORY_EVENTS", "MIXPANEL_EVENTS", function ($scope, $rootScope, CategoryColorService, Category, $timeout, CATEGORY_EVENTS, MIXPANEL_EVENTS) {
 
         /**
          * Saving timeout
          */
-        const TIMEOUT_DURATION = 300;
+        var TIMEOUT_DURATION = 300;
 
         /**
          * Initialize or reset the state
@@ -3247,12 +3314,12 @@ angular
     }]);
 ;angular
     .module("categories")
-    .controller("CategoryEditRemoveCtrl", ["$scope", "$rootScope", "Category", "$timeout", "CATEGORY_EVENTS", "MIXPANEL_EVENTS", function ($scope, $rootScope, Category, $timeout, CATEGORY_EVENTS, MIXPANEL_EVENTS) {
+    .controller("CategoryEditRemoveController", ["$scope", "$rootScope", "Category", "$timeout", "CATEGORY_EVENTS", "MIXPANEL_EVENTS", function ($scope, $rootScope, Category, $timeout, CATEGORY_EVENTS, MIXPANEL_EVENTS) {
 
         /**
          * Edit/update timeout
          */
-        const TIMEOUT_DURATION = 300;
+        var TIMEOUT_DURATION = 300;
 
         /**
          * Update the category.
@@ -3329,7 +3396,7 @@ angular
  */
 angular
     .module("categories")
-    .controller("CategoryListCtrl", ["$scope", "$rootScope", "Category", "flash", "CATEGORY_EVENTS", "$timeout", "categories", "MIXPANEL_EVENTS", "ALERTS_CONSTANTS", function ($scope, $rootScope, Category, flash, CATEGORY_EVENTS, $timeout, categories, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
+    .controller("CategoryListController", ["$scope", "$rootScope", "Category", "flash", "CATEGORY_EVENTS", "$timeout", "categories", "MIXPANEL_EVENTS", "ALERTS_CONSTANTS", function ($scope, $rootScope, Category, flash, CATEGORY_EVENTS, $timeout, categories, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
         /**
          * Alert identifier
          */
@@ -3411,7 +3478,7 @@ angular
     .directive("addCategory", ["$rootScope", "CATEGORY_EVENTS", function ($rootScope, CATEGORY_EVENTS) {
         return {
             restrict: "A",
-            controller: 'CategoryCreateCtrl',
+            controller: 'CategoryCreateController',
             templateUrl: "app/categories/partials/add-category-directive-template.html",
             link: function (scope, el, attrs) {
 
@@ -3511,7 +3578,7 @@ angular
     .directive("editRemoveCategory", ["$rootScope", "CATEGORY_EVENTS", function ($rootScope, CATEGORY_EVENTS) {
         return {
             restrict: "A",
-            controller: 'CategoryEditRemoveCtrl',
+            controller: 'CategoryEditRemoveController',
             scope: {
                 category: "="
             },
@@ -3798,7 +3865,7 @@ angular
             var categoryDto = CategoryTransformerService.toCategoryDto(category);
 
             return $http
-                .post(URLTo.api(CATEGORY_URLS.update), categoryDto)
+                .put(URLTo.api(CATEGORY_URLS.update), categoryDto)
                 .then(function (response) {
                     CategoryTransformerService.toCategory(response.data, category);
 
@@ -3835,6 +3902,32 @@ angular
                     return CategoryTransformerService.toCategories(response.data)
                 }).catch(function (response) {
                     return $q.reject(response);
+                });
+        };
+
+        /**
+         * Bulk create action of a list of categories.
+         * @returns {*}
+         */
+        this.bulkCreate = function (categories) {
+            return $http
+                .post(URLTo.api(CATEGORY_URLS.bulkCreate), CategoryTransformerService.toCategoryDTOs(categories))
+                .then(function (response) {
+
+                    return CategoryTransformerService.toCategories(response.data);
+                });
+        };
+
+        /**
+         * Bulk delete action of a list of categories.
+         * @returns {*}
+         */
+        this.bulkDelete = function (categories) {
+            return $http
+                .put(URLTo.api(CATEGORY_URLS.bulkDelete), CategoryTransformerService.toCategoryDTOs(categories))
+                .then(function (response) {
+
+                    return response.data;
                 });
         };
 
@@ -3913,6 +4006,21 @@ angular
             }, this));
 
             return categories;
+        };
+
+        /**
+         * Transform a list of categories as business objects to a list of DTOs.
+         * @param categories
+         * @returns {Array}
+         */
+        this.toCategoryDTOs = function (categories) {
+            var categoryDTOs = [];
+
+            _.each(categories, _.bind(function (category) {
+                categoryDTOs.push(this.toCategoryDto(category));
+            }, this));
+
+            return categoryDTOs;
         };
     }]);
 ;angular
@@ -3995,9 +4103,6 @@ angular
  */
 angular
     .module("expenses", [
-        "ui.router",
-        "angular-ladda",
-        "fiestah.money",
         "common"
     ])
     .config(["$stateProvider", function ($stateProvider) {
@@ -4014,19 +4119,9 @@ angular
             .state("expenses.regular", {
                 url: "",
                 views: {
-                    'add': {
-                        templateUrl: "app/expenses/partials/expense/expenses.add.html",
-                        controller: "ExpenseCreateController",
-                        resolve: {
-                            categories: ["CategoryService", function (CategoryService) {
-                                return CategoryService.getAllCategories();
-                            }]
-                        }
-                    },
-
-                    'list': {
-                        templateUrl: "app/expenses/partials/expense/expenses.list.html",
-                        controller: "ExpenseListController",
+                    'expenses': {
+                        templateUrl: "app/expenses/partials/expense/expenses.html",
+                        controller: "ExpenseController",
                         resolve: {
                             expenses: ["ExpenseService", function (ExpenseService) {
                                 return ExpenseService.getAllExpenses();
@@ -4040,105 +4135,68 @@ angular
                 title: "Expenses - Revaluate"
             })
 
-            // Review case
-            .state("expenses.update", {
-                url: "/{id}/update",
-                views: {
-
-                    'action': {
-                        controller: "ExpenseAutoEditCtrl",
-                        resolve: {
-                            expenseToReview: ["$stateParams", "$q", "$state", "ExpenseService", function ($stateParams, $q, $state, ExpenseService) {
-                                var deferred = $q.defer();
-
-                                ExpenseService
-                                    .getDetails($stateParams.id)
-                                    .then(function (response) {
-                                        deferred.resolve(response);
-
-                                        return response;
-                                    })
-                                    .catch(function (response) {
-
-                                        $state.go("expenses.regular");
-                                        return response;
-                                    });
-
-                                return deferred.promise;
-                            }]
-                        }
-
-                    },
-
-                    'list': {
-                        templateUrl: "app/expenses/partials/expense/expenses.list.html",
-                        controller: "ExpenseListController",
-                        resolve: {
-                            expenses: ["ExpenseService", function (ExpenseService) {
-                                return ExpenseService.getAllExpenses();
-                            }]
-                        }
-                    }
-                },
-                title: "Preview expense - Revaluate"
-            })
-
-            // Opened modal
-            .state("expenses.new", {
-                url: "/new",
-                views: {
-
-                    'list': {
-                        templateUrl: "app/expenses/partials/expense/expenses.list.html",
-                        controller: "ExpenseListController",
-                        resolve: {
-                            expenses: ["ExpenseService", function (ExpenseService) {
-                                return ExpenseService.getAllExpenses();
-                            }]
-                        }
-                    }
-                },
-                title: "Preview expense - Revaluate"
-            })
-
     }]);;/**
  * Expenses constants.
  */
 angular
     .module("expenses")
     .constant("EXPENSE_URLS", {
-        create: "expenses/create",
-        update: "expenses/update",
+        create: "expenses",
+        update: "expenses",
         details: "expenses/:id",
-        delete: "/expenses/remove/:id",
-        allExpenses: "expenses/retrieve",
-        pastExpenses: "expenses/past?:local_time&:local_time_zone",
-        upcomingExpenses: "expenses/upcoming?:local_time&:local_time_zone",
-        unSubscribeExpense: "expenses/:id/unsubscribe"
+        delete: "expenses/:id",
+        bulkDelete: "expenses/bulkDelete",
+        allExpenses: "expenses/retrieve"
     })
     .constant("EXPENSE_EVENTS", {
         isCreated: "expense-is-created",
-        isUnSubscribed: "expense-is-unsubscribed",
         isDeleted: "expense-is-deleted",
         isUpdated: "expense-is-updated"
     });;angular
     .module("expenses")
-    .controller("ExpenseCreateController", ["$scope", "$rootScope", "$stateParams", "Expense", "categories", "$window", "DatesUtils", "$timeout", "StatesHandler", "EXPENSE_EVENTS", "flash", "MIXPANEL_EVENTS", "ALERTS_CONSTANTS", function ($scope, $rootScope, $stateParams, Expense, categories, $window, DatesUtils, $timeout, StatesHandler, EXPENSE_EVENTS, flash, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
+    .controller("ExpenseController", ["$scope", "$rootScope", "$stateParams", "Expense", "expenses", "ExpenseService", "categories", "$window", "DatesUtils", "$timeout", "StatesHandler", "EXPENSE_EVENTS", "flash", "MIXPANEL_EVENTS", "ALERTS_CONSTANTS", function ($scope, $rootScope, $stateParams, Expense, expenses, ExpenseService, categories, $window, DatesUtils, $timeout, StatesHandler, EXPENSE_EVENTS, flash, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
+
+        /**
+         * Updating/deleting timeout
+         */
+        var TIMEOUT_DURATION = 300;
+
+        /**
+         * Minimum expenses to enable bulk actions
+         */
+        var MIN_EXPENSES_TO_ENABLE_BULK_ACTION = 1;
 
         /**
          * Alert identifier
          */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.createUpdateExpense;
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.expenseList;
+
+        /**
+         * Track event.
+         */
+        mixpanel.track(MIXPANEL_EVENTS.expensesPage);
+
+        /**
+         * Search by text
+         * @type {string}
+         */
+        $scope.searchByText = "";
+
+        /**
+         * The current user
+         * @type {$rootScope.currentUser|*}
+         */
+        $scope.user = $rootScope.currentUser;
+
+        /**
+         * Existing expenses.
+         */
+        $scope.expenses = expenses;
 
         /**
          * Existing categories.
          */
         $scope.categories = categories;
-
-        /**
-         * Saving timeout
-         */
-        const TIMEOUT_DURATION = 800;
 
         /**
          * Initialize or reset the state
@@ -4174,10 +4232,22 @@ angular
             $scope.badPostSubmitResponse = false;
 
             /**
+             * Flag which represents whether the save is in progress.
+             * @type {boolean}
+             */
+            $scope.isSaving = false;
+
+            /**
              * Max date to create expense
              */
-            $scope.maxDate = moment().hours(0).minutes(0).seconds(0);
+            $scope.datePickerMaxDate = moment().hours(0).minutes(0).seconds(0);
         };
+
+        /**
+         * Minimum date to create expense.
+         * @type {Date}
+         */
+        $scope.datePickerMinDate = moment().year(2000);
 
         /**
          * Perform the first initialization.
@@ -4185,30 +4255,18 @@ angular
         $scope.initOrReset();
 
         /**
-         * Flag which represents whether
-         * @type {boolean}
-         */
-        $scope.isSaving = false;
-
-        /**
-         * Minimum date to create expense.
-         * @type {Date}
-         */
-        $scope.minDate = moment().year(2000);
-
-        /**
          * Open date picker
          * @param $event
          */
-        $scope.open = function ($event) {
+        $scope.openDatePicker = function ($event) {
             $event.preventDefault();
             $event.stopPropagation();
 
-            $scope.opened = true;
+            $scope.datePickerOpened = true;
         };
 
         /**
-         * Saves the expense or updates it.
+         * Saves the expense.
          */
         $scope.saveExpense = function () {
             if ( $scope.expenseForm.$valid && !$scope.isSaving ) {
@@ -4219,16 +4277,14 @@ angular
 
                     return;
                 }
-
-                // Is saving expense
                 $scope.isSaving = true;
 
-                // Update the  chosen category
+                // Update the  chosen category and master expense.
                 $scope.expense.model.category = angular.copy($scope.category.originalObject.model);
-                // Ok, update master expense.
                 angular.copy($scope.expense, $scope.masterExpense);
 
-                $scope.masterExpense.save()
+                $scope.masterExpense
+                    .save()
                     .then(function () {
 
                         /**
@@ -4239,130 +4295,178 @@ angular
                         var expenseToBePushed = angular.copy($scope.masterExpense);
                         $timeout(function () {
                             $scope.isSaving = false;
-
-                            $rootScope.$broadcast(EXPENSE_EVENTS.isCreated, {
-                                expense: expenseToBePushed
-                            });
+                            $scope.expenses.push(expenseToBePushed);
                         }, TIMEOUT_DURATION);
 
                         /**
-                         * Finally, reset.
+                         * Finally, reset the add form.
                          */
                         $scope.initOrReset($scope.expenseForm);
                     })
                     .catch(function () {
 
-                        // Error
+                        flash.to($scope.alertIdentifierId).error = "Could not add expense.";
                         $scope.isSaving = false;
-                        alert("Something went wrong. Please try again.");
-                    })
-                    .finally(function () {
-
-                        $scope.isModalOpened = false;
-                    });
-            }
-        };
-
-    }]);
-;angular
-    .module("expenses")
-    .controller("ExpenseDeleteModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "$timeout", "StatesHandler", "EXPENSE_EVENTS", "expense", "expenseIndex", "MIXPANEL_EVENTS", function ($scope, $rootScope, $stateParams, $window, $timeout, StatesHandler, EXPENSE_EVENTS, expense, expenseIndex, MIXPANEL_EVENTS) {
-
-        /**
-         * Expense to be created (injected with few default values)
-         */
-        $scope.expense = expense;
-
-        /**
-         * The current user
-         * @type {$rootScope.currentUser|*}
-         */
-        $scope.user = $rootScope.currentUser;
-
-        /**
-         * Flag which represents whether
-         * @type {boolean}
-         */
-        $scope.isDeleting = false;
-
-        /**
-         * Remove expense - owner action;
-         */
-        $scope.deleteExpenseAndClose = function () {
-            if ( !$scope.isDeleting ) {
-
-                // Is deleting expense
-                $scope.isDeleting = true;
-
-                // Destroy expense
-                $scope.expense.destroy()
-                    .then(function () {
-
-                        /**
-                         * Track event.
-                         */
-                        mixpanel.track(MIXPANEL_EVENTS.expenseDeleted);
-
-                        // Wait 2 seconds, and close the modal
-                        $timeout(function () {
-                            $rootScope.$broadcast(EXPENSE_EVENTS.isDeleted, {
-                                expense: $scope.expense,
-                                expenseIndex: expenseIndex,
-                                message: 'Expense successfully deleted!'
-                            });
-                        }, 400);
-                    })
-                    .catch(function () {
-
-                        // Error
-                        $scope.isDeleting = false;
-                        alert("Something went wrong. Please try again.");
+                        $scope.badPostSubmitResponse = true;
                     });
             }
         };
 
         /**
-         * Un subscribe from expense - recipient action.
+         * Get selected expenses for bulk action (marked===true)
+         * @returns {Array.<T>}
          */
-        $scope.unSubscribeFromExpenseAndClose = function () {
-            if ( !$scope.isDeleting ) {
+        function getSelectedExpensesForBulkAction() {
+            return _.filter($scope.expenses, 'marked', true);
+        }
 
-                // Is deleting expense
-                $scope.isDeleting = true;
-
-                $scope.expense.unSubscribe()
-                    .then(function () {
-
-                        /**
-                         * Track event.
-                         */
-                        mixpanel.track(MIXPANEL_EVENTS.expenseUnSubscribed);
-
-                        $timeout(function () {
-                            $rootScope.$broadcast(EXPENSE_EVENTS.isUnSubscribed, {
-                                expense: $scope.expense,
-                                expenseIndex: expenseIndex,
-                                message: 'Successfully un-subscribed from this expense!'
-                            });
-                        }, 400);
-                    })
-                    .catch(function () {
-
-                        // Error
-                        $scope.isDeleting = false;
-                        alert("Something went wrong. Please try again.");
-                    });
-            }
+        /**
+         * Is enough selected expenses for bulk action
+         */
+        $scope.isBulkActionEnabled = function () {
+            return getSelectedExpensesForBulkAction().length >= MIN_EXPENSES_TO_ENABLE_BULK_ACTION;
         };
+
+        /**
+         * Cancels bulk action
+         */
+        $scope.cancelBulkAction = function () {
+            var allCurrentlySelected = getSelectedExpensesForBulkAction();
+
+            _.each(allCurrentlySelected, function (currentlySelected) {
+                currentlySelected.marked = !currentlySelected.marked;
+            });
+        };
+
+        /**
+         * Performs bulk delete action
+         */
+        $scope.performBulkDelete = function () {
+            if ( $scope.isBulkDeleting ) {
+
+                return;
+            }
+
+            var selectedExpenses = angular.copy(getSelectedExpensesForBulkAction());
+
+            // ---
+            // Set the deleting flag.
+            // ---
+            $scope.isBulkDeleting = true;
+
+            // ---
+            // Try to save them at once and if successfully, update the user.
+            // ---
+            ExpenseService
+                .bulkDelete(selectedExpenses)
+                .then(function () {
+                    /**
+                     * Track event.
+                     */
+                    mixpanel.track(MIXPANEL_EVENTS.expenseDeleted);
+
+                    $timeout(function () {
+                        removeAllExpenseFrom($scope.expenses, selectedExpenses);
+                        $scope.isBulkDeleting = false;
+                    }, TIMEOUT_DURATION);
+                })
+                .catch(function () {
+
+                    // Error
+                    $scope.isBulkDeleting = false;
+                    flash.to($scope.alertIdentifierId).error = "Could not perform bulk action.";
+                });
+        };
+
+        // ---
+        // EVENT LISTENERS (listen for events from e.g. entries list).
+        // ---
+
+        /**
+         * On expense created, display a success message, and add expense to the list.
+         */
+        $scope.$on(EXPENSE_EVENTS.isCreated, function (event, args) {
+            $scope.expenses.push(args.expense);
+
+            flash.to($scope.alertIdentifierId).success = "Expense successfully saved!";
+        });
+
+        /**
+         * On expense updated.
+         */
+        $scope.$on(EXPENSE_EVENTS.isUpdated, function (event, args) {
+            var result = _.some($scope.expenses, function (topic) {
+                return topic.model.id === args.expense.model.id;
+            });
+
+            if ( result ) {
+                removeExpenseFrom($scope.expenses, args.expense);
+                $scope.expenses.push(args.expense);
+            }
+
+            flash.to($scope.alertIdentifierId).success = "Expense successfully updated!";
+        });
+
+        /**
+         * On expense deleted, display a success message, and remove the expense from the list.
+         */
+        $scope.$on(EXPENSE_EVENTS.isDeleted, function (event, args) {
+            removeExpenseFrom($scope.expenses, args.expense);
+
+            flash.to($scope.alertIdentifierId).success = "Expense successfully deleted!";
+        });
+
+        /**
+         * On error occurred.
+         */
+        $scope.$on(EXPENSE_EVENTS.isErrorOccurred, function () {
+
+            flash.to($scope.alertIdentifierId).error = "Error occurred!";
+        });
+
+        /**
+         * Removes given expense from the list.
+         * @param expenseList
+         * @param expenseToBeRemoved
+         */
+        function removeExpenseFrom(expenseList, expenseToBeRemoved) {
+            return _.remove(expenseList, function (expenseFromArray) {
+                var expenseId = _.parseInt(expenseToBeRemoved.model.id, 10);
+                var expenseFromArrayId = _.parseInt(expenseFromArray.model.id, 10);
+                if ( _.isNaN(expenseFromArrayId) || _.isNaN(expenseId) ) {
+                    return false;
+                }
+
+                return expenseFromArrayId === expenseId;
+            });
+        }
+
+        /**
+         * Remove a list of expenses from given existing list.
+         * @param expenseList
+         * @param expensesToBeRemoved
+         */
+        function removeAllExpenseFrom(expenseList, expensesToBeRemoved) {
+            _.each(expensesToBeRemoved, function (expenseToBeRemoved) {
+                removeExpenseFrom(expenseList, expenseToBeRemoved);
+            });
+        }
+
     }]);
 ;angular
     .module("expenses")
     .controller("ExpenseEntryController", ["$scope", "$rootScope", "Expense", "$timeout", "EXPENSE_EVENTS", "MIXPANEL_EVENTS", function ($scope, $rootScope, Expense, $timeout, EXPENSE_EVENTS, MIXPANEL_EVENTS) {
 
         /**
+         * Minimum date to create expense.
+         * @type {Date}
+         */
+        $scope.minDate = moment().year(2000);
+
+        /**
          * Edit/update timeout
          */
-        const TIMEOUT_DURATION = 300;
+        var TIMEOUT_DURATION = 300;
 
         /**
          * Update the expense.
@@ -4413,100 +4517,26 @@ angular
             }
         };
     }]);
-;/**
- * Expenses controller.
- */
-angular
+;angular
     .module("expenses")
-    .controller("ExpenseListController", ["$scope", "$rootScope", "flash", "ExpenseMatchingGroupService", "EXPENSE_EVENTS", "$timeout", "categories", "expenses", "MIXPANEL_EVENTS", "ALERTS_CONSTANTS", function ($scope, $rootScope, flash, ExpenseMatchingGroupService, EXPENSE_EVENTS, $timeout, categories, expenses, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
+    .directive('caretPricePosition', ["$timeout", function ($timeout) {
+        return {
+            link: function (scope, elem, attrs) {
 
-        /**
-         * Alert identifier
-         */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.expenseList;
+                elem.on("focus, click", function () {
+                    var el = this;
 
-        /**
-         * Track event.
-         */
-        mixpanel.track(MIXPANEL_EVENTS.expensesPage);
-
-        /**
-         * Search by text
-         * @type {string}
-         */
-        $scope.searchByText = "";
-
-        /**
-         * The current user
-         * @type {$rootScope.currentUser|*}
-         */
-        $scope.user = $rootScope.currentUser;
-
-        /**
-         * Existing expenses.
-         */
-        $scope.expenses = expenses;
-
-        /**
-         * Existing categories.
-         */
-        $scope.categories = categories;
-
-        /**
-         * On expense created, display a success message, and add expense to the list.
-         */
-        $scope.$on(EXPENSE_EVENTS.isCreated, function (event, args) {
-            $scope.expenses.push(args.expense);
-
-            flash.to($scope.alertIdentifierId).success = "Expense successfully saved!";
-        });
-
-        /**
-         * On expense updated.
-         */
-        $scope.$on(EXPENSE_EVENTS.isUpdated, function (event, args) {
-            var result = _.some($scope.expenses, function (topic) {
-                return topic.model.id === args.expense.model.id;
-            });
-
-            if ( result ) {
-                removeExpenseFrom($scope.expenses, args.expense);
-                $scope.expenses.push(args.expense);
+                    $timeout(function () {
+                        var strLength = el.value.length;
+                        if ( el.setSelectionRange !== undefined ) {
+                            el.setSelectionRange(strLength, strLength);
+                        } else {
+                            $(el).val(el.value);
+                        }
+                    });
+                })
             }
-
-            flash.to($scope.alertIdentifierId).success = "Expense successfully updated!";
-        });
-
-        /**
-         * On expense deleted, display a success message, and remove the expense from the list.
-         */
-        $scope.$on(EXPENSE_EVENTS.isDeleted, function (event, args) {
-            removeExpenseFrom($scope.expenses, args.expense);
-
-            flash.to($scope.alertIdentifierId).success = "Expense successfully deleted!";
-        });
-
-        $scope.$on(EXPENSE_EVENTS.isErrorOccurred, function () {
-
-            flash.to($scope.alertIdentifierId).error = "Error occurred!";
-        });
-
-        /**
-         * Removes given expense from the list.
-         * @param expenseList
-         * @param expenseToBeRemoved
-         */
-        function removeExpenseFrom(expenseList, expenseToBeRemoved) {
-            return _.remove(expenseList, function (expenseFromArray) {
-                var expenseId = _.parseInt(expenseToBeRemoved.model.id, 10);
-                var expenseFromArrayId = _.parseInt(expenseFromArray.model.id, 10);
-                if ( _.isNaN(expenseFromArrayId) || _.isNaN(expenseId) ) {
-                    return false;
-                }
-
-                return expenseFromArrayId === expenseId;
-            });
-        }
+        };
     }]);;angular
     .module("expenses")
     .directive('escapeHtml', function () {
@@ -4533,7 +4563,8 @@ angular
             controller: 'ExpenseEntryController',
             scope: {
                 categories: "=",
-                expense: "="
+                expense: "=",
+                isEnoughExpensesForBulkAction: "&"
             },
             templateUrl: "app/expenses/partials/expense/expense.entry.template.html",
             link: function (scope, el, attrs) {
@@ -4544,9 +4575,9 @@ angular
                 scope.user = $rootScope.currentUser;
 
                 /**
-                 * Keep the master backup
+                 * Keep the master backup. Work only with shownExpense.
                  */
-                scope.masterExpense = angular.copy(scope.expense);
+                scope.shownExpense = angular.copy(scope.expense);
 
                 /**
                  * Selected category
@@ -4561,10 +4592,46 @@ angular
                 scope.showContent = false;
 
                 /**
+                 * We need an object in the scope as this model is changed by the
+                 * datePicker and we want to see those changes. Remember '.' notation.
+                 */
+                scope.datePickerStatus = {};
+
+                /**
                  * Toggle content
                  */
                 scope.toggleContent = function () {
                     scope.showContent = !scope.showContent;
+
+                    /**
+                     * Max date to create expense
+                     */
+                    if ( scope.showContent ) {
+                        scope.maxDate = moment().hours(0).minutes(0).seconds(0);
+                    }
+                };
+
+                /**
+                 * Toggle mark for bulk action
+                 */
+                scope.toggleMark = function () {
+                    scope.expense.marked = !scope.expense.marked;
+
+                    // ---
+                    // We need this info also in the parent scope, so we synchronize the master too.
+                    // ---
+                    scope.shownExpense.marked = scope.expense.marked;
+                };
+
+                /**
+                 * Open date picker
+                 * @param $event
+                 */
+                scope.openDatePicker = function ($event) {
+                    $event.preventDefault();
+                    $event.stopPropagation();
+
+                    scope.datePickerStatus.opened = true;
                 };
 
                 /**
@@ -4573,26 +4640,27 @@ angular
                 scope.cancel = function () {
                     scope.toggleContent();
 
-                    scope.expense = angular.copy(scope.masterExpense);
+                    scope.shownExpense = angular.copy(scope.expense);
                 };
 
                 /**
-                 * On expense updated/deleted - hide everything.
+                 * On expense updated/deleted - cancel edit mode.
                  */
                 $rootScope.$on(EXPENSE_EVENTS.isUpdated, function (event, args) {
                     if ( scope.expense.model.id === args.expense.model.id ) {
-                        scope.toggleContent();
 
                         // ---
-                        // Update the master expense.
+                        // Now update the master expense, and remove the marked sign.
                         // ---
-                        scope.masterExpense = angular.copy(scope.expense);
+                        scope.shownExpense.marked = false;
+                        scope.expense = angular.copy(scope.shownExpense);
+
+                        scope.cancel();
                     }
                 });
             }
         }
-    }]);
-;/* Email list */
+    }]);;/* Email list */
 
 angular
     .module("expenses")
@@ -4612,6 +4680,12 @@ angular
                  * @type {boolean}
                  */
                 scope.reverseOrder = attrs.sort === "desc";
+
+                /**
+                 * Load more timeout
+                 * @type {number}
+                 */
+                var LOAD_MORE_TIMEOUT = 500;
 
                 /**
                  * Current user.
@@ -4681,62 +4755,24 @@ angular
                 }
 
                 /**
-                 * Load more upcoming expenses.
+                 * Load more expenses.
                  */
                 scope.loadMoreExpenses = function () {
                     scope.isLoadingMore = !scope.isLoadingMore;
+
                     $timeout(function () {
                         scope.expensesLimit = scope.expensesLimit + scope.defaultExpensesLimit;
                         scope.isLoadingMore = !scope.isLoadingMore;
-                    }, 500);
+                    }, LOAD_MORE_TIMEOUT);
                 };
 
                 /**
-                 * Past expenses still to be loaded ?
+                 * Expenses still to be loaded ?
                  * @returns {boolean}
                  */
                 scope.isStillExpensesToBeLoaded = function () {
                     return scope.expensesLimit < scope.expenses.length;
                 };
-
-                /**
-                 * Open DELETE modal
-                 * @param expense
-                 * @param expenseIndex
-                 */
-                scope.openDeleteExpenseModalService = function (expense, expenseIndex) {
-                };
-
-                /**
-                 * Open UN SUBSCRIBE modal - which is the same as DELETE modal.
-                 * @param expense
-                 * @param expenseIndex
-                 */
-                scope.openUnSubscribeExpenseModalService = function (expense, expenseIndex) {
-                };
-
-                /**
-                 * Open UPDATE modal
-                 * @param expense
-                 * @param expenseIndex
-                 */
-                scope.openUpdateExpenseModalService = function (expense, expenseIndex) {
-                };
-
-                scope.showGroupIfFirst = function (expense, expenseIndex) {
-                };
-
-                /**
-                 * On expense deleted flag the deleted index.
-                 */
-                scope.$on(EXPENSE_EVENTS.isDeleted, function (event, args) {
-                });
-
-                /**
-                 * On expense updated flag the updated index.
-                 */
-                scope.$on(EXPENSE_EVENTS.isUpdated, function (event, args) {
-                });
             }
         }
     }]);
@@ -4756,7 +4792,7 @@ angular
 
                 /*First time format*/
                 ctrl.$formatters.unshift(function () {
-                    elem[0].value = ctrl.$modelValue * 100;
+                    elem[0].value = ctrl.$modelValue;
                     elem.priceFormat(options);
                     return elem[0].value;
                 });
@@ -4800,49 +4836,12 @@ angular
         };
     }]);;angular
     .module("expenses")
-    .filter('groupLimit', function () {
-        return function (inputGrouped, input, limit) {
-            if ( limit > input.length )
-                limit = input.length;
-            else if ( limit < -input.length )
-                limit = -input.length;
-
-            // Should not exceed the limit
-            var commonSumIndex = 0;
-            var inputGroupedExpenses;
-            var currentGroupIndex;
-
-            // Remove every expense from grouped expenses which are more than the limit
-            for ( var idx = 0; idx < inputGrouped.length; idx++ ) {
-                inputGroupedExpenses = inputGrouped[idx].values;
-
-                for ( currentGroupIndex = 0; currentGroupIndex < inputGroupedExpenses.length; currentGroupIndex++ ) {
-                    commonSumIndex += 1;
-
-                    if ( commonSumIndex > limit ) {
-                        inputGroupedExpenses.splice(currentGroupIndex, 1);
-                    }
-                }
-            }
-
-            return inputGrouped;
-        };
-    });;angular
-    .module("expenses")
     .filter('highlightSearch', ["$sce", function ($sce) {
         return function (text, phrase) {
             if ( phrase ) text = text.replace(new RegExp('(' + phrase + ')', 'gi'),
                 '<span class="expense__found--highlight">$1</span>');
 
             return $sce.trustAsHtml(text)
-        };
-    }]);;angular
-    .module("expenses")
-    .filter('remindersHeader', ["$sce", function ($sce) {
-        return function (text, reverse) {
-            var template = reverse ? '<a class="expense-list-box__header__past" href="#">You have $1 past expenses</a>' : '<span class="expense-list-box__header__upcoming">Your upcoming expenses</span>';
-
-            return $sce.trustAsHtml(template.replace('$1', text || '0'))
         };
     }]);;/**
  * Expenses service which encapsulates the whole logic related to expenses.
@@ -4875,24 +4874,12 @@ angular
             var expenseDto = ExpenseTransformerService.toExpenseDto(expense);
 
             return $http
-                .post(URLTo.api(EXPENSE_URLS.update), expenseDto)
+                .put(URLTo.api(EXPENSE_URLS.update), expenseDto)
                 .then(function (response) {
                     ExpenseTransformerService.toExpense(response.data, expense);
 
                     return response;
                 });
-        };
-
-        /**
-         * UnSubscribe from a expense.
-         * @param expense
-         * @returns {*}
-         */
-        this.unSubscribeFromExpense = function (expense) {
-            var expenseDto = ExpenseTransformerService.toExpenseDto(expense);
-
-            return $http
-                .post(URLTo.api(EXPENSE_URLS.unSubscribeExpense, { ":id": expenseDto.id }), expenseDto);
         };
 
         /**
@@ -4937,6 +4924,19 @@ angular
                 .get(URLTo.api(EXPENSE_URLS.details, { ":id": id }))
                 .then(function (response) {
                     return ExpenseTransformerService.toExpense(response.data, $injector.get('Expense').build());
+                });
+        };
+
+        /**
+         * Bulk delete action of a list of expenses.
+         * @returns {*}
+         */
+        this.bulkDelete = function (categories) {
+            return $http
+                .put(URLTo.api(EXPENSE_URLS.bulkDelete), ExpenseTransformerService.toExpenseDTOs(categories))
+                .then(function (response) {
+
+                    return response.data;
                 });
         };
     }]);
@@ -4998,6 +4998,21 @@ angular
 
             return expenses;
         };
+
+        /**
+         * Transform a list of expenses as business objects to a list of DTOs.
+         * @param expenses
+         * @returns {Array}
+         */
+        this.toExpenseDTOs = function (expenses) {
+            var expenseDTOs = [];
+
+            _.each(expenses, _.bind(function (expense) {
+                expenseDTOs.push(this.toExpenseDto(expense));
+            }, this));
+
+            return expenseDTOs;
+        };
     }]);
 ;angular
     .module("expenses")
@@ -5039,6 +5054,12 @@ angular
                  */
                 spentDate: ""
             };
+
+            /**
+             * Shows if this expense is marked (can be used e.g. in a bulk list)
+             * @type {boolean}
+             */
+            this.marked = false;
 
             /**
              * Is expense new.
@@ -5085,76 +5106,89 @@ angular
         };
 
         return Expense;
+    }]);;angular
+    .module("insights", [
+        "common",
+        "expenses"
+    ])
+    .config(["$stateProvider", function ($stateProvider) {
+
+        $stateProvider
+            .state("insights", {
+                url: "/insights",
+                templateUrl: 'app/insights/partials/insights.html',
+                controller: "InsightsController",
+                resolve: {
+                    expenses: ["ExpenseService", function (ExpenseService) {
+                        return ExpenseService.getAllExpenses();
+                    }],
+                    categories: ["CategoryService", function (CategoryService) {
+                        return CategoryService.getAllCategories();
+                    }]
+                },
+                title: "Insights - Revaluate"
+            })
+
     }]);;/**
- * Expense transformer service which transforms a expense DTO model object to a expense business object.
+ * expenses controller.
  */
 angular
-    .module("expenses")
-    .service("ReminderTransformerService", ["$injector", "TransformerUtils", function ($injector, TransformerUtils) {
+    .module("insights")
+    .controller("InsightsController", ["$scope", "$rootScope", "$timeout", "Category", "expenses", "categories", "MIXPANEL_EVENTS", function ($scope, $rootScope, $timeout, Category, expenses, categories, MIXPANEL_EVENTS) {
 
         /**
-         * Converts a expense business object model to a reminderDto object.
-         * @param expense
-         * @param skipKeys
-         * @returns {{}}
+         * Track event.
          */
-        this.toReminderDto = function (expense, skipKeys) {
-            var reminderDto = {};
-
-            TransformerUtils.copyKeysFromTo(expense.model, reminderDto, skipKeys);
-            if ( reminderDto.dueOn ) {
-                reminderDto.dueOn = reminderDto.dueOn.format("{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}");
-            }
-            reminderDto.text = $.trim(reminderDto.text.split("@")[0]);
-            reminderDto.recipients = TransformerUtils.sanitizeRecipients(reminderDto.recipients);
-
-            return reminderDto;
-        };
+        mixpanel.track(MIXPANEL_EVENTS.insightsPage);
 
         /**
-         * Converts a reminderDto object to a expense business object model.
-         * @param reminderDto
-         * @param expense
-         * @param skipKeys
-         * @returns {*}
+         * Existing expenses.
          */
-        this.toReminder = function (reminderDto, expense, skipKeys) {
-            expense = expense || $injector.get('Expense').build();
+        $scope.expenses = expenses;
+        $scope.categories = categories;
 
-            TransformerUtils.copyKeysFromTo(reminderDto, expense.model, skipKeys);
+        var expensesGrouped = _.groupBy($scope.expenses, function (expense) {
+            return expense.model.category.id;
+        });
 
-            // handle date conversion
-            if ( expense.model.dueOn ) {
-                expense.model.dueOn = moment(expense.model.dueOn).toDate();
+        var validCategories = _.map(_.keys(expensesGrouped), function (expenseGroupedItem) {
+            return _.find($scope.categories, function (category) {
+                return category.model.id === parseInt(expenseGroupedItem, 10);
+            })
+        });
+
+        var total = [];
+        _.each(validCategories, function (category) {
+            total.push(_.filter($scope.expenses, function (expense) {
+                return expense.model.category.id === category.model.id;
+            }));
+        });
+
+        $scope.expenseData = [];
+        _.each(total, function (totalEntry) {
+            if ( totalEntry.length === 1 ) {
+                $scope.expenseData.push(totalEntry[0].model.value);
             }
-            //handle addresses conversion
-            var recipient = expense.model.recipients;
-            if ( _.isEmpty(recipient) ) {
-                expense.model.recipients = [];
+            else {
+
+                $scope.expenseData.push(_.reduce(totalEntry, function (element, total) {
+                    return total.model.value + element.model.value;
+                }))
             }
-            else if ( _.isArray(recipient) ) {
-                expense.model.recipients = recipient;
-            }
+        });
 
-            return expense;
-        };
+        $scope.expenseLabels = [];
+        _.each(validCategories, function (category) {
+            return $scope.expenseLabels.push(category.model.name);
+        });
 
-        /**
-         * Transform a list of expenses as JSON to a list of expenses as business object.
-         * @param reminderDtos
-         * @returns {Array}
-         */
-        this.toReminders = function (reminderDtos) {
-            var expenses = [];
+        $scope.expenseColors = _.map(validCategories, function (category) {
+            return category.model.color;
+        });
 
-            _.each(reminderDtos, _.bind(function (reminderDto) {
-                expenses.push(this.toReminder(reminderDto));
-            }, this));
-
-            return expenses;
-        };
-    }]);
-;/**
+        $scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
+        $scope.data = [300, 500, 100];
+    }]);;/**
  * Main app module declaration.
  */
 angular
@@ -5162,9 +5196,6 @@ angular
         "config",
         "ngAnimate",
         "ngMessages",
-        "ui.router",
-        "angular-flash.service",
-        "angular-flash.flash-alert-directive",
         "angucomplete-alt",
         "ngStorage",
         "partials",
@@ -5174,6 +5205,7 @@ angular
         "categories",
         "expenses",
         "account",
+        "insights",
         "angular.filter"
     ])
     .config(["$locationProvider", function ($locationProvider) {
@@ -5192,7 +5224,7 @@ angular
  */
 angular
     .module("app")
-    .controller("AppCtrl", ["$rootScope", "$scope", "$state", "$timeout", "$log", "AuthService", "User", "StatesHandler", "AUTH_EVENTS", "ACTIVITY_INTERCEPTOR", "ERROR_INTERCEPTOR", "ENV", function ($rootScope, $scope, $state, $timeout, $log, AuthService, User, StatesHandler, AUTH_EVENTS, ACTIVITY_INTERCEPTOR, ERROR_INTERCEPTOR, ENV) {
+    .controller("AppController", ["$rootScope", "$scope", "$state", "$timeout", "$log", "AuthService", "User", "StatesHandler", "AUTH_EVENTS", "ACTIVITY_INTERCEPTOR", "ERROR_INTERCEPTOR", "ENV", function ($rootScope, $scope, $state, $timeout, $log, AuthService, User, StatesHandler, AUTH_EVENTS, ACTIVITY_INTERCEPTOR, ERROR_INTERCEPTOR, ENV) {
 
         /**
          * Save the state on root scope
@@ -5273,7 +5305,7 @@ angular
             $state.go('500');
         });
     }]);
-;angular.module('partials', ['app/site/partials/404.html', 'app/site/partials/500.html', 'app/site/partials/about.html', 'app/site/partials/home.html', 'app/site/partials/privacy.html', 'app/categories/partials/add-category-directive-template.html', 'app/categories/partials/categories.html', 'app/categories/partials/color-picker-directive-template.html', 'app/categories/partials/edit-remove-category-directive-template.html', 'app/expenses/partials/expense.category.template.html', 'app/expenses/partials/expense/expense.entry.template.html', 'app/expenses/partials/expense/expense.list.template.html', 'app/expenses/partials/expense/expenses.add.html', 'app/expenses/partials/expense/expenses.list.html', 'app/expenses/partials/expense/expenses.template.html', 'app/account/partials/account.html', 'app/account/partials/account_close.html', 'app/account/partials/logout.html', 'app/account/partials/settings/settings.html', 'app/account/partials/settings/settings.preferences.html', 'app/account/partials/settings/settings.profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/signup_setup.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/feedback/partials/feedback-modal.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/accordion/accordion-group.html', 'template/accordion/accordion.html', 'template/alert/alert.html', 'template/carousel/carousel.html', 'template/carousel/slide.html', 'template/datepicker/datepicker.html', 'template/datepicker/day.html', 'template/datepicker/month.html', 'template/datepicker/popup.html', 'template/datepicker/year.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/pagination/pager.html', 'template/pagination/pagination.html', 'template/popover/popover.html', 'template/progressbar/bar.html', 'template/progressbar/progress.html', 'template/progressbar/progressbar.html', 'template/rating/rating.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/timepicker/timepicker.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html', 'template/typeahead/typeahead-match.html', 'template/typeahead/typeahead-popup.html']);
+;angular.module('partials', ['app/site/partials/404.html', 'app/site/partials/500.html', 'app/site/partials/about.html', 'app/site/partials/home.html', 'app/site/partials/privacy.html', 'app/categories/partials/add-category-directive-template.html', 'app/categories/partials/categories.html', 'app/categories/partials/color-picker-directive-template.html', 'app/categories/partials/edit-remove-category-directive-template.html', 'app/expenses/partials/expense.category.template.html', 'app/expenses/partials/expense/expense.entry.template.html', 'app/expenses/partials/expense/expense.list.template.html', 'app/expenses/partials/expense/expenses.html', 'app/expenses/partials/expense/expenses.template.html', 'app/account/partials/account.html', 'app/account/partials/account_close.html', 'app/account/partials/logout.html', 'app/account/partials/settings/settings.html', 'app/account/partials/settings/settings.preferences.html', 'app/account/partials/settings/settings.profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/signup_setup.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/insights/partials/insights.html', 'app/feedback/partials/feedback-modal.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/accordion/accordion-group.html', 'template/accordion/accordion.html', 'template/alert/alert.html', 'template/carousel/carousel.html', 'template/carousel/slide.html', 'template/datepicker/datepicker.html', 'template/datepicker/day.html', 'template/datepicker/month.html', 'template/datepicker/popup.html', 'template/datepicker/year.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/pagination/pager.html', 'template/pagination/pagination.html', 'template/popover/popover.html', 'template/progressbar/bar.html', 'template/progressbar/progress.html', 'template/progressbar/progressbar.html', 'template/rating/rating.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/timepicker/timepicker.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html', 'template/typeahead/typeahead-match.html', 'template/typeahead/typeahead-popup.html']);
 
 angular.module("app/site/partials/404.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/404.html",
@@ -5349,7 +5381,7 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "    <div class=\"home__section\">\n" +
     "        <h1 class=\"home__title\">Change the way you spend your money</h1>\n" +
     "\n" +
-    "        <h3 class=\"home__description\">Keep a record of all your expenses. Or just some of them. Your choice.\n" +
+    "        <h3 class=\"home__description\">Keep a record of all your expenses. Or just some of them.\n" +
     "            <br> Have simple insights and set clear goals.</h3>\n" +
     "    </div>\n" +
     "\n" +
@@ -5363,7 +5395,7 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "            </ul>\n" +
     "        </div>\n" +
     "\n" +
-    "        <div class=\"home__section__signup\" ng-controller=\"HomeSignUpRegistrationCtrl\">\n" +
+    "        <div class=\"home__section__signup\" ng-controller=\"HomeSignUpRegistrationController\">\n" +
     "\n" +
     "            <!-- Sign-up form -->\n" +
     "            <form name=\"signUpForm\" ng-submit=\"signUp(signUpData)\" novalidate focus-first-error>\n" +
@@ -5516,7 +5548,13 @@ angular.module("app/categories/partials/add-category-directive-template.html", [
     "                <div ng-message=\"validCategoryName\">Name is not valid.</div>\n" +
     "                <div ng-message=\"uniqueCategoryName\">Name is already used.</div>\n" +
     "            </div>\n" +
-    "            <input class=\"categories__form__input-group__name\" type=\"text\" placeholder=\"Category name\" name=\"name\" ng-model=\"category.model.name\" auto-focus required valid-category-name unique-category-name />\n" +
+    "            <input type=\"text\"\n" +
+    "                   name=\"name\"\n" +
+    "                   class=\"categories__form__input-group__name\"\n" +
+    "                   placeholder=\"Category name\"\n" +
+    "                   maxlength=\"30\"\n" +
+    "                   ng-model=\"category.model.name\"\n" +
+    "                   auto-focus required valid-category-name unique-category-name />\n" +
     "        </div>\n" +
     "\n" +
     "    </div>\n" +
@@ -5524,8 +5562,8 @@ angular.module("app/categories/partials/add-category-directive-template.html", [
     "    <!--Content right-->\n" +
     "    <div class=\"categories__add__form__content__right\">\n" +
     "        <!--Reset-->\n" +
-    "        <button class=\"categories__add__form__content__right__cancel\" ng-click=\"toggleContent();initOrReset(categoryForm)\">Nevermind</button>\n" +
-    "        <!-- Button container -->\n" +
+    "        <button type=\"button\" class=\"categories__add__form__content__right__cancel\" ng-click=\"toggleContent();initOrReset(categoryForm)\">Nevermind</button>\n" +
+    "        <!-- Submit button container -->\n" +
     "        <button class=\"categories__add__form__content__right__add\" type=\"submit\">{{isSaving ? 'Adding..' : 'Add'}}</button>\n" +
     "    </div>\n" +
     "</form>");
@@ -5533,34 +5571,30 @@ angular.module("app/categories/partials/add-category-directive-template.html", [
 
 angular.module("app/categories/partials/categories.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/categories/partials/categories.html",
-    "<div class=\"page-wrapper\">\n" +
+    "<div header class=\"view-container__header\"></div>\n" +
     "\n" +
-    "    <div header class=\"view-container__header\"></div>\n" +
+    "<div class=\"view-container__content\">\n" +
     "\n" +
-    "    <div class=\"view-container__content categories\">\n" +
+    "    <!-- Flash messages. -->\n" +
+    "    <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
     "\n" +
-    "        <!-- Flash messages. -->\n" +
-    "        <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "    <!--Add category-->\n" +
+    "    <div class=\"categories__add\" add-category></div>\n" +
     "\n" +
-    "        <!--Add category-->\n" +
-    "        <div class=\"categories__add\" add-category></div>\n" +
+    "    <!--List all categories-->\n" +
+    "    <div class=\"categories__edit\">\n" +
     "\n" +
-    "        <!--List all categories-->\n" +
-    "        <div class=\"categories__edit\">\n" +
+    "        <div class=\"categories__edit__category\" ng-repeat=\"category in categories track by category.model.name\">\n" +
     "\n" +
-    "            <div class=\"categories__edit__category\" ng-repeat=\"category in categories track by category.model.name\">\n" +
-    "\n" +
-    "                <!--Edit/remove category-->\n" +
-    "                <div edit-remove-category category=\"category\"></div>\n" +
-    "            </div>\n" +
-    "\n" +
+    "            <!--Edit/remove category-->\n" +
+    "            <div edit-remove-category category=\"category\"></div>\n" +
     "        </div>\n" +
     "\n" +
     "    </div>\n" +
     "\n" +
-    "    <div footer class=\"view-container__footer\"></div>\n" +
+    "</div>\n" +
     "\n" +
-    "</div>");
+    "<div footer class=\"view-container__footer\"></div>");
 }]);
 
 angular.module("app/categories/partials/color-picker-directive-template.html", []).run(["$templateCache", function($templateCache) {
@@ -5649,12 +5683,11 @@ angular.module("app/expenses/partials/expense.category.template.html", []).run([
     "<div class=\"angucomplete-holder\" ng-class=\"{'angucomplete-dropdown-visible': showDropdown}\">\n" +
     "    <input id=\"{{id}}_value\" ng-model=\"searchStr\" ng-disabled=\"disableInput\" type=\"{{type}}\" placeholder=\"{{placeholder}}\" maxlength=\"{{maxlength}}\" ng-focus=\"onFocusHandler()\" class=\"{{inputClass}}\" ng-focus=\"resetHideResults()\" ng-blur=\"hideResults($event)\" autocapitalize=\"off\" autocorrect=\"off\" autocomplete=\"off\" ng-change=\"inputChangeHandler(searchStr)\" />\n" +
     "\n" +
-    "    <div id=\"{{id}}_dropdown\" class=\"angucomplete-dropdown\" ng-show=\"showDropdown\">\n" +
+    "    <div id=\"{{id}}_dropdown\" class=\"angucomplete-dropdown expense__form__category__angucomplete-dropdown\" ng-show=\"showDropdown\">\n" +
     "        <div class=\"angucomplete-searching\" ng-show=\"searching\" ng-bind=\"textSearching\"></div>\n" +
-    "        <div class=\"angucomplete-searching\" ng-show=\"!searching && (!results || results.length == 0) || true\" ng-bind=\"textNoResults\"></div>\n" +
     "        <div class=\"angucomplete-row\" ng-repeat=\"result in results\" ng-click=\"selectResult(result)\" ng-mouseenter=\"hoverRow($index)\" ng-class=\"{'angucomplete-selected-row': $index == currentIndex}\">\n" +
-    "            <div class=\"angucomplete-image-holder\">\n" +
-    "                <label class=\"categories__form__color__preview\" ng-style=\"{'background':result.originalObject.model.color}\"></label>\n" +
+    "            <div class=\"angucomplete-image-holder expense__form__category__angucomplete-image-holder\">\n" +
+    "                <label class=\"expense__form__category__color__preview\" ng-style=\"{'background':result.originalObject.model.color}\"></label>\n" +
     "            </div>\n" +
     "            <div class=\"angucomplete-title\" ng-if=\"matchClass\" ng-bind-html=\"result.title\"></div>\n" +
     "            <div class=\"angucomplete-title\" ng-if=\"!matchClass\">{{ result.title }}</div>\n" +
@@ -5668,7 +5701,11 @@ angular.module("app/expenses/partials/expense.category.template.html", []).run([
 angular.module("app/expenses/partials/expense/expense.entry.template.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/expenses/partials/expense/expense.entry.template.html",
     "<!--Display expense-->\n" +
-    "<div class=\"expenses__list__entry__display\" ng-if=\"! showContent\" ng-click=\"toggleContent()\">\n" +
+    "<div class=\"expenses__list__entry__display\" ng-if=\"! showContent\" ng-class=\"expense.marked ? 'expense__bulk--marked' : ''\">\n" +
+    "\n" +
+    "    <div class=\"expenses__list__entry__select\">\n" +
+    "        <input type=\"checkbox\" ng-checked=\"expense.marked\" ng-click=\"toggleMark();$event.stopPropagation();\" />\n" +
+    "    </div>\n" +
     "\n" +
     "    <div class=\"expenses__list__entry__price\">\n" +
     "        {{expense.model.value | currency:\"\"}}\n" +
@@ -5683,16 +5720,20 @@ angular.module("app/expenses/partials/expense/expense.entry.template.html", []).
     "\n" +
     "    <!--Expense date-->\n" +
     "    <div class=\"expenses__list__entry__date\">{{expense.model.spentDate | friendlyDate}}</div>\n" +
+    "\n" +
+    "    <button class=\"expenses__list__entry__editbtn icon-pen\" type=\"button\" ng-click=\"toggleContent();\"></button>\n" +
     "</div>\n" +
     "\n" +
-    "<!-- Display expense form -->\n" +
+    "\n" +
+    "\n" +
+    "<!-- Display expense in edit mode -->\n" +
     "<div class=\"expenses__form\" ng-if=\"showContent\">\n" +
     "\n" +
-    "    <form name=\"expenseForm\" ng-submit=\"updateExpense(expenseForm, expense, category)\" novalidate focus-first-error>\n" +
+    "    <form name=\"expenseForm\" ng-submit=\"updateExpense(expenseForm, shownExpense, category)\" novalidate focus-first-error>\n" +
     "\n" +
     "        <!-- Form groups -->\n" +
     "        <div class=\"expense__form__price\" ng-class=\"{'has-error': expenseForm.$submitted && (expenseForm.value.$invalid || badPostSubmitResponse)}\">\n" +
-    "            <input class=\"expense__form__price__input\" type=\"text\" name=\"value\" placeholder=\"The value\" ng-model=\"expense.model.value\" format-price format=\"number\" required valid-price />\n" +
+    "            <input class=\"expense__form__price__input\" type=\"text\" name=\"value\" placeholder=\"The value\" ng-model=\"shownExpense.model.value\" format-price format=\"number\" caret-price-position required valid-price />\n" +
     "            <span class=\"expense__form__price__currency\">{{user.model.currency.currencyCode}}</span>\n" +
     "\n" +
     "            <!-- Error messages -->\n" +
@@ -5715,7 +5756,7 @@ angular.module("app/expenses/partials/expense/expense.entry.template.html", []).
     "                 maxlength=\"50\"\n" +
     "                 pause=\"1\"\n" +
     "                 minlength=\"0\"\n" +
-    "                 initial-value=\"{{expense.model.category.name}}\"\n" +
+    "                 initial-value=\"{{shownExpense.model.category.name}}\"\n" +
     "                 input-class=\"expense__form__category__input\"\n" +
     "                 match-class=\"highlight\"\n" +
     "                 template-url=\"app/expenses/partials/expense.category.template.html\">\n" +
@@ -5731,7 +5772,7 @@ angular.module("app/expenses/partials/expense/expense.entry.template.html", []).
     "\n" +
     "        <!-- Description input -->\n" +
     "        <div class=\"expense__form__details\" ng-class=\"{'has-error': expenseForm.$submitted && (expenseForm.description.$invalid || badPostSubmitResponse)}\">\n" +
-    "            <input class=\"expense__form__details__input\" type=\"text\" name=\"description\" ng-maxlength=\"20\" placeholder=\"Add details (optional)\" ng-model=\"expense.model.description\" escape-html />\n" +
+    "            <input class=\"expense__form__details__input\" type=\"text\" name=\"description\" ng-maxlength=\"30\" maxlength=\"30\" placeholder=\"Add details (optional)\" ng-model=\"shownExpense.model.description\" escape-html />\n" +
     "\n" +
     "            <!-- Error messages -->\n" +
     "            <div class=\"form-group-input__message\" ng-class=\"{'has-error': expenseForm.description.$invalid && expenseForm.$submitted}\" ng-messages=\"expenseForm.$error\" ng-if=\"expenseForm.$submitted\">\n" +
@@ -5743,11 +5784,18 @@ angular.module("app/expenses/partials/expense/expense.entry.template.html", []).
     "        <div class=\"expense__form__date\" ng-class=\"{'has-error': expenseForm.spentDate.$invalid && expenseForm.$submitted}\">\n" +
     "\n" +
     "            <!--Hidden input of the expense chosen date-->\n" +
-    "            <input type=\"hidden\" name=\"spentDate\" ng-model=\"expense.model.spentDate\" required valid-date />\n" +
+    "            <input type=\"hidden\" name=\"spentDate\" ng-model=\"shownExpense.model.spentDate\" required valid-date />\n" +
     "\n" +
     "            <!--Expense date picker-->\n" +
     "            <div class=\"expense__form__date__input\">\n" +
-    "                <button ng-click=\"open($event)\" type=\"button\" datepicker-popup is-open=\"opened\" min-date=\"minDate\" max-date=\"maxDate\" ng-model=\"expense.model.spentDate\" show-weeks=\"false\" datepicker-options=\"{starting_day:1}\">{{expense.model.spentDate | friendlyDate}}</button>\n" +
+    "                <button ng-click=\"openDatePicker($event)\" type=\"button\"\n" +
+    "                        datepicker-popup is-open=\"datePickerStatus.opened\"\n" +
+    "                        min-date=\"minDate\"\n" +
+    "                        max-date=\"maxDate\"\n" +
+    "                        ng-model=\"shownExpense.model.spentDate\"\n" +
+    "                        datepicker-options=\"{startingDay:1,showWeeks:false}\">\n" +
+    "                    {{shownExpense.model.spentDate | friendlyDate}}\n" +
+    "                </button>\n" +
     "            </div>\n" +
     "\n" +
     "            <!--Error messages-->\n" +
@@ -5759,20 +5807,24 @@ angular.module("app/expenses/partials/expense/expense.entry.template.html", []).
     "\n" +
     "        <!-- Button container -->\n" +
     "        <div class=\"expense__form__submit\">\n" +
-    "            <span>Hit Enter to</span>\n" +
-    "            <button type=\"submit\"> save</button>\n" +
-    "            <span>the expense.</span>\n" +
-    "        </div>\n" +
-    "\n" +
-    "        <!--Content right-->\n" +
-    "        <div class=\"expenses__edit__form__content__right\">\n" +
-    "\n" +
-    "            <!--Reset-->\n" +
-    "            <button class=\"expenses__edit__form__content__right__cancel\" ng-click=\"cancel();\">Nevermind</button>\n" +
-    "            <!-- Button container -->\n" +
-    "            <button class=\"expenses__edit__form__content__right__update\" type=\"submit\">{{isUpdating ? 'Saving..' : 'Save changes'}}</button>\n" +
+    "            <span ng-if=\"isUpdating\">\n" +
+    "                <span>Saving the expense...</span>\n" +
+    "            </span>\n" +
+    "            <span ng-if=\"! isUpdating\">\n" +
+    "                <span class=\"expense__edit__form__cancelbtn\" >\n" +
+    "                    <button type=\"button\" ng-click=\"cancel();\">Discard</button>\n" +
+    "                    <span>changes.</span>\n" +
+    "                </span>\n" +
+    "                <span class=\"expense__edit__form__savebtn\" >\n" +
+    "                    <span>Enter to</span>\n" +
+    "                    <button type=\"submit\">save</button>\n" +
+    "                    <span>the changes.</span>\n" +
+    "                </span>\n" +
+    "            </span>\n" +
     "        </div>\n" +
     "    </form>\n" +
+    "\n" +
+    "\n" +
     "\n" +
     "</div>");
 }]);
@@ -5787,19 +5839,20 @@ angular.module("app/expenses/partials/expense/expense.list.template.html", []).r
     "        <!--Expense list-->\n" +
     "        <div class=\"expenses__list__entry\"\n" +
     "             ng-repeat=\"expense in expenses | orderObjectBy : 'model.spentDate' : reverseOrder | limitTo: expensesLimit | filter:{model:{description:searchByText}} as filteredExpenses track by expense.model.id\"\n" +
+    "\n" +
     "             expense-entry expense=\"expense\" categories=\"categories\">\n" +
     "        </div>\n" +
     "    </div>\n" +
     "\n" +
-    "    <div ng-if=\"isStillExpensesToBeLoaded()\" class=\"expenses__list__loadbtn\">\n" +
-    "        <button type=\"submit\" ladda=\"isLoadingMore\" data-style=\"expand-left\" data-spinner-size=\"20\" ng-click=\"loadMoreExpenses()\">LOAD MORE</button>\n" +
+    "    <div ng-if=\"isStillExpensesToBeLoaded()\">\n" +
+    "        <button type=\"submit\" class=\"expenses__list__loadbtn\" ng-click=\"loadMoreExpenses()\">{{isLoadingMore ? 'Loading..' : 'Load more'}}</button>\n" +
     "    </div>\n" +
     "\n" +
     "</div>");
 }]);
 
-angular.module("app/expenses/partials/expense/expenses.add.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("app/expenses/partials/expense/expenses.add.html",
+angular.module("app/expenses/partials/expense/expenses.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/expenses/partials/expense/expenses.html",
     "<!-- Add a new expense form -->\n" +
     "<div class=\"expenses__form\">\n" +
     "\n" +
@@ -5810,13 +5863,13 @@ angular.module("app/expenses/partials/expense/expenses.add.html", []).run(["$tem
     "\n" +
     "        <!-- Form groups -->\n" +
     "        <div class=\"expense__form__price\" ng-class=\"{'has-error': expenseForm.$submitted && (expenseForm.value.$invalid || badPostSubmitResponse)}\">\n" +
-    "            <input class=\"expense__form__price__input\" type=\"text\" name=\"value\" placeholder=\"The value\" ng-model=\"expense.model.value\" format-price format=\"number\" required valid-price />\n" +
+    "            <input class=\"expense__form__price__input\" type=\"text\" name=\"value\" placeholder=\"The value\" maxlength=\"14\" ng-model=\"expense.model.value\" format-price format=\"number\" caret-price-position required valid-price />\n" +
     "            <span class=\"expense__form__price__currency\">{{user.model.currency.currencyCode}}</span>\n" +
     "\n" +
     "            <!-- Error messages -->\n" +
     "            <div class=\"form-group-input__message\" ng-class=\"{'has-error': expenseForm.value.$invalid && expenseForm.$submitted}\" ng-messages=\"expenseForm.$error\" ng-if=\"expenseForm.$submitted\">\n" +
-    "                <div ng-message=\"required\">Please add a price.</div>\n" +
-    "                <div ng-message=\"validPrice\">Price is invalid</div>\n" +
+    "                <div ng-message=\"required\">Don't forget the price.</div>\n" +
+    "                <div ng-message=\"validPrice\">Oops, you missed the price.</div>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "\n" +
@@ -5834,7 +5887,7 @@ angular.module("app/expenses/partials/expense/expenses.add.html", []).run(["$tem
     "                 pause=\"1\"\n" +
     "                 minlength=\"0\"\n" +
     "                 input-class=\"expense__form__category__input\"\n" +
-    "                 match-class=\"highlight\"\n" +
+    "                 match-class=\"angucomplete-highlight\"\n" +
     "                 template-url=\"app/expenses/partials/expense.category.template.html\">\n" +
     "            </div>\n" +
     "\n" +
@@ -5848,7 +5901,7 @@ angular.module("app/expenses/partials/expense/expenses.add.html", []).run(["$tem
     "\n" +
     "        <!-- Description input -->\n" +
     "        <div class=\"expense__form__details\" ng-class=\"{'has-error': expenseForm.$submitted && (expenseForm.description.$invalid || badPostSubmitResponse)}\">\n" +
-    "            <input class=\"expense__form__details__input\" type=\"text\" name=\"description\" ng-maxlength=\"20\" placeholder=\"Add details (optional)\" ng-model=\"expense.model.description\" escape-html />\n" +
+    "            <input class=\"expense__form__details__input\" type=\"text\" name=\"description\" ng-maxlength=\"30\" maxlength=\"30\" placeholder=\"Add details (optional)\" ng-model=\"expense.model.description\" escape-html />\n" +
     "\n" +
     "            <!-- Error messages -->\n" +
     "            <div class=\"form-group-input__message\" ng-class=\"{'has-error': expenseForm.description.$invalid && expenseForm.$submitted}\" ng-messages=\"expenseForm.$error\" ng-if=\"expenseForm.$submitted\">\n" +
@@ -5864,55 +5917,75 @@ angular.module("app/expenses/partials/expense/expenses.add.html", []).run(["$tem
     "\n" +
     "            <!--Expense date picker-->\n" +
     "            <div class=\"expense__form__date__input\">\n" +
-    "                <button ng-click=\"open($event)\" type=\"button\" datepicker-popup is-open=\"opened\" min-date=\"minDate\" max-date=\"maxDate\" ng-model=\"expense.model.spentDate\" show-weeks=\"false\" datepicker-options=\"{starting_day:1}\">{{expense.model.spentDate | friendlyDate}}</button>\n" +
+    "                <button type=\"button\"\n" +
+    "                        class=\"expense__form__date__input__btn\"\n" +
+    "                        ng-click=\"openDatePicker($event)\"\n" +
+    "                        ng-model=\"expense.model.spentDate\"\n" +
+    "                        datepicker-popup\n" +
+    "                        is-open=\"datePickerOpened\"\n" +
+    "                        min-date=\"datePickerMinDate\"\n" +
+    "                        max-date=\"datePickerMaxDate\"\n" +
+    "                        datepicker-options=\"{startingDay:1,showWeeks:false}\">{{expense.model.spentDate | friendlyDate}}\n" +
+    "                </button>\n" +
     "            </div>\n" +
     "\n" +
     "            <!--Error messages-->\n" +
     "            <div class=\"form-group-input__message\" ng-class=\"{'has-error': expenseForm.spentDate.$invalid && expenseForm.$submitted}\" ng-messages=\"expenseForm.$error\" ng-if=\"expenseForm.$submitted\">\n" +
-    "                <div ng-message=\"required\">Please make that you add a date.</div>\n" +
+    "                <div ng-message=\"required\">Please add a date.</div>\n" +
     "                <div ng-message=\"validDate\">Date should be in the past.</div>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "\n" +
     "        <!-- Button container -->\n" +
     "        <div class=\"expense__form__submit\">\n" +
-    "            <span>Hit Enter to</span>\n" +
-    "            <button type=\"submit\"> save</button>\n" +
-    "            <span>the expense.</span>\n" +
+    "            <span ng-if=\"isSaving\">\n" +
+    "                <span>Saving...</span>\n" +
+    "            </span>\n" +
+    "            <span ng-if=\"! isSaving\">\n" +
+    "                <span>Enter to</span>\n" +
+    "                <button type=\"submit\">save</button>\n" +
+    "                <span>the expense.</span>\n" +
+    "            </span>\n" +
     "        </div>\n" +
     "    </form>\n" +
     "\n" +
-    "</div>");
-}]);
-
-angular.module("app/expenses/partials/expense/expenses.list.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("app/expenses/partials/expense/expenses.list.html",
+    "</div>\n" +
+    "\n" +
+    "<!--Expense bulk actions-->\n" +
+    "<div class=\"expenses__bulk-actions\" ng-if=\"isBulkActionEnabled()\">\n" +
+    "\n" +
+    "    <div class=\"expenses__bulk-actions__buttons\">\n" +
+    "\n" +
+    "        <div class=\"expenses__bulk-actions__delete\">\n" +
+    "            <button class=\"expenses__bulk-actions__delete__btn-delete\" ng-click=\"performBulkDelete()\">{{isBulkDeleting ? 'Deleting...' : 'Delete'}}</button>\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <div class=\"expenses__bulk-actions__cancel\">\n" +
+    "            <button class=\"expenses__bulk-actions__delete__btn-cancel\" ng-click=\"cancelBulkAction()\">Nevermind</button>\n" +
+    "        </div>\n" +
+    "\n" +
+    "    </div>\n" +
+    "\n" +
+    "</div>\n" +
+    "\n" +
     "<!--The expenses list-->\n" +
     "<div expense-list expenses=\"expenses\" categories=\"categories\" search-by-text=\"searchByText\" sort=\"desc\"></div>");
 }]);
 
 angular.module("app/expenses/partials/expense/expenses.template.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/expenses/partials/expense/expenses.template.html",
-    "<div class=\"page-wrapper\">\n" +
+    "<div header class=\"view-container__header\"></div>\n" +
     "\n" +
-    "    <div header class=\"view-container__header\"></div>\n" +
+    "<div class=\"view-container__content\">\n" +
     "\n" +
-    "    <div class=\"view-container__content\">\n" +
+    "    <!-- Flash messages. -->\n" +
+    "    <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
     "\n" +
-    "        <!-- Flash messages. -->\n" +
-    "        <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "    <div ui-view=\"expenses\"></div>\n" +
     "\n" +
-    "        <div class=\"view-container__content\">\n" +
-    "            <div ui-view=\"add\"></div>\n" +
+    "</div>\n" +
     "\n" +
-    "            <div ui-view=\"list\"></div>\n" +
-    "        </div>\n" +
-    "\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <div footer class=\"view-container__footer\"></div>\n" +
-    "\n" +
-    "</div>");
+    "<div footer class=\"view-container__footer\"></div>");
 }]);
 
 angular.module("app/account/partials/account.html", []).run(["$templateCache", function($templateCache) {
@@ -5924,7 +5997,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "<div class=\"account\">\n" +
     "\n" +
     "    <!--Sign in-->\n" +
-    "    <div class=\"account__section\" ng-if=\"AccountModal.state === ACCOUNT_FORM_STATE.login\" ng-controller=\"LoginCtrl\">\n" +
+    "    <div class=\"account__section\" ng-if=\"AccountModal.state === ACCOUNT_FORM_STATE.login\" ng-controller=\"LoginController\">\n" +
     "\n" +
     "        <!--Close-->\n" +
     "        <div account-modal-close></div>\n" +
@@ -5953,7 +6026,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "            <a class=\"link-navigation\" href=\"javascript:void(0)\" ng-click=\"AccountModal.setState(ACCOUNT_FORM_STATE.forgotPassword)\">Forgot login details?</a>\n" +
     "\n" +
     "            <!-- Button container -->\n" +
-    "            <button ladda=\"isRequestPending\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"account__btn\" type=\"submit\">Log in</button>\n" +
+    "            <button class=\"account__btn\" type=\"submit\">{{isRequestPending ? 'Logging in..' : 'Log in'}}</button>\n" +
     "        </form>\n" +
     "\n" +
     "        <a class=\"link-navigation\" href=\"javascript:void(0)\" ng-click=\"AccountModal.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration)\">Don't have an account yet? Sign up!</a>\n" +
@@ -5961,7 +6034,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "    </div>\n" +
     "\n" +
     "    <!--Sign up-->\n" +
-    "    <div class=\"account__section\" ng-if=\"AccountModal.state == ACCOUNT_FORM_STATE.requestSignUpRegistration\" ng-controller=\"HomeSignUpRegistrationCtrl\">\n" +
+    "    <div class=\"account__section\" ng-if=\"AccountModal.state == ACCOUNT_FORM_STATE.requestSignUpRegistration\" ng-controller=\"HomeSignUpRegistrationController\">\n" +
     "\n" +
     "        <!--Close-->\n" +
     "        <div account-modal-close></div>\n" +
@@ -6017,7 +6090,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "    </div>\n" +
     "\n" +
     "    <!-- Recover password section -->\n" +
-    "    <div class=\"account__section\" ng-if=\"AccountModal.state == ACCOUNT_FORM_STATE.forgotPassword\" ng-controller=\"ForgotPasswordCtrl\">\n" +
+    "    <div class=\"account__section\" ng-if=\"AccountModal.state == ACCOUNT_FORM_STATE.forgotPassword\" ng-controller=\"ForgotPasswordController\">\n" +
     "\n" +
     "        <!--Close-->\n" +
     "        <div account-modal-close></div>\n" +
@@ -6116,7 +6189,7 @@ angular.module("app/account/partials/settings/settings.html", []).run(["$templat
 angular.module("app/account/partials/settings/settings.preferences.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/account/partials/settings/settings.preferences.html",
     "<!-- Profile section -->\n" +
-    "<div class=\"account__section\" ng-controller=\"PreferencesCtrl\">\n" +
+    "<div class=\"account__section\" ng-controller=\"PreferencesController\">\n" +
     "\n" +
     "    <!-- Title -->\n" +
     "    <h1 class=\"account__title\">Modify timezone</h1>\n" +
@@ -6150,7 +6223,7 @@ angular.module("app/account/partials/settings/settings.preferences.html", []).ru
 angular.module("app/account/partials/settings/settings.profile.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/account/partials/settings/settings.profile.html",
     "<!-- Profile section -->\n" +
-    "<div class=\"account__section\" ng-if=\"ProfileFormToggle.state === ACCOUNT_FORM_STATE.updateProfile\" ng-controller=\"ProfileCtrl\">\n" +
+    "<div class=\"account__section\" ng-if=\"ProfileFormToggle.state === ACCOUNT_FORM_STATE.updateProfile\" ng-controller=\"ProfileController\">\n" +
     "\n" +
     "    <!-- Title -->\n" +
     "    <h1 class=\"account__title\">Modify profile</h1>\n" +
@@ -6194,7 +6267,7 @@ angular.module("app/account/partials/settings/settings.profile.html", []).run(["
     "</div>\n" +
     "\n" +
     "<!-- Update password section -->\n" +
-    "<div class=\"account__section\" ng-if=\"ProfileFormToggle.state === ACCOUNT_FORM_STATE.updatePassword\" ng-controller=\"UpdatePasswordCtrl\">\n" +
+    "<div class=\"account__section\" ng-if=\"ProfileFormToggle.state === ACCOUNT_FORM_STATE.updatePassword\" ng-controller=\"UpdatePasswordController\">\n" +
     "\n" +
     "    <!-- Title -->\n" +
     "    <h1 class=\"account__title\">Welcome!</h1>\n" +
@@ -6358,7 +6431,7 @@ angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$temp
 
 angular.module("app/account/partials/signup_setup.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/account/partials/signup_setup.html",
-    "<div class=\"sign-up__setup\" xmlns=\"http://www.w3.org/1999/html\">\n" +
+    "<div class=\"sign-up__setup\">\n" +
     "\n" +
     "    <div class=\"sign-up__setup__box\">\n" +
     "\n" +
@@ -6369,22 +6442,28 @@ angular.module("app/account/partials/signup_setup.html", []).run(["$templateCach
     "\n" +
     "            <div class=\"sign-up__setup__section\">\n" +
     "                Please choose your currency:\n" +
-    "                <div class=\"sign-up__setup__section--currency\">\n" +
+    "                <div class=\"sign-up__setup__section--currency\" ng-class=\"{'has-error': setUpForm.$submitted && (setUpForm.$error['autocomplete-required'] || setUpForm.currency.$invalid || badPostSubmitResponse)}\">\n" +
     "                    <div angucomplete-alt\n" +
     "                         selected-object=\"currency\"\n" +
     "                         local-data=\"currencies\"\n" +
     "                         search-fields=\"displayName,currencyCode\"\n" +
     "                         title-field=\"currencyCode,displayName\"\n" +
     "                         field-required=\"true\"\n" +
-    "                         field-required-class=\"sign-up__setup__section--currency--invalid\"\n" +
-    "                         id=\"ex1\"\n" +
     "                         placeholder=\"Start typing your currency...\"\n" +
     "                         maxlength=\"50\"\n" +
     "                         pause=\"1\"\n" +
     "                         minlength=\"0\"\n" +
     "                         input-class=\"sign-up__setup__section--currency__input\"\n" +
-    "                         match-class=\"highlight\">\n" +
+    "                         match-class=\"angucomplete-highlight\">\n" +
     "                    </div>\n" +
+    "\n" +
+    "                    <!-- Error messages -->\n" +
+    "                    <div class=\"form-group-input__message form-group-input__message--currency\" ng-class=\"{'has-error': setUpForm.$invalid && setUpForm.$submitted}\" ng-messages=\"setUpForm.$error\" ng-if=\"setUpForm.$submitted\">\n" +
+    "                        <div ng-message=\"autocomplete-required\">Currency is missing or is invalid.</div>\n" +
+    "                        <div ng-message=\"required\">Please add</div>\n" +
+    "                    </div>\n" +
+    "\n" +
+    "                    <div class=\"form-group-input__message form-group-input__message--currency\" ng-if=\"setUpForm.category.$invalid && setUpForm.$submitted\">Please add a currency.</div>\n" +
     "                </div>\n" +
     "            </div>\n" +
     "\n" +
@@ -6396,14 +6475,14 @@ angular.module("app/account/partials/signup_setup.html", []).run(["$templateCach
     "            <div class=\"sign-up__box__categories\">\n" +
     "\n" +
     "                <div class=\"sign-up__box__categories__category\" ng-repeat=\"category in categories track by category.name\">\n" +
-    "                    <!--Category group-->\n" +
     "                    <div class=\"category-name\" ng-style=\"{'background':category.color}\" ng-class=\"{ 'category-name--unselected': !category.selected }\" ng-click=\"toggleCategorySelection($index)\"> {{category.name}}</div>\n" +
     "                </div>\n" +
     "\n" +
     "                <!--Toggle form-->\n" +
     "                <button ng-if=\"! showCategoryOnTheFlyInput\" class=\"sign-up__box__categories__addbtn\" ng-click=\"toggleContent()\">+ Add another</button>\n" +
     "\n" +
-    "                <ng-form class=\"sign-up__box__categories__category__form\" name=\"categoryOnTheFlyForm\"\n" +
+    "                <ng-form class=\"sign-up__box__categories__category__form\"\n" +
+    "                         name=\"categoryOnTheFlyForm\"\n" +
     "                         submit-on=\"add-category-on-the-fly-event\"\n" +
     "                         ng-submit=\"onSubmitted($event)\"\n" +
     "                         ng-if=\"showCategoryOnTheFlyInput\">\n" +
@@ -6418,8 +6497,10 @@ angular.module("app/account/partials/signup_setup.html", []).run(["$templateCach
     "\n" +
     "                        <!--The on the fly input category-->\n" +
     "                        <input class=\"sign-up__box__categories__addinput\" type=\"text\" name=\"name\"\n" +
+    "                               maxlength=\"15\"\n" +
     "                               ng-model=\"$parent.categoryOnTheFly\"\n" +
     "                               ng-enter=\"triggerSubmit()\"\n" +
+    "                               ng-blur=\"cancelAddCategoryOnTheFly()\"\n" +
     "                               auto-focus required valid-category-name />\n" +
     "\n" +
     "                    </div>\n" +
@@ -6430,7 +6511,7 @@ angular.module("app/account/partials/signup_setup.html", []).run(["$templateCach
     "            <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
     "\n" +
     "            <!-- Button -->\n" +
-    "            <button ladda=\"isSaving\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"sign-up__setup__btn\" ng-disabled=\"! isEnoughSelectedCategories()\" type=\"submit\">Done! Let's start!</button>\n" +
+    "            <button class=\"sign-up__setup__btn\" ng-disabled=\"! isEnoughSelectedCategories()\" type=\"submit\">{{isSaving ? 'Saving..' : 'Done! Let\\'s start!'}}</button>\n" +
     "        </form>\n" +
     "\n" +
     "    </div>\n" +
@@ -6510,6 +6591,19 @@ angular.module("app/account/partials/validate_password_reset_token_valid.html", 
     "</div>");
 }]);
 
+angular.module("app/insights/partials/insights.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/insights/partials/insights.html",
+    "<div header class=\"view-container__header\"></div>\n" +
+    "\n" +
+    "<div class=\"view-container__content\">\n" +
+    "\n" +
+    "    <canvas class=\"chart chart-doughnut\" data=\"expenseData\" labels=\"expenseLabels\" colors=\"expenseColors\"></canvas>\n" +
+    "\n" +
+    "</div>\n" +
+    "\n" +
+    "<div footer class=\"view-container__footer\"></div>");
+}]);
+
 angular.module("app/feedback/partials/feedback-modal.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/feedback/partials/feedback-modal.html",
     "<form name=\"feedbackForm\" ng-submit=\"sendFeedbackAndClose(feedbackForm)\" novalidate focus-first-error>\n" +
@@ -6582,13 +6676,12 @@ angular.module("app/common/partials/footer-home.html", []).run(["$templateCache"
     "    </div>\n" +
     "\n" +
     "    <ul class=\"footer__links\">\n" +
-    "        <li><a href=\"http://blog.revaluate.io\">Read our Blog</a></li>\n" +
-    "        <li><a href=\"mailto:hello@revaluate.io\">Send us an Email</a></li>\n" +
-    "        <li><a href=\"https://twitter.com/revaluateapp\">Follow us on Twitter</a></li>\n" +
-    "        <li><a href=\"https://www.facebook.com/revaluateapp\">Like us on Facebook</a></li>\n" +
+    "        <li>Read our <a href=\"http://blog.revaluate.io\">Blog</a></li>\n" +
+    "        <li>Send us an <a href=\"mailto:hello@revaluate.io\">Email</a></li>\n" +
+    "        <li>Follow us on <a href=\"https://twitter.com/revaluateapp\">Twitter</a></li>\n" +
+    "        <li>Like us on <a href=\"https://www.facebook.com/revaluateapp\">Facebook</a></li>\n" +
     "    </ul>\n" +
-    "</footer>\n" +
-    "");
+    "</footer>");
 }]);
 
 angular.module("app/common/partials/footer.html", []).run(["$templateCache", function($templateCache) {
@@ -6599,34 +6692,36 @@ angular.module("app/common/partials/footer.html", []).run(["$templateCache", fun
     "    </div>\n" +
     "\n" +
     "    <ul class=\"footer__links\">\n" +
-    "        <li><a href=\"http://blog.revaluate.io\">Read our Blog</a></li>\n" +
-    "        <li><a href=\"mailto:hello@revaluate.io\">Send us an Email</a></li>\n" +
-    "        <li><a href=\"https://twitter.com/revaluateapp\">Follow us on Twitter</a></li>\n" +
-    "        <li><a href=\"https://www.facebook.com/revaluateapp\">Like us on Facebook</a></li>\n" +
+    "        <li>Read our <a href=\"http://blog.revaluate.io\">Blog</a></li>\n" +
+    "        <li>Send us an <a href=\"mailto:hello@revaluate.io\">Email</a></li>\n" +
+    "        <li>Follow us on <a href=\"https://twitter.com/revaluateapp\">Twitter</a></li>\n" +
+    "        <li>Like us on <a href=\"https://www.facebook.com/revaluateapp\">Facebook</a></li>\n" +
     "    </ul>\n" +
-    "</footer>\n" +
-    "");
+    "</footer>");
 }]);
 
 angular.module("app/common/partials/header-home.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/common/partials/header-home.html",
-    "<header class=\"header-home\">\n" +
+    "<div class=\"header-home__wrapper\">\n" +
     "\n" +
-    "    <div class=\"header-home__brand\">\n" +
-    "        <div class=\"header-home__brand--logo\">Logo</div>\n" +
-    "        <a href=\"javascript:void(0)\" class=\"header-home__brand--name\">Revaluate</a>\n" +
-    "    </div>\n" +
+    "    <header class=\"header-home\">\n" +
+    "\n" +
+    "        <div class=\"header-home__brand\">\n" +
+    "            <div class=\"header-home__brand--logo\">Logo</div>\n" +
+    "            <a href=\"javascript:void(0)\" class=\"header-home__brand--name\">Revaluate</a>\n" +
+    "        </div>\n" +
     "\n" +
     "\n" +
-    "    <ul class=\"header-home__navigation\">\n" +
-    "        <li><a href=\"javascript:void(0)\">Pricing</a></li>\n" +
-    "        <li><a href=\"javascript:void(0)\">Blog</a></li>\n" +
-    "        <li><a href=\"javascript:void(0)\">Contact</a></li>\n" +
-    "        <li><button class=\"header-home__navigation--btn\" account-modal-toggle=\"login\">Log in</button></li>\n" +
-    "    </ul>\n" +
+    "        <ul class=\"header-home__navigation\">\n" +
+    "            <li><a href=\"javascript:void(0)\">Pricing</a></li>\n" +
+    "            <li><a href=\"javascript:void(0)\">Blog</a></li>\n" +
+    "            <li><a href=\"javascript:void(0)\">Contact</a></li>\n" +
+    "            <li><button class=\"header-home__navigation--btn\" account-modal-toggle=\"login\">Log in</button></li>\n" +
+    "        </ul>\n" +
     "\n" +
-    "</header>\n" +
-    "");
+    "    </header>\n" +
+    "\n" +
+    "</div>");
 }]);
 
 angular.module("app/common/partials/header.html", []).run(["$templateCache", function($templateCache) {
@@ -6645,14 +6740,14 @@ angular.module("app/common/partials/header.html", []).run(["$templateCache", fun
     "        </button>\n" +
     "        <ul class=\"dropdown-menu header__dropdown__menu\" role=\"menu\">\n" +
     "            <li><a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"settings\">Preferences</a></li>\n" +
-    "            <li><a class=\"nav-link\" href=\"javascript:void(0)\" id=\"feedback-trigger\" ng-controller=\"FeedbackModalCtrl\" ng-click=\"openFeedbackModal()\">Send feedback</a></li>\n" +
+    "            <li><a class=\"nav-link\" href=\"javascript:void(0)\" id=\"feedback-trigger\" ng-controller=\"FeedbackModalController\" ng-click=\"openFeedbackModal()\">Send feedback</a></li>\n" +
     "            <li><a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"account:logout\">Logout</a></li>\n" +
     "        </ul>\n" +
     "    </div>\n" +
     "\n" +
     "    <ul class=\"header__navigation\">\n" +
-    "        <li><a href=\"javascript:void(0)\">Wallet</a></li>\n" +
-    "        <li><a href=\"javascript:void(0)\">Insights</a></li>\n" +
+    "        <li><a href=\"javascript:void(0)\" ui-sref=\"expenses.regular\">Wallet</a></li>\n" +
+    "        <li><a href=\"javascript:void(0)\" ui-sref=\"insights\">Insights</a></li>\n" +
     "        <li><a href=\"javascript:void(0)\">Goals</a></li>\n" +
     "    </ul>\n" +
     "\n" +

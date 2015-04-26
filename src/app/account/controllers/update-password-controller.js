@@ -3,7 +3,7 @@
  */
 angular
     .module("account")
-    .controller("UpdatePasswordCtrl", function ($scope, flash, AuthService, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS, ProfileFormToggle) {
+    .controller("UpdatePasswordController", function ($scope, flash, AuthService, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS, ProfileFormToggle) {
 
         /**
          * Alert identifier

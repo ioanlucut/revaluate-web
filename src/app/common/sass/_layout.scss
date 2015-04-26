@@ -1,11 +1,3 @@
-html, body {
-  height: 100%;
-}
-
-.page-wrapper {
-  background-color: $lightest-gray;
-}
-
 .view-container__header {
   background-color: $white;
 }
@@ -17,8 +9,7 @@ html, body {
   position: relative;
   background-color: $white;
   margin-top: 20px;
-  //box-shadow: 0 0 2px $lightest-gray;
-  padding: 25px;
+  padding: 50px 25px;
 }
 
 .view-container__footer {

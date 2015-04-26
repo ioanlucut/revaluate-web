@@ -1,7 +1,3 @@
-.categories {
-
-}
-
 .angucomplete-image-holder{
   position: relative;
 }
@@ -28,6 +24,7 @@
   line-height: $add-category-form-height;
   padding-right: 50px;
   display: inline-block;
+  text-transform: uppercase;
 }
 
 .categories__form__input-group__name {
@@ -55,17 +52,4 @@
   vertical-align: middle;
   position: relative;
   width: 45%;
-}
-
-.categories__edit__form__content__right__update,
-.categories__edit__category__delete,
-.categories__add__form__content__right__add {
-
-  &.ladda-button[data-style=expand-left][data-loading] {
-    padding-left: 20px;
-  }
-
-  &.ladda-button[data-style=expand-left] .ladda-spinner {
-    left: 10px;
-  }
 }

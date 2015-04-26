@@ -29,24 +29,12 @@ angular
             var expenseDto = ExpenseTransformerService.toExpenseDto(expense);
 
             return $http
-                .post(URLTo.api(EXPENSE_URLS.update), expenseDto)
+                .put(URLTo.api(EXPENSE_URLS.update), expenseDto)
                 .then(function (response) {
                     ExpenseTransformerService.toExpense(response.data, expense);
 
                     return response;
                 });
-        };
-
-        /**
-         * UnSubscribe from a expense.
-         * @param expense
-         * @returns {*}
-         */
-        this.unSubscribeFromExpense = function (expense) {
-            var expenseDto = ExpenseTransformerService.toExpenseDto(expense);
-
-            return $http
-                .post(URLTo.api(EXPENSE_URLS.unSubscribeExpense, { ":id": expenseDto.id }), expenseDto);
         };
 
         /**
@@ -91,6 +79,19 @@ angular
                 .get(URLTo.api(EXPENSE_URLS.details, { ":id": id }))
                 .then(function (response) {
                     return ExpenseTransformerService.toExpense(response.data, $injector.get('Expense').build());
+                });
+        };
+
+        /**
+         * Bulk delete action of a list of expenses.
+         * @returns {*}
+         */
+        this.bulkDelete = function (categories) {
+            return $http
+                .put(URLTo.api(EXPENSE_URLS.bulkDelete), ExpenseTransformerService.toExpenseDTOs(categories))
+                .then(function (response) {
+
+                    return response.data;
                 });
         };
     });
