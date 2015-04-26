@@ -5,7 +5,7 @@ angular
         /**
          * Saving timeout
          */
-        const TIMEOUT_DURATION = 300;
+        var TIMEOUT_DURATION = 300;
 
         /**
          * Initialize or reset the state

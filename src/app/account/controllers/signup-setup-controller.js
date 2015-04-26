@@ -28,7 +28,7 @@ angular
         /**
          * Saving timeout
          */
-        const TIMEOUT_DURATION = 300;
+        var TIMEOUT_DURATION = 300;
 
         /**
          * Existing predefined categories.

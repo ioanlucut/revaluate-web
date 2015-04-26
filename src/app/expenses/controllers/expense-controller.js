@@ -3,6 +3,11 @@ angular
     .controller("ExpenseController", function ($scope, $rootScope, $stateParams, Expense, expenses, ExpenseService, categories, $window, DatesUtils, $timeout, StatesHandler, EXPENSE_EVENTS, flash, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
 
         /**
+         * Saving timeout
+         */
+        var TIMEOUT_DURATION = 300;
+
+        /**
          * Alert identifier
          */
         $scope.alertIdentifierId = ALERTS_CONSTANTS.expenseList;
@@ -33,11 +38,6 @@ angular
          * Existing categories.
          */
         $scope.categories = categories;
-
-        /**
-         * Saving timeout
-         */
-        const TIMEOUT_DURATION = 300;
 
         /**
          * Initialize or reset the state
