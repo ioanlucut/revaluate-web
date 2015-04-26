@@ -1,5 +1,5 @@
 <!--Display expense-->
-<div class="expenses__list__entry__display" ng-if="! showContent" ng-click="toggleContent();$event.stopPropagation();">
+<div class="expenses__list__entry__display" ng-if="! showContent">
 
     <div class="expenses__list__entry__select">
         <input type="checkbox" ng-checked="expense.marked" ng-click="toggleMark();$event.stopPropagation();" />
@@ -18,12 +18,14 @@
 
     <!--Expense date-->
     <div class="expenses__list__entry__date">{{expense.model.spentDate | friendlyDate}}</div>
+
+    <button type="button" ng-click="toggleContent();">Edit</button>
 </div>
 
-<!-- Display expense form -->
+<!-- Display expense in edit mode -->
 <div class="expenses__form" ng-if="showContent">
 
-    <form name="expenseForm" ng-submit="updateExpense(expenseForm, shownExpense, category)" outside-click="cancel();" novalidate focus-first-error>
+    <form name="expenseForm" ng-submit="updateExpense(expenseForm, shownExpense, category)" novalidate focus-first-error>
 
         <!-- Form groups -->
         <div class="expense__form__price" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.value.$invalid || badPostSubmitResponse)}">
@@ -107,9 +109,11 @@
             <span ng-if="! isUpdating">
                 <span>Hit Enter to</span>
                 <button type="submit">save</button>
-                <span>the expense. Click outside the form to cancel.</span>
+                <span>the expense.</span>
             </span>
         </div>
     </form>
+
+    <button type="button" ng-click="cancel();">Cancel</button>
 
 </div>
