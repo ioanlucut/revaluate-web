@@ -17,6 +17,8 @@ angular
             AccountModal.openWithState(ACCOUNT_FORM_STATE.login)
         }
 
+        const TIMEOUT_PENDING = 300;
+
         /**
          * Login user information.
          * @type {{username: string, password: string}}
@@ -51,7 +53,7 @@ angular
                         // Stop the loading bar
                         $timeout(function () {
                             $scope.isRequestPending = false;
-                        }, 2000);
+                        }, TIMEOUT_PENDING);
                     })
             }
         };

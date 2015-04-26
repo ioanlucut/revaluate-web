@@ -3,7 +3,6 @@
  */
 angular
     .module("account", [
-        "ui.router",
         "common",
         "currencies",
         "categories"
