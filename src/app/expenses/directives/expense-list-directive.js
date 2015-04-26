@@ -23,7 +23,7 @@ angular
                  * Load more timeout
                  * @type {number}
                  */
-                const LOAD_MORE_TIMEOUT = 500;
+                var LOAD_MORE_TIMEOUT = 500;
 
                 /**
                  * Current user.

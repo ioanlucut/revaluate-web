@@ -11,7 +11,7 @@ angular
         /**
          * Edit/update timeout
          */
-        const TIMEOUT_DURATION = 300;
+        var TIMEOUT_DURATION = 300;
 
         /**
          * Update the expense.

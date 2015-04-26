@@ -17,7 +17,7 @@ angular
             AccountModal.openWithState(ACCOUNT_FORM_STATE.login)
         }
 
-        const TIMEOUT_PENDING = 300;
+        var TIMEOUT_PENDING = 300;
 
         /**
          * Login user information.
