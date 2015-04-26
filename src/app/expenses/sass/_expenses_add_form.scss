@@ -139,10 +139,6 @@ $add-expense-form-border-color: $gray-lightest;
   line-height: 1;
 }
 
-.expense__bulk--marked {
-  background: whitesmoke;
-}
-
 .expenses__bulk-actions {
   @include clearfix();
   width: 800px;
