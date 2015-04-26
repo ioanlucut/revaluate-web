@@ -3,14 +3,16 @@
  */
 angular
     .module("common", [
-        "a8m.filter-watcher",
+        "chart.js",
         "ui.router",
         "ngSanitize",
         "ui.bootstrap.transition",
         "ui.bootstrap.datepicker",
         "ui.bootstrap.dateparser",
         "ui.bootstrap.dropdown",
-        "ui.bootstrap.modal"
+        "ui.bootstrap.modal",
+        "angular-flash.service",
+        "angular-flash.flash-alert-directive"
     ])
     .config(function ($httpProvider) {
         $httpProvider.interceptors.push("JWTInterceptor");

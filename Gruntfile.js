@@ -42,6 +42,8 @@ module.exports = function (grunt) {
                     "bower_components/angular-ui-bootstrap/src/modal/modal.js",
                     "bower_components/angular-ui-bootstrap/src/tabs/tabs.js",
                     /* End angular ui used bootstrap */
+                    "bower_components/Chart.js/Chart.min.js",
+                    "bower_components/angular-chart.js/dist/angular-chart.js",
 
                     "bower_components/ngstorage/ngStorage.js",
                     "bower_components/angular-filter/dist/angular-filter.js",
@@ -74,6 +76,9 @@ module.exports = function (grunt) {
 
                     "src/app/expenses/expenses.js",
                     "src/app/expenses/**/*.js",
+
+                    "src/app/insights/insights.js",
+                    "src/app/insights/**/*.js",
 
                     "src/app/app.js",
                     "src/app/app.ctrl.js",
@@ -243,6 +248,7 @@ module.exports = function (grunt) {
                     "src/app/categories/partials/**/*.html",
                     "src/app/expenses/partials/**/*.html",
                     "src/app/account/partials/**/*.html",
+                    "src/app/insights/partials/**/*.html",
                     "src/app/feedback/**/*.html",
                     "src/app/common/**/*.html",
                     "bower_components/angular-ui-bootstrap/template/**/*.html"
@@ -274,6 +280,7 @@ module.exports = function (grunt) {
                     "src/app/feedback/**/*.html",
                     "src/app/categories/partials/**/*.html",
                     "src/app/expenses/partials/**/*.html",
+                    "src/app/insights/partials/**/*.html",
                     "src/app/common/**/*.html"
                 ],
                 tasks: ["html2js", "concat"]

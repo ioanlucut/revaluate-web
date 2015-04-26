@@ -6,9 +6,6 @@ angular
         "config",
         "ngAnimate",
         "ngMessages",
-        "ui.router",
-        "angular-flash.service",
-        "angular-flash.flash-alert-directive",
         "angucomplete-alt",
         "ngStorage",
         "partials",
@@ -18,6 +15,7 @@ angular
         "categories",
         "expenses",
         "account",
+        "insights",
         "angular.filter"
     ])
     .config(function ($locationProvider) {
