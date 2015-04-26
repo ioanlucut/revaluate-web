@@ -116,11 +116,7 @@ $add-expense-form-border-color: $gray-lightest;
   color: $gray-medium;
   font-weight: $font-weight-regular;
   font-size: $font-size-small;
-  padding-right: 10px;
-
-  span {
-    display: inline-block;
-  }
+  padding: 0 5px;
 
   button {
     padding: 0;
@@ -128,6 +124,20 @@ $add-expense-form-border-color: $gray-lightest;
     background-color: $white;
     color: $brand-primary;
     height: 100%;
+    margin-top: -3px;
+  }
+
+  .expense__edit__form__cancelbtn,
+  .expense__edit__form__savebtn {
+    display: block;
+  }
+
+  .expense__edit__form__cancelbtn {
+    float: left;
+  }
+
+  .expense__edit__form__savebtn {
+    float: right;
   }
 }
 

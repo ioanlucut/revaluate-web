@@ -19,7 +19,7 @@
     <!--Expense date-->
     <div class="expenses__list__entry__date">{{expense.model.spentDate | friendlyDate}}</div>
 
-    <button class="expenses__list__entry__editbtn" type="button" ng-click="toggleContent();">Edit</button>
+    <button class="expenses__list__entry__editbtn icon-pen" type="button" ng-click="toggleContent();"></button>
 </div>
 
 
@@ -106,16 +106,22 @@
         <!-- Button container -->
         <div class="expense__form__submit">
             <span ng-if="isUpdating">
-                <span>saving..</span>
+                <span>Saving the expense...</span>
             </span>
             <span ng-if="! isUpdating">
-                <span>Hit Enter to</span>
-                <button type="submit">save</button>
-                <span>the expense.</span>
+                <span class="expense__edit__form__cancelbtn" >
+                    <button type="button" ng-click="cancel();">Discard</button>
+                    <span>changes.</span>
+                </span>
+                <span class="expense__edit__form__savebtn" >
+                    <span>Enter to</span>
+                    <button type="submit">save</button>
+                    <span>the changes.</span>
+                </span>
             </span>
         </div>
     </form>
 
-    <button type="button" ng-click="cancel();">Cancel</button>
+
 
 </div>
