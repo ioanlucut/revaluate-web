@@ -159,20 +159,19 @@ $add-expense-form-border-color: $gray-lightest;
     .expenses__bulk-actions__delete {
 
       .expenses__bulk-actions__delete__btn-delete {
-        @include btn-big($brand-primary);
+        @include btn($brand-danger);
         display: block;
         float: left;
-        width: 120px;
       }
     }
 
     .expenses__bulk-actions__cancel {
 
       .expenses__bulk-actions__delete__btn-cancel {
-        @include btn-big($brand-danger);
+        @include btn($brand-default);
+        color: $gray-dark;
         display: block;
         float: left;
-        width: 80px;
       }
     }
 
@@ -181,5 +180,4 @@ $add-expense-form-border-color: $gray-lightest;
       display: inline-block;
     }
   }
-
 }
