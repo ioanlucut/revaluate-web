@@ -50,8 +50,8 @@
 
     &.color-picker__popover__colors__color__name--unselected {
       background-color: $white !important;
-      border-color: $lightest-gray;
-      color: $dark-gray;
+      border-color: $gray-lightest;
+      color: $gray-dark;
       text-shadow: none;
     }
   }

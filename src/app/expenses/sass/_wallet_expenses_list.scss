@@ -43,7 +43,7 @@
 
     span {
       padding-left: 5px;
-      color: $medium-gray;
+      color: $gray-medium;
       font-weight: $font-weight-light;
     }
   }
@@ -62,13 +62,13 @@
   }
 
   .expenses__list__entry__details {
-    color: $medium-gray;
+    color: $gray-medium;
   }
 
   .expenses__list__entry__date {
     width: 140px;
     float: right;
-    color: $medium-gray;
+    color: $gray-medium;
     text-align: right;
     font-size: $font-size-small;
   }
@@ -83,9 +83,9 @@
 }
 
 .expenses__list__loadbtn {
-  @include btn($lightest-gray);
+  @include btn($gray-lightest);
   width: 120px;
-  color: $dark-gray;
+  color: $gray-dark;
   margin: 50px auto;
   display: block;
 }

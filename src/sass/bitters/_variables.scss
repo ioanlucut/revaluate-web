@@ -33,10 +33,10 @@ $base-z-index: 0;
 $white: #ffffff;
 $black: #000000;
 
-$dark-gray: #5F5F5F;
-$medium-gray: #999;
-$light-gray: #ddd;
-$lightest-gray: #e8e8e8;
+$gray-dark: #5F5F5F;
+$gray-medium: #999;
+$gray-light: #ddd;
+$gray-lightest: #e8e8e8;
 
 $brand-primary: #4A90E2;
 
@@ -75,7 +75,7 @@ $action-color: $brand-primary;
 
 
 // Border
-$base-border-color: $light-gray;
+$base-border-color: $gray-light;
 $base-border: 2px solid $base-border-color; // DON'T EVEN THINK ABOUT TOUCHING THIS !!!
 
 
