@@ -36,7 +36,7 @@
   height: 30px;
   font-size: 30px;
   font-weight: $font-weight-light;
-  color: $medium-gray;
+  color: $gray-medium;
   @include transform(rotate(45deg));
 
   &:hover {

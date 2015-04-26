@@ -8,9 +8,10 @@
   @include span-columns(6);
   @include shift(3);
   @include border-radius($base-border-radius);
-  border: solid 1px $lightest-gray;
+  background-color: $white;
   padding: 40px;
   font-weight: $font-weight-light;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, .1);
 }
 
 .sign-up__setup__title {
@@ -39,11 +40,11 @@
     width: $setup-currency-input-width;
     height: 35px;
     padding: 5px 10px;
-    border: solid 2px $lightest-gray;
+    border: solid 2px $gray-lightest;
     @include border-radius($border-radius-base);
 
     &:hover {
-      border-color: $light-gray;
+      border-color: $gray-light;
     }
 
     &:focus {
@@ -59,7 +60,7 @@
 
 .sign-up__setup__description {
   padding: 10px 10px 40px 10px;
-  color: $medium-gray;
+  color: $gray-medium;
   font-size: 22px;
   font-weight: $font-weight-light;
 }
@@ -95,7 +96,7 @@
 
     &.category-name--unselected {
       opacity: 0.4;
-      border-color: $lightest-gray;
+      border-color: $gray-lightest;
       text-shadow: none;
     }
   }

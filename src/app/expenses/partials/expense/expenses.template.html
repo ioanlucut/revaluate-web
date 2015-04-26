@@ -1,18 +1,14 @@
-<div class="page-wrapper">
+<div header class="view-container__header"></div>
 
-    <div header class="view-container__header"></div>
+<div class="view-container__content">
+
+    <!-- Flash messages. -->
+    <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
     <div class="view-container__content">
-
-        <!-- Flash messages. -->
-        <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
-
-        <div class="view-container__content">
-            <div ui-view="expenses"></div>
-        </div>
-
+        <div ui-view="expenses"></div>
     </div>
 
-    <div footer class="view-container__footer"></div>
-
 </div>
+
+<div footer class="view-container__footer"></div>
