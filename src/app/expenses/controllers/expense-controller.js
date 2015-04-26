@@ -3,9 +3,14 @@ angular
     .controller("ExpenseController", function ($scope, $rootScope, $stateParams, Expense, expenses, ExpenseService, categories, $window, DatesUtils, $timeout, StatesHandler, EXPENSE_EVENTS, flash, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
 
         /**
-         * Saving timeout
+         * Updating/deleting timeout
          */
         var TIMEOUT_DURATION = 300;
+
+        /**
+         * Minimum expenses to enable bulk actions
+         */
+        var MIN_EXPENSES_TO_ENABLE_BULK_ACTION = 1;
 
         /**
          * Alert identifier
@@ -154,10 +159,9 @@ angular
         };
 
         /**
-         * Minimum expenses to enable bulk actions
+         * Get selected expenses for bulk action (marked===true)
+         * @returns {Array.<T>}
          */
-        var minimumExpensesToSelectForBulkAction = 2;
-
         function getSelectedExpensesForBulkAction() {
             return _.filter($scope.expenses, 'marked', true);
         }
@@ -166,7 +170,7 @@ angular
          * Is enough selected expenses for bulk action
          */
         $scope.isBulkActionEnabled = function () {
-            return getSelectedExpensesForBulkAction().length >= minimumExpensesToSelectForBulkAction;
+            return getSelectedExpensesForBulkAction().length >= MIN_EXPENSES_TO_ENABLE_BULK_ACTION;
         };
 
         /**
@@ -202,6 +206,11 @@ angular
             ExpenseService
                 .bulkDelete(selectedExpenses)
                 .then(function () {
+                    /**
+                     * Track event.
+                     */
+                    mixpanel.track(MIXPANEL_EVENTS.expenseDeleted);
+
                     $timeout(function () {
                         removeAllExpenseFrom($scope.expenses, selectedExpenses);
                         $scope.isBulkDeleting = false;

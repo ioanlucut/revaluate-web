@@ -93,7 +93,7 @@ angular
                 }
 
                 /**
-                 * Load more upcoming expenses.
+                 * Load more expenses.
                  */
                 scope.loadMoreExpenses = function () {
                     scope.isLoadingMore = !scope.isLoadingMore;
@@ -105,7 +105,7 @@ angular
                 };
 
                 /**
-                 * Past expenses still to be loaded ?
+                 * Expenses still to be loaded ?
                  * @returns {boolean}
                  */
                 scope.isStillExpensesToBeLoaded = function () {
