@@ -9,6 +9,12 @@ $add-expense-form-border-color: $gray-lightest;
   font-weight: $font-weight-bold;
   position: relative;
 
+  .expense__form__category__input {
+    color: $white;
+    text-transform: uppercase;
+    font-weight: $font-weight-bold;
+  }
+
   .expense__form__price__input,
   .expense__form__category__input,
   .expense__form__details__input,
