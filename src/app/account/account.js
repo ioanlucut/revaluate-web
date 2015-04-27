@@ -20,7 +20,8 @@ angular
                 url: "/account",
                 controller: "LoginController",
                 templateUrl: "app/site/partials/home.html",
-                title: "Login - Revaluate"
+                title: "Login - Revaluate",
+                isPublicPage: true
             })
 
             // Settings page
@@ -53,7 +54,8 @@ angular
                         return true;
                     }
                 },
-                title: "Logout - Revaluate"
+                title: "Logout - Revaluate",
+                isPublicPage: true
             })
 
             ///////////////////////////////////////////////
@@ -91,7 +93,8 @@ angular
                         return deferred.promise;
                     }
                 },
-                title: "Reset password - Revaluate"
+                title: "Reset password - Revaluate",
+                isPublicPage: true
             })
             // Validate password reset token - invalid token
             .state({
@@ -99,35 +102,8 @@ angular
                 url: "/invalid-token",
                 templateUrl: "app/account/partials/validate_password_reset_token_invalid.html",
                 controller: "ValidatePasswordResetTokenInvalidController",
-                title: "Reset password - Revaluate"
-            })
-
-            /////////////////////////
-            /*Sign up related views*/
-            /////////////////////////
-
-            // Sign up confirm abstract view
-            .state({
-                name: "account:confirmRegistration",
-                url: "/account/confirm-registration",
-                templateUrl: "app/account/partials/signup_confirm_abstract.html",
-                abstract: true
-            })
-            // Sign up confirm - valid
-            .state({
-                name: "account:confirmRegistration.valid",
-                url: "",
-                templateUrl: "app/account/partials/signup_confirm_valid.html",
-                controller: "SignUpConfirmController",
-                title: "Register - Revaluate"
-            })
-            // Sign up confirm - invalid
-            .state({
-                name: "account:confirmRegistration.invalid",
-                url: "/registration-failed",
-                templateUrl: "app/account/partials/signup_confirm_invalid.html",
-                controller: "SignUpConfirmInvalidController",
-                title: "Register - Revaluate"
+                title: "Reset password - Revaluate",
+                isPublicPage: true
             })
 
             // ---

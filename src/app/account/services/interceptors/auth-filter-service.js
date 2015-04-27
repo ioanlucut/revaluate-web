@@ -11,16 +11,12 @@ angular
                 || toState.name === "home")
                 && AuthService.isAuthenticated() ) {
 
-                // Prevent transition
+                /*If user is authenticated, and tries to go to /account or home, just to expenses*/
                 event.preventDefault();
                 StatesHandler.goToExpenses();
-            } else if (
-                (toState.url.indexOf("/settings") > -1
-                || toState.url.indexOf("/expenses") > -1
-                || toState.url.indexOf("/setup") > -1)
-                && !AuthService.isAuthenticated() ) {
+            } else if ( !AuthService.isAuthenticated() && !toState.isPublicPage ) {
 
-                // Prevent transition
+                /*If user is not authenticated, save attempt try and go to /account, where login modal is opened*/
                 event.preventDefault();
                 AuthService.saveAttemptUrl();
                 StatesHandler.goToLogin();
@@ -29,10 +25,20 @@ angular
                 && AuthService.isAuthenticated()
                 && User.$new().loadFromSession().isInitiated() ) {
 
-                // Prevent transition
+                /*Once user is initiated, do not let user to setup page*/
                 event.preventDefault();
                 StatesHandler.goToExpenses();
+            } else if (
+                !toState.isPublicPage
+                && toState.url.indexOf("/setup") === -1
+                && AuthService.isAuthenticated()
+                && !User.$new().loadFromSession().isInitiated() ) {
+
+                /*If user is not initiated but authenticated, and tries to go to a non public page, go to setup page*/
+                event.preventDefault();
+                StatesHandler.goToSetUp();
             }
+
         };
 
     });
