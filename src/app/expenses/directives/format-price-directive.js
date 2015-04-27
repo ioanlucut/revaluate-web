@@ -14,7 +14,7 @@ angular
 
                 /*First time format*/
                 ctrl.$formatters.unshift(function () {
-                    elem[0].value = ctrl.$modelValue;
+                    elem[0].value = parseInt(ctrl.$modelValue, 10) * 100;
                     elem.priceFormat(options);
                     return elem[0].value;
                 });

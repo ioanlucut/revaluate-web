@@ -1,9 +1,7 @@
 <!--Display expense-->
-<div class="expenses__list__entry__display" ng-if="! showContent" ng-class="expense.marked ? 'expense__bulk--marked' : ''">
+<div class="expenses__list__entry__display" ng-if="! showContent" ng-class="expense.marked ? 'expense__bulk--marked' : ''" ng-click="toggleMark();$event.stopPropagation();">
 
-    <div class="expenses__list__entry__select">
-        <input type="checkbox" ng-checked="expense.marked" ng-click="toggleMark();$event.stopPropagation();" />
-    </div>
+    <div ng-if="expense.marked">*</div>
 
     <div class="expenses__list__entry__price">
         {{expense.model.value | currency:""}}
@@ -21,8 +19,6 @@
 
     <button class="expenses__list__entry__editbtn icon-pen" type="button" ng-click="toggleContent();"></button>
 </div>
-
-
 
 <!-- Display expense in edit mode -->
 <div class="expenses__form" ng-if="showContent">
@@ -109,11 +105,11 @@
                 <span>Saving the expense...</span>
             </span>
             <span ng-if="! isUpdating">
-                <span class="expense__edit__form__cancelbtn" >
+                <span class="expense__edit__form__cancelbtn">
                     <button type="button" ng-click="cancel();">Discard</button>
                     <span>changes.</span>
                 </span>
-                <span class="expense__edit__form__savebtn" >
+                <span class="expense__edit__form__savebtn">
                     <span>Enter to</span>
                     <button type="submit">save</button>
                     <span>the changes.</span>
@@ -121,7 +117,6 @@
             </span>
         </div>
     </form>
-
 
 
 </div>
