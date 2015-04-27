@@ -27,7 +27,7 @@ angular
 
         $scope.$on(CATEGORY_EVENTS.isErrorOccurred, function () {
 
-            flash.to($scope.alertIdentifierId).error = "Error occurred!";
+            flash.to($scope.alertIdentifierId).error = "This category cannot be deleted as one or more expenses exists with this category";
         });
 
         /**
