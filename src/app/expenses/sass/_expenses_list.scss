@@ -38,7 +38,6 @@
     &:hover {
       background-color: lighten($brand-primary, 36%);
 
-      .expenses__list__entry__select,
       .expenses__list__entry__editbtn {
         opacity: 1;
       }
@@ -49,12 +48,12 @@
     position: absolute;
     left: -30px;
     top: 7px;
-    width: 30px;
-    text-align: right;
-    margin-right: 15px;
     display: inline-block;
+    width: 30px;
     height: 25px;
-    opacity: 0;
+    margin-right: 15px;
+    text-align: right;
+    color: $brand-danger;
 
     input {
       height: 100%;
