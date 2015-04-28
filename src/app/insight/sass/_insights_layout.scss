@@ -1,0 +1,50 @@
+.insights__textsection {
+  text-align: center;
+  padding-bottom: 30px;
+}
+
+.insights__datepicker {
+  width: 100%;
+  text-align: center;
+  font-size: 24px;
+
+  button {
+    @include btn-big($brand-default);
+    color: $black;
+  }
+}
+
+.insights__summary {
+  @include clearfix();
+  padding: 40px 0;
+
+  .insights__summary__thumbnail {
+    @include border-radius($base-border-radius);
+    border: solid 2px $gray-lightest;
+    margin: 10px 15px;
+    padding: 10px;
+    width: 30%;
+    float: left;
+    @include clearfix();
+
+    .insights__summary__thumbnail__number,
+    .insights__summary__thumbnail__label {
+      width: 100%;
+      float: left;
+      text-align: center;
+    }
+
+    .insights__summary__thumbnail__number {
+      font-size: 24px;
+      font-weight: $font-weight-bold;
+    }
+
+    .insights__summary__thumbnail__label {
+      color: $gray-medium;
+    }
+  }
+}
+
+.insights__chart__doughnut {
+  padding: 30px 5px;
+}
