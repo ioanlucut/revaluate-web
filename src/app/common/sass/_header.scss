@@ -26,6 +26,15 @@
     width: 110px;
     margin: 0;
     text-align: center;
+    position: relative;
+
+    span {
+      color: $gray-light;
+      position: absolute;
+      top: 15px;
+      left: 25px;
+      font-size: 10px;
+    }
   }
 }
 
