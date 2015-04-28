@@ -1,7 +1,7 @@
 <!--Display expense-->
 <div class="expenses__list__entry__display" ng-if="! showContent" ng-class="expense.marked ? 'expense__bulk--marked' : ''" ng-click="toggleMark();$event.stopPropagation();">
 
-    <div ng-if="expense.marked">*</div>
+    <div class="expenses__list__entry__select icon-checkmark" ng-if="expense.marked"></div>
 
     <div class="expenses__list__entry__price">
         {{expense.model.value | currency:""}}
