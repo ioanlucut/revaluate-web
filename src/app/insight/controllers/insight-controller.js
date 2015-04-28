@@ -11,4 +11,6 @@ angular
         mixpanel.track(MIXPANEL_EVENTS.insightsPage);
 
         $scope.insight = insight;
+        $scope.insightLineData = [insight.model.insightData];
+        $scope.insightLineSeries = ["Categories"];
     });
