@@ -3,13 +3,46 @@
 <div class="view-container__content">
 
     <div class="insights__textsection">
-        Here are some useful insights around your expenses.
+        Here are some useful insights around your insights.
     </div>
 
+    <!-- Insight fetch form -->
     <div class="insights__datepicker">
-        <button type="submit"> < </button>
-        <button type="submit" class="insights__datepicker__month"> March 2015 </button>
-        <button type="submit"> > </button>
+
+        <form name="insightForm" ng-submit="loadInsights()" novalidate>
+
+            <!-- Flash messages. -->
+            <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
+            <div class="insights__datepicker__month" ng-class="{'has-error': insightForm.spentDate.$invalid && insightForm.$submitted}">
+
+                <!--Hidden input of the insight chosen date-->
+                <input type="hidden" name="spentDate" ng-model="insightData.spentDate" required valid-date />
+
+                <!--insight date picker-->
+                <div class="insight__form__date__input">
+                    <button type="button"
+                            class="insight__form__date__input__btn"
+                            ng-click="openDatePicker($event)"
+                            ng-model="insightData.spentDate"
+                            datepicker-popup
+                            is-open="datePickerOpened"
+                            ng-change="onChange()"
+                            min-date="datePickerMinDate"
+                            max-date="datePickerMaxDate"
+                            datepicker-mode="'month'" min-mode="month"
+                            datepicker-options="{minMode: 'month',datepickerMode: 'month'}">{{isLoading ? 'Fetching from' : ''}} {{insightData.spentDate | friendlyMonthDate}}
+                    </button>
+                </div>
+
+                <!--Error messages-->
+                <div class="form-group-input__message" ng-class="{'has-error': insightForm.spentDate.$invalid && insightForm.$submitted}" ng-messages="insightForm.$error" ng-if="insightForm.$submitted">
+                    <div ng-message="required">Please add a date.</div>
+                    <div ng-message="validDate">Date should be in the past.</div>
+                </div>
+            </div>
+
+        </form>
     </div>
 
     <div class="insights__summary">
@@ -39,7 +72,8 @@
         <canvas class="chart chart-doughnut"
                 data="insight.model.insightData"
                 labels="insight.model.insightLabels"
-                colours="insight.model.insightColors"></canvas>
+                colours="insight.model.insightColors">
+        </canvas>
     </div>
 
     <canvas id="line"
@@ -48,19 +82,6 @@
             labels="insight.model.insightLabels"
             series="insightLineSeries"
             legend="true"></canvas>
-
-    <!-- <canvas id="line"
-             class="chart chart-line"
-             data="insight.model.insightData"
-             labels="insight.model.insightLabels"
-             series="insight.model.insightColors"
-             legend="true"></canvas>-->
-
-    <!--<canvas id="pie"-->
-            <!--class="chart chart-pie"-->
-            <!--data="insight.model.insightData"-->
-            <!--colours="insight.model.insightColors"-->
-            <!--labels="insight.model.insightLabels"></canvas>-->
 </div>
 
 <div footer class="view-container__footer"></div>

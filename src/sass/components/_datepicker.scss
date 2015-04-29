@@ -1,7 +1,10 @@
-.expense__form__date__input {
+.expense__form__date__input,
+.insight__form__date__input {
 
-  .expense__form__date__input__btn {
+  .expense__form__date__input__btn,
+  .insight__form__date__input__btn {
     position: relative;
+    width: 300px;
   }
 
   .dropdown-menu {
@@ -69,14 +72,19 @@
       text-align: center;
 
       .btn-group button {
-        &:first-child   { width: 100%; /* Make the "Today button wide */}
-        &:last-child    { display: none; /* Hide the "Clear" button */ }
+        &:first-child {
+          width: 100%; /* Make the "Today button wide */
+        }
+        &:last-child {
+          display: none; /* Hide the "Clear" button */
+        }
       }
 
-      & > button        { display: none; /* Hide the "Done" button */ }
+      & > button {
+        display: none; /* Hide the "Done" button */
+      }
     }
   }
-
 
   // Buttons
   // -------
@@ -132,6 +140,14 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  .glyphicon-chevron-left     { &:before { content: "\276e"; } }
-  .glyphicon-chevron-right    { &:before { content: "\276f"; } }
+  .glyphicon-chevron-left {
+    &:before {
+      content: "\276e";
+    }
+  }
+  .glyphicon-chevron-right {
+    &:before {
+      content: "\276f";
+    }
+  }
 }
