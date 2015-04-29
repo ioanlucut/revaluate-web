@@ -36,7 +36,17 @@ angular
                 /**
                  * To date period of the insight.
                  */
-                to: ""
+                to: "",
+
+                /**
+                 * Total amount spent
+                 */
+                totalAmountSpent: 0,
+
+                /**
+                 * Number of transactions
+                 */
+                numberOfTransactions: 0
             };
 
             /**
