@@ -39,6 +39,13 @@ angular
                 to: ""
             };
 
+            /**
+             * Is insight empty.
+             * @returns {boolean}
+             */
+            this.isEmpty = function () {
+                return this.model.insightData.length === 0;
+            };
         }
 
         /**

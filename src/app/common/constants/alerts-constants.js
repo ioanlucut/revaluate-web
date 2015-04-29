@@ -12,6 +12,7 @@ angular
         validatePassword: "validatePassword",
         createUpdateExpense: "createUpdateExpense",
         expenseList: "expenseList",
+        insights: "insights",
         categoryList: "categoryList",
         createUpdateCategory: "createUpdateCategory",
         updateProfile: "updateProfile",

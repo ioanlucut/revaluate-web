@@ -17,6 +17,7 @@ angular
         categoryUpdated: "Category updated",
         categoryDeleted: "Category deleted",
         insightsPage: "Insights page (site visited)",
+        insightsFetched: "Insights fetched",
         settings: "Settings",
         error404: "error-404",
         error500: "error-500"

@@ -25,7 +25,7 @@
   @include flash($error-color);
 }
 
-.alert-notice {
+.alert-info {
   @include flash($notice-color);
 }
 
