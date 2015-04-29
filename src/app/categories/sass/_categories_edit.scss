@@ -8,7 +8,8 @@
   @include span-columns(12);
   @include clearfix();
   @include border-radius($base-border-radius);
-  padding: 7px 5px 7px 10px;
+  padding: 0;
+  height: 42px;
 }
 
 .categories__edit__category__name {
@@ -18,7 +19,7 @@
   .categories__edit__category__color {
     @include border-radius(50%);
     @include size(22px 22px);
-    margin: 2px;
+    margin: 10px;
     display: inline-block;
     float: left;
     text-indent: -9999px;
@@ -29,7 +30,7 @@
     @include user-select(none);
     display: inline-block;
     float: left;
-    padding: 2px 10px;
+    padding: 10px 0;
     text-transform: uppercase;
     font-size: $font-size-base;
   }
@@ -38,24 +39,20 @@
 .categories__edit__category__controls {
   @include clearfix();
   float: right;
+  padding-top: 5px;
 
   .categories__edit__category__edit {
-
+    @include btn-small($brand-default);
+    color: $gray-dark;
   }
   .categories__edit__category__delete {
-
-    &:hover {
-      color: $brand-danger;
-    }
+    @include btn-small($brand-danger);
   }
 
   .categories__edit__category__edit,
   .categories__edit__category__delete {
     float: right;
-    display: inline-block;
-    margin: 0 5px;
-    padding: 2px 10px;
-    font-size: $font-size-base;
+    margin-left: 10px;
   }
 }
 
@@ -65,13 +62,15 @@
 
 .categories__edit__form__content__right {
   @include span-columns(4 of 8);
+  height: $add-category-form-height;
+  padding-top: 5px;
 
   .categories__edit__form__content__right__update {
-    @include btn($brand-primary);
+    @include btn-small($brand-primary);
   }
 
   .categories__edit__form__content__right__cancel {
-    @include btn($brand-default);
+    @include btn-small($brand-default);
     color: $gray-dark;
   }
 
