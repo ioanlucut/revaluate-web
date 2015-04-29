@@ -36,17 +36,7 @@ angular
                 /**
                  * Create date of the expense.
                  */
-                spentDate: "",
-
-                /**
-                 * Total amount spent
-                 */
-                totalAmountSpent: 0,
-
-                /**
-                 * Number of transactions
-                 */
-                numberOfTransactions: 0
+                spentDate: ""
             };
 
             /**

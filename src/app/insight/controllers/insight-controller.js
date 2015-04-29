@@ -51,12 +51,18 @@ angular
         $scope.datePickerMaxDate = moment().hours(0).minutes(0).seconds(0);
 
         /**
+         * Exposed insight data (first define master copy).
+         * @type {{spentDate: *}}
+         */
+        $scope.masterInsightData = {
+            spentDate: moment().toDate()
+        };
+
+        /**
          * Exposed insight data.
          * @type {{spentDate: *}}
          */
-        $scope.insightData = {
-            spentDate: moment().toDate()
-        };
+        $scope.insightData = angular.copy($scope.masterInsightData);
 
         /**
          * Load insights
@@ -88,6 +94,10 @@ angular
                             $scope.isLoading = false;
 
                             if ( receivedInsight.isEmpty() ) {
+                                // ---
+                                // Reset the insight data.
+                                // ---
+                                $scope.insightData = angular.copy($scope.masterInsightData);
                                 flash.to($scope.alertIdentifierId).info = "There are no expenses defined for selected period."
                             }
                             else {
@@ -99,7 +109,7 @@ angular
                                 // ---
                                 // Update everything.
                                 // ---
-                                $scope.insight = receivedInsight;
+                                $scope.masterInsightData = angular.copy($scope.insightData);
                                 $scope.insightLineData = [$scope.insight.model.insightData];
                                 $scope.insightLineSeries = ["Categories"];
                             }
