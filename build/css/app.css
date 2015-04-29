@@ -9379,9 +9379,18 @@ html, body {
   width: 110px;
   margin: 0;
   text-align: center;
+  position: relative;
+}
+/* line 31, ../../src/app/common/sass/_header.scss */
+.header__navigation li span {
+  color: #ddd;
+  position: absolute;
+  top: 15px;
+  left: 25px;
+  font-size: 10px;
 }
 
-/* line 32, ../../src/app/common/sass/_header.scss */
+/* line 41, ../../src/app/common/sass/_header.scss */
 .header__dropdown {
   float: right;
   height: -webkit-calc(60px - 2px);
@@ -9389,7 +9398,7 @@ html, body {
   border: solid 0px #999;
   position: relative;
 }
-/* line 38, ../../src/app/common/sass/_header.scss */
+/* line 47, ../../src/app/common/sass/_header.scss */
 .header__dropdown .header__dropdown__toggle {
   display: inline-block;
   height: 35px;
@@ -9414,11 +9423,11 @@ html, body {
   cursor: not-allowed;
   opacity: 0.5;
 }
-/* line 44, ../../src/app/common/sass/_header.scss */
+/* line 53, ../../src/app/common/sass/_header.scss */
 .header__dropdown .header__dropdown__toggle:hover {
   background-color: #fafafa;
 }
-/* line 49, ../../src/app/common/sass/_header.scss */
+/* line 58, ../../src/app/common/sass/_header.scss */
 .header__dropdown .header__dropdown__avatar {
   display: inline-block;
   margin: 0 5px;
@@ -9431,7 +9440,7 @@ html, body {
   text-align: center;
   text-indent: -9999px;
 }
-/* line 61, ../../src/app/common/sass/_header.scss */
+/* line 70, ../../src/app/common/sass/_header.scss */
 .header__dropdown .header__dropdown__menu {
   right: 0;
 }
@@ -10133,6 +10142,12 @@ html, body {
   display: table;
 }
 /* line 12, ../../src/app/expenses/sass/_expenses_add_form.scss */
+.expenses__form .expense__form__category__input {
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+/* line 18, ../../src/app/expenses/sass/_expenses_add_form.scss */
 .expenses__form .expense__form__price__input,
 .expenses__form .expense__form__category__input,
 .expenses__form .expense__form__details__input,
@@ -10141,9 +10156,16 @@ html, body {
   border-radius: 0;
   border-style: solid;
   border-width: 2px 0;
-  border-color: #e8e8e8 transparent;
+  border-color: #4A90E2 transparent;
 }
-/* line 21, ../../src/app/expenses/sass/_expenses_add_form.scss */
+/* line 27, ../../src/app/expenses/sass/_expenses_add_form.scss */
+.expenses__form .expense__form__price__input:hover,
+.expenses__form .expense__form__category__input:hover,
+.expenses__form .expense__form__details__input:hover,
+.expenses__form .expense__form__date__input:hover {
+  border-color: #4A90E2;
+}
+/* line 31, ../../src/app/expenses/sass/_expenses_add_form.scss */
 .expenses__form .expense__form__price__input:focus,
 .expenses__form .expense__form__category__input:focus,
 .expenses__form .expense__form__details__input:focus,
@@ -10152,7 +10174,7 @@ html, body {
   background-color: #e4eefb;
 }
 
-/* line 34, ../../src/app/expenses/sass/_expenses_add_form.scss */
+/* line 44, ../../src/app/expenses/sass/_expenses_add_form.scss */
 .expense__form__price.has-error input,
 .expense__form__category.has-error input,
 .expense__form__details.has-error input,
@@ -10160,7 +10182,7 @@ html, body {
   border-color: #ED5565;
 }
 
-/* line 43, ../../src/app/expenses/sass/_expenses_add_form.scss */
+/* line 53, ../../src/app/expenses/sass/_expenses_add_form.scss */
 .expense__form__price {
   float: left;
   padding: 0;
@@ -10173,18 +10195,18 @@ html, body {
   content: "";
   display: table;
 }
-/* line 50, ../../src/app/expenses/sass/_expenses_add_form.scss */
+/* line 60, ../../src/app/expenses/sass/_expenses_add_form.scss */
 .expense__form__price .expense__form__price__input {
   border-bottom-left-radius: 4px;
   border-top-left-radius: 4px;
   float: left;
   height: 50px;
   line-height: 50px;
-  border-left: solid 2px #e8e8e8;
+  border-left: solid 2px #4A90E2;
   text-align: right;
   padding-right: 50px;
 }
-/* line 60, ../../src/app/expenses/sass/_expenses_add_form.scss */
+/* line 70, ../../src/app/expenses/sass/_expenses_add_form.scss */
 .expense__form__price .expense__form__price__currency {
   float: left;
   margin-left: -40px;
@@ -10195,18 +10217,18 @@ html, body {
   z-index: -999;
 }
 
-/* line 73, ../../src/app/expenses/sass/_expenses_add_form.scss */
+/* line 83, ../../src/app/expenses/sass/_expenses_add_form.scss */
 .expense__form__details {
   float: left;
   width: 30%;
   position: relative;
 }
-/* line 78, ../../src/app/expenses/sass/_expenses_add_form.scss */
+/* line 88, ../../src/app/expenses/sass/_expenses_add_form.scss */
 .expense__form__details .expense__form__details__input {
   height: 50px;
 }
 
-/* line 85, ../../src/app/expenses/sass/_expenses_add_form.scss */
+/* line 95, ../../src/app/expenses/sass/_expenses_add_form.scss */
 .expense__form__date {
   float: left;
   overflow: auto;
@@ -10214,20 +10236,20 @@ html, body {
   width: 20%;
   padding: 0;
 }
-/* line 92, ../../src/app/expenses/sass/_expenses_add_form.scss */
+/* line 102, ../../src/app/expenses/sass/_expenses_add_form.scss */
 .expense__form__date .expense__form__date__input {
   height: 50px;
   padding: 0 15px;
   text-align: right;
-  border-right: solid 2px #e8e8e8;
+  border-right: solid 2px #4A90E2;
   border-bottom-right-radius: 3px;
   border-top-right-radius: 3px;
 }
-/* line 99, ../../src/app/expenses/sass/_expenses_add_form.scss */
+/* line 109, ../../src/app/expenses/sass/_expenses_add_form.scss */
 .expense__form__date .expense__form__date__input:focus {
   border: solid 2px #4A90E2;
 }
-/* line 103, ../../src/app/expenses/sass/_expenses_add_form.scss */
+/* line 113, ../../src/app/expenses/sass/_expenses_add_form.scss */
 .expense__form__date .expense__form__date__input > button {
   height: 100%;
   width: 100%;
@@ -10235,7 +10257,7 @@ html, body {
   background-color: #ffffff;
 }
 
-/* line 112, ../../src/app/expenses/sass/_expenses_add_form.scss */
+/* line 122, ../../src/app/expenses/sass/_expenses_add_form.scss */
 .expense__form__submit {
   float: left;
   width: 100%;
@@ -10245,7 +10267,7 @@ html, body {
   font-size: 12px;
   padding: 0 5px;
 }
-/* line 121, ../../src/app/expenses/sass/_expenses_add_form.scss */
+/* line 131, ../../src/app/expenses/sass/_expenses_add_form.scss */
 .expense__form__submit button {
   padding: 0;
   margin: 0;
@@ -10254,21 +10276,21 @@ html, body {
   height: 100%;
   margin-top: -3px;
 }
-/* line 130, ../../src/app/expenses/sass/_expenses_add_form.scss */
+/* line 140, ../../src/app/expenses/sass/_expenses_add_form.scss */
 .expense__form__submit .expense__edit__form__cancelbtn,
 .expense__form__submit .expense__edit__form__savebtn {
   display: block;
 }
-/* line 135, ../../src/app/expenses/sass/_expenses_add_form.scss */
+/* line 145, ../../src/app/expenses/sass/_expenses_add_form.scss */
 .expense__form__submit .expense__edit__form__cancelbtn {
   float: left;
 }
-/* line 139, ../../src/app/expenses/sass/_expenses_add_form.scss */
+/* line 149, ../../src/app/expenses/sass/_expenses_add_form.scss */
 .expense__form__submit .expense__edit__form__savebtn {
   float: right;
 }
 
-/* line 144, ../../src/app/expenses/sass/_expenses_add_form.scss */
+/* line 154, ../../src/app/expenses/sass/_expenses_add_form.scss */
 .expense__found--highlight {
   display: inline-block;
   background: rgba(255, 230, 0, 0.5);
@@ -10277,7 +10299,7 @@ html, body {
   line-height: 1;
 }
 
-/* line 152, ../../src/app/expenses/sass/_expenses_add_form.scss */
+/* line 162, ../../src/app/expenses/sass/_expenses_add_form.scss */
 .expenses__bulk-actions {
   width: 800px;
   margin: 0 auto;
@@ -10291,13 +10313,13 @@ html, body {
   content: "";
   display: table;
 }
-/* line 160, ../../src/app/expenses/sass/_expenses_add_form.scss */
+/* line 170, ../../src/app/expenses/sass/_expenses_add_form.scss */
 .expenses__bulk-actions .expenses__bulk-actions__buttons {
   position: absolute;
   left: 0;
   right: 0;
 }
-/* line 167, ../../src/app/expenses/sass/_expenses_add_form.scss */
+/* line 177, ../../src/app/expenses/sass/_expenses_add_form.scss */
 .expenses__bulk-actions .expenses__bulk-actions__buttons .expenses__bulk-actions__delete .expenses__bulk-actions__delete__btn-delete {
   display: inline-block;
   height: 35px;
@@ -10321,7 +10343,7 @@ html, body {
   cursor: not-allowed;
   opacity: 0.5;
 }
-/* line 176, ../../src/app/expenses/sass/_expenses_add_form.scss */
+/* line 186, ../../src/app/expenses/sass/_expenses_add_form.scss */
 .expenses__bulk-actions .expenses__bulk-actions__buttons .expenses__bulk-actions__cancel .expenses__bulk-actions__delete__btn-cancel {
   display: inline-block;
   height: 35px;
@@ -10346,7 +10368,7 @@ html, body {
   cursor: not-allowed;
   opacity: 0.5;
 }
-/* line 184, ../../src/app/expenses/sass/_expenses_add_form.scss */
+/* line 194, ../../src/app/expenses/sass/_expenses_add_form.scss */
 .expenses__bulk-actions .expenses__bulk-actions__buttons .expenses__bulk-actions__delete,
 .expenses__bulk-actions .expenses__bulk-actions__buttons .expenses__bulk-actions__cancel {
   display: inline-block;
@@ -10394,12 +10416,12 @@ html, body {
   margin: 0;
 }
 
-/* line 13, ../../src/app/expenses/sass/_expenses_list.scss */
+/* line 1, ../../src/app/expenses/sass/_expenses_list.scss */
 .expenses__list {
   padding: 50px 15px 20px 15px;
 }
 
-/* line 17, ../../src/app/expenses/sass/_expenses_list.scss */
+/* line 5, ../../src/app/expenses/sass/_expenses_list.scss */
 .expenses__list__entry {
   width: 100%;
   max-width: 800px;
@@ -10408,7 +10430,7 @@ html, body {
   padding-bottom: 4px;
   position: relative;
 }
-/* line 25, ../../src/app/expenses/sass/_expenses_list.scss */
+/* line 13, ../../src/app/expenses/sass/_expenses_list.scss */
 .expenses__list__entry .expenses__list__entry__display {
   width: 100%;
   height: 34px;
@@ -10416,39 +10438,39 @@ html, body {
   border: solid 2px transparent;
   -webkit-border-radius: 4px;
   border-radius: 4px;
+  cursor: pointer;
 }
-/* line 32, ../../src/app/expenses/sass/_expenses_list.scss */
+/* line 21, ../../src/app/expenses/sass/_expenses_list.scss */
 .expenses__list__entry .expenses__list__entry__display div {
   display: inline-block;
   padding: 2px 10px;
 }
-/* line 37, ../../src/app/expenses/sass/_expenses_list.scss */
+/* line 26, ../../src/app/expenses/sass/_expenses_list.scss */
 .expenses__list__entry .expenses__list__entry__display:hover {
   background-color: #e8f1fb;
 }
-/* line 40, ../../src/app/expenses/sass/_expenses_list.scss */
-.expenses__list__entry .expenses__list__entry__display:hover .expenses__list__entry__select,
+/* line 29, ../../src/app/expenses/sass/_expenses_list.scss */
 .expenses__list__entry .expenses__list__entry__display:hover .expenses__list__entry__editbtn {
   opacity: 1;
 }
-/* line 47, ../../src/app/expenses/sass/_expenses_list.scss */
+/* line 35, ../../src/app/expenses/sass/_expenses_list.scss */
 .expenses__list__entry .expenses__list__entry__select {
   position: absolute;
   left: -30px;
   top: 7px;
-  width: 30px;
-  text-align: right;
-  margin-right: 15px;
   display: inline-block;
+  width: 30px;
   height: 25px;
-  opacity: 0;
+  margin-right: 15px;
+  text-align: right;
+  color: #ED5565;
 }
-/* line 58, ../../src/app/expenses/sass/_expenses_list.scss */
+/* line 46, ../../src/app/expenses/sass/_expenses_list.scss */
 .expenses__list__entry .expenses__list__entry__select input {
   height: 100%;
   width: 100%;
 }
-/* line 64, ../../src/app/expenses/sass/_expenses_list.scss */
+/* line 52, ../../src/app/expenses/sass/_expenses_list.scss */
 .expenses__list__entry .expenses__list__entry__editbtn {
   position: absolute;
   left: 3px;
@@ -10460,24 +10482,24 @@ html, body {
   background-color: transparent;
   opacity: 0;
 }
-/* line 73, ../../src/app/expenses/sass/_expenses_list.scss */
+/* line 61, ../../src/app/expenses/sass/_expenses_list.scss */
 .expenses__list__entry .expenses__list__entry__editbtn:hover {
   background-color: rgba(255, 255, 255, 0.8);
 }
-/* line 78, ../../src/app/expenses/sass/_expenses_list.scss */
+/* line 66, ../../src/app/expenses/sass/_expenses_list.scss */
 .expenses__list__entry .expenses__list__entry__price {
   width: 160px;
   text-align: right;
   font-weight: 700;
   margin-right: 15px;
 }
-/* line 84, ../../src/app/expenses/sass/_expenses_list.scss */
+/* line 72, ../../src/app/expenses/sass/_expenses_list.scss */
 .expenses__list__entry .expenses__list__entry__price span {
   padding-left: 5px;
   color: #999;
   font-weight: 300;
 }
-/* line 91, ../../src/app/expenses/sass/_expenses_list.scss */
+/* line 79, ../../src/app/expenses/sass/_expenses_list.scss */
 .expenses__list__entry .expenses__list__entry__category {
   -webkit-border-radius: 2px;
   border-radius: 2px;
@@ -10490,11 +10512,11 @@ html, body {
   text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
   background-color: #4A90E2;
 }
-/* line 95, ../../src/app/expenses/sass/_expenses_list.scss */
+/* line 83, ../../src/app/expenses/sass/_expenses_list.scss */
 .expenses__list__entry .expenses__list__entry__details {
   color: #999;
 }
-/* line 99, ../../src/app/expenses/sass/_expenses_list.scss */
+/* line 87, ../../src/app/expenses/sass/_expenses_list.scss */
 .expenses__list__entry .expenses__list__entry__date {
   width: 140px;
   float: right;
@@ -10503,13 +10525,13 @@ html, body {
   font-size: 12px;
 }
 
-/* line 108, ../../src/app/expenses/sass/_expenses_list.scss */
+/* line 96, ../../src/app/expenses/sass/_expenses_list.scss */
 .expense__bulk--marked {
   background: #fef6f7 !important;
   border: solid 2px #4A90E2;
 }
 
-/* line 113, ../../src/app/expenses/sass/_expenses_list.scss */
+/* line 101, ../../src/app/expenses/sass/_expenses_list.scss */
 .expenses__list__loadbtn {
   display: inline-block;
   height: 35px;
@@ -11031,6 +11053,97 @@ html, body {
   border-color: #e8e8e8;
   color: #5F5F5F;
   text-shadow: none;
+}
+
+/* Import sub-modules */
+/* line 1, ../../src/app/insight/sass/_insights_layout.scss */
+.insights__textsection {
+  text-align: center;
+  padding-bottom: 30px;
+}
+
+/* line 6, ../../src/app/insight/sass/_insights_layout.scss */
+.insights__datepicker {
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+}
+/* line 11, ../../src/app/insight/sass/_insights_layout.scss */
+.insights__datepicker button {
+  display: inline-block;
+  height: 35px;
+  background-color: #E7E7E7;
+  padding: 0 15px;
+  line-height: 35px;
+  color: #ffffff;
+  text-align: center;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  height: 40px;
+  line-height: 40px;
+  color: #000000;
+}
+/* line 15, ../../src/sass/components/_buttons.scss */
+.insights__datepicker button:hover, .insights__datepicker button:focus {
+  background-color: #f4f4f4;
+  cursor: pointer;
+}
+/* line 21, ../../src/sass/components/_buttons.scss */
+.insights__datepicker button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+/* line 16, ../../src/app/insight/sass/_insights_layout.scss */
+.insights__datepicker .insights__datepicker__month {
+  width: 200px;
+}
+
+/* line 21, ../../src/app/insight/sass/_insights_layout.scss */
+.insights__summary {
+  padding: 40px 0;
+}
+/* line 20, ../../bower_components/bourbon/app/assets/stylesheets/addons/_clearfix.scss */
+.insights__summary::after {
+  clear: both;
+  content: "";
+  display: table;
+}
+/* line 25, ../../src/app/insight/sass/_insights_layout.scss */
+.insights__summary .insights__summary__thumbnail {
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  border: solid 2px #e8e8e8;
+  margin: 10px 15px;
+  padding: 10px;
+  width: 30%;
+  float: left;
+}
+/* line 20, ../../bower_components/bourbon/app/assets/stylesheets/addons/_clearfix.scss */
+.insights__summary .insights__summary__thumbnail::after {
+  clear: both;
+  content: "";
+  display: table;
+}
+/* line 34, ../../src/app/insight/sass/_insights_layout.scss */
+.insights__summary .insights__summary__thumbnail .insights__summary__thumbnail__number,
+.insights__summary .insights__summary__thumbnail .insights__summary__thumbnail__label {
+  width: 100%;
+  float: left;
+  text-align: center;
+}
+/* line 41, ../../src/app/insight/sass/_insights_layout.scss */
+.insights__summary .insights__summary__thumbnail .insights__summary__thumbnail__number {
+  font-size: 24px;
+  font-weight: 700;
+}
+/* line 46, ../../src/app/insight/sass/_insights_layout.scss */
+.insights__summary .insights__summary__thumbnail .insights__summary__thumbnail__label {
+  color: #999;
+}
+
+/* line 52, ../../src/app/insight/sass/_insights_layout.scss */
+.insights__chart__doughnut {
+  padding: 30px 5px;
 }
 
 /*# sourceMappingURL=app.css.map */

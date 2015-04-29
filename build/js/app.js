@@ -1505,7 +1505,8 @@ angular
                 url: "/account",
                 controller: "LoginController",
                 templateUrl: "app/site/partials/home.html",
-                title: "Login - Revaluate"
+                title: "Login - Revaluate",
+                isPublicPage: true
             })
 
             // Settings page
@@ -1538,7 +1539,8 @@ angular
                         return true;
                     }]
                 },
-                title: "Logout - Revaluate"
+                title: "Logout - Revaluate",
+                isPublicPage: true
             })
 
             ///////////////////////////////////////////////
@@ -1576,7 +1578,8 @@ angular
                         return deferred.promise;
                     }]
                 },
-                title: "Reset password - Revaluate"
+                title: "Reset password - Revaluate",
+                isPublicPage: true
             })
             // Validate password reset token - invalid token
             .state({
@@ -1584,35 +1587,8 @@ angular
                 url: "/invalid-token",
                 templateUrl: "app/account/partials/validate_password_reset_token_invalid.html",
                 controller: "ValidatePasswordResetTokenInvalidController",
-                title: "Reset password - Revaluate"
-            })
-
-            /////////////////////////
-            /*Sign up related views*/
-            /////////////////////////
-
-            // Sign up confirm abstract view
-            .state({
-                name: "account:confirmRegistration",
-                url: "/account/confirm-registration",
-                templateUrl: "app/account/partials/signup_confirm_abstract.html",
-                abstract: true
-            })
-            // Sign up confirm - valid
-            .state({
-                name: "account:confirmRegistration.valid",
-                url: "",
-                templateUrl: "app/account/partials/signup_confirm_valid.html",
-                controller: "SignUpConfirmController",
-                title: "Register - Revaluate"
-            })
-            // Sign up confirm - invalid
-            .state({
-                name: "account:confirmRegistration.invalid",
-                url: "/registration-failed",
-                templateUrl: "app/account/partials/signup_confirm_invalid.html",
-                controller: "SignUpConfirmInvalidController",
-                title: "Register - Revaluate"
+                title: "Reset password - Revaluate",
+                isPublicPage: true
             })
 
             // ---
@@ -1731,7 +1707,7 @@ angular
     }]);
 ;angular
     .module("account")
-    .controller("HomeSignUpRegistrationController", ["$scope", "$timeout", "flash", "ALERTS_CONSTANTS", "StatesHandler", "User", "AuthService", "TimezoneProvider", "MIXPANEL_EVENTS", function ($scope, $timeout, flash, ALERTS_CONSTANTS, StatesHandler, User, AuthService, TimezoneProvider, MIXPANEL_EVENTS) {
+    .controller("HomeSignUpRegistrationController", ["$scope", "$timeout", "flash", "ALERTS_CONSTANTS", "StatesHandler", "User", "AuthService", "MIXPANEL_EVENTS", function ($scope, $timeout, flash, ALERTS_CONSTANTS, StatesHandler, User, AuthService, MIXPANEL_EVENTS) {
 
         /**
          * Alert identifier
@@ -1746,25 +1722,20 @@ angular
             lastName: "",
             password: "",
             email: "",
-            timezone: jstz.determine().name(),
             currency: {
                 "currencyCode": "EUR"
             }
         };
-
-        /**
-         * Timezone details
-         */
-        $scope.timezoneDetails = TimezoneProvider.getTimezoneDescription($scope.signUpData.timezone);
 
         /*
          * Sign up functionality.
          * @param signUpData
          */
         $scope.signUp = function (signUpData) {
-            if ( $scope.signUpForm.$valid ) {
+            if ( $scope.signUpForm.$valid && !$scope.isRequestPending ) {
 
-                // Create a new user
+                $scope.isRequestPending = true;
+
                 User.$new()
                     .$create(signUpData)
                     .then(function () {
@@ -1773,16 +1744,18 @@ angular
                          */
                         mixpanel.track(MIXPANEL_EVENTS.signUpCompleted);
 
-                        // Log in the user
                         AuthService
                             .login(signUpData.email, signUpData.password)
                             .then(function () {
+                                $scope.isRequestPending = false;
+
                                 StatesHandler.goToSetUp();
                             });
                     })
                     .catch(function () {
                         /* If bad feedback from server */
                         $scope.badPostSubmitResponse = true;
+                        $scope.isRequestPending = false;
 
                         flash.to($scope.alertIdentifierId).error = "Sorry, something went wrong.";
                     });
@@ -1825,7 +1798,7 @@ angular
          * @param loginData
          */
         $scope.login = function (loginData) {
-            if ( $scope.loginForm.$valid ) {
+            if ( $scope.loginForm.$valid && !$scope.isRequestPending ) {
 
                 // Show the loading bar
                 $scope.isRequestPending = true;
@@ -1989,87 +1962,6 @@ angular
         };
     }]);;angular
     .module("account")
-    .controller("SignUpConfirmController", ["$scope", "$timeout", "flash", "ALERTS_CONSTANTS", "StatesHandler", "User", "AuthService", "TimezoneProvider", "MIXPANEL_EVENTS", function ($scope, $timeout, flash, ALERTS_CONSTANTS, StatesHandler, User, AuthService, TimezoneProvider, MIXPANEL_EVENTS) {
-
-        /**
-         * Alert identifier
-         */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.signUpConfirm;
-
-        /**
-         * Sign up user information.
-         * @type {{firstName: string, lastName: string, email: string, password: string}}
-         */
-        $scope.signUpData = {
-            firstName: "",
-            lastName: "",
-            password: "",
-            email: "",
-            timezone: jstz.determine().name(),
-            currency: {
-                "currencyCode": "USD"
-            }
-        };
-
-        /**
-         * Timezone details
-         */
-        $scope.timezoneDetails = TimezoneProvider.getTimezoneDescription($scope.signUpData.timezone);
-
-        /*
-         * Sign up functionality.
-         * @param signUpData
-         */
-        $scope.signUp = function (signUpData) {
-            if ( $scope.signUpForm.$valid ) {
-
-                // Create a new user
-                User.$new()
-                    .$create(signUpData)
-                    .then(function () {
-                        /**
-                         * Track event.
-                         */
-                        mixpanel.track(MIXPANEL_EVENTS.signUpCompleted);
-
-                        // Log in the user
-                        AuthService
-                            .login(signUpData.email, signUpData.password)
-                            .then(function () {
-                                StatesHandler.goToSetUp();
-                            });
-                    })
-                    .catch(function () {
-                        /* If bad feedback from server */
-                        $scope.badPostSubmitResponse = true;
-
-                        flash.to($scope.alertIdentifierId).error = "Sorry, something went wrong.";
-                    });
-            }
-        };
-
-    }]);
-;angular
-    .module("account")
-    .controller("SignUpConfirmInvalidController", ["$scope", "AuthService", "StatesHandler", function ($scope, AuthService, StatesHandler) {
-
-        /**
-         * Flag which tells if user is currently authenticated while coming to this page.
-         */
-        $scope.isUserAuthenticated = AuthService.isAuthenticated();
-
-        /**
-         * Continues to reset password page. (try again functionality)
-         */
-        $scope.goHome = function () {
-            if ( $scope.isUserAuthenticated ) {
-                AuthService.logout();
-            }
-            StatesHandler.goHome();
-        };
-    }]);
-;angular
-    .module("account")
     .controller("SignUpSetUpRegistrationController", ["$q", "$rootScope", "$scope", "$timeout", "flash", "AuthService", "CategoryService", "AUTH_EVENTS", "ALERTS_CONSTANTS", "predefinedCategories", "CategoryColorService", "SessionService", "StatesHandler", "Category", "currencies", function ($q, $rootScope, $scope, $timeout, flash, AuthService, CategoryService, AUTH_EVENTS, ALERTS_CONSTANTS, predefinedCategories, CategoryColorService, SessionService, StatesHandler, Category, currencies) {
 
         /**
@@ -2195,7 +2087,7 @@ angular
         /**
          * Minimum categories to select
          */
-        var minimumCategoriesToSelect = 3;
+        var MIN_CATEGORIES_TO_SELECT = 3;
 
         function getSelectedCategories() {
             return _.filter($scope.categories, 'selected', true);
@@ -2205,7 +2097,7 @@ angular
          * Is enough selected categories
          */
         $scope.isEnoughSelectedCategories = function () {
-            return getSelectedCategories().length >= minimumCategoriesToSelect;
+            return getSelectedCategories().length >= MIN_CATEGORIES_TO_SELECT;
         };
 
         /**
@@ -2798,16 +2690,12 @@ angular
                 || toState.name === "home")
                 && AuthService.isAuthenticated() ) {
 
-                // Prevent transition
+                /*If user is authenticated, and tries to go to /account or home, just to expenses*/
                 event.preventDefault();
                 StatesHandler.goToExpenses();
-            } else if (
-                (toState.url.indexOf("/settings") > -1
-                || toState.url.indexOf("/expenses") > -1
-                || toState.url.indexOf("/setup") > -1)
-                && !AuthService.isAuthenticated() ) {
+            } else if ( !AuthService.isAuthenticated() && !toState.isPublicPage ) {
 
-                // Prevent transition
+                /*If user is not authenticated, save attempt try and go to /account, where login modal is opened*/
                 event.preventDefault();
                 AuthService.saveAttemptUrl();
                 StatesHandler.goToLogin();
@@ -2816,10 +2704,20 @@ angular
                 && AuthService.isAuthenticated()
                 && User.$new().loadFromSession().isInitiated() ) {
 
-                // Prevent transition
+                /*Once user is initiated, do not let user to setup page*/
                 event.preventDefault();
                 StatesHandler.goToExpenses();
+            } else if (
+                !toState.isPublicPage
+                && toState.url.indexOf("/setup") === -1
+                && AuthService.isAuthenticated()
+                && !User.$new().loadFromSession().isInitiated() ) {
+
+                /*If user is not initiated but authenticated, and tries to go to a non public page, go to setup page*/
+                event.preventDefault();
+                StatesHandler.goToSetUp();
             }
+
         };
 
     }]);;/**
@@ -3082,29 +2980,34 @@ angular
                 url: "/",
                 templateUrl: "app/site/partials/home.html",
                 controller: "LandingPageController",
-                title: "Change the way you spend your money"
+                title: "Change the way you spend your money",
+                isPublicPage: true
             })
             .state("privacy", {
                 url: "/privacy",
                 templateUrl: "app/site/partials/privacy.html",
-                title: "Privacy - Revaluate"
+                title: "Privacy - Revaluate",
+                isPublicPage: true
             })
             .state("about", {
                 url: "/about",
                 templateUrl: "app/site/partials/about.html",
-                title: "About - Revaluate"
+                title: "About - Revaluate",
+                isPublicPage: true
             })
             .state("404", {
                 url: "/404",
                 templateUrl: "app/site/partials/404.html",
                 controller: "Error404PageController",
-                title: "Hmm... looks like a 404"
+                title: "Hmm... looks like a 404",
+                isPublicPage: true
             })
             .state("500", {
                 url: "/500",
                 templateUrl: "app/site/partials/500.html",
                 controller: "Error500PageController",
-                title: "Oops... You found a 500"
+                title: "Oops... You found a 500",
+                isPublicPage: true
             });
     }]);
 ;/**
@@ -3420,7 +3323,7 @@ angular
 
         $scope.$on(CATEGORY_EVENTS.isErrorOccurred, function () {
 
-            flash.to($scope.alertIdentifierId).error = "Error occurred!";
+            flash.to($scope.alertIdentifierId).error = "This category cannot be deleted as one or more expenses exists with this category";
         });
 
         /**
@@ -4792,7 +4695,7 @@ angular
 
                 /*First time format*/
                 ctrl.$formatters.unshift(function () {
-                    elem[0].value = ctrl.$modelValue;
+                    elem[0].value = parseInt(ctrl.$modelValue, 10) * 100;
                     elem.priceFormat(options);
                     return elem[0].value;
                 });
@@ -5116,78 +5019,204 @@ angular
         $stateProvider
             .state("insights", {
                 url: "/insights",
-                templateUrl: 'app/insights/partials/insights.html',
-                controller: "InsightsController",
+                templateUrl: 'app/insight/partials/insight.html',
+                controller: "InsightController",
                 resolve: {
-                    expenses: ["ExpenseService", function (ExpenseService) {
-                        return ExpenseService.getAllExpenses();
-                    }],
-                    categories: ["CategoryService", function (CategoryService) {
-                        return CategoryService.getAllCategories();
+                    insight: ["InsightService", function (InsightService) {
+                        var from = moment().year(2012).hours(0).minutes(0).seconds(0);
+                        var to = moment().year(2016).hours(0).minutes(0).seconds(0);
+
+                        return InsightService.fetchInsightsFromTo(from, to);
                     }]
                 },
                 title: "Insights - Revaluate"
             })
 
     }]);;/**
+ * Insights constants.
+ */
+angular
+    .module("insights")
+    .constant("INSIGHTS_URLS", {
+        fetchInsights: "insights/retrieve_from_to?from=:from&to=:to"
+    });;/**
  * expenses controller.
  */
 angular
     .module("insights")
-    .controller("InsightsController", ["$scope", "$rootScope", "$timeout", "Category", "expenses", "categories", "MIXPANEL_EVENTS", function ($scope, $rootScope, $timeout, Category, expenses, categories, MIXPANEL_EVENTS) {
+    .controller("InsightController", ["$scope", "$rootScope", "$timeout", "insight", "MIXPANEL_EVENTS", function ($scope, $rootScope, $timeout, insight, MIXPANEL_EVENTS) {
 
         /**
          * Track event.
          */
         mixpanel.track(MIXPANEL_EVENTS.insightsPage);
 
+        $scope.insight = insight;
+        $scope.insightLineData = [insight.model.insightData];
+        $scope.insightLineSeries = ["Categories"];
+    }]);;/**
+ * Insights service which encapsulates the whole logic related to insights.
+ */
+angular
+    .module("insights")
+    .service("InsightService", ["INSIGHTS_URLS", "$q", "$http", "$injector", "InsightTransformerService", function (INSIGHTS_URLS, $q, $http, $injector, InsightTransformerService) {
+
         /**
-         * Existing expenses.
+         * Get all insights of current user
+         * @returns {*}
          */
-        $scope.expenses = expenses;
-        $scope.categories = categories;
+        this.fetchInsightsFromTo = function (from, to) {
+            var fromFormatted = moment(from).format('YYYY-MM-DDTHH:mm:ss') + 'Z';
+            var toFormatted = moment(to).format('YYYY-MM-DDTHH:mm:ss') + 'Z';
 
-        var expensesGrouped = _.groupBy($scope.expenses, function (expense) {
-            return expense.model.category.id;
-        });
+            return $http
+                .get(URLTo.api(INSIGHTS_URLS.fetchInsights, { ":from": fromFormatted, ":to": toFormatted }))
+                .then(function (response) {
 
-        var validCategories = _.map(_.keys(expensesGrouped), function (expenseGroupedItem) {
-            return _.find($scope.categories, function (category) {
-                return category.model.id === parseInt(expenseGroupedItem, 10);
-            })
-        });
+                    return InsightTransformerService.toInsight(response.data, $injector.get('Insight').build());
+                }).catch(function (response) {
+                    return $q.reject(response);
+                });
+        };
+    }]);
+;/**
+ * Insight transformer service which transforms a insight DTO model object to a insight business object.
+ */
+angular
+    .module("insights")
+    .service("InsightTransformerService", ["$injector", "TransformerUtils", function ($injector, TransformerUtils) {
 
-        var total = [];
-        _.each(validCategories, function (category) {
-            total.push(_.filter($scope.expenses, function (expense) {
-                return expense.model.category.id === category.model.id;
-            }));
-        });
+        /**
+         * Converts a insight business object model to a insightDto object.
+         * @param insight
+         * @param skipKeys
+         * @returns {{}}
+         */
+        this.toInsightDto = function (insight, skipKeys) {
+            var insightDto = {};
 
-        $scope.expenseData = [];
-        _.each(total, function (totalEntry) {
-            if ( totalEntry.length === 1 ) {
-                $scope.expenseData.push(totalEntry[0].model.value);
+            TransformerUtils.copyKeysFromTo(insight.model, insightDto, skipKeys);
+            if ( insightDto.from ) {
+                insightDto.from = moment(insightDto.from).format("YYYY-MM-DDTHH:mm:ss.hhh");
             }
-            else {
-
-                $scope.expenseData.push(_.reduce(totalEntry, function (element, total) {
-                    return total.model.value + element.model.value;
-                }))
+            if ( insightDto.to ) {
+                insightDto.to = moment(insightDto.to).format("YYYY-MM-DDTHH:mm:ss.hhh");
             }
-        });
 
-        $scope.expenseLabels = [];
-        _.each(validCategories, function (category) {
-            return $scope.expenseLabels.push(category.model.name);
-        });
+            return insightDto;
+        };
 
-        $scope.expenseColors = _.map(validCategories, function (category) {
-            return category.model.color;
-        });
+        /**
+         * Converts a insightDto object to a insight business object model.
+         * @param insightDto
+         * @param insight
+         * @param skipKeys
+         * @returns {*}
+         */
+        this.toInsight = function (insightDto, insight, skipKeys) {
+            insight = insight || $injector.get('Insight').build();
 
-        $scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
-        $scope.data = [300, 500, 100];
+            TransformerUtils.copyKeysFromTo(insightDto, insight.model, skipKeys);
+
+            // handle date conversion
+            if ( insight.model.from ) {
+                insight.model.from = moment(insight.model.from).toDate();
+            }
+
+            if ( insight.model.to ) {
+                insight.model.to = moment(insight.model.to).toDate();
+            }
+
+            return insight;
+        };
+
+        /**
+         * Transform a list of insights as JSON to a list of insights as business object.
+         * @param insightDtos
+         * @returns {Array}
+         */
+        this.toInsights = function (insightDtos) {
+            var insights = [];
+
+            _.each(insightDtos, _.bind(function (insightDto) {
+                insights.push(this.toInsight(insightDto));
+            }, this));
+
+            return insights;
+        };
+
+        /**
+         * Transform a list of insights as business objects to a list of DTOs.
+         * @param insights
+         * @returns {Array}
+         */
+        this.toInsightDTOs = function (insights) {
+            var insightDTOs = [];
+
+            _.each(insights, _.bind(function (insight) {
+                insightDTOs.push(this.toInsightDto(insight));
+            }, this));
+
+            return insightDTOs;
+        };
+    }]);
+;angular
+    .module("insights")
+    .factory("Insight", ["$q", "$http", "InsightService", "InsightTransformerService", function ($q, $http, InsightService, InsightTransformerService) {
+
+        /**
+         * Insight class.
+         * @constructor
+         */
+        function Insight() {
+
+            /**
+             * Represents the DTO model of the insight.
+             */
+            this.model = {
+
+                /**
+                 * The insight data.
+                 */
+                insightData: [],
+
+                /**
+                 * The insight colors
+                 */
+                insightColors: [],
+
+                /**
+                 * The insight labels
+                 */
+                insightLabels: [],
+
+                /**
+                 * From date period of the insight.
+                 */
+                from: "",
+
+                /**
+                 * To date period of the insight.
+                 */
+                to: ""
+            };
+
+        }
+
+        /**
+         * Builds a insight with given data.
+         * @param data
+         * @returns {Insight}
+         */
+        Insight.build = function (data) {
+            if ( _.isEmpty(data) ) {
+                return new Insight();
+            }
+
+            return InsightTransformerService.toInsight(data, new Insight());
+        };
+
+        return Insight;
     }]);;/**
  * Main app module declaration.
  */
@@ -5305,7 +5334,7 @@ angular
             $state.go('500');
         });
     }]);
-;angular.module('partials', ['app/site/partials/404.html', 'app/site/partials/500.html', 'app/site/partials/about.html', 'app/site/partials/home.html', 'app/site/partials/privacy.html', 'app/categories/partials/add-category-directive-template.html', 'app/categories/partials/categories.html', 'app/categories/partials/color-picker-directive-template.html', 'app/categories/partials/edit-remove-category-directive-template.html', 'app/expenses/partials/expense.category.template.html', 'app/expenses/partials/expense/expense.entry.template.html', 'app/expenses/partials/expense/expense.list.template.html', 'app/expenses/partials/expense/expenses.html', 'app/expenses/partials/expense/expenses.template.html', 'app/account/partials/account.html', 'app/account/partials/account_close.html', 'app/account/partials/logout.html', 'app/account/partials/settings/settings.html', 'app/account/partials/settings/settings.preferences.html', 'app/account/partials/settings/settings.profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/signup_setup.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/insights/partials/insights.html', 'app/feedback/partials/feedback-modal.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/accordion/accordion-group.html', 'template/accordion/accordion.html', 'template/alert/alert.html', 'template/carousel/carousel.html', 'template/carousel/slide.html', 'template/datepicker/datepicker.html', 'template/datepicker/day.html', 'template/datepicker/month.html', 'template/datepicker/popup.html', 'template/datepicker/year.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/pagination/pager.html', 'template/pagination/pagination.html', 'template/popover/popover.html', 'template/progressbar/bar.html', 'template/progressbar/progress.html', 'template/progressbar/progressbar.html', 'template/rating/rating.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/timepicker/timepicker.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html', 'template/typeahead/typeahead-match.html', 'template/typeahead/typeahead-popup.html']);
+;angular.module('partials', ['app/site/partials/404.html', 'app/site/partials/500.html', 'app/site/partials/about.html', 'app/site/partials/home.html', 'app/site/partials/privacy.html', 'app/categories/partials/add-category-directive-template.html', 'app/categories/partials/categories.html', 'app/categories/partials/color-picker-directive-template.html', 'app/categories/partials/edit-remove-category-directive-template.html', 'app/expenses/partials/expense.category.template.html', 'app/expenses/partials/expense/expense.entry.template.html', 'app/expenses/partials/expense/expense.list.template.html', 'app/expenses/partials/expense/expenses.html', 'app/expenses/partials/expense/expenses.template.html', 'app/account/partials/account.html', 'app/account/partials/account_close.html', 'app/account/partials/logout.html', 'app/account/partials/settings/settings.html', 'app/account/partials/settings/settings.preferences.html', 'app/account/partials/settings/settings.profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/signup_setup.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/insight/partials/insight.html', 'app/feedback/partials/feedback-modal.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/accordion/accordion-group.html', 'template/accordion/accordion.html', 'template/alert/alert.html', 'template/carousel/carousel.html', 'template/carousel/slide.html', 'template/datepicker/datepicker.html', 'template/datepicker/day.html', 'template/datepicker/month.html', 'template/datepicker/popup.html', 'template/datepicker/year.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/pagination/pager.html', 'template/pagination/pagination.html', 'template/popover/popover.html', 'template/progressbar/bar.html', 'template/progressbar/progress.html', 'template/progressbar/progressbar.html', 'template/rating/rating.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/timepicker/timepicker.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html', 'template/typeahead/typeahead-match.html', 'template/typeahead/typeahead-popup.html']);
 
 angular.module("app/site/partials/404.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/404.html",
@@ -5440,16 +5469,8 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                </div>\n" +
     "\n" +
     "                <!-- Button container -->\n" +
-    "                <button class=\"home__section__signup__btn\" type=\"submit\">Start my 14 day free trial</button>\n" +
+    "                <button class=\"home__section__signup__btn\" type=\"submit\">{{isRequestPending ? 'Signing up..' : 'Start my 14 day free trial'}}</button>\n" +
     "            </form>\n" +
-    "\n" +
-    "            <!--<div class=\"home__action-btn\">-->\n" +
-    "            <!--<div class=\"home__action-btn--label\">Sign up</div>-->\n" +
-    "            <!--<div class=\"home__action-btn--pricing\">It's free for 15 days, then $7/month.</div>-->\n" +
-    "            <!--</div>-->\n" +
-    "            <!--<div class=\"home__action-btn--info\">-->\n" +
-    "            <!--No credit card required.-->\n" +
-    "            <!--</div>-->\n" +
     "        </div>\n" +
     "    </div>\n" +
     "\n" +
@@ -5681,7 +5702,7 @@ angular.module("app/categories/partials/edit-remove-category-directive-template.
 angular.module("app/expenses/partials/expense.category.template.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/expenses/partials/expense.category.template.html",
     "<div class=\"angucomplete-holder\" ng-class=\"{'angucomplete-dropdown-visible': showDropdown}\">\n" +
-    "    <input id=\"{{id}}_value\" ng-model=\"searchStr\" ng-disabled=\"disableInput\" type=\"{{type}}\" placeholder=\"{{placeholder}}\" maxlength=\"{{maxlength}}\" ng-focus=\"onFocusHandler()\" class=\"{{inputClass}}\" ng-focus=\"resetHideResults()\" ng-blur=\"hideResults($event)\" autocapitalize=\"off\" autocorrect=\"off\" autocomplete=\"off\" ng-change=\"inputChangeHandler(searchStr)\" />\n" +
+    "    <input id=\"{{id}}_value\" ng-style=\"{'background':selectedObject.originalObject.model.color}\" ng-model=\"searchStr\" ng-disabled=\"disableInput\" type=\"{{type}}\" placeholder=\"{{placeholder}}\" maxlength=\"{{maxlength}}\" ng-focus=\"onFocusHandler()\" class=\"{{inputClass}}\" ng-focus=\"resetHideResults()\" ng-blur=\"hideResults($event)\" autocapitalize=\"off\" autocorrect=\"off\" autocomplete=\"off\" ng-change=\"inputChangeHandler(searchStr)\" />\n" +
     "\n" +
     "    <div id=\"{{id}}_dropdown\" class=\"angucomplete-dropdown expense__form__category__angucomplete-dropdown\" ng-show=\"showDropdown\">\n" +
     "        <div class=\"angucomplete-searching\" ng-show=\"searching\" ng-bind=\"textSearching\"></div>\n" +
@@ -5701,11 +5722,9 @@ angular.module("app/expenses/partials/expense.category.template.html", []).run([
 angular.module("app/expenses/partials/expense/expense.entry.template.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/expenses/partials/expense/expense.entry.template.html",
     "<!--Display expense-->\n" +
-    "<div class=\"expenses__list__entry__display\" ng-if=\"! showContent\" ng-class=\"expense.marked ? 'expense__bulk--marked' : ''\">\n" +
+    "<div class=\"expenses__list__entry__display\" ng-if=\"! showContent\" ng-class=\"expense.marked ? 'expense__bulk--marked' : ''\" ng-click=\"toggleMark();$event.stopPropagation();\">\n" +
     "\n" +
-    "    <div class=\"expenses__list__entry__select\">\n" +
-    "        <input type=\"checkbox\" ng-checked=\"expense.marked\" ng-click=\"toggleMark();$event.stopPropagation();\" />\n" +
-    "    </div>\n" +
+    "    <div class=\"expenses__list__entry__select icon-checkmark\" ng-if=\"expense.marked\"></div>\n" +
     "\n" +
     "    <div class=\"expenses__list__entry__price\">\n" +
     "        {{expense.model.value | currency:\"\"}}\n" +
@@ -5723,8 +5742,6 @@ angular.module("app/expenses/partials/expense/expense.entry.template.html", []).
     "\n" +
     "    <button class=\"expenses__list__entry__editbtn icon-pen\" type=\"button\" ng-click=\"toggleContent();\"></button>\n" +
     "</div>\n" +
-    "\n" +
-    "\n" +
     "\n" +
     "<!-- Display expense in edit mode -->\n" +
     "<div class=\"expenses__form\" ng-if=\"showContent\">\n" +
@@ -5811,11 +5828,11 @@ angular.module("app/expenses/partials/expense/expense.entry.template.html", []).
     "                <span>Saving the expense...</span>\n" +
     "            </span>\n" +
     "            <span ng-if=\"! isUpdating\">\n" +
-    "                <span class=\"expense__edit__form__cancelbtn\" >\n" +
+    "                <span class=\"expense__edit__form__cancelbtn\">\n" +
     "                    <button type=\"button\" ng-click=\"cancel();\">Discard</button>\n" +
     "                    <span>changes.</span>\n" +
     "                </span>\n" +
-    "                <span class=\"expense__edit__form__savebtn\" >\n" +
+    "                <span class=\"expense__edit__form__savebtn\">\n" +
     "                    <span>Enter to</span>\n" +
     "                    <button type=\"submit\">save</button>\n" +
     "                    <span>the changes.</span>\n" +
@@ -5823,7 +5840,6 @@ angular.module("app/expenses/partials/expense/expense.entry.template.html", []).
     "            </span>\n" +
     "        </div>\n" +
     "    </form>\n" +
-    "\n" +
     "\n" +
     "\n" +
     "</div>");
@@ -6591,14 +6607,71 @@ angular.module("app/account/partials/validate_password_reset_token_valid.html", 
     "</div>");
 }]);
 
-angular.module("app/insights/partials/insights.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("app/insights/partials/insights.html",
+angular.module("app/insight/partials/insight.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/insight/partials/insight.html",
     "<div header class=\"view-container__header\"></div>\n" +
     "\n" +
     "<div class=\"view-container__content\">\n" +
     "\n" +
-    "    <canvas class=\"chart chart-doughnut\" data=\"expenseData\" labels=\"expenseLabels\" colors=\"expenseColors\"></canvas>\n" +
+    "    <div class=\"insights__textsection\">\n" +
+    "        Here are some useful insights around your expenses.\n" +
+    "    </div>\n" +
     "\n" +
+    "    <div class=\"insights__datepicker\">\n" +
+    "        <button type=\"submit\"> < </button>\n" +
+    "        <button type=\"submit\" class=\"insights__datepicker__month\"> March 2015 </button>\n" +
+    "        <button type=\"submit\"> > </button>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <div class=\"insights__summary\">\n" +
+    "        <div class=\"insights__summary__thumbnail\">\n" +
+    "            <span class=\"insights__summary__thumbnail__number\">7.324</span>\n" +
+    "            <span class=\"insights__summary__thumbnail__label\">TOTAL</span>\n" +
+    "        </div>\n" +
+    "        <div class=\"insights__summary__thumbnail\">\n" +
+    "            <span class=\"insights__summary__thumbnail__number\">134</span>\n" +
+    "            <span class=\"insights__summary__thumbnail__label\">transactions</span>\n" +
+    "        </div>\n" +
+    "        <div class=\"insights__summary__thumbnail\">\n" +
+    "            <span class=\"insights__summary__thumbnail__number\">+5%</span>\n" +
+    "            <span class=\"insights__summary__thumbnail__label\">from previous month</span>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <canvas id=\"bar\"\n" +
+    "            class=\"chart chart-bar\"\n" +
+    "            data=\"insightLineData\"\n" +
+    "            series=\"insightLineSeries\"\n" +
+    "            legend=\"true\"\n" +
+    "            labels=\"insight.model.insightLabels\">\n" +
+    "    </canvas>\n" +
+    "\n" +
+    "    <div class=\"insights__chart__doughnut\">\n" +
+    "        <canvas class=\"chart chart-doughnut\"\n" +
+    "                data=\"insight.model.insightData\"\n" +
+    "                labels=\"insight.model.insightLabels\"\n" +
+    "                colours=\"insight.model.insightColors\"></canvas>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <canvas id=\"line\"\n" +
+    "            class=\"chart chart-line\"\n" +
+    "            data=\"insightLineData\"\n" +
+    "            labels=\"insight.model.insightLabels\"\n" +
+    "            series=\"insightLineSeries\"\n" +
+    "            legend=\"true\"></canvas>\n" +
+    "\n" +
+    "    <!-- <canvas id=\"line\"\n" +
+    "             class=\"chart chart-line\"\n" +
+    "             data=\"insight.model.insightData\"\n" +
+    "             labels=\"insight.model.insightLabels\"\n" +
+    "             series=\"insight.model.insightColors\"\n" +
+    "             legend=\"true\"></canvas>-->\n" +
+    "\n" +
+    "    <!--<canvas id=\"pie\"-->\n" +
+    "            <!--class=\"chart chart-pie\"-->\n" +
+    "            <!--data=\"insight.model.insightData\"-->\n" +
+    "            <!--colours=\"insight.model.insightColors\"-->\n" +
+    "            <!--labels=\"insight.model.insightLabels\"></canvas>-->\n" +
     "</div>\n" +
     "\n" +
     "<div footer class=\"view-container__footer\"></div>");
@@ -6693,7 +6766,6 @@ angular.module("app/common/partials/footer.html", []).run(["$templateCache", fun
     "\n" +
     "    <ul class=\"footer__links\">\n" +
     "        <li>Read our <a href=\"http://blog.revaluate.io\">Blog</a></li>\n" +
-    "        <li>Send us an <a href=\"mailto:hello@revaluate.io\">Email</a></li>\n" +
     "        <li>Follow us on <a href=\"https://twitter.com/revaluateapp\">Twitter</a></li>\n" +
     "        <li>Like us on <a href=\"https://www.facebook.com/revaluateapp\">Facebook</a></li>\n" +
     "    </ul>\n" +
@@ -6748,7 +6820,7 @@ angular.module("app/common/partials/header.html", []).run(["$templateCache", fun
     "    <ul class=\"header__navigation\">\n" +
     "        <li><a href=\"javascript:void(0)\" ui-sref=\"expenses.regular\">Wallet</a></li>\n" +
     "        <li><a href=\"javascript:void(0)\" ui-sref=\"insights\">Insights</a></li>\n" +
-    "        <li><a href=\"javascript:void(0)\">Goals</a></li>\n" +
+    "        <li><a href=\"javascript:void(0)\">Goals</a><span>Coming soon!</span></li>\n" +
     "    </ul>\n" +
     "\n" +
     "</header>");

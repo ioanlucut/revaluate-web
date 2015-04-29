@@ -1,4 +1,4 @@
-angular.module('partials', ['app/site/partials/404.html', 'app/site/partials/500.html', 'app/site/partials/about.html', 'app/site/partials/home.html', 'app/site/partials/privacy.html', 'app/categories/partials/add-category-directive-template.html', 'app/categories/partials/categories.html', 'app/categories/partials/color-picker-directive-template.html', 'app/categories/partials/edit-remove-category-directive-template.html', 'app/expenses/partials/expense.category.template.html', 'app/expenses/partials/expense/expense.entry.template.html', 'app/expenses/partials/expense/expense.list.template.html', 'app/expenses/partials/expense/expenses.html', 'app/expenses/partials/expense/expenses.template.html', 'app/account/partials/account.html', 'app/account/partials/account_close.html', 'app/account/partials/logout.html', 'app/account/partials/settings/settings.html', 'app/account/partials/settings/settings.preferences.html', 'app/account/partials/settings/settings.profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/signup_setup.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/insights/partials/insights.html', 'app/feedback/partials/feedback-modal.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/accordion/accordion-group.html', 'template/accordion/accordion.html', 'template/alert/alert.html', 'template/carousel/carousel.html', 'template/carousel/slide.html', 'template/datepicker/datepicker.html', 'template/datepicker/day.html', 'template/datepicker/month.html', 'template/datepicker/popup.html', 'template/datepicker/year.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/pagination/pager.html', 'template/pagination/pagination.html', 'template/popover/popover.html', 'template/progressbar/bar.html', 'template/progressbar/progress.html', 'template/progressbar/progressbar.html', 'template/rating/rating.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/timepicker/timepicker.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html', 'template/typeahead/typeahead-match.html', 'template/typeahead/typeahead-popup.html']);
+angular.module('partials', ['app/site/partials/404.html', 'app/site/partials/500.html', 'app/site/partials/about.html', 'app/site/partials/home.html', 'app/site/partials/privacy.html', 'app/categories/partials/add-category-directive-template.html', 'app/categories/partials/categories.html', 'app/categories/partials/color-picker-directive-template.html', 'app/categories/partials/edit-remove-category-directive-template.html', 'app/expenses/partials/expense.category.template.html', 'app/expenses/partials/expense/expense.entry.template.html', 'app/expenses/partials/expense/expense.list.template.html', 'app/expenses/partials/expense/expenses.html', 'app/expenses/partials/expense/expenses.template.html', 'app/account/partials/account.html', 'app/account/partials/account_close.html', 'app/account/partials/logout.html', 'app/account/partials/settings/settings.html', 'app/account/partials/settings/settings.preferences.html', 'app/account/partials/settings/settings.profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/signup_setup.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/insight/partials/insight.html', 'app/feedback/partials/feedback-modal.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/accordion/accordion-group.html', 'template/accordion/accordion.html', 'template/alert/alert.html', 'template/carousel/carousel.html', 'template/carousel/slide.html', 'template/datepicker/datepicker.html', 'template/datepicker/day.html', 'template/datepicker/month.html', 'template/datepicker/popup.html', 'template/datepicker/year.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/pagination/pager.html', 'template/pagination/pagination.html', 'template/popover/popover.html', 'template/progressbar/bar.html', 'template/progressbar/progress.html', 'template/progressbar/progressbar.html', 'template/rating/rating.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/timepicker/timepicker.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html', 'template/typeahead/typeahead-match.html', 'template/typeahead/typeahead-popup.html']);
 
 angular.module("app/site/partials/404.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/404.html",
@@ -133,16 +133,8 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                </div>\n" +
     "\n" +
     "                <!-- Button container -->\n" +
-    "                <button class=\"home__section__signup__btn\" type=\"submit\">Start my 14 day free trial</button>\n" +
+    "                <button class=\"home__section__signup__btn\" type=\"submit\">{{isRequestPending ? 'Signing up..' : 'Start my 14 day free trial'}}</button>\n" +
     "            </form>\n" +
-    "\n" +
-    "            <!--<div class=\"home__action-btn\">-->\n" +
-    "            <!--<div class=\"home__action-btn--label\">Sign up</div>-->\n" +
-    "            <!--<div class=\"home__action-btn--pricing\">It's free for 15 days, then $7/month.</div>-->\n" +
-    "            <!--</div>-->\n" +
-    "            <!--<div class=\"home__action-btn--info\">-->\n" +
-    "            <!--No credit card required.-->\n" +
-    "            <!--</div>-->\n" +
     "        </div>\n" +
     "    </div>\n" +
     "\n" +
@@ -374,7 +366,7 @@ angular.module("app/categories/partials/edit-remove-category-directive-template.
 angular.module("app/expenses/partials/expense.category.template.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/expenses/partials/expense.category.template.html",
     "<div class=\"angucomplete-holder\" ng-class=\"{'angucomplete-dropdown-visible': showDropdown}\">\n" +
-    "    <input id=\"{{id}}_value\" ng-model=\"searchStr\" ng-disabled=\"disableInput\" type=\"{{type}}\" placeholder=\"{{placeholder}}\" maxlength=\"{{maxlength}}\" ng-focus=\"onFocusHandler()\" class=\"{{inputClass}}\" ng-focus=\"resetHideResults()\" ng-blur=\"hideResults($event)\" autocapitalize=\"off\" autocorrect=\"off\" autocomplete=\"off\" ng-change=\"inputChangeHandler(searchStr)\" />\n" +
+    "    <input id=\"{{id}}_value\" ng-style=\"{'background':selectedObject.originalObject.model.color}\" ng-model=\"searchStr\" ng-disabled=\"disableInput\" type=\"{{type}}\" placeholder=\"{{placeholder}}\" maxlength=\"{{maxlength}}\" ng-focus=\"onFocusHandler()\" class=\"{{inputClass}}\" ng-focus=\"resetHideResults()\" ng-blur=\"hideResults($event)\" autocapitalize=\"off\" autocorrect=\"off\" autocomplete=\"off\" ng-change=\"inputChangeHandler(searchStr)\" />\n" +
     "\n" +
     "    <div id=\"{{id}}_dropdown\" class=\"angucomplete-dropdown expense__form__category__angucomplete-dropdown\" ng-show=\"showDropdown\">\n" +
     "        <div class=\"angucomplete-searching\" ng-show=\"searching\" ng-bind=\"textSearching\"></div>\n" +
@@ -394,11 +386,9 @@ angular.module("app/expenses/partials/expense.category.template.html", []).run([
 angular.module("app/expenses/partials/expense/expense.entry.template.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/expenses/partials/expense/expense.entry.template.html",
     "<!--Display expense-->\n" +
-    "<div class=\"expenses__list__entry__display\" ng-if=\"! showContent\" ng-class=\"expense.marked ? 'expense__bulk--marked' : ''\">\n" +
+    "<div class=\"expenses__list__entry__display\" ng-if=\"! showContent\" ng-class=\"expense.marked ? 'expense__bulk--marked' : ''\" ng-click=\"toggleMark();$event.stopPropagation();\">\n" +
     "\n" +
-    "    <div class=\"expenses__list__entry__select\">\n" +
-    "        <input type=\"checkbox\" ng-checked=\"expense.marked\" ng-click=\"toggleMark();$event.stopPropagation();\" />\n" +
-    "    </div>\n" +
+    "    <div class=\"expenses__list__entry__select icon-checkmark\" ng-if=\"expense.marked\"></div>\n" +
     "\n" +
     "    <div class=\"expenses__list__entry__price\">\n" +
     "        {{expense.model.value | currency:\"\"}}\n" +
@@ -416,8 +406,6 @@ angular.module("app/expenses/partials/expense/expense.entry.template.html", []).
     "\n" +
     "    <button class=\"expenses__list__entry__editbtn icon-pen\" type=\"button\" ng-click=\"toggleContent();\"></button>\n" +
     "</div>\n" +
-    "\n" +
-    "\n" +
     "\n" +
     "<!-- Display expense in edit mode -->\n" +
     "<div class=\"expenses__form\" ng-if=\"showContent\">\n" +
@@ -504,11 +492,11 @@ angular.module("app/expenses/partials/expense/expense.entry.template.html", []).
     "                <span>Saving the expense...</span>\n" +
     "            </span>\n" +
     "            <span ng-if=\"! isUpdating\">\n" +
-    "                <span class=\"expense__edit__form__cancelbtn\" >\n" +
+    "                <span class=\"expense__edit__form__cancelbtn\">\n" +
     "                    <button type=\"button\" ng-click=\"cancel();\">Discard</button>\n" +
     "                    <span>changes.</span>\n" +
     "                </span>\n" +
-    "                <span class=\"expense__edit__form__savebtn\" >\n" +
+    "                <span class=\"expense__edit__form__savebtn\">\n" +
     "                    <span>Enter to</span>\n" +
     "                    <button type=\"submit\">save</button>\n" +
     "                    <span>the changes.</span>\n" +
@@ -516,7 +504,6 @@ angular.module("app/expenses/partials/expense/expense.entry.template.html", []).
     "            </span>\n" +
     "        </div>\n" +
     "    </form>\n" +
-    "\n" +
     "\n" +
     "\n" +
     "</div>");
@@ -1284,14 +1271,71 @@ angular.module("app/account/partials/validate_password_reset_token_valid.html", 
     "</div>");
 }]);
 
-angular.module("app/insights/partials/insights.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("app/insights/partials/insights.html",
+angular.module("app/insight/partials/insight.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/insight/partials/insight.html",
     "<div header class=\"view-container__header\"></div>\n" +
     "\n" +
     "<div class=\"view-container__content\">\n" +
     "\n" +
-    "    <canvas class=\"chart chart-doughnut\" data=\"expenseData\" labels=\"expenseLabels\" colors=\"expenseColors\"></canvas>\n" +
+    "    <div class=\"insights__textsection\">\n" +
+    "        Here are some useful insights around your expenses.\n" +
+    "    </div>\n" +
     "\n" +
+    "    <div class=\"insights__datepicker\">\n" +
+    "        <button type=\"submit\"> < </button>\n" +
+    "        <button type=\"submit\" class=\"insights__datepicker__month\"> March 2015 </button>\n" +
+    "        <button type=\"submit\"> > </button>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <div class=\"insights__summary\">\n" +
+    "        <div class=\"insights__summary__thumbnail\">\n" +
+    "            <span class=\"insights__summary__thumbnail__number\">7.324</span>\n" +
+    "            <span class=\"insights__summary__thumbnail__label\">TOTAL</span>\n" +
+    "        </div>\n" +
+    "        <div class=\"insights__summary__thumbnail\">\n" +
+    "            <span class=\"insights__summary__thumbnail__number\">134</span>\n" +
+    "            <span class=\"insights__summary__thumbnail__label\">transactions</span>\n" +
+    "        </div>\n" +
+    "        <div class=\"insights__summary__thumbnail\">\n" +
+    "            <span class=\"insights__summary__thumbnail__number\">+5%</span>\n" +
+    "            <span class=\"insights__summary__thumbnail__label\">from previous month</span>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <canvas id=\"bar\"\n" +
+    "            class=\"chart chart-bar\"\n" +
+    "            data=\"insightLineData\"\n" +
+    "            series=\"insightLineSeries\"\n" +
+    "            legend=\"true\"\n" +
+    "            labels=\"insight.model.insightLabels\">\n" +
+    "    </canvas>\n" +
+    "\n" +
+    "    <div class=\"insights__chart__doughnut\">\n" +
+    "        <canvas class=\"chart chart-doughnut\"\n" +
+    "                data=\"insight.model.insightData\"\n" +
+    "                labels=\"insight.model.insightLabels\"\n" +
+    "                colours=\"insight.model.insightColors\"></canvas>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <canvas id=\"line\"\n" +
+    "            class=\"chart chart-line\"\n" +
+    "            data=\"insightLineData\"\n" +
+    "            labels=\"insight.model.insightLabels\"\n" +
+    "            series=\"insightLineSeries\"\n" +
+    "            legend=\"true\"></canvas>\n" +
+    "\n" +
+    "    <!-- <canvas id=\"line\"\n" +
+    "             class=\"chart chart-line\"\n" +
+    "             data=\"insight.model.insightData\"\n" +
+    "             labels=\"insight.model.insightLabels\"\n" +
+    "             series=\"insight.model.insightColors\"\n" +
+    "             legend=\"true\"></canvas>-->\n" +
+    "\n" +
+    "    <!--<canvas id=\"pie\"-->\n" +
+    "            <!--class=\"chart chart-pie\"-->\n" +
+    "            <!--data=\"insight.model.insightData\"-->\n" +
+    "            <!--colours=\"insight.model.insightColors\"-->\n" +
+    "            <!--labels=\"insight.model.insightLabels\"></canvas>-->\n" +
     "</div>\n" +
     "\n" +
     "<div footer class=\"view-container__footer\"></div>");
@@ -1386,7 +1430,6 @@ angular.module("app/common/partials/footer.html", []).run(["$templateCache", fun
     "\n" +
     "    <ul class=\"footer__links\">\n" +
     "        <li>Read our <a href=\"http://blog.revaluate.io\">Blog</a></li>\n" +
-    "        <li>Send us an <a href=\"mailto:hello@revaluate.io\">Email</a></li>\n" +
     "        <li>Follow us on <a href=\"https://twitter.com/revaluateapp\">Twitter</a></li>\n" +
     "        <li>Like us on <a href=\"https://www.facebook.com/revaluateapp\">Facebook</a></li>\n" +
     "    </ul>\n" +
@@ -1441,7 +1484,7 @@ angular.module("app/common/partials/header.html", []).run(["$templateCache", fun
     "    <ul class=\"header__navigation\">\n" +
     "        <li><a href=\"javascript:void(0)\" ui-sref=\"expenses.regular\">Wallet</a></li>\n" +
     "        <li><a href=\"javascript:void(0)\" ui-sref=\"insights\">Insights</a></li>\n" +
-    "        <li><a href=\"javascript:void(0)\">Goals</a></li>\n" +
+    "        <li><a href=\"javascript:void(0)\">Goals</a><span>Coming soon!</span></li>\n" +
     "    </ul>\n" +
     "\n" +
     "</header>");
