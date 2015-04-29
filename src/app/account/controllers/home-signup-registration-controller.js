@@ -1,6 +1,6 @@
 angular
     .module("account")
-    .controller("HomeSignUpRegistrationController", function ($scope, $timeout, flash, ALERTS_CONSTANTS, StatesHandler, User, AuthService, TimezoneProvider, MIXPANEL_EVENTS) {
+    .controller("HomeSignUpRegistrationController", function ($scope, $timeout, flash, ALERTS_CONSTANTS, StatesHandler, User, AuthService, MIXPANEL_EVENTS) {
 
         /**
          * Alert identifier
@@ -15,25 +15,20 @@ angular
             lastName: "",
             password: "",
             email: "",
-            timezone: jstz.determine().name(),
             currency: {
                 "currencyCode": "EUR"
             }
         };
-
-        /**
-         * Timezone details
-         */
-        $scope.timezoneDetails = TimezoneProvider.getTimezoneDescription($scope.signUpData.timezone);
 
         /*
          * Sign up functionality.
          * @param signUpData
          */
         $scope.signUp = function (signUpData) {
-            if ( $scope.signUpForm.$valid ) {
+            if ( $scope.signUpForm.$valid && !$scope.isRequestPending ) {
 
-                // Create a new user
+                $scope.isRequestPending = true;
+
                 User.$new()
                     .$create(signUpData)
                     .then(function () {
@@ -42,16 +37,18 @@ angular
                          */
                         mixpanel.track(MIXPANEL_EVENTS.signUpCompleted);
 
-                        // Log in the user
                         AuthService
                             .login(signUpData.email, signUpData.password)
                             .then(function () {
+                                $scope.isRequestPending = false;
+
                                 StatesHandler.goToSetUp();
                             });
                     })
                     .catch(function () {
                         /* If bad feedback from server */
                         $scope.badPostSubmitResponse = true;
+                        $scope.isRequestPending = false;
 
                         flash.to($scope.alertIdentifierId).error = "Sorry, something went wrong.";
                     });
