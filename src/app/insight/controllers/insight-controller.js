@@ -110,6 +110,7 @@ angular
                                 // Update everything.
                                 // ---
                                 $scope.masterInsightData = angular.copy($scope.insightData);
+                                $scope.insight = receivedInsight;
                                 $scope.insightLineData = [$scope.insight.model.insightData];
                                 $scope.insightLineSeries = ["Categories"];
                             }
