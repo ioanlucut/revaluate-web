@@ -1,4 +1,4 @@
-.angucomplete-image-holder{
+.angucomplete-image-holder {
   position: relative;
 }
 
@@ -15,7 +15,7 @@
   vertical-align: middle;
   position: relative;
   float: left;
-  width: 50%;
+  width: 100%;
 }
 
 .categories__form__input-group__name,
@@ -25,9 +25,13 @@
   padding-right: 50px;
   display: inline-block;
   text-transform: uppercase;
+  color: $white;
+  text-transform: uppercase;
+  font-weight: $font-weight-bold;
 }
 
 .categories__form__input-group__name {
+  text-align: right;
 }
 
 .categories__form__input-group__color {
