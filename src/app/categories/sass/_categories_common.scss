@@ -1,14 +1,19 @@
-.angucomplete-image-holder {
-  position: relative;
+.categories__title {
+  text-align: center;
+  font-size: $font-size-h1;
 }
 
-.categories__form__color__preview {
-  @include border-radius(50%);
-  @include size(23px 23px);
-  position: absolute;
-  margin: 8px;
-  left: 0;
-  top: 0;
+.categories__text {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 25px;
+  text-align: center;
+}
+
+
+.angucomplete-image-holder {
+  position: relative;
 }
 
 .categories__form__input-group {
@@ -16,27 +21,28 @@
   position: relative;
   float: left;
   width: 100%;
-}
 
-.categories__form__input-group__name,
-.categories__form__input-group__color {
-  height: $add-category-form-height;
-  line-height: $add-category-form-height;
-  padding-right: 50px;
-  display: inline-block;
-  text-transform: uppercase;
-  color: $white;
-  text-transform: uppercase;
-  font-weight: $font-weight-bold;
-}
+  .categories__form__color__preview {
+    @include border-radius(50%);
+    @include size(22px 22px);
+    position: absolute;
+    margin: 10px;
+    left: 0;
+    top: 0;
+  }
 
-.categories__form__input-group__name {
-  text-align: right;
-}
+  .categories__form__input-group__name,
+  .categories__form__input-group__color {
+    //line-height: $add-category-form-height;
+    display: inline-block;
+  }
 
-.categories__form__input-group__color {
-  text-align: right;
-  width: 30%;
+  .categories__form__input-group__name {
+    height: $add-category-form-height;
+    padding-left: 40px;
+    text-transform: uppercase;
+    width: 250px;
+  }
 }
 
 .has-error {
