@@ -6,11 +6,15 @@
 .insights__datepicker {
   width: 100%;
   text-align: center;
-  font-size: 24px;
+  font-size: 18px;
 
   button {
     @include btn-big($brand-default);
     color: $black;
+  }
+
+  .insights__datepicker__month {
+    width: 200px;
   }
 }
 
