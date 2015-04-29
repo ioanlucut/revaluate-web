@@ -1,5 +1,5 @@
 $add-expense-form-height: 50px;
-$add-expense-form-border-color: $gray-lightest;
+$add-expense-form-border-color: $brand-primary;
 
 .expenses__form {
   @include clearfix();
@@ -9,6 +9,12 @@ $add-expense-form-border-color: $gray-lightest;
   font-weight: $font-weight-bold;
   position: relative;
 
+  .expense__form__category__input {
+    color: $white;
+    text-transform: uppercase;
+    font-weight: $font-weight-bold;
+  }
+
   .expense__form__price__input,
   .expense__form__category__input,
   .expense__form__details__input,
@@ -17,6 +23,10 @@ $add-expense-form-border-color: $gray-lightest;
     border-style: solid;
     border-width: 2px 0;
     border-color: $add-expense-form-border-color transparent;
+
+    &:hover {
+      border-color: $add-expense-form-border-color;
+    }
 
     &:focus {
       border-color: $brand-primary;

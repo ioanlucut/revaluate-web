@@ -125,7 +125,7 @@ angular
         /**
          * Minimum categories to select
          */
-        var minimumCategoriesToSelect = 3;
+        var MIN_CATEGORIES_TO_SELECT = 3;
 
         function getSelectedCategories() {
             return _.filter($scope.categories, 'selected', true);
@@ -135,7 +135,7 @@ angular
          * Is enough selected categories
          */
         $scope.isEnoughSelectedCategories = function () {
-            return getSelectedCategories().length >= minimumCategoriesToSelect;
+            return getSelectedCategories().length >= MIN_CATEGORIES_TO_SELECT;
         };
 
         /**

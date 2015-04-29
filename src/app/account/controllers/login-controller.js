@@ -33,7 +33,7 @@ angular
          * @param loginData
          */
         $scope.login = function (loginData) {
-            if ( $scope.loginForm.$valid ) {
+            if ( $scope.loginForm.$valid && !$scope.isRequestPending ) {
 
                 // Show the loading bar
                 $scope.isRequestPending = true;
