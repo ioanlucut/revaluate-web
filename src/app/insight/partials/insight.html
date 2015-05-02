@@ -3,7 +3,7 @@
 <div class="view-container__content">
 
     <div class="insights__textsection">
-        Here are some useful insights around your insights.
+        Here are some useful insights around your expenses.
     </div>
 
     <!-- Insight fetch form -->
@@ -35,7 +35,8 @@
                             min-date="datePickerMinDate"
                             max-date="datePickerMaxDate"
                             datepicker-mode="'month'" min-mode="month"
-                            datepicker-options="{minMode: 'month',datepickerMode: 'month'}">{{isLoading ? 'Fetching from' : ''}} {{insightData.spentDate | friendlyMonthDate}}
+                            show-button-bar="false"
+                            datepicker-options="{minMode: 'month',datepickerMode: 'month'}">{{isLoading ? 'Loading expenses from' : ''}} {{insightData.spentDate | friendlyMonthDate}}
                     </button>
                 </div>
 
@@ -68,13 +69,36 @@
         </div>
     </div>
 
-    <canvas id="bar"
-            class="chart chart-bar"
-            data="insightLineData"
-            series="insightLineSeries"
-            legend="true"
-            labels="insight.model.insightLabels">
-    </canvas>
+    <div class="insights__chart__bar">
+        <canvas id="bar"
+                class="chart chart-bar"
+                data="insightLineData"
+                series="insightLineSeries"
+                legend="true"
+                labels="insight.model.insightLabels">
+        </canvas>
+    </div>
+
+    <div class="insights__table">
+        <table>
+            <thead class="insights__table__header">
+                <tr>
+                    <td>TOTAL</td>
+                    <td class="insights__table__amount">8233.00</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="insights__table__category"><span class="insights__table__category__color">C</span>FOOD</td>
+                    <td class="insights__table__amount">1453.23</td>
+                </tr>
+                <tr>
+                    <td class="insights__table__category"><span class="insights__table__category__color">C</span>BILLS</td>
+                    <td class="insights__table__amount">2323.23</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
     <div class="insights__chart__doughnut">
         <canvas class="chart chart-doughnut"
@@ -84,6 +108,7 @@
         </canvas>
     </div>
 
+    <div>The chart below will go on the second tab, on the compare mode.</div>
     <canvas id="line"
             class="chart chart-line"
             data="insightLineData"
