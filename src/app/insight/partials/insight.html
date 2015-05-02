@@ -7,17 +7,17 @@
     </div>
 
     <!-- Insight fetch form -->
-    <div class="insights__datepicker">
+    <div class="insights__controls">
 
-        <!-- Select prev month -->
-        <button type="button" ng-disabled="isLoading" ng-click="prevMonth()"> <</button>
-
-        <form name="insightForm" ng-submit="submitLoadInsight()" novalidate>
+        <form name="insightForm" class="insights__controls__form" ng-submit="submitLoadInsight()" novalidate>
 
             <!-- Flash messages. -->
             <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
-            <div class="insights__datepicker__month" ng-class="{'has-error': insightForm.spentDate.$invalid && insightForm.$submitted}">
+            <!-- Select prev month -->
+            <button type="button" class="insights__controls__form__arrow" ng-disabled="isLoading" ng-click="prevMonth()"> <</button>
+
+            <div class="insights__controls__form__month" ng-class="{'has-error': insightForm.spentDate.$invalid && insightForm.$submitted}">
 
                 <!--Hidden input of the insight chosen date-->
                 <input type="hidden" name="spentDate" ng-model="insightData.spentDate" required valid-date />
@@ -47,10 +47,10 @@
                 </div>
             </div>
 
-        </form>
+            <!-- Select next month -->
+            <button type="button" class="insights__controls__form__arrow" ng-disabled="isLoading" ng-click="nextMonth()"> ></button>
 
-        <!-- Select next month -->
-        <button type="button" ng-disabled="isLoading" ng-click="nextMonth()"> ></button>
+        </form>
 
     </div>
 
