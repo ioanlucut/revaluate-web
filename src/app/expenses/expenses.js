@@ -3,7 +3,8 @@
  */
 angular
     .module("expenses", [
-        "common"
+        "common",
+        "statistics"
     ])
     .config(["$stateProvider", function ($stateProvider) {
 

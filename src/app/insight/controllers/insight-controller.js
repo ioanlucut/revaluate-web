@@ -3,7 +3,7 @@
  */
 angular
     .module("insights")
-    .controller("InsightController", function ($scope, $rootScope, $timeout, flash, insight, InsightService, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
+    .controller("InsightController", function ($scope, $rootScope, $timeout, flash, insight, statistics, InsightService, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
 
         /**
          * Updating/deleting timeout
@@ -35,6 +35,12 @@ angular
         $scope.insightLineSeries = ["Categories"];
 
         /**
+         * Expenses statistics
+         * @type {statistics|*}
+         */
+        $scope.statistics = statistics;
+
+        /**
          * Open date picker
          * @param $event
          */
@@ -49,12 +55,12 @@ angular
          * Minimum date to fetch insights.
          * @type {Date}
          */
-        $scope.datePickerMinDate = moment().year(2000);
+        $scope.datePickerMinDate = $scope.statistics.model.firstExistingExpenseDate || moment().year(2000);
 
         /**
          * Maximum date to fetch insights.
          */
-        $scope.datePickerMaxDate = moment().hours(0).minutes(0).seconds(0);
+        $scope.datePickerMaxDate = $scope.statistics.model.lastExistingExpenseDate || moment().hours(0).minutes(0).seconds(0);
 
         /**
          * Exposed insight data (first define master copy).
@@ -133,7 +139,7 @@ angular
          */
         $scope.submitLoadInsight = function () {
             if ( !$scope.insightForm.$valid ) {
-                return
+                return;
             }
 
             var isDateInFuture = moment().diff($scope.insightData.spentDate || $scope.insightForm.spentDate) <= 0;
@@ -166,6 +172,11 @@ angular
             loadInsight();
         };
 
+        $scope.canLoadPrevMonth = function () {
+
+            return moment($scope.insightData.spentDate).diff($scope.statistics.model.firstExistingExpenseDate) > 0;
+        };
+
         /**
          * Go to next month
          */
@@ -174,5 +185,10 @@ angular
 
             loadInsight();
         };
+
+        $scope.canLoadNextMonth = function () {
+
+            return moment($scope.insightData.spentDate).diff($scope.statistics.model.lastExistingExpenseDate) <= 0;
+        }
     })
 ;

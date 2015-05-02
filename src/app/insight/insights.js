@@ -17,6 +17,10 @@ angular
 
                         return InsightService
                             .fetchInsightsFromTo(from, to);
+                    },
+                    statistics: function (StatisticService) {
+                        return StatisticService
+                            .fetchStatistics();
                     }
                 },
                 title: "Insights - Revaluate"

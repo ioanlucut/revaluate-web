@@ -77,6 +77,9 @@ module.exports = function (grunt) {
                     "src/app/expenses/expenses.js",
                     "src/app/expenses/**/*.js",
 
+                    "src/app/statistics/statistics.js",
+                    "src/app/statistics/**/*.js",
+
                     "src/app/insight/insights.js",
                     "src/app/insight/**/*.js",
 
