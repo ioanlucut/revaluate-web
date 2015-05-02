@@ -3,14 +3,44 @@
   padding-bottom: 30px;
 }
 
-.insights__datepicker {
+.insights__controls {
   width: 100%;
   text-align: center;
-  font-size: 18px;
 
-  .insights__datepicker__month {
+  .insights__controls__form {
     width: 100%;
+
+    .insights__controls__form__arrow {
+      @include border-radius(50%);
+      display: inline-block;
+      height: 35px;
+      width: 35px;
+      padding: 0;
+      margin: 10px;
+      border: solid 1px $gray-lightest;
+      background-color: $white;
+      color: $gray-medium;
+      text-align: center;
+      font-weight: $font-weight-bold;
+    }
+
+    .insights__controls__form__month {
+      width: 200px;
+      display: inline-block;
+    }
+
+    .insight__form__date__input__btn {
+      width: 100%;
+    }
   }
+
+
+
+//  .insight__form__date__input {
+//    width: 200px;
+//  }
+
+
 }
 
 .insights__summary {
