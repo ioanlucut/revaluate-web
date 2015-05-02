@@ -8,7 +8,13 @@ angular
         /**
          * Updating/deleting timeout
          */
-        var TIMEOUT_DURATION = 300;
+        var TIMEOUT_DURATION = 150;
+
+        /**
+         * Month constant
+         * @type {string}
+         */
+        var MONTH = 'month';
 
         /**
          * Alert identifier
@@ -67,69 +73,106 @@ angular
         /**
          * Load insights
          */
-        $scope.loadInsights = function () {
-            if ( $scope.insightForm.$valid && !$scope.isLoading ) {
+        function loadInsight() {
+            if ( $scope.isLoading ) {
 
-                var isDateInFuture = moment().diff($scope.insightData.spentDate || $scope.insightForm.spentDate) <= 0;
-                if ( isDateInFuture ) {
-                    $scope.insightForm.spentDate.$setValidity('validDate', false);
-
-                    return;
-                }
-                $scope.isLoading = true;
-
-                var computedInsightsData = angular.copy($scope.insightData);
-                var from = moment(computedInsightsData.spentDate).startOf('month');
-                var to = moment(computedInsightsData.spentDate).endOf('month');
-                InsightService
-                    .fetchInsightsFromTo(from, to)
-                    .then(function (receivedInsight) {
-
-                        /**
-                         * Track event.
-                         */
-                        mixpanel.track(MIXPANEL_EVENTS.insightsFetched);
-
-                        $timeout(function () {
-                            $scope.isLoading = false;
-
-                            if ( receivedInsight.isEmpty() ) {
-                                // ---
-                                // Reset the insight data.
-                                // ---
-                                $scope.insightData = angular.copy($scope.masterInsightData);
-                                flash.to($scope.alertIdentifierId).info = "There are no expenses defined for selected period."
-                            }
-                            else {
-                                // ---
-                                // If there was a previously error, just clear it.
-                                // ---
-                                flash.to($scope.alertIdentifierId).error = '';
-
-                                // ---
-                                // Update everything.
-                                // ---
-                                $scope.masterInsightData = angular.copy($scope.insightData);
-                                $scope.insight = receivedInsight;
-                                $scope.insightLineData = [$scope.insight.model.insightData];
-                                $scope.insightLineSeries = ["Categories"];
-                            }
-
-                        }, TIMEOUT_DURATION);
-                    })
-                    .catch(function () {
-
-                        flash.to($scope.alertIdentifierId).error = "Could not fetch insights.";
-                        $scope.isLoading = false;
-                        $scope.badPostSubmitResponse = true;
-                    });
+                $scope.insightData = angular.copy($scope.masterInsightData);
+                return;
             }
+
+            $scope.isLoading = true;
+            var computedInsightsData = angular.copy($scope.insightData);
+            var from = moment(computedInsightsData.spentDate).startOf(MONTH);
+            var to = moment(computedInsightsData.spentDate).endOf(MONTH);
+            InsightService
+                .fetchInsightsFromTo(from, to)
+                .then(function (receivedInsight) {
+
+                    /**
+                     * Track event.
+                     */
+                    mixpanel.track(MIXPANEL_EVENTS.insightsFetched);
+
+                    $timeout(function () {
+                        if ( receivedInsight.isEmpty() ) {
+                            // ---
+                            // Reset the insight data.
+                            // ---
+                            $scope.insightData = angular.copy($scope.masterInsightData);
+                            flash.to($scope.alertIdentifierId).info = "There are no expenses defined for selected period."
+                        }
+                        else {
+                            // ---
+                            // If there was a previously error, just clear it.
+                            // ---
+                            flash.to($scope.alertIdentifierId).error = '';
+
+                            // ---
+                            // Update everything.
+                            // ---
+                            $scope.masterInsightData = angular.copy($scope.insightData);
+                            $scope.insight = receivedInsight;
+                            $scope.insightLineData = [$scope.insight.model.insightData];
+                            $scope.insightLineSeries = ["Categories"];
+                        }
+
+                        $scope.isLoading = false;
+
+                    }, TIMEOUT_DURATION);
+                })
+                .catch(function () {
+
+                    flash.to($scope.alertIdentifierId).error = "Could not fetch insights.";
+                    $scope.isLoading = false;
+                    $scope.badPostSubmitResponse = true;
+                });
+        }
+
+        /**
+         * Submitted from inside the form.
+         */
+        $scope.submitLoadInsight = function () {
+            if ( !$scope.insightForm.$valid ) {
+                return
+            }
+
+            var isDateInFuture = moment().diff($scope.insightData.spentDate || $scope.insightForm.spentDate) <= 0;
+            if ( isDateInFuture ) {
+                $scope.insightForm.spentDate.$setValidity('validDate', false);
+
+                return;
+            }
+
+            // ---
+            // Now load the insights.
+            // ---
+
+            loadInsight();
         };
 
         /**
-         * On date change
+         * On date change do load insight
          */
         $scope.onChange = function () {
-            $scope.loadInsights();
-        }
-    });
+            loadInsight();
+        };
+
+        /**
+         * Go to previous month
+         */
+        $scope.prevMonth = function () {
+            $scope.insightData.spentDate = moment($scope.insightData.spentDate).subtract(1, MONTH).toDate();
+
+            loadInsight();
+        };
+
+        /**
+         * Go to next month
+         */
+        $scope.nextMonth = function () {
+            $scope.insightData.spentDate = moment($scope.insightData.spentDate).add(1, MONTH).toDate();
+
+            loadInsight();
+        };
+    })
+;
