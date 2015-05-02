@@ -46,7 +46,12 @@ angular
                 /**
                  * Number of transactions
                  */
-                numberOfTransactions: 0
+                numberOfTransactions: 0,
+
+                /**
+                 * Total per categories
+                 */
+                totalPerCategoryInsightDTOs: []
             };
 
             /**

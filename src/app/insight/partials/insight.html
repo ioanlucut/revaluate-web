@@ -84,17 +84,16 @@
             <thead class="insights__table__header">
                 <tr>
                     <td>TOTAL</td>
-                    <td class="insights__table__amount">8233.00</td>
+                    <td class="insights__table__amount">{{insight.model.totalAmountSpent}}</td>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="insights__table__category"><span class="insights__table__category__color">C</span>FOOD</td>
-                    <td class="insights__table__amount">1453.23</td>
-                </tr>
-                <tr>
-                    <td class="insights__table__category"><span class="insights__table__category__color">C</span>BILLS</td>
-                    <td class="insights__table__amount">2323.23</td>
+                <tr ng-repeat="totalPerCategory in insight.model.totalPerCategoryInsightDTOs">
+                    <td class="insights__table__category">
+                        <span class="insights__table__category__color" ng-style="{'background':totalPerCategory.categoryDTO.color}">C</span>
+                        {{totalPerCategory.categoryDTO.name}}
+                    </td>
+                    <td class="insights__table__amount">{{totalPerCategory.totalAmount}}</td>
                 </tr>
             </tbody>
         </table>
