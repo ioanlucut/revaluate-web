@@ -14,6 +14,7 @@ angular
         "common",
         "categories",
         "expenses",
+        "statistics",
         "account",
         "insights",
         "angular.filter"

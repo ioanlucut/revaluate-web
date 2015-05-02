@@ -15,7 +15,7 @@
             <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
             <!-- Select prev month -->
-            <button type="button" class="insights__controls__form__arrow" ng-disabled="isLoading" ng-click="prevMonth()"> <</button>
+            <button type="button" class="insights__controls__form__arrow" ng-disabled="isLoading || ! canLoadPrevMonth()" ng-click="prevMonth()"> <</button>
 
             <div class="insights__controls__form__month" ng-class="{'has-error': insightForm.spentDate.$invalid && insightForm.$submitted}">
 
@@ -48,7 +48,7 @@
             </div>
 
             <!-- Select next month -->
-            <button type="button" class="insights__controls__form__arrow" ng-disabled="isLoading" ng-click="nextMonth()"> ></button>
+            <button type="button" class="insights__controls__form__arrow" ng-disabled="isLoading || ! canLoadNextMonth()" ng-click="nextMonth()"> ></button>
 
         </form>
 
@@ -82,19 +82,19 @@
     <div class="insights__table">
         <table>
             <thead class="insights__table__header">
-                <tr>
-                    <td>TOTAL</td>
-                    <td class="insights__table__amount">{{insight.model.totalAmountSpent}}</td>
-                </tr>
+            <tr>
+                <td>TOTAL</td>
+                <td class="insights__table__amount">{{insight.model.totalAmountSpent}}</td>
+            </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="totalPerCategory in insight.model.totalPerCategoryInsightDTOs">
-                    <td class="insights__table__category">
-                        <span class="insights__table__category__color" ng-style="{'background':totalPerCategory.categoryDTO.color}">C</span>
-                        {{totalPerCategory.categoryDTO.name}}
-                    </td>
-                    <td class="insights__table__amount">{{totalPerCategory.totalAmount}}</td>
-                </tr>
+            <tr ng-repeat="totalPerCategory in insight.model.totalPerCategoryInsightDTOs">
+                <td class="insights__table__category">
+                    <span class="insights__table__category__color" ng-style="{'background':totalPerCategory.categoryDTO.color}">C</span>
+                    {{totalPerCategory.categoryDTO.name}}
+                </td>
+                <td class="insights__table__amount">{{totalPerCategory.totalAmount}}</td>
+            </tr>
             </tbody>
         </table>
     </div>
