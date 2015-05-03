@@ -1,6 +1,6 @@
 angular
     .module("expenses")
-    .directive("expenseEntry", function ($rootScope, EXPENSE_EVENTS) {
+    .directive("expenseEntry", function ($rootScope, $timeout, EXPENSE_EVENTS) {
         return {
             restrict: "A",
             controller: 'ExpenseEntryController',
@@ -11,6 +11,8 @@ angular
             },
             templateUrl: "app/expenses/partials/expense/expense.entry.template.html",
             link: function (scope, el, attrs) {
+
+                var EXPENSE_INPUT_SELECTOR = '.expense__form__price__input';
 
                 /**
                  * Current user.
@@ -46,10 +48,17 @@ angular
                 scope.toggleContent = function () {
                     scope.showContent = !scope.showContent;
 
-                    /**
-                     * Max date to create expense
-                     */
+                    // ---
+                    // Auto focus price.
+                    // ---
                     if ( scope.showContent ) {
+                        $timeout(function () {
+                            el.find(EXPENSE_INPUT_SELECTOR).focus();
+                        });
+
+                        /**
+                         * Max date to create expense
+                         */
                         scope.maxDate = moment().hours(0).minutes(0).seconds(0);
                     }
                 };
