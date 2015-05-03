@@ -128,9 +128,13 @@ angular
                 })
                 .catch(function () {
 
+                    // ---
+                    // Reset the insight data.
+                    // ---
+                    $scope.insightData = angular.copy($scope.masterInsightData);
                     flash.to($scope.alertIdentifierId).error = "Could not fetch insights.";
-                    $scope.isLoading = false;
                     $scope.badPostSubmitResponse = true;
+                    $scope.isLoading = false;
                 });
         }
 
@@ -152,7 +156,6 @@ angular
             // ---
             // Now load the insights.
             // ---
-
             loadInsight();
         };
 
@@ -172,9 +175,14 @@ angular
             loadInsight();
         };
 
+        /**
+         * Only if -1 month is at most the first existing expenses date.
+         * @returns {boolean}
+         */
         $scope.canLoadPrevMonth = function () {
 
-            return moment($scope.insightData.spentDate).diff($scope.statistics.model.firstExistingExpenseDate) > 0;
+            // a - b < 0 or a - b > 0
+            return moment($scope.insightData.spentDate).diff($scope.statistics.model.firstExistingExpenseDate) >= 0;
         };
 
         /**
@@ -186,6 +194,10 @@ angular
             loadInsight();
         };
 
+        /**
+         * Only if +1 month is at most the last existing expenses date.
+         * @returns {boolean}
+         */
         $scope.canLoadNextMonth = function () {
 
             return moment($scope.insightData.spentDate).diff($scope.statistics.model.lastExistingExpenseDate) <= 0;
