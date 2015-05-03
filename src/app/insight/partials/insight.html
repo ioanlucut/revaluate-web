@@ -36,7 +36,7 @@
                             max-date="datePickerMaxDate"
                             datepicker-mode="'month'" min-mode="month"
                             show-button-bar="false"
-                            datepicker-options="{minMode: 'month',datepickerMode: 'month'}">{{isLoading ? 'Loading expenses from' : ''}} {{insightData.spentDate | friendlyMonthDate}}
+                            datepicker-options="{minMode: 'month',datepickerMode: 'month'}">{{isLoading ? 'Loading' : (insightData.spentDate | friendlyMonthDate)}}
                     </button>
                 </div>
 
