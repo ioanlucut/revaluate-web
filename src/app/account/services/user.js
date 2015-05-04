@@ -85,22 +85,6 @@ angular
                         return this.createAccount(toBeCreated);
                     },
 
-                    $refresh: function () {
-                        var that = this;
-
-                        return this
-                            .retrieveDetails()
-                            .then(function (response) {
-                                TransformerUtils.copyKeysFromTo(response.data, that);
-                                that.saveToSession();
-
-                                return response;
-                            })
-                            .catch(function (response) {
-                                return $q.reject(response);
-                            });
-                    },
-
                     /**
                      * Retrieves details about the current account.
                      * @returns {*}
