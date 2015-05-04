@@ -150,6 +150,17 @@ angular
                 });
         };
 
+        /**
+         * Cancel account.
+         */
+        this.cancelAccount = function () {
+            return $http
+                .delete(URLTo.api(AUTH_URLS.cancel))
+                .then(function (response) {
+                    return response.data;
+                });
+        };
+
         this.saveAttemptUrl = function () {
             if ( $location.path().toLowerCase() !== '/account' ) {
                 redirectToUrlAfterLogin.url = $location.path();

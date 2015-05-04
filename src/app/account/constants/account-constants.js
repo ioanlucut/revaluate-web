@@ -21,6 +21,7 @@ angular
         create: "account",
         update: "account",
         details: "account",
+        cancel: "account",
         requestPasswordReset: "account/requestResetPassword/:email",
         resetPasswordWithToken: "account/resetPassword/:email/:token",
         validatePasswordResetToken: "account/validateResetPasswordToken/:email/:token",
