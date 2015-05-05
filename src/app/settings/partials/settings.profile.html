@@ -15,7 +15,7 @@
 
             <!-- Form group -->
             <div class="form-group-input" ng-class="{'has-error': profileForm.$submitted && (loginForm.firstName.$invalid || badPostSubmitResponse)}">
-                <input class="form-group-input__input" type="text" placeholder="First name" name="firstName" ng-model="profileData.firstName" required />
+                <input class="form-group-input__input" type="text" placeholder="First name" name="firstName" ng-model="profileData.firstName" required auto-focus />
                 <span class="form-group-input__message" ng-if="profileForm.firstName.$invalid && profileForm.$submitted">Please tell us your First Name.</span>
             </div>
 
