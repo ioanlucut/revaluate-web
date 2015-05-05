@@ -16,6 +16,7 @@ angular
         "expenses",
         "statistics",
         "account",
+        "settings",
         "insights",
         "angular.filter"
     ])

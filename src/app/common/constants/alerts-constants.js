@@ -16,5 +16,6 @@ angular
         categoryList: "categoryList",
         createUpdateCategory: "createUpdateCategory",
         updateProfile: "updateProfile",
+        cancelAccount: "cancelAccount",
         preferences: "preferences"
     });

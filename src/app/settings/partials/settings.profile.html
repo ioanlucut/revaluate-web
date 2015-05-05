@@ -1,0 +1,42 @@
+<!-- Profile section -->
+<div class="account">
+
+    <!--Update profile section-->
+    <div class="account__section">
+
+        <!-- Title -->
+        <h1 class="account__title">Modify profile</h1>
+
+        <!-- Profile form -->
+        <form name="profileForm" ng-submit="updateProfile(profileData)" novalidate focus-first-error>
+
+            <!-- Flash messages. -->
+            <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
+            <!-- Form group -->
+            <div class="form-group-input" ng-class="{'has-error': profileForm.$submitted && (loginForm.firstName.$invalid || badPostSubmitResponse)}">
+                <input class="form-group-input__input" type="text" placeholder="First name" name="firstName" ng-model="profileData.firstName" required />
+                <span class="form-group-input__message" ng-if="profileForm.firstName.$invalid && profileForm.$submitted">Please tell us your First Name.</span>
+            </div>
+
+            <!-- Form group -->
+            <div class="form-group-input" ng-class="{'has-error': profileForm.$submitted && (profileForm.lastName.$invalid || badPostSubmitResponse)}">
+                <input class="form-group-input__input" type="text" placeholder="Last name" name="lastName" ng-model="profileData.lastName" required />
+                <span class="form-group-input__message" ng-if="profileForm.lastName.$invalid && profileForm.$submitted">Please tell us your Last Name.</span>
+            </div>
+
+            <!-- Form group -->
+            <div class="form-group-input">
+                <input class="form-group-input__input" type="text" placeholder="Email" name="email" ng-value="user.model.email" disabled />
+            </div>
+
+            <!-- Button container -->
+            <button class="account__btn" type="submit">{{isRequestPending ? 'Saving..' : 'Save'}}</button>
+
+        </form>
+
+        <a href="javascript:void(0)" class="link-navigation" ui-sref="settings.admin">Change password</a>
+
+    </div>
+
+</div>
