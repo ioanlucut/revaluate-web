@@ -2,8 +2,11 @@
 
 <div class="view-container__content">
 
-    <div class="insights__textsection">
-        Here are some useful insights around your expenses.
+    <div class="insights__section">
+        Here are some useful insights around your expenses. We crafted just a few graphs to give you solid information
+        without crowding your screen too much. Feel free to
+        <a href="javascript:void(0)" ng-controller="FeedbackModalController" ng-click="openFeedbackModal()">let us know</a>
+        what other charts you'd find useful and we'll work our heads off to fit them nicely.
     </div>
 
     <!-- Insight fetch form -->
@@ -79,41 +82,34 @@
         </canvas>
     </div>
 
-    <div class="insights__table">
-        <table>
-            <thead class="insights__table__header">
-                <tr>
-                    <td>TOTAL</td>
-                    <td class="insights__table__amount">{{insight.model.totalAmountSpent}}</td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="totalPerCategory in insight.model.totalPerCategoryInsightDTOs">
-                    <td class="insights__table__category">
-                        <span class="insights__table__category__color" ng-style="{'background':totalPerCategory.categoryDTO.color}">C</span>
-                        {{totalPerCategory.categoryDTO.name}}
-                    </td>
-                    <td class="insights__table__amount">{{totalPerCategory.totalAmount}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <div class="insights__section">
+        <div class="insights__table">
+            <table>
+                <thead class="insights__table__header">
+                    <tr>
+                        <td>TOTAL</td>
+                        <td class="insights__table__amount">{{insight.model.totalAmountSpent}}</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="totalPerCategory in insight.model.totalPerCategoryInsightDTOs">
+                        <td class="insights__table__category">
+                            <span class="insights__table__category__color" ng-style="{'background':totalPerCategory.categoryDTO.color}">C</span>
+                            {{totalPerCategory.categoryDTO.name}}
+                        </td>
+                        <td class="insights__table__amount">{{totalPerCategory.totalAmount}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-    <div class="insights__chart__doughnut">
-        <canvas class="chart chart-doughnut"
-                data="insight.model.insightData"
-                labels="insight.model.insightLabels"
-                colours="insight.model.insightColors">
-        </canvas>
+        <div class="insights__chart__doughnut">
+            <canvas class="chart chart-doughnut"
+                    data="insight.model.insightData"
+                    labels="insight.model.insightLabels"
+                    colours="insight.model.insightColors">
+            </canvas>
+        </div>
     </div>
-
-    <div>The chart below will go on the second tab, on the compare mode.</div>
-    <canvas id="line"
-            class="chart chart-line"
-            data="insightLineData"
-            labels="insight.model.insightLabels"
-            series="insightLineSeries"
-            legend="true"></canvas>
-</div>
 
 <div footer class="view-container__footer"></div>
