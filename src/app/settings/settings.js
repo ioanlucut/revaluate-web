@@ -62,7 +62,13 @@ angular
                     },
                     'updateCurrency@settings.preferences': {
                         templateUrl: "app/settings/partials/settings.preferences.updateCurrency.html",
-                        controller: "SettingsPreferencesController"
+                        controller: "SettingsPreferencesCurrencyController",
+                        resolve: {
+                            currencies: function (CurrencyService) {
+                                return CurrencyService.getAllCurrencies();
+                            }
+                        }
+
                     }
                 },
                 title: "Preferences - Revaluate"
