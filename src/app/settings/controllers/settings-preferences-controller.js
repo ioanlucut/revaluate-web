@@ -3,9 +3,24 @@
  */
 angular
     .module("settings")
-    .controller("SettingsPreferencesController", function ($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+    .controller("SettingsPreferencesCurrencyController", function ($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, flash, currencies, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
 
+        /**
+         * Saving timeout
+         */
         var TIMEOUT_PENDING = 300;
+
+        /**
+         * All given currencies.
+         * @type {currencies|*}
+         */
+        $scope.currencies = currencies;
+
+        /**
+         * Selected currency
+         * @type {{}}
+         */
+        $scope.currency = {};
 
         /**
          * Alert identifier
@@ -36,16 +51,17 @@ angular
         /**
          * Update profile functionality.
          */
-        $scope.updateProfile = function (profileData) {
-
+        $scope.updateProfile = function () {
             if ( $scope.profileForm.$valid && !$scope.isRequestPending ) {
 
                 // Show the loading bar
                 $scope.isRequestPending = true;
 
+                $scope.profileData.currency = angular.copy($scope.currency.originalObject);
+
                 // Update the user
                 $scope.user
-                    .save(profileData)
+                    .save($scope.profileData)
                     .then(function (response) {
                         // ---
                         // We need to set the data and refresh the user.
