@@ -3,6 +3,10 @@
   padding-bottom: 30px;
 }
 
+.insights__section {
+  @include section(100%);
+}
+
 .insights__controls {
   width: 100%;
   text-align: center;
@@ -67,18 +71,21 @@
 }
 
 .insights__chart__bar {
-
+  width: 90%;
+  margin: 0 auto;
 }
 
 .insights__table {
-  width: 30%;
+  display: block;
   float: left;
+  width: 37%;
 
   .insights__table__header {
     font-weight: $font-weight-bold;
   }
 
   .insights__table__category {
+    width: 80%;
 
     .insights__table__category__color {
       @include border-radius(50%);
@@ -92,11 +99,12 @@
 
   .insights__table__amount {
     text-align: right;
+    width: 20%;
   }
 }
 
 .insights__chart__doughnut {
-  width: 68%;
+  width: 60%;
   float: left;
 }
 
