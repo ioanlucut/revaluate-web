@@ -2,8 +2,10 @@
  * Profile controller responsible for user update profile action.
  */
 angular
-    .module("account")
-    .controller("ProfileController", function ($q, $scope, $rootScope, $timeout, StatesHandler, ProfileFormToggle, AuthService, SessionService, AUTH_EVENTS, ACCOUNT_FORM_STATE, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+    .module("settings")
+    .controller("SettingsProfileController", function ($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+
+        var TIMEOUT_PENDING = 300;
 
         /**
          * Alert identifier
@@ -16,17 +18,10 @@ angular
         mixpanel.track(MIXPANEL_EVENTS.settings);
 
         /**
-         * Set default state.
-         */
-        ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile);
-
-        /**
          * Current user.
          * @type {$rootScope.currentUser|*}
          */
         $scope.user = $rootScope.currentUser;
-
-        var TIMEOUT_PENDING = 300;
 
         /**
          * Profile user information
@@ -50,7 +45,7 @@ angular
 
                 // Update the user
                 $scope.user
-                    .$save(profileData)
+                    .save(profileData)
                     .then(function (response) {
                         // ---
                         // We need to set the data and refresh the user.
@@ -76,44 +71,4 @@ angular
             }
         };
 
-        /**
-         * Cancel account functionality.
-         */
-        $scope.cancelAccount = function () {
-
-            if ( !$scope.isDeleting ) {
-
-                $scope.isDeleting = true;
-
-                AuthService
-                    .cancelAccount()
-                    .then(function () {
-                        flash.to($scope.alertIdentifierId).success = 'We\'ve successfully deleted your account!';
-
-                        $timeout(function () {
-                            $scope.isDeleting = false;
-
-                            // ---
-                            // We need to set the data and refresh the user.
-                            // ---
-                            AuthService
-                                .logout();
-                            StatesHandler
-                                .goHome();
-                        }, TIMEOUT_PENDING);
-
-                    })
-                    .catch(function () {
-                        /* If bad feedback from server */
-                        $scope.badPostSubmitResponse = true;
-                        $scope.isDeleting = false;
-
-                        flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to remove your account.';
-                    });
-            }
-        };
-
-        $scope.getMeBack = function () {
-            StatesHandler.goToExpenses();
-        };
     });

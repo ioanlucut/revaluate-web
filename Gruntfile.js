@@ -65,6 +65,9 @@ module.exports = function (grunt) {
                     "src/app/account/account.js",
                     "src/app/account/**/*.js",
 
+                    "src/app/settings/settings.js",
+                    "src/app/settings/**/*.js",
+
                     "src/app/site/site.js",
                     "src/app/site/**/*.js",
 
@@ -251,6 +254,7 @@ module.exports = function (grunt) {
                     "src/app/categories/partials/**/*.html",
                     "src/app/expenses/partials/**/*.html",
                     "src/app/account/partials/**/*.html",
+                    "src/app/settings/partials/**/*.html",
                     "src/app/insight/partials/**/*.html",
                     "src/app/feedback/**/*.html",
                     "src/app/common/**/*.html",
@@ -280,6 +284,7 @@ module.exports = function (grunt) {
                 files: [
                     "src/app/site/partials/**/*.html",
                     "src/app/account/partials/**/*.html",
+                    "src/app/settings/partials/**/*.html",
                     "src/app/feedback/**/*.html",
                     "src/app/categories/partials/**/*.html",
                     "src/app/expenses/partials/**/*.html",

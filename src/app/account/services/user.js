@@ -66,7 +66,7 @@ angular
                      * Updates a user account.
                      * @returns {*}
                      */
-                    $save: function (fromData) {
+                    save: function (fromData) {
                         var toBeSaved = {};
                         TransformerUtils.copyKeysFromTo(fromData, toBeSaved);
 
@@ -78,7 +78,7 @@ angular
                      * @param fromData
                      * @returns {*}
                      */
-                    $create: function (fromData) {
+                    create: function (fromData) {
                         var toBeCreated = {};
                         TransformerUtils.copyKeysFromTo(fromData, toBeCreated);
 

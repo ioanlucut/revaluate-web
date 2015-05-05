@@ -30,7 +30,7 @@ angular
                 $scope.isRequestPending = true;
 
                 User.$new()
-                    .$create(signUpData)
+                    .create(signUpData)
                     .then(function () {
                         /**
                          * Track event.
