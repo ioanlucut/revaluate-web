@@ -1,6 +1,6 @@
 .categories__add {
-  @include span-columns(8);
-  @include shift(2);
+  @include span-columns(10);
+  @include shift(1);
   @include border-radius($base-border-radius);
   margin-bottom: 40px;
 }
