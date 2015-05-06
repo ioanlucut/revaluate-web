@@ -17,12 +17,6 @@ angular
         $scope.currencies = currencies;
 
         /**
-         * Selected currency
-         * @type {{}}
-         */
-        $scope.currency = {};
-
-        /**
          * Alert identifier
          */
         $scope.alertIdentifierId = ALERTS_CONSTANTS.preferences;
@@ -30,7 +24,7 @@ angular
         /**
          * Track event.
          */
-        mixpanel.track(MIXPANEL_EVENTS.settings);
+        mixpanel.track(MIXPANEL_EVENTS.settingsPreferences);
 
         /**
          * Current user.
@@ -39,48 +33,69 @@ angular
         $scope.user = $rootScope.currentUser;
 
         /**
-         * Profile user information
+         * Selected currency
+         * @type {{}}
          */
-        $scope.profileData = {
-            firstName: $scope.user.model.firstName,
-            lastName: $scope.user.model.lastName,
-            initiated: $scope.user.model.initiated,
-            currency: $scope.user.model.currency
-        };
+        $scope.currency = $scope.user.model.currency;
+
+        /**
+         * Initial profile data
+         */
+        function getInitialProfileData() {
+            return {
+                currency: $scope.user.model.currency
+            };
+        }
+
+        /**
+         * Profile user information.
+         */
+        $scope.profileData = angular.copy(getInitialProfileData());
 
         /**
          * Update profile functionality.
          */
-        $scope.updateProfile = function () {
-            if ( $scope.profileForm.$valid && !$scope.isRequestPending ) {
+        $scope.updatePreferences = function () {
+            if ( $scope.preferencesForm.$valid && !$scope.isSaving ) {
 
                 // Show the loading bar
-                $scope.isRequestPending = true;
+                $scope.isSaving = true;
 
-                $scope.profileData.currency = angular.copy($scope.currency.originalObject);
+                $scope.profileData.currency = angular.copy($scope.currency.originalObject || $scope.currency);
 
                 // Update the user
                 $scope.user
-                    .save($scope.profileData)
+                    .updateCurrency($scope.profileData)
                     .then(function (response) {
+                        // ---
+                        // Reload data with given response.
+                        // ---
+                        $scope.user
+                            .loadFrom(response.data);
+
                         // ---
                         // We need to set the data and refresh the user.
                         // ---
                         SessionService.setData(response.data);
                         $rootScope.$broadcast(AUTH_EVENTS.refreshUser, response);
 
-                        $scope.profileForm.$setPristine();
+                        // ---
+                        // Reset the profile data with possible new data.
+                        // ---
+                        $scope.profileData = angular.copy(getInitialProfileData());
+
+                        $scope.preferencesForm.$setPristine();
                         flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your preferences!';
 
                         $timeout(function () {
-                            $scope.isRequestPending = false;
+                            $scope.isSaving = false;
                         }, TIMEOUT_PENDING);
 
                     })
                     .catch(function () {
                         /* If bad feedback from server */
                         $scope.badPostSubmitResponse = true;
-                        $scope.isRequestPending = false;
+                        $scope.isSaving = false;
 
                         flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to update your preferences.';
                     });
