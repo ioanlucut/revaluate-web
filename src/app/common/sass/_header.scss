@@ -28,6 +28,10 @@
     text-align: center;
     position: relative;
 
+    a {
+      display: block;
+    }
+
     span {
       color: $gray-light;
       position: absolute;
