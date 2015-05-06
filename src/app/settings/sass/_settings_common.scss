@@ -24,7 +24,10 @@
 
   .tab__active {
     background: $gray-light;
-    color: $black;
+
+    a {
+      color: $black;
+    }
   }
 }
 
