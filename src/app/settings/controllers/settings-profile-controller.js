@@ -15,23 +15,29 @@ angular
         /**
          * Track event.
          */
-        mixpanel.track(MIXPANEL_EVENTS.settings);
+        mixpanel.track(MIXPANEL_EVENTS.settingsProfile);
 
         /**
          * Current user.
-         * @type {$rootScope.currentUser|*}
          */
         $scope.user = $rootScope.currentUser;
 
         /**
-         * Profile user information
+         * Initial profile data
          */
-        $scope.profileData = {
-            firstName: $scope.user.model.firstName,
-            lastName: $scope.user.model.lastName,
-            initiated: $scope.user.model.initiated,
-            currency: $scope.user.model.currency
-        };
+        function getInitialProfileData() {
+            return {
+                firstName: $scope.user.model.firstName,
+                lastName: $scope.user.model.lastName,
+                initiated: $scope.user.model.initiated,
+                currency: $scope.user.model.currency
+            };
+        }
+
+        /**
+         * Profile user information.
+         */
+        $scope.profileData = angular.copy(getInitialProfileData());
 
         /**
          * Update profile functionality.
@@ -48,10 +54,21 @@ angular
                     .save(profileData)
                     .then(function (response) {
                         // ---
+                        // Reload data with given response.
+                        // ---
+                        $scope.user
+                            .loadFrom(response.data);
+
+                        // ---
                         // We need to set the data and refresh the user.
                         // ---
                         SessionService.setData(response.data);
                         $rootScope.$broadcast(AUTH_EVENTS.refreshUser, response);
+
+                        // ---
+                        // Reset the profile data with possible new data.
+                        // ---
+                        $scope.profileData = angular.copy(getInitialProfileData());
 
                         $scope.profileForm.$setPristine();
                         flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your account!';
@@ -59,7 +76,6 @@ angular
                         $timeout(function () {
                             $scope.isRequestPending = false;
                         }, TIMEOUT_PENDING);
-
                     })
                     .catch(function () {
                         /* If bad feedback from server */

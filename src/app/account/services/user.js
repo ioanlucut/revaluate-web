@@ -41,11 +41,20 @@ angular
                     },
 
                     /**
-                     * Loads a user from cookies.
+                     * Loads a user from local storage.
                      * @returns {*}
                      */
                     loadFromSession: function () {
-                        TransformerUtils.copyKeysFromTo(SessionService.getData() || {}, this.model);
+
+                        return this.loadFrom(SessionService.getData() || {});
+                    },
+
+                    /**
+                     * Loads a user from given data.
+                     * @returns {*}
+                     */
+                    loadFrom: function (data) {
+                        TransformerUtils.copyKeysFromTo(data, this.model);
 
                         return this;
                     },

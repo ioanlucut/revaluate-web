@@ -19,6 +19,7 @@ angular
         insightsPage: "Insights page (site visited)",
         insightsFetched: "Insights fetched",
         settings: "Settings",
+        settingsProfile: "Settings profile",
         error404: "error-404",
         error500: "error-500"
     });
