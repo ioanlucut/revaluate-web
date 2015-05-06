@@ -12,6 +12,9 @@ angular
          */
         $scope.alertIdentifierId = ALERTS_CONSTANTS.updatePassword;
 
+        /**
+         * Initial update password data.
+         */
         var initialUpdatePasswordData = {
             oldPassword: "",
             newPassword: "",
