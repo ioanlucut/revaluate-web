@@ -123,6 +123,17 @@ angular
                     updateAccount: function (account) {
                         return $http
                             .put(URLTo.api(AUTH_URLS.update), account);
+                    },
+
+                    /**
+                     * Update account user currency
+                     */
+                    updateCurrency: function (fromData) {
+                        var toBeSaved = {};
+                        TransformerUtils.copyKeysFromTo(fromData, toBeSaved);
+
+                        return $http
+                            .put(URLTo.api(AUTH_URLS.updateCurrency), toBeSaved);
                     }
 
                 };
