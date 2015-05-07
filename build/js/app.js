@@ -62,9 +62,11 @@ angular
         validatePassword: "validatePassword",
         createUpdateExpense: "createUpdateExpense",
         expenseList: "expenseList",
+        insights: "insights",
         categoryList: "categoryList",
         createUpdateCategory: "createUpdateCategory",
         updateProfile: "updateProfile",
+        cancelAccount: "cancelAccount",
         preferences: "preferences"
     });;/**
  * Common states.
@@ -116,7 +118,10 @@ angular
         categoryUpdated: "Category updated",
         categoryDeleted: "Category deleted",
         insightsPage: "Insights page (site visited)",
+        insightsFetched: "Insights fetched",
         settings: "Settings",
+        settingsProfile: "Settings profile",
+        settingsPreferences: "Settings preferences",
         error404: "error-404",
         error500: "error-500"
     });;angular
@@ -293,12 +298,6 @@ angular
             restrict: "A",
             templateUrl: "app/common/partials/header.html",
             link: function (scope, el) {
-
-                /**
-                 * Reference to the current user.
-                 * @type {$rootScope.currentUser|*}
-                 */
-                scope.currentUser = $rootScope.currentUser;
             }
         };
     }]);
@@ -586,6 +585,23 @@ angular
         return function (date) {
 
             return moment(date).format("hh:mm A");
+        };
+    });
+;/* Friendly date filter */
+
+angular
+    .module("common")
+    .filter('friendlyMonthDate', function () {
+        return function (date) {
+
+            if ( !_.isDate(date) ) {
+                date = moment(date);
+            }
+
+            var dateToFormat = moment(date);
+            var isSameYear = moment(moment().year()).isSame(dateToFormat.year());
+
+            return dateToFormat.format(isSameYear ? 'MMMM' : 'MMMM YYYY');
         };
     });
 ;angular
@@ -1509,24 +1525,6 @@ angular
                 isPublicPage: true
             })
 
-            // Settings page
-            .state("settings", {
-                url: "/account/settings",
-                views: {
-
-                    '': { templateUrl: "app/account/partials/settings/settings.html" },
-
-                    'profile@settings': {
-                        templateUrl: "app/account/partials/settings/settings.profile.html"
-                    },
-
-                    'preferences@settings': {
-                        templateUrl: "app/account/partials/settings/settings.preferences.html"
-                    }
-                },
-                title: "Settings - Revaluate"
-            })
-
             // Logout page
             .state("account:logout", {
                 url: "/account/logout",
@@ -1638,6 +1636,8 @@ angular
         create: "account",
         update: "account",
         details: "account",
+        cancel: "account",
+        updateCurrency: "account/updateCurrency",
         requestPasswordReset: "account/requestResetPassword/:email",
         resetPasswordWithToken: "account/resetPassword/:email/:token",
         validatePasswordResetToken: "account/validateResetPasswordToken/:email/:token",
@@ -1737,7 +1737,7 @@ angular
                 $scope.isRequestPending = true;
 
                 User.$new()
-                    .$create(signUpData)
+                    .create(signUpData)
                     .then(function () {
                         /**
                          * Track event.
@@ -1840,127 +1840,7 @@ angular
         }, 1500);
 
     }]);
-;/**
- * Preferences controller responsible for user update preferences action.
- */
-angular
-    .module("account")
-    .controller("PreferencesController", ["$q", "$scope", "$rootScope", "TimezoneProvider", "flash", "ALERTS_CONSTANTS", function ($q, $scope, $rootScope, TimezoneProvider, flash, ALERTS_CONSTANTS) {
-
-        /**
-         * Alert identifier
-         */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.preferences;
-
-        /**
-         * Current user.
-         * @type {$rootScope.currentUser|*}
-         */
-        $scope.user = $rootScope.currentUser;
-
-        /**
-         * Profile user information
-         */
-        $scope.preferencesData = {
-            firstName: $scope.user.model.firstName,
-            lastName: $scope.user.model.lastName,
-            email: $scope.user.model.email,
-            timezone: $scope.user.model.timezone,
-            currency: $scope.user.model.currency
-        };
-
-        /**
-         * Available timezones.
-         */
-        $scope.timezones = TimezoneProvider.getTimezones();
-
-        /**
-         * Update preferences functionality.
-         */
-        $scope.updatePreferences = function (preferencesData) {
-
-            if ( $scope.preferencesForm.$valid ) {
-
-                // Update the user
-                $scope.user
-                    .$save(preferencesData)
-                    .then(function () {
-                        $scope.preferencesForm.$setPristine();
-
-                        flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your preferences!';
-                    })
-                    .catch(function () {
-
-                        flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to update your preferences.';
-                    });
-            }
-        };
-
-    }]);;/**
- * Profile controller responsible for user update profile action.
- */
-angular
-    .module("account")
-    .controller("ProfileController", ["$q", "$scope", "$rootScope", "StatesHandler", "ProfileFormToggle", "ACCOUNT_FORM_STATE", "flash", "ALERTS_CONSTANTS", "MIXPANEL_EVENTS", function ($q, $scope, $rootScope, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
-
-        /**
-         * Alert identifier
-         */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.updateProfile;
-
-        /**
-         * Track event.
-         */
-        mixpanel.track(MIXPANEL_EVENTS.settings);
-
-        /**
-         * Set default state.
-         */
-        ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile);
-
-        /**
-         * Current user.
-         * @type {$rootScope.currentUser|*}
-         */
-        $scope.user = $rootScope.currentUser;
-
-        /**
-         * Profile user information
-         */
-        $scope.profileData = {
-            firstName: $scope.user.model.firstName,
-            lastName: $scope.user.model.lastName,
-            timezone: $scope.user.model.timezone
-        };
-
-        /**
-         * Update profile functionality.
-         */
-        $scope.updateProfile = function (profileData) {
-
-            if ( $scope.profileForm.$valid ) {
-
-                // Update the user
-                $scope.user
-                    .$save(profileData)
-                    .then(function () {
-                        $scope.user.$refresh().then(function () {
-                            $scope.profileForm.$setPristine();
-
-                            flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your account!';
-                        });
-                    })
-                    .catch(function () {
-
-                        flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to update your account.';
-                    });
-            }
-        };
-
-        $scope.getMeBack = function () {
-            StatesHandler.goToExpenses();
-        };
-    }]);;angular
+;angular
     .module("account")
     .controller("SignUpSetUpRegistrationController", ["$q", "$rootScope", "$scope", "$timeout", "flash", "AuthService", "CategoryService", "AUTH_EVENTS", "ALERTS_CONSTANTS", "predefinedCategories", "CategoryColorService", "SessionService", "StatesHandler", "Category", "currencies", function ($q, $rootScope, $scope, $timeout, flash, AuthService, CategoryService, AUTH_EVENTS, ALERTS_CONSTANTS, predefinedCategories, CategoryColorService, SessionService, StatesHandler, Category, currencies) {
 
@@ -2139,7 +2019,7 @@ angular
                 .bulkCreate(selectedCategoriesToBeSaved)
                 .then(function () {
                     $scope.user
-                        .$save(userProfileToBeUpdated)
+                        .save(userProfileToBeUpdated)
                         .then(function (response) {
                             deferred.resolve(response);
                         })
@@ -2185,48 +2065,6 @@ angular
                 });
         };
 
-    }]);;/**
- * Update password controller.
- */
-angular
-    .module("account")
-    .controller("UpdatePasswordController", ["$scope", "flash", "AuthService", "ACCOUNT_FORM_STATE", "ALERTS_CONSTANTS", "ProfileFormToggle", function ($scope, flash, AuthService, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS, ProfileFormToggle) {
-
-        /**
-         * Alert identifier
-         */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.updatePassword;
-
-        /**
-         * Update password user information.
-         * @type {{oldPassword: string, newPassword: string, newPasswordConfirmation: string}}
-         */
-        $scope.updatePasswordData = {
-            oldPassword: "",
-            newPassword: "",
-            newPasswordConfirmation: ""
-        };
-
-        /**
-         * Update password data functionality.
-         * @param updatePasswordData
-         */
-        $scope.updatePassword = function (updatePasswordData) {
-            if ( $scope.updatePasswordForm.$valid ) {
-
-                AuthService
-                    .updatePassword(updatePasswordData.oldPassword, updatePasswordData.newPassword, updatePasswordData.newPasswordConfirmation)
-                    .then(function () {
-                        ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updatePasswordSuccessfully);
-                    })
-                    .catch(function (response) {
-                        /* If bad feedback from server */
-                        $scope.badPostSubmitResponse = true;
-
-                        flash.to($scope.alertIdentifierId).error = response.data && response.data.errors && response.data.errors[0];
-                    });
-            }
-        };
     }]);;angular
     .module("account")
     .controller("ValidatePasswordResetTokenController", ["$scope", "$timeout", "flash", "AuthService", "StatesHandler", "ProfileFormToggle", "ACCOUNT_FORM_STATE", "validateTokenResult", "ALERTS_CONSTANTS", function ($scope, $timeout, flash, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult, ALERTS_CONSTANTS) {
@@ -2372,6 +2210,11 @@ angular
             link: function (scope) {
                 scope.ProfileFormToggle = ProfileFormToggle;
                 scope.ACCOUNT_FORM_STATE = ACCOUNT_FORM_STATE;
+
+                // ---
+                // Default state.
+                // ---
+                scope.ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile)
             }
         };
     }]);
@@ -2663,6 +2506,17 @@ angular
                 });
         };
 
+        /**
+         * Cancel account.
+         */
+        this.cancelAccount = function () {
+            return $http
+                .delete(URLTo.api(AUTH_URLS.cancel))
+                .then(function (response) {
+                    return response.data;
+                });
+        };
+
         this.saveAttemptUrl = function () {
             if ( $location.path().toLowerCase() !== '/account' ) {
                 redirectToUrlAfterLogin.url = $location.path();
@@ -2865,11 +2719,20 @@ angular
                     },
 
                     /**
-                     * Loads a user from cookies.
+                     * Loads a user from local storage.
                      * @returns {*}
                      */
                     loadFromSession: function () {
-                        TransformerUtils.copyKeysFromTo(SessionService.getData() || {}, this.model);
+
+                        return this.loadFrom(SessionService.getData() || {});
+                    },
+
+                    /**
+                     * Loads a user from given data.
+                     * @returns {*}
+                     */
+                    loadFrom: function (data) {
+                        TransformerUtils.copyKeysFromTo(data, this.model);
 
                         return this;
                     },
@@ -2890,7 +2753,7 @@ angular
                      * Updates a user account.
                      * @returns {*}
                      */
-                    $save: function (fromData) {
+                    save: function (fromData) {
                         var toBeSaved = {};
                         TransformerUtils.copyKeysFromTo(fromData, toBeSaved);
 
@@ -2902,27 +2765,11 @@ angular
                      * @param fromData
                      * @returns {*}
                      */
-                    $create: function (fromData) {
+                    create: function (fromData) {
                         var toBeCreated = {};
                         TransformerUtils.copyKeysFromTo(fromData, toBeCreated);
 
                         return this.createAccount(toBeCreated);
-                    },
-
-                    $refresh: function () {
-                        var that = this;
-
-                        return this
-                            .retrieveDetails()
-                            .then(function (response) {
-                                TransformerUtils.copyKeysFromTo(response.data, that);
-                                that.saveToSession();
-
-                                return response;
-                            })
-                            .catch(function (response) {
-                                return $q.reject(response);
-                            });
                     },
 
                     /**
@@ -2954,11 +2801,404 @@ angular
                     updateAccount: function (account) {
                         return $http
                             .put(URLTo.api(AUTH_URLS.update), account);
+                    },
+
+                    /**
+                     * Update account user currency
+                     */
+                    updateCurrency: function (fromData) {
+                        var toBeSaved = {};
+                        TransformerUtils.copyKeysFromTo(fromData, toBeSaved);
+
+                        return $http
+                            .put(URLTo.api(AUTH_URLS.updateCurrency), toBeSaved);
                     }
 
                 };
             }
 
+        };
+    }]);;/**
+ * Main settings module declaration including ui templates.
+ */
+angular
+    .module("settings", [
+        "account"
+    ])
+    .config(["$stateProvider", function ($stateProvider) {
+
+        $stateProvider
+
+            // ---
+            // Abstract state - settings.
+            // ---
+            .state({
+                name: "settings",
+                url: "/account/settings",
+                templateUrl: "app/settings/partials/settings.abstract.html",
+                abstract: true
+            })
+
+            // ---
+            // Profile page.
+            // ---
+            .state({
+                name: "settings.profile",
+                url: "/profile",
+                templateUrl: "app/settings/partials/settings.profile.html",
+                controller: "SettingsProfileController",
+                title: "Profile - Revaluate"
+            })
+
+            // ---
+            // Admin page.
+            // ---
+            .state("settings.admin", {
+                url: "/admin",
+                views: {
+                    '': {
+                        templateUrl: "app/settings/partials/settings.admin.abstract.html"
+                    },
+                    'updatePassword@settings.admin': {
+                        templateUrl: "app/settings/partials/settings.admin.updatePassword.html",
+                        controller: "SettingsUpdatePasswordController"
+                    },
+                    'cancelAccount@settings.admin': {
+                        templateUrl: "app/settings/partials/settings.admin.cancelAccount.html",
+                        controller: "SettingsCancelAccountController"
+                    }
+                },
+                title: "Admin - Revaluate"
+            })
+
+            // ---
+            // Preferences.
+            // ---
+            .state("settings.preferences", {
+                url: "/preferences",
+                views: {
+                    '': {
+                        templateUrl: "app/settings/partials/settings.preferences.abstract.html"
+                    },
+                    'updateCurrency@settings.preferences': {
+                        templateUrl: "app/settings/partials/settings.preferences.updateCurrency.html",
+                        controller: "SettingsPreferencesCurrencyController",
+                        resolve: {
+                            currencies: ["CurrencyService", function (CurrencyService) {
+                                return CurrencyService.getAllCurrencies();
+                            }]
+                        }
+
+                    }
+                },
+                title: "Preferences - Revaluate"
+            });
+    }]);;angular
+    .module("settings")
+    .controller("SettingsCancelAccountController", ["$q", "$scope", "$rootScope", "$timeout", "StatesHandler", "AuthService", "flash", "ALERTS_CONSTANTS", function ($q, $scope, $rootScope, $timeout, StatesHandler, AuthService, flash, ALERTS_CONSTANTS) {
+
+        var TIMEOUT_PENDING = 1000;
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.cancelAccount;
+
+        /**
+         * Cancel account functionality.
+         */
+        $scope.cancelAccount = function () {
+
+            if ( !$scope.isDeleting ) {
+
+                $scope.isDeleting = true;
+
+                AuthService
+                    .cancelAccount()
+                    .then(function () {
+                        flash.to($scope.alertIdentifierId).success = 'We\'ve successfully deleted your account!';
+
+                        $timeout(function () {
+                            $scope.isDeleting = false;
+
+                            // ---
+                            // We need to set the data and refresh the user.
+                            // ---
+                            AuthService
+                                .logout();
+                            StatesHandler
+                                .goHome();
+                        }, TIMEOUT_PENDING);
+
+                    })
+                    .catch(function () {
+                        /* If bad feedback from server */
+                        $scope.badPostSubmitResponse = true;
+                        $scope.isDeleting = false;
+
+                        flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to remove your account.';
+                    });
+            }
+        };
+    }]);;/**
+ * Preferences controller responsible for user update preferences action.
+ */
+angular
+    .module("settings")
+    .controller("SettingsPreferencesCurrencyController", ["$q", "$scope", "$rootScope", "$timeout", "StatesHandler", "SessionService", "AUTH_EVENTS", "flash", "currencies", "ALERTS_CONSTANTS", "MIXPANEL_EVENTS", function ($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, flash, currencies, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+
+        /**
+         * Saving timeout
+         */
+        var TIMEOUT_PENDING = 300;
+
+        /**
+         * All given currencies.
+         * @type {currencies|*}
+         */
+        $scope.currencies = currencies;
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.preferences;
+
+        /**
+         * Track event.
+         */
+        mixpanel.track(MIXPANEL_EVENTS.settingsPreferences);
+
+        /**
+         * Current user.
+         * @type {$rootScope.currentUser|*}
+         */
+        $scope.user = $rootScope.currentUser;
+
+        /**
+         * Selected currency
+         * @type {{}}
+         */
+        $scope.currency = $scope.user.model.currency;
+
+        /**
+         * Initial profile data
+         */
+        function getInitialProfileData() {
+            return {
+                currency: $scope.user.model.currency
+            };
+        }
+
+        /**
+         * Profile user information.
+         */
+        $scope.profileData = angular.copy(getInitialProfileData());
+
+        /**
+         * Update profile functionality.
+         */
+        $scope.updatePreferences = function () {
+            if ( $scope.preferencesForm.$valid && !$scope.isSaving ) {
+
+                // Show the loading bar
+                $scope.isSaving = true;
+
+                $scope.profileData.currency = angular.copy($scope.currency.originalObject || $scope.currency);
+
+                // Update the user
+                $scope.user
+                    .updateCurrency($scope.profileData)
+                    .then(function (response) {
+                        // ---
+                        // Reload data with given response.
+                        // ---
+                        $scope.user
+                            .loadFrom(response.data);
+
+                        // ---
+                        // We need to set the data and refresh the user.
+                        // ---
+                        SessionService.setData(response.data);
+                        $rootScope.$broadcast(AUTH_EVENTS.refreshUser, response);
+
+                        // ---
+                        // Reset the profile data with possible new data.
+                        // ---
+                        $scope.profileData = angular.copy(getInitialProfileData());
+
+                        $scope.preferencesForm.$setPristine();
+                        flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your preferences!';
+
+                        $timeout(function () {
+                            $scope.isSaving = false;
+                        }, TIMEOUT_PENDING);
+
+                    })
+                    .catch(function () {
+                        /* If bad feedback from server */
+                        $scope.badPostSubmitResponse = true;
+                        $scope.isSaving = false;
+
+                        flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to update your preferences.';
+                    });
+            }
+        };
+
+    }]);;/**
+ * Profile controller responsible for user update profile action.
+ */
+angular
+    .module("settings")
+    .controller("SettingsProfileController", ["$q", "$scope", "$rootScope", "$timeout", "StatesHandler", "SessionService", "AUTH_EVENTS", "flash", "ALERTS_CONSTANTS", "MIXPANEL_EVENTS", function ($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+
+        var TIMEOUT_PENDING = 300;
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.updateProfile;
+
+        /**
+         * Track event.
+         */
+        mixpanel.track(MIXPANEL_EVENTS.settingsProfile);
+
+        /**
+         * Current user.
+         */
+        $scope.user = $rootScope.currentUser;
+
+        /**
+         * Initial profile data
+         */
+        function getInitialProfileData() {
+            return {
+                firstName: $scope.user.model.firstName,
+                lastName: $scope.user.model.lastName,
+                initiated: $scope.user.model.initiated,
+                currency: $scope.user.model.currency
+            };
+        }
+
+        /**
+         * Profile user information.
+         */
+        $scope.profileData = angular.copy(getInitialProfileData());
+
+        /**
+         * Update profile functionality.
+         */
+        $scope.updateProfile = function (profileData) {
+
+            if ( $scope.profileForm.$valid && !$scope.isRequestPending ) {
+
+                // Show the loading bar
+                $scope.isRequestPending = true;
+
+                // Update the user
+                $scope.user
+                    .save(profileData)
+                    .then(function (response) {
+                        // ---
+                        // Reload data with given response.
+                        // ---
+                        $scope.user
+                            .loadFrom(response.data);
+
+                        // ---
+                        // We need to set the data and refresh the user.
+                        // ---
+                        SessionService.setData(response.data);
+                        $rootScope.$broadcast(AUTH_EVENTS.refreshUser, response);
+
+                        // ---
+                        // Reset the profile data with possible new data.
+                        // ---
+                        $scope.profileData = angular.copy(getInitialProfileData());
+
+                        $scope.profileForm.$setPristine();
+                        flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your account!';
+
+                        $timeout(function () {
+                            $scope.isRequestPending = false;
+                        }, TIMEOUT_PENDING);
+                    })
+                    .catch(function () {
+                        /* If bad feedback from server */
+                        $scope.badPostSubmitResponse = true;
+                        $scope.isRequestPending = false;
+
+                        flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to update your account.';
+                    });
+            }
+        };
+
+    }]);;/**
+ * Update password controller.
+ */
+angular
+    .module("settings")
+    .controller("SettingsUpdatePasswordController", ["$scope", "flash", "$timeout", "AuthService", "ACCOUNT_FORM_STATE", "ALERTS_CONSTANTS", function ($scope, flash, $timeout, AuthService, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {
+
+        var TIMEOUT_PENDING = 300;
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.updatePassword;
+
+        /**
+         * Initial update password data.
+         */
+        var initialUpdatePasswordData = {
+            oldPassword: "",
+            newPassword: "",
+            newPasswordConfirmation: ""
+        };
+
+        /**
+         * Update password user information.
+         * @type {{oldPassword: string, newPassword: string, newPasswordConfirmation: string}}
+         */
+        $scope.updatePasswordData = angular.copy(initialUpdatePasswordData);
+
+        /**
+         * Update password data functionality.
+         * @param updatePasswordData
+         */
+        $scope.updatePassword = function (updatePasswordData) {
+            if ( !( $scope.updatePasswordForm.$valid && !$scope.isRequestPending ) ) {
+                return;
+            }
+
+            if ( updatePasswordData.newPassword !== updatePasswordData.newPasswordConfirmation ) {
+                flash.to($scope.alertIdentifierId).error = 'Your new password should match the new confirmation password!';
+
+                return;
+            }
+
+            $scope.isRequestPending = true;
+
+            AuthService
+                .updatePassword(updatePasswordData.oldPassword, updatePasswordData.newPassword, updatePasswordData.newPasswordConfirmation)
+                .then(function () {
+                    flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your account!';
+
+                    $timeout(function () {
+                        $scope.isRequestPending = false;
+                    }, TIMEOUT_PENDING);
+                })
+                .catch(function () {
+                    /* If bad feedback from server */
+                    $scope.badPostSubmitResponse = true;
+                    $scope.isRequestPending = false;
+
+                    flash.to($scope.alertIdentifierId).error = 'We\'re not able to update your account. Please try again.';
+                })
+                .finally(function () {
+                    $scope.updatePasswordForm.$setPristine();
+                    $scope.updatePasswordData = angular.copy(initialUpdatePasswordData);
+                });
         };
     }]);;/**
  * Main site module declaration including ui templates.
@@ -3114,9 +3354,14 @@ angular
     .config(["$stateProvider", function ($stateProvider) {
 
         $stateProvider
-            .state("categories", {
+
+            // ---
+            // Categories page.
+            // ---
+            .state({
+                name: "settings.categories",
                 url: "/categories",
-                templateUrl: 'app/categories/partials/categories.html',
+                templateUrl: "app/categories/partials/categories.html",
                 controller: "CategoryListController",
                 resolve: {
                     categories: ["CategoryService", function (CategoryService) {
@@ -3124,7 +3369,7 @@ angular
                     }]
                 },
                 title: "Categories - Revaluate"
-            })
+            });
 
     }]);;/**
  * Categories constants.
@@ -3420,7 +3665,7 @@ angular
             link: function (scope, el, attrs) {
 
                 // By default the popover is closed
-                scope.isOpen = false;
+                scope.isOpen = true;
 
                 // Open the popover
                 scope.open = function () {
@@ -4006,7 +4251,8 @@ angular
  */
 angular
     .module("expenses", [
-        "common"
+        "common",
+        "statistics"
     ])
     .config(["$stateProvider", function ($stateProvider) {
 
@@ -4460,7 +4706,7 @@ angular
         };
     });;angular
     .module("expenses")
-    .directive("expenseEntry", ["$rootScope", "EXPENSE_EVENTS", function ($rootScope, EXPENSE_EVENTS) {
+    .directive("expenseEntry", ["$rootScope", "$timeout", "EXPENSE_EVENTS", function ($rootScope, $timeout, EXPENSE_EVENTS) {
         return {
             restrict: "A",
             controller: 'ExpenseEntryController',
@@ -4471,6 +4717,8 @@ angular
             },
             templateUrl: "app/expenses/partials/expense/expense.entry.template.html",
             link: function (scope, el, attrs) {
+
+                var EXPENSE_INPUT_SELECTOR = '.expense__form__price__input';
 
                 /**
                  * Current user.
@@ -4506,10 +4754,17 @@ angular
                 scope.toggleContent = function () {
                     scope.showContent = !scope.showContent;
 
-                    /**
-                     * Max date to create expense
-                     */
+                    // ---
+                    // Auto focus price.
+                    // ---
                     if ( scope.showContent ) {
+                        $timeout(function () {
+                            el.find(EXPENSE_INPUT_SELECTOR).focus();
+                        });
+
+                        /**
+                         * Max date to create expense
+                         */
                         scope.maxDate = moment().hours(0).minutes(0).seconds(0);
                     }
                 };
@@ -5010,6 +5265,110 @@ angular
 
         return Expense;
     }]);;angular
+    .module("statistics", [
+        "common"
+    ]);;/**
+ * Summaries constants.
+ */
+angular
+    .module("statistics")
+    .constant("STATISTIC_URLS", {
+        fetchStatistic: "insights/summary_insights"
+    });;/**
+ * Summaries service which encapsulates the whole logic related to statistics.
+ */
+angular
+    .module("statistics")
+    .service("StatisticService", ["STATISTIC_URLS", "$q", "$http", "$injector", "StatisticTransformerService", function (STATISTIC_URLS, $q, $http, $injector, StatisticTransformerService) {
+
+        /**
+         * Get all statistics of current user
+         * @returns {*}
+         */
+        this.fetchStatistics = function () {
+
+            return $http
+                .get(URLTo.api(STATISTIC_URLS.fetchStatistic))
+                .then(function (response) {
+
+                    return StatisticTransformerService.toStatistic(response.data, $injector.get('Statistic').build());
+                }).catch(function (response) {
+                    return $q.reject(response);
+                });
+        };
+    }]);
+;/**
+ * Statistic transformer service which transforms a statistic DTO model object to a statistic business object.
+ */
+angular
+    .module("statistics")
+    .service("StatisticTransformerService", ["$injector", "TransformerUtils", function ($injector, TransformerUtils) {
+
+        /**
+         * Converts a statisticDto object to a statistic business object model.
+         * @param statisticDto
+         * @param statistic
+         * @param skipKeys
+         * @returns {*}
+         */
+        this.toStatistic = function (statisticDto, statistic, skipKeys) {
+            statistic = statistic || $injector.get('Statistic').build();
+
+            TransformerUtils.copyKeysFromTo(statisticDto, statistic.model, skipKeys);
+
+            if ( statistic.model.firstExistingExpenseDate ) {
+                statistic.model.firstExistingExpenseDate = moment(statistic.model.firstExistingExpenseDate).toDate();
+            }
+
+            if ( statistic.model.lastExistingExpenseDate ) {
+                statistic.model.lastExistingExpenseDate = moment(statistic.model.lastExistingExpenseDate).toDate();
+            }
+
+            return statistic;
+        };
+    }]);
+;angular
+    .module("statistics")
+    .factory("Statistic", ["$q", "StatisticTransformerService", function ($q, StatisticTransformerService) {
+
+        /**
+         * Statistic class.
+         * @constructor
+         */
+        function Statistic() {
+
+            /**
+             * Represents the DTO model of the statistic.
+             */
+            this.model = {
+
+                /**
+                 * First existing expense date
+                 */
+                firstExistingExpenseDate: "",
+
+                /**
+                 * Last existing expense date
+                 */
+                lastExistingExpenseDate: ""
+            };
+        }
+
+        /**
+         * Builds a statistic with given data.
+         * @param data
+         * @returns {Statistic}
+         */
+        Statistic.build = function (data) {
+            if ( _.isEmpty(data) ) {
+                return new Statistic();
+            }
+
+            return StatisticTransformerService.toStatistic(data, new Statistic());
+        };
+
+        return Statistic;
+    }]);;angular
     .module("insights", [
         "common",
         "expenses"
@@ -5023,10 +5382,15 @@ angular
                 controller: "InsightController",
                 resolve: {
                     insight: ["InsightService", function (InsightService) {
-                        var from = moment().year(2012).hours(0).minutes(0).seconds(0);
-                        var to = moment().year(2016).hours(0).minutes(0).seconds(0);
+                        var from = moment().startOf('month');
+                        var to = moment().endOf('month');
 
-                        return InsightService.fetchInsightsFromTo(from, to);
+                        return InsightService
+                            .fetchInsightsFromTo(from, to);
+                    }],
+                    statistics: ["StatisticService", function (StatisticService) {
+                        return StatisticService
+                            .fetchStatistics();
                     }]
                 },
                 title: "Insights - Revaluate"
@@ -5044,17 +5408,207 @@ angular
  */
 angular
     .module("insights")
-    .controller("InsightController", ["$scope", "$rootScope", "$timeout", "insight", "MIXPANEL_EVENTS", function ($scope, $rootScope, $timeout, insight, MIXPANEL_EVENTS) {
+    .controller("InsightController", ["$scope", "$rootScope", "$timeout", "flash", "insight", "statistics", "InsightService", "MIXPANEL_EVENTS", "ALERTS_CONSTANTS", function ($scope, $rootScope, $timeout, flash, insight, statistics, InsightService, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
+
+        /**
+         * Updating/deleting timeout
+         */
+        var TIMEOUT_DURATION = 150;
+
+        /**
+         * Month constant
+         * @type {string}
+         */
+        var MONTH = 'month';
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.insights;
 
         /**
          * Track event.
          */
         mixpanel.track(MIXPANEL_EVENTS.insightsPage);
 
+        /**
+         * Default insights loaded.
+         * @type {insight|*}
+         */
         $scope.insight = insight;
         $scope.insightLineData = [insight.model.insightData];
         $scope.insightLineSeries = ["Categories"];
-    }]);;/**
+
+        /**
+         * Expenses statistics
+         * @type {statistics|*}
+         */
+        $scope.statistics = statistics;
+
+        /**
+         * Open date picker
+         * @param $event
+         */
+        $scope.openDatePicker = function ($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            $scope.datePickerOpened = true;
+        };
+
+        /**
+         * Minimum date to fetch insights.
+         * @type {Date}
+         */
+        $scope.datePickerMinDate = $scope.statistics.model.firstExistingExpenseDate || moment().year(2000);
+
+        /**
+         * Maximum date to fetch insights.
+         */
+        $scope.datePickerMaxDate = $scope.statistics.model.lastExistingExpenseDate || moment().hours(0).minutes(0).seconds(0);
+
+        /**
+         * Exposed insight data (first define master copy).
+         * @type {{spentDate: *}}
+         */
+        $scope.masterInsightData = {
+            spentDate: moment().toDate()
+        };
+
+        /**
+         * Exposed insight data.
+         * @type {{spentDate: *}}
+         */
+        $scope.insightData = angular.copy($scope.masterInsightData);
+
+        /**
+         * Load insights
+         */
+        function loadInsight() {
+            if ( $scope.isLoading ) {
+
+                $scope.insightData = angular.copy($scope.masterInsightData);
+                return;
+            }
+
+            $scope.isLoading = true;
+            var computedInsightsData = angular.copy($scope.insightData);
+            var from = moment(computedInsightsData.spentDate).startOf(MONTH);
+            var to = moment(computedInsightsData.spentDate).endOf(MONTH);
+            InsightService
+                .fetchInsightsFromTo(from, to)
+                .then(function (receivedInsight) {
+
+                    /**
+                     * Track event.
+                     */
+                    mixpanel.track(MIXPANEL_EVENTS.insightsFetched);
+
+                    $timeout(function () {
+                        if ( receivedInsight.isEmpty() ) {
+                            // ---
+                            // Reset the insight data.
+                            // ---
+                            $scope.insightData = angular.copy($scope.masterInsightData);
+                            flash.to($scope.alertIdentifierId).info = "There are no expenses defined for selected period."
+                        }
+                        else {
+                            // ---
+                            // If there was a previously error, just clear it.
+                            // ---
+                            flash.to($scope.alertIdentifierId).error = '';
+
+                            // ---
+                            // Update everything.
+                            // ---
+                            $scope.masterInsightData = angular.copy($scope.insightData);
+                            $scope.insight = receivedInsight;
+                            $scope.insightLineData = [$scope.insight.model.insightData];
+                            $scope.insightLineSeries = ["Categories"];
+                        }
+
+                        $scope.isLoading = false;
+
+                    }, TIMEOUT_DURATION);
+                })
+                .catch(function () {
+
+                    // ---
+                    // Reset the insight data.
+                    // ---
+                    $scope.insightData = angular.copy($scope.masterInsightData);
+                    flash.to($scope.alertIdentifierId).error = "Could not fetch insights.";
+                    $scope.badPostSubmitResponse = true;
+                    $scope.isLoading = false;
+                });
+        }
+
+        /**
+         * Submitted from inside the form.
+         */
+        $scope.submitLoadInsight = function () {
+            if ( !$scope.insightForm.$valid ) {
+                return;
+            }
+
+            var isDateInFuture = moment().diff($scope.insightData.spentDate || $scope.insightForm.spentDate) <= 0;
+            if ( isDateInFuture ) {
+                $scope.insightForm.spentDate.$setValidity('validDate', false);
+
+                return;
+            }
+
+            // ---
+            // Now load the insights.
+            // ---
+            loadInsight();
+        };
+
+        /**
+         * On date change do load insight
+         */
+        $scope.onChange = function () {
+            loadInsight();
+        };
+
+        /**
+         * Go to previous month
+         */
+        $scope.prevMonth = function () {
+            $scope.insightData.spentDate = moment($scope.insightData.spentDate).subtract(1, MONTH).toDate();
+
+            loadInsight();
+        };
+
+        /**
+         * Only if -1 month is at most the first existing expenses date.
+         * @returns {boolean}
+         */
+        $scope.canLoadPrevMonth = function () {
+
+            // a - b < 0 or a - b > 0
+            return moment($scope.insightData.spentDate).diff($scope.statistics.model.firstExistingExpenseDate) >= 0;
+        };
+
+        /**
+         * Go to next month
+         */
+        $scope.nextMonth = function () {
+            $scope.insightData.spentDate = moment($scope.insightData.spentDate).add(1, MONTH).toDate();
+
+            loadInsight();
+        };
+
+        /**
+         * Only if +1 month is at most the last existing expenses date.
+         * @returns {boolean}
+         */
+        $scope.canLoadNextMonth = function () {
+
+            return moment($scope.insightData.spentDate).diff($scope.statistics.model.lastExistingExpenseDate) <= 0;
+        }
+    }])
+;;/**
  * Insights service which encapsulates the whole logic related to insights.
  */
 angular
@@ -5125,6 +5679,14 @@ angular
 
             if ( insight.model.to ) {
                 insight.model.to = moment(insight.model.to).toDate();
+            }
+
+            if ( insight.model.firstExistingExpenseDate ) {
+                insight.model.firstExistingExpenseDate = moment(insight.model.firstExistingExpenseDate).toDate();
+            }
+
+            if ( insight.model.lastExistingExpenseDate ) {
+                insight.model.lastExistingExpenseDate = moment(insight.model.lastExistingExpenseDate).toDate();
             }
 
             return insight;
@@ -5198,9 +5760,47 @@ angular
                 /**
                  * To date period of the insight.
                  */
-                to: ""
+                to: "",
+
+                /**
+                 * Total amount spent
+                 */
+                totalAmountSpent: 0,
+
+                /**
+                 * Number of transactions
+                 */
+                numberOfTransactions: 0,
+
+                /**
+                 * Total per categories
+                 */
+                totalPerCategoryInsightDTOs: [],
+
+                /**
+                 * Summary insights data
+                 */
+                summaryInsightsDTO: {
+
+                    /**
+                     * First existing expense date
+                     */
+                    firstExistingExpenseDate: "",
+
+                    /**
+                     * Last existing expense date
+                     */
+                    lastExistingExpenseDate: ""
+                }
             };
 
+            /**
+             * Is insight empty.
+             * @returns {boolean}
+             */
+            this.isEmpty = function () {
+                return this.model.insightData.length === 0;
+            };
         }
 
         /**
@@ -5233,7 +5833,9 @@ angular
         "common",
         "categories",
         "expenses",
+        "statistics",
         "account",
+        "settings",
         "insights",
         "angular.filter"
     ])
@@ -5334,7 +5936,7 @@ angular
             $state.go('500');
         });
     }]);
-;angular.module('partials', ['app/site/partials/404.html', 'app/site/partials/500.html', 'app/site/partials/about.html', 'app/site/partials/home.html', 'app/site/partials/privacy.html', 'app/categories/partials/add-category-directive-template.html', 'app/categories/partials/categories.html', 'app/categories/partials/color-picker-directive-template.html', 'app/categories/partials/edit-remove-category-directive-template.html', 'app/expenses/partials/expense.category.template.html', 'app/expenses/partials/expense/expense.entry.template.html', 'app/expenses/partials/expense/expense.list.template.html', 'app/expenses/partials/expense/expenses.html', 'app/expenses/partials/expense/expenses.template.html', 'app/account/partials/account.html', 'app/account/partials/account_close.html', 'app/account/partials/logout.html', 'app/account/partials/settings/settings.html', 'app/account/partials/settings/settings.preferences.html', 'app/account/partials/settings/settings.profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/signup_setup.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/insight/partials/insight.html', 'app/feedback/partials/feedback-modal.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/accordion/accordion-group.html', 'template/accordion/accordion.html', 'template/alert/alert.html', 'template/carousel/carousel.html', 'template/carousel/slide.html', 'template/datepicker/datepicker.html', 'template/datepicker/day.html', 'template/datepicker/month.html', 'template/datepicker/popup.html', 'template/datepicker/year.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/pagination/pager.html', 'template/pagination/pagination.html', 'template/popover/popover.html', 'template/progressbar/bar.html', 'template/progressbar/progress.html', 'template/progressbar/progressbar.html', 'template/rating/rating.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/timepicker/timepicker.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html', 'template/typeahead/typeahead-match.html', 'template/typeahead/typeahead-popup.html']);
+;angular.module('partials', ['app/site/partials/404.html', 'app/site/partials/500.html', 'app/site/partials/about.html', 'app/site/partials/home.html', 'app/site/partials/privacy.html', 'app/categories/partials/add-category-directive-template.html', 'app/categories/partials/categories.html', 'app/categories/partials/color-picker-directive-template.html', 'app/categories/partials/edit-remove-category-directive-template.html', 'app/expenses/partials/expense.category.template.html', 'app/expenses/partials/expense/expense.entry.template.html', 'app/expenses/partials/expense/expense.list.template.html', 'app/expenses/partials/expense/expenses.html', 'app/expenses/partials/expense/expenses.template.html', 'app/account/partials/account.html', 'app/account/partials/account_close.html', 'app/account/partials/logout.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/signup_setup.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/settings/partials/settings.abstract.html', 'app/settings/partials/settings.admin.abstract.html', 'app/settings/partials/settings.admin.cancelAccount.html', 'app/settings/partials/settings.admin.updatePassword.html', 'app/settings/partials/settings.preferences.abstract.html', 'app/settings/partials/settings.preferences.updateCurrency.html', 'app/settings/partials/settings.profile.html', 'app/insight/partials/insight.html', 'app/feedback/partials/feedback-modal.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/accordion/accordion-group.html', 'template/accordion/accordion.html', 'template/alert/alert.html', 'template/carousel/carousel.html', 'template/carousel/slide.html', 'template/datepicker/datepicker.html', 'template/datepicker/day.html', 'template/datepicker/month.html', 'template/datepicker/popup.html', 'template/datepicker/year.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/pagination/pager.html', 'template/pagination/pagination.html', 'template/popover/popover.html', 'template/progressbar/bar.html', 'template/progressbar/progress.html', 'template/progressbar/progressbar.html', 'template/rating/rating.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/timepicker/timepicker.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html', 'template/typeahead/typeahead-match.html', 'template/typeahead/typeahead-popup.html']);
 
 angular.module("app/site/partials/404.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/404.html",
@@ -5548,10 +6150,8 @@ angular.module("app/categories/partials/add-category-directive-template.html", [
     "\n" +
     "        <!-- Form group -->\n" +
     "        <div class=\"categories__form__input-group\" ng-class=\"{'has-error': categoryForm.$submitted && (categoryForm.color.$invalid || badPostSubmitResponse)}\">\n" +
-    "            <!--Color preview-->\n" +
-    "            <label class=\"categories__form__color__preview\" ng-style=\"{'background':category.model.color}\"></label>\n" +
     "\n" +
-    "            <input class=\"categories__form__input-group__color\" type=\"text\" placeholder=\"Category color\" name=\"color\" ng-model=\"category.model.color\" required valid-category-color />\n" +
+    "            <input class=\"categories__form__input-group__color\" type=\"hidden\" placeholder=\"Category color\" name=\"color\" ng-model=\"category.model.color\" required valid-category-color />\n" +
     "\n" +
     "            <!-- Error messages -->\n" +
     "            <div class=\"form-group-input__message\" ng-class=\"{'has-error': categoryForm.color.$invalid && categoryForm.$submitted}\" ng-messages=\"categoryForm.color.$error\" ng-if=\"categoryForm.$submitted\">\n" +
@@ -5569,6 +6169,10 @@ angular.module("app/categories/partials/add-category-directive-template.html", [
     "                <div ng-message=\"validCategoryName\">Name is not valid.</div>\n" +
     "                <div ng-message=\"uniqueCategoryName\">Name is already used.</div>\n" +
     "            </div>\n" +
+    "\n" +
+    "            <!--Color preview-->\n" +
+    "            <label class=\"categories__form__color__preview\" ng-style=\"{'background':category.model.color}\"></label>\n" +
+    "\n" +
     "            <input type=\"text\"\n" +
     "                   name=\"name\"\n" +
     "                   class=\"categories__form__input-group__name\"\n" +
@@ -5585,16 +6189,19 @@ angular.module("app/categories/partials/add-category-directive-template.html", [
     "        <!--Reset-->\n" +
     "        <button type=\"button\" class=\"categories__add__form__content__right__cancel\" ng-click=\"toggleContent();initOrReset(categoryForm)\">Nevermind</button>\n" +
     "        <!-- Submit button container -->\n" +
-    "        <button class=\"categories__add__form__content__right__add\" type=\"submit\">{{isSaving ? 'Adding..' : 'Add'}}</button>\n" +
+    "        <button class=\"categories__add__form__content__right__add\" type=\"submit\">{{isSaving ? 'Saving...' : 'Save category'}}</button>\n" +
     "    </div>\n" +
     "</form>");
 }]);
 
 angular.module("app/categories/partials/categories.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/categories/partials/categories.html",
-    "<div header class=\"view-container__header\"></div>\n" +
-    "\n" +
     "<div class=\"view-container__content\">\n" +
+    "\n" +
+    "    <div class=\"categories__title\">Categories</div>\n" +
+    "    <div class=\"categories__text\">\n" +
+    "        You can create new categories, edit the ones you already have or delete the ones that have no expenses associated.\n" +
+    "    </div>\n" +
     "\n" +
     "    <!-- Flash messages. -->\n" +
     "    <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
@@ -5613,9 +6220,7 @@ angular.module("app/categories/partials/categories.html", []).run(["$templateCac
     "\n" +
     "    </div>\n" +
     "\n" +
-    "</div>\n" +
-    "\n" +
-    "<div footer class=\"view-container__footer\"></div>");
+    "</div>");
 }]);
 
 angular.module("app/categories/partials/color-picker-directive-template.html", []).run(["$templateCache", function($templateCache) {
@@ -5660,22 +6265,20 @@ angular.module("app/categories/partials/edit-remove-category-directive-template.
     "\n" +
     "        <!-- Category color form group -->\n" +
     "        <div class=\"categories__form__input-group\" ng-class=\"{'has-error': categoryForm.$submitted && (categoryForm.color.$invalid || badPostSubmitResponse)}\">\n" +
-    "            <!--Color preview-->\n" +
-    "            <label class=\"categories__form__color__preview\" ng-style=\"{'background':category.model.color}\"></label>\n" +
     "\n" +
-    "            <input class=\"categories__form__input-group__color\" type=\"text\" placeholder=\"Category color\" name=\"color\" ng-model=\"category.model.color\" required valid-category-color />\n" +
+    "            <input class=\"categories__form__input-group__color\" type=\"hidden\" placeholder=\"Category color\" name=\"color\" ng-model=\"category.model.color\" required valid-category-color />\n" +
     "\n" +
     "            <!-- Error messages -->\n" +
     "            <div class=\"form-group-input__message\" ng-class=\"{'has-error': categoryForm.color.$invalid && categoryForm.$submitted}\" ng-messages=\"categoryForm.color.$error\" ng-if=\"categoryForm.$submitted\">\n" +
     "                <div ng-message=\"required\">Color is mandatory.</div>\n" +
     "                <div ng-message=\"validCategoryColor\">Color is not valid.</div>\n" +
     "            </div>\n" +
-    "\n" +
-    "            <div color-picker category-color=\"category.model.color\"></div>\n" +
     "        </div>\n" +
     "\n" +
     "        <!-- Category label form group-->\n" +
     "        <div class=\"categories__form__input-group\" ng-class=\"{'has-error': categoryForm.$submitted && (categoryForm.name.$invalid || badPostSubmitResponse)}\">\n" +
+    "            <!--Color preview-->\n" +
+    "            <label class=\"categories__form__color__preview\" ng-style=\"{'background':category.model.color}\"></label>\n" +
     "            <input class=\"categories__form__input-group__name\" type=\"text\" placeholder=\"Category name\" name=\"name\" ng-model=\"category.model.name\" auto-focus required valid-category-name unique-category-name except=\"masterCategory.model.name\" />\n" +
     "\n" +
     "            <!-- Error messages -->\n" +
@@ -5684,6 +6287,8 @@ angular.module("app/categories/partials/edit-remove-category-directive-template.
     "                <div ng-message=\"validCategoryName\">Name is not valid.</div>\n" +
     "                <div ng-message=\"uniqueCategoryName\">Name is already used.</div>\n" +
     "            </div>\n" +
+    "\n" +
+    "            <div color-picker category-color=\"category.model.color\"></div>\n" +
     "        </div>\n" +
     "\n" +
     "    </div>\n" +
@@ -5691,7 +6296,7 @@ angular.module("app/categories/partials/edit-remove-category-directive-template.
     "    <!--Content right-->\n" +
     "    <div class=\"categories__edit__form__content__right\">\n" +
     "        <!--Reset-->\n" +
-    "        <button class=\"categories__edit__form__content__right__cancel\" ng-click=\"cancel();\">Nevermind</button>\n" +
+    "        <button type=\"button\" class=\"categories__edit__form__content__right__cancel\" ng-click=\"cancel();\">Nevermind</button>\n" +
     "        <!-- Button container -->\n" +
     "        <button class=\"categories__edit__form__content__right__update\" type=\"submit\">{{isUpdating ? 'Saving..' : 'Save changes'}}</button>\n" +
     "    </div>\n" +
@@ -5879,7 +6484,7 @@ angular.module("app/expenses/partials/expense/expenses.html", []).run(["$templat
     "\n" +
     "        <!-- Form groups -->\n" +
     "        <div class=\"expense__form__price\" ng-class=\"{'has-error': expenseForm.$submitted && (expenseForm.value.$invalid || badPostSubmitResponse)}\">\n" +
-    "            <input class=\"expense__form__price__input\" type=\"text\" name=\"value\" placeholder=\"The value\" maxlength=\"14\" ng-model=\"expense.model.value\" format-price format=\"number\" caret-price-position required valid-price />\n" +
+    "            <input class=\"expense__form__price__input\" type=\"text\" name=\"value\" placeholder=\"The value\" maxlength=\"14\" ng-model=\"expense.model.value\" format-price format=\"number\" caret-price-position required valid-price auto-focus />\n" +
     "            <span class=\"expense__form__price__currency\">{{user.model.currency.currencyCode}}</span>\n" +
     "\n" +
     "            <!-- Error messages -->\n" +
@@ -5954,10 +6559,10 @@ angular.module("app/expenses/partials/expense/expenses.html", []).run(["$templat
     "\n" +
     "        <!-- Button container -->\n" +
     "        <div class=\"expense__form__submit\">\n" +
-    "            <span ng-if=\"isSaving\">\n" +
+    "            <span ng-if=\"isLoading\">\n" +
     "                <span>Saving...</span>\n" +
     "            </span>\n" +
-    "            <span ng-if=\"! isSaving\">\n" +
+    "            <span ng-if=\"! isLoading\">\n" +
     "                <span>Enter to</span>\n" +
     "                <button type=\"submit\">save</button>\n" +
     "                <span>the expense.</span>\n" +
@@ -6171,175 +6776,17 @@ angular.module("app/account/partials/logout.html", []).run(["$templateCache", fu
     "<!-- Account sections -->\n" +
     "<div class=\"account\">\n" +
     "\n" +
-    "   <!-- Logout section -->\n" +
+    "    <!-- Logout section -->\n" +
     "    <div class=\"account__section\">\n" +
     "\n" +
-    "             <!--Message-->\n" +
-    "            <div class=\"alert alert-success\">\n" +
-    "               Logged out successfully.\n" +
-    "            </div>\n" +
+    "        <!--Message-->\n" +
+    "        <div class=\"alert alert-success\">\n" +
+    "            Logged out successfully.\n" +
+    "        </div>\n" +
     "    </div>\n" +
     "</div>\n" +
     "\n" +
     "");
-}]);
-
-angular.module("app/account/partials/settings/settings.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("app/account/partials/settings/settings.html",
-    "<div header class=\"view-container__header\"></div>\n" +
-    "\n" +
-    "<div class=\"centered-section-account\">\n" +
-    "    <tabset vertical=\"true\">\n" +
-    "        <tab heading=\"Profile\">\n" +
-    "            <div class=\"account\" ui-view=\"profile\" profile-form-toggle></div>\n" +
-    "        </tab>\n" +
-    "        <tab heading=\"Preferences\">\n" +
-    "            <div class=\"account\" ui-view=\"preferences\"></div>\n" +
-    "        </tab>\n" +
-    "    </tabset>\n" +
-    "</div>\n" +
-    "\n" +
-    "<div footer class=\"view-container__footer\"></div>");
-}]);
-
-angular.module("app/account/partials/settings/settings.preferences.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("app/account/partials/settings/settings.preferences.html",
-    "<!-- Profile section -->\n" +
-    "<div class=\"account__section\" ng-controller=\"PreferencesController\">\n" +
-    "\n" +
-    "    <!-- Title -->\n" +
-    "    <h1 class=\"account__title\">Modify timezone</h1>\n" +
-    "\n" +
-    "    <!-- Profile form -->\n" +
-    "    <form name=\"preferencesForm\" ng-submit=\"updatePreferences(preferencesData)\" novalidate>\n" +
-    "\n" +
-    "        <!-- Account controls -->\n" +
-    "        <div class=\"account__controls\">\n" +
-    "\n" +
-    "            <!-- Flash messages. -->\n" +
-    "            <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
-    "\n" +
-    "            <!-- Form groups -->\n" +
-    "            <div class=\"account__controls__form-groups account__controls__form-groups--last\">\n" +
-    "\n" +
-    "                <!-- Form group -->\n" +
-    "                <div class=\"form-group form-group--timezone\" ng-class=\"{'has-error': preferencesForm.timezone.$invalid && preferencesForm.$submitted}\">\n" +
-    "                    <select class=\"form-control\" chosen=\"{inherit_select_classes:true}\" ng-options=\"timezone.key as timezone.value for timezone in timezones\" ng-model=\"preferencesData.timezone\" required> </select>\n" +
-    "                    <span class=\"form-group-input__message\" ng-if=\"preferencesForm.timezone.$invalid && preferencesForm.$submitted\">Please tell us your email.</span>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "\n" +
-    "            <!-- Button container -->\n" +
-    "            <button class=\"btn account__button\" type=\"submit\">Save changes</button>\n" +
-    "        </div>\n" +
-    "    </form>\n" +
-    "</div>");
-}]);
-
-angular.module("app/account/partials/settings/settings.profile.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("app/account/partials/settings/settings.profile.html",
-    "<!-- Profile section -->\n" +
-    "<div class=\"account__section\" ng-if=\"ProfileFormToggle.state === ACCOUNT_FORM_STATE.updateProfile\" ng-controller=\"ProfileController\">\n" +
-    "\n" +
-    "    <!-- Title -->\n" +
-    "    <h1 class=\"account__title\">Modify profile</h1>\n" +
-    "\n" +
-    "    <!-- Profile form -->\n" +
-    "    <form name=\"profileForm\" ng-submit=\"updateProfile(profileData)\" novalidate>\n" +
-    "\n" +
-    "        <!-- Account controls -->\n" +
-    "        <div class=\"account__controls\">\n" +
-    "\n" +
-    "            <!-- Flash messages. -->\n" +
-    "            <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
-    "\n" +
-    "            <!-- Form groups -->\n" +
-    "            <div class=\"account__controls__form-groups account__controls__form-groups--last\">\n" +
-    "\n" +
-    "                <!-- Form group -->\n" +
-    "                <div class=\"form-group\" ng-class=\"{'has-error': profileForm.firstName.$invalid && profileForm.$submitted}\">\n" +
-    "                    <input class=\"form-group-input__input\" type=\"text\" placeholder=\"Prenume\" name=\"firstName\" ng-model=\"profileData.firstName\" required />\n" +
-    "                    <span class=\"form-group-input__message\" ng-if=\"profileForm.firstName.$invalid && profileForm.$submitted\">Please tell us your First Name.</span>\n" +
-    "                </div>\n" +
-    "\n" +
-    "                <!-- Form group -->\n" +
-    "                <div class=\"form-group\" ng-class=\"{'has-error': profileForm.lastName.$invalid && profileForm.$submitted}\">\n" +
-    "                    <input class=\"form-group-input__input\" type=\"text\" placeholder=\"Nume\" name=\"lastName\" ng-model=\"profileData.lastName\" required />\n" +
-    "                    <span class=\"form-group-input__message\" ng-if=\"profileForm.lastName.$invalid && profileForm.$submitted\">Please tell us your Last Name.</span>\n" +
-    "                </div>\n" +
-    "\n" +
-    "                <!-- Form group -->\n" +
-    "                <div class=\"form-group\">\n" +
-    "                    <input class=\"form-group-input__input\" type=\"text\" placeholder=\"Email\" name=\"email\" ng-value=\"user.model.email\" disabled />\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "\n" +
-    "            <!-- Button container -->\n" +
-    "            <button class=\"btn account__button\" type=\"submit\">Save changes</button>\n" +
-    "        </div>\n" +
-    "    </form>\n" +
-    "\n" +
-    "    <a href=\"javascript:void(0)\" class=\"link-navigation\" ng-click=\"ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updatePassword)\">Change password</a>\n" +
-    "</div>\n" +
-    "\n" +
-    "<!-- Update password section -->\n" +
-    "<div class=\"account__section\" ng-if=\"ProfileFormToggle.state === ACCOUNT_FORM_STATE.updatePassword\" ng-controller=\"UpdatePasswordController\">\n" +
-    "\n" +
-    "    <!-- Title -->\n" +
-    "    <h1 class=\"account__title\">Welcome!</h1>\n" +
-    "\n" +
-    "    <!-- Update password form -->\n" +
-    "    <form name=\"updatePasswordForm\" ng-submit=\"updatePassword(updatePasswordData)\" novalidate>\n" +
-    "\n" +
-    "        <!-- Account controls -->\n" +
-    "        <div class=\"account__controls\">\n" +
-    "\n" +
-    "            <!-- Flash messages. -->\n" +
-    "            <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
-    "\n" +
-    "            <!-- Form groups -->\n" +
-    "            <div class=\"account__controls__form-groups--last\">\n" +
-    "\n" +
-    "                <!-- Form group -->\n" +
-    "                <div class=\"form-group\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.oldPassword.$invalid || badPostSubmitResponse)}\">\n" +
-    "                    <input class=\"form-group-input__input\" type=\"password\" placeholder=\"Old password\" name=\"oldPassword\" ng-model=\"updatePasswordData.oldPassword\" auto-focus required />\n" +
-    "                    <span class=\"form-group-input__message\" ng-if=\"updatePasswordForm.oldPassword.$invalid && updatePasswordForm.$submitted\">Please enter your old password.</span>\n" +
-    "                </div>\n" +
-    "\n" +
-    "                <!-- Form group -->\n" +
-    "                <div class=\"form-group\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.newPassword.$invalid || badPostSubmitResponse)}\">\n" +
-    "                    <input class=\"form-group-input__input\" type=\"password\" placeholder=\"New password\" name=\"newPassword\" ng-model=\"updatePasswordData.newPassword\" required />\n" +
-    "                    <span class=\"form-group-input__message\" ng-if=\"updatePasswordForm.newPassword.$invalid && updatePasswordForm.$submitted\">Please enter a new password.</span>\n" +
-    "                </div>\n" +
-    "\n" +
-    "                <!-- Form group -->\n" +
-    "                <div class=\"form-group\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.newPasswordConfirmation.$invalid || badPostSubmitResponse)}\">\n" +
-    "                    <input class=\"form-group-input__input\" type=\"password\" placeholder=\"New password confirmation\" name=\"newPasswordConfirmation\" ng-model=\"updatePasswordData.newPasswordConfirmation\" required />\n" +
-    "                    <span class=\"form-group-input__message\" ng-if=\"updatePasswordForm.newPasswordConfirmation.$invalid && updatePasswordForm.$submitted\">Please confirm your new password.</span>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "\n" +
-    "            <!-- Button container -->\n" +
-    "            <button class=\"btn account__button\" type=\"submit\">Update password</button>\n" +
-    "        </div>\n" +
-    "    </form>\n" +
-    "\n" +
-    "    <a href=\"javascript:void(0)\" class=\"link-navigation\" ng-click=\"ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile)\">Nevermind, take me back!</a>\n" +
-    "\n" +
-    "</div>\n" +
-    "\n" +
-    "<!-- Change password section successfully-->\n" +
-    "<div class=\"account__section\" ng-if=\"ProfileFormToggle.state == ACCOUNT_FORM_STATE.updatePasswordSuccessfully\">\n" +
-    "\n" +
-    "    <!-- Title -->\n" +
-    "    <h1 class=\"account__title\">Successfully</h1>\n" +
-    "\n" +
-    "    <!-- Explain -->\n" +
-    "    <span class=\"account__explain\">We've successfully updated your new password.</span>\n" +
-    "\n" +
-    "    <!-- Button container -->\n" +
-    "    <a href=\"javascript:void(0)\" ng-click=\"ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile)\">Continue</a>\n" +
-    "</div>");
 }]);
 
 angular.module("app/account/partials/signup_confirm_abstract.html", []).run(["$templateCache", function($templateCache) {
@@ -6368,8 +6815,6 @@ angular.module("app/account/partials/signup_confirm_invalid.html", []).run(["$te
 angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/account/partials/signup_confirm_valid.html",
     "<!-- Registration confirmation valid -->\n" +
-    "\n" +
-    "<!-- Account sections -->\n" +
     "<div class=\"account\">\n" +
     "\n" +
     "    <!--Sign up-->\n" +
@@ -6607,29 +7052,278 @@ angular.module("app/account/partials/validate_password_reset_token_valid.html", 
     "</div>");
 }]);
 
+angular.module("app/settings/partials/settings.abstract.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/settings/partials/settings.abstract.html",
+    "<div header class=\"view-container__header\"></div>\n" +
+    "\n" +
+    "<div class=\"view-container__content view-container__content--settings\">\n" +
+    "\n" +
+    "    <ul class=\"view-container__content__admin__aside\">\n" +
+    "        <li ui-sref-active=\"tab__active\">\n" +
+    "            <a href=\"javascript:void(0)\" ui-sref=\"settings.profile\">Profile</a>\n" +
+    "        </li>\n" +
+    "        <li ui-sref-active=\"tab__active\">\n" +
+    "            <a href=\"javascript:void(0)\" ui-sref=\"settings.admin\">Account settings</a>\n" +
+    "        </li>\n" +
+    "        <li ui-sref-active=\"tab__active\">\n" +
+    "            <a href=\"javascript:void(0)\" ui-sref=\"settings.preferences\">Preferences</a>\n" +
+    "        </li>\n" +
+    "        <li ui-sref-active=\"tab__active\">\n" +
+    "            <a href=\"javascript:void(0)\" ui-sref=\"settings.categories\">Categories</a>\n" +
+    "        </li>\n" +
+    "    </ul>\n" +
+    "\n" +
+    "    <div class=\"view-container__content__admin__section\" ui-view></div>\n" +
+    "\n" +
+    "</div>\n" +
+    "\n" +
+    "<div footer class=\"view-container__footer\"></div>");
+}]);
+
+angular.module("app/settings/partials/settings.admin.abstract.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/settings/partials/settings.admin.abstract.html",
+    "<div ui-view=\"updatePassword\"></div>\n" +
+    "\n" +
+    "<div ui-view=\"cancelAccount\"></div>");
+}]);
+
+angular.module("app/settings/partials/settings.admin.cancelAccount.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/settings/partials/settings.admin.cancelAccount.html",
+    "<!-- Cancel account section -->\n" +
+    "<div class=\"account\">\n" +
+    "\n" +
+    "    <div class=\"account__section\">\n" +
+    "\n" +
+    "        <!-- Account controls -->\n" +
+    "        <div class=\"account__controls\">\n" +
+    "\n" +
+    "            <!-- Flash messages. -->\n" +
+    "            <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
+    "            <!--Cancel account-->\n" +
+    "            <button class=\"account-cancel__btn\" ng-click=\"cancelAccount()\">{{isDeleting ? 'Canceling..' : 'Cancel account'}}</button>\n" +
+    "        </div>\n" +
+    "\n" +
+    "    </div>\n" +
+    "\n" +
+    "</div>");
+}]);
+
+angular.module("app/settings/partials/settings.admin.updatePassword.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/settings/partials/settings.admin.updatePassword.html",
+    "<!-- Profile section -->\n" +
+    "\n" +
+    "<!-- Account sections -->\n" +
+    "<div class=\"account\">\n" +
+    "\n" +
+    "    <!-- Update password section -->\n" +
+    "    <div class=\"account__section\">\n" +
+    "\n" +
+    "        <!-- Title -->\n" +
+    "        <h1 class=\"account__title\">Update password</h1>\n" +
+    "\n" +
+    "        <!-- Update password form -->\n" +
+    "        <form name=\"updatePasswordForm\" ng-submit=\"updatePassword(updatePasswordData)\" novalidate focus-first-error>\n" +
+    "\n" +
+    "            <!-- Flash messages. -->\n" +
+    "            <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
+    "            <!-- Form group -->\n" +
+    "            <div class=\"form-group-input\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.oldPassword.$invalid || badPostSubmitResponse)}\">\n" +
+    "                <input class=\"form-group-input__input\" type=\"password\" placeholder=\"Old password\" name=\"oldPassword\" ng-model=\"updatePasswordData.oldPassword\" auto-focus required />\n" +
+    "                <span class=\"form-group-input__message\" ng-if=\"updatePasswordForm.oldPassword.$invalid && updatePasswordForm.$submitted\">Please enter your old password.</span>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!-- Form group -->\n" +
+    "            <div class=\"form-group-input\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.newPassword.$invalid || badPostSubmitResponse)}\">\n" +
+    "                <input class=\"form-group-input__input\" type=\"password\" placeholder=\"New password\" name=\"newPassword\" ng-model=\"updatePasswordData.newPassword\" required />\n" +
+    "                <span class=\"form-group-input__message\" ng-if=\"updatePasswordForm.newPassword.$invalid && updatePasswordForm.$submitted\">Please enter a new password.</span>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!-- Form group -->\n" +
+    "            <div class=\"form-group-input\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.newPasswordConfirmation.$invalid || badPostSubmitResponse)}\">\n" +
+    "                <input class=\"form-group-input__input\" type=\"password\" placeholder=\"New password confirmation\" name=\"newPasswordConfirmation\" ng-model=\"updatePasswordData.newPasswordConfirmation\" required />\n" +
+    "                <span class=\"form-group-input__message\" ng-if=\"updatePasswordForm.newPasswordConfirmation.$invalid && updatePasswordForm.$submitted\">Please confirm your new password.</span>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!-- Button container -->\n" +
+    "            <button class=\"account__btn\" type=\"submit\">{{isRequestPending ? 'Updating..' : 'Update password'}}</button>\n" +
+    "        </form>\n" +
+    "\n" +
+    "    </div>\n" +
+    "\n" +
+    "</div>");
+}]);
+
+angular.module("app/settings/partials/settings.preferences.abstract.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/settings/partials/settings.preferences.abstract.html",
+    "<div ui-view=\"updateCurrency\"></div>");
+}]);
+
+angular.module("app/settings/partials/settings.preferences.updateCurrency.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/settings/partials/settings.preferences.updateCurrency.html",
+    "<!-- Cancel account section -->\n" +
+    "<div class=\"account\">\n" +
+    "\n" +
+    "    <div class=\"account__section\">\n" +
+    "\n" +
+    "        <!-- Title -->\n" +
+    "        <h1 class=\"account__title\">Modify preferences</h1>\n" +
+    "\n" +
+    "        <form name=\"preferencesForm\" ng-submit=\"updatePreferences()\" novalidate>\n" +
+    "\n" +
+    "            <!-- Flash messages. -->\n" +
+    "            <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
+    "            <div class=\"sign-up__setup__section\">\n" +
+    "\n" +
+    "                <div class=\"sign-up__setup__section--currency\" ng-class=\"{'has-error': preferencesForm.$submitted && (preferencesForm.$error['autocomplete-required'] || preferencesForm.currency.$invalid || badPostSubmitResponse)}\">\n" +
+    "                    <div angucomplete-alt\n" +
+    "                         selected-object=\"currency\"\n" +
+    "                         local-data=\"currencies\"\n" +
+    "                         search-fields=\"displayName,currencyCode\"\n" +
+    "                         title-field=\"currencyCode,displayName\"\n" +
+    "                         field-required=\"true\"\n" +
+    "                         placeholder=\"Start typing your currency...\"\n" +
+    "                         maxlength=\"50\"\n" +
+    "                         pause=\"1\"\n" +
+    "                         minlength=\"0\"\n" +
+    "                         initial-value=\"{{user.model.currency.currencyCode}}\"\n" +
+    "                         input-class=\"sign-up__setup__section--currency__input\"\n" +
+    "                         match-class=\"angucomplete-highlight\">\n" +
+    "                    </div>\n" +
+    "\n" +
+    "                    <!-- Error messages -->\n" +
+    "                    <div class=\"form-group-input__message form-group-input__message--currency\" ng-class=\"{'has-error': preferencesForm.$invalid && preferencesForm.$submitted}\" ng-messages=\"preferencesForm.$error\" ng-if=\"preferencesForm.$submitted\">\n" +
+    "                        <div ng-message=\"autocomplete-required\">Currency is missing or is invalid.</div>\n" +
+    "                        <div ng-message=\"required\">Please add</div>\n" +
+    "                    </div>\n" +
+    "\n" +
+    "                    <div class=\"form-group-input__message form-group-input__message--currency\" ng-if=\"preferencesForm.category.$invalid && preferencesForm.$submitted\">Please add a currency.</div>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!-- Button -->\n" +
+    "            <button class=\"sign-up__setup__btn\" type=\"submit\">{{isSaving ? 'Saving..' : 'Save'}}</button>\n" +
+    "        </form>\n" +
+    "\n" +
+    "    </div>\n" +
+    "\n" +
+    "</div>");
+}]);
+
+angular.module("app/settings/partials/settings.profile.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/settings/partials/settings.profile.html",
+    "<!-- Profile section -->\n" +
+    "<div class=\"account\">\n" +
+    "\n" +
+    "    <!--Update profile section-->\n" +
+    "    <div class=\"account__section\">\n" +
+    "\n" +
+    "        <!-- Title -->\n" +
+    "        <h1 class=\"account__title\">Modify profile</h1>\n" +
+    "\n" +
+    "        <!-- Profile form -->\n" +
+    "        <form name=\"profileForm\" ng-submit=\"updateProfile(profileData)\" novalidate focus-first-error>\n" +
+    "\n" +
+    "            <!-- Flash messages. -->\n" +
+    "            <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
+    "            <!-- Form group -->\n" +
+    "            <div class=\"form-group-input\" ng-class=\"{'has-error': profileForm.$submitted && (loginForm.firstName.$invalid || badPostSubmitResponse)}\">\n" +
+    "                <input class=\"form-group-input__input\" type=\"text\" placeholder=\"First name\" name=\"firstName\" ng-model=\"profileData.firstName\" required auto-focus />\n" +
+    "                <span class=\"form-group-input__message\" ng-if=\"profileForm.firstName.$invalid && profileForm.$submitted\">Please tell us your First Name.</span>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!-- Form group -->\n" +
+    "            <div class=\"form-group-input\" ng-class=\"{'has-error': profileForm.$submitted && (profileForm.lastName.$invalid || badPostSubmitResponse)}\">\n" +
+    "                <input class=\"form-group-input__input\" type=\"text\" placeholder=\"Last name\" name=\"lastName\" ng-model=\"profileData.lastName\" required />\n" +
+    "                <span class=\"form-group-input__message\" ng-if=\"profileForm.lastName.$invalid && profileForm.$submitted\">Please tell us your Last Name.</span>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!-- Form group -->\n" +
+    "            <div class=\"form-group-input\">\n" +
+    "                <input class=\"form-group-input__input\" type=\"text\" placeholder=\"Email\" name=\"email\" ng-value=\"user.model.email\" disabled />\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!-- Button container -->\n" +
+    "            <button class=\"account__btn\" type=\"submit\">{{isRequestPending ? 'Saving..' : 'Save'}}</button>\n" +
+    "\n" +
+    "        </form>\n" +
+    "\n" +
+    "    </div>\n" +
+    "\n" +
+    "</div>");
+}]);
+
 angular.module("app/insight/partials/insight.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/insight/partials/insight.html",
     "<div header class=\"view-container__header\"></div>\n" +
     "\n" +
     "<div class=\"view-container__content\">\n" +
     "\n" +
-    "    <div class=\"insights__textsection\">\n" +
-    "        Here are some useful insights around your expenses.\n" +
+    "    <div class=\"insights__section\">\n" +
+    "        Here are some useful insights around your expenses. We crafted just a few graphs to give you solid information\n" +
+    "        without crowding your screen too much. Feel free to\n" +
+    "        <a href=\"javascript:void(0)\" ng-controller=\"FeedbackModalController\" ng-click=\"openFeedbackModal()\">let us know</a>\n" +
+    "        what other charts you'd find useful and we'll work our heads off to fit them nicely.\n" +
     "    </div>\n" +
     "\n" +
-    "    <div class=\"insights__datepicker\">\n" +
-    "        <button type=\"submit\"> < </button>\n" +
-    "        <button type=\"submit\" class=\"insights__datepicker__month\"> March 2015 </button>\n" +
-    "        <button type=\"submit\"> > </button>\n" +
+    "    <!-- Insight fetch form -->\n" +
+    "    <div class=\"insights__controls\">\n" +
+    "\n" +
+    "        <form name=\"insightForm\" class=\"insights__controls__form\" ng-submit=\"submitLoadInsight()\" novalidate>\n" +
+    "\n" +
+    "            <!-- Flash messages. -->\n" +
+    "            <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
+    "            <!-- Select prev month -->\n" +
+    "            <button type=\"button\" class=\"insights__controls__form__arrow\" ng-disabled=\"isLoading || ! canLoadPrevMonth()\" ng-click=\"prevMonth()\"> <</button>\n" +
+    "\n" +
+    "            <div class=\"insights__controls__form__month\" ng-class=\"{'has-error': insightForm.spentDate.$invalid && insightForm.$submitted}\">\n" +
+    "\n" +
+    "                <!--Hidden input of the insight chosen date-->\n" +
+    "                <input type=\"hidden\" name=\"spentDate\" ng-model=\"insightData.spentDate\" required valid-date />\n" +
+    "\n" +
+    "                <!--insight date picker-->\n" +
+    "                <div class=\"insight__form__date__input\">\n" +
+    "                    <button type=\"button\"\n" +
+    "                            class=\"insight__form__date__input__btn\"\n" +
+    "                            ng-click=\"openDatePicker($event)\"\n" +
+    "                            ng-model=\"insightData.spentDate\"\n" +
+    "                            datepicker-popup\n" +
+    "                            is-open=\"datePickerOpened\"\n" +
+    "                            ng-change=\"onChange()\"\n" +
+    "                            ng-disabled=\"isLoading\"\n" +
+    "                            min-date=\"datePickerMinDate\"\n" +
+    "                            max-date=\"datePickerMaxDate\"\n" +
+    "                            datepicker-mode=\"'month'\" min-mode=\"month\"\n" +
+    "                            show-button-bar=\"false\"\n" +
+    "                            datepicker-options=\"{minMode: 'month',datepickerMode: 'month'}\">{{isLoading ? 'Loading' : (insightData.spentDate | friendlyMonthDate)}}\n" +
+    "                    </button>\n" +
+    "                </div>\n" +
+    "\n" +
+    "                <!--Error messages-->\n" +
+    "                <div class=\"form-group-input__message\" ng-class=\"{'has-error': insightForm.spentDate.$invalid && insightForm.$submitted}\" ng-messages=\"insightForm.$error\" ng-if=\"insightForm.$submitted\">\n" +
+    "                    <div ng-message=\"required\">Please add a date.</div>\n" +
+    "                    <div ng-message=\"validDate\">Date should be in the past.</div>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!-- Select next month -->\n" +
+    "            <button type=\"button\" class=\"insights__controls__form__arrow\" ng-disabled=\"isLoading || ! canLoadNextMonth()\" ng-click=\"nextMonth()\"> ></button>\n" +
+    "\n" +
+    "        </form>\n" +
+    "\n" +
     "    </div>\n" +
     "\n" +
     "    <div class=\"insights__summary\">\n" +
     "        <div class=\"insights__summary__thumbnail\">\n" +
-    "            <span class=\"insights__summary__thumbnail__number\">7.324</span>\n" +
+    "            <span class=\"insights__summary__thumbnail__number\">{{insight.model.totalAmountSpent}}</span>\n" +
     "            <span class=\"insights__summary__thumbnail__label\">TOTAL</span>\n" +
     "        </div>\n" +
     "        <div class=\"insights__summary__thumbnail\">\n" +
-    "            <span class=\"insights__summary__thumbnail__number\">134</span>\n" +
+    "            <span class=\"insights__summary__thumbnail__number\">{{insight.model.numberOfTransactions}}</span>\n" +
     "            <span class=\"insights__summary__thumbnail__label\">transactions</span>\n" +
     "        </div>\n" +
     "        <div class=\"insights__summary__thumbnail\">\n" +
@@ -6638,41 +7332,44 @@ angular.module("app/insight/partials/insight.html", []).run(["$templateCache", f
     "        </div>\n" +
     "    </div>\n" +
     "\n" +
-    "    <canvas id=\"bar\"\n" +
-    "            class=\"chart chart-bar\"\n" +
-    "            data=\"insightLineData\"\n" +
-    "            series=\"insightLineSeries\"\n" +
-    "            legend=\"true\"\n" +
-    "            labels=\"insight.model.insightLabels\">\n" +
-    "    </canvas>\n" +
-    "\n" +
-    "    <div class=\"insights__chart__doughnut\">\n" +
-    "        <canvas class=\"chart chart-doughnut\"\n" +
-    "                data=\"insight.model.insightData\"\n" +
-    "                labels=\"insight.model.insightLabels\"\n" +
-    "                colours=\"insight.model.insightColors\"></canvas>\n" +
+    "    <div class=\"insights__chart__bar\">\n" +
+    "        <canvas id=\"bar\"\n" +
+    "                class=\"chart chart-bar\"\n" +
+    "                data=\"insightLineData\"\n" +
+    "                series=\"insightLineSeries\"\n" +
+    "                legend=\"true\"\n" +
+    "                labels=\"insight.model.insightLabels\">\n" +
+    "        </canvas>\n" +
     "    </div>\n" +
     "\n" +
-    "    <canvas id=\"line\"\n" +
-    "            class=\"chart chart-line\"\n" +
-    "            data=\"insightLineData\"\n" +
-    "            labels=\"insight.model.insightLabels\"\n" +
-    "            series=\"insightLineSeries\"\n" +
-    "            legend=\"true\"></canvas>\n" +
+    "    <div class=\"insights__table\">\n" +
+    "        <table>\n" +
+    "            <thead class=\"insights__table__header\">\n" +
+    "            <tr>\n" +
+    "                <td>TOTAL</td>\n" +
+    "                <td class=\"insights__table__amount\">{{insight.model.totalAmountSpent}}</td>\n" +
+    "            </tr>\n" +
+    "            </thead>\n" +
+    "            <tbody>\n" +
+    "            <tr ng-repeat=\"totalPerCategory in insight.model.totalPerCategoryInsightDTOs\">\n" +
+    "                <td class=\"insights__table__category\">\n" +
+    "                    <span class=\"insights__table__category__color\" ng-style=\"{'background':totalPerCategory.categoryDTO.color}\">C</span>\n" +
+    "                    {{totalPerCategory.categoryDTO.name}}\n" +
+    "                </td>\n" +
+    "                <td class=\"insights__table__amount\">{{totalPerCategory.totalAmount}}</td>\n" +
+    "            </tr>\n" +
+    "            </tbody>\n" +
+    "        </table>\n" +
+    "    </div>\n" +
     "\n" +
-    "    <!-- <canvas id=\"line\"\n" +
-    "             class=\"chart chart-line\"\n" +
-    "             data=\"insight.model.insightData\"\n" +
-    "             labels=\"insight.model.insightLabels\"\n" +
-    "             series=\"insight.model.insightColors\"\n" +
-    "             legend=\"true\"></canvas>-->\n" +
-    "\n" +
-    "    <!--<canvas id=\"pie\"-->\n" +
-    "            <!--class=\"chart chart-pie\"-->\n" +
-    "            <!--data=\"insight.model.insightData\"-->\n" +
-    "            <!--colours=\"insight.model.insightColors\"-->\n" +
-    "            <!--labels=\"insight.model.insightLabels\"></canvas>-->\n" +
-    "</div>\n" +
+    "        <div class=\"insights__chart__doughnut\">\n" +
+    "            <canvas class=\"chart chart-doughnut\"\n" +
+    "                    data=\"insight.model.insightData\"\n" +
+    "                    labels=\"insight.model.insightLabels\"\n" +
+    "                    colours=\"insight.model.insightColors\">\n" +
+    "            </canvas>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
     "\n" +
     "<div footer class=\"view-container__footer\"></div>");
 }]);
@@ -6749,10 +7446,10 @@ angular.module("app/common/partials/footer-home.html", []).run(["$templateCache"
     "    </div>\n" +
     "\n" +
     "    <ul class=\"footer__links\">\n" +
-    "        <li>Read our <a href=\"http://blog.revaluate.io\">Blog</a></li>\n" +
-    "        <li>Send us an <a href=\"mailto:hello@revaluate.io\">Email</a></li>\n" +
-    "        <li>Follow us on <a href=\"https://twitter.com/revaluateapp\">Twitter</a></li>\n" +
-    "        <li>Like us on <a href=\"https://www.facebook.com/revaluateapp\">Facebook</a></li>\n" +
+    "        <li>Read our <a href=\"http://blog.revaluate.io\" target=\"_blank\">Blog</a></li>\n" +
+    "        <li>Follow us on <a href=\"https://twitter.com/revaluateapp\" target=\"_blank\">Twitter</a></li>\n" +
+    "        <li>Like us on <a href=\"https://www.facebook.com/revaluateapp\" target=\"_blank\">Facebook</a></li>\n" +
+    "        <li>Contact us via <a href=\"mailto:hello@revaluate.io\">Email</a></li>\n" +
     "    </ul>\n" +
     "</footer>");
 }]);
@@ -6765,9 +7462,9 @@ angular.module("app/common/partials/footer.html", []).run(["$templateCache", fun
     "    </div>\n" +
     "\n" +
     "    <ul class=\"footer__links\">\n" +
-    "        <li>Read our <a href=\"http://blog.revaluate.io\">Blog</a></li>\n" +
-    "        <li>Follow us on <a href=\"https://twitter.com/revaluateapp\">Twitter</a></li>\n" +
-    "        <li>Like us on <a href=\"https://www.facebook.com/revaluateapp\">Facebook</a></li>\n" +
+    "        <li>Read our <a href=\"http://blog.revaluate.io\" target=\"_blank\">Blog</a></li>\n" +
+    "        <li>Follow us on <a href=\"https://twitter.com/revaluateapp\" target=\"_blank\">Twitter</a></li>\n" +
+    "        <li>Like us on <a href=\"https://www.facebook.com/revaluateapp\" target=\"_blank\">Facebook</a></li>\n" +
     "    </ul>\n" +
     "</footer>");
 }]);
@@ -6782,7 +7479,6 @@ angular.module("app/common/partials/header-home.html", []).run(["$templateCache"
     "            <div class=\"header-home__brand--logo\">Logo</div>\n" +
     "            <a href=\"javascript:void(0)\" class=\"header-home__brand--name\">Revaluate</a>\n" +
     "        </div>\n" +
-    "\n" +
     "\n" +
     "        <ul class=\"header-home__navigation\">\n" +
     "            <li><a href=\"javascript:void(0)\">Pricing</a></li>\n" +
@@ -6811,7 +7507,7 @@ angular.module("app/common/partials/header.html", []).run(["$templateCache", fun
     "            <span class=\"caret\"></span>\n" +
     "        </button>\n" +
     "        <ul class=\"dropdown-menu header__dropdown__menu\" role=\"menu\">\n" +
-    "            <li><a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"settings\">Preferences</a></li>\n" +
+    "            <li><a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"settings.profile\">Preferences</a></li>\n" +
     "            <li><a class=\"nav-link\" href=\"javascript:void(0)\" id=\"feedback-trigger\" ng-controller=\"FeedbackModalController\" ng-click=\"openFeedbackModal()\">Send feedback</a></li>\n" +
     "            <li><a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"account:logout\">Logout</a></li>\n" +
     "        </ul>\n" +

@@ -5,9 +5,14 @@ angular
     .config(["$stateProvider", function ($stateProvider) {
 
         $stateProvider
-            .state("categories", {
+
+            // ---
+            // Categories page.
+            // ---
+            .state({
+                name: "settings.categories",
                 url: "/categories",
-                templateUrl: 'app/categories/partials/categories.html',
+                templateUrl: "app/categories/partials/categories.html",
                 controller: "CategoryListController",
                 resolve: {
                     categories: function (CategoryService) {
@@ -15,6 +20,6 @@ angular
                     }
                 },
                 title: "Categories - Revaluate"
-            })
+            });
 
     }]);

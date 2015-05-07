@@ -799,14 +799,13 @@ picture {
   margin-top: 20px;
 }
 
-/* line 24, ../../src/sass/bitters/_alerts.scss */
+/* line 25, ../../src/sass/bitters/_alerts.scss */
 .alert-error {
-  background-color: #fde9eb;
-  color: #ED5565;
   display: block;
+  width: 100%;
   margin-bottom: 0.75em;
   padding: 0.75em;
-  text-align: center;
+  background-color: #fde9eb;
   border: solid 1px #ED5565;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
@@ -816,25 +815,26 @@ picture {
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
   border-top-left-radius: 3px;
+  text-align: center;
+  color: #ED5565;
 }
-/* line 13, ../../src/sass/bitters/_alerts.scss */
+/* line 14, ../../src/sass/bitters/_alerts.scss */
 .alert-error a {
   color: #ED5565;
   text-decoration: underline;
 }
-/* line 17, ../../src/sass/bitters/_alerts.scss */
+/* line 18, ../../src/sass/bitters/_alerts.scss */
 .alert-error a:focus, .alert-error a:hover {
   color: #e8273b;
 }
 
-/* line 28, ../../src/sass/bitters/_alerts.scss */
-.alert-notice {
-  background-color: #e0f4fb;
-  color: #4FC1E9;
+/* line 29, ../../src/sass/bitters/_alerts.scss */
+.alert-info {
   display: block;
+  width: 100%;
   margin-bottom: 0.75em;
   padding: 0.75em;
-  text-align: center;
+  background-color: #e0f4fb;
   border: solid 1px #4FC1E9;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
@@ -844,50 +844,52 @@ picture {
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
   border-top-left-radius: 3px;
+  text-align: center;
+  color: #4FC1E9;
 }
-/* line 13, ../../src/sass/bitters/_alerts.scss */
-.alert-notice a {
+/* line 14, ../../src/sass/bitters/_alerts.scss */
+.alert-info a {
   color: #4FC1E9;
   text-decoration: underline;
 }
-/* line 17, ../../src/sass/bitters/_alerts.scss */
-.alert-notice a:focus, .alert-notice a:hover {
+/* line 18, ../../src/sass/bitters/_alerts.scss */
+.alert-info a:focus, .alert-info a:hover {
   color: #22b1e3;
 }
 
-/* line 32, ../../src/sass/bitters/_alerts.scss */
+/* line 33, ../../src/sass/bitters/_alerts.scss */
 .alert-success {
-  background-color: #f0f8e7;
-  color: #A0D468;
   display: block;
+  width: 100%;
   margin-bottom: 0.75em;
   padding: 0.75em;
+  background-color: #8cf4bf;
+  border: solid 1px #13ca6d;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
   text-align: center;
-  border: solid 1px #A0D468;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-  border-top-right-radius: 3px;
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
-  border-bottom-left-radius: 3px;
-  border-top-left-radius: 3px;
+  color: #13ca6d;
 }
-/* line 13, ../../src/sass/bitters/_alerts.scss */
+/* line 14, ../../src/sass/bitters/_alerts.scss */
 .alert-success a {
-  color: #A0D468;
+  color: #13ca6d;
   text-decoration: underline;
 }
-/* line 17, ../../src/sass/bitters/_alerts.scss */
+/* line 18, ../../src/sass/bitters/_alerts.scss */
 .alert-success a:focus, .alert-success a:hover {
-  color: #87c940;
+  color: #0f9b54;
 }
 
-/* line 36, ../../src/sass/bitters/_alerts.scss */
+/* line 37, ../../src/sass/bitters/_alerts.scss */
 .alert--center {
   width: 100%;
-  max-width: 600px;
-  margin: 10px auto 20px;
+  margin: 0 auto;
   text-align: center;
   display: none;
 }
@@ -8852,138 +8854,163 @@ html, body {
   content: "b";
 }
 
-/* line 3, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .expense__form__date__input__btn {
-  position: relative;
-}
-/* line 7, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .dropdown-menu {
-  width: 300px;
-  left: 500px !important;
-  top: 50px !important;
+/* line 4, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .dropdown-menu,
+.insight__form__date__input .dropdown-menu {
   padding: 0;
   font-size: 14px;
   text-align: center;
 }
-/* line 15, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .dropdown-menu li:first-child {
+/* line 9, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .dropdown-menu li:first-child,
+.insight__form__date__input .dropdown-menu li:first-child {
   padding: 0 !important;
   margin: 0 !important;
 }
-/* line 19, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .dropdown-menu li:first-child div table {
+/* line 13, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .dropdown-menu li:first-child div table,
+.insight__form__date__input .dropdown-menu li:first-child div table {
   padding: 0;
   margin: 0;
 }
-/* line 23, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .dropdown-menu li:first-child div table:focus {
+/* line 17, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .dropdown-menu li:first-child div table:focus,
+.insight__form__date__input .dropdown-menu li:first-child div table:focus {
   outline: none;
 }
-/* line 27, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .dropdown-menu li:first-child div table thead {
+/* line 21, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .dropdown-menu li:first-child div table thead,
+.insight__form__date__input .dropdown-menu li:first-child div table thead {
   background-color: #4A90E2;
   color: #ffffff;
   padding: 3px;
 }
-/* line 32, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .dropdown-menu li:first-child div table thead tr th {
+/* line 26, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .dropdown-menu li:first-child div table thead tr th,
+.insight__form__date__input .dropdown-menu li:first-child div table thead tr th {
   padding: 0 !important;
   border-bottom: solid 1px #2b7ddd;
 }
-/* line 36, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .dropdown-menu li:first-child div table thead tr th .btn {
+/* line 30, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .dropdown-menu li:first-child div table thead tr th .btn,
+.insight__form__date__input .dropdown-menu li:first-child div table thead tr th .btn {
   background-color: #4A90E2;
   color: #ffffff;
 }
-/* line 40, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .dropdown-menu li:first-child div table thead tr th .btn:hover {
+/* line 34, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .dropdown-menu li:first-child div table thead tr th .btn:hover,
+.insight__form__date__input .dropdown-menu li:first-child div table thead tr th .btn:hover {
   background-color: #2275d7;
 }
-/* line 47, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .dropdown-menu li:first-child div table tbody {
+/* line 40, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .dropdown-menu li:first-child div table thead tr > th:last-child,
+.insight__form__date__input .dropdown-menu li:first-child div table thead tr > th:last-child {
+  text-align: right;
+}
+/* line 45, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .dropdown-menu li:first-child div table tbody,
+.insight__form__date__input .dropdown-menu li:first-child div table tbody {
   padding: 3px;
 }
-/* line 50, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .dropdown-menu li:first-child div table tbody tr {
+/* line 48, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .dropdown-menu li:first-child div table tbody tr,
+.insight__form__date__input .dropdown-menu li:first-child div table tbody tr {
   border-width: 0;
 }
-/* line 53, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .dropdown-menu li:first-child div table tbody tr td {
+/* line 51, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .dropdown-menu li:first-child div table tbody tr td,
+.insight__form__date__input .dropdown-menu li:first-child div table tbody tr td {
   border-width: 0;
   padding: 0 !important;
 }
-/* line 57, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .dropdown-menu li:first-child div table tbody tr td .btn {
+/* line 55, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .dropdown-menu li:first-child div table tbody tr td .btn,
+.insight__form__date__input .dropdown-menu li:first-child div table tbody tr td .btn {
   padding: 0;
 }
-/* line 66, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .dropdown-menu li:last-child {
+/* line 64, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .dropdown-menu li:last-child,
+.insight__form__date__input .dropdown-menu li:last-child {
   padding: 5px 2px 2px 2px !important;
   margin: 0 !important;
   text-align: center;
 }
-/* line 72, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .dropdown-menu li:last-child .btn-group button:first-child {
+/* line 70, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .dropdown-menu li:last-child .btn-group button:first-child,
+.insight__form__date__input .dropdown-menu li:last-child .btn-group button:first-child {
   width: 100%;
   /* Make the "Today button wide */
 }
 /* line 73, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .dropdown-menu li:last-child .btn-group button:last-child {
+.expense__form__date__input .dropdown-menu li:last-child .btn-group button:last-child,
+.insight__form__date__input .dropdown-menu li:last-child .btn-group button:last-child {
   display: none;
   /* Hide the "Clear" button */
 }
-/* line 76, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .dropdown-menu li:last-child > button {
+/* line 78, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .dropdown-menu li:last-child > button,
+.insight__form__date__input .dropdown-menu li:last-child > button {
   display: none;
   /* Hide the "Done" button */
 }
-/* line 84, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .btn {
+/* line 87, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .btn,
+.insight__form__date__input .btn {
   padding-top: 0;
   padding-bottom: 0;
   height: 35px;
 }
-/* line 90, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .btn-default {
+/* line 93, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .btn-default,
+.insight__form__date__input .btn-default {
   background-color: #ffffff;
 }
-/* line 93, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .btn-default:hover {
+/* line 96, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .btn-default:hover,
+.insight__form__date__input .btn-default:hover {
   background-color: #e8e8e8;
 }
-/* line 107, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .btn-success {
-  background-color: #A0D468;
+/* line 110, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .btn-success,
+.insight__form__date__input .btn-success {
+  background-color: #13ca6d;
   color: #ffffff;
 }
-/* line 102, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .btn-success:hover {
+/* line 105, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .btn-success:hover,
+.insight__form__date__input .btn-success:hover {
   background-color: #8CC152;
 }
-/* line 111, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .btn-danger {
+/* line 114, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .btn-danger,
+.insight__form__date__input .btn-danger {
   background-color: #ED5565;
   color: #ffffff;
 }
-/* line 102, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .btn-danger:hover {
+/* line 105, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .btn-danger:hover,
+.insight__form__date__input .btn-danger:hover {
   background-color: #DA4453;
 }
-/* line 115, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .btn-info {
+/* line 118, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .btn-info,
+.insight__form__date__input .btn-info {
   background-color: #4A90E2;
   color: #ffffff;
 }
-/* line 102, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .btn-info:hover {
+/* line 105, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .btn-info:hover,
+.insight__form__date__input .btn-info:hover {
   background-color: #2275d7;
 }
-/* line 119, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .text-center {
+/* line 122, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .text-center,
+.insight__form__date__input .text-center {
   text-align: center;
 }
-/* line 125, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .glyphicon {
+/* line 128, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .glyphicon,
+.insight__form__date__input .glyphicon {
   position: relative;
   top: 1px;
   display: inline-block;
@@ -8992,12 +9019,14 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* line 135, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .glyphicon-chevron-left:before {
+/* line 139, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .glyphicon-chevron-left:before,
+.insight__form__date__input .glyphicon-chevron-left:before {
   content: "\276e";
 }
-/* line 136, ../../src/sass/components/_datepicker.scss */
-.expense__form__date__input .glyphicon-chevron-right:before {
+/* line 144, ../../src/sass/components/_datepicker.scss */
+.expense__form__date__input .glyphicon-chevron-right:before,
+.insight__form__date__input .glyphicon-chevron-right:before {
   content: "\276f";
 }
 
@@ -9193,11 +9222,11 @@ html, body {
   margin-right: auto;
   -webkit-border-radius: 3px;
   border-radius: 3px;
-  min-height: 600px;
+  min-height: 500px;
   position: relative;
   background-color: #ffffff;
   margin-top: 20px;
-  padding: 50px 25px;
+  padding: 20px;
 }
 /* line 20, ../../bower_components/bourbon/app/assets/stylesheets/addons/_clearfix.scss */
 .view-container__content::after {
@@ -9382,6 +9411,10 @@ html, body {
   position: relative;
 }
 /* line 31, ../../src/app/common/sass/_header.scss */
+.header__navigation li a {
+  display: block;
+}
+/* line 35, ../../src/app/common/sass/_header.scss */
 .header__navigation li span {
   color: #ddd;
   position: absolute;
@@ -9390,7 +9423,7 @@ html, body {
   font-size: 10px;
 }
 
-/* line 41, ../../src/app/common/sass/_header.scss */
+/* line 45, ../../src/app/common/sass/_header.scss */
 .header__dropdown {
   float: right;
   height: -webkit-calc(60px - 2px);
@@ -9398,7 +9431,7 @@ html, body {
   border: solid 0px #999;
   position: relative;
 }
-/* line 47, ../../src/app/common/sass/_header.scss */
+/* line 51, ../../src/app/common/sass/_header.scss */
 .header__dropdown .header__dropdown__toggle {
   display: inline-block;
   height: 35px;
@@ -9423,11 +9456,11 @@ html, body {
   cursor: not-allowed;
   opacity: 0.5;
 }
-/* line 53, ../../src/app/common/sass/_header.scss */
+/* line 57, ../../src/app/common/sass/_header.scss */
 .header__dropdown .header__dropdown__toggle:hover {
   background-color: #fafafa;
 }
-/* line 58, ../../src/app/common/sass/_header.scss */
+/* line 62, ../../src/app/common/sass/_header.scss */
 .header__dropdown .header__dropdown__avatar {
   display: inline-block;
   margin: 0 5px;
@@ -9440,7 +9473,7 @@ html, body {
   text-align: center;
   text-indent: -9999px;
 }
-/* line 70, ../../src/app/common/sass/_header.scss */
+/* line 74, ../../src/app/common/sass/_header.scss */
 .header__dropdown .header__dropdown__menu {
   right: 0;
 }
@@ -9922,6 +9955,35 @@ html, body {
   opacity: 0.5;
 }
 
+/* line 8, ../../src/app/account/sass/_account_common_form.scss */
+.account-cancel__btn {
+  display: inline-block;
+  height: 35px;
+  background-color: #ED5565;
+  padding: 0 15px;
+  line-height: 35px;
+  color: #ffffff;
+  text-align: center;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  height: 45px;
+  width: 100%;
+  line-height: 45px;
+  margin-top: 25px;
+  font-size: 16px;
+  font-weight: 700;
+}
+/* line 15, ../../src/sass/components/_buttons.scss */
+.account-cancel__btn:hover, .account-cancel__btn:focus {
+  background-color: #ef6c7a;
+  cursor: pointer;
+}
+/* line 21, ../../src/sass/components/_buttons.scss */
+.account-cancel__btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 /* line 1, ../../src/app/account/sass/_account_modal.scss */
 .account-modal,
 .account-page {
@@ -10125,6 +10187,18 @@ html, body {
 .ps-container .ps-scrollbar-y-rail:hover .ps-scrollbar-y,
 .ps-container .ps-scrollbar-y-rail.hover .ps-scrollbar-y {
   background-color: #ddd;
+}
+
+/* line 3, ../../src/app/expenses/sass/components/_datepicker.scss */
+.expense__form__date__input .expense__form__date__input__btn {
+  position: relative;
+  width: 300px;
+}
+/* line 8, ../../src/app/expenses/sass/components/_datepicker.scss */
+.expense__form__date__input .dropdown-menu {
+  width: 300px;
+  left: 500px !important;
+  top: 50px !important;
 }
 
 /* line 4, ../../src/app/expenses/sass/_expenses_add_form.scss */
@@ -10560,53 +10634,63 @@ html, body {
 
 /* Import sub-modules */
 /* line 1, ../../src/app/categories/sass/_categories_common.scss */
+.categories__title {
+  text-align: center;
+  font-size: 32px;
+}
+
+/* line 6, ../../src/app/categories/sass/_categories_common.scss */
+.categories__text {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 25px;
+  text-align: center;
+}
+
+/* line 15, ../../src/app/categories/sass/_categories_common.scss */
 .angucomplete-image-holder {
   position: relative;
 }
 
-/* line 5, ../../src/app/categories/sass/_categories_common.scss */
-.categories__form__color__preview {
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-  height: 23px;
-  width: 23px;
-  position: absolute;
-  margin: 8px;
-  left: 0;
-  top: 0;
-}
-
-/* line 14, ../../src/app/categories/sass/_categories_common.scss */
+/* line 19, ../../src/app/categories/sass/_categories_common.scss */
 .categories__form__input-group {
   vertical-align: middle;
   position: relative;
   float: left;
-  width: 50%;
+  width: 100%;
 }
-
-/* line 21, ../../src/app/categories/sass/_categories_common.scss */
-.categories__form__input-group__name,
-.categories__form__input-group__color {
-  height: 40px;
-  line-height: 40px;
-  padding-right: 50px;
+/* line 25, ../../src/app/categories/sass/_categories_common.scss */
+.categories__form__input-group .categories__form__color__preview {
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  height: 22px;
+  width: 22px;
+  position: absolute;
+  margin: 10px;
+  left: 0;
+  top: 0;
+}
+/* line 34, ../../src/app/categories/sass/_categories_common.scss */
+.categories__form__input-group .categories__form__input-group__name,
+.categories__form__input-group .categories__form__input-group__color {
   display: inline-block;
-  text-transform: uppercase;
 }
-
-/* line 33, ../../src/app/categories/sass/_categories_common.scss */
-.categories__form__input-group__color {
-  text-align: right;
-  width: 30%;
-}
-
 /* line 40, ../../src/app/categories/sass/_categories_common.scss */
+.categories__form__input-group .categories__form__input-group__name {
+  height: 40px;
+  padding-left: 40px;
+  text-transform: uppercase;
+  width: 250px;
+}
+
+/* line 50, ../../src/app/categories/sass/_categories_common.scss */
 .has-error .categories__form__input-group__name,
 .has-error .categories__form__input-group__color {
   border-color: #ED5565;
 }
 
-/* line 46, ../../src/app/categories/sass/_categories_common.scss */
+/* line 56, ../../src/app/categories/sass/_categories_common.scss */
 .categories__cancel__btn {
   display: inline-block;
   height: 35px;
@@ -10643,8 +10727,8 @@ html, body {
   float: left;
   display: block;
   margin-right: 2.12766%;
-  width: 65.95745%;
-  margin-left: 17.02128%;
+  width: 82.97872%;
+  margin-left: 8.51064%;
   -webkit-border-radius: 3px;
   border-radius: 3px;
   margin-bottom: 40px;
@@ -10757,8 +10841,8 @@ html, body {
   float: left;
   display: block;
   margin-right: 2.12766%;
-  width: 65.95745%;
-  margin-left: 17.02128%;
+  width: 82.97872%;
+  margin-left: 8.51064%;
   -webkit-border-radius: 3px;
   border-radius: 3px;
 }
@@ -10775,7 +10859,8 @@ html, body {
   width: 100%;
   -webkit-border-radius: 3px;
   border-radius: 3px;
-  padding: 7px 5px 7px 10px;
+  padding: 0;
+  height: 42px;
 }
 /* line 89, ../../bower_components/neat/app/assets/stylesheets/grid/_span-columns.scss */
 .categories__edit__category:last-child {
@@ -10788,7 +10873,7 @@ html, body {
   display: table;
 }
 
-/* line 14, ../../src/app/categories/sass/_categories_edit.scss */
+/* line 15, ../../src/app/categories/sass/_categories_edit.scss */
 .categories__edit__category__name {
   float: left;
 }
@@ -10798,18 +10883,18 @@ html, body {
   content: "";
   display: table;
 }
-/* line 18, ../../src/app/categories/sass/_categories_edit.scss */
+/* line 19, ../../src/app/categories/sass/_categories_edit.scss */
 .categories__edit__category__name .categories__edit__category__color {
   -webkit-border-radius: 50%;
   border-radius: 50%;
   height: 22px;
   width: 22px;
-  margin: 2px;
+  margin: 10px;
   display: inline-block;
   float: left;
   text-indent: -9999px;
 }
-/* line 27, ../../src/app/categories/sass/_categories_edit.scss */
+/* line 28, ../../src/app/categories/sass/_categories_edit.scss */
 .categories__edit__category__name .categories__edit__category__label {
   -webkit-border-radius: 3px;
   border-radius: 3px;
@@ -10819,14 +10904,15 @@ html, body {
   user-select: none;
   display: inline-block;
   float: left;
-  padding: 2px 10px;
+  padding: 10px 0;
   text-transform: uppercase;
   font-size: 14px;
 }
 
-/* line 38, ../../src/app/categories/sass/_categories_edit.scss */
+/* line 39, ../../src/app/categories/sass/_categories_edit.scss */
 .categories__edit__category__controls {
   float: right;
+  padding-top: 5px;
 }
 /* line 20, ../../bower_components/bourbon/app/assets/stylesheets/addons/_clearfix.scss */
 .categories__edit__category__controls::after {
@@ -10834,21 +10920,63 @@ html, body {
   content: "";
   display: table;
 }
-/* line 47, ../../src/app/categories/sass/_categories_edit.scss */
-.categories__edit__category__controls .categories__edit__category__delete:hover {
-  color: #ED5565;
+/* line 44, ../../src/app/categories/sass/_categories_edit.scss */
+.categories__edit__category__controls .categories__edit__category__edit {
+  display: inline-block;
+  height: 35px;
+  background-color: #E7E7E7;
+  padding: 0 15px;
+  line-height: 35px;
+  color: #ffffff;
+  text-align: center;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  height: 30px;
+  line-height: 30px;
+  color: #5F5F5F;
+}
+/* line 15, ../../src/sass/components/_buttons.scss */
+.categories__edit__category__controls .categories__edit__category__edit:hover, .categories__edit__category__controls .categories__edit__category__edit:focus {
+  background-color: #f4f4f4;
+  cursor: pointer;
+}
+/* line 21, ../../src/sass/components/_buttons.scss */
+.categories__edit__category__controls .categories__edit__category__edit:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+/* line 48, ../../src/app/categories/sass/_categories_edit.scss */
+.categories__edit__category__controls .categories__edit__category__delete {
+  display: inline-block;
+  height: 35px;
+  background-color: #ED5565;
+  padding: 0 15px;
+  line-height: 35px;
+  color: #ffffff;
+  text-align: center;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  height: 30px;
+  line-height: 30px;
+}
+/* line 15, ../../src/sass/components/_buttons.scss */
+.categories__edit__category__controls .categories__edit__category__delete:hover, .categories__edit__category__controls .categories__edit__category__delete:focus {
+  background-color: #ef6c7a;
+  cursor: pointer;
+}
+/* line 21, ../../src/sass/components/_buttons.scss */
+.categories__edit__category__controls .categories__edit__category__delete:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 /* line 52, ../../src/app/categories/sass/_categories_edit.scss */
 .categories__edit__category__controls .categories__edit__category__edit,
 .categories__edit__category__controls .categories__edit__category__delete {
   float: right;
-  display: inline-block;
-  margin: 0 5px;
-  padding: 2px 10px;
-  font-size: 14px;
+  margin-left: 10px;
 }
 
-/* line 62, ../../src/app/categories/sass/_categories_edit.scss */
+/* line 59, ../../src/app/categories/sass/_categories_edit.scss */
 .categories__edit__form__content__left {
   float: left;
   display: block;
@@ -10860,18 +10988,20 @@ html, body {
   margin-right: 0;
 }
 
-/* line 66, ../../src/app/categories/sass/_categories_edit.scss */
+/* line 63, ../../src/app/categories/sass/_categories_edit.scss */
 .categories__edit__form__content__right {
   float: left;
   display: block;
   margin-right: 3.22581%;
   width: 48.3871%;
+  height: 40px;
+  padding-top: 5px;
 }
 /* line 89, ../../bower_components/neat/app/assets/stylesheets/grid/_span-columns.scss */
 .categories__edit__form__content__right:last-child {
   margin-right: 0;
 }
-/* line 69, ../../src/app/categories/sass/_categories_edit.scss */
+/* line 68, ../../src/app/categories/sass/_categories_edit.scss */
 .categories__edit__form__content__right .categories__edit__form__content__right__update {
   display: inline-block;
   height: 35px;
@@ -10882,6 +11012,8 @@ html, body {
   text-align: center;
   -webkit-border-radius: 3px;
   border-radius: 3px;
+  height: 30px;
+  line-height: 30px;
 }
 /* line 15, ../../src/sass/components/_buttons.scss */
 .categories__edit__form__content__right .categories__edit__form__content__right__update:hover, .categories__edit__form__content__right .categories__edit__form__content__right__update:focus {
@@ -10893,7 +11025,7 @@ html, body {
   cursor: not-allowed;
   opacity: 0.5;
 }
-/* line 73, ../../src/app/categories/sass/_categories_edit.scss */
+/* line 72, ../../src/app/categories/sass/_categories_edit.scss */
 .categories__edit__form__content__right .categories__edit__form__content__right__cancel {
   display: inline-block;
   height: 35px;
@@ -10904,6 +11036,8 @@ html, body {
   text-align: center;
   -webkit-border-radius: 3px;
   border-radius: 3px;
+  height: 30px;
+  line-height: 30px;
   color: #5F5F5F;
 }
 /* line 15, ../../src/sass/components/_buttons.scss */
@@ -10916,7 +11050,7 @@ html, body {
   cursor: not-allowed;
   opacity: 0.5;
 }
-/* line 78, ../../src/app/categories/sass/_categories_edit.scss */
+/* line 77, ../../src/app/categories/sass/_categories_edit.scss */
 .categories__edit__form__content__right .categories__edit__form__content__right__update,
 .categories__edit__form__content__right .categories__edit__form__content__right__cancel {
   float: right;
@@ -10928,7 +11062,7 @@ html, body {
 .color-picker-box {
   position: absolute;
   top: -52px;
-  right: 0;
+  left: 0;
   width: 175px;
   height: 100%;
   z-index: 1200;
@@ -11056,6 +11190,21 @@ html, body {
 }
 
 /* Import sub-modules */
+/* line 1, ../../src/app/insight/sass/components/_datepicker.scss */
+.insight__form__date__input {
+  position: relative;
+}
+/* line 4, ../../src/app/insight/sass/components/_datepicker.scss */
+.insight__form__date__input .insight__form__date__input__btn {
+  width: 250px;
+}
+/* line 8, ../../src/app/insight/sass/components/_datepicker.scss */
+.insight__form__date__input .dropdown-menu {
+  width: 250px;
+  left: 0 !important;
+  top: 40px !important;
+}
+
 /* line 1, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__textsection {
   text-align: center;
@@ -11063,42 +11212,54 @@ html, body {
 }
 
 /* line 6, ../../src/app/insight/sass/_insights_layout.scss */
-.insights__datepicker {
+.insights__section {
   width: 100%;
-  text-align: center;
-  font-size: 18px;
+  display: block;
+  padding: 15px;
+  min-height: 20px;
 }
-/* line 11, ../../src/app/insight/sass/_insights_layout.scss */
-.insights__datepicker button {
-  display: inline-block;
-  height: 35px;
-  background-color: #E7E7E7;
-  padding: 0 15px;
-  line-height: 35px;
-  color: #ffffff;
-  text-align: center;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  height: 40px;
-  line-height: 40px;
-  color: #000000;
-}
-/* line 15, ../../src/sass/components/_buttons.scss */
-.insights__datepicker button:hover, .insights__datepicker button:focus {
-  background-color: #f4f4f4;
-  cursor: pointer;
-}
-/* line 21, ../../src/sass/components/_buttons.scss */
-.insights__datepicker button:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-/* line 16, ../../src/app/insight/sass/_insights_layout.scss */
-.insights__datepicker .insights__datepicker__month {
-  width: 200px;
+/* line 20, ../../bower_components/bourbon/app/assets/stylesheets/addons/_clearfix.scss */
+.insights__section::after {
+  clear: both;
+  content: "";
+  display: table;
 }
 
-/* line 21, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 10, ../../src/app/insight/sass/_insights_layout.scss */
+.insights__controls {
+  width: 100%;
+  text-align: center;
+}
+/* line 14, ../../src/app/insight/sass/_insights_layout.scss */
+.insights__controls .insights__controls__form {
+  width: 100%;
+}
+/* line 17, ../../src/app/insight/sass/_insights_layout.scss */
+.insights__controls .insights__controls__form .insights__controls__form__arrow {
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  display: inline-block;
+  height: 35px;
+  width: 35px;
+  padding: 0;
+  margin: 10px;
+  border: solid 1px #e8e8e8;
+  background-color: #ffffff;
+  color: #999;
+  text-align: center;
+  font-weight: 700;
+}
+/* line 31, ../../src/app/insight/sass/_insights_layout.scss */
+.insights__controls .insights__controls__form .insights__controls__form__month {
+  width: 200px;
+  display: inline-block;
+}
+/* line 36, ../../src/app/insight/sass/_insights_layout.scss */
+.insights__controls .insights__controls__form .insight__form__date__input__btn {
+  width: 100%;
+}
+
+/* line 42, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__summary {
   padding: 40px 0;
 }
@@ -11108,7 +11269,7 @@ html, body {
   content: "";
   display: table;
 }
-/* line 25, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 46, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__summary .insights__summary__thumbnail {
   -webkit-border-radius: 3px;
   border-radius: 3px;
@@ -11124,26 +11285,140 @@ html, body {
   content: "";
   display: table;
 }
-/* line 34, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 55, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__summary .insights__summary__thumbnail .insights__summary__thumbnail__number,
 .insights__summary .insights__summary__thumbnail .insights__summary__thumbnail__label {
   width: 100%;
   float: left;
   text-align: center;
 }
-/* line 41, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 62, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__summary .insights__summary__thumbnail .insights__summary__thumbnail__number {
   font-size: 24px;
   font-weight: 700;
 }
-/* line 46, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 67, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__summary .insights__summary__thumbnail .insights__summary__thumbnail__label {
   color: #999;
 }
 
-/* line 52, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 73, ../../src/app/insight/sass/_insights_layout.scss */
+.insights__chart__bar {
+  width: 90%;
+  margin: 0 auto;
+}
+
+/* line 78, ../../src/app/insight/sass/_insights_layout.scss */
+.insights__table {
+  display: block;
+  float: left;
+  width: 37%;
+}
+/* line 83, ../../src/app/insight/sass/_insights_layout.scss */
+.insights__table .insights__table__header {
+  font-weight: 700;
+}
+/* line 87, ../../src/app/insight/sass/_insights_layout.scss */
+.insights__table .insights__table__category {
+  width: 80%;
+}
+/* line 90, ../../src/app/insight/sass/_insights_layout.scss */
+.insights__table .insights__table__category .insights__table__category__color {
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  height: 22px;
+  width: 22px;
+  display: inline-block;
+  background-color: #4A90E2;
+  margin-right: 5px;
+  text-indent: -9999px;
+}
+/* line 100, ../../src/app/insight/sass/_insights_layout.scss */
+.insights__table .insights__table__amount {
+  text-align: right;
+  width: 20%;
+}
+
+/* line 106, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__chart__doughnut {
-  padding: 30px 5px;
+  width: 60%;
+  float: left;
+}
+
+/* line 111, ../../src/app/insight/sass/_insights_layout.scss */
+.insight__form__date__input__btn {
+  display: inline-block;
+  height: 35px;
+  background-color: #E7E7E7;
+  padding: 0 15px;
+  line-height: 35px;
+  color: #ffffff;
+  text-align: center;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  height: 40px;
+  line-height: 40px;
+  color: #5F5F5F;
+}
+/* line 15, ../../src/sass/components/_buttons.scss */
+.insight__form__date__input__btn:hover, .insight__form__date__input__btn:focus {
+  background-color: #f4f4f4;
+  cursor: pointer;
+}
+/* line 21, ../../src/sass/components/_buttons.scss */
+.insight__form__date__input__btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Import sub-modules */
+/* line 1, ../../src/app/settings/sass/_settings_common.scss */
+.view-container__content--settings {
+  background-color: #e8e8e8;
+  padding: 0;
+}
+/* line 20, ../../bower_components/bourbon/app/assets/stylesheets/addons/_clearfix.scss */
+.view-container__content--settings::after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+/* line 7, ../../src/app/settings/sass/_settings_common.scss */
+.view-container__content__admin__aside {
+  float: left;
+  width: 25%;
+}
+/* line 11, ../../src/app/settings/sass/_settings_common.scss */
+.view-container__content__admin__aside li {
+  padding: 0;
+  margin: 0;
+}
+/* line 15, ../../src/app/settings/sass/_settings_common.scss */
+.view-container__content__admin__aside li a {
+  display: block;
+  padding: 10px;
+}
+/* line 19, ../../src/app/settings/sass/_settings_common.scss */
+.view-container__content__admin__aside li a:focus {
+  outline: none;
+}
+/* line 25, ../../src/app/settings/sass/_settings_common.scss */
+.view-container__content__admin__aside .tab__active {
+  background: #ddd;
+}
+/* line 28, ../../src/app/settings/sass/_settings_common.scss */
+.view-container__content__admin__aside .tab__active a {
+  color: #000000;
+}
+
+/* line 34, ../../src/app/settings/sass/_settings_common.scss */
+.view-container__content__admin__section {
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  background-color: #ffffff;
+  float: right;
+  width: 75%;
 }
 
 /*# sourceMappingURL=app.css.map */

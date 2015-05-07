@@ -17,7 +17,10 @@ angular
         categoryUpdated: "Category updated",
         categoryDeleted: "Category deleted",
         insightsPage: "Insights page (site visited)",
+        insightsFetched: "Insights fetched",
         settings: "Settings",
+        settingsProfile: "Settings profile",
+        settingsPreferences: "Settings preferences",
         error404: "error-404",
         error500: "error-500"
     });

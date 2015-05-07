@@ -46,6 +46,14 @@ angular
                 insight.model.to = moment(insight.model.to).toDate();
             }
 
+            if ( insight.model.firstExistingExpenseDate ) {
+                insight.model.firstExistingExpenseDate = moment(insight.model.firstExistingExpenseDate).toDate();
+            }
+
+            if ( insight.model.lastExistingExpenseDate ) {
+                insight.model.lastExistingExpenseDate = moment(insight.model.lastExistingExpenseDate).toDate();
+            }
+
             return insight;
         };
 

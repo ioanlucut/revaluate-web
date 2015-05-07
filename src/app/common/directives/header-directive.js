@@ -8,12 +8,6 @@ angular
             restrict: "A",
             templateUrl: "app/common/partials/header.html",
             link: function (scope, el) {
-
-                /**
-                 * Reference to the current user.
-                 * @type {$rootScope.currentUser|*}
-                 */
-                scope.currentUser = $rootScope.currentUser;
             }
         };
     });

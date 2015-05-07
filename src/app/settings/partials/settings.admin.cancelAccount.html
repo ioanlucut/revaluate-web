@@ -1,0 +1,18 @@
+<!-- Cancel account section -->
+<div class="account">
+
+    <div class="account__section">
+
+        <!-- Account controls -->
+        <div class="account__controls">
+
+            <!-- Flash messages. -->
+            <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
+            <!--Cancel account-->
+            <button class="account-cancel__btn" ng-click="cancelAccount()">{{isDeleting ? 'Canceling..' : 'Cancel account'}}</button>
+        </div>
+
+    </div>
+
+</div>

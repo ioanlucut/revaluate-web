@@ -12,10 +12,15 @@ angular
                 controller: "InsightController",
                 resolve: {
                     insight: function (InsightService) {
-                        var from = moment().year(2012).hours(0).minutes(0).seconds(0);
-                        var to = moment().year(2016).hours(0).minutes(0).seconds(0);
+                        var from = moment().startOf('month');
+                        var to = moment().endOf('month');
 
-                        return InsightService.fetchInsightsFromTo(from, to);
+                        return InsightService
+                            .fetchInsightsFromTo(from, to);
+                    },
+                    statistics: function (StatisticService) {
+                        return StatisticService
+                            .fetchStatistics();
                     }
                 },
                 title: "Insights - Revaluate"
