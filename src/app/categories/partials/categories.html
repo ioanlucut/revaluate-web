@@ -1,25 +1,27 @@
 <div class="view-container__content">
 
-    <div class="categories__title">Categories</div>
-    <div class="categories__text">
-        You can create new categories, edit the ones you already have or delete the ones that have no expenses associated.
-    </div>
-
-    <!-- Flash messages. -->
-    <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
-
-    <!--Add category-->
-    <div class="categories__add" add-category></div>
-
-    <!--List all categories-->
-    <div class="categories__edit">
-
-        <div class="categories__edit__category" ng-repeat="category in categories track by category.model.name">
-
-            <!--Edit/remove category-->
-            <div edit-remove-category category="category"></div>
+    <div class="settings__section">
+        <div class="categories__title">Categories</div>
+        <div class="categories__text">
+            You can create new categories, edit the ones you already have or delete the ones that have no expenses associated.
         </div>
 
+        <!-- Flash messages. -->
+        <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
+        <!--Add category-->
+        <div class="categories__add" add-category></div>
+
+        <!--List all categories-->
+        <div class="categories__edit">
+
+            <div class="categories__edit__category" ng-repeat="category in categories track by category.model.name">
+
+                <!--Edit/remove category-->
+                <div edit-remove-category category="category"></div>
+            </div>
+
+        </div>
     </div>
 
 </div>
