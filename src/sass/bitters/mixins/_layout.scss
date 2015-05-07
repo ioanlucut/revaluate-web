@@ -1,0 +1,7 @@
+@mixin section($width) {
+  width: $width;
+  display: block;
+  padding: 15px;
+  min-height: 20px;
+  @include clearfix();
+}

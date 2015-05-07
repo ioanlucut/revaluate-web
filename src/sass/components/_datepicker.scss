@@ -1,13 +1,7 @@
-.expense__form__date__input {
-
-  .expense__form__date__input__btn {
-    position: relative;
-  }
+.expense__form__date__input,
+.insight__form__date__input {
 
   .dropdown-menu {
-    width: 300px;
-    left: 500px !important;
-    top: 50px !important;
     padding: 0;
     font-size: $font-size-base;
     text-align: center;
@@ -42,6 +36,10 @@
               }
             }
           }
+
+          tr > th:last-child {
+            text-align: right;
+          }
         }
 
         tbody {
@@ -69,14 +67,19 @@
       text-align: center;
 
       .btn-group button {
-        &:first-child   { width: 100%; /* Make the "Today button wide */}
-        &:last-child    { display: none; /* Hide the "Clear" button */ }
+        &:first-child {
+          width: 100%; /* Make the "Today button wide */
+        }
+        &:last-child {
+          display: none; /* Hide the "Clear" button */
+        }
       }
 
-      & > button        { display: none; /* Hide the "Done" button */ }
+      & > button {
+        display: none; /* Hide the "Done" button */
+      }
     }
   }
-
 
   // Buttons
   // -------
@@ -132,6 +135,14 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  .glyphicon-chevron-left     { &:before { content: "\276e"; } }
-  .glyphicon-chevron-right    { &:before { content: "\276f"; } }
+  .glyphicon-chevron-left {
+    &:before {
+      content: "\276e";
+    }
+  }
+  .glyphicon-chevron-right {
+    &:before {
+      content: "\276f";
+    }
+  }
 }

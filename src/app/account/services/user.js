@@ -41,11 +41,20 @@ angular
                     },
 
                     /**
-                     * Loads a user from cookies.
+                     * Loads a user from local storage.
                      * @returns {*}
                      */
                     loadFromSession: function () {
-                        TransformerUtils.copyKeysFromTo(SessionService.getData() || {}, this.model);
+
+                        return this.loadFrom(SessionService.getData() || {});
+                    },
+
+                    /**
+                     * Loads a user from given data.
+                     * @returns {*}
+                     */
+                    loadFrom: function (data) {
+                        TransformerUtils.copyKeysFromTo(data, this.model);
 
                         return this;
                     },
@@ -66,7 +75,7 @@ angular
                      * Updates a user account.
                      * @returns {*}
                      */
-                    $save: function (fromData) {
+                    save: function (fromData) {
                         var toBeSaved = {};
                         TransformerUtils.copyKeysFromTo(fromData, toBeSaved);
 
@@ -78,27 +87,11 @@ angular
                      * @param fromData
                      * @returns {*}
                      */
-                    $create: function (fromData) {
+                    create: function (fromData) {
                         var toBeCreated = {};
                         TransformerUtils.copyKeysFromTo(fromData, toBeCreated);
 
                         return this.createAccount(toBeCreated);
-                    },
-
-                    $refresh: function () {
-                        var that = this;
-
-                        return this
-                            .retrieveDetails()
-                            .then(function (response) {
-                                TransformerUtils.copyKeysFromTo(response.data, that);
-                                that.saveToSession();
-
-                                return response;
-                            })
-                            .catch(function (response) {
-                                return $q.reject(response);
-                            });
                     },
 
                     /**
@@ -130,6 +123,17 @@ angular
                     updateAccount: function (account) {
                         return $http
                             .put(URLTo.api(AUTH_URLS.update), account);
+                    },
+
+                    /**
+                     * Update account user currency
+                     */
+                    updateCurrency: function (fromData) {
+                        var toBeSaved = {};
+                        TransformerUtils.copyKeysFromTo(fromData, toBeSaved);
+
+                        return $http
+                            .put(URLTo.api(AUTH_URLS.updateCurrency), toBeSaved);
                     }
 
                 };

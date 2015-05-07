@@ -9,6 +9,11 @@ angular
             link: function (scope) {
                 scope.ProfileFormToggle = ProfileFormToggle;
                 scope.ACCOUNT_FORM_STATE = ACCOUNT_FORM_STATE;
+
+                // ---
+                // Default state.
+                // ---
+                scope.ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile)
             }
         };
     });

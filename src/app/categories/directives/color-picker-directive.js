@@ -11,7 +11,7 @@ angular
             link: function (scope, el, attrs) {
 
                 // By default the popover is closed
-                scope.isOpen = false;
+                scope.isOpen = true;
 
                 // Open the popover
                 scope.open = function () {

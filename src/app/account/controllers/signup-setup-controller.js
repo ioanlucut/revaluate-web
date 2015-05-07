@@ -177,7 +177,7 @@ angular
                 .bulkCreate(selectedCategoriesToBeSaved)
                 .then(function () {
                     $scope.user
-                        .$save(userProfileToBeUpdated)
+                        .save(userProfileToBeUpdated)
                         .then(function (response) {
                             deferred.resolve(response);
                         })

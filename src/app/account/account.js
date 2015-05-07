@@ -24,24 +24,6 @@ angular
                 isPublicPage: true
             })
 
-            // Settings page
-            .state("settings", {
-                url: "/account/settings",
-                views: {
-
-                    '': { templateUrl: "app/account/partials/settings/settings.html" },
-
-                    'profile@settings': {
-                        templateUrl: "app/account/partials/settings/settings.profile.html"
-                    },
-
-                    'preferences@settings': {
-                        templateUrl: "app/account/partials/settings/settings.preferences.html"
-                    }
-                },
-                title: "Settings - Revaluate"
-            })
-
             // Logout page
             .state("account:logout", {
                 url: "/account/logout",

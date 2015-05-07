@@ -11,10 +11,8 @@
 
         <!-- Form group -->
         <div class="categories__form__input-group" ng-class="{'has-error': categoryForm.$submitted && (categoryForm.color.$invalid || badPostSubmitResponse)}">
-            <!--Color preview-->
-            <label class="categories__form__color__preview" ng-style="{'background':category.model.color}"></label>
 
-            <input class="categories__form__input-group__color" type="text" placeholder="Category color" name="color" ng-model="category.model.color" required valid-category-color />
+            <input class="categories__form__input-group__color" type="hidden" placeholder="Category color" name="color" ng-model="category.model.color" required valid-category-color />
 
             <!-- Error messages -->
             <div class="form-group-input__message" ng-class="{'has-error': categoryForm.color.$invalid && categoryForm.$submitted}" ng-messages="categoryForm.color.$error" ng-if="categoryForm.$submitted">
@@ -32,6 +30,10 @@
                 <div ng-message="validCategoryName">Name is not valid.</div>
                 <div ng-message="uniqueCategoryName">Name is already used.</div>
             </div>
+
+            <!--Color preview-->
+            <label class="categories__form__color__preview" ng-style="{'background':category.model.color}"></label>
+
             <input type="text"
                    name="name"
                    class="categories__form__input-group__name"
@@ -48,6 +50,6 @@
         <!--Reset-->
         <button type="button" class="categories__add__form__content__right__cancel" ng-click="toggleContent();initOrReset(categoryForm)">Nevermind</button>
         <!-- Submit button container -->
-        <button class="categories__add__form__content__right__add" type="submit">{{isSaving ? 'Adding..' : 'Add'}}</button>
+        <button class="categories__add__form__content__right__add" type="submit">{{isSaving ? 'Saving...' : 'Save category'}}</button>
     </div>
 </form>

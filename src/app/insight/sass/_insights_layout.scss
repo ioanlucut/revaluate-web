@@ -3,18 +3,39 @@
   padding-bottom: 30px;
 }
 
-.insights__datepicker {
+.insights__section {
+  @include section(100%);
+}
+
+.insights__controls {
   width: 100%;
   text-align: center;
-  font-size: 18px;
 
-  button {
-    @include btn-big($brand-default);
-    color: $black;
-  }
+  .insights__controls__form {
+    width: 100%;
 
-  .insights__datepicker__month {
-    width: 200px;
+    .insights__controls__form__arrow {
+      @include border-radius(50%);
+      display: inline-block;
+      height: 35px;
+      width: 35px;
+      padding: 0;
+      margin: 10px;
+      border: solid 1px $gray-lightest;
+      background-color: $white;
+      color: $gray-medium;
+      text-align: center;
+      font-weight: $font-weight-bold;
+    }
+
+    .insights__controls__form__month {
+      width: 200px;
+      display: inline-block;
+    }
+
+    .insight__form__date__input__btn {
+      width: 100%;
+    }
   }
 }
 
@@ -49,6 +70,45 @@
   }
 }
 
+.insights__chart__bar {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.insights__table {
+  display: block;
+  float: left;
+  width: 37%;
+
+  .insights__table__header {
+    font-weight: $font-weight-bold;
+  }
+
+  .insights__table__category {
+    width: 80%;
+
+    .insights__table__category__color {
+      @include border-radius(50%);
+      @include size(22px 22px);
+      display: inline-block;
+      background-color: $brand-primary;
+      margin-right: 5px;
+      text-indent: -9999px;
+    }
+  }
+
+  .insights__table__amount {
+    text-align: right;
+    width: 20%;
+  }
+}
+
 .insights__chart__doughnut {
-  padding: 30px 5px;
+  width: 60%;
+  float: left;
+}
+
+.insight__form__date__input__btn {
+  @include btn-big($brand-default);
+  color: $gray-dark;
 }

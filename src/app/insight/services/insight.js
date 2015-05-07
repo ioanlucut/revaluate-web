@@ -36,9 +36,47 @@ angular
                 /**
                  * To date period of the insight.
                  */
-                to: ""
+                to: "",
+
+                /**
+                 * Total amount spent
+                 */
+                totalAmountSpent: 0,
+
+                /**
+                 * Number of transactions
+                 */
+                numberOfTransactions: 0,
+
+                /**
+                 * Total per categories
+                 */
+                totalPerCategoryInsightDTOs: [],
+
+                /**
+                 * Summary insights data
+                 */
+                summaryInsightsDTO: {
+
+                    /**
+                     * First existing expense date
+                     */
+                    firstExistingExpenseDate: "",
+
+                    /**
+                     * Last existing expense date
+                     */
+                    lastExistingExpenseDate: ""
+                }
             };
 
+            /**
+             * Is insight empty.
+             * @returns {boolean}
+             */
+            this.isEmpty = function () {
+                return this.model.insightData.length === 0;
+            };
         }
 
         /**
