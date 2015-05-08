@@ -93,7 +93,7 @@
             <tbody>
             <tr ng-repeat="totalPerCategory in insight.model.totalPerCategoryInsightDTOs">
                 <td class="insights__table__category">
-                    <span class="insights__table__category__color" ng-style="{'background':totalPerCategory.categoryDTO.color}">C</span>
+                    <span class="insights__table__category__color" ng-style="{'background':totalPerCategory.categoryDTO.color.color}">C</span>
                     {{totalPerCategory.categoryDTO.name}}
                 </td>
                 <td class="insights__table__amount">{{totalPerCategory.totalAmount}}</td>
