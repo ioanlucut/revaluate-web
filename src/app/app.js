@@ -4,6 +4,7 @@
 angular
     .module("app", [
         "config",
+        "angular-cache",
         "ngAnimate",
         "ngMessages",
         "angucomplete-alt",
@@ -20,7 +21,8 @@ angular
         "insights",
         "angular.filter"
     ])
-    .config(function ($locationProvider) {
+    .config(function ($locationProvider, CacheFactoryProvider) {
+        angular.extend(CacheFactoryProvider.defaults, { maxAge: 15 * 60 * 1000 });
 
         // Enable html5 mode
         $locationProvider.html5Mode({

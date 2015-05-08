@@ -27,6 +27,7 @@ module.exports = function (grunt) {
                     "bower_components/angucomplete-alt/angucomplete-alt.js",
                     "bower_components/jstz-detect/jstz.js",
                     "bower_components/perfect-scrollbar/src/perfect-scrollbar.js",
+                    "bower_components/angular-cache/dist/angular-cache.js",
 
                     "bower_components/perfect-scrollbar/src/jquery.mousewheel.js",
                     "bower_components/angular-money-directive/angular-money-directive.js",
@@ -73,6 +74,9 @@ module.exports = function (grunt) {
 
                     "src/app/currencies/currencies.js",
                     "src/app/currencies/**/*.js",
+
+                    "src/app/color/color.js",
+                    "src/app/color/**/*.js",
 
                     "src/app/categories/category.js",
                     "src/app/categories/**/*.js",
