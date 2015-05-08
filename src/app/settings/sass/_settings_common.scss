@@ -1,7 +1,53 @@
+.view-container__content--settings {
+  background-color: $gray-lightest;
+  padding: 0;
+  @include clearfix();
+}
+
 .view-container__content__admin__aside {
+  float: left;
+  width: 25%;
+
+  li {
+    padding: 0;
+    margin: 0;
+
+    a {
+      display: block;
+      padding: 10px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
 
   .tab__active {
-    background: $gray-lightest;
-    padding: 10px;
+    background: $gray-light;
+
+    a {
+      color: $black;
+    }
+  }
+}
+
+.view-container__content__admin__section {
+  //@include border-radius($border-radius-base);
+  //background-color: $white;
+  float: right;
+  width: 75%;
+  @include clearfix();
+  //border: solid 1px red;
+}
+
+.settings__section {
+  @include border-radius($border-radius-base);
+  background-color: $white;
+  width: 100%;
+  //border: solid 1px blue;
+  margin-bottom: 15px;
+
+  &:last-child {
+    margin-bottom: 0;
   }
 }
