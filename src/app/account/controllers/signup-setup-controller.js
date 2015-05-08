@@ -104,7 +104,7 @@ angular
             else {
                 $scope.categories.push({
                     name: $scope.categoryOnTheFly,
-                    color: CategoryColorService.randomizedColor().color,
+                    color: CategoryColorService.randomizedColor($scope.colors),
                     selected: true
                 });
 
