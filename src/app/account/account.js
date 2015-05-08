@@ -100,8 +100,11 @@ angular
                     currencies: function (CurrencyService) {
                         return CurrencyService.getAllCurrencies();
                     },
+                    colors: function (ColorService) {
+                        return ColorService.getAllColors();
+                    },
                     predefinedCategories: function (CategoriesSetupProvider) {
-                        return CategoriesSetupProvider.getCategories();
+                        return CategoriesSetupProvider.getPredefinedCategories();
                     }
                 }
             });
