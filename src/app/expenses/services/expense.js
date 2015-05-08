@@ -21,7 +21,7 @@ angular
                 /**
                  * The expense description.
                  */
-                category: "",
+                category: {},
 
                 /**
                  * The expense value
