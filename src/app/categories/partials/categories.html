@@ -9,15 +9,15 @@
     <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
     <!--Add category-->
-    <div class="categories__add" add-category></div>
+    <div class="categories__add" add-category colors="colors"></div>
 
     <!--List all categories-->
     <div class="categories__edit">
 
-        <div class="categories__edit__category" ng-repeat="category in categories track by category.model.name">
+        <div class="categories__edit__category" ng-repeat="category in categories | orderObjectBy : 'model.id' : false track by category.model.name">
 
             <!--Edit/remove category-->
-            <div edit-remove-category category="category"></div>
+            <div edit-remove-category colors="colors" category="category"></div>
         </div>
 
     </div>

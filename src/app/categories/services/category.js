@@ -24,9 +24,16 @@ angular
                 name: "",
 
                 /**
-                 * The category due date
+                 * The color
                  */
-                color: ""
+                color: {
+
+                    color: "",
+
+                    id: 0,
+
+                    priority: 0
+                }
             };
 
             /**
