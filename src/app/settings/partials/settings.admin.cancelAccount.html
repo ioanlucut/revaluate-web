@@ -1,13 +1,12 @@
 <div class="settings__section__form">
 
-    <!-- Account controls -->
-    <div class="account__controls">
+    <!-- Delete account -->
+    <h1 class="settings__title">Delete account</h1>
 
-        <!-- Flash messages. -->
-        <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+    <!-- Flash messages. -->
+    <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
-        <!--Cancel account-->
-        <button class="account-cancel__btn" ng-click="cancelAccount()">{{isDeleting ? 'Canceling..' : 'Cancel account'}}</button>
-    </div>
+    <!--Cancel account-->
+    <button class="settings__cancel__btn" ng-click="cancelAccount()">{{isDeleting ? 'Deleting...' : 'Delete my account'}}</button>
 
 </div>

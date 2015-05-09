@@ -5,7 +5,7 @@
     <div class="settings__section__form">
 
         <!-- Title -->
-        <h1 class="settings__title">Modify profile</h1>
+        <h1 class="settings__title">Edit profile</h1>
 
         <!-- Profile form -->
         <form name="profileForm" ng-submit="updateProfile(profileData)" novalidate focus-first-error>
@@ -31,7 +31,7 @@
             </div>
 
             <!-- Button container -->
-            <button class="account__btn" type="submit">{{isRequestPending ? 'Saving..' : 'Save'}}</button>
+            <button class="settings__btn__save" type="submit">{{isRequestPending ? 'Saving..' : 'Save changes'}}</button>
 
         </form>
 
