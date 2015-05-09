@@ -1,5 +1,5 @@
 angular
-    .module("expenses")
+    .module("revaluate.expenses")
     .directive("expenseEntry", function ($rootScope, $timeout, EXPENSE_EVENTS) {
         return {
             restrict: "A",

@@ -2,7 +2,7 @@
  * Main settings module declaration including ui templates.
  */
 angular
-    .module("settings", [
+    .module("revaluate.settings", [
         "revaluate.account"
     ])
     .config(function ($stateProvider) {

@@ -1,5 +1,5 @@
 angular
-    .module("categories")
+    .module("revaluate.categories")
     .controller("CategoryCreateController", function ($scope, $rootScope, CategoryColorService, Category, $timeout, CATEGORY_EVENTS, MIXPANEL_EVENTS) {
 
         /**

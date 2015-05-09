@@ -1,7 +1,7 @@
 /* Email list */
 
 angular
-    .module("expenses")
+    .module("revaluate.expenses")
     .directive("expenseList", function ($rootScope, $timeout, EXPENSE_EVENTS) {
         return {
             restrict: "A",

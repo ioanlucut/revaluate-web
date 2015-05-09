@@ -1,5 +1,5 @@
 angular
-    .module("categories")
+    .module("revaluate.categories")
     .factory("Category", function ($q, $http, CategoryService, CategoryTransformerService) {
 
         /**

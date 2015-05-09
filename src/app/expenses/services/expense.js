@@ -1,5 +1,5 @@
 angular
-    .module("expenses")
+    .module("revaluate.expenses")
     .factory("Expense", function ($q, $http, ExpenseService, ExpenseTransformerService) {
 
         /**

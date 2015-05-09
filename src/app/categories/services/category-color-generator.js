@@ -1,5 +1,5 @@
 angular
-    .module("categories")
+    .module("revaluate.categories")
     .service('CategoryColorService', function () {
 
         return {

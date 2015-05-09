@@ -2,7 +2,7 @@
  * 404 page controller.
  */
 angular
-    .module("common")
+    .module("revaluate.common")
     .controller("Error404PageController", function ($scope, $controller, MIXPANEL_EVENTS) {
 
         /**

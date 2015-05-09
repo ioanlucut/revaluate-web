@@ -2,7 +2,7 @@
  * Categories service which encapsulates the whole logic related to categories.
  */
 angular
-    .module("categories")
+    .module("revaluate.categories")
     .service("CategoryService", function (CATEGORY_URLS, $q, $http, CategoryTransformerService) {
 
         /**

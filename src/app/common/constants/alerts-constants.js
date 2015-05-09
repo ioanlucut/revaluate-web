@@ -1,5 +1,5 @@
 angular
-    .module("common")
+    .module("revaluate.common")
     .constant("ALERTS_CONSTANTS", {
         login: "login",
         signUp: "signUp",

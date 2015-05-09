@@ -1,7 +1,7 @@
 /* Perfect scrollbar */
 
 angular
-    .module("common")
+    .module("revaluate.common")
     .directive("perfectScrollbar", function () {
         return {
             restrict: 'A',

@@ -2,7 +2,7 @@
  * Dates utils service.
  */
 angular
-    .module("common")
+    .module("revaluate.common")
     .service("DatesUtils", function () {
 
         this.prepareDate = function (givenDate) {

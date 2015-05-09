@@ -3,9 +3,9 @@
  */
 angular
     .module("revaluate.account", [
-        "common",
-        "currencies",
-        "categories"
+        "revaluate.common",
+        "revaluate.currencies",
+        "revaluate.categories"
     ])
     .config(function ($stateProvider, $httpProvider) {
 

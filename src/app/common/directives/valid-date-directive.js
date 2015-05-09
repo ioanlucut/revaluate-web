@@ -1,5 +1,5 @@
 angular
-    .module("common")
+    .module("revaluate.common")
     .directive("validDate", function () {
         return {
             require: "ngModel",

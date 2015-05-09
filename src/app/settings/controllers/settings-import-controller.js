@@ -2,7 +2,7 @@
  * Setting import controller.
  */
 angular
-    .module("settings")
+    .module("revaluate.settings")
     .controller("SettingsImportController", function ($q, $scope, $rootScope, $timeout, AUTH_URLS, FileUploader, StatesHandler, SessionService, AUTH_EVENTS, flash, currencies, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
 
         // ---
