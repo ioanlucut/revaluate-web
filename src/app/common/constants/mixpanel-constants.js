@@ -2,7 +2,7 @@
  * Common mixpanel events.
  */
 angular
-    .module("common")
+    .module("revaluate.common")
     .constant("MIXPANEL_EVENTS", {
         landingPageLoaded: "Landing page loaded",
         signUpRequested: "Signup requested",

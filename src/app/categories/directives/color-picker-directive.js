@@ -1,5 +1,5 @@
 angular
-    .module("categories")
+    .module("revaluate.categories")
     .directive("colorPicker", function (CATEGORY_EVENTS, CategoryColorService, $timeout, $animate) {
         return {
             restrict: "A",

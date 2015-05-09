@@ -1,7 +1,7 @@
 /* Feedback modal */
 
 angular
-    .module("feedback")
+    .module("revaluate.feedback")
     .service("FeedbackModalService", function ($modal) {
 
         /**

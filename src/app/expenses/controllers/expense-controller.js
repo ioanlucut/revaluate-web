@@ -1,5 +1,5 @@
 angular
-    .module("expenses")
+    .module("revaluate.expenses")
     .controller("ExpenseController", function ($scope, $rootScope, $stateParams, Expense, expenses, ExpenseService, categories, $window, DatesUtils, $timeout, StatesHandler, EXPENSE_EVENTS, flash, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
 
         /**

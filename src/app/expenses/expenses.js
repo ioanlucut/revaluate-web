@@ -2,9 +2,9 @@
  * Main site module declaration including ui templates.
  */
 angular
-    .module("expenses", [
-        "common",
-        "statistics"
+    .module("revaluate.expenses", [
+        "revaluate.common",
+        "revaluate.statistics"
     ])
     .config(["$stateProvider", function ($stateProvider) {
 

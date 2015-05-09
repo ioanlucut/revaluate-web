@@ -1,4 +1,4 @@
 angular
-    .module("currencies", [
-        "common"
+    .module("revaluate.currencies", [
+        "revaluate.common"
     ]);

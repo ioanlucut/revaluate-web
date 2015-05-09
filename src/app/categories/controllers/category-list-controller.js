@@ -2,7 +2,7 @@
  * Categories controller.
  */
 angular
-    .module("categories")
+    .module("revaluate.categories")
     .controller("CategoryListController", function ($scope, $rootScope, Category, flash, CATEGORY_EVENTS, $timeout, categories, colors, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
         /**
          * Alert identifier

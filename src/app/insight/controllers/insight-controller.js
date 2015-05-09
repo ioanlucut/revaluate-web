@@ -2,7 +2,7 @@
  * expenses controller.
  */
 angular
-    .module("insights")
+    .module("revaluate.insights")
     .controller("InsightController", function ($scope, $rootScope, $timeout, flash, insight, statistics, InsightService, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
 
         /**

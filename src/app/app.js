@@ -11,15 +11,15 @@ angular
         "angucomplete-alt",
         "ngStorage",
         "partials",
-        "site",
-        "feedback",
-        "common",
-        "categories",
-        "expenses",
-        "statistics",
+        "revaluate.site",
+        "revaluate.feedback",
+        "revaluate.common",
+        "revaluate.categories",
+        "revaluate.expenses",
+        "revaluate.statistics",
         "revaluate.account",
-        "settings",
-        "insights",
+        "revaluate.settings",
+        "revaluate.insights",
         "angular.filter"
     ])
     .config(function ($locationProvider, CacheFactoryProvider) {

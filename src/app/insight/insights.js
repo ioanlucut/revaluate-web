@@ -1,7 +1,7 @@
 angular
-    .module("insights", [
-        "common",
-        "expenses"
+    .module("revaluate.insights", [
+        "revaluate.common",
+        "revaluate.expenses"
     ])
     .config(["$stateProvider", function ($stateProvider) {
 

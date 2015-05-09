@@ -2,7 +2,7 @@
  * Statistic transformer service which transforms a statistic DTO model object to a statistic business object.
  */
 angular
-    .module("statistics")
+    .module("revaluate.statistics")
     .service("StatisticTransformerService", function ($injector, TransformerUtils) {
 
         /**

@@ -2,7 +2,7 @@
  * Summaries constants.
  */
 angular
-    .module("statistics")
+    .module("revaluate.statistics")
     .constant("STATISTIC_URLS", {
         fetchStatistic: "insights/summary_insights"
     });

@@ -1,5 +1,5 @@
 angular
-    .module("categories")
+    .module("revaluate.categories")
     .directive("editRemoveCategory", function ($rootScope, CATEGORY_EVENTS) {
         return {
             restrict: "A",

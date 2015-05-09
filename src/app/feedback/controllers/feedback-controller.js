@@ -1,5 +1,5 @@
 angular
-    .module("feedback")
+    .module("revaluate.feedback")
     .controller("FeedbackModalController", function ($scope, FeedbackModalService, Feedback, $timeout) {
 
         /**

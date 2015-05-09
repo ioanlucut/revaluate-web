@@ -2,7 +2,7 @@
  * Header directive responsible for header common template.
  */
 angular
-    .module("common")
+    .module("revaluate.common")
     .directive("footerHome", function () {
         return {
             restrict: "A",

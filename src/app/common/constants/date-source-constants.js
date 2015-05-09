@@ -2,7 +2,7 @@
  * Date source constants.
  */
 angular
-    .module("common")
+    .module("revaluate.common")
     .constant("DATE_SOURCE", {
         isFromNlp: "naturalLanguageProcessorSource",
         isFromUpdateAction: "updateExpenseSource"

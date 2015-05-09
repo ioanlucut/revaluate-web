@@ -1,4 +1,4 @@
 angular
-    .module("color", [
-        "common"
+    .module("revaluate.color", [
+        "revaluate.common"
     ]);

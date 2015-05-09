@@ -2,7 +2,7 @@
  * Insight transformer service which transforms a insight DTO model object to a insight business object.
  */
 angular
-    .module("insights")
+    .module("revaluate.insights")
     .service("InsightTransformerService", function ($injector, TransformerUtils) {
 
         /**

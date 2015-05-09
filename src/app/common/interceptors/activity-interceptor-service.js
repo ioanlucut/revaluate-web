@@ -1,8 +1,8 @@
 /* Activity interceptor */
 
-angular.
-    module("common").
-    factory("ActivityInterceptor", function ($rootScope, $q, ACTIVITY_INTERCEPTOR) {
+angular
+    .module("revaluate.common")
+    .factory("ActivityInterceptor", function ($rootScope, $q, ACTIVITY_INTERCEPTOR) {
         return {
 
             /**

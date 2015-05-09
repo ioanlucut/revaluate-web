@@ -2,7 +2,7 @@
  * Profile controller responsible for user update profile action.
  */
 angular
-    .module("settings")
+    .module("revaluate.settings")
     .controller("SettingsProfileController", function ($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
 
         var TIMEOUT_PENDING = 300;

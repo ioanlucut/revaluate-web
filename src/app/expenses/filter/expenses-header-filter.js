@@ -1,5 +1,5 @@
 angular
-    .module("expenses")
+    .module("revaluate.expenses")
     .filter('expensesHeader', function ($sce) {
         return function (text, reverse) {
             var template = reverse ? '<span class="expense-list-box__header__past">You have $1 expenses</span>' : '<span class="expense-list-box__header__upcoming">Your expenses</span>';

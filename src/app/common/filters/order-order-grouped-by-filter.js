@@ -1,5 +1,5 @@
 angular
-    .module('common')
+    .module('revaluate.common')
     .filter('groupExpenses', function ($parse, filterWatcher) {
         return function (expenses, reverse) {
 

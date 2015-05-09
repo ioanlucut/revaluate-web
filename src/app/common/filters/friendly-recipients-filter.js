@@ -1,5 +1,5 @@
 angular
-    .module("common")
+    .module("revaluate.common")
     .filter('friendlyRecipients', function ($rootScope) {
         return function (recipients) {
 

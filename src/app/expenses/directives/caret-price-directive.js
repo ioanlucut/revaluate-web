@@ -1,5 +1,5 @@
 angular
-    .module("expenses")
+    .module("revaluate.expenses")
     .directive('caretPricePosition', function ($timeout) {
         return {
             link: function (scope, elem, attrs) {

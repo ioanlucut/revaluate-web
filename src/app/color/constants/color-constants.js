@@ -2,7 +2,7 @@
  * Colors constants.
  */
 angular
-    .module("color")
+    .module("revaluate.color")
     .constant("COLOR_URLS", {
         allColors: "color/list"
     });

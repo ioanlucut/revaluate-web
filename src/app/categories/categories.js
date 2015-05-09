@@ -1,7 +1,7 @@
 angular
-    .module("categories", [
-        "color",
-        "common"
+    .module("revaluate.categories", [
+        "revaluate.color",
+        "revaluate.common"
     ])
     .config(["$stateProvider", function ($stateProvider) {
 

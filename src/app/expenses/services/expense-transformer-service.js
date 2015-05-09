@@ -2,7 +2,7 @@
  * Expense transformer service which transforms a expense DTO model object to a expense business object.
  */
 angular
-    .module("expenses")
+    .module("revaluate.expenses")
     .service("ExpenseTransformerService", function ($injector, TransformerUtils) {
 
         /**

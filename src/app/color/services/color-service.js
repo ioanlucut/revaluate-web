@@ -2,7 +2,7 @@
  * Color service which encapsulates the whole logic related to color.
  */
 angular
-    .module("color")
+    .module("revaluate.color")
     .service("ColorService", function (COLOR_URLS, $q, $http, CacheFactory) {
 
         if ( !CacheFactory.get('colorCache') ) {
