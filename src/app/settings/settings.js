@@ -72,5 +72,28 @@ angular
                     }
                 },
                 title: "Preferences - Revaluate"
+            })
+
+            // ---
+            // Import.
+            // ---
+            .state("settings.import", {
+                url: "/import",
+                views: {
+                    '': {
+                        templateUrl: "app/settings/partials/settings.import.abstract.html"
+                    },
+                    'importExpenses@settings.import': {
+                        templateUrl: "app/settings/partials/settings.import.importExpenses.html",
+                        controller: "SettingsPreferencesCurrencyController",
+                        resolve: {
+                            currencies: function (CurrencyService) {
+                                return CurrencyService.getAllCurrencies();
+                            }
+                        }
+
+                    }
+                },
+                title: "Import - Revaluate"
             });
     });

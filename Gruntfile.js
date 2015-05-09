@@ -28,6 +28,7 @@ module.exports = function (grunt) {
                     "bower_components/jstz-detect/jstz.js",
                     "bower_components/perfect-scrollbar/src/perfect-scrollbar.js",
                     "bower_components/angular-cache/dist/angular-cache.js",
+                    "bower_components/angular-file-upload/angular-file-upload.js",
 
                     "bower_components/perfect-scrollbar/src/jquery.mousewheel.js",
                     "bower_components/angular-money-directive/angular-money-directive.js",
