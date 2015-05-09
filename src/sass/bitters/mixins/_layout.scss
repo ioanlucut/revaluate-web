@@ -2,6 +2,16 @@
   width: $width;
   display: block;
   padding: 15px;
+  margin-bottom: 15px;
   min-height: 20px;
   @include clearfix();
+}
+
+@mixin section-center($width) {
+  @include section(#{$width});
+  text-align: center;
+}
+@mixin box($color) {
+  border-color: $color;
+  background-color: lighten($color, 32%);
 }
