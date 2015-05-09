@@ -85,7 +85,7 @@ angular
                     },
                     'importExpenses@settings.import': {
                         templateUrl: "app/settings/partials/settings.import.importExpenses.html",
-                        controller: "SettingsPreferencesCurrencyController",
+                        controller: "SettingsImportController",
                         resolve: {
                             currencies: function (CurrencyService) {
                                 return CurrencyService.getAllCurrencies();

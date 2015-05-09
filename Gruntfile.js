@@ -33,6 +33,9 @@ module.exports = function (grunt) {
                     "bower_components/perfect-scrollbar/src/jquery.mousewheel.js",
                     "bower_components/angular-money-directive/angular-money-directive.js",
 
+                    "bower_components/es5-shim/es5-shim.js",
+                    "bower_components/es5-shim/es5-sham.js",
+
                     /* These are the angular ui used bootstrap */
                     "bower_components/angular-ui-bootstrap/src/bindHtml/bindHtml.js",
                     "bower_components/angular-ui-bootstrap/src/position/position.js",
