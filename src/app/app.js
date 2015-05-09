@@ -5,6 +5,7 @@ angular
     .module("app", [
         "config",
         "angular-cache",
+        "angularFileUpload",
         "ngAnimate",
         "ngMessages",
         "angucomplete-alt",
