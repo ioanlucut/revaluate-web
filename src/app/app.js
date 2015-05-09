@@ -15,6 +15,7 @@ angular
         "revaluate.feedback",
         "revaluate.common",
         "revaluate.categories",
+        "revaluate.expensesImport",
         "revaluate.expenses",
         "revaluate.statistics",
         "revaluate.account",

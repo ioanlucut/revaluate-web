@@ -85,6 +85,9 @@ module.exports = function (grunt) {
                     "src/app/categories/category.js",
                     "src/app/categories/**/*.js",
 
+                    "src/app/import/import.js",
+                    "src/app/import/**/*.js",
+
                     "src/app/expenses/expenses.js",
                     "src/app/expenses/**/*.js",
 
@@ -260,6 +263,7 @@ module.exports = function (grunt) {
 
                     "src/app/site/partials/**/*.html",
                     "src/app/categories/partials/**/*.html",
+                    "src/app/import/partials/**/*.html",
                     "src/app/expenses/partials/**/*.html",
                     "src/app/account/partials/**/*.html",
                     "src/app/settings/partials/**/*.html",
@@ -295,6 +299,7 @@ module.exports = function (grunt) {
                     "src/app/settings/partials/**/*.html",
                     "src/app/feedback/**/*.html",
                     "src/app/categories/partials/**/*.html",
+                    "src/app/import/partials/**/*.html",
                     "src/app/expenses/partials/**/*.html",
                     "src/app/insight/partials/**/*.html",
                     "src/app/common/**/*.html"
