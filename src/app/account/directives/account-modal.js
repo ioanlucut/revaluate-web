@@ -1,7 +1,7 @@
 /* Account modal */
 
 angular
-    .module("account")
+    .module("revaluate.account")
     .directive("accountModal", function ($rootScope, $animate, ACCOUNT_FORM_STATE, AccountModal) {
         return {
             restrict: "A",

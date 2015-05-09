@@ -1,5 +1,5 @@
 angular
-    .module("account")
+    .module("revaluate.account")
     .constant("USER_URLS", {
         userUnique: "account/isUniqueEmail"
     });

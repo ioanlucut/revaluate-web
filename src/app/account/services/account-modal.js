@@ -1,7 +1,7 @@
 /* Account modal */
 
 angular
-    .module("account")
+    .module("revaluate.account")
     .service("AccountModal", function ($rootScope, $timeout, AUTH_EVENTS) {
 
         // By default the modal is closed

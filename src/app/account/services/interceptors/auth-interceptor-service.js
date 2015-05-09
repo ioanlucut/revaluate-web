@@ -2,7 +2,7 @@
  * Authentication service interceptor used to listen to server responses.
  */
 angular
-    .module("account")
+    .module("revaluate.account")
     .factory("AuthInterceptor", function ($rootScope, $q, SessionService, AUTH_EVENTS) {
 
         return {

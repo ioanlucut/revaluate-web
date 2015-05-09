@@ -3,7 +3,7 @@
  */
 angular
     .module("settings", [
-        "account"
+        "revaluate.account"
     ])
     .config(function ($stateProvider) {
 
