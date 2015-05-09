@@ -32,8 +32,6 @@
 }
 
 .view-container__content__admin__section {
-  //@include border-radius($border-radius-base);
-  //background-color: $white;
   float: right;
   width: 75%;
   @include clearfix();
@@ -55,4 +53,10 @@
 
 .settings__title {
   text-align: left;
+  font-size: 20px;
+}
+
+.settings__btn__save {
+  @include btn-block($brand-primary);
+  margin-top: 10px;
 }
