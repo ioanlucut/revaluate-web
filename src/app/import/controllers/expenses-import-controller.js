@@ -2,8 +2,8 @@
  * Setting import controller.
  */
 angular
-    .module("revaluate.settings")
-    .controller("SettingsImportController", function ($q, $scope, $rootScope, $timeout, AUTH_URLS, FileUploader, StatesHandler, SessionService, AUTH_EVENTS, flash, currencies, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+    .module("revaluate.expensesImport")
+    .controller("ExpensesImportController", function ($q, $scope, $rootScope, $timeout, AUTH_URLS, FileUploader, StatesHandler, SessionService, AUTH_EVENTS, flash, currencies, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
 
         // ---
         // Configure uploader.
