@@ -17,7 +17,7 @@ angular
         "categories",
         "expenses",
         "statistics",
-        "account",
+        "revaluate.account",
         "settings",
         "insights",
         "angular.filter"

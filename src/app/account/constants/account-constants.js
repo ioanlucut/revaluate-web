@@ -2,7 +2,7 @@
  * Account related constants.
  */
 angular
-    .module("account")
+    .module("revaluate.account")
     .constant("AUTH_EVENTS", {
         isLoggedIn: "auth-is-logged-in",
         loginSuccess: "auth-login-success",

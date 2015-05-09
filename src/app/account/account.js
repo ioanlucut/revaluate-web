@@ -2,7 +2,7 @@
  * Main account module declaration including ui templates.
  */
 angular
-    .module("account", [
+    .module("revaluate.account", [
         "common",
         "currencies",
         "categories"

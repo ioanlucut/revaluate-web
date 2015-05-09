@@ -2,7 +2,7 @@
  * Directive responsible for checking of a password is strong enough.
  */
 angular
-    .module("account")
+    .module("revaluate.account")
     .directive("strongPassword", function () {
         return {
             require: "ngModel",

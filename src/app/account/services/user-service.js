@@ -1,5 +1,5 @@
 angular
-    .module("account")
+    .module("revaluate.account")
     .service("UserService", function ($http, $q, USER_URLS) {
 
         /**

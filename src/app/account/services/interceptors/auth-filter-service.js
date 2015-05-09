@@ -2,7 +2,7 @@
  * Authentication service filter used to redirect user to the home page if it is already logged in.
  */
 angular
-    .module("account")
+    .module("revaluate.account")
     .service("AuthFilter", function (AuthService, StatesHandler, User) {
 
         return function (event, toState) {

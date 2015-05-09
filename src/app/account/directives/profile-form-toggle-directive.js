@@ -2,7 +2,7 @@
  * Directive responsible for switching update profile forms between them.
  */
 angular
-    .module("account")
+    .module("revaluate.account")
     .directive("profileFormToggle", function (ProfileFormToggle, ACCOUNT_FORM_STATE) {
         return {
             restrict: "A",

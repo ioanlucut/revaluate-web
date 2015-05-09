@@ -1,5 +1,5 @@
 angular
-    .module("account")
+    .module("revaluate.account")
     .controller("SignUpSetUpRegistrationController", function ($q, $rootScope, $scope, $timeout, flash, AuthService, CategoryService, AUTH_EVENTS, ALERTS_CONSTANTS, predefinedCategories, colors, CategoryColorService, SessionService, StatesHandler, Category, currencies) {
 
         /**
