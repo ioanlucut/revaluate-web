@@ -7,12 +7,24 @@ angular
 
         $stateProvider
 
-            // ---
-            // expensesImport.
-            // ---
-            .state("settings.expensesImport", {
-                url: "/expensesImport/{type}",
-                templateUrl: "app/import/partials/import.importExpenses.html",
+            .state({
+                name: "settings.import",
+                url: "/import",
+                templateUrl: "app/import/partials/settings.import.abstract.html",
+                abstract: true
+            })
+
+            .state({
+                name: "settings.import.choose",
+                url: "/choose",
+                templateUrl: "app/import/partials/settings.import.choose.html",
+                title: "Expenses import choose - Revaluate"
+            })
+
+            .state({
+                name: "settings.import.import",
+                url: "/{type}",
+                templateUrl: "app/import/partials/settings.import.import.html",
                 controller: "ExpensesImportController",
                 resolve: {
                     categories: function (CategoryService) {
@@ -32,6 +44,6 @@ angular
                     }
                 },
                 title: "Expenses import - Revaluate"
-            });
+            })
 
     }]);
