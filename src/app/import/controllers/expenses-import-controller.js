@@ -81,7 +81,7 @@ angular
         });
 
         uploader.onWhenAddingFileFailed = function (item /*{File|FileLikeObject}*/, filter, options) {
-            console.info('onWhenAddingFileFailed', item, filter, options);
+
             flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to uploade this shit.'
         };
         uploader.onAfterAddingFile = function (fileItem) {
@@ -102,7 +102,6 @@ angular
         uploader.onSuccessItem = function (fileItem, response, status, headers) {
 
             $scope.expensesImportAnswer = ExpensesImport.build(response);
-            console.info('onSuccessItem', fileItem, response, status, headers);
         };
         uploader.onErrorItem = function (fileItem, response, status, headers) {
             console.info('onErrorItem', fileItem, response, status, headers);
@@ -142,7 +141,7 @@ angular
                 // We need to perform a transform of the selected categories.
                 // ---
                 _.each(expensesImportPrepared.model.expenseCategoryMatchingProfileDTOs, function (expenseCategoryMatchingProfileDTO) {
-                    expenseCategoryMatchingProfileDTO.category = angular.copy(expenseCategoryMatchingProfileDTO.category.originalObject.model);
+                    expenseCategoryMatchingProfileDTO.categoryDTO = angular.copy(expenseCategoryMatchingProfileDTO.category.originalObject.model);
                 });
 
                 // ---
@@ -150,9 +149,7 @@ angular
                 // ---
                 ImportService
                     .performMintImport(expensesImportPrepared)
-                    .then(function (response) {
-                        console.log(response);
-                        console.log("AWESOME!!");
+                    .then(function () {
                         $scope.expensesImportForm.$setPristine();
 
                         flash.to($scope.alertIdentifierId).success = 'We\'ve successfully imported your expenses!';
