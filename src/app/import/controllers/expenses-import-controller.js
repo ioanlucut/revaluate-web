@@ -42,7 +42,6 @@ angular
         // ---
         // Initial value.
         // ---
-        /*$scope.isUploadFinished = false;*/
         $scope.isUploadFinished = false;
 
         // ---
@@ -80,7 +79,7 @@ angular
             }
         });
 
-        uploader.onWhenAddingFileFailed = function (item /*{File|FileLikeObject}*/, filter, options) {
+        uploader.onWhenAddingFileFailed = function (item, filter, options) {
 
             flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to uploade this shit.'
         };
