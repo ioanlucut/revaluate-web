@@ -43,29 +43,12 @@ angular
         // Initial value.
         // ---
         /*$scope.isUploadFinished = false;*/
-        $scope.isUploadFinished = true;
+        $scope.isUploadFinished = false;
 
         // ---
         // This is the answer we get from server after analysing the import.
         // ---
         $scope.expensesImportAnswer = {};
-
-        $scope.expensesImportAnswer = ExpensesImport.build({
-            "expenseDTOs": [{
-                "id": 0,
-                "value": 3698.0,
-                "description": "Sticky",
-                "category": { "id": 0, "name": "Home Insurance" },
-                "spentDate": "2015-05-05T00:00:00.000"
-            }, {
-                "id": 0,
-                "value": 12300.0,
-                "description": "Test transaction",
-                "category": { "id": 0, "name": "Movies & DVDs" },
-                "spentDate": "2015-04-05T00:00:00.000"
-            }],
-            "expenseCategoryMatchingProfileDTOs": [{ "categoryCandidateName": "Home Insurance" }, { "categoryCandidateName": "Movies & DVDs" }]
-        });
 
         // ---
         // Define uploader.
