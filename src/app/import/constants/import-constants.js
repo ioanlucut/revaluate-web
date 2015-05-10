@@ -3,15 +3,21 @@
  */
 angular
     .module("revaluate.expensesImport")
+    .constant("IMPORT_PARSE_ANALYSE_URLS", {
+        mint: "importer/mintParseAnalyseImport",
+        spendee: "importer/spendeeParseAnalyseImport"
+    })
     .constant("IMPORT_URLS", {
-        importMint: "importer/mintImport",
-        importMintParseAnalyse: "importer/mintParseAnalyseImport",
-        spendeeImport: "importer/spendeeImport",
-        importSpendeeParseAnalyse: "importer/spendeeParseAnalyseImport"
+        mint: "importer/mintImport",
+        spendee: "importer/spendeeParseAnalyseImport"
     })
     .constant("IMPORT_EVENTS", {
         isErrorOccurred: "expensesImport-error-occurred",
         isCreated: "expensesImport-is-created",
         isDeleted: "expensesImport-is-deleted",
         isUpdated: "expensesImport-is-updated"
+    })
+    .constant("IMPORT_TYPES", {
+        mint: "mint",
+        spendee: "spendee"
     });

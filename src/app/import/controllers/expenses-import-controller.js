@@ -3,7 +3,7 @@
  */
 angular
     .module("revaluate.expensesImport")
-    .controller("ExpensesImportController", function ($q, $scope, $rootScope, $timeout, IMPORT_URLS, FileUploader, ImportService, ExpensesImport, StatesHandler, SessionService, AUTH_EVENTS, flash, categories, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+    .controller("ExpensesImportController", function ($q, $scope, $rootScope, $timeout, IMPORT_PARSE_ANALYSE_URLS, importType, FileUploader, ImportService, ExpensesImport, StatesHandler, SessionService, AUTH_EVENTS, flash, categories, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
 
         // ---
         // Configure uploader.
@@ -53,7 +53,7 @@ angular
         // Define uploader.
         // ---
         var uploader = $scope.uploader = new FileUploader({
-            url: URLTo.api(IMPORT_URLS.importMintParseAnalyse),
+            url: URLTo.api(IMPORT_PARSE_ANALYSE_URLS[importType]),
             headers: {
                 'Authorization': 'Bearer ' + SessionService.getJwtToken()
             },
@@ -144,10 +144,10 @@ angular
                 });
 
                 // ---
-                // Perform mint import.
+                // Perform import.
                 // ---
                 ImportService
-                    .performMintImport(expensesImportPrepared)
+                    .importExpenses(importType, expensesImportPrepared)
                     .then(function () {
                         $scope.expensesImportForm.$setPristine();
 
