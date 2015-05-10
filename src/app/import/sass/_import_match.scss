@@ -1,0 +1,38 @@
+.expenses-import__edit {
+  @include span-columns(6);
+  @include shift(3);
+  @include border-radius($base-border-radius);
+}
+
+.expenses-import__edit__category {
+  @include span-columns(12);
+  @include clearfix();
+  @include border-radius($base-border-radius);
+  padding: 0;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.expenses-import__edit__category__name {
+  @include clearfix();
+  float: left;
+
+  .expenses-import__edit__category__name__candidate {
+    @include user-select(none);
+    display: inline-block;
+    padding: 10px 0;
+    font-size: $font-size-base;
+  }
+}
+
+.expenses-import__edit__category__controls {
+  @include clearfix();
+  float: right;
+
+  .expenses-import__edit__category__controls__category {
+    padding: 0;
+    position: relative;
+    width: 100%;
+    float: none;
+  }
+}

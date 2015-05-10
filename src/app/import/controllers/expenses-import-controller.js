@@ -3,60 +3,14 @@
  */
 angular
     .module("revaluate.expensesImport")
-    .controller("ExpensesImportController", function ($q, $scope, $rootScope, $timeout, IMPORT_URLS, FileUploader, StatesHandler, SessionService, AUTH_EVENTS, flash, currencies, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+    .controller("ExpensesImportController", function ($q, $scope, $rootScope, $timeout, IMPORT_URLS, FileUploader, ImportService, ExpensesImport, StatesHandler, SessionService, AUTH_EVENTS, flash, categories, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
 
         // ---
         // Configure uploader.
         // ---
-        var uploader = $scope.uploader = new FileUploader({
-            url: URLTo.api(IMPORT_URLS.importMintParseAnalyse),
-            headers: {
-                'Authorization': 'Bearer ' + SessionService.getJwtToken()
-            }
-        });
-
-        uploader.filters.push({
-            name: 'customFilter',
-            fn: function (item /*{File|FileLikeObject}*/, options) {
-                return this.queue.length < 10;
-            }
-        });
-
-        uploader.onWhenAddingFileFailed = function (item /*{File|FileLikeObject}*/, filter, options) {
-            console.info('onWhenAddingFileFailed', item, filter, options);
-        };
-        uploader.onAfterAddingFile = function (fileItem) {
-            console.info('onAfterAddingFile', fileItem);
-        };
-        uploader.onAfterAddingAll = function (addedFileItems) {
-            console.info('onAfterAddingAll', addedFileItems);
-        };
-        uploader.onBeforeUploadItem = function (item) {
-            console.info('onBeforeUploadItem', item);
-        };
-        uploader.onProgressItem = function (fileItem, progress) {
-            console.info('onProgressItem', fileItem, progress);
-        };
-        uploader.onProgressAll = function (progress) {
-            console.info('onProgressAll', progress);
-        };
-        uploader.onSuccessItem = function (fileItem, response, status, headers) {
-            console.info('onSuccessItem', fileItem, response, status, headers);
-        };
-        uploader.onErrorItem = function (fileItem, response, status, headers) {
-            console.info('onErrorItem', fileItem, response, status, headers);
-        };
-        uploader.onCancelItem = function (fileItem, response, status, headers) {
-            console.info('onCancelItem', fileItem, response, status, headers);
-        };
-        uploader.onCompleteItem = function (fileItem, response, status, headers) {
-            console.info('onCompleteItem', fileItem, response, status, headers);
-        };
-        uploader.onCompleteAll = function () {
-            console.info('onCompleteAll');
-        };
-
-        console.info('uploader', uploader);
+        var QUEUE_LIMIT = 1;
+        var AUTO_UPLOAD = true;
+        var IS_EMPTY_AFTER_SELECTION = true;
 
         /**
          * Saving timeout
@@ -64,10 +18,10 @@ angular
         var TIMEOUT_PENDING = 300;
 
         /**
-         * All given currencies.
-         * @type {currencies|*}
+         * All given categories.
+         * @type {categories|*}
          */
-        $scope.currencies = currencies;
+        $scope.categories = categories;
 
         /**
          * Alert identifier
@@ -85,75 +39,154 @@ angular
          */
         $scope.user = $rootScope.currentUser;
 
-        /**
-         * Selected currency
-         * @type {{}}
-         */
-        $scope.currency = $scope.user.model.currency;
+        // ---
+        // Initial value.
+        // ---
+        /*$scope.isUploadFinished = false;*/
+        $scope.isUploadFinished = true;
 
-        /**
-         * Initial profile data
-         */
-        function getInitialProfileData() {
-            return {
-                currency: $scope.user.model.currency
-            };
-        }
+        // ---
+        // This is the answer we get from server after analysing the import.
+        // ---
+        $scope.expensesImportAnswer = {};
 
-        /**
-         * Profile user information.
-         */
-        $scope.profileData = angular.copy(getInitialProfileData());
+        $scope.expensesImportAnswer = ExpensesImport.build({
+            "expenseDTOs": [{
+                "id": 0,
+                "value": 3698.0,
+                "description": "Sticky",
+                "category": { "id": 0, "name": "Home Insurance" },
+                "spentDate": "2015-05-05T00:00:00.000"
+            }, {
+                "id": 0,
+                "value": 12300.0,
+                "description": "Test transaction",
+                "category": { "id": 0, "name": "Movies & DVDs" },
+                "spentDate": "2015-04-05T00:00:00.000"
+            }],
+            "expenseCategoryMatchingProfileDTOs": [{ "categoryCandidateName": "Home Insurance" }, { "categoryCandidateName": "Movies & DVDs" }]
+        });
+
+        // ---
+        // Define uploader.
+        // ---
+        var uploader = $scope.uploader = new FileUploader({
+            url: URLTo.api(IMPORT_URLS.importMintParseAnalyse),
+            headers: {
+                'Authorization': 'Bearer ' + SessionService.getJwtToken()
+            },
+            autoUpload: AUTO_UPLOAD,
+            queueLimit: QUEUE_LIMIT
+        });
+
+        // ---
+        // We want to have the input cleared after upload.
+        // ---
+        FileUploader.FileSelect.prototype.isEmptyAfterSelection = function () {
+            return IS_EMPTY_AFTER_SELECTION;
+        };
+
+        // ---
+        // We only allow CSV files.
+        // ---
+        uploader.filters.push({
+            name: 'csvFilter',
+            fn: function (item, options) {
+                var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+                return '|csv|'.indexOf(type) !== -1;
+            }
+        });
+
+        uploader.onWhenAddingFileFailed = function (item /*{File|FileLikeObject}*/, filter, options) {
+            console.info('onWhenAddingFileFailed', item, filter, options);
+            flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to uploade this shit.'
+        };
+        uploader.onAfterAddingFile = function (fileItem) {
+            console.info('onAfterAddingFile', fileItem);
+        };
+        uploader.onAfterAddingAll = function (addedFileItems) {
+            console.info('onAfterAddingAll', addedFileItems);
+        };
+        uploader.onBeforeUploadItem = function (item) {
+            console.info('onBeforeUploadItem', item);
+        };
+        uploader.onProgressItem = function (fileItem, progress) {
+            console.info('onProgressItem', fileItem, progress);
+        };
+        uploader.onProgressAll = function (progress) {
+            console.info('onProgressAll', progress);
+        };
+        uploader.onSuccessItem = function (fileItem, response, status, headers) {
+
+            $scope.expensesImportAnswer = ExpensesImport.build(response);
+            console.info('onSuccessItem', fileItem, response, status, headers);
+        };
+        uploader.onErrorItem = function (fileItem, response, status, headers) {
+            console.info('onErrorItem', fileItem, response, status, headers);
+        };
+        uploader.onCancelItem = function (fileItem, response, status, headers) {
+            console.info('onCancelItem', fileItem, response, status, headers);
+        };
+        uploader.onCompleteItem = function (fileItem, response, status, headers) {
+            console.info('onCompleteItem', fileItem, response, status, headers);
+
+            // ---
+            // Mark upload completed.
+            // ---
+            $timeout(function () {
+                $scope.isUploadFinished = true;
+            }, TIMEOUT_PENDING);
+        };
+        uploader.onCompleteAll = function () {
+            console.info('onCompleteAll');
+        };
 
         /**
          * Update profile functionality.
          */
-        $scope.updatePreferences = function () {
-            if ( $scope.preferencesForm.$valid && !$scope.isSaving ) {
+        $scope.submitPerformImport = function () {
+            if ( $scope.expensesImportForm.$valid && !$scope.isImporting ) {
 
                 // Show the loading bar
-                $scope.isSaving = true;
+                $scope.isImporting = true;
 
-                $scope.profileData.currency = angular.copy($scope.currency.originalObject || $scope.currency);
+                // ---
+                // Detach from scope.
+                // ---
+                var expensesImportPrepared = angular.copy($scope.expensesImportAnswer);
 
-                // Update the user
-                $scope.user
-                    .updateCurrency($scope.profileData)
+                // ---
+                // We need to perform a transform of the selected categories.
+                // ---
+                _.each(expensesImportPrepared.model.expenseCategoryMatchingProfileDTOs, function (expenseCategoryMatchingProfileDTO) {
+                    expenseCategoryMatchingProfileDTO.category = angular.copy(expenseCategoryMatchingProfileDTO.category.originalObject.model);
+                });
+
+                // ---
+                // Perform mint import.
+                // ---
+                ImportService
+                    .performMintImport(expensesImportPrepared)
                     .then(function (response) {
-                        // ---
-                        // Reload data with given response.
-                        // ---
-                        $scope.user
-                            .loadFrom(response.data);
+                        console.log(response);
+                        console.log("AWESOME!!");
+                        $scope.expensesImportForm.$setPristine();
 
-                        // ---
-                        // We need to set the data and refresh the user.
-                        // ---
-                        SessionService.setData(response.data);
-                        $rootScope.$broadcast(AUTH_EVENTS.refreshUser, response);
-
-                        // ---
-                        // Reset the profile data with possible new data.
-                        // ---
-                        $scope.profileData = angular.copy(getInitialProfileData());
-
-                        $scope.preferencesForm.$setPristine();
-                        flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your preferences!';
+                        flash.to($scope.alertIdentifierId).success = 'We\'ve successfully imported your expenses!';
 
                         $timeout(function () {
-                            $scope.isSaving = false;
+                            $scope.isImporting = false;
                         }, TIMEOUT_PENDING);
 
                     })
                     .catch(function () {
                         /* If bad feedback from server */
                         $scope.badPostSubmitResponse = true;
-                        $scope.isSaving = false;
+                        $scope.isImporting = false;
 
-                        flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to update your preferences.';
+                        flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to import your expenses.';
                     });
             }
         };
 
-    })
-;
+    });

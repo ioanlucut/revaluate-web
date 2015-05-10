@@ -1,6 +1,6 @@
 angular
     .module("revaluate.expensesImport")
-    .factory("ExpensesExpensesImport", function ($q, $http, ImportService, ImportTransformerService) {
+    .factory("ExpensesImport", function ($q, $http, ImportService, ImportTransformerService) {
 
         /**
          * ExpensesImport class.
@@ -21,7 +21,7 @@ angular
                 /**
                  * The color
                  */
-                expenseCategoriesMatchingProfileDTO: {}
+                expenseCategoryMatchingProfileDTOs: []
             };
 
             /**
@@ -29,20 +29,7 @@ angular
              * @returns {*}
              */
             this.save = function () {
-                if ( this.isNew() ) {
-                    return ImportService.createImport(this);
-                }
-                else {
-                    return ImportService.updateImport(this);
-                }
-            };
-
-            /**
-             * Destroys (deletes) a expensesImport.
-             * @returns {*}
-             */
-            this.destroy = function () {
-                return ImportService.deleteImport(this);
+                return ImportService.performImport(this);
             };
         }
 

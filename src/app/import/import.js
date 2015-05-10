@@ -15,8 +15,8 @@ angular
                 templateUrl: "app/import/partials/import.importExpenses.html",
                 controller: "ExpensesImportController",
                 resolve: {
-                    currencies: function (CurrencyService) {
-                        return CurrencyService.getAllCurrencies();
+                    categories: function (CategoryService) {
+                        return CategoryService.getAllCategories();
                     }
                 },
                 title: "Expenses import - Revaluate"

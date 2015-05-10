@@ -1,0 +1,65 @@
+.expenses-import__title {
+  text-align: center;
+  font-size: $font-size-h1;
+}
+
+.expenses-import__text {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 25px;
+  text-align: center;
+}
+
+
+.angucomplete-image-holder {
+  position: relative;
+}
+
+.expenses-import__form__input-group {
+  vertical-align: middle;
+  position: relative;
+  float: left;
+  width: 100%;
+
+  .expenses-import__form__color__preview {
+    @include border-radius(50%);
+    @include size(22px 22px);
+    position: absolute;
+    margin: 10px;
+    left: 0;
+    top: 0;
+  }
+
+  .expenses-import__form__input-group__name,
+  .expenses-import__form__input-group__color {
+    //line-height: $add-category-form-height;
+    display: inline-block;
+  }
+
+  .expenses-import__form__input-group__name {
+    height: $add-category-form-height;
+    padding-left: 40px;
+    text-transform: uppercase;
+    width: 250px;
+  }
+}
+
+.has-error {
+
+  .expenses-import__form__input-group__name,
+  .expenses-import__form__input-group__color {
+    border-color: $brand-danger;
+  }
+}
+
+.expenses-import__cancel__btn {
+  @include btn-big($brand-danger);
+  font-size: 16px;
+  font-weight: $font-weight-bold;
+  display: inline-block;
+  min-width: 40px;
+  vertical-align: middle;
+  position: relative;
+  width: 45%;
+}
