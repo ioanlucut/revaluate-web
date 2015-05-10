@@ -23,7 +23,6 @@ angular
         details: "account",
         cancel: "account",
         updateCurrency: "account/updateCurrency",
-        importExpense: "importer/traceImport",
         requestPasswordReset: "account/requestResetPassword/:email",
         resetPasswordWithToken: "account/resetPassword/:email/:token",
         validatePasswordResetToken: "account/validateResetPasswordToken/:email/:token",

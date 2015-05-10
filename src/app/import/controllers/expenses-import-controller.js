@@ -3,13 +3,13 @@
  */
 angular
     .module("revaluate.expensesImport")
-    .controller("ExpensesImportController", function ($q, $scope, $rootScope, $timeout, AUTH_URLS, FileUploader, StatesHandler, SessionService, AUTH_EVENTS, flash, currencies, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+    .controller("ExpensesImportController", function ($q, $scope, $rootScope, $timeout, IMPORT_URLS, FileUploader, StatesHandler, SessionService, AUTH_EVENTS, flash, currencies, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
 
         // ---
         // Configure uploader.
         // ---
         var uploader = $scope.uploader = new FileUploader({
-            url: URLTo.api(AUTH_URLS.importExpense),
+            url: URLTo.api(IMPORT_URLS.importMintParseAnalyse),
             headers: {
                 'Authorization': 'Bearer ' + SessionService.getJwtToken()
             }
