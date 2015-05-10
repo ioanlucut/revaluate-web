@@ -2,7 +2,7 @@
  * Abstract error page controller.
  */
 angular
-    .module("common")
+    .module("revaluate.common")
     .controller("AbstractErrorPageController", function ($scope, StatesHandler) {
 
         /**

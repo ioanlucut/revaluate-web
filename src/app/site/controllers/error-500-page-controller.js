@@ -2,7 +2,7 @@
  * 500 page controller.
  */
 angular
-    .module("common")
+    .module("revaluate.common")
     .controller("Error500PageController", function ($scope, $controller, MIXPANEL_EVENTS) {
 
         /**

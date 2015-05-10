@@ -1,0 +1,9 @@
+.settings__section__form {
+  //border: solid 1px red;
+  width: 100%;
+  max-width: 400px;
+}
+
+.settings__cancel__btn {
+  @include btn($brand-danger);
+}

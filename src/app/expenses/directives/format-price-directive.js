@@ -1,5 +1,5 @@
 angular
-    .module("expenses")
+    .module("revaluate.expenses")
     .directive('formatPrice', ['$filter', function ($filter) {
         return {
             require: '?ngModel',

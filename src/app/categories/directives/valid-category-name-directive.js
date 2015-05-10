@@ -2,7 +2,7 @@
  * Directive responsible for checking of a category name is valid.
  */
 angular
-    .module("categories")
+    .module("revaluate.categories")
     .directive("validCategoryName", function () {
         return {
             require: "ngModel",

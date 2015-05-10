@@ -9,7 +9,7 @@
     </div>
 
     <!--Expense category-->
-    <div class="expenses__list__entry__category" ng-style="{'background':expense.model.category.color}" ng-bind-html="expense.model.category.name"></div>
+    <div class="expenses__list__entry__category" ng-style="{'background':expense.model.category.color.color}" ng-bind-html="expense.model.category.name"></div>
 
     <!--Expense description-->
     <div class="expenses__list__entry__details" ng-bind-html="expense.model.description | highlightSearch:searchByText"></div>

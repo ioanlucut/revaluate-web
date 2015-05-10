@@ -1,5 +1,5 @@
 angular
-    .module("statistics")
+    .module("revaluate.statistics")
     .factory("Statistic", function ($q, StatisticTransformerService) {
 
         /**

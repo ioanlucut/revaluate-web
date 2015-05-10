@@ -2,7 +2,7 @@
  * Common mixpanel events.
  */
 angular
-    .module("common")
+    .module("revaluate.common")
     .constant("MIXPANEL_EVENTS", {
         landingPageLoaded: "Landing page loaded",
         signUpRequested: "Signup requested",
@@ -21,6 +21,7 @@ angular
         settings: "Settings",
         settingsProfile: "Settings profile",
         settingsPreferences: "Settings preferences",
+        settingsImport: "Settings import",
         error404: "error-404",
         error500: "error-500"
     });

@@ -4,23 +4,27 @@
 angular
     .module("app", [
         "config",
+        "angular-cache",
+        "angularFileUpload",
         "ngAnimate",
         "ngMessages",
         "angucomplete-alt",
         "ngStorage",
         "partials",
-        "site",
-        "feedback",
-        "common",
-        "categories",
-        "expenses",
-        "statistics",
-        "account",
-        "settings",
-        "insights",
+        "revaluate.site",
+        "revaluate.feedback",
+        "revaluate.common",
+        "revaluate.categories",
+        "revaluate.expensesImport",
+        "revaluate.expenses",
+        "revaluate.statistics",
+        "revaluate.account",
+        "revaluate.settings",
+        "revaluate.insights",
         "angular.filter"
     ])
-    .config(function ($locationProvider) {
+    .config(function ($locationProvider, CacheFactoryProvider) {
+        angular.extend(CacheFactoryProvider.defaults, { maxAge: 15 * 60 * 1000 });
 
         // Enable html5 mode
         $locationProvider.html5Mode({

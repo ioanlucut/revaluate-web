@@ -1,6 +1,7 @@
 angular
-    .module("categories", [
-        "common"
+    .module("revaluate.categories", [
+        "revaluate.color",
+        "revaluate.common"
     ])
     .config(["$stateProvider", function ($stateProvider) {
 
@@ -17,6 +18,9 @@ angular
                 resolve: {
                     categories: function (CategoryService) {
                         return CategoryService.getAllCategories();
+                    },
+                    colors: function (ColorService) {
+                        return ColorService.getAllColors();
                     }
                 },
                 title: "Categories - Revaluate"

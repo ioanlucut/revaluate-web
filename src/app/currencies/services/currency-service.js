@@ -2,7 +2,7 @@
  * Currencies service which encapsulates the whole logic related to currencies.
  */
 angular
-    .module("currencies")
+    .module("revaluate.currencies")
     .service("CurrencyService", function (CURRENCY_URLS, $q, $http) {
 
         /**

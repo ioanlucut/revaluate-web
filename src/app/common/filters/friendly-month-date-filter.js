@@ -1,7 +1,7 @@
 /* Friendly date filter */
 
 angular
-    .module("common")
+    .module("revaluate.common")
     .filter('friendlyMonthDate', function () {
         return function (date) {
 

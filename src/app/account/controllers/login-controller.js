@@ -2,7 +2,7 @@
  * Login controller responsible for user login actions.
  */
 angular
-    .module("account")
+    .module("revaluate.account")
     .controller("LoginController", function ($scope, flash, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountModal, StatesHandler, $timeout) {
 
         /**

@@ -1,5 +1,5 @@
 angular
-    .module("common")
+    .module("revaluate.common")
     .service("StatesHandler", function ($state, $stateParams, STATES) {
 
         this.goHome = function () {

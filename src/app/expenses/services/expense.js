@@ -1,5 +1,5 @@
 angular
-    .module("expenses")
+    .module("revaluate.expenses")
     .factory("Expense", function ($q, $http, ExpenseService, ExpenseTransformerService) {
 
         /**
@@ -21,7 +21,7 @@ angular
                 /**
                  * The expense description.
                  */
-                category: "",
+                category: {},
 
                 /**
                  * The expense value

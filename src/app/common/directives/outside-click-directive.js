@@ -1,5 +1,5 @@
 angular
-    .module("common")
+    .module("revaluate.common")
     .directive("outsideClick", function ($document) {
         return {
             restrict: "A",

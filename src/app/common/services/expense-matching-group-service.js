@@ -1,5 +1,5 @@
 angular
-    .module("common")
+    .module("revaluate.common")
     .factory("ExpenseMatchingGroupService", function () {
         var now = moment();
         var expensesGroup = [

@@ -27,9 +27,14 @@ module.exports = function (grunt) {
                     "bower_components/angucomplete-alt/angucomplete-alt.js",
                     "bower_components/jstz-detect/jstz.js",
                     "bower_components/perfect-scrollbar/src/perfect-scrollbar.js",
+                    "bower_components/angular-cache/dist/angular-cache.js",
+                    "bower_components/angular-file-upload/angular-file-upload.js",
 
                     "bower_components/perfect-scrollbar/src/jquery.mousewheel.js",
                     "bower_components/angular-money-directive/angular-money-directive.js",
+
+                    "bower_components/es5-shim/es5-shim.js",
+                    "bower_components/es5-shim/es5-sham.js",
 
                     /* These are the angular ui used bootstrap */
                     "bower_components/angular-ui-bootstrap/src/bindHtml/bindHtml.js",
@@ -74,8 +79,14 @@ module.exports = function (grunt) {
                     "src/app/currencies/currencies.js",
                     "src/app/currencies/**/*.js",
 
+                    "src/app/color/color.js",
+                    "src/app/color/**/*.js",
+
                     "src/app/categories/category.js",
                     "src/app/categories/**/*.js",
+
+                    "src/app/import/import.js",
+                    "src/app/import/**/*.js",
 
                     "src/app/expenses/expenses.js",
                     "src/app/expenses/**/*.js",
@@ -252,6 +263,7 @@ module.exports = function (grunt) {
 
                     "src/app/site/partials/**/*.html",
                     "src/app/categories/partials/**/*.html",
+                    "src/app/import/partials/**/*.html",
                     "src/app/expenses/partials/**/*.html",
                     "src/app/account/partials/**/*.html",
                     "src/app/settings/partials/**/*.html",
@@ -287,6 +299,7 @@ module.exports = function (grunt) {
                     "src/app/settings/partials/**/*.html",
                     "src/app/feedback/**/*.html",
                     "src/app/categories/partials/**/*.html",
+                    "src/app/import/partials/**/*.html",
                     "src/app/expenses/partials/**/*.html",
                     "src/app/insight/partials/**/*.html",
                     "src/app/common/**/*.html"

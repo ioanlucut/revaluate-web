@@ -1,5 +1,5 @@
 angular
-    .module("categories")
+    .module("revaluate.categories")
     .directive("uniqueCategoryName", function ($q, CategoryService) {
         return {
             require: "ngModel",

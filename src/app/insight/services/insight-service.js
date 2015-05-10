@@ -2,7 +2,7 @@
  * Insights service which encapsulates the whole logic related to insights.
  */
 angular
-    .module("insights")
+    .module("revaluate.insights")
     .service("InsightService", function (INSIGHTS_URLS, $q, $http, $injector, InsightTransformerService) {
 
         /**

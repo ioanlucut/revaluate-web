@@ -1,5 +1,5 @@
 angular
-    .module("insights")
+    .module("revaluate.insights")
     .factory("Insight", function ($q, $http, InsightService, InsightTransformerService) {
 
         /**

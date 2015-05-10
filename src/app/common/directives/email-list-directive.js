@@ -1,7 +1,7 @@
 /* Email list */
 
 angular
-    .module("common")
+    .module("revaluate.common")
     .directive("emailList", function () {
         return {
             restrict: "A",

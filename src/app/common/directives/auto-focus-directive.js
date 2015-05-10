@@ -1,7 +1,7 @@
 /* Auto focus */
 
 angular
-    .module("common")
+    .module("revaluate.common")
     .directive("autoFocus", function ($timeout) {
         return {
             restrict: "A",

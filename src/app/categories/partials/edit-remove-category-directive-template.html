@@ -1,6 +1,6 @@
 <!--Category group-->
 <div class="categories__edit__category__name" ng-if="! showContent">
-    <span class="categories__edit__category__color" ng-style="{'background':category.model.color}">C</span>
+    <span class="categories__edit__category__color" ng-style="{'background':category.model.color.color}">C</span>
     <span class="categories__edit__category__label">{{category.model.name}}</span>
 </div>
 
@@ -19,7 +19,7 @@
         <!-- Category color form group -->
         <div class="categories__form__input-group" ng-class="{'has-error': categoryForm.$submitted && (categoryForm.color.$invalid || badPostSubmitResponse)}">
 
-            <input class="categories__form__input-group__color" type="hidden" placeholder="Category color" name="color" ng-model="category.model.color" required valid-category-color />
+            <input class="categories__form__input-group__color" type="hidden" placeholder="Category color" name="color" ng-model="category.model.color.color" required valid-category-color />
 
             <!-- Error messages -->
             <div class="form-group-input__message" ng-class="{'has-error': categoryForm.color.$invalid && categoryForm.$submitted}" ng-messages="categoryForm.color.$error" ng-if="categoryForm.$submitted">
@@ -31,7 +31,7 @@
         <!-- Category label form group-->
         <div class="categories__form__input-group" ng-class="{'has-error': categoryForm.$submitted && (categoryForm.name.$invalid || badPostSubmitResponse)}">
             <!--Color preview-->
-            <label class="categories__form__color__preview" ng-style="{'background':category.model.color}"></label>
+            <label class="categories__form__color__preview" ng-style="{'background':category.model.color.color}"></label>
             <input class="categories__form__input-group__name" type="text" placeholder="Category name" name="name" ng-model="category.model.name" auto-focus required valid-category-name unique-category-name except="masterCategory.model.name" />
 
             <!-- Error messages -->
@@ -41,7 +41,7 @@
                 <div ng-message="uniqueCategoryName">Name is already used.</div>
             </div>
 
-            <div color-picker category-color="category.model.color"></div>
+            <div color-picker colors="colors" category-color="category.model.color"></div>
         </div>
 
     </div>

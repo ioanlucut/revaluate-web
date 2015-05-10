@@ -1,5 +1,5 @@
 angular
-    .module("categories")
+    .module("revaluate.categories")
     .directive("addCategory", function ($rootScope, CATEGORY_EVENTS) {
         return {
             restrict: "A",

@@ -1,5 +1,5 @@
 angular
-    .module("common")
+    .module("revaluate.common")
     .directive('escKey', function () {
         return function (scope, element, attrs) {
             element.bind('keydown keypress', function (event) {

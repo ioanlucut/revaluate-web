@@ -1,11 +1,12 @@
 angular
-    .module("categories")
+    .module("revaluate.categories")
     .directive("colorPicker", function (CATEGORY_EVENTS, CategoryColorService, $timeout, $animate) {
         return {
             restrict: "A",
             replace: true,
             scope: {
-                categoryColor: "="
+                categoryColor: "=",
+                colors: "="
             },
             templateUrl: "app/categories/partials/color-picker-directive-template.html",
             link: function (scope, el, attrs) {
@@ -53,15 +54,10 @@ angular
                 });
 
                 // ---
-                // Colors.
-                // ---
-                scope.colors = CategoryColorService.getColorsPool();
-
-                // ---
                 // Select the color.
                 // ---
                 scope.select = function (chosenColor) {
-                    scope.categoryColor = chosenColor.color;
+                    scope.categoryColor = angular.copy(chosenColor);
 
                     scope.close();
                 };

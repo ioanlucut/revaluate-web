@@ -2,7 +2,7 @@
  * Common states.
  */
 angular
-    .module("common")
+    .module("revaluate.common")
     .constant("ACTIVITY_INTERCEPTOR", {
         activityStart: "activity-interceptor-start",
         activityEnd: "activity-interceptor-end"

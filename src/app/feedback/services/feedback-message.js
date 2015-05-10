@@ -1,5 +1,5 @@
 angular
-    .module("feedback")
+    .module("revaluate.feedback")
     .factory("Feedback", function (FeedbackService) {
 
         /**

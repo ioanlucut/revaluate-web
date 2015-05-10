@@ -2,7 +2,7 @@
  * Directive responsible for checking of a category color is valid hex value.
  */
 angular
-    .module("categories")
+    .module("revaluate.categories")
     .directive("validCategoryColor", function () {
         return {
             require: "ngModel",

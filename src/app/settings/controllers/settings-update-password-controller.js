@@ -2,7 +2,7 @@
  * Update password controller.
  */
 angular
-    .module("settings")
+    .module("revaluate.settings")
     .controller("SettingsUpdatePasswordController", function ($scope, flash, $timeout, AuthService, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {
 
         var TIMEOUT_PENDING = 300;

@@ -1,7 +1,7 @@
 /* Account modal toggle */
 
 angular
-    .module("account")
+    .module("revaluate.account")
     .directive("accountModalClose", function (AccountModal) {
         return {
             restrict: "A",
