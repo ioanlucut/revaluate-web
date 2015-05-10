@@ -62418,7 +62418,2440 @@ if (window.jasmine || window.mocha) {
     });
   };
 }));
-;/*! Copyright (c) 2011 Brandon Aaron (http://brandonaaron.net)
+;/*!
+ * angular-cache
+ * @version 4.2.0 - Homepage <http://jmdobry.github.io/angular-cache/>
+ * @author Jason Dobry <jason.dobry@gmail.com>
+ * @copyright (c) 2013-2015 Jason Dobry 
+ * @license MIT <https://github.com/jmdobry/angular-cache/blob/master/LICENSE>
+ * 
+ * @overview angular-cache is a very useful replacement for Angular's $cacheFactory.
+ */
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory(require("angular"));
+	else if(typeof define === 'function' && define.amd)
+		define(["angular"], factory);
+	else if(typeof exports === 'object')
+		exports["angularCacheModuleName"] = factory(require("angular"));
+	else
+		root["angularCacheModuleName"] = factory(root["angular"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__) {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
+
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
+
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+
+
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+
+	var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+
+	var angular = _interopRequire(__webpack_require__(1));
+
+	var _keys = function (collection) {
+	  var keys = [],
+	      key = undefined;
+	  for (key in collection) {
+	    if (collection.hasOwnProperty(key)) {
+	      keys.push(key);
+	    }
+	  }
+	  return keys;
+	};
+
+	var _isPromiseLike = function (v) {
+	  return v && typeof v.then === "function";
+	};
+
+	var _stringifyNumber = function (number) {
+	  if (angular.isNumber(number)) {
+	    return number.toString();
+	  }
+	  return number;
+	};
+
+	var _keySet = function (collection) {
+	  var keySet = {},
+	      key = undefined;
+	  for (key in collection) {
+	    if (collection.hasOwnProperty(key)) {
+	      keySet[key] = key;
+	    }
+	  }
+	  return keySet;
+	};
+
+	/**
+	 * @method bubbleUp
+	 * @param {array} heap The heap.
+	 * @param {function} weightFunc The weight function.
+	 * @param {number} n The index of the element to bubble up.
+	 */
+	function bubbleUp(heap, weightFunc, n) {
+	  var element = heap[n];
+	  var weight = weightFunc(element);
+	  // When at 0, an element can not go up any further.
+	  while (n > 0) {
+	    // Compute the parent element's index, and fetch it.
+	    var parentN = Math.floor((n + 1) / 2) - 1;
+	    var _parent = heap[parentN];
+	    // If the parent has a lesser weight, things are in order and we
+	    // are done.
+	    if (weight >= weightFunc(_parent)) {
+	      break;
+	    } else {
+	      heap[parentN] = element;
+	      heap[n] = _parent;
+	      n = parentN;
+	    }
+	  }
+	}
+
+	/**
+	 * @method bubbleDown
+	 * @param {array} heap The heap.
+	 * @param {function} weightFunc The weight function.
+	 * @param {number} n The index of the element to sink down.
+	 */
+	var bubbleDown = function (heap, weightFunc, n) {
+	  var length = heap.length;
+	  var node = heap[n];
+	  var nodeWeight = weightFunc(node);
+
+	  while (true) {
+	    var child2N = (n + 1) * 2,
+	        child1N = child2N - 1;
+	    var swap = null;
+	    if (child1N < length) {
+	      var child1 = heap[child1N],
+	          child1Weight = weightFunc(child1);
+	      // If the score is less than our node's, we need to swap.
+	      if (child1Weight < nodeWeight) {
+	        swap = child1N;
+	      }
+	    }
+	    // Do the same checks for the other child.
+	    if (child2N < length) {
+	      var child2 = heap[child2N],
+	          child2Weight = weightFunc(child2);
+	      if (child2Weight < (swap === null ? nodeWeight : weightFunc(heap[child1N]))) {
+	        swap = child2N;
+	      }
+	    }
+
+	    if (swap === null) {
+	      break;
+	    } else {
+	      heap[n] = heap[swap];
+	      heap[swap] = node;
+	      n = swap;
+	    }
+	  }
+	};
+
+	var BinaryHeap = function BinaryHeap(weightFunc, compareFunc) {
+	  var _this = this;
+
+	  _classCallCheck(this, BinaryHeap);
+
+	  if (!weightFunc) {
+	    weightFunc = function (x) {
+	      return x;
+	    };
+	  }
+	  if (!compareFunc) {
+	    compareFunc = function (x, y) {
+	      return x === y;
+	    };
+	  }
+	  if (typeof weightFunc !== "function") {
+	    throw new Error("BinaryHeap([weightFunc][, compareFunc]): \"weightFunc\" must be a function!");
+	  }
+	  if (typeof compareFunc !== "function") {
+	    throw new Error("BinaryHeap([weightFunc][, compareFunc]): \"compareFunc\" must be a function!");
+	  }
+	  this.weightFunc = weightFunc;
+	  this.compareFunc = compareFunc;
+	  this.heap = [];
+
+	  this.push = function (node) {
+	    _this.heap.push(node);
+	    bubbleUp(_this.heap, _this.weightFunc, _this.heap.length - 1);
+	  };
+
+	  this.peek = function () {
+	    return _this.heap.length ? _this.heap[0] : undefined;
+	  };
+
+	  this.pop = function () {
+	    var front = _this.heap[0];
+	    var end = _this.heap.pop();
+	    if (_this.heap.length > 0) {
+	      _this.heap[0] = end;
+	      bubbleDown(_this.heap, _this.weightFunc, 0);
+	    }
+	    return front;
+	  };
+
+	  this.remove = function (node) {
+	    var length = _this.heap.length;
+	    for (var i = 0; i < length; i++) {
+	      if (_this.compareFunc(_this.heap[i], node)) {
+	        var removed = _this.heap[i];
+	        var end = _this.heap.pop();
+	        if (i !== length - 1) {
+	          _this.heap[i] = end;
+	          bubbleUp(_this.heap, _this.weightFunc, i);
+	          bubbleDown(_this.heap, _this.weightFunc, i);
+	        }
+	        return removed;
+	      }
+	    }
+	    return null;
+	  };
+
+	  this.removeAll = function () {
+	    _this.heap = [];
+	  };
+
+	  this.size = function () {
+	    return _this.heap.length;
+	  };
+	};
+
+	var BinaryHeapProvider = function BinaryHeapProvider() {
+	  _classCallCheck(this, BinaryHeapProvider);
+
+	  this.$get = function () {
+	    return BinaryHeap;
+	  };
+	};
+
+	var CacheFactoryProvider = function CacheFactoryProvider() {
+	  var _this = this;
+
+	  _classCallCheck(this, CacheFactoryProvider);
+
+	  var defaults = this.defaults = {
+	    capacity: Number.MAX_VALUE,
+	    maxAge: Number.MAX_VALUE,
+	    deleteOnExpire: "none",
+	    onExpire: null,
+	    cacheFlushInterval: null,
+	    recycleFreq: 1000,
+	    storageMode: "memory",
+	    storageImpl: null,
+	    disabled: false,
+	    storagePrefix: "angular-cache.caches.",
+	    storeOnResolve: false,
+	    storeOnReject: false
+	  };
+
+	  this.$get = ["$q", function ($q) {
+	    var caches = {};
+
+	    var createCache = function (cacheId, options) {
+	      if (cacheId in caches) {
+	        throw new Error("" + cacheId + " already exists!");
+	      } else if (!angular.isString(cacheId)) {
+	        throw new Error("cacheId must be a string!");
+	      }
+
+	      var $$data = {};
+	      var $$promises = {};
+	      var $$storage = null;
+	      var $$expiresHeap = new BinaryHeap(function (x) {
+	        return x.expires;
+	      }, angular.equals);
+	      var $$lruHeap = new BinaryHeap(function (x) {
+	        return x.accessed;
+	      }, angular.equals);
+
+	      var cache = caches[cacheId] = {
+
+	        $$id: cacheId,
+
+	        destroy: function destroy() {
+	          clearInterval(this.$$cacheFlushIntervalId);
+	          clearInterval(this.$$recycleFreqId);
+	          this.removeAll();
+	          if ($$storage) {
+	            $$storage().removeItem("" + this.$$prefix + ".keys");
+	            $$storage().removeItem(this.$$prefix);
+	          }
+	          $$storage = null;
+	          $$data = null;
+	          $$lruHeap = null;
+	          $$expiresHeap = null;
+	          this.$$prefix = null;
+	          delete caches[this.$$id];
+	        },
+
+	        disable: function disable() {
+	          this.$$disabled = true;
+	        },
+
+	        enable: function enable() {
+	          delete this.$$disabled;
+	        },
+
+	        get: function get(key, options) {
+	          var _this2 = this;
+
+	          if (angular.isArray(key)) {
+	            var _ret = (function () {
+	              var keys = key;
+	              var values = [];
+
+	              angular.forEach(keys, function (key) {
+	                var value = _this2.get(key, options);
+	                if (value !== null && value !== undefined) {
+	                  values.push(value);
+	                }
+	              });
+
+	              return {
+	                v: values
+	              };
+	            })();
+
+	            if (typeof _ret === "object") {
+	              return _ret.v;
+	            }
+	          } else {
+	            key = _stringifyNumber(key);
+
+	            if (this.$$disabled) {
+	              return;
+	            }
+	          }
+
+	          options = options || {};
+	          if (!angular.isString(key)) {
+	            throw new Error("key must be a string!");
+	          } else if (options && !angular.isObject(options)) {
+	            throw new Error("options must be an object!");
+	          } else if (options.onExpire && !angular.isFunction(options.onExpire)) {
+	            throw new Error("options.onExpire must be a function!");
+	          }
+
+	          var item = undefined;
+
+	          if ($$storage) {
+	            if ($$promises[key]) {
+	              return $$promises[key];
+	            }
+
+	            var itemJson = $$storage().getItem("" + this.$$prefix + ".data." + key);
+
+	            if (itemJson) {
+	              item = angular.fromJson(itemJson);
+	            } else {
+	              return;
+	            }
+	          } else {
+	            if (!(key in $$data)) {
+	              return;
+	            }
+
+	            item = $$data[key];
+	          }
+
+	          var value = item.value;
+	          var now = new Date().getTime();
+
+	          if ($$storage) {
+	            $$lruHeap.remove({
+	              key: key,
+	              accessed: item.accessed
+	            });
+	            item.accessed = now;
+	            $$lruHeap.push({
+	              key: key,
+	              accessed: now
+	            });
+	          } else {
+	            $$lruHeap.remove(item);
+	            item.accessed = now;
+	            $$lruHeap.push(item);
+	          }
+
+	          if (this.$$deleteOnExpire === "passive" && "expires" in item && item.expires < now) {
+	            this.remove(key);
+
+	            if (this.$$onExpire) {
+	              this.$$onExpire.call(this, key, item.value, options.onExpire);
+	            } else if (options.onExpire) {
+	              options.onExpire.call(this, key, item.value);
+	            }
+	            value = undefined;
+	          } else if ($$storage) {
+	            $$storage().setItem("" + this.$$prefix + ".data." + key, JSON.stringify(item));
+	          }
+
+	          return value;
+	        },
+
+	        info: function info(key) {
+	          if (key) {
+	            var item = undefined;
+	            if ($$storage) {
+	              var itemJson = $$storage().getItem("" + this.$$prefix + ".data." + key);
+
+	              if (itemJson) {
+	                item = angular.fromJson(itemJson);
+	                return {
+	                  created: item.created,
+	                  accessed: item.accessed,
+	                  expires: item.expires,
+	                  isExpired: new Date().getTime() - item.created > this.$$maxAge
+	                };
+	              } else {
+	                return undefined;
+	              }
+	            } else {
+	              if (key in $$data) {
+	                item = $$data[key];
+
+	                return {
+	                  created: item.created,
+	                  accessed: item.accessed,
+	                  expires: item.expires,
+	                  isExpired: new Date().getTime() - item.created > this.$$maxAge
+	                };
+	              } else {
+	                return undefined;
+	              }
+	            }
+	          } else {
+	            return {
+	              id: this.$$id,
+	              capacity: this.$$capacity,
+	              maxAge: this.$$maxAge,
+	              deleteOnExpire: this.$$deleteOnExpire,
+	              onExpire: this.$$onExpire,
+	              cacheFlushInterval: this.$$cacheFlushInterval,
+	              recycleFreq: this.$$recycleFreq,
+	              storageMode: this.$$storageMode,
+	              storageImpl: $$storage ? $$storage() : undefined,
+	              disabled: !!this.$$disabled,
+	              size: $$lruHeap && $$lruHeap.size() || 0
+	            };
+	          }
+	        },
+
+	        keys: function keys() {
+	          if ($$storage) {
+	            var keysJson = $$storage().getItem("" + this.$$prefix + ".keys");
+
+	            if (keysJson) {
+	              return angular.fromJson(keysJson);
+	            } else {
+	              return [];
+	            }
+	          } else {
+	            return _keys($$data);
+	          }
+	        },
+
+	        keySet: function keySet() {
+	          if ($$storage) {
+	            var keysJson = $$storage().getItem("" + this.$$prefix + ".keys");
+	            var kSet = {};
+
+	            if (keysJson) {
+	              var keys = angular.fromJson(keysJson);
+
+	              for (var i = 0; i < keys.length; i++) {
+	                kSet[keys[i]] = keys[i];
+	              }
+	            }
+	            return kSet;
+	          } else {
+	            return _keySet($$data);
+	          }
+	        },
+
+	        put: function put(key, value, options) {
+	          var _this2 = this;
+
+	          options = options || {};
+
+	          var storeOnResolve = "storeOnResolve" in options ? !!options.storeOnResolve : this.$$storeOnResolve;
+	          var storeOnReject = "storeOnReject" in options ? !!options.storeOnReject : this.$$storeOnReject;
+
+	          var getHandler = function (store, isError) {
+	            return function (v) {
+	              if (store) {
+	                delete $$promises[key];
+	                if (angular.isObject(v) && "status" in v && "data" in v) {
+	                  v = [v.status, v.data, v.headers(), v.statusText];
+	                  _this2.put(key, v);
+	                } else {
+	                  _this2.put(key, v);
+	                }
+	              }
+	              if (isError) {
+	                return $q.reject(v);
+	              } else {
+	                return v;
+	              }
+	            };
+	          };
+
+	          if (this.$$disabled || value === null || value === undefined) {
+	            return;
+	          }
+	          key = _stringifyNumber(key);
+
+	          if (!angular.isString(key)) {
+	            throw new Error("key must be a string!");
+	          }
+
+	          var now = new Date().getTime();
+	          var item = {
+	            key: key,
+	            value: _isPromiseLike(value) ? value.then(getHandler(storeOnResolve, false), getHandler(storeOnReject, true)) : value,
+	            created: now,
+	            accessed: now
+	          };
+
+	          item.expires = item.created + this.$$maxAge;
+
+	          if ($$storage) {
+	            if (_isPromiseLike(item.value)) {
+	              $$promises[key] = item.value;
+	              return $$promises[key];
+	            }
+	            var keysJson = $$storage().getItem("" + this.$$prefix + ".keys");
+	            var keys = keysJson ? angular.fromJson(keysJson) : [];
+	            var itemJson = $$storage().getItem("" + this.$$prefix + ".data." + key);
+
+	            // Remove existing
+	            if (itemJson) {
+	              this.remove(key);
+	            }
+	            // Add to expires heap
+	            $$expiresHeap.push({
+	              key: key,
+	              expires: item.expires
+	            });
+	            // Add to lru heap
+	            $$lruHeap.push({
+	              key: key,
+	              accessed: item.accessed
+	            });
+	            // Set item
+	            $$storage().setItem("" + this.$$prefix + ".data." + key, JSON.stringify(item));
+	            var exists = false;
+	            for (var i = 0; i < keys.length; i++) {
+	              if (keys[i] === key) {
+	                exists = true;
+	                break;
+	              }
+	            }
+	            if (!exists) {
+	              keys.push(key);
+	            }
+	            $$storage().setItem("" + this.$$prefix + ".keys", JSON.stringify(keys));
+	          } else {
+	            // Remove existing
+	            if ($$data[key]) {
+	              this.remove(key);
+	            }
+	            // Add to expires heap
+	            $$expiresHeap.push(item);
+	            // Add to lru heap
+	            $$lruHeap.push(item);
+	            // Set item
+	            $$data[key] = item;
+	            delete $$promises[key];
+	          }
+
+	          // Handle exceeded capacity
+	          if ($$lruHeap.size() > this.$$capacity) {
+	            this.remove($$lruHeap.peek().key);
+	          }
+
+	          return value;
+	        },
+
+	        remove: function remove(key) {
+	          key += "";
+	          delete $$promises[key];
+	          if ($$storage) {
+	            var itemJson = $$storage().getItem("" + this.$$prefix + ".data." + key);
+
+	            if (itemJson) {
+	              var item = angular.fromJson(itemJson);
+	              $$lruHeap.remove({
+	                key: key,
+	                accessed: item.accessed
+	              });
+	              $$expiresHeap.remove({
+	                key: key,
+	                expires: item.expires
+	              });
+	              $$storage().removeItem("" + this.$$prefix + ".data." + key);
+	              var keysJson = $$storage().getItem("" + this.$$prefix + ".keys");
+	              var keys = keysJson ? angular.fromJson(keysJson) : [];
+	              var index = keys.indexOf(key);
+
+	              if (index >= 0) {
+	                keys.splice(index, 1);
+	              }
+	              $$storage().setItem("" + this.$$prefix + ".keys", JSON.stringify(keys));
+	              return item.value;
+	            }
+	          } else {
+	            var value = $$data[key] ? $$data[key].value : undefined;
+	            $$lruHeap.remove($$data[key]);
+	            $$expiresHeap.remove($$data[key]);
+	            $$data[key] = null;
+	            delete $$data[key];
+	            return value;
+	          }
+	        },
+
+	        removeAll: function removeAll() {
+	          if ($$storage) {
+	            $$lruHeap.removeAll();
+	            $$expiresHeap.removeAll();
+	            var keysJson = $$storage().getItem("" + this.$$prefix + ".keys");
+
+	            if (keysJson) {
+	              var keys = angular.fromJson(keysJson);
+
+	              for (var i = 0; i < keys.length; i++) {
+	                this.remove(keys[i]);
+	              }
+	            }
+	            $$storage().setItem("" + this.$$prefix + ".keys", JSON.stringify([]));
+	          } else {
+	            $$lruHeap.removeAll();
+	            $$expiresHeap.removeAll();
+	            for (var key in $$data) {
+	              $$data[key] = null;
+	            }
+	            $$data = {};
+	          }
+	          $$promises = {};
+	        },
+
+	        removeExpired: function removeExpired() {
+	          var now = new Date().getTime();
+	          var expired = {};
+	          var key = undefined;
+	          var expiredItem = undefined;
+
+	          while ((expiredItem = $$expiresHeap.peek()) && expiredItem.expires <= now) {
+	            expired[expiredItem.key] = expiredItem.value ? expiredItem.value : null;
+	            $$expiresHeap.pop();
+	          }
+
+	          if ($$storage) {
+	            for (key in expired) {
+	              var itemJson = $$storage().getItem("" + this.$$prefix + ".data." + key);
+	              if (itemJson) {
+	                expired[key] = angular.fromJson(itemJson).value;
+	                this.remove(key);
+	              }
+	            }
+	          } else {
+	            for (key in expired) {
+	              this.remove(key);
+	            }
+	          }
+
+	          if (this.$$onExpire) {
+	            for (key in expired) {
+	              this.$$onExpire.call(this, key, expired[key]);
+	            }
+	          }
+
+	          return expired;
+	        },
+
+	        setCacheFlushInterval: function setCacheFlushInterval(cacheFlushInterval) {
+	          if (cacheFlushInterval === null) {
+	            delete this.$$cacheFlushInterval;
+	          } else if (!angular.isNumber(cacheFlushInterval)) {
+	            throw new Error("cacheFlushInterval must be a number!");
+	          } else if (cacheFlushInterval < 0) {
+	            throw new Error("cacheFlushInterval must be greater than zero!");
+	          } else if (cacheFlushInterval !== this.$$cacheFlushInterval) {
+	            this.$$cacheFlushInterval = cacheFlushInterval;
+	            clearInterval(this.$$cacheFlushIntervalId);
+	            (function (self) {
+	              self.$$cacheFlushIntervalId = setInterval(function () {
+	                self.removeAll();
+	              }, self.$$cacheFlushInterval);
+	            })(this);
+	          }
+	        },
+
+	        setCapacity: function setCapacity(capacity) {
+	          if (capacity === null) {
+	            delete this.$$capacity;
+	          } else if (!angular.isNumber(capacity)) {
+	            throw new Error("capacity must be a number!");
+	          } else if (capacity < 0) {
+	            throw new Error("capacity must be greater than zero!");
+	          } else {
+	            this.$$capacity = capacity;
+	          }
+	          var removed = {};
+	          while ($$lruHeap.size() > this.$$capacity) {
+	            removed[$$lruHeap.peek().key] = this.remove($$lruHeap.peek().key);
+	          }
+	          return removed;
+	        },
+
+	        setDeleteOnExpire: function setDeleteOnExpire(deleteOnExpire, setRecycleFreq) {
+	          if (deleteOnExpire === null) {
+	            delete this.$$deleteOnExpire;
+	          } else if (!angular.isString(deleteOnExpire)) {
+	            throw new Error("deleteOnExpire must be a string!");
+	          } else if (deleteOnExpire !== "none" && deleteOnExpire !== "passive" && deleteOnExpire !== "aggressive") {
+	            throw new Error("deleteOnExpire must be \"none\", \"passive\" or \"aggressive\"!");
+	          } else {
+	            this.$$deleteOnExpire = deleteOnExpire;
+	          }
+	          if (setRecycleFreq !== false) {
+	            this.setRecycleFreq(this.$$recycleFreq);
+	          }
+	        },
+
+	        setMaxAge: function setMaxAge(maxAge) {
+	          if (maxAge === null) {
+	            this.$$maxAge = Number.MAX_VALUE;
+	          } else if (!angular.isNumber(maxAge)) {
+	            throw new Error("maxAge must be a number!");
+	          } else if (maxAge < 0) {
+	            throw new Error("maxAge must be greater than zero!");
+	          } else {
+	            this.$$maxAge = maxAge;
+	          }
+	          var i = undefined,
+	              keys = undefined,
+	              key = undefined;
+
+	          $$expiresHeap.removeAll();
+
+	          if ($$storage) {
+	            var keysJson = $$storage().getItem("" + this.$$prefix + ".keys");
+
+	            keys = keysJson ? angular.fromJson(keysJson) : [];
+
+	            for (i = 0; i < keys.length; i++) {
+	              key = keys[i];
+	              var itemJson = $$storage().getItem("" + this.$$prefix + ".data." + key);
+
+	              if (itemJson) {
+	                var item = angular.fromJson(itemJson);
+	                if (this.$$maxAge === Number.MAX_VALUE) {
+	                  item.expires = Number.MAX_VALUE;
+	                } else {
+	                  item.expires = item.created + this.$$maxAge;
+	                }
+	                $$expiresHeap.push({
+	                  key: key,
+	                  expires: item.expires
+	                });
+	              }
+	            }
+	          } else {
+	            keys = _keys($$data);
+
+	            for (i = 0; i < keys.length; i++) {
+	              key = keys[i];
+	              if (this.$$maxAge === Number.MAX_VALUE) {
+	                $$data[key].expires = Number.MAX_VALUE;
+	              } else {
+	                $$data[key].expires = $$data[key].created + this.$$maxAge;
+	              }
+	              $$expiresHeap.push($$data[key]);
+	            }
+	          }
+	          if (this.$$deleteOnExpire === "aggressive") {
+	            return this.removeExpired();
+	          } else {
+	            return {};
+	          }
+	        },
+
+	        setOnExpire: function setOnExpire(onExpire) {
+	          if (onExpire === null) {
+	            delete this.$$onExpire;
+	          } else if (!angular.isFunction(onExpire)) {
+	            throw new Error("onExpire must be a function!");
+	          } else {
+	            this.$$onExpire = onExpire;
+	          }
+	        },
+
+	        setOptions: function setOptions(cacheOptions, strict) {
+	          cacheOptions = cacheOptions || {};
+	          strict = !!strict;
+	          if (!angular.isObject(cacheOptions)) {
+	            throw new Error("cacheOptions must be an object!");
+	          }
+
+	          if ("storagePrefix" in cacheOptions) {
+	            this.$$storagePrefix = cacheOptions.storagePrefix;
+	          } else if (strict) {
+	            this.$$storagePrefix = defaults.storagePrefix;
+	          }
+
+	          this.$$prefix = this.$$storagePrefix + this.$$id;
+
+	          if ("disabled" in cacheOptions) {
+	            this.$$disabled = !!cacheOptions.disabled;
+	          } else if (strict) {
+	            this.$$disabled = defaults.disabled;
+	          }
+
+	          if ("storageMode" in cacheOptions || "storageImpl" in cacheOptions) {
+	            this.setStorageMode(cacheOptions.storageMode, cacheOptions.storageImpl);
+	          } else if (strict) {
+	            this.setStorageMode(defaults.storageMode, defaults.storageImpl);
+	          }
+
+	          if ("storeOnResolve" in cacheOptions) {
+	            this.$$storeOnResolve = !!cacheOptions.storeOnResolve;
+	          } else if (strict) {
+	            this.$$storeOnResolve = defaults.storeOnResolve;
+	          }
+
+	          if ("storeOnReject" in cacheOptions) {
+	            this.$$storeOnReject = !!cacheOptions.storeOnReject;
+	          } else if (strict) {
+	            this.$$storeOnReject = defaults.storeOnReject;
+	          }
+
+	          if ("capacity" in cacheOptions) {
+	            this.setCapacity(cacheOptions.capacity);
+	          } else if (strict) {
+	            this.setCapacity(defaults.capacity);
+	          }
+
+	          if ("deleteOnExpire" in cacheOptions) {
+	            this.setDeleteOnExpire(cacheOptions.deleteOnExpire, false);
+	          } else if (strict) {
+	            this.setDeleteOnExpire(defaults.deleteOnExpire, false);
+	          }
+
+	          if ("maxAge" in cacheOptions) {
+	            this.setMaxAge(cacheOptions.maxAge);
+	          } else if (strict) {
+	            this.setMaxAge(defaults.maxAge);
+	          }
+
+	          if ("recycleFreq" in cacheOptions) {
+	            this.setRecycleFreq(cacheOptions.recycleFreq);
+	          } else if (strict) {
+	            this.setRecycleFreq(defaults.recycleFreq);
+	          }
+
+	          if ("cacheFlushInterval" in cacheOptions) {
+	            this.setCacheFlushInterval(cacheOptions.cacheFlushInterval);
+	          } else if (strict) {
+	            this.setCacheFlushInterval(defaults.cacheFlushInterval);
+	          }
+
+	          if ("onExpire" in cacheOptions) {
+	            this.setOnExpire(cacheOptions.onExpire);
+	          } else if (strict) {
+	            this.setOnExpire(defaults.onExpire);
+	          }
+	        },
+
+	        setRecycleFreq: function setRecycleFreq(recycleFreq) {
+	          if (recycleFreq === null) {
+	            delete this.$$recycleFreq;
+	          } else if (!angular.isNumber(recycleFreq)) {
+	            throw new Error("recycleFreq must be a number!");
+	          } else if (recycleFreq < 0) {
+	            throw new Error("recycleFreq must be greater than zero!");
+	          } else {
+	            this.$$recycleFreq = recycleFreq;
+	          }
+	          clearInterval(this.$$recycleFreqId);
+	          if (this.$$deleteOnExpire === "aggressive") {
+	            (function (self) {
+	              self.$$recycleFreqId = setInterval(function () {
+	                self.removeExpired();
+	              }, self.$$recycleFreq);
+	            })(this);
+	          } else {
+	            delete this.$$recycleFreqId;
+	          }
+	        },
+
+	        setStorageMode: function setStorageMode(storageMode, storageImpl) {
+	          if (!angular.isString(storageMode)) {
+	            throw new Error("storageMode must be a string!");
+	          } else if (storageMode !== "memory" && storageMode !== "localStorage" && storageMode !== "sessionStorage") {
+	            throw new Error("storageMode must be \"memory\", \"localStorage\" or \"sessionStorage\"!");
+	          }
+
+	          var shouldReInsert = false;
+	          var items = {};
+
+	          if (typeof this.$$storageMode === "string" && this.$$storageMode !== storageMode) {
+	            var keys = this.keys();
+
+	            if (keys.length) {
+	              for (var i = 0; i < keys.length; i++) {
+	                items[keys[i]] = this.get(keys[i]);
+	              }
+	              for (i = 0; i < keys.length; i++) {
+	                this.remove(keys[i]);
+	              }
+	              shouldReInsert = true;
+	            }
+	          }
+
+	          this.$$storageMode = storageMode;
+
+	          if (storageImpl) {
+	            if (!angular.isObject(storageImpl)) {
+	              throw new Error("storageImpl must be an object!");
+	            } else if (!("setItem" in storageImpl) || typeof storageImpl.setItem !== "function") {
+	              throw new Error("storageImpl must implement \"setItem(key, value)\"!");
+	            } else if (!("getItem" in storageImpl) || typeof storageImpl.getItem !== "function") {
+	              throw new Error("storageImpl must implement \"getItem(key)\"!");
+	            } else if (!("removeItem" in storageImpl) || typeof storageImpl.removeItem !== "function") {
+	              throw new Error("storageImpl must implement \"removeItem(key)\"!");
+	            }
+	            $$storage = function () {
+	              return storageImpl;
+	            };
+	          } else if (this.$$storageMode === "localStorage") {
+	            try {
+	              localStorage.setItem("angular-cache", "angular-cache");
+	              localStorage.removeItem("angular-cache");
+	              $$storage = function () {
+	                return localStorage;
+	              };
+	            } catch (e) {
+	              $$storage = null;
+	              this.$$storageMode = "memory";
+	            }
+	          } else if (this.$$storageMode === "sessionStorage") {
+	            try {
+	              sessionStorage.setItem("angular-cache", "angular-cache");
+	              sessionStorage.removeItem("angular-cache");
+	              $$storage = function () {
+	                return sessionStorage;
+	              };
+	            } catch (e) {
+	              $$storage = null;
+	              this.$$storageMode = "memory";
+	            }
+	          }
+
+	          if (shouldReInsert) {
+	            for (var key in items) {
+	              this.put(key, items[key]);
+	            }
+	          }
+	        },
+
+	        touch: function touch(key) {
+	          var _this2 = this;
+
+	          if (key) {
+	            var val = this.get(key, {
+	              onExpire: function (k, v) {
+	                return _this2.put(k, v);
+	              }
+	            });
+	            if (val) {
+	              this.put(key, val);
+	            }
+	          } else {
+	            var keys = this.keys();
+	            for (var i = 0; i < keys.length; i++) {
+	              this.touch(keys[i]);
+	            }
+	          }
+	        }
+	      };
+
+	      cache.setOptions(options, true);
+
+	      return cache;
+	    };
+
+	    function CacheFactory(cacheId, options) {
+	      return createCache(cacheId, options);
+	    }
+
+	    CacheFactory.createCache = createCache;
+
+	    CacheFactory.info = function () {
+	      var keys = _keys(caches);
+	      var info = {
+	        size: keys.length,
+	        caches: {}
+	      };
+	      angular.extend(info, _this.defaults);
+	      for (var i = 0; i < keys.length; i++) {
+	        var key = keys[i];
+	        info.caches[key] = caches[key].info();
+	      }
+	      return info;
+	    };
+
+	    CacheFactory.get = function (cacheId) {
+	      return caches[cacheId];
+	    };
+
+	    CacheFactory.keySet = function () {
+	      return _keySet(caches);
+	    };
+
+	    CacheFactory.keys = function () {
+	      return _keys(caches);
+	    };
+
+	    CacheFactory.destroy = function (cacheId) {
+	      if (caches[cacheId]) {
+	        caches[cacheId].destroy();
+	        delete caches[cacheId];
+	      }
+	    };
+
+	    CacheFactory.destroyAll = function () {
+	      for (var cacheId in caches) {
+	        caches[cacheId].destroy();
+	      }
+	      caches = {};
+	    };
+
+	    CacheFactory.clearAll = function () {
+	      for (var cacheId in caches) {
+	        caches[cacheId].removeAll();
+	      }
+	    };
+
+	    CacheFactory.removeExpiredFromAll = function () {
+	      var expired = {};
+	      for (var cacheId in caches) {
+	        expired[cacheId] = caches[cacheId].removeExpired();
+	      }
+	      return expired;
+	    };
+
+	    CacheFactory.enableAll = function () {
+	      for (var cacheId in caches) {
+	        caches[cacheId].$$disabled = false;
+	      }
+	    };
+
+	    CacheFactory.disableAll = function () {
+	      for (var cacheId in caches) {
+	        caches[cacheId].$$disabled = true;
+	      }
+	    };
+
+	    CacheFactory.touchAll = function () {
+	      for (var cacheId in caches) {
+	        caches[cacheId].touch();
+	      }
+	    };
+
+	    return CacheFactory;
+	  }];
+	};
+
+	angular.module("angular-cache", []).provider("BinaryHeap", BinaryHeapProvider).provider("CacheFactory", CacheFactoryProvider);
+
+	module.exports = "angular-cache";
+
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
+
+/***/ }
+/******/ ])
+});
+;;/*
+ angular-file-upload v1.1.5
+ https://github.com/nervgh/angular-file-upload
+*/
+(function(angular, factory) {
+    if (typeof define === 'function' && define.amd) {
+        define('angular-file-upload', ['angular'], function(angular) {
+            return factory(angular);
+        });
+    } else {
+        return factory(angular);
+    }
+}(typeof angular === 'undefined' ? null : angular, function(angular) {
+
+var module = angular.module('angularFileUpload', []);
+
+'use strict';
+
+/**
+ * Classes
+ *
+ * FileUploader
+ * FileUploader.FileLikeObject
+ * FileUploader.FileItem
+ * FileUploader.FileDirective
+ * FileUploader.FileSelect
+ * FileUploader.FileDrop
+ * FileUploader.FileOver
+ */
+
+module
+
+
+    .value('fileUploaderOptions', {
+        url: '/',
+        alias: 'file',
+        headers: {},
+        queue: [],
+        progress: 0,
+        autoUpload: false,
+        removeAfterUpload: false,
+        method: 'POST',
+        filters: [],
+        formData: [],
+        queueLimit: Number.MAX_VALUE,
+        withCredentials: false
+    })
+
+
+    .factory('FileUploader', ['fileUploaderOptions', '$rootScope', '$http', '$window', '$compile',
+        function(fileUploaderOptions, $rootScope, $http, $window, $compile) {
+            /**
+             * Creates an instance of FileUploader
+             * @param {Object} [options]
+             * @constructor
+             */
+            function FileUploader(options) {
+                var settings = angular.copy(fileUploaderOptions);
+                angular.extend(this, settings, options, {
+                    isUploading: false,
+                    _nextIndex: 0,
+                    _failFilterIndex: -1,
+                    _directives: {select: [], drop: [], over: []}
+                });
+
+                // add default filters
+                this.filters.unshift({name: 'queueLimit', fn: this._queueLimitFilter});
+                this.filters.unshift({name: 'folder', fn: this._folderFilter});
+            }
+            /**********************
+             * PUBLIC
+             **********************/
+            /**
+             * Checks a support the html5 uploader
+             * @returns {Boolean}
+             * @readonly
+             */
+            FileUploader.prototype.isHTML5 = !!($window.File && $window.FormData);
+            /**
+             * Adds items to the queue
+             * @param {File|HTMLInputElement|Object|FileList|Array<Object>} files
+             * @param {Object} [options]
+             * @param {Array<Function>|String} filters
+             */
+            FileUploader.prototype.addToQueue = function(files, options, filters) {
+                var list = this.isArrayLikeObject(files) ? files: [files];
+                var arrayOfFilters = this._getFilters(filters);
+                var count = this.queue.length;
+                var addedFileItems = [];
+
+                angular.forEach(list, function(some /*{File|HTMLInputElement|Object}*/) {
+                    var temp = new FileUploader.FileLikeObject(some);
+
+                    if (this._isValidFile(temp, arrayOfFilters, options)) {
+                        var fileItem = new FileUploader.FileItem(this, some, options);
+                        addedFileItems.push(fileItem);
+                        this.queue.push(fileItem);
+                        this._onAfterAddingFile(fileItem);
+                    } else {
+                        var filter = this.filters[this._failFilterIndex];
+                        this._onWhenAddingFileFailed(temp, filter, options);
+                    }
+                }, this);
+
+                if(this.queue.length !== count) {
+                    this._onAfterAddingAll(addedFileItems);
+                    this.progress = this._getTotalProgress();
+                }
+
+                this._render();
+                if (this.autoUpload) this.uploadAll();
+            };
+            /**
+             * Remove items from the queue. Remove last: index = -1
+             * @param {FileItem|Number} value
+             */
+            FileUploader.prototype.removeFromQueue = function(value) {
+                var index = this.getIndexOfItem(value);
+                var item = this.queue[index];
+                if (item.isUploading) item.cancel();
+                this.queue.splice(index, 1);
+                item._destroy();
+                this.progress = this._getTotalProgress();
+            };
+            /**
+             * Clears the queue
+             */
+            FileUploader.prototype.clearQueue = function() {
+                while(this.queue.length) {
+                    this.queue[0].remove();
+                }
+                this.progress = 0;
+            };
+            /**
+             * Uploads a item from the queue
+             * @param {FileItem|Number} value
+             */
+            FileUploader.prototype.uploadItem = function(value) {
+                var index = this.getIndexOfItem(value);
+                var item = this.queue[index];
+                var transport = this.isHTML5 ? '_xhrTransport' : '_iframeTransport';
+
+                item._prepareToUploading();
+                if(this.isUploading) return;
+
+                this.isUploading = true;
+                this[transport](item);
+            };
+            /**
+             * Cancels uploading of item from the queue
+             * @param {FileItem|Number} value
+             */
+            FileUploader.prototype.cancelItem = function(value) {
+                var index = this.getIndexOfItem(value);
+                var item = this.queue[index];
+                var prop = this.isHTML5 ? '_xhr' : '_form';
+                if (item && item.isUploading) item[prop].abort();
+            };
+            /**
+             * Uploads all not uploaded items of queue
+             */
+            FileUploader.prototype.uploadAll = function() {
+                var items = this.getNotUploadedItems().filter(function(item) {
+                    return !item.isUploading;
+                });
+                if (!items.length) return;
+
+                angular.forEach(items, function(item) {
+                    item._prepareToUploading();
+                });
+                items[0].upload();
+            };
+            /**
+             * Cancels all uploads
+             */
+            FileUploader.prototype.cancelAll = function() {
+                var items = this.getNotUploadedItems();
+                angular.forEach(items, function(item) {
+                    item.cancel();
+                });
+            };
+            /**
+             * Returns "true" if value an instance of File
+             * @param {*} value
+             * @returns {Boolean}
+             * @private
+             */
+            FileUploader.prototype.isFile = function(value) {
+                var fn = $window.File;
+                return (fn && value instanceof fn);
+            };
+            /**
+             * Returns "true" if value an instance of FileLikeObject
+             * @param {*} value
+             * @returns {Boolean}
+             * @private
+             */
+            FileUploader.prototype.isFileLikeObject = function(value) {
+                return value instanceof FileUploader.FileLikeObject;
+            };
+            /**
+             * Returns "true" if value is array like object
+             * @param {*} value
+             * @returns {Boolean}
+             */
+            FileUploader.prototype.isArrayLikeObject = function(value) {
+                return (angular.isObject(value) && 'length' in value);
+            };
+            /**
+             * Returns a index of item from the queue
+             * @param {Item|Number} value
+             * @returns {Number}
+             */
+            FileUploader.prototype.getIndexOfItem = function(value) {
+                return angular.isNumber(value) ? value : this.queue.indexOf(value);
+            };
+            /**
+             * Returns not uploaded items
+             * @returns {Array}
+             */
+            FileUploader.prototype.getNotUploadedItems = function() {
+                return this.queue.filter(function(item) {
+                    return !item.isUploaded;
+                });
+            };
+            /**
+             * Returns items ready for upload
+             * @returns {Array}
+             */
+            FileUploader.prototype.getReadyItems = function() {
+                return this.queue
+                    .filter(function(item) {
+                        return (item.isReady && !item.isUploading);
+                    })
+                    .sort(function(item1, item2) {
+                        return item1.index - item2.index;
+                    });
+            };
+            /**
+             * Destroys instance of FileUploader
+             */
+            FileUploader.prototype.destroy = function() {
+                angular.forEach(this._directives, function(key) {
+                    angular.forEach(this._directives[key], function(object) {
+                        object.destroy();
+                    }, this);
+                }, this);
+            };
+            /**
+             * Callback
+             * @param {Array} fileItems
+             */
+            FileUploader.prototype.onAfterAddingAll = function(fileItems) {};
+            /**
+             * Callback
+             * @param {FileItem} fileItem
+             */
+            FileUploader.prototype.onAfterAddingFile = function(fileItem) {};
+            /**
+             * Callback
+             * @param {File|Object} item
+             * @param {Object} filter
+             * @param {Object} options
+             * @private
+             */
+            FileUploader.prototype.onWhenAddingFileFailed = function(item, filter, options) {};
+            /**
+             * Callback
+             * @param {FileItem} fileItem
+             */
+            FileUploader.prototype.onBeforeUploadItem = function(fileItem) {};
+            /**
+             * Callback
+             * @param {FileItem} fileItem
+             * @param {Number} progress
+             */
+            FileUploader.prototype.onProgressItem = function(fileItem, progress) {};
+            /**
+             * Callback
+             * @param {Number} progress
+             */
+            FileUploader.prototype.onProgressAll = function(progress) {};
+            /**
+             * Callback
+             * @param {FileItem} item
+             * @param {*} response
+             * @param {Number} status
+             * @param {Object} headers
+             */
+            FileUploader.prototype.onSuccessItem = function(item, response, status, headers) {};
+            /**
+             * Callback
+             * @param {FileItem} item
+             * @param {*} response
+             * @param {Number} status
+             * @param {Object} headers
+             */
+            FileUploader.prototype.onErrorItem = function(item, response, status, headers) {};
+            /**
+             * Callback
+             * @param {FileItem} item
+             * @param {*} response
+             * @param {Number} status
+             * @param {Object} headers
+             */
+            FileUploader.prototype.onCancelItem = function(item, response, status, headers) {};
+            /**
+             * Callback
+             * @param {FileItem} item
+             * @param {*} response
+             * @param {Number} status
+             * @param {Object} headers
+             */
+            FileUploader.prototype.onCompleteItem = function(item, response, status, headers) {};
+            /**
+             * Callback
+             */
+            FileUploader.prototype.onCompleteAll = function() {};
+            /**********************
+             * PRIVATE
+             **********************/
+            /**
+             * Returns the total progress
+             * @param {Number} [value]
+             * @returns {Number}
+             * @private
+             */
+            FileUploader.prototype._getTotalProgress = function(value) {
+                if(this.removeAfterUpload) return value || 0;
+
+                var notUploaded = this.getNotUploadedItems().length;
+                var uploaded = notUploaded ? this.queue.length - notUploaded : this.queue.length;
+                var ratio = 100 / this.queue.length;
+                var current = (value || 0) * ratio / 100;
+
+                return Math.round(uploaded * ratio + current);
+            };
+            /**
+             * Returns array of filters
+             * @param {Array<Function>|String} filters
+             * @returns {Array<Function>}
+             * @private
+             */
+            FileUploader.prototype._getFilters = function(filters) {
+                if (angular.isUndefined(filters)) return this.filters;
+                if (angular.isArray(filters)) return filters;
+                var names = filters.match(/[^\s,]+/g);
+                return this.filters.filter(function(filter) {
+                    return names.indexOf(filter.name) !== -1;
+                }, this);
+            };
+            /**
+             * Updates html
+             * @private
+             */
+            FileUploader.prototype._render = function() {
+                if (!$rootScope.$$phase) $rootScope.$apply();
+            };
+            /**
+             * Returns "true" if item is a file (not folder)
+             * @param {File|FileLikeObject} item
+             * @returns {Boolean}
+             * @private
+             */
+            FileUploader.prototype._folderFilter = function(item) {
+                return !!(item.size || item.type);
+            };
+            /**
+             * Returns "true" if the limit has not been reached
+             * @returns {Boolean}
+             * @private
+             */
+            FileUploader.prototype._queueLimitFilter = function() {
+                return this.queue.length < this.queueLimit;
+            };
+            /**
+             * Returns "true" if file pass all filters
+             * @param {File|Object} file
+             * @param {Array<Function>} filters
+             * @param {Object} options
+             * @returns {Boolean}
+             * @private
+             */
+            FileUploader.prototype._isValidFile = function(file, filters, options) {
+                this._failFilterIndex = -1;
+                return !filters.length ? true : filters.every(function(filter) {
+                    this._failFilterIndex++;
+                    return filter.fn.call(this, file, options);
+                }, this);
+            };
+            /**
+             * Checks whether upload successful
+             * @param {Number} status
+             * @returns {Boolean}
+             * @private
+             */
+            FileUploader.prototype._isSuccessCode = function(status) {
+                return (status >= 200 && status < 300) || status === 304;
+            };
+            /**
+             * Transforms the server response
+             * @param {*} response
+             * @param {Object} headers
+             * @returns {*}
+             * @private
+             */
+            FileUploader.prototype._transformResponse = function(response, headers) {
+                var headersGetter = this._headersGetter(headers);
+                angular.forEach($http.defaults.transformResponse, function(transformFn) {
+                    response = transformFn(response, headersGetter);
+                });
+                return response;
+            };
+            /**
+             * Parsed response headers
+             * @param headers
+             * @returns {Object}
+             * @see https://github.com/angular/angular.js/blob/master/src/ng/http.js
+             * @private
+             */
+            FileUploader.prototype._parseHeaders = function(headers) {
+                var parsed = {}, key, val, i;
+
+                if (!headers) return parsed;
+
+                angular.forEach(headers.split('\n'), function(line) {
+                    i = line.indexOf(':');
+                    key = line.slice(0, i).trim().toLowerCase();
+                    val = line.slice(i + 1).trim();
+
+                    if (key) {
+                        parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
+                    }
+                });
+
+                return parsed;
+            };
+            /**
+             * Returns function that returns headers
+             * @param {Object} parsedHeaders
+             * @returns {Function}
+             * @private
+             */
+            FileUploader.prototype._headersGetter = function(parsedHeaders) {
+                return function(name) {
+                    if (name) {
+                        return parsedHeaders[name.toLowerCase()] || null;
+                    }
+                    return parsedHeaders;
+                };
+            };
+            /**
+             * The XMLHttpRequest transport
+             * @param {FileItem} item
+             * @private
+             */
+            FileUploader.prototype._xhrTransport = function(item) {
+                var xhr = item._xhr = new XMLHttpRequest();
+                var form = new FormData();
+                var that = this;
+
+                that._onBeforeUploadItem(item);
+
+                angular.forEach(item.formData, function(obj) {
+                    angular.forEach(obj, function(value, key) {
+                        form.append(key, value);
+                    });
+                });
+
+                form.append(item.alias, item._file, item.file.name);
+
+                xhr.upload.onprogress = function(event) {
+                    var progress = Math.round(event.lengthComputable ? event.loaded * 100 / event.total : 0);
+                    that._onProgressItem(item, progress);
+                };
+
+                xhr.onload = function() {
+                    var headers = that._parseHeaders(xhr.getAllResponseHeaders());
+                    var response = that._transformResponse(xhr.response, headers);
+                    var gist = that._isSuccessCode(xhr.status) ? 'Success' : 'Error';
+                    var method = '_on' + gist + 'Item';
+                    that[method](item, response, xhr.status, headers);
+                    that._onCompleteItem(item, response, xhr.status, headers);
+                };
+
+                xhr.onerror = function() {
+                    var headers = that._parseHeaders(xhr.getAllResponseHeaders());
+                    var response = that._transformResponse(xhr.response, headers);
+                    that._onErrorItem(item, response, xhr.status, headers);
+                    that._onCompleteItem(item, response, xhr.status, headers);
+                };
+
+                xhr.onabort = function() {
+                    var headers = that._parseHeaders(xhr.getAllResponseHeaders());
+                    var response = that._transformResponse(xhr.response, headers);
+                    that._onCancelItem(item, response, xhr.status, headers);
+                    that._onCompleteItem(item, response, xhr.status, headers);
+                };
+
+                xhr.open(item.method, item.url, true);
+
+                xhr.withCredentials = item.withCredentials;
+
+                angular.forEach(item.headers, function(value, name) {
+                    xhr.setRequestHeader(name, value);
+                });
+
+                xhr.send(form);
+                this._render();
+            };
+            /**
+             * The IFrame transport
+             * @param {FileItem} item
+             * @private
+             */
+            FileUploader.prototype._iframeTransport = function(item) {
+                var form = angular.element('<form style="display: none;" />');
+                var iframe = angular.element('<iframe name="iframeTransport' + Date.now() + '">');
+                var input = item._input;
+                var that = this;
+
+                if (item._form) item._form.replaceWith(input); // remove old form
+                item._form = form; // save link to new form
+
+                that._onBeforeUploadItem(item);
+
+                input.prop('name', item.alias);
+
+                angular.forEach(item.formData, function(obj) {
+                    angular.forEach(obj, function(value, key) {
+                        var element = angular.element('<input type="hidden" name="' + key + '" />');
+                        element.val(value);
+                        form.append(element);
+                    });
+                });
+
+                form.prop({
+                    action: item.url,
+                    method: 'POST',
+                    target: iframe.prop('name'),
+                    enctype: 'multipart/form-data',
+                    encoding: 'multipart/form-data' // old IE
+                });
+
+                iframe.bind('load', function() {
+                    try {
+                        // Fix for legacy IE browsers that loads internal error page
+                        // when failed WS response received. In consequence iframe
+                        // content access denied error is thrown becouse trying to
+                        // access cross domain page. When such thing occurs notifying
+                        // with empty response object. See more info at:
+                        // http://stackoverflow.com/questions/151362/access-is-denied-error-on-accessing-iframe-document-object
+                        // Note that if non standard 4xx or 5xx error code returned
+                        // from WS then response content can be accessed without error
+                        // but 'XHR' status becomes 200. In order to avoid confusion
+                        // returning response via same 'success' event handler.
+
+                        // fixed angular.contents() for iframes
+                        var html = iframe[0].contentDocument.body.innerHTML;
+                    } catch (e) {}
+
+                    var xhr = {response: html, status: 200, dummy: true};
+                    var headers = {};
+                    var response = that._transformResponse(xhr.response, headers);
+
+                    that._onSuccessItem(item, response, xhr.status, headers);
+                    that._onCompleteItem(item, response, xhr.status, headers);
+                });
+
+                form.abort = function() {
+                    var xhr = {status: 0, dummy: true};
+                    var headers = {};
+                    var response;
+
+                    iframe.unbind('load').prop('src', 'javascript:false;');
+                    form.replaceWith(input);
+
+                    that._onCancelItem(item, response, xhr.status, headers);
+                    that._onCompleteItem(item, response, xhr.status, headers);
+                };
+
+                input.after(form);
+                form.append(input).append(iframe);
+
+                form[0].submit();
+                this._render();
+            };
+            /**
+             * Inner callback
+             * @param {File|Object} item
+             * @param {Object} filter
+             * @param {Object} options
+             * @private
+             */
+            FileUploader.prototype._onWhenAddingFileFailed = function(item, filter, options) {
+                this.onWhenAddingFileFailed(item, filter, options);
+            };
+            /**
+             * Inner callback
+             * @param {FileItem} item
+             */
+            FileUploader.prototype._onAfterAddingFile = function(item) {
+                this.onAfterAddingFile(item);
+            };
+            /**
+             * Inner callback
+             * @param {Array<FileItem>} items
+             */
+            FileUploader.prototype._onAfterAddingAll = function(items) {
+                this.onAfterAddingAll(items);
+            };
+            /**
+             *  Inner callback
+             * @param {FileItem} item
+             * @private
+             */
+            FileUploader.prototype._onBeforeUploadItem = function(item) {
+                item._onBeforeUpload();
+                this.onBeforeUploadItem(item);
+            };
+            /**
+             * Inner callback
+             * @param {FileItem} item
+             * @param {Number} progress
+             * @private
+             */
+            FileUploader.prototype._onProgressItem = function(item, progress) {
+                var total = this._getTotalProgress(progress);
+                this.progress = total;
+                item._onProgress(progress);
+                this.onProgressItem(item, progress);
+                this.onProgressAll(total);
+                this._render();
+            };
+            /**
+             * Inner callback
+             * @param {FileItem} item
+             * @param {*} response
+             * @param {Number} status
+             * @param {Object} headers
+             * @private
+             */
+            FileUploader.prototype._onSuccessItem = function(item, response, status, headers) {
+                item._onSuccess(response, status, headers);
+                this.onSuccessItem(item, response, status, headers);
+            };
+            /**
+             * Inner callback
+             * @param {FileItem} item
+             * @param {*} response
+             * @param {Number} status
+             * @param {Object} headers
+             * @private
+             */
+            FileUploader.prototype._onErrorItem = function(item, response, status, headers) {
+                item._onError(response, status, headers);
+                this.onErrorItem(item, response, status, headers);
+            };
+            /**
+             * Inner callback
+             * @param {FileItem} item
+             * @param {*} response
+             * @param {Number} status
+             * @param {Object} headers
+             * @private
+             */
+            FileUploader.prototype._onCancelItem = function(item, response, status, headers) {
+                item._onCancel(response, status, headers);
+                this.onCancelItem(item, response, status, headers);
+            };
+            /**
+             * Inner callback
+             * @param {FileItem} item
+             * @param {*} response
+             * @param {Number} status
+             * @param {Object} headers
+             * @private
+             */
+            FileUploader.prototype._onCompleteItem = function(item, response, status, headers) {
+                item._onComplete(response, status, headers);
+                this.onCompleteItem(item, response, status, headers);
+
+                var nextItem = this.getReadyItems()[0];
+                this.isUploading = false;
+
+                if(angular.isDefined(nextItem)) {
+                    nextItem.upload();
+                    return;
+                }
+
+                this.onCompleteAll();
+                this.progress = this._getTotalProgress();
+                this._render();
+            };
+            /**********************
+             * STATIC
+             **********************/
+            /**
+             * @borrows FileUploader.prototype.isFile
+             */
+            FileUploader.isFile = FileUploader.prototype.isFile;
+            /**
+             * @borrows FileUploader.prototype.isFileLikeObject
+             */
+            FileUploader.isFileLikeObject = FileUploader.prototype.isFileLikeObject;
+            /**
+             * @borrows FileUploader.prototype.isArrayLikeObject
+             */
+            FileUploader.isArrayLikeObject = FileUploader.prototype.isArrayLikeObject;
+            /**
+             * @borrows FileUploader.prototype.isHTML5
+             */
+            FileUploader.isHTML5 = FileUploader.prototype.isHTML5;
+            /**
+             * Inherits a target (Class_1) by a source (Class_2)
+             * @param {Function} target
+             * @param {Function} source
+             */
+            FileUploader.inherit = function(target, source) {
+                target.prototype = Object.create(source.prototype);
+                target.prototype.constructor = target;
+                target.super_ = source;
+            };
+            FileUploader.FileLikeObject = FileLikeObject;
+            FileUploader.FileItem = FileItem;
+            FileUploader.FileDirective = FileDirective;
+            FileUploader.FileSelect = FileSelect;
+            FileUploader.FileDrop = FileDrop;
+            FileUploader.FileOver = FileOver;
+
+            // ---------------------------
+
+            /**
+             * Creates an instance of FileLikeObject
+             * @param {File|HTMLInputElement|Object} fileOrInput
+             * @constructor
+             */
+            function FileLikeObject(fileOrInput) {
+                var isInput = angular.isElement(fileOrInput);
+                var fakePathOrObject = isInput ? fileOrInput.value : fileOrInput;
+                var postfix = angular.isString(fakePathOrObject) ? 'FakePath' : 'Object';
+                var method = '_createFrom' + postfix;
+                this[method](fakePathOrObject);
+            }
+
+            /**
+             * Creates file like object from fake path string
+             * @param {String} path
+             * @private
+             */
+            FileLikeObject.prototype._createFromFakePath = function(path) {
+                this.lastModifiedDate = null;
+                this.size = null;
+                this.type = 'like/' + path.slice(path.lastIndexOf('.') + 1).toLowerCase();
+                this.name = path.slice(path.lastIndexOf('/') + path.lastIndexOf('\\') + 2);
+            };
+            /**
+             * Creates file like object from object
+             * @param {File|FileLikeObject} object
+             * @private
+             */
+            FileLikeObject.prototype._createFromObject = function(object) {
+                this.lastModifiedDate = angular.copy(object.lastModifiedDate);
+                this.size = object.size;
+                this.type = object.type;
+                this.name = object.name;
+            };
+
+            // ---------------------------
+
+            /**
+             * Creates an instance of FileItem
+             * @param {FileUploader} uploader
+             * @param {File|HTMLInputElement|Object} some
+             * @param {Object} options
+             * @constructor
+             */
+            function FileItem(uploader, some, options) {
+                var isInput = angular.isElement(some);
+                var input = isInput ? angular.element(some) : null;
+                var file = !isInput ? some : null;
+
+                angular.extend(this, {
+                    url: uploader.url,
+                    alias: uploader.alias,
+                    headers: angular.copy(uploader.headers),
+                    formData: angular.copy(uploader.formData),
+                    removeAfterUpload: uploader.removeAfterUpload,
+                    withCredentials: uploader.withCredentials,
+                    method: uploader.method
+                }, options, {
+                    uploader: uploader,
+                    file: new FileUploader.FileLikeObject(some),
+                    isReady: false,
+                    isUploading: false,
+                    isUploaded: false,
+                    isSuccess: false,
+                    isCancel: false,
+                    isError: false,
+                    progress: 0,
+                    index: null,
+                    _file: file,
+                    _input: input
+                });
+
+                if (input) this._replaceNode(input);
+            }
+            /**********************
+             * PUBLIC
+             **********************/
+            /**
+             * Uploads a FileItem
+             */
+            FileItem.prototype.upload = function() {
+                this.uploader.uploadItem(this);
+            };
+            /**
+             * Cancels uploading of FileItem
+             */
+            FileItem.prototype.cancel = function() {
+                this.uploader.cancelItem(this);
+            };
+            /**
+             * Removes a FileItem
+             */
+            FileItem.prototype.remove = function() {
+                this.uploader.removeFromQueue(this);
+            };
+            /**
+             * Callback
+             * @private
+             */
+            FileItem.prototype.onBeforeUpload = function() {};
+            /**
+             * Callback
+             * @param {Number} progress
+             * @private
+             */
+            FileItem.prototype.onProgress = function(progress) {};
+            /**
+             * Callback
+             * @param {*} response
+             * @param {Number} status
+             * @param {Object} headers
+             */
+            FileItem.prototype.onSuccess = function(response, status, headers) {};
+            /**
+             * Callback
+             * @param {*} response
+             * @param {Number} status
+             * @param {Object} headers
+             */
+            FileItem.prototype.onError = function(response, status, headers) {};
+            /**
+             * Callback
+             * @param {*} response
+             * @param {Number} status
+             * @param {Object} headers
+             */
+            FileItem.prototype.onCancel = function(response, status, headers) {};
+            /**
+             * Callback
+             * @param {*} response
+             * @param {Number} status
+             * @param {Object} headers
+             */
+            FileItem.prototype.onComplete = function(response, status, headers) {};
+            /**********************
+             * PRIVATE
+             **********************/
+            /**
+             * Inner callback
+             */
+            FileItem.prototype._onBeforeUpload = function() {
+                this.isReady = true;
+                this.isUploading = true;
+                this.isUploaded = false;
+                this.isSuccess = false;
+                this.isCancel = false;
+                this.isError = false;
+                this.progress = 0;
+                this.onBeforeUpload();
+            };
+            /**
+             * Inner callback
+             * @param {Number} progress
+             * @private
+             */
+            FileItem.prototype._onProgress = function(progress) {
+                this.progress = progress;
+                this.onProgress(progress);
+            };
+            /**
+             * Inner callback
+             * @param {*} response
+             * @param {Number} status
+             * @param {Object} headers
+             * @private
+             */
+            FileItem.prototype._onSuccess = function(response, status, headers) {
+                this.isReady = false;
+                this.isUploading = false;
+                this.isUploaded = true;
+                this.isSuccess = true;
+                this.isCancel = false;
+                this.isError = false;
+                this.progress = 100;
+                this.index = null;
+                this.onSuccess(response, status, headers);
+            };
+            /**
+             * Inner callback
+             * @param {*} response
+             * @param {Number} status
+             * @param {Object} headers
+             * @private
+             */
+            FileItem.prototype._onError = function(response, status, headers) {
+                this.isReady = false;
+                this.isUploading = false;
+                this.isUploaded = true;
+                this.isSuccess = false;
+                this.isCancel = false;
+                this.isError = true;
+                this.progress = 0;
+                this.index = null;
+                this.onError(response, status, headers);
+            };
+            /**
+             * Inner callback
+             * @param {*} response
+             * @param {Number} status
+             * @param {Object} headers
+             * @private
+             */
+            FileItem.prototype._onCancel = function(response, status, headers) {
+                this.isReady = false;
+                this.isUploading = false;
+                this.isUploaded = false;
+                this.isSuccess = false;
+                this.isCancel = true;
+                this.isError = false;
+                this.progress = 0;
+                this.index = null;
+                this.onCancel(response, status, headers);
+            };
+            /**
+             * Inner callback
+             * @param {*} response
+             * @param {Number} status
+             * @param {Object} headers
+             * @private
+             */
+            FileItem.prototype._onComplete = function(response, status, headers) {
+                this.onComplete(response, status, headers);
+                if (this.removeAfterUpload) this.remove();
+            };
+            /**
+             * Destroys a FileItem
+             */
+            FileItem.prototype._destroy = function() {
+                if (this._input) this._input.remove();
+                if (this._form) this._form.remove();
+                delete this._form;
+                delete this._input;
+            };
+            /**
+             * Prepares to uploading
+             * @private
+             */
+            FileItem.prototype._prepareToUploading = function() {
+                this.index = this.index || ++this.uploader._nextIndex;
+                this.isReady = true;
+            };
+            /**
+             * Replaces input element on his clone
+             * @param {JQLite|jQuery} input
+             * @private
+             */
+            FileItem.prototype._replaceNode = function(input) {
+                var clone = $compile(input.clone())(input.scope());
+                clone.prop('value', null); // FF fix
+                input.css('display', 'none');
+                input.after(clone); // remove jquery dependency
+            };
+
+            // ---------------------------
+
+            /**
+             * Creates instance of {FileDirective} object
+             * @param {Object} options
+             * @param {Object} options.uploader
+             * @param {HTMLElement} options.element
+             * @param {Object} options.events
+             * @param {String} options.prop
+             * @constructor
+             */
+            function FileDirective(options) {
+                angular.extend(this, options);
+                this.uploader._directives[this.prop].push(this);
+                this._saveLinks();
+                this.bind();
+            }
+            /**
+             * Map of events
+             * @type {Object}
+             */
+            FileDirective.prototype.events = {};
+            /**
+             * Binds events handles
+             */
+            FileDirective.prototype.bind = function() {
+                for(var key in this.events) {
+                    var prop = this.events[key];
+                    this.element.bind(key, this[prop]);
+                }
+            };
+            /**
+             * Unbinds events handles
+             */
+            FileDirective.prototype.unbind = function() {
+                for(var key in this.events) {
+                    this.element.unbind(key, this.events[key]);
+                }
+            };
+            /**
+             * Destroys directive
+             */
+            FileDirective.prototype.destroy = function() {
+                var index = this.uploader._directives[this.prop].indexOf(this);
+                this.uploader._directives[this.prop].splice(index, 1);
+                this.unbind();
+                // this.element = null;
+            };
+            /**
+             * Saves links to functions
+             * @private
+             */
+            FileDirective.prototype._saveLinks = function() {
+                for(var key in this.events) {
+                    var prop = this.events[key];
+                    this[prop] = this[prop].bind(this);
+                }
+            };
+
+            // ---------------------------
+
+            FileUploader.inherit(FileSelect, FileDirective);
+
+            /**
+             * Creates instance of {FileSelect} object
+             * @param {Object} options
+             * @constructor
+             */
+            function FileSelect(options) {
+                FileSelect.super_.apply(this, arguments);
+
+                if(!this.uploader.isHTML5) {
+                    this.element.removeAttr('multiple');
+                }
+                this.element.prop('value', null); // FF fix
+            }
+            /**
+             * Map of events
+             * @type {Object}
+             */
+            FileSelect.prototype.events = {
+                $destroy: 'destroy',
+                change: 'onChange'
+            };
+            /**
+             * Name of property inside uploader._directive object
+             * @type {String}
+             */
+            FileSelect.prototype.prop = 'select';
+            /**
+             * Returns options
+             * @return {Object|undefined}
+             */
+            FileSelect.prototype.getOptions = function() {};
+            /**
+             * Returns filters
+             * @return {Array<Function>|String|undefined}
+             */
+            FileSelect.prototype.getFilters = function() {};
+            /**
+             * If returns "true" then HTMLInputElement will be cleared
+             * @returns {Boolean}
+             */
+            FileSelect.prototype.isEmptyAfterSelection = function() {
+                return !!this.element.attr('multiple');
+            };
+            /**
+             * Event handler
+             */
+            FileSelect.prototype.onChange = function() {
+                var files = this.uploader.isHTML5 ? this.element[0].files : this.element[0];
+                var options = this.getOptions();
+                var filters = this.getFilters();
+
+                if (!this.uploader.isHTML5) this.destroy();
+                this.uploader.addToQueue(files, options, filters);
+                if (this.isEmptyAfterSelection()) this.element.prop('value', null);
+            };
+
+            // ---------------------------
+
+            FileUploader.inherit(FileDrop, FileDirective);
+
+            /**
+             * Creates instance of {FileDrop} object
+             * @param {Object} options
+             * @constructor
+             */
+            function FileDrop(options) {
+                FileDrop.super_.apply(this, arguments);
+            }
+            /**
+             * Map of events
+             * @type {Object}
+             */
+            FileDrop.prototype.events = {
+                $destroy: 'destroy',
+                drop: 'onDrop',
+                dragover: 'onDragOver',
+                dragleave: 'onDragLeave'
+            };
+            /**
+             * Name of property inside uploader._directive object
+             * @type {String}
+             */
+            FileDrop.prototype.prop = 'drop';
+            /**
+             * Returns options
+             * @return {Object|undefined}
+             */
+            FileDrop.prototype.getOptions = function() {};
+            /**
+             * Returns filters
+             * @return {Array<Function>|String|undefined}
+             */
+            FileDrop.prototype.getFilters = function() {};
+            /**
+             * Event handler
+             */
+            FileDrop.prototype.onDrop = function(event) {
+                var transfer = this._getTransfer(event);
+                if (!transfer) return;
+                var options = this.getOptions();
+                var filters = this.getFilters();
+                this._preventAndStop(event);
+                angular.forEach(this.uploader._directives.over, this._removeOverClass, this);
+                this.uploader.addToQueue(transfer.files, options, filters);
+            };
+            /**
+             * Event handler
+             */
+            FileDrop.prototype.onDragOver = function(event) {
+                var transfer = this._getTransfer(event);
+                if(!this._haveFiles(transfer.types)) return;
+                transfer.dropEffect = 'copy';
+                this._preventAndStop(event);
+                angular.forEach(this.uploader._directives.over, this._addOverClass, this);
+            };
+            /**
+             * Event handler
+             */
+            FileDrop.prototype.onDragLeave = function(event) {
+                if (event.currentTarget !== this.element[0]) return;
+                this._preventAndStop(event);
+                angular.forEach(this.uploader._directives.over, this._removeOverClass, this);
+            };
+            /**
+             * Helper
+             */
+            FileDrop.prototype._getTransfer = function(event) {
+                return event.dataTransfer ? event.dataTransfer : event.originalEvent.dataTransfer; // jQuery fix;
+            };
+            /**
+             * Helper
+             */
+            FileDrop.prototype._preventAndStop = function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+            };
+            /**
+             * Returns "true" if types contains files
+             * @param {Object} types
+             */
+            FileDrop.prototype._haveFiles = function(types) {
+                if (!types) return false;
+                if (types.indexOf) {
+                    return types.indexOf('Files') !== -1;
+                } else if(types.contains) {
+                    return types.contains('Files');
+                } else {
+                    return false;
+                }
+            };
+            /**
+             * Callback
+             */
+            FileDrop.prototype._addOverClass = function(item) {
+                item.addOverClass();
+            };
+            /**
+             * Callback
+             */
+            FileDrop.prototype._removeOverClass = function(item) {
+                item.removeOverClass();
+            };
+
+            // ---------------------------
+
+            FileUploader.inherit(FileOver, FileDirective);
+
+            /**
+             * Creates instance of {FileDrop} object
+             * @param {Object} options
+             * @constructor
+             */
+            function FileOver(options) {
+                FileOver.super_.apply(this, arguments);
+            }
+            /**
+             * Map of events
+             * @type {Object}
+             */
+            FileOver.prototype.events = {
+                $destroy: 'destroy'
+            };
+            /**
+             * Name of property inside uploader._directive object
+             * @type {String}
+             */
+            FileOver.prototype.prop = 'over';
+            /**
+             * Over class
+             * @type {string}
+             */
+            FileOver.prototype.overClass = 'nv-file-over';
+            /**
+             * Adds over class
+             */
+            FileOver.prototype.addOverClass = function() {
+                this.element.addClass(this.getOverClass());
+            };
+            /**
+             * Removes over class
+             */
+            FileOver.prototype.removeOverClass = function() {
+                this.element.removeClass(this.getOverClass());
+            };
+            /**
+             * Returns over class
+             * @returns {String}
+             */
+            FileOver.prototype.getOverClass = function() {
+                return this.overClass;
+            };
+
+            return FileUploader;
+        }])
+
+
+    .directive('nvFileSelect', ['$parse', 'FileUploader', function($parse, FileUploader) {
+        return {
+            link: function(scope, element, attributes) {
+                var uploader = scope.$eval(attributes.uploader);
+
+                if (!(uploader instanceof FileUploader)) {
+                    throw new TypeError('"Uploader" must be an instance of FileUploader');
+                }
+
+                var object = new FileUploader.FileSelect({
+                    uploader: uploader,
+                    element: element
+                });
+
+                object.getOptions = $parse(attributes.options).bind(object, scope);
+                object.getFilters = function() {return attributes.filters;};
+            }
+        };
+    }])
+
+
+    .directive('nvFileDrop', ['$parse', 'FileUploader', function($parse, FileUploader) {
+        return {
+            link: function(scope, element, attributes) {
+                var uploader = scope.$eval(attributes.uploader);
+
+                if (!(uploader instanceof FileUploader)) {
+                    throw new TypeError('"Uploader" must be an instance of FileUploader');
+                }
+
+                if (!uploader.isHTML5) return;
+
+                var object = new FileUploader.FileDrop({
+                    uploader: uploader,
+                    element: element
+                });
+
+                object.getOptions = $parse(attributes.options).bind(object, scope);
+                object.getFilters = function() {return attributes.filters;};
+            }
+        };
+    }])
+
+
+    .directive('nvFileOver', ['FileUploader', function(FileUploader) {
+        return {
+            link: function(scope, element, attributes) {
+                var uploader = scope.$eval(attributes.uploader);
+
+                if (!(uploader instanceof FileUploader)) {
+                    throw new TypeError('"Uploader" must be an instance of FileUploader');
+                }
+
+                var object = new FileUploader.FileOver({
+                    uploader: uploader,
+                    element: element
+                });
+
+                object.getOverClass = function() {
+                    return attributes.overClass || this.overClass;
+                };
+            }
+        };
+    }])
+
+    return module;
+}));;/*! Copyright (c) 2011 Brandon Aaron (http://brandonaaron.net)
  * Licensed under the MIT License (LICENSE.txt).
  *
  * Thanks to: http://adomas.org/javascript-mouse-wheel/ for some pointers.
@@ -62502,165 +64935,1933 @@ function handler(event) {
 }
 
 })(jQuery);
-;/**
- * Heavily adapted from the `type="number"` directive in Angular's
- * /src/ng/directive/input.js
+;/*!
+ * https://github.com/es-shims/es5-shim
+ * @license es5-shim Copyright 2009-2015 by contributors, MIT License
+ * see https://github.com/es-shims/es5-shim/blob/master/LICENSE
  */
 
-angular.module('fiestah.money', [])
-.directive('money', function () {
-  'use strict';
+// vim: ts=4 sts=4 sw=4 expandtab
 
-  var NUMBER_REGEXP = /^\s*(\-|\+)?(\d+|(\d*(\.\d*)))\s*$/;
+// Add semicolon to prevent IIFE from being passed as argument to concatenated code.
+;
 
-  function link(scope, el, attrs, ngModelCtrl) {
-    var min, max, precision, lastValidValue, preRoundValue;
-
-    /**
-     * Returns a rounded number in the precision setup by the directive
-     * @param  {Number} num Number to be rounded
-     * @return {Number}     Rounded number
-     */
-    function round(num) {
-      var d = Math.pow(10, precision);
-      return Math.round(num * d) / d;
+// UMD (Universal Module Definition)
+// see https://github.com/umdjs/umd/blob/master/returnExports.js
+(function (root, factory) {
+    'use strict';
+    /*global define, exports, module */
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(factory);
+    } else if (typeof exports === 'object') {
+        // Node. Does not work with strict CommonJS, but
+        // only CommonJS-like enviroments that support module.exports,
+        // like Node.
+        module.exports = factory();
+    } else {
+        // Browser globals (root is window)
+        root.returnExports = factory();
     }
+}(this, function () {
 
-    /**
-     * Returns a string that represents the rounded number
-     * @param  {Number} value Number to be rounded
-     * @return {String}       The string representation
-     */
-    function formatPrecision(value) {
-      return parseFloat(value).toFixed(precision);
+/**
+ * Brings an environment as close to ECMAScript 5 compliance
+ * as is possible with the facilities of erstwhile engines.
+ *
+ * Annotated ES5: http://es5.github.com/ (specific links below)
+ * ES5 Spec: http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf
+ * Required reading: http://javascriptweblog.wordpress.com/2011/12/05/extending-javascript-natives/
+ */
+
+// Shortcut to an often accessed properties, in order to avoid multiple
+// dereference that costs universally.
+var ArrayPrototype = Array.prototype;
+var ObjectPrototype = Object.prototype;
+var FunctionPrototype = Function.prototype;
+var StringPrototype = String.prototype;
+var NumberPrototype = Number.prototype;
+var array_slice = ArrayPrototype.slice;
+var array_splice = ArrayPrototype.splice;
+var array_push = ArrayPrototype.push;
+var array_unshift = ArrayPrototype.unshift;
+var call = FunctionPrototype.call;
+
+// Having a toString local variable name breaks in Opera so use to_string.
+var to_string = ObjectPrototype.toString;
+
+var isArray = Array.isArray || function isArray(obj) {
+    return to_string.call(obj) === '[object Array]';
+};
+
+var hasToStringTag = typeof Symbol === 'function' && typeof Symbol.toStringTag === 'symbol';
+var isCallable; /* inlined from https://npmjs.com/is-callable */ var fnToStr = Function.prototype.toString, tryFunctionObject = function tryFunctionObject(value) { try { fnToStr.call(value); return true; } catch (e) { return false; } }, fnClass = '[object Function]', genClass = '[object GeneratorFunction]'; isCallable = function isCallable(value) { if (typeof value !== 'function') { return false; } if (hasToStringTag) { return tryFunctionObject(value); } var strClass = to_string.call(value); return strClass === fnClass || strClass === genClass; };
+var isRegex; /* inlined from https://npmjs.com/is-regex */ var regexExec = RegExp.prototype.exec, tryRegexExec = function tryRegexExec(value) { try { regexExec.call(value); return true; } catch (e) { return false; } }, regexClass = '[object RegExp]'; isRegex = function isRegex(value) { if (typeof value !== 'object') { return false; } return hasToStringTag ? tryRegexExec(value) : to_string.call(value) === regexClass; };
+var isString; /* inlined from https://npmjs.com/is-string */ var strValue = String.prototype.valueOf, tryStringObject = function tryStringObject(value) { try { strValue.call(value); return true; } catch (e) { return false; } }, stringClass = '[object String]'; isString = function isString(value) { if (typeof value === 'string') { return true; } if (typeof value !== 'object') { return false; } return hasToStringTag ? tryStringObject(value) : to_string.call(value) === stringClass; };
+
+var isArguments = function isArguments(value) {
+    var str = to_string.call(value);
+    var isArgs = str === '[object Arguments]';
+    if (!isArgs) {
+        isArgs = !isArray(value) &&
+          value !== null &&
+          typeof value === 'object' &&
+          typeof value.length === 'number' &&
+          value.length >= 0 &&
+          isCallable(value.callee);
     }
+    return isArgs;
+};
 
-    function formatViewValue(value) {
-      return ngModelCtrl.$isEmpty(value) ? '' : '' + value;
-    }
-
-    function minValidator(value) {
-      if (!ngModelCtrl.$isEmpty(value) && value < min) {
-        ngModelCtrl.$setValidity('min', false);
-        return undefined;
-      } else {
-        ngModelCtrl.$setValidity('min', true);
-        return value;
+/* inlined from http://npmjs.com/define-properties */
+var defineProperties = (function (has) {
+  var supportsDescriptors = Object.defineProperty && (function () {
+      try {
+          Object.defineProperty({}, 'x', {});
+          return true;
+      } catch (e) { /* this is ES3 */
+          return false;
       }
-    }
+  }());
 
-    function maxValidator(value) {
-      if (!ngModelCtrl.$isEmpty(value) && value > max) {
-        ngModelCtrl.$setValidity('max', false);
-        return undefined;
-      } else {
-        ngModelCtrl.$setValidity('max', true);
-        return value;
-      }
-    }
-
-    ngModelCtrl.$parsers.push(function (value) {
-      if (angular.isUndefined(value)) {
-        value = '';
-      }
-
-      // Handle leading decimal point, like ".5"
-      if (value.indexOf('.') === 0) {
-        value = '0' + value;
-      }
-
-      // Allow "-" inputs only when min < 0
-      if (value.indexOf('-') === 0) {
-        if (min >= 0) {
-          value = null;
-          ngModelCtrl.$setViewValue('');
-          ngModelCtrl.$render();
-        } else if (value === '-') {
-          value = '';
-        }
-      }
-
-      var empty = ngModelCtrl.$isEmpty(value);
-      if (empty || NUMBER_REGEXP.test(value)) {
-        lastValidValue = (value === '')
-          ? null
-          : (empty ? value : parseFloat(value));
-      } else {
-        // Render the last valid input in the field
-        ngModelCtrl.$setViewValue(formatViewValue(lastValidValue));
-        ngModelCtrl.$render();
-      }
-
-      ngModelCtrl.$setValidity('number', true);
-
-      return lastValidValue;
-    });
-    ngModelCtrl.$formatters.push(formatViewValue);
-
-
-    // Min validation
-    attrs.$observe('min', function (value) {
-      min = parseFloat(value || 0);
-      minValidator(ngModelCtrl.$modelValue);
-    });
-
-    ngModelCtrl.$parsers.push(minValidator);
-    ngModelCtrl.$formatters.push(minValidator);
-
-
-    // Max validation (optional)
-    if (angular.isDefined(attrs.max)) {
-      attrs.$observe('max', function (val) {
-        max = parseFloat(val);
-        maxValidator(ngModelCtrl.$modelValue);
-      });
-
-      ngModelCtrl.$parsers.push(maxValidator);
-      ngModelCtrl.$formatters.push(maxValidator);
-    }
-
-
-    // Round off (disabled by "-1")
-    if (attrs.precision !== '-1') {
-      attrs.$observe('precision', function (value) {
-        var parsed = parseFloat(value);
-        precision = !isNaN(parsed) ? parsed : 2;
-
-        // Trigger $parsers and $formatters pipelines
-        ngModelCtrl.$setViewValue(formatPrecision(ngModelCtrl.$modelValue));
-      });
-
-      ngModelCtrl.$parsers.push(function (value) {
-        if (value) {
-          // Save with rounded value
-          lastValidValue = round(value);
-
-          return lastValidValue;
-        } else {
-          return undefined;
-        }
-      });
-      ngModelCtrl.$formatters.push(function (value) {
-        return value ? formatPrecision(value) : value;
-      });
-
-      // Auto-format precision on blur
-      el.bind('blur', function () {
-        var value = ngModelCtrl.$modelValue;
-        if (value) {
-          ngModelCtrl.$viewValue = formatPrecision(value);
-          ngModelCtrl.$render();
-        }
-      });
-    }
+  // Define configurable, writable and non-enumerable props
+  // if they don't exist.
+  var defineProperty;
+  if (supportsDescriptors) {
+      defineProperty = function (object, name, method, forceAssign) {
+          if (!forceAssign && (name in object)) { return; }
+          Object.defineProperty(object, name, {
+              configurable: true,
+              enumerable: false,
+              writable: true,
+              value: method
+          });
+      };
+  } else {
+      defineProperty = function (object, name, method, forceAssign) {
+          if (!forceAssign && (name in object)) { return; }
+          object[name] = method;
+      };
   }
-
-  return {
-    restrict: 'A',
-    require: 'ngModel',
-    link: link
+  return function defineProperties(object, map, forceAssign) {
+      for (var name in map) {
+          if (has.call(map, name)) {
+            defineProperty(object, name, map[name], forceAssign);
+          }
+      }
   };
+}(ObjectPrototype.hasOwnProperty));
+
+//
+// Util
+// ======
+//
+
+/* replaceable with https://npmjs.com/package/es-abstract /helpers/isPrimitive */
+function isPrimitive(input) {
+    var type = typeof input;
+    return input === null ||
+        type === 'undefined' ||
+        type === 'boolean' ||
+        type === 'number' ||
+        type === 'string';
+}
+
+var ES = {
+    // ES5 9.4
+    // http://es5.github.com/#x9.4
+    // http://jsperf.com/to-integer
+    /* replaceable with https://npmjs.com/package/es-abstract ES5.ToInteger */
+    ToInteger: function ToInteger(num) {
+        var n = +num;
+        if (n !== n) { // isNaN
+            n = 0;
+        } else if (n !== 0 && n !== (1 / 0) && n !== -(1 / 0)) {
+            n = (n > 0 || -1) * Math.floor(Math.abs(n));
+        }
+        return n;
+    },
+
+    /* replaceable with https://npmjs.com/package/es-abstract ES5.ToPrimitive */
+    ToPrimitive: function ToPrimitive(input) {
+        var val, valueOf, toStr;
+        if (isPrimitive(input)) {
+            return input;
+        }
+        valueOf = input.valueOf;
+        if (isCallable(valueOf)) {
+            val = valueOf.call(input);
+            if (isPrimitive(val)) {
+                return val;
+            }
+        }
+        toStr = input.toString;
+        if (isCallable(toStr)) {
+            val = toStr.call(input);
+            if (isPrimitive(val)) {
+                return val;
+            }
+        }
+        throw new TypeError();
+    },
+
+    // ES5 9.9
+    // http://es5.github.com/#x9.9
+    /* replaceable with https://npmjs.com/package/es-abstract ES5.ToObject */
+    ToObject: function (o) {
+        /*jshint eqnull: true */
+        if (o == null) { // this matches both null and undefined
+            throw new TypeError("can't convert " + o + ' to object');
+        }
+        return Object(o);
+    },
+
+    /* replaceable with https://npmjs.com/package/es-abstract ES5.ToUint32 */
+    ToUint32: function ToUint32(x) {
+        return x >>> 0;
+    }
+};
+
+//
+// Function
+// ========
+//
+
+// ES-5 15.3.4.5
+// http://es5.github.com/#x15.3.4.5
+
+var Empty = function Empty() {};
+
+defineProperties(FunctionPrototype, {
+    bind: function bind(that) { // .length is 1
+        // 1. Let Target be the this value.
+        var target = this;
+        // 2. If IsCallable(Target) is false, throw a TypeError exception.
+        if (!isCallable(target)) {
+            throw new TypeError('Function.prototype.bind called on incompatible ' + target);
+        }
+        // 3. Let A be a new (possibly empty) internal list of all of the
+        //   argument values provided after thisArg (arg1, arg2 etc), in order.
+        // XXX slicedArgs will stand in for "A" if used
+        var args = array_slice.call(arguments, 1); // for normal call
+        // 4. Let F be a new native ECMAScript object.
+        // 11. Set the [[Prototype]] internal property of F to the standard
+        //   built-in Function prototype object as specified in 15.3.3.1.
+        // 12. Set the [[Call]] internal property of F as described in
+        //   15.3.4.5.1.
+        // 13. Set the [[Construct]] internal property of F as described in
+        //   15.3.4.5.2.
+        // 14. Set the [[HasInstance]] internal property of F as described in
+        //   15.3.4.5.3.
+        var bound;
+        var binder = function () {
+
+            if (this instanceof bound) {
+                // 15.3.4.5.2 [[Construct]]
+                // When the [[Construct]] internal method of a function object,
+                // F that was created using the bind function is called with a
+                // list of arguments ExtraArgs, the following steps are taken:
+                // 1. Let target be the value of F's [[TargetFunction]]
+                //   internal property.
+                // 2. If target has no [[Construct]] internal method, a
+                //   TypeError exception is thrown.
+                // 3. Let boundArgs be the value of F's [[BoundArgs]] internal
+                //   property.
+                // 4. Let args be a new list containing the same values as the
+                //   list boundArgs in the same order followed by the same
+                //   values as the list ExtraArgs in the same order.
+                // 5. Return the result of calling the [[Construct]] internal
+                //   method of target providing args as the arguments.
+
+                var result = target.apply(
+                    this,
+                    args.concat(array_slice.call(arguments))
+                );
+                if (Object(result) === result) {
+                    return result;
+                }
+                return this;
+
+            } else {
+                // 15.3.4.5.1 [[Call]]
+                // When the [[Call]] internal method of a function object, F,
+                // which was created using the bind function is called with a
+                // this value and a list of arguments ExtraArgs, the following
+                // steps are taken:
+                // 1. Let boundArgs be the value of F's [[BoundArgs]] internal
+                //   property.
+                // 2. Let boundThis be the value of F's [[BoundThis]] internal
+                //   property.
+                // 3. Let target be the value of F's [[TargetFunction]] internal
+                //   property.
+                // 4. Let args be a new list containing the same values as the
+                //   list boundArgs in the same order followed by the same
+                //   values as the list ExtraArgs in the same order.
+                // 5. Return the result of calling the [[Call]] internal method
+                //   of target providing boundThis as the this value and
+                //   providing args as the arguments.
+
+                // equiv: target.call(this, ...boundArgs, ...args)
+                return target.apply(
+                    that,
+                    args.concat(array_slice.call(arguments))
+                );
+
+            }
+
+        };
+
+        // 15. If the [[Class]] internal property of Target is "Function", then
+        //     a. Let L be the length property of Target minus the length of A.
+        //     b. Set the length own property of F to either 0 or L, whichever is
+        //       larger.
+        // 16. Else set the length own property of F to 0.
+
+        var boundLength = Math.max(0, target.length - args.length);
+
+        // 17. Set the attributes of the length own property of F to the values
+        //   specified in 15.3.5.1.
+        var boundArgs = [];
+        for (var i = 0; i < boundLength; i++) {
+            boundArgs.push('$' + i);
+        }
+
+        // XXX Build a dynamic function with desired amount of arguments is the only
+        // way to set the length property of a function.
+        // In environments where Content Security Policies enabled (Chrome extensions,
+        // for ex.) all use of eval or Function costructor throws an exception.
+        // However in all of these environments Function.prototype.bind exists
+        // and so this code will never be executed.
+        bound = Function('binder', 'return function (' + boundArgs.join(',') + '){ return binder.apply(this, arguments); }')(binder);
+
+        if (target.prototype) {
+            Empty.prototype = target.prototype;
+            bound.prototype = new Empty();
+            // Clean up dangling references.
+            Empty.prototype = null;
+        }
+
+        // TODO
+        // 18. Set the [[Extensible]] internal property of F to true.
+
+        // TODO
+        // 19. Let thrower be the [[ThrowTypeError]] function Object (13.2.3).
+        // 20. Call the [[DefineOwnProperty]] internal method of F with
+        //   arguments "caller", PropertyDescriptor {[[Get]]: thrower, [[Set]]:
+        //   thrower, [[Enumerable]]: false, [[Configurable]]: false}, and
+        //   false.
+        // 21. Call the [[DefineOwnProperty]] internal method of F with
+        //   arguments "arguments", PropertyDescriptor {[[Get]]: thrower,
+        //   [[Set]]: thrower, [[Enumerable]]: false, [[Configurable]]: false},
+        //   and false.
+
+        // TODO
+        // NOTE Function objects created using Function.prototype.bind do not
+        // have a prototype property or the [[Code]], [[FormalParameters]], and
+        // [[Scope]] internal properties.
+        // XXX can't delete prototype in pure-js.
+
+        // 22. Return F.
+        return bound;
+    }
 });
+
+// _Please note: Shortcuts are defined after `Function.prototype.bind` as we
+// us it in defining shortcuts.
+var owns = call.bind(ObjectPrototype.hasOwnProperty);
+
+//
+// Array
+// =====
+//
+
+// ES5 15.4.4.12
+// http://es5.github.com/#x15.4.4.12
+var spliceNoopReturnsEmptyArray = (function () {
+    var a = [1, 2];
+    var result = a.splice();
+    return a.length === 2 && isArray(result) && result.length === 0;
+}());
+defineProperties(ArrayPrototype, {
+    // Safari 5.0 bug where .splice() returns undefined
+    splice: function splice(start, deleteCount) {
+        if (arguments.length === 0) {
+            return [];
+        } else {
+            return array_splice.apply(this, arguments);
+        }
+    }
+}, !spliceNoopReturnsEmptyArray);
+
+var spliceWorksWithEmptyObject = (function () {
+    var obj = {};
+    ArrayPrototype.splice.call(obj, 0, 0, 1);
+    return obj.length === 1;
+}());
+defineProperties(ArrayPrototype, {
+    splice: function splice(start, deleteCount) {
+        if (arguments.length === 0) { return []; }
+        var args = arguments;
+        this.length = Math.max(ES.ToInteger(this.length), 0);
+        if (arguments.length > 0 && typeof deleteCount !== 'number') {
+            args = array_slice.call(arguments);
+            if (args.length < 2) {
+                args.push(this.length - start);
+            } else {
+                args[1] = ES.ToInteger(deleteCount);
+            }
+        }
+        return array_splice.apply(this, args);
+    }
+}, !spliceWorksWithEmptyObject);
+
+// ES5 15.4.4.12
+// http://es5.github.com/#x15.4.4.13
+// Return len+argCount.
+// [bugfix, ielt8]
+// IE < 8 bug: [].unshift(0) === undefined but should be "1"
+var hasUnshiftReturnValueBug = [].unshift(0) !== 1;
+defineProperties(ArrayPrototype, {
+    unshift: function () {
+        array_unshift.apply(this, arguments);
+        return this.length;
+    }
+}, hasUnshiftReturnValueBug);
+
+// ES5 15.4.3.2
+// http://es5.github.com/#x15.4.3.2
+// https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/isArray
+defineProperties(Array, { isArray: isArray });
+
+// The IsCallable() check in the Array functions
+// has been replaced with a strict check on the
+// internal class of the object to trap cases where
+// the provided function was actually a regular
+// expression literal, which in V8 and
+// JavaScriptCore is a typeof "function".  Only in
+// V8 are regular expression literals permitted as
+// reduce parameters, so it is desirable in the
+// general case for the shim to match the more
+// strict and common behavior of rejecting regular
+// expressions.
+
+// ES5 15.4.4.18
+// http://es5.github.com/#x15.4.4.18
+// https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/array/forEach
+
+// Check failure of by-index access of string characters (IE < 9)
+// and failure of `0 in boxedString` (Rhino)
+var boxedString = Object('a');
+var splitString = boxedString[0] !== 'a' || !(0 in boxedString);
+
+var properlyBoxesContext = function properlyBoxed(method) {
+    // Check node 0.6.21 bug where third parameter is not boxed
+    var properlyBoxesNonStrict = true;
+    var properlyBoxesStrict = true;
+    if (method) {
+        method.call('foo', function (_, __, context) {
+            if (typeof context !== 'object') { properlyBoxesNonStrict = false; }
+        });
+
+        method.call([1], function () {
+            'use strict';
+            properlyBoxesStrict = typeof this === 'string';
+        }, 'x');
+    }
+    return !!method && properlyBoxesNonStrict && properlyBoxesStrict;
+};
+
+defineProperties(ArrayPrototype, {
+    forEach: function forEach(fun /*, thisp*/) {
+        var object = ES.ToObject(this),
+            self = splitString && isString(this) ? this.split('') : object,
+            thisp = arguments[1],
+            i = -1,
+            length = self.length >>> 0;
+
+        // If no callback function or if callback is not a callable function
+        if (!isCallable(fun)) {
+            throw new TypeError(); // TODO message
+        }
+
+        while (++i < length) {
+            if (i in self) {
+                // Invoke the callback function with call, passing arguments:
+                // context, property value, property key, thisArg object
+                // context
+                fun.call(thisp, self[i], i, object);
+            }
+        }
+    }
+}, !properlyBoxesContext(ArrayPrototype.forEach));
+
+// ES5 15.4.4.19
+// http://es5.github.com/#x15.4.4.19
+// https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Objects/Array/map
+defineProperties(ArrayPrototype, {
+    map: function map(fun /*, thisp*/) {
+        var object = ES.ToObject(this),
+            self = splitString && isString(this) ? this.split('') : object,
+            length = self.length >>> 0,
+            result = Array(length),
+            thisp = arguments[1];
+
+        // If no callback function or if callback is not a callable function
+        if (!isCallable(fun)) {
+            throw new TypeError(fun + ' is not a function');
+        }
+
+        for (var i = 0; i < length; i++) {
+            if (i in self) {
+                result[i] = fun.call(thisp, self[i], i, object);
+            }
+        }
+        return result;
+    }
+}, !properlyBoxesContext(ArrayPrototype.map));
+
+// ES5 15.4.4.20
+// http://es5.github.com/#x15.4.4.20
+// https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Objects/Array/filter
+defineProperties(ArrayPrototype, {
+    filter: function filter(fun /*, thisp */) {
+        var object = ES.ToObject(this),
+            self = splitString && isString(this) ? this.split('') : object,
+            length = self.length >>> 0,
+            result = [],
+            value,
+            thisp = arguments[1];
+
+        // If no callback function or if callback is not a callable function
+        if (!isCallable(fun)) {
+            throw new TypeError(fun + ' is not a function');
+        }
+
+        for (var i = 0; i < length; i++) {
+            if (i in self) {
+                value = self[i];
+                if (fun.call(thisp, value, i, object)) {
+                    result.push(value);
+                }
+            }
+        }
+        return result;
+    }
+}, !properlyBoxesContext(ArrayPrototype.filter));
+
+// ES5 15.4.4.16
+// http://es5.github.com/#x15.4.4.16
+// https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/every
+defineProperties(ArrayPrototype, {
+    every: function every(fun /*, thisp */) {
+        var object = ES.ToObject(this),
+            self = splitString && isString(this) ? this.split('') : object,
+            length = self.length >>> 0,
+            thisp = arguments[1];
+
+        // If no callback function or if callback is not a callable function
+        if (!isCallable(fun)) {
+            throw new TypeError(fun + ' is not a function');
+        }
+
+        for (var i = 0; i < length; i++) {
+            if (i in self && !fun.call(thisp, self[i], i, object)) {
+                return false;
+            }
+        }
+        return true;
+    }
+}, !properlyBoxesContext(ArrayPrototype.every));
+
+// ES5 15.4.4.17
+// http://es5.github.com/#x15.4.4.17
+// https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/some
+defineProperties(ArrayPrototype, {
+    some: function some(fun /*, thisp */) {
+        var object = ES.ToObject(this),
+            self = splitString && isString(this) ? this.split('') : object,
+            length = self.length >>> 0,
+            thisp = arguments[1];
+
+        // If no callback function or if callback is not a callable function
+        if (!isCallable(fun)) {
+            throw new TypeError(fun + ' is not a function');
+        }
+
+        for (var i = 0; i < length; i++) {
+            if (i in self && fun.call(thisp, self[i], i, object)) {
+                return true;
+            }
+        }
+        return false;
+    }
+}, !properlyBoxesContext(ArrayPrototype.some));
+
+// ES5 15.4.4.21
+// http://es5.github.com/#x15.4.4.21
+// https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Objects/Array/reduce
+var reduceCoercesToObject = false;
+if (ArrayPrototype.reduce) {
+    reduceCoercesToObject = typeof ArrayPrototype.reduce.call('es5', function (_, __, ___, list) { return list; }) === 'object';
+}
+defineProperties(ArrayPrototype, {
+    reduce: function reduce(fun /*, initial*/) {
+        var object = ES.ToObject(this),
+            self = splitString && isString(this) ? this.split('') : object,
+            length = self.length >>> 0;
+
+        // If no callback function or if callback is not a callable function
+        if (!isCallable(fun)) {
+            throw new TypeError(fun + ' is not a function');
+        }
+
+        // no value to return if no initial value and an empty array
+        if (!length && arguments.length === 1) {
+            throw new TypeError('reduce of empty array with no initial value');
+        }
+
+        var i = 0;
+        var result;
+        if (arguments.length >= 2) {
+            result = arguments[1];
+        } else {
+            do {
+                if (i in self) {
+                    result = self[i++];
+                    break;
+                }
+
+                // if array contains no values, no initial value to return
+                if (++i >= length) {
+                    throw new TypeError('reduce of empty array with no initial value');
+                }
+            } while (true);
+        }
+
+        for (; i < length; i++) {
+            if (i in self) {
+                result = fun.call(void 0, result, self[i], i, object);
+            }
+        }
+
+        return result;
+    }
+}, !reduceCoercesToObject);
+
+// ES5 15.4.4.22
+// http://es5.github.com/#x15.4.4.22
+// https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Objects/Array/reduceRight
+var reduceRightCoercesToObject = false;
+if (ArrayPrototype.reduceRight) {
+    reduceRightCoercesToObject = typeof ArrayPrototype.reduceRight.call('es5', function (_, __, ___, list) { return list; }) === 'object';
+}
+defineProperties(ArrayPrototype, {
+    reduceRight: function reduceRight(fun /*, initial*/) {
+        var object = ES.ToObject(this),
+            self = splitString && isString(this) ? this.split('') : object,
+            length = self.length >>> 0;
+
+        // If no callback function or if callback is not a callable function
+        if (!isCallable(fun)) {
+            throw new TypeError(fun + ' is not a function');
+        }
+
+        // no value to return if no initial value, empty array
+        if (!length && arguments.length === 1) {
+            throw new TypeError('reduceRight of empty array with no initial value');
+        }
+
+        var result, i = length - 1;
+        if (arguments.length >= 2) {
+            result = arguments[1];
+        } else {
+            do {
+                if (i in self) {
+                    result = self[i--];
+                    break;
+                }
+
+                // if array contains no values, no initial value to return
+                if (--i < 0) {
+                    throw new TypeError('reduceRight of empty array with no initial value');
+                }
+            } while (true);
+        }
+
+        if (i < 0) {
+            return result;
+        }
+
+        do {
+            if (i in self) {
+                result = fun.call(void 0, result, self[i], i, object);
+            }
+        } while (i--);
+
+        return result;
+    }
+}, !reduceRightCoercesToObject);
+
+// ES5 15.4.4.14
+// http://es5.github.com/#x15.4.4.14
+// https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/indexOf
+var hasFirefox2IndexOfBug = Array.prototype.indexOf && [0, 1].indexOf(1, 2) !== -1;
+defineProperties(ArrayPrototype, {
+    indexOf: function indexOf(sought /*, fromIndex */) {
+        var self = splitString && isString(this) ? this.split('') : ES.ToObject(this),
+            length = self.length >>> 0;
+
+        if (!length) {
+            return -1;
+        }
+
+        var i = 0;
+        if (arguments.length > 1) {
+            i = ES.ToInteger(arguments[1]);
+        }
+
+        // handle negative indices
+        i = i >= 0 ? i : Math.max(0, length + i);
+        for (; i < length; i++) {
+            if (i in self && self[i] === sought) {
+                return i;
+            }
+        }
+        return -1;
+    }
+}, hasFirefox2IndexOfBug);
+
+// ES5 15.4.4.15
+// http://es5.github.com/#x15.4.4.15
+// https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/lastIndexOf
+var hasFirefox2LastIndexOfBug = Array.prototype.lastIndexOf && [0, 1].lastIndexOf(0, -3) !== -1;
+defineProperties(ArrayPrototype, {
+    lastIndexOf: function lastIndexOf(sought /*, fromIndex */) {
+        var self = splitString && isString(this) ? this.split('') : ES.ToObject(this),
+            length = self.length >>> 0;
+
+        if (!length) {
+            return -1;
+        }
+        var i = length - 1;
+        if (arguments.length > 1) {
+            i = Math.min(i, ES.ToInteger(arguments[1]));
+        }
+        // handle negative indices
+        i = i >= 0 ? i : length - Math.abs(i);
+        for (; i >= 0; i--) {
+            if (i in self && sought === self[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+}, hasFirefox2LastIndexOfBug);
+
+//
+// Object
+// ======
+//
+
+// ES5 15.2.3.14
+// http://es5.github.com/#x15.2.3.14
+
+// http://whattheheadsaid.com/2010/10/a-safer-object-keys-compatibility-implementation
+var hasDontEnumBug = !({'toString': null}).propertyIsEnumerable('toString'),
+    hasProtoEnumBug = function () {}.propertyIsEnumerable('prototype'),
+    hasStringEnumBug = !owns('x', '0'),
+    dontEnums = [
+        'toString',
+        'toLocaleString',
+        'valueOf',
+        'hasOwnProperty',
+        'isPrototypeOf',
+        'propertyIsEnumerable',
+        'constructor'
+    ],
+    dontEnumsLength = dontEnums.length;
+
+defineProperties(Object, {
+    keys: function keys(object) {
+        var isFn = isCallable(object),
+            isArgs = isArguments(object),
+            isObject = object !== null && typeof object === 'object',
+            isStr = isObject && isString(object);
+
+        if (!isObject && !isFn && !isArgs) {
+            throw new TypeError('Object.keys called on a non-object');
+        }
+
+        var theKeys = [];
+        var skipProto = hasProtoEnumBug && isFn;
+        if ((isStr && hasStringEnumBug) || isArgs) {
+            for (var i = 0; i < object.length; ++i) {
+                theKeys.push(String(i));
+            }
+        }
+
+        if (!isArgs) {
+            for (var name in object) {
+                if (!(skipProto && name === 'prototype') && owns(object, name)) {
+                    theKeys.push(String(name));
+                }
+            }
+        }
+
+        if (hasDontEnumBug) {
+            var ctor = object.constructor,
+                skipConstructor = ctor && ctor.prototype === object;
+            for (var j = 0; j < dontEnumsLength; j++) {
+                var dontEnum = dontEnums[j];
+                if (!(skipConstructor && dontEnum === 'constructor') && owns(object, dontEnum)) {
+                    theKeys.push(dontEnum);
+                }
+            }
+        }
+        return theKeys;
+    }
+});
+
+var keysWorksWithArguments = Object.keys && (function () {
+    // Safari 5.0 bug
+    return Object.keys(arguments).length === 2;
+}(1, 2));
+var originalKeys = Object.keys;
+defineProperties(Object, {
+    keys: function keys(object) {
+        if (isArguments(object)) {
+            return originalKeys(ArrayPrototype.slice.call(object));
+        } else {
+            return originalKeys(object);
+        }
+    }
+}, !keysWorksWithArguments);
+
+//
+// Date
+// ====
+//
+
+// ES5 15.9.5.43
+// http://es5.github.com/#x15.9.5.43
+// This function returns a String value represent the instance in time
+// represented by this Date object. The format of the String is the Date Time
+// string format defined in 15.9.1.15. All fields are present in the String.
+// The time zone is always UTC, denoted by the suffix Z. If the time value of
+// this object is not a finite Number a RangeError exception is thrown.
+var negativeDate = -62198755200000;
+var negativeYearString = '-000001';
+var hasNegativeDateBug = Date.prototype.toISOString && new Date(negativeDate).toISOString().indexOf(negativeYearString) === -1;
+
+defineProperties(Date.prototype, {
+    toISOString: function toISOString() {
+        var result, length, value, year, month;
+        if (!isFinite(this)) {
+            throw new RangeError('Date.prototype.toISOString called on non-finite value.');
+        }
+
+        year = this.getUTCFullYear();
+
+        month = this.getUTCMonth();
+        // see https://github.com/es-shims/es5-shim/issues/111
+        year += Math.floor(month / 12);
+        month = (month % 12 + 12) % 12;
+
+        // the date time string format is specified in 15.9.1.15.
+        result = [month + 1, this.getUTCDate(), this.getUTCHours(), this.getUTCMinutes(), this.getUTCSeconds()];
+        year = (
+            (year < 0 ? '-' : (year > 9999 ? '+' : '')) +
+            ('00000' + Math.abs(year)).slice((0 <= year && year <= 9999) ? -4 : -6)
+        );
+
+        length = result.length;
+        while (length--) {
+            value = result[length];
+            // pad months, days, hours, minutes, and seconds to have two
+            // digits.
+            if (value < 10) {
+                result[length] = '0' + value;
+            }
+        }
+        // pad milliseconds to have three digits.
+        return (
+            year + '-' + result.slice(0, 2).join('-') +
+            'T' + result.slice(2).join(':') + '.' +
+            ('000' + this.getUTCMilliseconds()).slice(-3) + 'Z'
+        );
+    }
+}, hasNegativeDateBug);
+
+// ES5 15.9.5.44
+// http://es5.github.com/#x15.9.5.44
+// This function provides a String representation of a Date object for use by
+// JSON.stringify (15.12.3).
+var dateToJSONIsSupported = (function () {
+    try {
+        return Date.prototype.toJSON &&
+            new Date(NaN).toJSON() === null &&
+            new Date(negativeDate).toJSON().indexOf(negativeYearString) !== -1 &&
+            Date.prototype.toJSON.call({ // generic
+                toISOString: function () { return true; }
+            });
+    } catch (e) {
+        return false;
+    }
+}());
+if (!dateToJSONIsSupported) {
+    Date.prototype.toJSON = function toJSON(key) {
+        // When the toJSON method is called with argument key, the following
+        // steps are taken:
+
+        // 1.  Let O be the result of calling ToObject, giving it the this
+        // value as its argument.
+        // 2. Let tv be ES.ToPrimitive(O, hint Number).
+        var O = Object(this);
+        var tv = ES.ToPrimitive(O);
+        // 3. If tv is a Number and is not finite, return null.
+        if (typeof tv === 'number' && !isFinite(tv)) {
+            return null;
+        }
+        // 4. Let toISO be the result of calling the [[Get]] internal method of
+        // O with argument "toISOString".
+        var toISO = O.toISOString;
+        // 5. If IsCallable(toISO) is false, throw a TypeError exception.
+        if (!isCallable(toISO)) {
+            throw new TypeError('toISOString property is not callable');
+        }
+        // 6. Return the result of calling the [[Call]] internal method of
+        //  toISO with O as the this value and an empty argument list.
+        return toISO.call(O);
+
+        // NOTE 1 The argument is ignored.
+
+        // NOTE 2 The toJSON function is intentionally generic; it does not
+        // require that its this value be a Date object. Therefore, it can be
+        // transferred to other kinds of objects for use as a method. However,
+        // it does require that any such object have a toISOString method. An
+        // object is free to use the argument key to filter its
+        // stringification.
+    };
+}
+
+// ES5 15.9.4.2
+// http://es5.github.com/#x15.9.4.2
+// based on work shared by Daniel Friesen (dantman)
+// http://gist.github.com/303249
+var supportsExtendedYears = Date.parse('+033658-09-27T01:46:40.000Z') === 1e15;
+var acceptsInvalidDates = !isNaN(Date.parse('2012-04-04T24:00:00.500Z')) || !isNaN(Date.parse('2012-11-31T23:59:59.000Z'));
+var doesNotParseY2KNewYear = isNaN(Date.parse('2000-01-01T00:00:00.000Z'));
+if (!Date.parse || doesNotParseY2KNewYear || acceptsInvalidDates || !supportsExtendedYears) {
+    // XXX global assignment won't work in embeddings that use
+    // an alternate object for the context.
+    /*global Date: true */
+    /*eslint-disable no-undef*/
+    Date = (function (NativeDate) {
+    /*eslint-enable no-undef*/
+        // Date.length === 7
+        function Date(Y, M, D, h, m, s, ms) {
+            var length = arguments.length;
+            if (this instanceof NativeDate) {
+                var date = length === 1 && String(Y) === Y ? // isString(Y)
+                    // We explicitly pass it through parse:
+                    new NativeDate(Date.parse(Y)) :
+                    // We have to manually make calls depending on argument
+                    // length here
+                    length >= 7 ? new NativeDate(Y, M, D, h, m, s, ms) :
+                    length >= 6 ? new NativeDate(Y, M, D, h, m, s) :
+                    length >= 5 ? new NativeDate(Y, M, D, h, m) :
+                    length >= 4 ? new NativeDate(Y, M, D, h) :
+                    length >= 3 ? new NativeDate(Y, M, D) :
+                    length >= 2 ? new NativeDate(Y, M) :
+                    length >= 1 ? new NativeDate(Y) :
+                                  new NativeDate();
+                // Prevent mixups with unfixed Date object
+                defineProperties(date, { constructor: Date }, true);
+                return date;
+            }
+            return NativeDate.apply(this, arguments);
+        }
+
+        // 15.9.1.15 Date Time String Format.
+        var isoDateExpression = new RegExp('^' +
+            '(\\d{4}|[+-]\\d{6})' + // four-digit year capture or sign +
+                                      // 6-digit extended year
+            '(?:-(\\d{2})' + // optional month capture
+            '(?:-(\\d{2})' + // optional day capture
+            '(?:' + // capture hours:minutes:seconds.milliseconds
+                'T(\\d{2})' + // hours capture
+                ':(\\d{2})' + // minutes capture
+                '(?:' + // optional :seconds.milliseconds
+                    ':(\\d{2})' + // seconds capture
+                    '(?:(\\.\\d{1,}))?' + // milliseconds capture
+                ')?' +
+            '(' + // capture UTC offset component
+                'Z|' + // UTC capture
+                '(?:' + // offset specifier +/-hours:minutes
+                    '([-+])' + // sign capture
+                    '(\\d{2})' + // hours offset capture
+                    ':(\\d{2})' + // minutes offset capture
+                ')' +
+            ')?)?)?)?' +
+        '$');
+
+        var months = [
+            0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365
+        ];
+
+        function dayFromMonth(year, month) {
+            var t = month > 1 ? 1 : 0;
+            return (
+                months[month] +
+                Math.floor((year - 1969 + t) / 4) -
+                Math.floor((year - 1901 + t) / 100) +
+                Math.floor((year - 1601 + t) / 400) +
+                365 * (year - 1970)
+            );
+        }
+
+        function toUTC(t) {
+            return Number(new NativeDate(1970, 0, 1, 0, 0, 0, t));
+        }
+
+        // Copy any custom methods a 3rd party library may have added
+        for (var key in NativeDate) {
+            Date[key] = NativeDate[key];
+        }
+
+        // Copy "native" methods explicitly; they may be non-enumerable
+        Date.now = NativeDate.now;
+        Date.UTC = NativeDate.UTC;
+        Date.prototype = NativeDate.prototype;
+        Date.prototype.constructor = Date;
+
+        // Upgrade Date.parse to handle simplified ISO 8601 strings
+        Date.parse = function parse(string) {
+            var match = isoDateExpression.exec(string);
+            if (match) {
+                // parse months, days, hours, minutes, seconds, and milliseconds
+                // provide default values if necessary
+                // parse the UTC offset component
+                var year = Number(match[1]),
+                    month = Number(match[2] || 1) - 1,
+                    day = Number(match[3] || 1) - 1,
+                    hour = Number(match[4] || 0),
+                    minute = Number(match[5] || 0),
+                    second = Number(match[6] || 0),
+                    millisecond = Math.floor(Number(match[7] || 0) * 1000),
+                    // When time zone is missed, local offset should be used
+                    // (ES 5.1 bug)
+                    // see https://bugs.ecmascript.org/show_bug.cgi?id=112
+                    isLocalTime = Boolean(match[4] && !match[8]),
+                    signOffset = match[9] === '-' ? 1 : -1,
+                    hourOffset = Number(match[10] || 0),
+                    minuteOffset = Number(match[11] || 0),
+                    result;
+                if (
+                    hour < (
+                        minute > 0 || second > 0 || millisecond > 0 ?
+                        24 : 25
+                    ) &&
+                    minute < 60 && second < 60 && millisecond < 1000 &&
+                    month > -1 && month < 12 && hourOffset < 24 &&
+                    minuteOffset < 60 && // detect invalid offsets
+                    day > -1 &&
+                    day < (
+                        dayFromMonth(year, month + 1) -
+                        dayFromMonth(year, month)
+                    )
+                ) {
+                    result = (
+                        (dayFromMonth(year, month) + day) * 24 +
+                        hour +
+                        hourOffset * signOffset
+                    ) * 60;
+                    result = (
+                        (result + minute + minuteOffset * signOffset) * 60 +
+                        second
+                    ) * 1000 + millisecond;
+                    if (isLocalTime) {
+                        result = toUTC(result);
+                    }
+                    if (-8.64e15 <= result && result <= 8.64e15) {
+                        return result;
+                    }
+                }
+                return NaN;
+            }
+            return NativeDate.parse.apply(this, arguments);
+        };
+
+        return Date;
+    }(Date));
+    /*global Date: false */
+}
+
+// ES5 15.9.4.4
+// http://es5.github.com/#x15.9.4.4
+if (!Date.now) {
+    Date.now = function now() {
+        return new Date().getTime();
+    };
+}
+
+//
+// Number
+// ======
+//
+
+// ES5.1 15.7.4.5
+// http://es5.github.com/#x15.7.4.5
+var hasToFixedBugs = NumberPrototype.toFixed && (
+  (0.00008).toFixed(3) !== '0.000' ||
+  (0.9).toFixed(0) !== '1' ||
+  (1.255).toFixed(2) !== '1.25' ||
+  (1000000000000000128).toFixed(0) !== '1000000000000000128'
+);
+
+var toFixedHelpers = {
+  base: 1e7,
+  size: 6,
+  data: [0, 0, 0, 0, 0, 0],
+  multiply: function multiply(n, c) {
+      var i = -1;
+      var c2 = c;
+      while (++i < toFixedHelpers.size) {
+          c2 += n * toFixedHelpers.data[i];
+          toFixedHelpers.data[i] = c2 % toFixedHelpers.base;
+          c2 = Math.floor(c2 / toFixedHelpers.base);
+      }
+  },
+  divide: function divide(n) {
+      var i = toFixedHelpers.size, c = 0;
+      while (--i >= 0) {
+          c += toFixedHelpers.data[i];
+          toFixedHelpers.data[i] = Math.floor(c / n);
+          c = (c % n) * toFixedHelpers.base;
+      }
+  },
+  numToString: function numToString() {
+      var i = toFixedHelpers.size;
+      var s = '';
+      while (--i >= 0) {
+          if (s !== '' || i === 0 || toFixedHelpers.data[i] !== 0) {
+              var t = String(toFixedHelpers.data[i]);
+              if (s === '') {
+                  s = t;
+              } else {
+                  s += '0000000'.slice(0, 7 - t.length) + t;
+              }
+          }
+      }
+      return s;
+  },
+  pow: function pow(x, n, acc) {
+      return (n === 0 ? acc : (n % 2 === 1 ? pow(x, n - 1, acc * x) : pow(x * x, n / 2, acc)));
+  },
+  log: function log(x) {
+      var n = 0;
+      var x2 = x;
+      while (x2 >= 4096) {
+          n += 12;
+          x2 /= 4096;
+      }
+      while (x2 >= 2) {
+          n += 1;
+          x2 /= 2;
+      }
+      return n;
+  }
+};
+
+defineProperties(NumberPrototype, {
+    toFixed: function toFixed(fractionDigits) {
+        var f, x, s, m, e, z, j, k;
+
+        // Test for NaN and round fractionDigits down
+        f = Number(fractionDigits);
+        f = f !== f ? 0 : Math.floor(f);
+
+        if (f < 0 || f > 20) {
+            throw new RangeError('Number.toFixed called with invalid number of decimals');
+        }
+
+        x = Number(this);
+
+        // Test for NaN
+        if (x !== x) {
+            return 'NaN';
+        }
+
+        // If it is too big or small, return the string value of the number
+        if (x <= -1e21 || x >= 1e21) {
+            return String(x);
+        }
+
+        s = '';
+
+        if (x < 0) {
+            s = '-';
+            x = -x;
+        }
+
+        m = '0';
+
+        if (x > 1e-21) {
+            // 1e-21 < x < 1e21
+            // -70 < log2(x) < 70
+            e = toFixedHelpers.log(x * toFixedHelpers.pow(2, 69, 1)) - 69;
+            z = (e < 0 ? x * toFixedHelpers.pow(2, -e, 1) : x / toFixedHelpers.pow(2, e, 1));
+            z *= 0x10000000000000; // Math.pow(2, 52);
+            e = 52 - e;
+
+            // -18 < e < 122
+            // x = z / 2 ^ e
+            if (e > 0) {
+                toFixedHelpers.multiply(0, z);
+                j = f;
+
+                while (j >= 7) {
+                    toFixedHelpers.multiply(1e7, 0);
+                    j -= 7;
+                }
+
+                toFixedHelpers.multiply(toFixedHelpers.pow(10, j, 1), 0);
+                j = e - 1;
+
+                while (j >= 23) {
+                    toFixedHelpers.divide(1 << 23);
+                    j -= 23;
+                }
+
+                toFixedHelpers.divide(1 << j);
+                toFixedHelpers.multiply(1, 1);
+                toFixedHelpers.divide(2);
+                m = toFixedHelpers.numToString();
+            } else {
+                toFixedHelpers.multiply(0, z);
+                toFixedHelpers.multiply(1 << (-e), 0);
+                m = toFixedHelpers.numToString() + '0.00000000000000000000'.slice(2, 2 + f);
+            }
+        }
+
+        if (f > 0) {
+            k = m.length;
+
+            if (k <= f) {
+                m = s + '0.0000000000000000000'.slice(0, f - k + 2) + m;
+            } else {
+                m = s + m.slice(0, k - f) + '.' + m.slice(k - f);
+            }
+        } else {
+            m = s + m;
+        }
+
+        return m;
+    }
+}, hasToFixedBugs);
+
+//
+// String
+// ======
+//
+
+// ES5 15.5.4.14
+// http://es5.github.com/#x15.5.4.14
+
+// [bugfix, IE lt 9, firefox 4, Konqueror, Opera, obscure browsers]
+// Many browsers do not split properly with regular expressions or they
+// do not perform the split correctly under obscure conditions.
+// See http://blog.stevenlevithan.com/archives/cross-browser-split
+// I've tested in many browsers and this seems to cover the deviant ones:
+//    'ab'.split(/(?:ab)*/) should be ["", ""], not [""]
+//    '.'.split(/(.?)(.?)/) should be ["", ".", "", ""], not ["", ""]
+//    'tesst'.split(/(s)*/) should be ["t", undefined, "e", "s", "t"], not
+//       [undefined, "t", undefined, "e", ...]
+//    ''.split(/.?/) should be [], not [""]
+//    '.'.split(/()()/) should be ["."], not ["", "", "."]
+
+var string_split = StringPrototype.split;
+if (
+    'ab'.split(/(?:ab)*/).length !== 2 ||
+    '.'.split(/(.?)(.?)/).length !== 4 ||
+    'tesst'.split(/(s)*/)[1] === 't' ||
+    'test'.split(/(?:)/, -1).length !== 4 ||
+    ''.split(/.?/).length ||
+    '.'.split(/()()/).length > 1
+) {
+    (function () {
+        var compliantExecNpcg = typeof (/()??/).exec('')[1] === 'undefined'; // NPCG: nonparticipating capturing group
+
+        StringPrototype.split = function (separator, limit) {
+            var string = this;
+            if (typeof separator === 'undefined' && limit === 0) {
+                return [];
+            }
+
+            // If `separator` is not a regex, use native split
+            if (!isRegex(separator)) {
+                return string_split.call(this, separator, limit);
+            }
+
+            var output = [];
+            var flags = (separator.ignoreCase ? 'i' : '') +
+                        (separator.multiline ? 'm' : '') +
+                        (separator.extended ? 'x' : '') + // Proposed for ES6
+                        (separator.sticky ? 'y' : ''), // Firefox 3+
+                lastLastIndex = 0,
+                // Make `global` and avoid `lastIndex` issues by working with a copy
+                separator2, match, lastIndex, lastLength;
+            var separatorCopy = new RegExp(separator.source, flags + 'g');
+            string += ''; // Type-convert
+            if (!compliantExecNpcg) {
+                // Doesn't need flags gy, but they don't hurt
+                separator2 = new RegExp('^' + separatorCopy.source + '$(?!\\s)', flags);
+            }
+            /* Values for `limit`, per the spec:
+             * If undefined: 4294967295 // Math.pow(2, 32) - 1
+             * If 0, Infinity, or NaN: 0
+             * If positive number: limit = Math.floor(limit); if (limit > 4294967295) limit -= 4294967296;
+             * If negative number: 4294967296 - Math.floor(Math.abs(limit))
+             * If other: Type-convert, then use the above rules
+             */
+            var splitLimit = typeof limit === 'undefined' ?
+                -1 >>> 0 : // Math.pow(2, 32) - 1
+                ES.ToUint32(limit);
+            match = separatorCopy.exec(string);
+            while (match) {
+                // `separatorCopy.lastIndex` is not reliable cross-browser
+                lastIndex = match.index + match[0].length;
+                if (lastIndex > lastLastIndex) {
+                    output.push(string.slice(lastLastIndex, match.index));
+                    // Fix browsers whose `exec` methods don't consistently return `undefined` for
+                    // nonparticipating capturing groups
+                    if (!compliantExecNpcg && match.length > 1) {
+                        /*eslint-disable no-loop-func */
+                        match[0].replace(separator2, function () {
+                            for (var i = 1; i < arguments.length - 2; i++) {
+                                if (typeof arguments[i] === 'undefined') {
+                                    match[i] = void 0;
+                                }
+                            }
+                        });
+                        /*eslint-enable no-loop-func */
+                    }
+                    if (match.length > 1 && match.index < string.length) {
+                        array_push.apply(output, match.slice(1));
+                    }
+                    lastLength = match[0].length;
+                    lastLastIndex = lastIndex;
+                    if (output.length >= splitLimit) {
+                        break;
+                    }
+                }
+                if (separatorCopy.lastIndex === match.index) {
+                    separatorCopy.lastIndex++; // Avoid an infinite loop
+                }
+                match = separatorCopy.exec(string);
+            }
+            if (lastLastIndex === string.length) {
+                if (lastLength || !separatorCopy.test('')) {
+                    output.push('');
+                }
+            } else {
+                output.push(string.slice(lastLastIndex));
+            }
+            return output.length > splitLimit ? output.slice(0, splitLimit) : output;
+        };
+    }());
+
+// [bugfix, chrome]
+// If separator is undefined, then the result array contains just one String,
+// which is the this value (converted to a String). If limit is not undefined,
+// then the output array is truncated so that it contains no more than limit
+// elements.
+// "0".split(undefined, 0) -> []
+} else if ('0'.split(void 0, 0).length) {
+    StringPrototype.split = function split(separator, limit) {
+        if (typeof separator === 'undefined' && limit === 0) { return []; }
+        return string_split.call(this, separator, limit);
+    };
+}
+
+var str_replace = StringPrototype.replace;
+var replaceReportsGroupsCorrectly = (function () {
+    var groups = [];
+    'x'.replace(/x(.)?/g, function (match, group) {
+        groups.push(group);
+    });
+    return groups.length === 1 && typeof groups[0] === 'undefined';
+}());
+
+if (!replaceReportsGroupsCorrectly) {
+    StringPrototype.replace = function replace(searchValue, replaceValue) {
+        var isFn = isCallable(replaceValue);
+        var hasCapturingGroups = isRegex(searchValue) && (/\)[*?]/).test(searchValue.source);
+        if (!isFn || !hasCapturingGroups) {
+            return str_replace.call(this, searchValue, replaceValue);
+        } else {
+            var wrappedReplaceValue = function (match) {
+                var length = arguments.length;
+                var originalLastIndex = searchValue.lastIndex;
+                searchValue.lastIndex = 0;
+                var args = searchValue.exec(match) || [];
+                searchValue.lastIndex = originalLastIndex;
+                args.push(arguments[length - 2], arguments[length - 1]);
+                return replaceValue.apply(this, args);
+            };
+            return str_replace.call(this, searchValue, wrappedReplaceValue);
+        }
+    };
+}
+
+// ECMA-262, 3rd B.2.3
+// Not an ECMAScript standard, although ECMAScript 3rd Edition has a
+// non-normative section suggesting uniform semantics and it should be
+// normalized across all browsers
+// [bugfix, IE lt 9] IE < 9 substr() with negative value not working in IE
+var string_substr = StringPrototype.substr;
+var hasNegativeSubstrBug = ''.substr && '0b'.substr(-1) !== 'b';
+defineProperties(StringPrototype, {
+    substr: function substr(start, length) {
+        var normalizedStart = start;
+        if (start < 0) {
+            normalizedStart = Math.max(this.length + start, 0);
+        }
+        return string_substr.call(this, normalizedStart, length);
+    }
+}, hasNegativeSubstrBug);
+
+// ES5 15.5.4.20
+// whitespace from: http://es5.github.io/#x15.5.4.20
+var ws = '\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u2003' +
+    '\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028' +
+    '\u2029\uFEFF';
+var zeroWidth = '\u200b';
+var wsRegexChars = '[' + ws + ']';
+var trimBeginRegexp = new RegExp('^' + wsRegexChars + wsRegexChars + '*');
+var trimEndRegexp = new RegExp(wsRegexChars + wsRegexChars + '*$');
+var hasTrimWhitespaceBug = StringPrototype.trim && (ws.trim() || !zeroWidth.trim());
+defineProperties(StringPrototype, {
+    // http://blog.stevenlevithan.com/archives/faster-trim-javascript
+    // http://perfectionkills.com/whitespace-deviations/
+    trim: function trim() {
+        if (typeof this === 'undefined' || this === null) {
+            throw new TypeError("can't convert " + this + ' to object');
+        }
+        return String(this).replace(trimBeginRegexp, '').replace(trimEndRegexp, '');
+    }
+}, hasTrimWhitespaceBug);
+
+// ES-5 15.1.2.2
+if (parseInt(ws + '08') !== 8 || parseInt(ws + '0x16') !== 22) {
+    /*global parseInt: true */
+    parseInt = (function (origParseInt) {
+        var hexRegex = /^0[xX]/;
+        return function parseInt(str, radix) {
+            var string = String(str).trim();
+            var defaultedRadix = Number(radix) || (hexRegex.test(string) ? 16 : 10);
+            return origParseInt(string, defaultedRadix);
+        };
+    }(parseInt));
+}
+
+}));
+;/*!
+ * https://github.com/es-shims/es5-shim
+ * @license es5-shim Copyright 2009-2015 by contributors, MIT License
+ * see https://github.com/es-shims/es5-shim/blob/master/LICENSE
+ */
+
+// vim: ts=4 sts=4 sw=4 expandtab
+
+//Add semicolon to prevent IIFE from being passed as argument to concated code.
+;
+
+// UMD (Universal Module Definition)
+// see https://github.com/umdjs/umd/blob/master/returnExports.js
+(function (root, factory) {
+    'use strict';
+    /*global define, exports, module */
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(factory);
+    } else if (typeof exports === 'object') {
+        // Node. Does not work with strict CommonJS, but
+        // only CommonJS-like enviroments that support module.exports,
+        // like Node.
+        module.exports = factory();
+    } else {
+        // Browser globals (root is window)
+        root.returnExports = factory();
+  }
+}(this, function () {
+
+var call = Function.prototype.call;
+var prototypeOfObject = Object.prototype;
+var owns = call.bind(prototypeOfObject.hasOwnProperty);
+
+// If JS engine supports accessors creating shortcuts.
+var defineGetter;
+var defineSetter;
+var lookupGetter;
+var lookupSetter;
+var supportsAccessors = owns(prototypeOfObject, '__defineGetter__');
+if (supportsAccessors) {
+    /*eslint-disable no-underscore-dangle */
+    defineGetter = call.bind(prototypeOfObject.__defineGetter__);
+    defineSetter = call.bind(prototypeOfObject.__defineSetter__);
+    lookupGetter = call.bind(prototypeOfObject.__lookupGetter__);
+    lookupSetter = call.bind(prototypeOfObject.__lookupSetter__);
+    /*eslint-enable no-underscore-dangle */
+}
+
+// ES5 15.2.3.2
+// http://es5.github.com/#x15.2.3.2
+if (!Object.getPrototypeOf) {
+    // https://github.com/es-shims/es5-shim/issues#issue/2
+    // http://ejohn.org/blog/objectgetprototypeof/
+    // recommended by fschaefer on github
+    //
+    // sure, and webreflection says ^_^
+    // ... this will nerever possibly return null
+    // ... Opera Mini breaks here with infinite loops
+    Object.getPrototypeOf = function getPrototypeOf(object) {
+        /*eslint-disable no-proto */
+        var proto = object.__proto__;
+        /*eslint-enable no-proto */
+        if (proto || proto === null) {
+            return proto;
+        } else if (object.constructor) {
+            return object.constructor.prototype;
+        } else {
+            return prototypeOfObject;
+        }
+    };
+}
+
+//ES5 15.2.3.3
+//http://es5.github.com/#x15.2.3.3
+
+function doesGetOwnPropertyDescriptorWork(object) {
+    try {
+        object.sentinel = 0;
+        return Object.getOwnPropertyDescriptor(object, 'sentinel').value === 0;
+    } catch (exception) {
+        return false;
+    }
+}
+
+//check whether getOwnPropertyDescriptor works if it's given. Otherwise,
+//shim partially.
+if (Object.defineProperty) {
+    var getOwnPropertyDescriptorWorksOnObject = doesGetOwnPropertyDescriptorWork({});
+    var getOwnPropertyDescriptorWorksOnDom = typeof document === 'undefined' ||
+    doesGetOwnPropertyDescriptorWork(document.createElement('div'));
+    if (!getOwnPropertyDescriptorWorksOnDom || !getOwnPropertyDescriptorWorksOnObject) {
+        var getOwnPropertyDescriptorFallback = Object.getOwnPropertyDescriptor;
+    }
+}
+
+if (!Object.getOwnPropertyDescriptor || getOwnPropertyDescriptorFallback) {
+    var ERR_NON_OBJECT = 'Object.getOwnPropertyDescriptor called on a non-object: ';
+
+    /*eslint-disable no-proto */
+    Object.getOwnPropertyDescriptor = function getOwnPropertyDescriptor(object, property) {
+        if ((typeof object !== 'object' && typeof object !== 'function') || object === null) {
+            throw new TypeError(ERR_NON_OBJECT + object);
+        }
+
+        // make a valiant attempt to use the real getOwnPropertyDescriptor
+        // for I8's DOM elements.
+        if (getOwnPropertyDescriptorFallback) {
+            try {
+                return getOwnPropertyDescriptorFallback.call(Object, object, property);
+            } catch (exception) {
+                // try the shim if the real one doesn't work
+            }
+        }
+
+        var descriptor;
+
+        // If object does not owns property return undefined immediately.
+        if (!owns(object, property)) {
+            return descriptor;
+        }
+
+        // If object has a property then it's for sure both `enumerable` and
+        // `configurable`.
+        descriptor = { enumerable: true, configurable: true };
+
+        // If JS engine supports accessor properties then property may be a
+        // getter or setter.
+        if (supportsAccessors) {
+            // Unfortunately `__lookupGetter__` will return a getter even
+            // if object has own non getter property along with a same named
+            // inherited getter. To avoid misbehavior we temporary remove
+            // `__proto__` so that `__lookupGetter__` will return getter only
+            // if it's owned by an object.
+            var prototype = object.__proto__;
+            var notPrototypeOfObject = object !== prototypeOfObject;
+            // avoid recursion problem, breaking in Opera Mini when
+            // Object.getOwnPropertyDescriptor(Object.prototype, 'toString')
+            // or any other Object.prototype accessor
+            if (notPrototypeOfObject) {
+                object.__proto__ = prototypeOfObject;
+            }
+
+            var getter = lookupGetter(object, property);
+            var setter = lookupSetter(object, property);
+
+            if (notPrototypeOfObject) {
+                // Once we have getter and setter we can put values back.
+                object.__proto__ = prototype;
+            }
+
+            if (getter || setter) {
+                if (getter) {
+                    descriptor.get = getter;
+                }
+                if (setter) {
+                    descriptor.set = setter;
+                }
+                // If it was accessor property we're done and return here
+                // in order to avoid adding `value` to the descriptor.
+                return descriptor;
+            }
+        }
+
+        // If we got this far we know that object has an own property that is
+        // not an accessor so we set it as a value and return descriptor.
+        descriptor.value = object[property];
+        descriptor.writable = true;
+        return descriptor;
+    };
+    /*eslint-enable no-proto */
+}
+
+// ES5 15.2.3.4
+// http://es5.github.com/#x15.2.3.4
+if (!Object.getOwnPropertyNames) {
+    Object.getOwnPropertyNames = function getOwnPropertyNames(object) {
+        return Object.keys(object);
+    };
+}
+
+// ES5 15.2.3.5
+// http://es5.github.com/#x15.2.3.5
+if (!Object.create) {
+
+    // Contributed by Brandon Benvie, October, 2012
+    var createEmpty;
+    var supportsProto = !({ __proto__: null } instanceof Object);
+                        // the following produces false positives
+                        // in Opera Mini => not a reliable check
+                        // Object.prototype.__proto__ === null
+    /*global document */
+    if (supportsProto || typeof document === 'undefined') {
+        createEmpty = function () {
+            return { __proto__: null };
+        };
+    } else {
+        // In old IE __proto__ can't be used to manually set `null`, nor does
+        // any other method exist to make an object that inherits from nothing,
+        // aside from Object.prototype itself. Instead, create a new global
+        // object and *steal* its Object.prototype and strip it bare. This is
+        // used as the prototype to create nullary objects.
+        createEmpty = function () {
+            var iframe = document.createElement('iframe');
+            var parent = document.body || document.documentElement;
+            iframe.style.display = 'none';
+            parent.appendChild(iframe);
+            /*eslint-disable no-script-url */
+            iframe.src = 'javascript:';
+            /*eslint-enable no-script-url */
+            var empty = iframe.contentWindow.Object.prototype;
+            parent.removeChild(iframe);
+            iframe = null;
+            delete empty.constructor;
+            delete empty.hasOwnProperty;
+            delete empty.propertyIsEnumerable;
+            delete empty.isPrototypeOf;
+            delete empty.toLocaleString;
+            delete empty.toString;
+            delete empty.valueOf;
+            /*eslint-disable no-proto */
+            empty.__proto__ = null;
+            /*eslint-enable no-proto */
+
+            function Empty() {}
+            Empty.prototype = empty;
+            // short-circuit future calls
+            createEmpty = function () {
+                return new Empty();
+            };
+            return new Empty();
+        };
+    }
+
+    Object.create = function create(prototype, properties) {
+
+        var object;
+        function Type() {} // An empty constructor.
+
+        if (prototype === null) {
+            object = createEmpty();
+        } else {
+            if (typeof prototype !== 'object' && typeof prototype !== 'function') {
+                // In the native implementation `parent` can be `null`
+                // OR *any* `instanceof Object`  (Object|Function|Array|RegExp|etc)
+                // Use `typeof` tho, b/c in old IE, DOM elements are not `instanceof Object`
+                // like they are in modern browsers. Using `Object.create` on DOM elements
+                // is...err...probably inappropriate, but the native version allows for it.
+                throw new TypeError('Object prototype may only be an Object or null'); // same msg as Chrome
+            }
+            Type.prototype = prototype;
+            object = new Type();
+            // IE has no built-in implementation of `Object.getPrototypeOf`
+            // neither `__proto__`, but this manually setting `__proto__` will
+            // guarantee that `Object.getPrototypeOf` will work as expected with
+            // objects created using `Object.create`
+            /*eslint-disable no-proto */
+            object.__proto__ = prototype;
+            /*eslint-enable no-proto */
+        }
+
+        if (properties !== void 0) {
+            Object.defineProperties(object, properties);
+        }
+
+        return object;
+    };
+}
+
+// ES5 15.2.3.6
+// http://es5.github.com/#x15.2.3.6
+
+// Patch for WebKit and IE8 standard mode
+// Designed by hax <hax.github.com>
+// related issue: https://github.com/es-shims/es5-shim/issues#issue/5
+// IE8 Reference:
+//     http://msdn.microsoft.com/en-us/library/dd282900.aspx
+//     http://msdn.microsoft.com/en-us/library/dd229916.aspx
+// WebKit Bugs:
+//     https://bugs.webkit.org/show_bug.cgi?id=36423
+
+function doesDefinePropertyWork(object) {
+    try {
+        Object.defineProperty(object, 'sentinel', {});
+        return 'sentinel' in object;
+    } catch (exception) {
+        return false;
+    }
+}
+
+// check whether defineProperty works if it's given. Otherwise,
+// shim partially.
+if (Object.defineProperty) {
+    var definePropertyWorksOnObject = doesDefinePropertyWork({});
+    var definePropertyWorksOnDom = typeof document === 'undefined' ||
+        doesDefinePropertyWork(document.createElement('div'));
+    if (!definePropertyWorksOnObject || !definePropertyWorksOnDom) {
+        var definePropertyFallback = Object.defineProperty,
+            definePropertiesFallback = Object.defineProperties;
+    }
+}
+
+if (!Object.defineProperty || definePropertyFallback) {
+    var ERR_NON_OBJECT_DESCRIPTOR = 'Property description must be an object: ';
+    var ERR_NON_OBJECT_TARGET = 'Object.defineProperty called on non-object: ';
+    var ERR_ACCESSORS_NOT_SUPPORTED = 'getters & setters can not be defined on this javascript engine';
+
+    Object.defineProperty = function defineProperty(object, property, descriptor) {
+        if ((typeof object !== 'object' && typeof object !== 'function') || object === null) {
+            throw new TypeError(ERR_NON_OBJECT_TARGET + object);
+        }
+        if ((typeof descriptor !== 'object' && typeof descriptor !== 'function') || descriptor === null) {
+            throw new TypeError(ERR_NON_OBJECT_DESCRIPTOR + descriptor);
+        }
+        // make a valiant attempt to use the real defineProperty
+        // for I8's DOM elements.
+        if (definePropertyFallback) {
+            try {
+                return definePropertyFallback.call(Object, object, property, descriptor);
+            } catch (exception) {
+                // try the shim if the real one doesn't work
+            }
+        }
+
+        // If it's a data property.
+        if ('value' in descriptor) {
+            // fail silently if 'writable', 'enumerable', or 'configurable'
+            // are requested but not supported
+            /*
+            // alternate approach:
+            if ( // can't implement these features; allow false but not true
+                ('writable' in descriptor && !descriptor.writable) ||
+                ('enumerable' in descriptor && !descriptor.enumerable) ||
+                ('configurable' in descriptor && !descriptor.configurable)
+            ))
+                throw new RangeError(
+                    'This implementation of Object.defineProperty does not support configurable, enumerable, or writable.'
+                );
+            */
+
+            if (supportsAccessors && (lookupGetter(object, property) || lookupSetter(object, property))) {
+                // As accessors are supported only on engines implementing
+                // `__proto__` we can safely override `__proto__` while defining
+                // a property to make sure that we don't hit an inherited
+                // accessor.
+                /*eslint-disable no-proto */
+                var prototype = object.__proto__;
+                object.__proto__ = prototypeOfObject;
+                // Deleting a property anyway since getter / setter may be
+                // defined on object itself.
+                delete object[property];
+                object[property] = descriptor.value;
+                // Setting original `__proto__` back now.
+                object.__proto__ = prototype;
+                /*eslint-enable no-proto */
+            } else {
+                object[property] = descriptor.value;
+            }
+        } else {
+            if (!supportsAccessors) {
+                throw new TypeError(ERR_ACCESSORS_NOT_SUPPORTED);
+            }
+            // If we got that far then getters and setters can be defined !!
+            if ('get' in descriptor) {
+                defineGetter(object, property, descriptor.get);
+            }
+            if ('set' in descriptor) {
+                defineSetter(object, property, descriptor.set);
+            }
+        }
+        return object;
+    };
+}
+
+// ES5 15.2.3.7
+// http://es5.github.com/#x15.2.3.7
+if (!Object.defineProperties || definePropertiesFallback) {
+    Object.defineProperties = function defineProperties(object, properties) {
+        // make a valiant attempt to use the real defineProperties
+        if (definePropertiesFallback) {
+            try {
+                return definePropertiesFallback.call(Object, object, properties);
+            } catch (exception) {
+                // try the shim if the real one doesn't work
+            }
+        }
+
+        for (var property in properties) {
+            if (owns(properties, property) && property !== '__proto__') {
+                Object.defineProperty(object, property, properties[property]);
+            }
+        }
+        return object;
+    };
+}
+
+// ES5 15.2.3.8
+// http://es5.github.com/#x15.2.3.8
+if (!Object.seal) {
+    Object.seal = function seal(object) {
+        if (Object(object) !== object) {
+            throw new TypeError('Object.seal can only be called on Objects.');
+        }
+        // this is misleading and breaks feature-detection, but
+        // allows "securable" code to "gracefully" degrade to working
+        // but insecure code.
+        return object;
+    };
+}
+
+// ES5 15.2.3.9
+// http://es5.github.com/#x15.2.3.9
+if (!Object.freeze) {
+    Object.freeze = function freeze(object) {
+        if (Object(object) !== object) {
+            throw new TypeError('Object.freeze can only be called on Objects.');
+        }
+        // this is misleading and breaks feature-detection, but
+        // allows "securable" code to "gracefully" degrade to working
+        // but insecure code.
+        return object;
+    };
+}
+
+// detect a Rhino bug and patch it
+try {
+    Object.freeze(function () {});
+} catch (exception) {
+    Object.freeze = (function freeze(freezeObject) {
+        return function freeze(object) {
+            if (typeof object === 'function') {
+                return object;
+            } else {
+                return freezeObject(object);
+            }
+        };
+    }(Object.freeze));
+}
+
+// ES5 15.2.3.10
+// http://es5.github.com/#x15.2.3.10
+if (!Object.preventExtensions) {
+    Object.preventExtensions = function preventExtensions(object) {
+        if (Object(object) !== object) {
+            throw new TypeError('Object.preventExtensions can only be called on Objects.');
+        }
+        // this is misleading and breaks feature-detection, but
+        // allows "securable" code to "gracefully" degrade to working
+        // but insecure code.
+        return object;
+    };
+}
+
+// ES5 15.2.3.11
+// http://es5.github.com/#x15.2.3.11
+if (!Object.isSealed) {
+    Object.isSealed = function isSealed(object) {
+        if (Object(object) !== object) {
+            throw new TypeError('Object.isSealed can only be called on Objects.');
+        }
+        return false;
+    };
+}
+
+// ES5 15.2.3.12
+// http://es5.github.com/#x15.2.3.12
+if (!Object.isFrozen) {
+    Object.isFrozen = function isFrozen(object) {
+        if (Object(object) !== object) {
+            throw new TypeError('Object.isFrozen can only be called on Objects.');
+        }
+        return false;
+    };
+}
+
+// ES5 15.2.3.13
+// http://es5.github.com/#x15.2.3.13
+if (!Object.isExtensible) {
+    Object.isExtensible = function isExtensible(object) {
+        // 1. If Type(O) is not Object throw a TypeError exception.
+        if (Object(object) !== object) {
+            throw new TypeError('Object.isExtensible can only be called on Objects.');
+        }
+        // 2. Return the Boolean value of the [[Extensible]] internal property of O.
+        var name = '';
+        while (owns(object, name)) {
+            name += '?';
+        }
+        object[name] = true;
+        var returnValue = owns(object, name);
+        delete object[name];
+        return returnValue;
+    };
+}
+
+}));
 ;angular.module('ui.bootstrap.bindHtml', [])
 
   .directive('bindHtmlUnsafe', function () {

@@ -8,7 +8,7 @@
  * Main common module declaration including ui templates.
  */
 angular
-    .module("common", [
+    .module("revaluate.common", [
         "chart.js",
         "ui.router",
         "ngSanitize",
@@ -49,7 +49,7 @@ angular
         });
     });
 ;angular
-    .module("common")
+    .module("revaluate.common")
     .constant("ALERTS_CONSTANTS", {
         login: "login",
         signUp: "signUp",
@@ -67,12 +67,13 @@ angular
         createUpdateCategory: "createUpdateCategory",
         updateProfile: "updateProfile",
         cancelAccount: "cancelAccount",
-        preferences: "preferences"
+        preferences: "preferences",
+        import: "import"
     });;/**
  * Common states.
  */
 angular
-    .module("common")
+    .module("revaluate.common")
     .constant("ACTIVITY_INTERCEPTOR", {
         activityStart: "activity-interceptor-start",
         activityEnd: "activity-interceptor-end"
@@ -95,7 +96,7 @@ angular
  * Date source constants.
  */
 angular
-    .module("common")
+    .module("revaluate.common")
     .constant("DATE_SOURCE", {
         isFromNlp: "naturalLanguageProcessorSource",
         isFromUpdateAction: "updateExpenseSource"
@@ -103,7 +104,7 @@ angular
  * Common mixpanel events.
  */
 angular
-    .module("common")
+    .module("revaluate.common")
     .constant("MIXPANEL_EVENTS", {
         landingPageLoaded: "Landing page loaded",
         signUpRequested: "Signup requested",
@@ -122,10 +123,11 @@ angular
         settings: "Settings",
         settingsProfile: "Settings profile",
         settingsPreferences: "Settings preferences",
+        settingsImport: "Settings import",
         error404: "error-404",
         error500: "error-500"
     });;angular
-    .module("common")
+    .module("revaluate.common")
     .directive("animate", function () {
         return {
             restrict: "A",
@@ -146,7 +148,7 @@ angular
 ;/* Auto focus */
 
 angular
-    .module("common")
+    .module("revaluate.common")
     .directive("autoFocus", ["$timeout", function ($timeout) {
         return {
             restrict: "A",
@@ -173,7 +175,7 @@ angular
 ;/* Email list */
 
 angular
-    .module("common")
+    .module("revaluate.common")
     .directive("emailList", function () {
         return {
             restrict: "A",
@@ -213,7 +215,7 @@ angular
         }
     });
 ;angular
-    .module("common")
+    .module("revaluate.common")
     .directive('escKey', function () {
         return function (scope, element, attrs) {
             element.bind('keydown keypress', function (event) {
@@ -230,7 +232,7 @@ angular
  * Header directive responsible for header common template.
  */
 angular
-    .module("common")
+    .module("revaluate.common")
     .directive("flashMessages", function () {
         return {
             scope: {
@@ -246,7 +248,7 @@ angular
 ;/* Focus the first erroneous input on form submit */
 
 angular
-    .module("common")
+    .module("revaluate.common")
     .directive("focusFirstError", [function () {
         return {
             restrict: "A",
@@ -264,7 +266,7 @@ angular
  * Header directive responsible for header common template.
  */
 angular
-    .module("common")
+    .module("revaluate.common")
     .directive("footer", function () {
         return {
             restrict: "A",
@@ -278,7 +280,7 @@ angular
  * Header directive responsible for header common template.
  */
 angular
-    .module("common")
+    .module("revaluate.common")
     .directive("footerHome", function () {
         return {
             restrict: "A",
@@ -292,7 +294,7 @@ angular
  * Header directive responsible for header common template.
  */
 angular
-    .module("common")
+    .module("revaluate.common")
     .directive("header", ["$rootScope", function ($rootScope) {
         return {
             restrict: "A",
@@ -305,7 +307,7 @@ angular
  * Header directive responsible for header common template.
  */
 angular
-    .module("common")
+    .module("revaluate.common")
     .directive("headerHome", ["$rootScope", function ($rootScope) {
         return {
             restrict: "A",
@@ -322,9 +324,9 @@ angular
     }]);
 ;/* Loading bar */
 
-angular.
-    module("common").
-    directive("loadingBar", ["$rootScope", "ACTIVITY_INTERCEPTOR", function ($rootScope, ACTIVITY_INTERCEPTOR) {
+angular
+    .module("revaluate.common")
+    .directive("loadingBar", ["$rootScope", "ACTIVITY_INTERCEPTOR", function ($rootScope, ACTIVITY_INTERCEPTOR) {
         return {
             restrict: "A",
             template: "<div class='loading-bar-progress'></div>",
@@ -346,7 +348,7 @@ angular.
         }
     }]);
 ;angular
-    .module("common")
+    .module("revaluate.common")
     .directive("mixpanelInitializer", ["$window", "ENV", function ($window, ENV) {
         return {
             restrict: "A",
@@ -361,7 +363,7 @@ angular.
         }
     }]);
 ;angular
-    .module('common')
+    .module('revaluate.common')
     .directive('ngEnter', function () {
         return function (scope, element, attrs) {
             element.bind("keydown keypress", function (event) {
@@ -377,7 +379,7 @@ angular.
     });;/* Natural Language Date Input */
 
 angular
-    .module("common")
+    .module("revaluate.common")
     .directive("nlpDate", ["$rootScope", "DATE_SOURCE", function ($rootScope, DATE_SOURCE) {
         return {
             require: 'ngModel',
@@ -440,7 +442,7 @@ angular
         }
     }]);
 ;angular
-    .module("common")
+    .module("revaluate.common")
     .directive("outsideClick", ["$document", function ($document) {
         return {
             restrict: "A",
@@ -467,7 +469,7 @@ angular
     }]);;/* Perfect scrollbar */
 
 angular
-    .module("common")
+    .module("revaluate.common")
     .directive("perfectScrollbar", function () {
         return {
             restrict: 'A',
@@ -496,7 +498,7 @@ angular
 ;/* Scroll to an element on the page */
 
 angular
-    .module("common")
+    .module("revaluate.common")
     .directive("scrollTo", ["$window", function ($window) {
         return {
             restrict: "A",
@@ -511,7 +513,7 @@ angular
         }
     }]);
 ;angular
-    .module("common")
+    .module("revaluate.common")
     .directive("searchWidget", function () {
         return {
             restrict: "A",
@@ -521,7 +523,7 @@ angular
         };
     });
 ;angular
-    .module('common')
+    .module('revaluate.common')
     .directive('submitOn', function () {
         return {
             link: function (scope, elm, attrs) {
@@ -533,7 +535,7 @@ angular
             }
         };
     });;angular
-    .module("common")
+    .module("revaluate.common")
     .directive("validDate", function () {
         return {
             require: "ngModel",
@@ -556,7 +558,7 @@ angular
 ;/* Friendly date filter */
 
 angular
-    .module("common")
+    .module("revaluate.common")
     .filter('friendlyDate', function () {
         return function (date) {
 
@@ -570,7 +572,7 @@ angular
 ;/* Friendly date filter */
 
 angular
-    .module("common")
+    .module("revaluate.common")
     .filter('friendlyHour', function () {
         return function (date) {
 
@@ -580,7 +582,7 @@ angular
 ;/* Friendly date filter */
 
 angular
-    .module("common")
+    .module("revaluate.common")
     .filter('friendlyHourTimePicker', function () {
         return function (date) {
 
@@ -590,7 +592,7 @@ angular
 ;/* Friendly date filter */
 
 angular
-    .module("common")
+    .module("revaluate.common")
     .filter('friendlyMonthDate', function () {
         return function (date) {
 
@@ -605,7 +607,7 @@ angular
         };
     });
 ;angular
-    .module("common")
+    .module("revaluate.common")
     .filter('friendlyRecipients', ["$rootScope", function ($rootScope) {
         return function (recipients) {
 
@@ -633,7 +635,7 @@ angular
     }]);
 ;// See https://github.com/fmquaglia/ngOrderObjectB
 angular
-    .module('common')
+    .module('revaluate.common')
     .filter('orderObjectBy', function () {
         return function (items, field, reverse) {
             var filtered = [];
@@ -662,7 +664,7 @@ angular
         };
     });
 ;angular
-    .module('common')
+    .module('revaluate.common')
     .filter('groupExpenses', ["$parse", "filterWatcher", function ($parse, filterWatcher) {
         return function (expenses, reverse) {
 
@@ -734,9 +736,9 @@ angular
         }
     }]);;/* Activity interceptor */
 
-angular.
-    module("common").
-    factory("ActivityInterceptor", ["$rootScope", "$q", "ACTIVITY_INTERCEPTOR", function ($rootScope, $q, ACTIVITY_INTERCEPTOR) {
+angular
+    .module("revaluate.common")
+    .factory("ActivityInterceptor", ["$rootScope", "$q", "ACTIVITY_INTERCEPTOR", function ($rootScope, $q, ACTIVITY_INTERCEPTOR) {
         return {
 
             /**
@@ -784,7 +786,7 @@ angular.
  * Error service interceptor used to listen to ajax server responses.
  */
 angular
-    .module("common")
+    .module("revaluate.common")
     .factory("ErrorInterceptor", ["$rootScope", "$q", "ERROR_INTERCEPTOR", function ($rootScope, $q, ERROR_INTERCEPTOR) {
 
         return {
@@ -807,7 +809,7 @@ angular
 
     }]);
 ;angular
-    .module("common")
+    .module("revaluate.common")
     .provider('JWTInterceptor', function () {
 
         this.authHeader = 'Authorization';
@@ -848,7 +850,7 @@ angular
  * Dates utils service.
  */
 angular
-    .module("common")
+    .module("revaluate.common")
     .service("DatesUtils", function () {
 
         this.prepareDate = function (givenDate) {
@@ -883,7 +885,7 @@ angular
 
     });
 ;angular
-    .module("common")
+    .module("revaluate.common")
     .factory("ExpenseMatchingGroupService", function () {
         var now = moment();
         var expensesGroup = [
@@ -955,7 +957,7 @@ angular
         };
     });
 ;angular
-    .module('common')
+    .module('revaluate.common')
     .service('JWTHelper', function () {
 
         this.urlBase64Decode = function (str) {
@@ -1027,7 +1029,7 @@ angular
  * Session service which encapsulates the whole logic account related to the Local storage which contains currently logged in user.
  */
 angular
-    .module("common")
+    .module("revaluate.common")
     .service("SessionService", ["$localStorage", function ($localStorage) {
 
         /**
@@ -1095,7 +1097,7 @@ angular
 
     }]);
 ;angular
-    .module("common")
+    .module("revaluate.common")
     .service("StatesHandler", ["$state", "$stateParams", "STATES", function ($state, $stateParams, STATES) {
 
         this.goHome = function () {
@@ -1134,7 +1136,7 @@ angular
             });
         }
     }]);;angular
-    .module("common")
+    .module("revaluate.common")
     .service("TimezoneProvider", function () {
 
         /**
@@ -1311,7 +1313,7 @@ angular
  * Transformer utils service.
  */
 angular
-    .module("common")
+    .module("revaluate.common")
     .service("TransformerUtils", function () {
 
         /**
@@ -1337,13 +1339,13 @@ angular
         };
     });
 ;angular
-    .module("feedback", []);;angular
-    .module("feedback")
+    .module("revaluate.feedback", []);;angular
+    .module("revaluate.feedback")
     .constant("FEEDBACK_URLS", {
         feedback: "feedback/send"
     });
 ;angular
-    .module("feedback")
+    .module("revaluate.feedback")
     .controller("FeedbackModalController", ["$scope", "FeedbackModalService", "Feedback", "$timeout", function ($scope, FeedbackModalService, Feedback, $timeout) {
 
         /**
@@ -1419,7 +1421,7 @@ angular
 
     }]);
 ;angular
-    .module("feedback")
+    .module("revaluate.feedback")
     .factory("Feedback", ["FeedbackService", function (FeedbackService) {
 
         /**
@@ -1465,7 +1467,7 @@ angular
     }]);;/* Feedback modal */
 
 angular
-    .module("feedback")
+    .module("revaluate.feedback")
     .service("FeedbackModalService", ["$modal", function ($modal) {
 
         /**
@@ -1488,7 +1490,7 @@ angular
 
     }]);
 ;angular
-    .module("feedback")
+    .module("revaluate.feedback")
     .service("FeedbackService", ["FEEDBACK_URLS", "$http", function (FEEDBACK_URLS, $http) {
 
         this.sendFeedback = function (feedback) {
@@ -1503,10 +1505,10 @@ angular
  * Main account module declaration including ui templates.
  */
 angular
-    .module("account", [
-        "common",
-        "currencies",
-        "categories"
+    .module("revaluate.account", [
+        "revaluate.common",
+        "revaluate.currencies",
+        "revaluate.categories"
     ])
     .config(["$stateProvider", "$httpProvider", function ($stateProvider, $httpProvider) {
 
@@ -1601,8 +1603,11 @@ angular
                     currencies: ["CurrencyService", function (CurrencyService) {
                         return CurrencyService.getAllCurrencies();
                     }],
+                    colors: ["ColorService", function (ColorService) {
+                        return ColorService.getAllColors();
+                    }],
                     predefinedCategories: ["CategoriesSetupProvider", function (CategoriesSetupProvider) {
-                        return CategoriesSetupProvider.getCategories();
+                        return CategoriesSetupProvider.getPredefinedCategories();
                     }]
                 }
             });
@@ -1617,7 +1622,7 @@ angular
  * Account related constants.
  */
 angular
-    .module("account")
+    .module("revaluate.account")
     .constant("AUTH_EVENTS", {
         isLoggedIn: "auth-is-logged-in",
         loginSuccess: "auth-login-success",
@@ -1663,7 +1668,7 @@ angular
     })
     .constant("AUTH_TOKEN_HEADER", "authtoken");
 ;angular
-    .module("account")
+    .module("revaluate.account")
     .constant("USER_URLS", {
         userUnique: "account/isUniqueEmail"
     });
@@ -1671,7 +1676,7 @@ angular
  * Forgot password controller responsible for user forgot password action.
  */
 angular
-    .module("account")
+    .module("revaluate.account")
     .controller("ForgotPasswordController", ["$state", "$scope", "flash", "ALERTS_CONSTANTS", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountModal", function ($state, $scope, flash, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountModal) {
 
         /**
@@ -1706,7 +1711,7 @@ angular
         };
     }]);
 ;angular
-    .module("account")
+    .module("revaluate.account")
     .controller("HomeSignUpRegistrationController", ["$scope", "$timeout", "flash", "ALERTS_CONSTANTS", "StatesHandler", "User", "AuthService", "MIXPANEL_EVENTS", function ($scope, $timeout, flash, ALERTS_CONSTANTS, StatesHandler, User, AuthService, MIXPANEL_EVENTS) {
 
         /**
@@ -1767,7 +1772,7 @@ angular
  * Login controller responsible for user login actions.
  */
 angular
-    .module("account")
+    .module("revaluate.account")
     .controller("LoginController", ["$scope", "flash", "ALERTS_CONSTANTS", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountModal", "StatesHandler", "$timeout", function ($scope, flash, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountModal, StatesHandler, $timeout) {
 
         /**
@@ -1827,7 +1832,7 @@ angular
  * Logout controller responsible for user logout actions.
  */
 angular
-    .module("account")
+    .module("revaluate.account")
     .controller("LogoutController", ["$scope", "$timeout", "StatesHandler", "isSuccessfullyLoggedOut", function ($scope, $timeout, StatesHandler, isSuccessfullyLoggedOut) {
 
         $scope.isSuccessfullyLoggedOut = isSuccessfullyLoggedOut;
@@ -1841,8 +1846,8 @@ angular
 
     }]);
 ;angular
-    .module("account")
-    .controller("SignUpSetUpRegistrationController", ["$q", "$rootScope", "$scope", "$timeout", "flash", "AuthService", "CategoryService", "AUTH_EVENTS", "ALERTS_CONSTANTS", "predefinedCategories", "CategoryColorService", "SessionService", "StatesHandler", "Category", "currencies", function ($q, $rootScope, $scope, $timeout, flash, AuthService, CategoryService, AUTH_EVENTS, ALERTS_CONSTANTS, predefinedCategories, CategoryColorService, SessionService, StatesHandler, Category, currencies) {
+    .module("revaluate.account")
+    .controller("SignUpSetUpRegistrationController", ["$q", "$rootScope", "$scope", "$timeout", "flash", "AuthService", "CategoryService", "AUTH_EVENTS", "ALERTS_CONSTANTS", "predefinedCategories", "colors", "CategoryColorService", "SessionService", "StatesHandler", "Category", "currencies", function ($q, $rootScope, $scope, $timeout, flash, AuthService, CategoryService, AUTH_EVENTS, ALERTS_CONSTANTS, predefinedCategories, colors, CategoryColorService, SessionService, StatesHandler, Category, currencies) {
 
         /**
          * All given currencies.
@@ -1873,9 +1878,21 @@ angular
         var TIMEOUT_DURATION = 300;
 
         /**
+         * Existing predefined colors.
+         */
+        $scope.colors = colors;
+
+        /**
          * Existing predefined categories.
          */
         $scope.categories = predefinedCategories;
+
+        // ---
+        // Populate predefined categories with colors.
+        // ---
+        _.each($scope.categories, function (category) {
+            category.color = CategoryColorService.randomizedColor($scope.colors);
+        });
 
         /**
          * Category to be added on the fly
@@ -1946,7 +1963,7 @@ angular
             else {
                 $scope.categories.push({
                     name: $scope.categoryOnTheFly,
-                    color: CategoryColorService.randomizedColor().color,
+                    color: CategoryColorService.randomizedColor($scope.colors),
                     selected: true
                 });
 
@@ -2066,7 +2083,7 @@ angular
         };
 
     }]);;angular
-    .module("account")
+    .module("revaluate.account")
     .controller("ValidatePasswordResetTokenController", ["$scope", "$timeout", "flash", "AuthService", "StatesHandler", "ProfileFormToggle", "ACCOUNT_FORM_STATE", "validateTokenResult", "ALERTS_CONSTANTS", function ($scope, $timeout, flash, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult, ALERTS_CONSTANTS) {
 
         /**
@@ -2118,7 +2135,7 @@ angular
 
     }]);
 ;angular
-    .module("account")
+    .module("revaluate.account")
     .controller("ValidatePasswordResetTokenInvalidController", ["$scope", "AuthService", "StatesHandler", "ProfileFormToggle", "ACCOUNT_FORM_STATE", function ($scope, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE) {
 
         /**
@@ -2141,7 +2158,7 @@ angular
 ;/* Account modal toggle */
 
 angular
-    .module("account")
+    .module("revaluate.account")
     .directive("accountModalClose", ["AccountModal", function (AccountModal) {
         return {
             restrict: "A",
@@ -2156,7 +2173,7 @@ angular
 ;/* Account modal toggle */
 
 angular
-    .module("account")
+    .module("revaluate.account")
     .directive("accountModalToggle", ["AccountModal", function (AccountModal) {
         return {
             restrict: "A",
@@ -2170,7 +2187,7 @@ angular
 ;/* Account modal */
 
 angular
-    .module("account")
+    .module("revaluate.account")
     .directive("accountModal", ["$rootScope", "$animate", "ACCOUNT_FORM_STATE", "AccountModal", function ($rootScope, $animate, ACCOUNT_FORM_STATE, AccountModal) {
         return {
             restrict: "A",
@@ -2203,7 +2220,7 @@ angular
  * Directive responsible for switching update profile forms between them.
  */
 angular
-    .module("account")
+    .module("revaluate.account")
     .directive("profileFormToggle", ["ProfileFormToggle", "ACCOUNT_FORM_STATE", function (ProfileFormToggle, ACCOUNT_FORM_STATE) {
         return {
             restrict: "A",
@@ -2222,7 +2239,7 @@ angular
  * Directive responsible for checking of a password is strong enough.
  */
 angular
-    .module("account")
+    .module("revaluate.account")
     .directive("strongPassword", function () {
         return {
             require: "ngModel",
@@ -2245,7 +2262,7 @@ angular
         };
     });
 ;angular
-    .module("account")
+    .module("revaluate.account")
     .directive("uniqueEmail", ["$q", "$timeout", "UserService", function ($q, $timeout, UserService) {
         return {
             require: "ngModel",
@@ -2288,7 +2305,7 @@ angular
  * Directive responsible for checking of an email is valid.
  */
 angular
-    .module("account")
+    .module("revaluate.account")
     .directive("validEmail", function () {
         return {
             require: "ngModel",
@@ -2313,7 +2330,7 @@ angular
 ;/* Account modal */
 
 angular
-    .module("account")
+    .module("revaluate.account")
     .service("AccountModal", ["$rootScope", "$timeout", "AUTH_EVENTS", function ($rootScope, $timeout, AUTH_EVENTS) {
 
         // By default the modal is closed
@@ -2353,12 +2370,12 @@ angular
         }, this));
     }]);
 ;angular
-    .module("account")
+    .module("revaluate.account")
     .value('redirectToUrlAfterLogin', { url: undefined });;/**
  * Authentication service which encapsulates the whole logic account related of a user.
  */
 angular
-    .module("account")
+    .module("revaluate.account")
     .service("AuthService", ["$rootScope", "$q", "$http", "$location", "redirectToUrlAfterLogin", "SessionService", "AUTH_EVENTS", "AUTH_URLS", "AUTH_TOKEN_HEADER", function ($rootScope, $q, $http, $location, redirectToUrlAfterLogin, SessionService, AUTH_EVENTS, AUTH_URLS, AUTH_TOKEN_HEADER) {
 
         /**
@@ -2535,7 +2552,7 @@ angular
  * Authentication service filter used to redirect user to the home page if it is already logged in.
  */
 angular
-    .module("account")
+    .module("revaluate.account")
     .service("AuthFilter", ["AuthService", "StatesHandler", "User", function (AuthService, StatesHandler, User) {
 
         return function (event, toState) {
@@ -2578,7 +2595,7 @@ angular
  * Authentication service interceptor used to listen to server responses.
  */
 angular
-    .module("account")
+    .module("revaluate.account")
     .factory("AuthInterceptor", ["$rootScope", "$q", "SessionService", "AUTH_EVENTS", function ($rootScope, $q, SessionService, AUTH_EVENTS) {
 
         return {
@@ -2609,7 +2626,7 @@ angular
  * Profile form toggle responsible to keep the state of the current displayed update profile form.
  */
 angular
-    .module("account")
+    .module("revaluate.account")
     .service("ProfileFormToggle", ["ACCOUNT_FORM_STATE", function (ACCOUNT_FORM_STATE) {
         this.state = ACCOUNT_FORM_STATE.updateProfile;
 
@@ -2621,7 +2638,7 @@ angular
 
 
 ;angular
-    .module("account")
+    .module("revaluate.account")
     .service("UserService", ["$http", "$q", "USER_URLS", function ($http, $q, USER_URLS) {
 
         /**
@@ -2677,7 +2694,7 @@ angular
         };
     }]);
 ;angular
-    .module("account")
+    .module("revaluate.account")
     .factory("User", ["SessionService", "TransformerUtils", "$q", "$http", "AUTH_URLS", function (SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
         return {
 
@@ -2822,8 +2839,8 @@ angular
  * Main settings module declaration including ui templates.
  */
 angular
-    .module("settings", [
-        "account"
+    .module("revaluate.settings", [
+        "revaluate.account"
     ])
     .config(["$stateProvider", function ($stateProvider) {
 
@@ -2892,9 +2909,9 @@ angular
                     }
                 },
                 title: "Preferences - Revaluate"
-            });
+            })
     }]);;angular
-    .module("settings")
+    .module("revaluate.settings")
     .controller("SettingsCancelAccountController", ["$q", "$scope", "$rootScope", "$timeout", "StatesHandler", "AuthService", "flash", "ALERTS_CONSTANTS", function ($q, $scope, $rootScope, $timeout, StatesHandler, AuthService, flash, ALERTS_CONSTANTS) {
 
         var TIMEOUT_PENDING = 1000;
@@ -2944,7 +2961,7 @@ angular
  * Preferences controller responsible for user update preferences action.
  */
 angular
-    .module("settings")
+    .module("revaluate.settings")
     .controller("SettingsPreferencesCurrencyController", ["$q", "$scope", "$rootScope", "$timeout", "StatesHandler", "SessionService", "AUTH_EVENTS", "flash", "currencies", "ALERTS_CONSTANTS", "MIXPANEL_EVENTS", function ($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, flash, currencies, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
 
         /**
@@ -3048,7 +3065,7 @@ angular
  * Profile controller responsible for user update profile action.
  */
 angular
-    .module("settings")
+    .module("revaluate.settings")
     .controller("SettingsProfileController", ["$q", "$scope", "$rootScope", "$timeout", "StatesHandler", "SessionService", "AUTH_EVENTS", "flash", "ALERTS_CONSTANTS", "MIXPANEL_EVENTS", function ($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
 
         var TIMEOUT_PENDING = 300;
@@ -3137,7 +3154,7 @@ angular
  * Update password controller.
  */
 angular
-    .module("settings")
+    .module("revaluate.settings")
     .controller("SettingsUpdatePasswordController", ["$scope", "flash", "$timeout", "AuthService", "ACCOUNT_FORM_STATE", "ALERTS_CONSTANTS", function ($scope, flash, $timeout, AuthService, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {
 
         var TIMEOUT_PENDING = 300;
@@ -3204,8 +3221,8 @@ angular
  * Main site module declaration including ui templates.
  */
 angular
-    .module("site", [
-        "common"
+    .module("revaluate.site", [
+        "revaluate.common"
     ])
     .config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
 
@@ -3254,7 +3271,7 @@ angular
  * Abstract error page controller.
  */
 angular
-    .module("common")
+    .module("revaluate.common")
     .controller("AbstractErrorPageController", ["$scope", "StatesHandler", function ($scope, StatesHandler) {
 
         /**
@@ -3275,7 +3292,7 @@ angular
  * 404 page controller.
  */
 angular
-    .module("common")
+    .module("revaluate.common")
     .controller("Error404PageController", ["$scope", "$controller", "MIXPANEL_EVENTS", function ($scope, $controller, MIXPANEL_EVENTS) {
 
         /**
@@ -3292,7 +3309,7 @@ angular
  * 500 page controller.
  */
 angular
-    .module("common")
+    .module("revaluate.common")
     .controller("Error500PageController", ["$scope", "$controller", "MIXPANEL_EVENTS", function ($scope, $controller, MIXPANEL_EVENTS) {
 
         /**
@@ -3308,7 +3325,7 @@ angular
  * Landing page controller.
  */
 angular
-    .module("common")
+    .module("revaluate.common")
     .controller("LandingPageController", ["$state", "$scope", "ACCOUNT_FORM_STATE", "MIXPANEL_EVENTS", function ($state, $scope, ACCOUNT_FORM_STATE, MIXPANEL_EVENTS) {
 
         /**
@@ -3317,20 +3334,20 @@ angular
         mixpanel.track(MIXPANEL_EVENTS.landingPageLoaded);
     }]);
 ;angular
-    .module("currencies", [
-        "common"
+    .module("revaluate.currencies", [
+        "revaluate.common"
     ]);;/**
  * Currencies constants.
  */
 angular
-    .module("currencies")
+    .module("revaluate.currencies")
     .constant("CURRENCY_URLS", {
         allCurrencies: "currency/list"
     });;/**
  * Currencies service which encapsulates the whole logic related to currencies.
  */
 angular
-    .module("currencies")
+    .module("revaluate.currencies")
     .service("CurrencyService", ["CURRENCY_URLS", "$q", "$http", function (CURRENCY_URLS, $q, $http) {
 
         /**
@@ -3348,8 +3365,49 @@ angular
                 });
         };
     }]);;angular
-    .module("categories", [
-        "common"
+    .module("revaluate.color", [
+        "revaluate.common"
+    ]);;/**
+ * Colors constants.
+ */
+angular
+    .module("revaluate.color")
+    .constant("COLOR_URLS", {
+        allColors: "color/list"
+    });;/**
+ * Color service which encapsulates the whole logic related to color.
+ */
+angular
+    .module("revaluate.color")
+    .service("ColorService", ["COLOR_URLS", "$q", "$http", "CacheFactory", function (COLOR_URLS, $q, $http, CacheFactory) {
+
+        if ( !CacheFactory.get('colorCache') ) {
+            CacheFactory.createCache('colorCache', {
+                deleteOnExpire: 'aggressive',
+                recycleFreq: 60000
+            });
+        }
+
+        var colorCache = CacheFactory.get('colorCache');
+
+        /**
+         * Get all colors
+         * @returns {*}
+         */
+        this.getAllColors = function () {
+            return $http
+                .get(URLTo.api(COLOR_URLS.allColors), { cache: colorCache })
+                .then(function (response) {
+
+                    return response.data
+                }).catch(function (response) {
+                    return $q.reject(response);
+                });
+        };
+    }]);;angular
+    .module("revaluate.categories", [
+        "revaluate.color",
+        "revaluate.common"
     ])
     .config(["$stateProvider", function ($stateProvider) {
 
@@ -3366,6 +3424,9 @@ angular
                 resolve: {
                     categories: ["CategoryService", function (CategoryService) {
                         return CategoryService.getAllCategories();
+                    }],
+                    colors: ["ColorService", function (ColorService) {
+                        return ColorService.getAllColors();
                     }]
                 },
                 title: "Categories - Revaluate"
@@ -3375,7 +3436,7 @@ angular
  * Categories constants.
  */
 angular
-    .module("categories")
+    .module("revaluate.categories")
     .constant("CATEGORY_URLS", {
         isUnique: "categories/isUniqueCategory",
         create: "categories",
@@ -3391,7 +3452,7 @@ angular
         isDeleted: "category-is-deleted",
         isUpdated: "category-is-updated"
     });;angular
-    .module("categories")
+    .module("revaluate.categories")
     .controller("CategoryCreateController", ["$scope", "$rootScope", "CategoryColorService", "Category", "$timeout", "CATEGORY_EVENTS", "MIXPANEL_EVENTS", function ($scope, $rootScope, CategoryColorService, Category, $timeout, CATEGORY_EVENTS, MIXPANEL_EVENTS) {
 
         /**
@@ -3403,7 +3464,7 @@ angular
          * Initialize or reset the state
          */
         $scope.initOrReset = function (categoryForm) {
-            $scope.category = Category.build({ color: CategoryColorService.randomizedColor().color });
+            $scope.category = Category.build({ color: CategoryColorService.randomizedColor($scope.colors) });
 
             if ( categoryForm ) {
                 categoryForm.$setPristine();
@@ -3461,7 +3522,7 @@ angular
 
     }]);
 ;angular
-    .module("categories")
+    .module("revaluate.categories")
     .controller("CategoryEditRemoveController", ["$scope", "$rootScope", "Category", "$timeout", "CATEGORY_EVENTS", "MIXPANEL_EVENTS", function ($scope, $rootScope, Category, $timeout, CATEGORY_EVENTS, MIXPANEL_EVENTS) {
 
         /**
@@ -3543,8 +3604,8 @@ angular
  * Categories controller.
  */
 angular
-    .module("categories")
-    .controller("CategoryListController", ["$scope", "$rootScope", "Category", "flash", "CATEGORY_EVENTS", "$timeout", "categories", "MIXPANEL_EVENTS", "ALERTS_CONSTANTS", function ($scope, $rootScope, Category, flash, CATEGORY_EVENTS, $timeout, categories, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
+    .module("revaluate.categories")
+    .controller("CategoryListController", ["$scope", "$rootScope", "Category", "flash", "CATEGORY_EVENTS", "$timeout", "categories", "colors", "MIXPANEL_EVENTS", "ALERTS_CONSTANTS", function ($scope, $rootScope, Category, flash, CATEGORY_EVENTS, $timeout, categories, colors, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
         /**
          * Alert identifier
          */
@@ -3560,6 +3621,12 @@ angular
          * @type {$rootScope.currentUser|*}
          */
         $scope.user = $rootScope.currentUser;
+
+        /**
+         * Existing colors
+         * @type {colors|*}
+         */
+        $scope.colors = colors;
 
         /**
          * Existing categories.
@@ -3622,7 +3689,7 @@ angular
             });
         }
     }]);;angular
-    .module("categories")
+    .module("revaluate.categories")
     .directive("addCategory", ["$rootScope", "CATEGORY_EVENTS", function ($rootScope, CATEGORY_EVENTS) {
         return {
             restrict: "A",
@@ -3653,13 +3720,14 @@ angular
         }
     }]);
 ;angular
-    .module("categories")
+    .module("revaluate.categories")
     .directive("colorPicker", ["CATEGORY_EVENTS", "CategoryColorService", "$timeout", "$animate", function (CATEGORY_EVENTS, CategoryColorService, $timeout, $animate) {
         return {
             restrict: "A",
             replace: true,
             scope: {
-                categoryColor: "="
+                categoryColor: "=",
+                colors: "="
             },
             templateUrl: "app/categories/partials/color-picker-directive-template.html",
             link: function (scope, el, attrs) {
@@ -3707,28 +3775,24 @@ angular
                 });
 
                 // ---
-                // Colors.
-                // ---
-                scope.colors = CategoryColorService.getColorsPool();
-
-                // ---
                 // Select the color.
                 // ---
                 scope.select = function (chosenColor) {
-                    scope.categoryColor = chosenColor.color;
+                    scope.categoryColor = angular.copy(chosenColor);
 
                     scope.close();
                 };
             }
         };
     }]);;angular
-    .module("categories")
+    .module("revaluate.categories")
     .directive("editRemoveCategory", ["$rootScope", "CATEGORY_EVENTS", function ($rootScope, CATEGORY_EVENTS) {
         return {
             restrict: "A",
             controller: 'CategoryEditRemoveController',
             scope: {
-                category: "="
+                category: "=",
+                colors: "="
             },
             templateUrl: "app/categories/partials/edit-remove-category-directive-template.html",
             link: function (scope, el, attrs) {
@@ -3782,7 +3846,7 @@ angular
         }
     }]);
 ;angular
-    .module("categories")
+    .module("revaluate.categories")
     .directive("uniqueCategoryName", ["$q", "CategoryService", function ($q, CategoryService) {
         return {
             require: "ngModel",
@@ -3820,7 +3884,7 @@ angular
  * Directive responsible for checking of a category color is valid hex value.
  */
 angular
-    .module("categories")
+    .module("revaluate.categories")
     .directive("validCategoryColor", function () {
         return {
             require: "ngModel",
@@ -3840,7 +3904,7 @@ angular
  * Directive responsible for checking of a category name is valid.
  */
 angular
-    .module("categories")
+    .module("revaluate.categories")
     .directive("validCategoryName", function () {
         return {
             require: "ngModel",
@@ -3857,136 +3921,75 @@ angular
         };
     });
 ;angular
-    .module("categories")
+    .module("revaluate.categories")
     .service("CategoriesSetupProvider", function () {
 
-        this.categories = [
+        this.predefinedCategories = [
             {
                 "name": "Bills",
-                "color": "#8471B1",
                 selected: false
             },
             {
                 "name": "Food",
-                "color": "#826274",
                 selected: false
             },
             {
                 "name": "Clothes",
-                "color": "#8471B1",
                 selected: false
             },
             {
                 "name": "Car",
-                "color": "#FFDD00",
                 selected: false
             },
             {
                 "name": "Donations",
-                "color": "#826274",
                 selected: false
             },
             {
                 "name": "Hobby",
-                "color": "#FFDD00",
                 selected: false
             },
             {
                 "name": "Health",
-                "color": "#826274",
                 selected: false
             },
             {
                 "name": "Education",
-                "color": "#8471B1",
                 selected: false
             },
             {
                 "name": "Investments",
-                "color": "#8471B1",
                 selected: false
             },
             {
                 "name": "House",
-                "color": "#8471B1",
                 selected: false
             },
             {
                 "name": "Entertainment",
-                "color": "#8471B1",
                 selected: false
             }];
 
-        this.getCategories = function () {
-            return this.categories;
+        this.getPredefinedCategories = function () {
+            return this.predefinedCategories;
         };
 
     });
 ;angular
-    .module("categories")
+    .module("revaluate.categories")
     .service('CategoryColorService', function () {
-        var hexPool = [
-            {
-                color: "#C3272B"
-            },
-            {
-                color: "#DB5A6B"
-            },
-            {
-                color: "#875F9A"
-            },
-            {
-                color: "#22A7F0"
-            },
-            {
-                color: "#317589"
-            },
-            {
-                color: "#1F4788"
-            },
-            {
-                color: "#006442"
-            },
-            {
-                color: "#26A65B"
-            },
-            {
-                color: "#36D7B7"
-            },
-            {
-                color: "#FFB61E"
-            },
-            {
-                color: "#CA6924"
-            },
-            {
-                color: "#6C7A89"
-            },
-            {
-                color: "#121212"
-            },
-            {
-                color: "#BDC3C7"
-            }];
 
         return {
-            randomizedColor: function () {
-                return hexPool[Math.floor(Math.random() * hexPool.length)];
-            },
+            randomizedColor: function (colors) {
 
-            getColorsPool: function () {
-                return hexPool;
-            },
-
-            generateColor: function () {
-                return '#' + Math.floor(Math.random() * 16777215).toString(16);
+                return colors[Math.floor(Math.random() * colors.length)];
             }
         }
     });;/**
  * Categories service which encapsulates the whole logic related to categories.
  */
 angular
-    .module("categories")
+    .module("revaluate.categories")
     .service("CategoryService", ["CATEGORY_URLS", "$q", "$http", "CategoryTransformerService", function (CATEGORY_URLS, $q, $http, CategoryTransformerService) {
 
         /**
@@ -4109,7 +4112,7 @@ angular
  * Category transformer service which transforms a category DTO model object to a category business object.
  */
 angular
-    .module("categories")
+    .module("revaluate.categories")
     .service("CategoryTransformerService", ["$injector", "TransformerUtils", function ($injector, TransformerUtils) {
 
         /**
@@ -4172,7 +4175,7 @@ angular
         };
     }]);
 ;angular
-    .module("categories")
+    .module("revaluate.categories")
     .factory("Category", ["$q", "$http", "CategoryService", "CategoryTransformerService", function ($q, $http, CategoryService, CategoryTransformerService) {
 
         /**
@@ -4197,9 +4200,16 @@ angular
                 name: "",
 
                 /**
-                 * The category due date
+                 * The color
                  */
-                color: ""
+                color: {
+
+                    color: "",
+
+                    id: 0,
+
+                    priority: 0
+                }
             };
 
             /**
@@ -4246,13 +4256,339 @@ angular
         };
 
         return Category;
+    }]);;angular
+    .module("revaluate.expensesImport", [
+        "revaluate.color",
+        "revaluate.common"
+    ])
+    .config(["$stateProvider", function ($stateProvider) {
+
+        $stateProvider
+
+            .state({
+                name: "settings.import",
+                url: "/import",
+                templateUrl: "app/import/partials/settings.import.abstract.html",
+                abstract: true
+            })
+
+            .state({
+                name: "settings.import.choose",
+                url: "/choose",
+                templateUrl: "app/import/partials/settings.import.choose.html",
+                title: "Expenses import choose - Revaluate"
+            })
+
+            .state({
+                name: "settings.import.import",
+                url: "/{type}",
+                templateUrl: "app/import/partials/settings.import.import.html",
+                controller: "ExpensesImportController",
+                resolve: {
+                    categories: ["CategoryService", function (CategoryService) {
+                        return CategoryService.getAllCategories();
+                    }],
+                    importType: ["$q", "$stateParams", "IMPORT_TYPES", "$state", function ($q, $stateParams, IMPORT_TYPES, $state) {
+                        var deferred = $q.defer();
+
+                        if ( IMPORT_TYPES[$stateParams.type] ) {
+                            deferred.resolve(IMPORT_TYPES[$stateParams.type])
+                        }
+                        else {
+                            $state.go("404");
+                        }
+
+                        return deferred.promise;
+                    }]
+                },
+                title: "Expenses import - Revaluate"
+            })
+
+    }]);;/**
+ * ExpensesImport constants.
+ */
+angular
+    .module("revaluate.expensesImport")
+    .constant("IMPORT_PARSE_ANALYSE_URLS", {
+        mint: "importer/mintParseAnalyseImport",
+        spendee: "importer/spendeeParseAnalyseImport"
+    })
+    .constant("IMPORT_URLS", {
+        mint: "importer/mintImport",
+        spendee: "importer/spendeeImport"
+    })
+    .constant("IMPORT_EVENTS", {
+        isErrorOccurred: "expensesImport-error-occurred",
+        isCreated: "expensesImport-is-created",
+        isDeleted: "expensesImport-is-deleted",
+        isUpdated: "expensesImport-is-updated"
+    })
+    .constant("IMPORT_TYPES", {
+        mint: "mint",
+        spendee: "spendee"
+    });;/**
+ * Setting import controller.
+ */
+angular
+    .module("revaluate.expensesImport")
+    .controller("ExpensesImportController", ["$q", "$scope", "$rootScope", "$timeout", "IMPORT_PARSE_ANALYSE_URLS", "importType", "FileUploader", "ImportService", "ExpensesImport", "StatesHandler", "SessionService", "AUTH_EVENTS", "flash", "categories", "ALERTS_CONSTANTS", "MIXPANEL_EVENTS", function ($q, $scope, $rootScope, $timeout, IMPORT_PARSE_ANALYSE_URLS, importType, FileUploader, ImportService, ExpensesImport, StatesHandler, SessionService, AUTH_EVENTS, flash, categories, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+
+        // ---
+        // Configure uploader.
+        // ---
+        var QUEUE_LIMIT = 1;
+        var AUTO_UPLOAD = true;
+        var IS_EMPTY_AFTER_SELECTION = true;
+
+        /**
+         * Saving timeout
+         */
+        var TIMEOUT_PENDING = 300;
+
+        /**
+         * All given categories.
+         * @type {categories|*}
+         */
+        $scope.categories = categories;
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.import;
+
+        /**
+         * Track event.
+         */
+        mixpanel.track(MIXPANEL_EVENTS.settingsImport);
+
+        /**
+         * Current user.
+         * @type {$rootScope.currentUser|*}
+         */
+        $scope.user = $rootScope.currentUser;
+
+        // ---
+        // Initial value.
+        // ---
+        $scope.isUploadFinished = false;
+
+        // ---
+        // This is the answer we get from server after analysing the import.
+        // ---
+        $scope.expensesImportAnswer = {};
+
+        // ---
+        // Define uploader.
+        // ---
+        var uploader = $scope.uploader = new FileUploader({
+            url: URLTo.api(IMPORT_PARSE_ANALYSE_URLS[importType]),
+            headers: {
+                'Authorization': 'Bearer ' + SessionService.getJwtToken()
+            },
+            autoUpload: AUTO_UPLOAD,
+            queueLimit: QUEUE_LIMIT
+        });
+
+        // ---
+        // We want to have the input cleared after upload.
+        // ---
+        FileUploader.FileSelect.prototype.isEmptyAfterSelection = function () {
+            return IS_EMPTY_AFTER_SELECTION;
+        };
+
+        // ---
+        // We only allow CSV files.
+        // ---
+        uploader.filters.push({
+            name: 'csvFilter',
+            fn: function (item, options) {
+                var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+                return '|csv|'.indexOf(type) !== -1;
+            }
+        });
+
+        // ---
+        // If something went wrong, show an error message.
+        // ---
+        uploader.onWhenAddingFileFailed = function (item, filter, options) {
+
+            flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to upload your expenses.'
+        };
+
+        // ---
+        // If successful, take the answer.
+        // ---
+        uploader.onSuccessItem = function (fileItem, response, status, headers) {
+
+            $scope.expensesImportAnswer = ExpensesImport.build(response);
+        };
+
+        // ---
+        // On error item.
+        // ---
+        uploader.onErrorItem = function (fileItem, response, status, headers) {
+
+            flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to parse your expenses.'
+        };
+
+        // ---
+        // Mark upload completed.
+        // ---
+        uploader.onCompleteItem = function (fileItem, response, status, headers) {
+
+            $timeout(function () {
+                $scope.isUploadFinished = true;
+            }, TIMEOUT_PENDING);
+        };
+
+        /**
+         * Update profile functionality.
+         */
+        $scope.submitPerformImport = function () {
+            if ( $scope.expensesImportForm.$valid && !$scope.isImporting ) {
+
+                // Show the loading bar
+                $scope.isImporting = true;
+
+                // ---
+                // Detach from scope.
+                // ---
+                var expensesImportPrepared = angular.copy($scope.expensesImportAnswer);
+
+                // ---
+                // We need to perform a transform of the selected categories.
+                // ---
+                _.each(expensesImportPrepared.model.expenseCategoryMatchingProfileDTOs, function (expenseCategoryMatchingProfileDTO) {
+                    expenseCategoryMatchingProfileDTO.categoryDTO = angular.copy(expenseCategoryMatchingProfileDTO.category.originalObject.model);
+                });
+
+                // ---
+                // Perform import.
+                // ---
+                ImportService
+                    .importExpenses(importType, expensesImportPrepared)
+                    .then(function () {
+                        $scope.expensesImportForm.$setPristine();
+
+                        flash.to($scope.alertIdentifierId).success = 'We\'ve successfully imported your expenses!';
+
+                        $timeout(function () {
+                            $scope.isImporting = false;
+                        }, TIMEOUT_PENDING);
+
+                    })
+                    .catch(function () {
+                        /* If bad feedback from server */
+                        $scope.badPostSubmitResponse = true;
+                        $scope.isImporting = false;
+
+                        flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to import your expenses.';
+                    });
+            }
+        };
+
+    }]);;/**
+ * ExpensesImport service which encapsulates the whole logic related to expensesImport.
+ */
+angular
+    .module("revaluate.expensesImport")
+    .service("ImportService", ["IMPORT_URLS", "$http", "ImportTransformerService", function (IMPORT_URLS, $http, ImportTransformerService) {
+
+        this.importExpenses = function (importType, expensesImport) {
+            return $http
+                .post(URLTo.api(IMPORT_URLS[importType]), ImportTransformerService.toImportDto(expensesImport))
+                .then(function (response) {
+                    ImportTransformerService.toImport(response.data, expensesImport);
+
+                    return response;
+                });
+        }
+
+    }]);;/**
+ * ExpensesImport transformer service which transforms a expensesImport DTO model object to a expensesImport business object.
+ */
+angular
+    .module("revaluate.expensesImport")
+    .service("ImportTransformerService", ["$injector", "TransformerUtils", function ($injector, TransformerUtils) {
+
+        /**
+         * Converts a expensesImport business object model to a importDto object.
+         */
+        this.toImportDto = function (expensesImport, skipKeys) {
+            var importDto = {};
+
+            TransformerUtils.copyKeysFromTo(expensesImport.model, importDto, skipKeys);
+
+            return importDto;
+        };
+
+        /**
+         * Converts a importDto object to a expensesImport business object model.
+         */
+        this.toImport = function (importDto, expensesImport, skipKeys) {
+            expensesImport = expensesImport || $injector.get('ExpensesImport').build();
+
+            TransformerUtils.copyKeysFromTo(importDto, expensesImport.model, skipKeys);
+
+            return expensesImport;
+        };
+    }]);
+;angular
+    .module("revaluate.expensesImport")
+    .factory("ExpensesImport", ["$q", "$http", "ImportService", "ImportTransformerService", function ($q, $http, ImportService, ImportTransformerService) {
+
+        /**
+         * ExpensesImport class.
+         * @constructor
+         */
+        function ExpensesImport() {
+
+            /**
+             * Represents the DTO model of the expensesImport.
+             */
+            this.model = {
+
+                /**
+                 * The expenses.
+                 */
+                expenseDTOs: [],
+
+                /**
+                 * The color
+                 */
+                expenseCategoryMatchingProfileDTOs: []
+            };
+
+            /**
+             * Saves a expensesImport and update model with response.
+             * @returns {*}
+             */
+            this.save = function () {
+                return ImportService.performImport(this);
+            };
+        }
+
+        /**
+         * Builds a expensesImport with given data.
+         * @param data
+         * @returns {ExpensesImport}
+         */
+        ExpensesImport.build = function (data) {
+            if ( _.isEmpty(data) ) {
+                return new ExpensesImport();
+            }
+
+            return ImportTransformerService.toImport(data, new ExpensesImport());
+        };
+
+        return ExpensesImport;
     }]);;/**
  * Main site module declaration including ui templates.
  */
 angular
-    .module("expenses", [
-        "common",
-        "statistics"
+    .module("revaluate.expenses", [
+        "revaluate.common",
+        "revaluate.statistics"
     ])
     .config(["$stateProvider", function ($stateProvider) {
 
@@ -4288,7 +4624,7 @@ angular
  * Expenses constants.
  */
 angular
-    .module("expenses")
+    .module("revaluate.expenses")
     .constant("EXPENSE_URLS", {
         create: "expenses",
         update: "expenses",
@@ -4302,7 +4638,7 @@ angular
         isDeleted: "expense-is-deleted",
         isUpdated: "expense-is-updated"
     });;angular
-    .module("expenses")
+    .module("revaluate.expenses")
     .controller("ExpenseController", ["$scope", "$rootScope", "$stateParams", "Expense", "expenses", "ExpenseService", "categories", "$window", "DatesUtils", "$timeout", "StatesHandler", "EXPENSE_EVENTS", "flash", "MIXPANEL_EVENTS", "ALERTS_CONSTANTS", function ($scope, $rootScope, $stateParams, Expense, expenses, ExpenseService, categories, $window, DatesUtils, $timeout, StatesHandler, EXPENSE_EVENTS, flash, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
 
         /**
@@ -4603,7 +4939,7 @@ angular
 
     }]);
 ;angular
-    .module("expenses")
+    .module("revaluate.expenses")
     .controller("ExpenseEntryController", ["$scope", "$rootScope", "Expense", "$timeout", "EXPENSE_EVENTS", "MIXPANEL_EVENTS", function ($scope, $rootScope, Expense, $timeout, EXPENSE_EVENTS, MIXPANEL_EVENTS) {
 
         /**
@@ -4667,7 +5003,7 @@ angular
         };
     }]);
 ;angular
-    .module("expenses")
+    .module("revaluate.expenses")
     .directive('caretPricePosition', ["$timeout", function ($timeout) {
         return {
             link: function (scope, elem, attrs) {
@@ -4687,7 +5023,7 @@ angular
             }
         };
     }]);;angular
-    .module("expenses")
+    .module("revaluate.expenses")
     .directive('escapeHtml', function () {
         return {
             require: '?ngModel',
@@ -4705,7 +5041,7 @@ angular
             }
         };
     });;angular
-    .module("expenses")
+    .module("revaluate.expenses")
     .directive("expenseEntry", ["$rootScope", "$timeout", "EXPENSE_EVENTS", function ($rootScope, $timeout, EXPENSE_EVENTS) {
         return {
             restrict: "A",
@@ -4821,7 +5157,7 @@ angular
     }]);;/* Email list */
 
 angular
-    .module("expenses")
+    .module("revaluate.expenses")
     .directive("expenseList", ["$rootScope", "$timeout", "EXPENSE_EVENTS", function ($rootScope, $timeout, EXPENSE_EVENTS) {
         return {
             restrict: "A",
@@ -4935,7 +5271,7 @@ angular
         }
     }]);
 ;angular
-    .module("expenses")
+    .module("revaluate.expenses")
     .directive('formatPrice', ['$filter', function ($filter) {
         return {
             require: '?ngModel',
@@ -4964,7 +5300,7 @@ angular
             }
         };
     }]);;angular
-    .module("common")
+    .module("revaluate.common")
     .directive("validPrice", function () {
         return {
             require: "ngModel",
@@ -4985,7 +5321,7 @@ angular
         };
     });
 ;angular
-    .module("expenses")
+    .module("revaluate.expenses")
     .filter('expensesHeader', ["$sce", function ($sce) {
         return function (text, reverse) {
             var template = reverse ? '<span class="expense-list-box__header__past">You have $1 expenses</span>' : '<span class="expense-list-box__header__upcoming">Your expenses</span>';
@@ -4993,7 +5329,7 @@ angular
             return $sce.trustAsHtml(template.replace('$1', text || '0'))
         };
     }]);;angular
-    .module("expenses")
+    .module("revaluate.expenses")
     .filter('highlightSearch', ["$sce", function ($sce) {
         return function (text, phrase) {
             if ( phrase ) text = text.replace(new RegExp('(' + phrase + ')', 'gi'),
@@ -5005,7 +5341,7 @@ angular
  * Expenses service which encapsulates the whole logic related to expenses.
  */
 angular
-    .module("expenses")
+    .module("revaluate.expenses")
     .service("ExpenseService", ["EXPENSE_URLS", "$q", "$http", "$injector", "ExpenseTransformerService", function (EXPENSE_URLS, $q, $http, $injector, ExpenseTransformerService) {
 
         /**
@@ -5102,7 +5438,7 @@ angular
  * Expense transformer service which transforms a expense DTO model object to a expense business object.
  */
 angular
-    .module("expenses")
+    .module("revaluate.expenses")
     .service("ExpenseTransformerService", ["$injector", "TransformerUtils", function ($injector, TransformerUtils) {
 
         /**
@@ -5173,7 +5509,7 @@ angular
         };
     }]);
 ;angular
-    .module("expenses")
+    .module("revaluate.expenses")
     .factory("Expense", ["$q", "$http", "ExpenseService", "ExpenseTransformerService", function ($q, $http, ExpenseService, ExpenseTransformerService) {
 
         /**
@@ -5195,7 +5531,7 @@ angular
                 /**
                  * The expense description.
                  */
-                category: "",
+                category: {},
 
                 /**
                  * The expense value
@@ -5265,20 +5601,20 @@ angular
 
         return Expense;
     }]);;angular
-    .module("statistics", [
-        "common"
+    .module("revaluate.statistics", [
+        "revaluate.common"
     ]);;/**
  * Summaries constants.
  */
 angular
-    .module("statistics")
+    .module("revaluate.statistics")
     .constant("STATISTIC_URLS", {
         fetchStatistic: "insights/summary_insights"
     });;/**
  * Summaries service which encapsulates the whole logic related to statistics.
  */
 angular
-    .module("statistics")
+    .module("revaluate.statistics")
     .service("StatisticService", ["STATISTIC_URLS", "$q", "$http", "$injector", "StatisticTransformerService", function (STATISTIC_URLS, $q, $http, $injector, StatisticTransformerService) {
 
         /**
@@ -5301,7 +5637,7 @@ angular
  * Statistic transformer service which transforms a statistic DTO model object to a statistic business object.
  */
 angular
-    .module("statistics")
+    .module("revaluate.statistics")
     .service("StatisticTransformerService", ["$injector", "TransformerUtils", function ($injector, TransformerUtils) {
 
         /**
@@ -5328,7 +5664,7 @@ angular
         };
     }]);
 ;angular
-    .module("statistics")
+    .module("revaluate.statistics")
     .factory("Statistic", ["$q", "StatisticTransformerService", function ($q, StatisticTransformerService) {
 
         /**
@@ -5369,9 +5705,9 @@ angular
 
         return Statistic;
     }]);;angular
-    .module("insights", [
-        "common",
-        "expenses"
+    .module("revaluate.insights", [
+        "revaluate.common",
+        "revaluate.expenses"
     ])
     .config(["$stateProvider", function ($stateProvider) {
 
@@ -5400,14 +5736,14 @@ angular
  * Insights constants.
  */
 angular
-    .module("insights")
+    .module("revaluate.insights")
     .constant("INSIGHTS_URLS", {
         fetchInsights: "insights/retrieve_from_to?from=:from&to=:to"
     });;/**
  * expenses controller.
  */
 angular
-    .module("insights")
+    .module("revaluate.insights")
     .controller("InsightController", ["$scope", "$rootScope", "$timeout", "flash", "insight", "statistics", "InsightService", "MIXPANEL_EVENTS", "ALERTS_CONSTANTS", function ($scope, $rootScope, $timeout, flash, insight, statistics, InsightService, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
 
         /**
@@ -5612,7 +5948,7 @@ angular
  * Insights service which encapsulates the whole logic related to insights.
  */
 angular
-    .module("insights")
+    .module("revaluate.insights")
     .service("InsightService", ["INSIGHTS_URLS", "$q", "$http", "$injector", "InsightTransformerService", function (INSIGHTS_URLS, $q, $http, $injector, InsightTransformerService) {
 
         /**
@@ -5637,7 +5973,7 @@ angular
  * Insight transformer service which transforms a insight DTO model object to a insight business object.
  */
 angular
-    .module("insights")
+    .module("revaluate.insights")
     .service("InsightTransformerService", ["$injector", "TransformerUtils", function ($injector, TransformerUtils) {
 
         /**
@@ -5723,7 +6059,7 @@ angular
         };
     }]);
 ;angular
-    .module("insights")
+    .module("revaluate.insights")
     .factory("Insight", ["$q", "$http", "InsightService", "InsightTransformerService", function ($q, $http, InsightService, InsightTransformerService) {
 
         /**
@@ -5823,23 +6159,27 @@ angular
 angular
     .module("app", [
         "config",
+        "angular-cache",
+        "angularFileUpload",
         "ngAnimate",
         "ngMessages",
         "angucomplete-alt",
         "ngStorage",
         "partials",
-        "site",
-        "feedback",
-        "common",
-        "categories",
-        "expenses",
-        "statistics",
-        "account",
-        "settings",
-        "insights",
+        "revaluate.site",
+        "revaluate.feedback",
+        "revaluate.common",
+        "revaluate.categories",
+        "revaluate.expensesImport",
+        "revaluate.expenses",
+        "revaluate.statistics",
+        "revaluate.account",
+        "revaluate.settings",
+        "revaluate.insights",
         "angular.filter"
     ])
-    .config(["$locationProvider", function ($locationProvider) {
+    .config(["$locationProvider", "CacheFactoryProvider", function ($locationProvider, CacheFactoryProvider) {
+        angular.extend(CacheFactoryProvider.defaults, { maxAge: 15 * 60 * 1000 });
 
         // Enable html5 mode
         $locationProvider.html5Mode({
@@ -5936,7 +6276,7 @@ angular
             $state.go('500');
         });
     }]);
-;angular.module('partials', ['app/site/partials/404.html', 'app/site/partials/500.html', 'app/site/partials/about.html', 'app/site/partials/home.html', 'app/site/partials/privacy.html', 'app/categories/partials/add-category-directive-template.html', 'app/categories/partials/categories.html', 'app/categories/partials/color-picker-directive-template.html', 'app/categories/partials/edit-remove-category-directive-template.html', 'app/expenses/partials/expense.category.template.html', 'app/expenses/partials/expense/expense.entry.template.html', 'app/expenses/partials/expense/expense.list.template.html', 'app/expenses/partials/expense/expenses.html', 'app/expenses/partials/expense/expenses.template.html', 'app/account/partials/account.html', 'app/account/partials/account_close.html', 'app/account/partials/logout.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/signup_setup.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/settings/partials/settings.abstract.html', 'app/settings/partials/settings.admin.abstract.html', 'app/settings/partials/settings.admin.cancelAccount.html', 'app/settings/partials/settings.admin.updatePassword.html', 'app/settings/partials/settings.preferences.abstract.html', 'app/settings/partials/settings.preferences.updateCurrency.html', 'app/settings/partials/settings.profile.html', 'app/insight/partials/insight.html', 'app/feedback/partials/feedback-modal.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/accordion/accordion-group.html', 'template/accordion/accordion.html', 'template/alert/alert.html', 'template/carousel/carousel.html', 'template/carousel/slide.html', 'template/datepicker/datepicker.html', 'template/datepicker/day.html', 'template/datepicker/month.html', 'template/datepicker/popup.html', 'template/datepicker/year.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/pagination/pager.html', 'template/pagination/pagination.html', 'template/popover/popover.html', 'template/progressbar/bar.html', 'template/progressbar/progress.html', 'template/progressbar/progressbar.html', 'template/rating/rating.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/timepicker/timepicker.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html', 'template/typeahead/typeahead-match.html', 'template/typeahead/typeahead-popup.html']);
+;angular.module('partials', ['app/site/partials/404.html', 'app/site/partials/500.html', 'app/site/partials/about.html', 'app/site/partials/home.html', 'app/site/partials/privacy.html', 'app/categories/partials/add-category-directive-template.html', 'app/categories/partials/categories.html', 'app/categories/partials/color-picker-directive-template.html', 'app/categories/partials/edit-remove-category-directive-template.html', 'app/import/partials/settings.import.abstract.html', 'app/import/partials/settings.import.choose.html', 'app/import/partials/settings.import.import.html', 'app/expenses/partials/expense.category.template.html', 'app/expenses/partials/expense/expense.entry.template.html', 'app/expenses/partials/expense/expense.list.template.html', 'app/expenses/partials/expense/expenses.html', 'app/expenses/partials/expense/expenses.template.html', 'app/account/partials/account.html', 'app/account/partials/account_close.html', 'app/account/partials/logout.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/signup_setup.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/settings/partials/settings.abstract.html', 'app/settings/partials/settings.admin.abstract.html', 'app/settings/partials/settings.admin.cancelAccount.html', 'app/settings/partials/settings.admin.updatePassword.html', 'app/settings/partials/settings.preferences.abstract.html', 'app/settings/partials/settings.preferences.updateCurrency.html', 'app/settings/partials/settings.profile.html', 'app/insight/partials/insight.html', 'app/feedback/partials/feedback-modal.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/accordion/accordion-group.html', 'template/accordion/accordion.html', 'template/alert/alert.html', 'template/carousel/carousel.html', 'template/carousel/slide.html', 'template/datepicker/datepicker.html', 'template/datepicker/day.html', 'template/datepicker/month.html', 'template/datepicker/popup.html', 'template/datepicker/year.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/pagination/pager.html', 'template/pagination/pagination.html', 'template/popover/popover.html', 'template/progressbar/bar.html', 'template/progressbar/progress.html', 'template/progressbar/progressbar.html', 'template/rating/rating.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/timepicker/timepicker.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html', 'template/typeahead/typeahead-match.html', 'template/typeahead/typeahead-popup.html']);
 
 angular.module("app/site/partials/404.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/404.html",
@@ -6151,15 +6491,13 @@ angular.module("app/categories/partials/add-category-directive-template.html", [
     "        <!-- Form group -->\n" +
     "        <div class=\"categories__form__input-group\" ng-class=\"{'has-error': categoryForm.$submitted && (categoryForm.color.$invalid || badPostSubmitResponse)}\">\n" +
     "\n" +
-    "            <input class=\"categories__form__input-group__color\" type=\"hidden\" placeholder=\"Category color\" name=\"color\" ng-model=\"category.model.color\" required valid-category-color />\n" +
+    "            <input class=\"categories__form__input-group__color\" type=\"hidden\" placeholder=\"Category color\" name=\"color\" ng-model=\"category.model.color.color\" required valid-category-color />\n" +
     "\n" +
     "            <!-- Error messages -->\n" +
     "            <div class=\"form-group-input__message\" ng-class=\"{'has-error': categoryForm.color.$invalid && categoryForm.$submitted}\" ng-messages=\"categoryForm.color.$error\" ng-if=\"categoryForm.$submitted\">\n" +
     "                <div ng-message=\"required\">Color is mandatory.</div>\n" +
     "                <div ng-message=\"validCategoryColor\">Color is not valid.</div>\n" +
     "            </div>\n" +
-    "\n" +
-    "            <div color-picker category-color=\"category.model.color\"></div>\n" +
     "        </div>\n" +
     "\n" +
     "        <div class=\"categories__form__input-group\" ng-class=\"{'has-error': categoryForm.$submitted && (categoryForm.name.$invalid || badPostSubmitResponse)}\">\n" +
@@ -6171,7 +6509,7 @@ angular.module("app/categories/partials/add-category-directive-template.html", [
     "            </div>\n" +
     "\n" +
     "            <!--Color preview-->\n" +
-    "            <label class=\"categories__form__color__preview\" ng-style=\"{'background':category.model.color}\"></label>\n" +
+    "            <label class=\"categories__form__color__preview\" ng-style=\"{'background':category.model.color.color}\"></label>\n" +
     "\n" +
     "            <input type=\"text\"\n" +
     "                   name=\"name\"\n" +
@@ -6180,6 +6518,8 @@ angular.module("app/categories/partials/add-category-directive-template.html", [
     "                   maxlength=\"30\"\n" +
     "                   ng-model=\"category.model.name\"\n" +
     "                   auto-focus required valid-category-name unique-category-name />\n" +
+    "\n" +
+    "            <div color-picker colors=\"colors\" category-color=\"category.model.color\"></div>\n" +
     "        </div>\n" +
     "\n" +
     "    </div>\n" +
@@ -6196,8 +6536,7 @@ angular.module("app/categories/partials/add-category-directive-template.html", [
 
 angular.module("app/categories/partials/categories.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/categories/partials/categories.html",
-    "<div class=\"view-container__content\">\n" +
-    "\n" +
+    "<div class=\"settings__section\">\n" +
     "    <div class=\"categories__title\">Categories</div>\n" +
     "    <div class=\"categories__text\">\n" +
     "        You can create new categories, edit the ones you already have or delete the ones that have no expenses associated.\n" +
@@ -6207,19 +6546,18 @@ angular.module("app/categories/partials/categories.html", []).run(["$templateCac
     "    <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
     "\n" +
     "    <!--Add category-->\n" +
-    "    <div class=\"categories__add\" add-category></div>\n" +
+    "    <div class=\"categories__add\" add-category colors=\"colors\"></div>\n" +
     "\n" +
     "    <!--List all categories-->\n" +
     "    <div class=\"categories__edit\">\n" +
     "\n" +
-    "        <div class=\"categories__edit__category\" ng-repeat=\"category in categories track by category.model.name\">\n" +
+    "        <div class=\"categories__edit__category\" ng-repeat=\"category in categories | orderObjectBy : 'model.id' : false track by category.model.name\">\n" +
     "\n" +
     "            <!--Edit/remove category-->\n" +
-    "            <div edit-remove-category category=\"category\"></div>\n" +
+    "            <div edit-remove-category colors=\"colors\" category=\"category\"></div>\n" +
     "        </div>\n" +
     "\n" +
     "    </div>\n" +
-    "\n" +
     "</div>");
 }]);
 
@@ -6231,7 +6569,7 @@ angular.module("app/categories/partials/color-picker-directive-template.html", [
     "\n" +
     "        <div class=\"color-picker__popover__colors\">\n" +
     "\n" +
-    "            <div class=\"color-picker__popover__colors__color\" ng-repeat=\"color in colors\">\n" +
+    "            <div class=\"color-picker__popover__colors__color\" ng-repeat=\"color in colors track by color.id\">\n" +
     "\n" +
     "                <!--Color picker-->\n" +
     "                <div class=\"color-picker__popover__colors__color__name\" ng-style=\"{'background':color.color}\" ng-click=\"select(color)\"></div>\n" +
@@ -6247,7 +6585,7 @@ angular.module("app/categories/partials/edit-remove-category-directive-template.
   $templateCache.put("app/categories/partials/edit-remove-category-directive-template.html",
     "<!--Category group-->\n" +
     "<div class=\"categories__edit__category__name\" ng-if=\"! showContent\">\n" +
-    "    <span class=\"categories__edit__category__color\" ng-style=\"{'background':category.model.color}\">C</span>\n" +
+    "    <span class=\"categories__edit__category__color\" ng-style=\"{'background':category.model.color.color}\">C</span>\n" +
     "    <span class=\"categories__edit__category__label\">{{category.model.name}}</span>\n" +
     "</div>\n" +
     "\n" +
@@ -6266,7 +6604,7 @@ angular.module("app/categories/partials/edit-remove-category-directive-template.
     "        <!-- Category color form group -->\n" +
     "        <div class=\"categories__form__input-group\" ng-class=\"{'has-error': categoryForm.$submitted && (categoryForm.color.$invalid || badPostSubmitResponse)}\">\n" +
     "\n" +
-    "            <input class=\"categories__form__input-group__color\" type=\"hidden\" placeholder=\"Category color\" name=\"color\" ng-model=\"category.model.color\" required valid-category-color />\n" +
+    "            <input class=\"categories__form__input-group__color\" type=\"hidden\" placeholder=\"Category color\" name=\"color\" ng-model=\"category.model.color.color\" required valid-category-color />\n" +
     "\n" +
     "            <!-- Error messages -->\n" +
     "            <div class=\"form-group-input__message\" ng-class=\"{'has-error': categoryForm.color.$invalid && categoryForm.$submitted}\" ng-messages=\"categoryForm.color.$error\" ng-if=\"categoryForm.$submitted\">\n" +
@@ -6278,7 +6616,7 @@ angular.module("app/categories/partials/edit-remove-category-directive-template.
     "        <!-- Category label form group-->\n" +
     "        <div class=\"categories__form__input-group\" ng-class=\"{'has-error': categoryForm.$submitted && (categoryForm.name.$invalid || badPostSubmitResponse)}\">\n" +
     "            <!--Color preview-->\n" +
-    "            <label class=\"categories__form__color__preview\" ng-style=\"{'background':category.model.color}\"></label>\n" +
+    "            <label class=\"categories__form__color__preview\" ng-style=\"{'background':category.model.color.color}\"></label>\n" +
     "            <input class=\"categories__form__input-group__name\" type=\"text\" placeholder=\"Category name\" name=\"name\" ng-model=\"category.model.name\" auto-focus required valid-category-name unique-category-name except=\"masterCategory.model.name\" />\n" +
     "\n" +
     "            <!-- Error messages -->\n" +
@@ -6288,7 +6626,7 @@ angular.module("app/categories/partials/edit-remove-category-directive-template.
     "                <div ng-message=\"uniqueCategoryName\">Name is already used.</div>\n" +
     "            </div>\n" +
     "\n" +
-    "            <div color-picker category-color=\"category.model.color\"></div>\n" +
+    "            <div color-picker colors=\"colors\" category-color=\"category.model.color\"></div>\n" +
     "        </div>\n" +
     "\n" +
     "    </div>\n" +
@@ -6304,16 +6642,169 @@ angular.module("app/categories/partials/edit-remove-category-directive-template.
     "</form>");
 }]);
 
+angular.module("app/import/partials/settings.import.abstract.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/import/partials/settings.import.abstract.html",
+    "<div class=\"settings__section\" ui-view></div>");
+}]);
+
+angular.module("app/import/partials/settings.import.choose.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/import/partials/settings.import.choose.html",
+    "<div class=\"settings__section__form\">\n" +
+    "\n" +
+    "    <a href=\"javascript:void(0)\" ui-sref=\"settings.import.import({type: 'mint'})\">Mint</a>\n" +
+    "    <br/>\n" +
+    "    <a href=\"javascript:void(0)\" ui-sref=\"settings.import.import({type: 'spendee'})\">Spendee</a>\n" +
+    "</div>");
+}]);
+
+angular.module("app/import/partials/settings.import.import.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/import/partials/settings.import.import.html",
+    "<div class=\"settings__section\">\n" +
+    "\n" +
+    "    <div class=\"settings__title\">Import</div>\n" +
+    "\n" +
+    "    <!-- Flash messages. -->\n" +
+    "    <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
+    "    <!--Expenses import form-->\n" +
+    "    <form name=\"expensesImportForm\" ng-submit=\"submitPerformImport()\" novalidate ng-show=\"isUploadFinished\">\n" +
+    "\n" +
+    "        <div class=\"expenses-import__edit\">\n" +
+    "\n" +
+    "            <div class=\"expenses-import__edit__category\" ng-repeat=\"categoryMatchCandidate in expensesImportAnswer.model.expenseCategoryMatchingProfileDTOs track by categoryMatchCandidate.categoryCandidateName\">\n" +
+    "\n" +
+    "                <!--Category candidate name preview-->\n" +
+    "                <div class=\"expenses-import__edit__category__name\">\n" +
+    "\n" +
+    "                    <span class=\"expenses-import__edit__category__name__candidate\">\n" +
+    "                        {{categoryMatchCandidate.categoryCandidateName}}\n" +
+    "                    </span>\n" +
+    "                </div>\n" +
+    "\n" +
+    "                <!--Category select-->\n" +
+    "                <ng-form class=\"expenses-import__edit__category__controls\" name=\"expensesImportCategoryMatchEntryForm\">\n" +
+    "\n" +
+    "                    <div class=\"expense__form__category expenses-import__edit__category__controls__category\" ng-class=\"{'has-error': expensesImportForm.$submitted && (expensesImportCategoryMatchEntryForm.$error['autocomplete-required'] || expensesImportCategoryMatchEntryForm.category.$invalid || badPostSubmitResponse)}\">\n" +
+    "\n" +
+    "                        <div angucomplete-alt\n" +
+    "                             selected-object=\"categoryMatchCandidate.category\"\n" +
+    "                             local-data=\"categories\"\n" +
+    "                             search-fields=\"model.name\"\n" +
+    "                             title-field=\"model.name\"\n" +
+    "                             field-required=\"true\"\n" +
+    "                             placeholder=\"Add category\"\n" +
+    "                             maxlength=\"50\"\n" +
+    "                             pause=\"1\"\n" +
+    "                             minlength=\"0\"\n" +
+    "                             input-class=\"expense__form__category__input\"\n" +
+    "                             match-class=\"angucomplete-highlight\"\n" +
+    "                             template-url=\"app/expenses/partials/expense.category.template.html\">\n" +
+    "                        </div>\n" +
+    "\n" +
+    "                        <!-- Error messages -->\n" +
+    "                        <div class=\"form-group-input__message\" ng-class=\"{'has-error': expensesImportCategoryMatchEntryForm.$invalid && expensesImportForm.$submitted}\" ng-messages=\"expensesImportCategoryMatchEntryForm.$error\" ng-if=\"expensesImportForm.$submitted\">\n" +
+    "                            <div ng-message=\"autocomplete-required\">Category is missing or is invalid.</div>\n" +
+    "                        </div>\n" +
+    "\n" +
+    "                        <div class=\"form-group-input__message\" ng-if=\"expensesImportCategoryMatchEntryForm.category.$invalid && expensesImportForm.$submitted\">Please add a category.</div>\n" +
+    "                    </div>\n" +
+    "\n" +
+    "                </ng-form>\n" +
+    "\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!-- Button -->\n" +
+    "            <button class=\"sign-up__setup__btn\" type=\"submit\">{{isImporting ? 'Importing..' : 'Import expenses'}}</button>\n" +
+    "        </div>\n" +
+    "\n" +
+    "    </form>\n" +
+    "\n" +
+    "    <!--Import section form-->\n" +
+    "    <div class=\"settings__section__form\" ng-hide=\"isUploadFinished\">\n" +
+    "\n" +
+    "        <!-- Title -->\n" +
+    "        <h1 class=\"settings__title\">Import expenses</h1>\n" +
+    "\n" +
+    "        <div nv-file-drop=\"\" uploader=\"uploader\" filters=\"queueLimit, customFilter\">\n" +
+    "\n" +
+    "            <div class=\"container\">\n" +
+    "\n" +
+    "                <div class=\"row\">\n" +
+    "\n" +
+    "                    <div class=\"col-md-3\">\n" +
+    "\n" +
+    "                        <h3>Select files</h3>\n" +
+    "\n" +
+    "                        <input type=\"file\" nv-file-select=\"\" uploader=\"uploader\" />\n" +
+    "                    </div>\n" +
+    "\n" +
+    "                    <div class=\"col-md-9\" style=\"margin-bottom: 40px\">\n" +
+    "\n" +
+    "                        <h3>Upload queue</h3>\n" +
+    "\n" +
+    "                        <p>Queue length: {{ uploader.queue.length }}</p>\n" +
+    "\n" +
+    "                        <table class=\"table\">\n" +
+    "                            <thead>\n" +
+    "                            <tr>\n" +
+    "                                <th width=\"50%\">Name</th>\n" +
+    "                                <th ng-show=\"uploader.isHTML5\">Size</th>\n" +
+    "                                <th ng-show=\"uploader.isHTML5\">Progress</th>\n" +
+    "                                <th>Status</th>\n" +
+    "                                <th>Actions</th>\n" +
+    "                            </tr>\n" +
+    "                            </thead>\n" +
+    "                            <tdiv>\n" +
+    "                                <tr ng-repeat=\"item in uploader.queue\">\n" +
+    "                                    <td><strong>{{ item.file.name }}</strong></td>\n" +
+    "                                    <td ng-show=\"uploader.isHTML5\" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>\n" +
+    "                                    <td ng-show=\"uploader.isHTML5\">\n" +
+    "                                        <div class=\"progress\" style=\"margin-bottom: 0;\">\n" +
+    "                                            <div class=\"progress-bar\" role=\"progressbar\" ng-style=\"{ 'width': item.progress + '%' }\"></div>\n" +
+    "                                        </div>\n" +
+    "                                    </td>\n" +
+    "                                    <td class=\"text-center\">\n" +
+    "                                        <span ng-show=\"item.isSuccess\"><i class=\"glyphicon glyphicon-ok\"></i></span>\n" +
+    "                                        <span ng-show=\"item.isCancel\"><i class=\"glyphicon glyphicon-ban-circle\"></i></span>\n" +
+    "                                        <span ng-show=\"item.isError\"><i class=\"glyphicon glyphicon-remove\"></i></span>\n" +
+    "                                    </td>\n" +
+    "                                    <td nowrap>\n" +
+    "                                        <button type=\"button\" class=\"btn btn-success btn-xs\" ng-click=\"item.upload()\" ng-disabled=\"item.isReady || item.isUploading || item.isSuccess\">\n" +
+    "                                            <span class=\"glyphicon glyphicon-upload\"></span> Upload\n" +
+    "                                        </button>\n" +
+    "                                        <button type=\"button\" class=\"btn btn-warning btn-xs\" ng-click=\"item.cancel()\" ng-disabled=\"!item.isUploading\">\n" +
+    "                                            <span class=\"glyphicon glyphicon-ban-circle\"></span> Cancel\n" +
+    "                                        </button>\n" +
+    "                                        <button type=\"button\" class=\"btn btn-danger btn-xs\" ng-click=\"item.remove()\">\n" +
+    "                                            <span class=\"glyphicon glyphicon-trash\"></span> Remove\n" +
+    "                                        </button>\n" +
+    "                                    </td>\n" +
+    "                                </tr>\n" +
+    "                            </tdiv>\n" +
+    "                        </table>\n" +
+    "\n" +
+    "                    </div>\n" +
+    "\n" +
+    "                </div>\n" +
+    "\n" +
+    "            </div>\n" +
+    "\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "</div>");
+}]);
+
 angular.module("app/expenses/partials/expense.category.template.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/expenses/partials/expense.category.template.html",
     "<div class=\"angucomplete-holder\" ng-class=\"{'angucomplete-dropdown-visible': showDropdown}\">\n" +
-    "    <input id=\"{{id}}_value\" ng-style=\"{'background':selectedObject.originalObject.model.color}\" ng-model=\"searchStr\" ng-disabled=\"disableInput\" type=\"{{type}}\" placeholder=\"{{placeholder}}\" maxlength=\"{{maxlength}}\" ng-focus=\"onFocusHandler()\" class=\"{{inputClass}}\" ng-focus=\"resetHideResults()\" ng-blur=\"hideResults($event)\" autocapitalize=\"off\" autocorrect=\"off\" autocomplete=\"off\" ng-change=\"inputChangeHandler(searchStr)\" />\n" +
+    "    <input id=\"{{id}}_value\" ng-style=\"{'background':selectedObject.originalObject.model.color.color}\" ng-model=\"searchStr\" ng-disabled=\"disableInput\" type=\"{{type}}\" placeholder=\"{{placeholder}}\" maxlength=\"{{maxlength}}\" ng-focus=\"onFocusHandler()\" class=\"{{inputClass}}\" ng-focus=\"resetHideResults()\" ng-blur=\"hideResults($event)\" autocapitalize=\"off\" autocorrect=\"off\" autocomplete=\"off\" ng-change=\"inputChangeHandler(searchStr)\" />\n" +
     "\n" +
     "    <div id=\"{{id}}_dropdown\" class=\"angucomplete-dropdown expense__form__category__angucomplete-dropdown\" ng-show=\"showDropdown\">\n" +
     "        <div class=\"angucomplete-searching\" ng-show=\"searching\" ng-bind=\"textSearching\"></div>\n" +
     "        <div class=\"angucomplete-row\" ng-repeat=\"result in results\" ng-click=\"selectResult(result)\" ng-mouseenter=\"hoverRow($index)\" ng-class=\"{'angucomplete-selected-row': $index == currentIndex}\">\n" +
     "            <div class=\"angucomplete-image-holder expense__form__category__angucomplete-image-holder\">\n" +
-    "                <label class=\"expense__form__category__color__preview\" ng-style=\"{'background':result.originalObject.model.color}\"></label>\n" +
+    "                <label class=\"expense__form__category__color__preview\" ng-style=\"{'background':result.originalObject.model.color.color}\"></label>\n" +
     "            </div>\n" +
     "            <div class=\"angucomplete-title\" ng-if=\"matchClass\" ng-bind-html=\"result.title\"></div>\n" +
     "            <div class=\"angucomplete-title\" ng-if=\"!matchClass\">{{ result.title }}</div>\n" +
@@ -6337,7 +6828,7 @@ angular.module("app/expenses/partials/expense/expense.entry.template.html", []).
     "    </div>\n" +
     "\n" +
     "    <!--Expense category-->\n" +
-    "    <div class=\"expenses__list__entry__category\" ng-style=\"{'background':expense.model.category.color}\" ng-bind-html=\"expense.model.category.name\"></div>\n" +
+    "    <div class=\"expenses__list__entry__category\" ng-style=\"{'background':expense.model.category.color.color}\" ng-bind-html=\"expense.model.category.name\"></div>\n" +
     "\n" +
     "    <!--Expense description-->\n" +
     "    <div class=\"expenses__list__entry__details\" ng-bind-html=\"expense.model.description | highlightSearch:searchByText\"></div>\n" +
@@ -6460,8 +6951,8 @@ angular.module("app/expenses/partials/expense/expense.list.template.html", []).r
     "        <!--Expense list-->\n" +
     "        <div class=\"expenses__list__entry\"\n" +
     "             ng-repeat=\"expense in expenses | orderObjectBy : 'model.spentDate' : reverseOrder | limitTo: expensesLimit | filter:{model:{description:searchByText}} as filteredExpenses track by expense.model.id\"\n" +
-    "\n" +
     "             expense-entry expense=\"expense\" categories=\"categories\">\n" +
+    "\n" +
     "        </div>\n" +
     "    </div>\n" +
     "\n" +
@@ -6936,7 +7427,7 @@ angular.module("app/account/partials/signup_setup.html", []).run(["$templateCach
     "            <div class=\"sign-up__box__categories\">\n" +
     "\n" +
     "                <div class=\"sign-up__box__categories__category\" ng-repeat=\"category in categories track by category.name\">\n" +
-    "                    <div class=\"category-name\" ng-style=\"{'background':category.color}\" ng-class=\"{ 'category-name--unselected': !category.selected }\" ng-click=\"toggleCategorySelection($index)\"> {{category.name}}</div>\n" +
+    "                    <div class=\"category-name\" ng-style=\"{'background':category.color.color}\" ng-class=\"{ 'category-name--unselected': !category.selected }\" ng-click=\"toggleCategorySelection($index)\"> {{category.name}}</div>\n" +
     "                </div>\n" +
     "\n" +
     "                <!--Toggle form-->\n" +
@@ -7071,6 +7562,9 @@ angular.module("app/settings/partials/settings.abstract.html", []).run(["$templa
     "        <li ui-sref-active=\"tab__active\">\n" +
     "            <a href=\"javascript:void(0)\" ui-sref=\"settings.categories\">Categories</a>\n" +
     "        </li>\n" +
+    "        <li ui-sref-active=\"tab__active\">\n" +
+    "            <a href=\"javascript:void(0)\" ui-sref=\"settings.import.choose\">Import</a>\n" +
+    "        </li>\n" +
     "    </ul>\n" +
     "\n" +
     "    <div class=\"view-container__content__admin__section\" ui-view></div>\n" +
@@ -7082,132 +7576,114 @@ angular.module("app/settings/partials/settings.abstract.html", []).run(["$templa
 
 angular.module("app/settings/partials/settings.admin.abstract.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/settings/partials/settings.admin.abstract.html",
-    "<div ui-view=\"updatePassword\"></div>\n" +
+    "<div class=\"settings__section\" ui-view=\"updatePassword\"></div>\n" +
     "\n" +
-    "<div ui-view=\"cancelAccount\"></div>");
+    "<div class=\"settings__section\" ui-view=\"cancelAccount\"></div>");
 }]);
 
 angular.module("app/settings/partials/settings.admin.cancelAccount.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/settings/partials/settings.admin.cancelAccount.html",
-    "<!-- Cancel account section -->\n" +
-    "<div class=\"account\">\n" +
+    "<div class=\"settings__section__form\">\n" +
     "\n" +
-    "    <div class=\"account__section\">\n" +
+    "    <!-- Delete account -->\n" +
+    "    <h1 class=\"settings__title\">Delete account</h1>\n" +
     "\n" +
-    "        <!-- Account controls -->\n" +
-    "        <div class=\"account__controls\">\n" +
+    "    <!-- Flash messages. -->\n" +
+    "    <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
     "\n" +
-    "            <!-- Flash messages. -->\n" +
-    "            <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
-    "\n" +
-    "            <!--Cancel account-->\n" +
-    "            <button class=\"account-cancel__btn\" ng-click=\"cancelAccount()\">{{isDeleting ? 'Canceling..' : 'Cancel account'}}</button>\n" +
-    "        </div>\n" +
-    "\n" +
-    "    </div>\n" +
+    "    <!--Cancel account-->\n" +
+    "    <button class=\"settings__cancel__btn\" ng-click=\"cancelAccount()\">{{isDeleting ? 'Deleting...' : 'Delete my account'}}</button>\n" +
     "\n" +
     "</div>");
 }]);
 
 angular.module("app/settings/partials/settings.admin.updatePassword.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/settings/partials/settings.admin.updatePassword.html",
-    "<!-- Profile section -->\n" +
+    "<!-- Update password section -->\n" +
+    "<div class=\"settings__section__form\">\n" +
     "\n" +
-    "<!-- Account sections -->\n" +
-    "<div class=\"account\">\n" +
+    "    <!-- Title -->\n" +
+    "    <h1 class=\"settings__title\">Change password</h1>\n" +
     "\n" +
-    "    <!-- Update password section -->\n" +
-    "    <div class=\"account__section\">\n" +
+    "    <!-- Update password form -->\n" +
+    "    <form name=\"updatePasswordForm\" ng-submit=\"updatePassword(updatePasswordData)\" novalidate focus-first-error>\n" +
     "\n" +
-    "        <!-- Title -->\n" +
-    "        <h1 class=\"account__title\">Update password</h1>\n" +
+    "        <!-- Flash messages. -->\n" +
+    "        <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
     "\n" +
-    "        <!-- Update password form -->\n" +
-    "        <form name=\"updatePasswordForm\" ng-submit=\"updatePassword(updatePasswordData)\" novalidate focus-first-error>\n" +
+    "        <!-- Form group -->\n" +
+    "        <div class=\"form-group-input\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.oldPassword.$invalid || badPostSubmitResponse)}\">\n" +
+    "            <input class=\"form-group-input__input\" type=\"password\" placeholder=\"Old password\" name=\"oldPassword\" ng-model=\"updatePasswordData.oldPassword\" auto-focus required />\n" +
+    "            <span class=\"form-group-input__message\" ng-if=\"updatePasswordForm.oldPassword.$invalid && updatePasswordForm.$submitted\">Please enter your old password.</span>\n" +
+    "        </div>\n" +
     "\n" +
-    "            <!-- Flash messages. -->\n" +
-    "            <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "        <!-- Form group -->\n" +
+    "        <div class=\"form-group-input\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.newPassword.$invalid || badPostSubmitResponse)}\">\n" +
+    "            <input class=\"form-group-input__input\" type=\"password\" placeholder=\"New password\" name=\"newPassword\" ng-model=\"updatePasswordData.newPassword\" required />\n" +
+    "            <span class=\"form-group-input__message\" ng-if=\"updatePasswordForm.newPassword.$invalid && updatePasswordForm.$submitted\">Please enter a new password.</span>\n" +
+    "        </div>\n" +
     "\n" +
-    "            <!-- Form group -->\n" +
-    "            <div class=\"form-group-input\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.oldPassword.$invalid || badPostSubmitResponse)}\">\n" +
-    "                <input class=\"form-group-input__input\" type=\"password\" placeholder=\"Old password\" name=\"oldPassword\" ng-model=\"updatePasswordData.oldPassword\" auto-focus required />\n" +
-    "                <span class=\"form-group-input__message\" ng-if=\"updatePasswordForm.oldPassword.$invalid && updatePasswordForm.$submitted\">Please enter your old password.</span>\n" +
-    "            </div>\n" +
+    "        <!-- Form group -->\n" +
+    "        <div class=\"form-group-input\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.newPasswordConfirmation.$invalid || badPostSubmitResponse)}\">\n" +
+    "            <input class=\"form-group-input__input\" type=\"password\" placeholder=\"New password confirmation\" name=\"newPasswordConfirmation\" ng-model=\"updatePasswordData.newPasswordConfirmation\" required />\n" +
+    "            <span class=\"form-group-input__message\" ng-if=\"updatePasswordForm.newPasswordConfirmation.$invalid && updatePasswordForm.$submitted\">Please confirm your new password.</span>\n" +
+    "        </div>\n" +
     "\n" +
-    "            <!-- Form group -->\n" +
-    "            <div class=\"form-group-input\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.newPassword.$invalid || badPostSubmitResponse)}\">\n" +
-    "                <input class=\"form-group-input__input\" type=\"password\" placeholder=\"New password\" name=\"newPassword\" ng-model=\"updatePasswordData.newPassword\" required />\n" +
-    "                <span class=\"form-group-input__message\" ng-if=\"updatePasswordForm.newPassword.$invalid && updatePasswordForm.$submitted\">Please enter a new password.</span>\n" +
-    "            </div>\n" +
-    "\n" +
-    "            <!-- Form group -->\n" +
-    "            <div class=\"form-group-input\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.newPasswordConfirmation.$invalid || badPostSubmitResponse)}\">\n" +
-    "                <input class=\"form-group-input__input\" type=\"password\" placeholder=\"New password confirmation\" name=\"newPasswordConfirmation\" ng-model=\"updatePasswordData.newPasswordConfirmation\" required />\n" +
-    "                <span class=\"form-group-input__message\" ng-if=\"updatePasswordForm.newPasswordConfirmation.$invalid && updatePasswordForm.$submitted\">Please confirm your new password.</span>\n" +
-    "            </div>\n" +
-    "\n" +
-    "            <!-- Button container -->\n" +
-    "            <button class=\"account__btn\" type=\"submit\">{{isRequestPending ? 'Updating..' : 'Update password'}}</button>\n" +
-    "        </form>\n" +
-    "\n" +
-    "    </div>\n" +
+    "        <!-- Button container -->\n" +
+    "        <button class=\"settings__btn__save\" type=\"submit\">{{isRequestPending ? 'Saving...' : 'Change password'}}</button>\n" +
+    "    </form>\n" +
     "\n" +
     "</div>");
 }]);
 
 angular.module("app/settings/partials/settings.preferences.abstract.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/settings/partials/settings.preferences.abstract.html",
-    "<div ui-view=\"updateCurrency\"></div>");
+    "<div class=\"settings__section\" ui-view=\"updateCurrency\"></div>");
 }]);
 
 angular.module("app/settings/partials/settings.preferences.updateCurrency.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/settings/partials/settings.preferences.updateCurrency.html",
-    "<!-- Cancel account section -->\n" +
-    "<div class=\"account\">\n" +
+    "<div class=\"settings__section__form\">\n" +
     "\n" +
-    "    <div class=\"account__section\">\n" +
+    "    <!-- Title -->\n" +
+    "    <h1 class=\"settings__title\">Modify preferences</h1>\n" +
     "\n" +
-    "        <!-- Title -->\n" +
-    "        <h1 class=\"account__title\">Modify preferences</h1>\n" +
+    "    <form name=\"preferencesForm\" ng-submit=\"updatePreferences()\" novalidate>\n" +
     "\n" +
-    "        <form name=\"preferencesForm\" ng-submit=\"updatePreferences()\" novalidate>\n" +
+    "        <!-- Flash messages. -->\n" +
+    "        <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
     "\n" +
-    "            <!-- Flash messages. -->\n" +
-    "            <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "        <div class=\"sign-up__setup__section\">\n" +
     "\n" +
-    "            <div class=\"sign-up__setup__section\">\n" +
-    "\n" +
-    "                <div class=\"sign-up__setup__section--currency\" ng-class=\"{'has-error': preferencesForm.$submitted && (preferencesForm.$error['autocomplete-required'] || preferencesForm.currency.$invalid || badPostSubmitResponse)}\">\n" +
-    "                    <div angucomplete-alt\n" +
-    "                         selected-object=\"currency\"\n" +
-    "                         local-data=\"currencies\"\n" +
-    "                         search-fields=\"displayName,currencyCode\"\n" +
-    "                         title-field=\"currencyCode,displayName\"\n" +
-    "                         field-required=\"true\"\n" +
-    "                         placeholder=\"Start typing your currency...\"\n" +
-    "                         maxlength=\"50\"\n" +
-    "                         pause=\"1\"\n" +
-    "                         minlength=\"0\"\n" +
-    "                         initial-value=\"{{user.model.currency.currencyCode}}\"\n" +
-    "                         input-class=\"sign-up__setup__section--currency__input\"\n" +
-    "                         match-class=\"angucomplete-highlight\">\n" +
-    "                    </div>\n" +
-    "\n" +
-    "                    <!-- Error messages -->\n" +
-    "                    <div class=\"form-group-input__message form-group-input__message--currency\" ng-class=\"{'has-error': preferencesForm.$invalid && preferencesForm.$submitted}\" ng-messages=\"preferencesForm.$error\" ng-if=\"preferencesForm.$submitted\">\n" +
-    "                        <div ng-message=\"autocomplete-required\">Currency is missing or is invalid.</div>\n" +
-    "                        <div ng-message=\"required\">Please add</div>\n" +
-    "                    </div>\n" +
-    "\n" +
-    "                    <div class=\"form-group-input__message form-group-input__message--currency\" ng-if=\"preferencesForm.category.$invalid && preferencesForm.$submitted\">Please add a currency.</div>\n" +
+    "            <div class=\"sign-up__setup__section--currency\" ng-class=\"{'has-error': preferencesForm.$submitted && (preferencesForm.$error['autocomplete-required'] || preferencesForm.currency.$invalid || badPostSubmitResponse)}\">\n" +
+    "                <div angucomplete-alt\n" +
+    "                     selected-object=\"currency\"\n" +
+    "                     local-data=\"currencies\"\n" +
+    "                     search-fields=\"displayName,currencyCode\"\n" +
+    "                     title-field=\"currencyCode,displayName\"\n" +
+    "                     field-required=\"true\"\n" +
+    "                     placeholder=\"Start typing your currency...\"\n" +
+    "                     maxlength=\"50\"\n" +
+    "                     pause=\"1\"\n" +
+    "                     minlength=\"0\"\n" +
+    "                     initial-value=\"{{user.model.currency.currencyCode}}\"\n" +
+    "                     input-class=\"sign-up__setup__section--currency__input\"\n" +
+    "                     match-class=\"angucomplete-highlight\">\n" +
     "                </div>\n" +
+    "\n" +
+    "                <!-- Error messages -->\n" +
+    "                <div class=\"form-group-input__message form-group-input__message--currency\" ng-class=\"{'has-error': preferencesForm.$invalid && preferencesForm.$submitted}\" ng-messages=\"preferencesForm.$error\" ng-if=\"preferencesForm.$submitted\">\n" +
+    "                    <div ng-message=\"autocomplete-required\">Currency is missing or is invalid.</div>\n" +
+    "                    <div ng-message=\"required\">Please add</div>\n" +
+    "                </div>\n" +
+    "\n" +
+    "                <div class=\"form-group-input__message form-group-input__message--currency\" ng-if=\"preferencesForm.category.$invalid && preferencesForm.$submitted\">Please add a currency.</div>\n" +
     "            </div>\n" +
+    "        </div>\n" +
     "\n" +
-    "            <!-- Button -->\n" +
-    "            <button class=\"sign-up__setup__btn\" type=\"submit\">{{isSaving ? 'Saving..' : 'Save'}}</button>\n" +
-    "        </form>\n" +
-    "\n" +
-    "    </div>\n" +
+    "        <!-- Button -->\n" +
+    "        <button class=\"settings__btn__save\" type=\"submit\">{{isSaving ? 'Saving...' : 'Save changes'}}</button>\n" +
+    "    </form>\n" +
     "\n" +
     "</div>");
 }]);
@@ -7215,13 +7691,13 @@ angular.module("app/settings/partials/settings.preferences.updateCurrency.html",
 angular.module("app/settings/partials/settings.profile.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/settings/partials/settings.profile.html",
     "<!-- Profile section -->\n" +
-    "<div class=\"account\">\n" +
+    "<div class=\"settings__section\">\n" +
     "\n" +
     "    <!--Update profile section-->\n" +
-    "    <div class=\"account__section\">\n" +
+    "    <div class=\"settings__section__form\">\n" +
     "\n" +
     "        <!-- Title -->\n" +
-    "        <h1 class=\"account__title\">Modify profile</h1>\n" +
+    "        <h1 class=\"settings__title\">Edit profile</h1>\n" +
     "\n" +
     "        <!-- Profile form -->\n" +
     "        <form name=\"profileForm\" ng-submit=\"updateProfile(profileData)\" novalidate focus-first-error>\n" +
@@ -7231,23 +7707,26 @@ angular.module("app/settings/partials/settings.profile.html", []).run(["$templat
     "\n" +
     "            <!-- Form group -->\n" +
     "            <div class=\"form-group-input\" ng-class=\"{'has-error': profileForm.$submitted && (loginForm.firstName.$invalid || badPostSubmitResponse)}\">\n" +
+    "                <label>First Name</label>\n" +
     "                <input class=\"form-group-input__input\" type=\"text\" placeholder=\"First name\" name=\"firstName\" ng-model=\"profileData.firstName\" required auto-focus />\n" +
     "                <span class=\"form-group-input__message\" ng-if=\"profileForm.firstName.$invalid && profileForm.$submitted\">Please tell us your First Name.</span>\n" +
     "            </div>\n" +
     "\n" +
     "            <!-- Form group -->\n" +
     "            <div class=\"form-group-input\" ng-class=\"{'has-error': profileForm.$submitted && (profileForm.lastName.$invalid || badPostSubmitResponse)}\">\n" +
+    "                <label>Last Name</label>\n" +
     "                <input class=\"form-group-input__input\" type=\"text\" placeholder=\"Last name\" name=\"lastName\" ng-model=\"profileData.lastName\" required />\n" +
     "                <span class=\"form-group-input__message\" ng-if=\"profileForm.lastName.$invalid && profileForm.$submitted\">Please tell us your Last Name.</span>\n" +
     "            </div>\n" +
     "\n" +
     "            <!-- Form group -->\n" +
     "            <div class=\"form-group-input\">\n" +
+    "                <label>Email</label>\n" +
     "                <input class=\"form-group-input__input\" type=\"text\" placeholder=\"Email\" name=\"email\" ng-value=\"user.model.email\" disabled />\n" +
     "            </div>\n" +
     "\n" +
     "            <!-- Button container -->\n" +
-    "            <button class=\"account__btn\" type=\"submit\">{{isRequestPending ? 'Saving..' : 'Save'}}</button>\n" +
+    "            <button class=\"settings__btn__save\" type=\"submit\">{{isRequestPending ? 'Saving..' : 'Save changes'}}</button>\n" +
     "\n" +
     "        </form>\n" +
     "\n" +
@@ -7263,10 +7742,7 @@ angular.module("app/insight/partials/insight.html", []).run(["$templateCache", f
     "<div class=\"view-container__content\">\n" +
     "\n" +
     "    <div class=\"insights__section\">\n" +
-    "        Here are some useful insights around your expenses. We crafted just a few graphs to give you solid information\n" +
-    "        without crowding your screen too much. Feel free to\n" +
-    "        <a href=\"javascript:void(0)\" ng-controller=\"FeedbackModalController\" ng-click=\"openFeedbackModal()\">let us know</a>\n" +
-    "        what other charts you'd find useful and we'll work our heads off to fit them nicely.\n" +
+    "        Cool! Let's get some insights about your spendings.\n" +
     "    </div>\n" +
     "\n" +
     "    <!-- Insight fetch form -->\n" +
@@ -7319,8 +7795,8 @@ angular.module("app/insight/partials/insight.html", []).run(["$templateCache", f
     "\n" +
     "    <div class=\"insights__summary\">\n" +
     "        <div class=\"insights__summary__thumbnail\">\n" +
-    "            <span class=\"insights__summary__thumbnail__number\">{{insight.model.totalAmountSpent}}</span>\n" +
-    "            <span class=\"insights__summary__thumbnail__label\">TOTAL</span>\n" +
+    "            <span class=\"insights__summary__thumbnail__number \">{{insight.model.totalAmountSpent}}</span>\n" +
+    "            <span class=\"insights__summary__thumbnail__label\">TOTAL this month</span>\n" +
     "        </div>\n" +
     "        <div class=\"insights__summary__thumbnail\">\n" +
     "            <span class=\"insights__summary__thumbnail__number\">{{insight.model.numberOfTransactions}}</span>\n" +
@@ -7353,7 +7829,7 @@ angular.module("app/insight/partials/insight.html", []).run(["$templateCache", f
     "            <tbody>\n" +
     "            <tr ng-repeat=\"totalPerCategory in insight.model.totalPerCategoryInsightDTOs\">\n" +
     "                <td class=\"insights__table__category\">\n" +
-    "                    <span class=\"insights__table__category__color\" ng-style=\"{'background':totalPerCategory.categoryDTO.color}\">C</span>\n" +
+    "                    <span class=\"insights__table__category__color\" ng-style=\"{'background':totalPerCategory.categoryDTO.color.color}\">C</span>\n" +
     "                    {{totalPerCategory.categoryDTO.name}}\n" +
     "                </td>\n" +
     "                <td class=\"insights__table__amount\">{{totalPerCategory.totalAmount}}</td>\n" +
@@ -7441,31 +7917,35 @@ angular.module("app/common/partials/flash-messages.html", []).run(["$templateCac
 angular.module("app/common/partials/footer-home.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/common/partials/footer-home.html",
     "<footer class=\"footer\">\n" +
-    "    <div class=\"footer__logo\">\n" +
-    "        (C) 2015 Revaluate\n" +
-    "    </div>\n" +
+    "    <div class=\"footer__wrapper\">\n" +
+    "        <div class=\"footer__logo\">\n" +
+    "            Revaluate.\n" +
+    "        </div>\n" +
     "\n" +
-    "    <ul class=\"footer__links\">\n" +
-    "        <li>Read our <a href=\"http://blog.revaluate.io\" target=\"_blank\">Blog</a></li>\n" +
-    "        <li>Follow us on <a href=\"https://twitter.com/revaluateapp\" target=\"_blank\">Twitter</a></li>\n" +
-    "        <li>Like us on <a href=\"https://www.facebook.com/revaluateapp\" target=\"_blank\">Facebook</a></li>\n" +
-    "        <li>Contact us via <a href=\"mailto:hello@revaluate.io\">Email</a></li>\n" +
-    "    </ul>\n" +
+    "        <ul class=\"footer__links\">\n" +
+    "            <li>Read our <a href=\"http://blog.revaluate.io\" target=\"_blank\">Blog</a></li>\n" +
+    "            <li>Follow us on <a href=\"https://twitter.com/revaluateapp\" target=\"_blank\">Twitter</a></li>\n" +
+    "            <li>Like us on <a href=\"https://www.facebook.com/revaluateapp\" target=\"_blank\">Facebook</a></li>\n" +
+    "            <li>Contact us via <a href=\"mailto:hello@revaluate.io\">Email</a></li>\n" +
+    "        </ul>\n" +
+    "    </div>\n" +
     "</footer>");
 }]);
 
 angular.module("app/common/partials/footer.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/common/partials/footer.html",
     "<footer class=\"footer\">\n" +
-    "    <div class=\"footer__logo\">\n" +
-    "        (C) 2015 Revaluate\n" +
-    "    </div>\n" +
+    "    <div class=\"footer__wrapper\">\n" +
+    "        <div class=\"footer__logo\">\n" +
+    "            Revaluate.\n" +
+    "        </div>\n" +
     "\n" +
-    "    <ul class=\"footer__links\">\n" +
-    "        <li>Read our <a href=\"http://blog.revaluate.io\" target=\"_blank\">Blog</a></li>\n" +
-    "        <li>Follow us on <a href=\"https://twitter.com/revaluateapp\" target=\"_blank\">Twitter</a></li>\n" +
-    "        <li>Like us on <a href=\"https://www.facebook.com/revaluateapp\" target=\"_blank\">Facebook</a></li>\n" +
-    "    </ul>\n" +
+    "        <ul class=\"footer__links\">\n" +
+    "            <li>Read our <a href=\"http://blog.revaluate.io\" target=\"_blank\">Blog</a></li>\n" +
+    "            <li>Follow us on <a href=\"https://twitter.com/revaluateapp\" target=\"_blank\">Twitter</a></li>\n" +
+    "            <li>Like us on <a href=\"https://www.facebook.com/revaluateapp\" target=\"_blank\">Facebook</a></li>\n" +
+    "        </ul>\n" +
+    "    </div>\n" +
     "</footer>");
 }]);
 

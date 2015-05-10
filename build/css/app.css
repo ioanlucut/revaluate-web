@@ -1,5 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
-@import url(http://fonts.googleapis.com/css?family=Indie+Flower);
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
 /* line 10, ../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_component-animations.scss */
 .fade {
   opacity: 0;
@@ -499,7 +498,7 @@ button {
   color: #5F5F5F;
   cursor: pointer;
   display: inline-block;
-  font-family: "Open Sans", "Verdana", "Roboto", "Arial", sans-serif;
+  font-family: "Lato", "Verdana", "Roboto", "Arial", sans-serif;
   font-size: 14px;
   font-weight: 400;
   line-height: 0.4;
@@ -536,7 +535,7 @@ input,
 label,
 select {
   display: block;
-  font-family: "Open Sans", "Verdana", "Roboto", "Arial", sans-serif;
+  font-family: "Lato", "Verdana", "Roboto", "Arial", sans-serif;
   font-size: 14px;
 }
 
@@ -569,7 +568,7 @@ textarea {
   border-radius: 3px;
   box-shadow: none;
   box-sizing: border-box;
-  font-family: "Open Sans", "Verdana", "Roboto", "Arial", sans-serif;
+  font-family: "Lato", "Verdana", "Roboto", "Arial", sans-serif;
   font-size: 14px;
   margin-bottom: 0.75em;
   padding: 0.5em;
@@ -577,12 +576,6 @@ textarea {
   width: 100%;
 }
 /* line 48, ../../src/sass/bitters/_forms.scss */
-input[type="color"]:hover, input[type="date"]:hover, input[type="datetime"]:hover, input[type="datetime-local"]:hover, input[type="email"]:hover, input[type="month"]:hover, input[type="number"]:hover, input[type="password"]:hover, input[type="search"]:hover, input[type="tel"]:hover, input[type="text"]:hover, input[type="time"]:hover, input[type="url"]:hover, input[type="week"]:hover, textarea:hover,
-select[multiple=multiple]:hover,
-textarea:hover {
-  border-color: #c4c4c4;
-}
-/* line 52, ../../src/sass/bitters/_forms.scss */
 input[type="color"]:focus, input[type="date"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="email"]:focus, input[type="month"]:focus, input[type="number"]:focus, input[type="password"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="text"]:focus, input[type="time"]:focus, input[type="url"]:focus, input[type="week"]:focus, textarea:focus,
 select[multiple=multiple]:focus,
 textarea:focus {
@@ -590,12 +583,12 @@ textarea:focus {
   outline: none;
 }
 
-/* line 59, ../../src/sass/bitters/_forms.scss */
+/* line 55, ../../src/sass/bitters/_forms.scss */
 textarea {
   resize: vertical;
 }
 
-/* line 63, ../../src/sass/bitters/_forms.scss */
+/* line 59, ../../src/sass/bitters/_forms.scss */
 input[type="search"] {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -604,34 +597,34 @@ input[type="search"] {
   appearance: none;
 }
 
-/* line 67, ../../src/sass/bitters/_forms.scss */
+/* line 63, ../../src/sass/bitters/_forms.scss */
 input[type="checkbox"],
 input[type="radio"] {
   display: inline;
   margin-right: 0.375em;
 }
 
-/* line 73, ../../src/sass/bitters/_forms.scss */
+/* line 69, ../../src/sass/bitters/_forms.scss */
 input[type="file"] {
   padding-bottom: 0.75em;
   width: 100%;
 }
 
-/* line 78, ../../src/sass/bitters/_forms.scss */
+/* line 74, ../../src/sass/bitters/_forms.scss */
 select {
   margin-bottom: 1.5em;
   max-width: 100%;
   width: auto;
 }
 
-/* line 84, ../../src/sass/bitters/_forms.scss */
+/* line 80, ../../src/sass/bitters/_forms.scss */
 input {
   height: 45px;
   width: 320px;
   margin: 0 !important;
 }
 
-/* line 90, ../../src/sass/bitters/_forms.scss */
+/* line 86, ../../src/sass/bitters/_forms.scss */
 .form-group-input {
   text-align: left;
   padding-bottom: 10px;
@@ -639,7 +632,7 @@ input {
   position: relative;
 }
 
-/* line 97, ../../src/sass/bitters/_forms.scss */
+/* line 93, ../../src/sass/bitters/_forms.scss */
 .form-group-input__message {
   color: #ED5565;
   text-align: right;
@@ -652,7 +645,7 @@ input {
   font-weight: bold;
 }
 
-/* line 109, ../../src/sass/bitters/_forms.scss */
+/* line 105, ../../src/sass/bitters/_forms.scss */
 .form-group-input__message--currency {
   text-align: center;
   top: 45px;
@@ -660,7 +653,7 @@ input {
   left: 0;
 }
 
-/* line 118, ../../src/sass/bitters/_forms.scss */
+/* line 114, ../../src/sass/bitters/_forms.scss */
 .has-error .form-group-input__input {
   border-color: #ED5565;
 }
@@ -733,7 +726,7 @@ body {
   font-feature-settings: "kern", "liga", "pnum";
   -webkit-font-smoothing: antialiased;
   color: #000000;
-  font-family: "Open Sans", "Verdana", "Roboto", "Arial", sans-serif;
+  font-family: "Lato", "Verdana", "Roboto", "Arial", sans-serif;
   font-size: 14px;
   line-height: 1.5;
 }
@@ -745,7 +738,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Open Sans", "Verdana", "Roboto", "Arial", sans-serif;
+  font-family: "Lato", "Verdana", "Roboto", "Arial", sans-serif;
   font-size: 14px;
   line-height: 1.2;
   margin: 0 0 0.75em;
@@ -1349,9 +1342,21 @@ table {
 }
 
 /* line 1, ../../src/sass/layouts/_scafolding.scss */
+* {
+  margin: 0;
+}
+
+/* line 5, ../../src/sass/layouts/_scafolding.scss */
 html, body {
   height: 100%;
   background-color: #e8e8e8;
+}
+
+/* line 10, ../../src/sass/layouts/_scafolding.scss */
+.view-container {
+  min-height: 100%;
+  padding-bottom: 50px;
+  position: relative;
 }
 
 @-webkit-keyframes bounce {
@@ -9320,43 +9325,55 @@ html, body {
 
 /* line 1, ../../src/app/common/sass/_footer_home.scss */
 .footer {
+  width: 100%;
+  height: 50px;
+  padding: 10px 5px 30px 5px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: #999;
+}
+
+/* line 11, ../../src/app/common/sass/_footer_home.scss */
+.footer__wrapper {
   max-width: 71.25em;
   margin-left: auto;
   margin-right: auto;
-  padding: 20px 10px 30px 10px;
-  color: #999;
 }
 /* line 20, ../../bower_components/bourbon/app/assets/stylesheets/addons/_clearfix.scss */
-.footer::after {
+.footer__wrapper::after {
   clear: both;
   content: "";
   display: table;
 }
 
-/* line 7, ../../src/app/common/sass/_footer_home.scss */
+/* line 15, ../../src/app/common/sass/_footer_home.scss */
 .footer__logo {
   float: left;
   display: block;
   margin-right: 2.12766%;
-  width: 48.93617%;
+  width: 31.91489%;
 }
 /* line 89, ../../bower_components/neat/app/assets/stylesheets/grid/_span-columns.scss */
 .footer__logo:last-child {
   margin-right: 0;
 }
 
-/* line 11, ../../src/app/common/sass/_footer_home.scss */
+/* line 19, ../../src/app/common/sass/_footer_home.scss */
 .footer__links {
   float: left;
   display: block;
   margin-right: 2.12766%;
-  width: 23.40426%;
-  margin-left: 25.53191%;
+  width: 65.95745%;
   text-align: right;
 }
 /* line 89, ../../bower_components/neat/app/assets/stylesheets/grid/_span-columns.scss */
 .footer__links:last-child {
   margin-right: 0;
+}
+/* line 23, ../../src/app/common/sass/_footer_home.scss */
+.footer__links li {
+  display: inline-block;
 }
 
 /* line 1, ../../src/app/common/sass/_header.scss */
@@ -9468,7 +9485,7 @@ html, body {
   height: 40px;
   -webkit-border-radius: 50%;
   border-radius: 50%;
-  background: url("http://api.randomuser.me/portraits/thumb/men/55.jpg") no-repeat;
+  background: url("http://api.randomuser.me/portraits/thumb/women/8.jpg") no-repeat;
   background-size: contain;
   text-align: center;
   text-indent: -9999px;
@@ -11207,16 +11224,31 @@ html, body {
 
 /* line 1, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__textsection {
+  width: 100%;
+  display: block;
+  padding: 15px;
+  margin-bottom: 15px;
+  min-height: 20px;
+  text-align: center;
   text-align: center;
   padding-bottom: 30px;
 }
+/* line 20, ../../bower_components/bourbon/app/assets/stylesheets/addons/_clearfix.scss */
+.insights__textsection::after {
+  clear: both;
+  content: "";
+  display: table;
+}
 
-/* line 6, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 7, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__section {
   width: 100%;
   display: block;
   padding: 15px;
+  margin-bottom: 15px;
   min-height: 20px;
+  text-align: center;
+  font-size: 16px;
 }
 /* line 20, ../../bower_components/bourbon/app/assets/stylesheets/addons/_clearfix.scss */
 .insights__section::after {
@@ -11225,41 +11257,42 @@ html, body {
   display: table;
 }
 
-/* line 10, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 12, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__controls {
   width: 100%;
   text-align: center;
 }
-/* line 14, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 16, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__controls .insights__controls__form {
   width: 100%;
 }
-/* line 17, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 19, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__controls .insights__controls__form .insights__controls__form__arrow {
   -webkit-border-radius: 50%;
   border-radius: 50%;
   display: inline-block;
-  height: 35px;
-  width: 35px;
+  height: 40px;
+  width: 40px;
   padding: 0;
   margin: 10px;
-  border: solid 1px #e8e8e8;
+  border: solid 1px #5F5F5F;
   background-color: #ffffff;
-  color: #999;
+  color: #5F5F5F;
   text-align: center;
+  font-size: 18px;
   font-weight: 700;
 }
-/* line 31, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 34, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__controls .insights__controls__form .insights__controls__form__month {
-  width: 200px;
+  width: 250px;
   display: inline-block;
 }
-/* line 36, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 39, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__controls .insights__controls__form .insight__form__date__input__btn {
   width: 100%;
 }
 
-/* line 42, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 45, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__summary {
   padding: 40px 0;
 }
@@ -11269,7 +11302,7 @@ html, body {
   content: "";
   display: table;
 }
-/* line 46, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 49, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__summary .insights__summary__thumbnail {
   -webkit-border-radius: 3px;
   border-radius: 3px;
@@ -11285,44 +11318,60 @@ html, body {
   content: "";
   display: table;
 }
-/* line 55, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 58, ../../src/app/insight/sass/_insights_layout.scss */
+.insights__summary .insights__summary__thumbnail:nth-child(1) {
+  border-color: #4A90E2;
+  background-color: #d7e6f9;
+}
+/* line 62, ../../src/app/insight/sass/_insights_layout.scss */
+.insights__summary .insights__summary__thumbnail:nth-child(2) {
+  border-color: #13ca6d;
+  background-color: #8cf4bf;
+}
+/* line 66, ../../src/app/insight/sass/_insights_layout.scss */
+.insights__summary .insights__summary__thumbnail:nth-child(3) {
+  border-color: #ED5565;
+  background-color: #fde9eb;
+}
+/* line 70, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__summary .insights__summary__thumbnail .insights__summary__thumbnail__number,
 .insights__summary .insights__summary__thumbnail .insights__summary__thumbnail__label {
   width: 100%;
   float: left;
   text-align: center;
 }
-/* line 62, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 77, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__summary .insights__summary__thumbnail .insights__summary__thumbnail__number {
   font-size: 24px;
   font-weight: 700;
 }
-/* line 67, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 82, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__summary .insights__summary__thumbnail .insights__summary__thumbnail__label {
   color: #999;
 }
 
-/* line 73, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 92, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__chart__bar {
   width: 90%;
   margin: 0 auto;
 }
 
-/* line 78, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 97, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__table {
   display: block;
   float: left;
-  width: 37%;
+  width: 49%;
+  padding: 5px 15px 5px 30px;
 }
-/* line 83, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 103, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__table .insights__table__header {
   font-weight: 700;
 }
-/* line 87, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 107, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__table .insights__table__category {
   width: 80%;
 }
-/* line 90, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 110, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__table .insights__table__category .insights__table__category__color {
   -webkit-border-radius: 50%;
   border-radius: 50%;
@@ -11333,23 +11382,23 @@ html, body {
   margin-right: 5px;
   text-indent: -9999px;
 }
-/* line 100, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 120, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__table .insights__table__amount {
   text-align: right;
   width: 20%;
 }
 
-/* line 106, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 126, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__chart__doughnut {
-  width: 60%;
+  width: 49%;
   float: left;
 }
 
-/* line 111, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 131, ../../src/app/insight/sass/_insights_layout.scss */
 .insight__form__date__input__btn {
   display: inline-block;
   height: 35px;
-  background-color: #E7E7E7;
+  background-color: #ffffff;
   padding: 0 15px;
   line-height: 35px;
   color: #ffffff;
@@ -11358,11 +11407,14 @@ html, body {
   border-radius: 3px;
   height: 40px;
   line-height: 40px;
-  color: #5F5F5F;
+  border-bottom: dashed 1px #ddd;
+  color: #4A90E2;
+  font-size: 20px;
+  font-weight: 700;
 }
 /* line 15, ../../src/sass/components/_buttons.scss */
 .insight__form__date__input__btn:hover, .insight__form__date__input__btn:focus {
-  background-color: #f4f4f4;
+  background-color: white;
   cursor: pointer;
 }
 /* line 21, ../../src/sass/components/_buttons.scss */
@@ -11398,27 +11450,283 @@ html, body {
 .view-container__content__admin__aside li a {
   display: block;
   padding: 10px;
+  color: #999;
 }
-/* line 19, ../../src/app/settings/sass/_settings_common.scss */
+/* line 20, ../../src/app/settings/sass/_settings_common.scss */
 .view-container__content__admin__aside li a:focus {
   outline: none;
 }
-/* line 25, ../../src/app/settings/sass/_settings_common.scss */
+/* line 26, ../../src/app/settings/sass/_settings_common.scss */
 .view-container__content__admin__aside .tab__active {
   background: #ddd;
 }
-/* line 28, ../../src/app/settings/sass/_settings_common.scss */
+/* line 29, ../../src/app/settings/sass/_settings_common.scss */
 .view-container__content__admin__aside .tab__active a {
   color: #000000;
 }
 
-/* line 34, ../../src/app/settings/sass/_settings_common.scss */
+/* line 35, ../../src/app/settings/sass/_settings_common.scss */
 .view-container__content__admin__section {
+  float: right;
+  width: 75%;
+}
+/* line 20, ../../bower_components/bourbon/app/assets/stylesheets/addons/_clearfix.scss */
+.view-container__content__admin__section::after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+/* line 42, ../../src/app/settings/sass/_settings_common.scss */
+.settings__section {
+  width: 100%;
+  display: block;
+  padding: 15px;
+  margin-bottom: 15px;
+  min-height: 20px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
   background-color: #ffffff;
+}
+/* line 20, ../../bower_components/bourbon/app/assets/stylesheets/addons/_clearfix.scss */
+.settings__section::after {
+  clear: both;
+  content: "";
+  display: table;
+}
+/* line 47, ../../src/app/settings/sass/_settings_common.scss */
+.settings__section:last-child {
+  margin-bottom: 0;
+}
+
+/* line 52, ../../src/app/settings/sass/_settings_common.scss */
+.settings__title {
+  text-align: left;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+/* line 58, ../../src/app/settings/sass/_settings_common.scss */
+.settings__btn__save {
+  display: inline-block;
+  height: 35px;
+  background-color: #4A90E2;
+  padding: 0 15px;
+  line-height: 35px;
+  color: #ffffff;
+  text-align: center;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  height: 45px;
+  width: 100%;
+  line-height: 45px;
+  margin-top: 10px;
+}
+/* line 15, ../../src/sass/components/_buttons.scss */
+.settings__btn__save:hover, .settings__btn__save:focus {
+  background-color: #609de6;
+  cursor: pointer;
+}
+/* line 21, ../../src/sass/components/_buttons.scss */
+.settings__btn__save:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* line 1, ../../src/app/settings/sass/_settings_profile.scss */
+.settings__section__form {
+  width: 100%;
+  max-width: 400px;
+}
+
+/* line 7, ../../src/app/settings/sass/_settings_profile.scss */
+.settings__cancel__btn {
+  display: inline-block;
+  height: 35px;
+  background-color: #ED5565;
+  padding: 0 15px;
+  line-height: 35px;
+  color: #ffffff;
+  text-align: center;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+/* line 15, ../../src/sass/components/_buttons.scss */
+.settings__cancel__btn:hover, .settings__cancel__btn:focus {
+  background-color: #ef6c7a;
+  cursor: pointer;
+}
+/* line 21, ../../src/sass/components/_buttons.scss */
+.settings__cancel__btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ExpensesImport sub-modules */
+/* line 1, ../../src/app/import/sass/_import_common.scss */
+.expenses-import__title {
+  text-align: center;
+  font-size: 32px;
+}
+
+/* line 6, ../../src/app/import/sass/_import_common.scss */
+.expenses-import__text {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 25px;
+  text-align: center;
+}
+
+/* line 15, ../../src/app/import/sass/_import_common.scss */
+.angucomplete-image-holder {
+  position: relative;
+}
+
+/* line 19, ../../src/app/import/sass/_import_common.scss */
+.expenses-import__form__input-group {
+  vertical-align: middle;
+  position: relative;
+  float: left;
+  width: 100%;
+}
+/* line 25, ../../src/app/import/sass/_import_common.scss */
+.expenses-import__form__input-group .expenses-import__form__color__preview {
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  height: 22px;
+  width: 22px;
+  position: absolute;
+  margin: 10px;
+  left: 0;
+  top: 0;
+}
+/* line 34, ../../src/app/import/sass/_import_common.scss */
+.expenses-import__form__input-group .expenses-import__form__input-group__name,
+.expenses-import__form__input-group .expenses-import__form__input-group__color {
+  display: inline-block;
+}
+/* line 40, ../../src/app/import/sass/_import_common.scss */
+.expenses-import__form__input-group .expenses-import__form__input-group__name {
+  height: 40px;
+  padding-left: 40px;
+  text-transform: uppercase;
+  width: 250px;
+}
+
+/* line 50, ../../src/app/import/sass/_import_common.scss */
+.has-error .expenses-import__form__input-group__name,
+.has-error .expenses-import__form__input-group__color {
+  border-color: #ED5565;
+}
+
+/* line 56, ../../src/app/import/sass/_import_common.scss */
+.expenses-import__cancel__btn {
+  display: inline-block;
+  height: 35px;
+  background-color: #ED5565;
+  padding: 0 15px;
+  line-height: 35px;
+  color: #ffffff;
+  text-align: center;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
+  font-weight: 700;
+  display: inline-block;
+  min-width: 40px;
+  vertical-align: middle;
+  position: relative;
+  width: 45%;
+}
+/* line 15, ../../src/sass/components/_buttons.scss */
+.expenses-import__cancel__btn:hover, .expenses-import__cancel__btn:focus {
+  background-color: #ef6c7a;
+  cursor: pointer;
+}
+/* line 21, ../../src/sass/components/_buttons.scss */
+.expenses-import__cancel__btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* line 1, ../../src/app/import/sass/_import_match.scss */
+.expenses-import__edit {
+  float: left;
+  display: block;
+  margin-right: 2.12766%;
+  width: 48.93617%;
+  margin-left: 25.53191%;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+/* line 89, ../../bower_components/neat/app/assets/stylesheets/grid/_span-columns.scss */
+.expenses-import__edit:last-child {
+  margin-right: 0;
+}
+
+/* line 7, ../../src/app/import/sass/_import_match.scss */
+.expenses-import__edit__category {
+  float: left;
+  display: block;
+  margin-right: 2.12766%;
+  width: 100%;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  padding: 0;
+  height: 50px;
+  margin-bottom: 10px;
+}
+/* line 89, ../../bower_components/neat/app/assets/stylesheets/grid/_span-columns.scss */
+.expenses-import__edit__category:last-child {
+  margin-right: 0;
+}
+/* line 20, ../../bower_components/bourbon/app/assets/stylesheets/addons/_clearfix.scss */
+.expenses-import__edit__category::after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+/* line 16, ../../src/app/import/sass/_import_match.scss */
+.expenses-import__edit__category__name {
+  float: left;
+}
+/* line 20, ../../bower_components/bourbon/app/assets/stylesheets/addons/_clearfix.scss */
+.expenses-import__edit__category__name::after {
+  clear: both;
+  content: "";
+  display: table;
+}
+/* line 20, ../../src/app/import/sass/_import_match.scss */
+.expenses-import__edit__category__name .expenses-import__edit__category__name__candidate {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: inline-block;
+  padding: 10px 0;
+  font-size: 14px;
+}
+
+/* line 28, ../../src/app/import/sass/_import_match.scss */
+.expenses-import__edit__category__controls {
   float: right;
-  width: 75%;
+}
+/* line 20, ../../bower_components/bourbon/app/assets/stylesheets/addons/_clearfix.scss */
+.expenses-import__edit__category__controls::after {
+  clear: both;
+  content: "";
+  display: table;
+}
+/* line 32, ../../src/app/import/sass/_import_match.scss */
+.expenses-import__edit__category__controls .expenses-import__edit__category__controls__category {
+  padding: 0;
+  position: relative;
+  width: 100%;
+  float: none;
 }
 
 /*# sourceMappingURL=app.css.map */
