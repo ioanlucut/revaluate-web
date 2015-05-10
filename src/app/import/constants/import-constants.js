@@ -9,7 +9,7 @@ angular
     })
     .constant("IMPORT_URLS", {
         mint: "importer/mintImport",
-        spendee: "importer/spendeeParseAnalyseImport"
+        spendee: "importer/spendeeImport"
     })
     .constant("IMPORT_EVENTS", {
         isErrorOccurred: "expensesImport-error-occurred",
