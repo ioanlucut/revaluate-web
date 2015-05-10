@@ -1,6 +1,16 @@
-<div class="settings__section__form">
+<div class="settings__import__choose">
+    <div class="section-text">Select the app you want to import from:</div>
 
-    <a href="javascript:void(0)" ui-sref="settings.import.import({type: 'mint'})">Mint</a>
-    <br/>
-    <a href="javascript:void(0)" ui-sref="settings.import.import({type: 'spendee'})">Spendee</a>
+    <ul class="settings__import__choose">
+        <li class="settings__import__choose__source" ui-sref="settings.import.import({type: 'mint'})">
+            <span class="settings__import__choose__source__logo">LG</span>
+            <span class="settings__import__choose__source__label">Mint</span>
+            <span class="settings__import__choose__source__arrow"> > </span>
+        </li>
+        <li class="settings__import__choose__source" ui-sref="settings.import.import({type: 'spendee'})">
+            <span class="settings__import__choose__source__logo">LG</span>
+            <span class="settings__import__choose__source__label">Spendee</span>
+            <span class="settings__import__choose__source__arrow"> > </span>
+        </li>
+    </ul>
 </div>
