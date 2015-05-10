@@ -1,10 +1,14 @@
 // Typography
-$base-font-family: "Open Sans", "Verdana", "Roboto", "Arial", sans-serif;
+//$base-font-family: "Open Sans", "Verdana", "Roboto", "Arial", sans-serif;
+$base-font-family: "Lato", "Verdana", "Roboto", "Arial", sans-serif;
 $heading-font-family: $base-font-family;
 
 // Font Sizes
 $font-size-base: 14px;
 $font-size-small: 12px;
+$font-size-large: 16px;
+$font-size-larger: 18px;
+$font-size-largest: 20px;
 $font-size-h1: 32px;
 $font-size-h2: 24px;
 $font-size-h3: 18px;
@@ -21,6 +25,7 @@ $heading-line-height: 1.2;
 // Heights and widths
 $header-height: 60px;
 $setup-currency-input-width: 220px;
+$footer-height: 50px;
 
 // Other Sizes
 $base-border-radius: 3px;

@@ -1,5 +1,5 @@
 angular
-    .module("expenses")
+    .module("revaluate.expenses")
     .directive('escapeHtml', function () {
         return {
             require: '?ngModel',

@@ -2,7 +2,7 @@
  * Main common module declaration including ui templates.
  */
 angular
-    .module("common", [
+    .module("revaluate.common", [
         "chart.js",
         "ui.router",
         "ngSanitize",

@@ -1,5 +1,5 @@
 angular
-    .module("account")
+    .module("revaluate.account")
     .directive("uniqueEmail", function ($q, $timeout, UserService) {
         return {
             require: "ngModel",

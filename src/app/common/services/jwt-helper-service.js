@@ -1,5 +1,5 @@
 angular
-    .module('common')
+    .module('revaluate.common')
     .service('JWTHelper', function () {
 
         this.urlBase64Decode = function (str) {

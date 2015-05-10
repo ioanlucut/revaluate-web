@@ -2,7 +2,7 @@
  * Expenses constants.
  */
 angular
-    .module("expenses")
+    .module("revaluate.expenses")
     .constant("EXPENSE_URLS", {
         create: "expenses",
         update: "expenses",

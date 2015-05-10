@@ -2,7 +2,7 @@
  * Summaries service which encapsulates the whole logic related to statistics.
  */
 angular
-    .module("statistics")
+    .module("revaluate.statistics")
     .service("StatisticService", function (STATISTIC_URLS, $q, $http, $injector, StatisticTransformerService) {
 
         /**

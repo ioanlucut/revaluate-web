@@ -1,5 +1,5 @@
 angular
-    .module("common")
+    .module("revaluate.common")
     .constant("ALERTS_CONSTANTS", {
         login: "login",
         signUp: "signUp",
@@ -17,5 +17,6 @@ angular
         createUpdateCategory: "createUpdateCategory",
         updateProfile: "updateProfile",
         cancelAccount: "cancelAccount",
-        preferences: "preferences"
+        preferences: "preferences",
+        import: "import"
     });

@@ -1,4 +1,4 @@
 angular
-    .module("statistics", [
-        "common"
+    .module("revaluate.statistics", [
+        "revaluate.common"
     ]);

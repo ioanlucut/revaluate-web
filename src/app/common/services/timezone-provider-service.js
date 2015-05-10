@@ -1,5 +1,5 @@
 angular
-    .module("common")
+    .module("revaluate.common")
     .service("TimezoneProvider", function () {
 
         /**

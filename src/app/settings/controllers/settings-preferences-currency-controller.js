@@ -2,7 +2,7 @@
  * Preferences controller responsible for user update preferences action.
  */
 angular
-    .module("settings")
+    .module("revaluate.settings")
     .controller("SettingsPreferencesCurrencyController", function ($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, flash, currencies, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
 
         /**

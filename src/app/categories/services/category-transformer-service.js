@@ -2,7 +2,7 @@
  * Category transformer service which transforms a category DTO model object to a category business object.
  */
 angular
-    .module("categories")
+    .module("revaluate.categories")
     .service("CategoryTransformerService", function ($injector, TransformerUtils) {
 
         /**

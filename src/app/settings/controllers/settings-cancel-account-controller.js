@@ -1,5 +1,5 @@
 angular
-    .module("settings")
+    .module("revaluate.settings")
     .controller("SettingsCancelAccountController", function ($q, $scope, $rootScope, $timeout, StatesHandler, AuthService, flash, ALERTS_CONSTANTS) {
 
         var TIMEOUT_PENDING = 1000;

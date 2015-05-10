@@ -2,10 +2,10 @@
  * Main account module declaration including ui templates.
  */
 angular
-    .module("account", [
-        "common",
-        "currencies",
-        "categories"
+    .module("revaluate.account", [
+        "revaluate.common",
+        "revaluate.currencies",
+        "revaluate.categories"
     ])
     .config(function ($stateProvider, $httpProvider) {
 
@@ -100,8 +100,11 @@ angular
                     currencies: function (CurrencyService) {
                         return CurrencyService.getAllCurrencies();
                     },
+                    colors: function (ColorService) {
+                        return ColorService.getAllColors();
+                    },
                     predefinedCategories: function (CategoriesSetupProvider) {
-                        return CategoriesSetupProvider.getCategories();
+                        return CategoriesSetupProvider.getPredefinedCategories();
                     }
                 }
             });

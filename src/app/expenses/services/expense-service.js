@@ -2,7 +2,7 @@
  * Expenses service which encapsulates the whole logic related to expenses.
  */
 angular
-    .module("expenses")
+    .module("revaluate.expenses")
     .service("ExpenseService", function (EXPENSE_URLS, $q, $http, $injector, ExpenseTransformerService) {
 
         /**

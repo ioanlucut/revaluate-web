@@ -2,8 +2,8 @@
  * Categories controller.
  */
 angular
-    .module("categories")
-    .controller("CategoryListController", function ($scope, $rootScope, Category, flash, CATEGORY_EVENTS, $timeout, categories, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
+    .module("revaluate.categories")
+    .controller("CategoryListController", function ($scope, $rootScope, Category, flash, CATEGORY_EVENTS, $timeout, categories, colors, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
         /**
          * Alert identifier
          */
@@ -19,6 +19,12 @@ angular
          * @type {$rootScope.currentUser|*}
          */
         $scope.user = $rootScope.currentUser;
+
+        /**
+         * Existing colors
+         * @type {colors|*}
+         */
+        $scope.colors = colors;
 
         /**
          * Existing categories.

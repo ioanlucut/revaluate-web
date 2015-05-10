@@ -2,7 +2,7 @@
  * Logout controller responsible for user logout actions.
  */
 angular
-    .module("account")
+    .module("revaluate.account")
     .controller("LogoutController", function ($scope, $timeout, StatesHandler, isSuccessfullyLoggedOut) {
 
         $scope.isSuccessfullyLoggedOut = isSuccessfullyLoggedOut;

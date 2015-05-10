@@ -1,5 +1,5 @@
 angular
-    .module("account")
+    .module("revaluate.account")
     .controller("HomeSignUpRegistrationController", function ($scope, $timeout, flash, ALERTS_CONSTANTS, StatesHandler, User, AuthService, MIXPANEL_EVENTS) {
 
         /**

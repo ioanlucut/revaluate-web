@@ -11,8 +11,9 @@
 // ---
 // GOOGLE FONT.
 // ---
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
-@import url(http://fonts.googleapis.com/css?family=Indie+Flower);
+//@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+//@import url(http://fonts.googleapis.com/css?family=Indie+Flower);
 
 // ---
 // BOURBON.
@@ -79,3 +80,4 @@
 @import "../app/categories/sass/categories";
 @import "../app/insight/sass/insights";
 @import "../app/settings/sass/settings";
+@import "../app/import/sass/import";

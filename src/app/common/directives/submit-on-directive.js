@@ -1,5 +1,5 @@
 angular
-    .module('common')
+    .module('revaluate.common')
     .directive('submitOn', function () {
         return {
             link: function (scope, elm, attrs) {

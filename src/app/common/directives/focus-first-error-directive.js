@@ -1,7 +1,7 @@
 /* Focus the first erroneous input on form submit */
 
 angular
-    .module("common")
+    .module("revaluate.common")
     .directive("focusFirstError", [function () {
         return {
             restrict: "A",

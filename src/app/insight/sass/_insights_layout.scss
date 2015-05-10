@@ -1,10 +1,12 @@
 .insights__textsection {
+  @include section-center(100%);
   text-align: center;
   padding-bottom: 30px;
 }
 
 .insights__section {
-  @include section(100%);
+  @include section-center(100%);
+  font-size: $font-size-large;
 }
 
 .insights__controls {
@@ -17,19 +19,20 @@
     .insights__controls__form__arrow {
       @include border-radius(50%);
       display: inline-block;
-      height: 35px;
-      width: 35px;
+      height: 40px;
+      width: 40px;
       padding: 0;
       margin: 10px;
-      border: solid 1px $gray-lightest;
+      border: solid 1px $gray-dark;
       background-color: $white;
-      color: $gray-medium;
+      color: $gray-dark;
       text-align: center;
+      font-size: $font-size-larger;
       font-weight: $font-weight-bold;
     }
 
     .insights__controls__form__month {
-      width: 200px;
+      width: 250px;
       display: inline-block;
     }
 
@@ -52,6 +55,18 @@
     float: left;
     @include clearfix();
 
+    &:nth-child(1) {
+      @include box($brand-primary);
+    }
+
+    &:nth-child(2) {
+      @include box($brand-success);
+    }
+
+    &:nth-child(3) {
+      @include box($brand-danger);
+    }
+
     .insights__summary__thumbnail__number,
     .insights__summary__thumbnail__label {
       width: 100%;
@@ -68,6 +83,10 @@
       color: $gray-medium;
     }
   }
+
+  //.insights__summary__thumbnail--total {
+  //@include box($brand-primary);
+  //}
 }
 
 .insights__chart__bar {
@@ -78,7 +97,8 @@
 .insights__table {
   display: block;
   float: left;
-  width: 37%;
+  width: 49%;
+  padding: 5px 15px 5px 30px;
 
   .insights__table__header {
     font-weight: $font-weight-bold;
@@ -104,11 +124,14 @@
 }
 
 .insights__chart__doughnut {
-  width: 60%;
+  width: 49%;
   float: left;
 }
 
 .insight__form__date__input__btn {
-  @include btn-big($brand-default);
-  color: $gray-dark;
+  @include btn-big($white);
+  border-bottom: dashed 1px $gray-light;
+  color: $brand-primary;
+  font-size: $font-size-largest;
+  font-weight: $font-weight-bold;
 }

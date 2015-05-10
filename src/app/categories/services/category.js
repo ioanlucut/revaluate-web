@@ -1,5 +1,5 @@
 angular
-    .module("categories")
+    .module("revaluate.categories")
     .factory("Category", function ($q, $http, CategoryService, CategoryTransformerService) {
 
         /**
@@ -24,9 +24,16 @@ angular
                 name: "",
 
                 /**
-                 * The category due date
+                 * The color
                  */
-                color: ""
+                color: {
+
+                    color: "",
+
+                    id: 0,
+
+                    priority: 0
+                }
             };
 
             /**

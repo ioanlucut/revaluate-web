@@ -1,6 +1,6 @@
 angular
-    .module("account")
-    .controller("SignUpSetUpRegistrationController", function ($q, $rootScope, $scope, $timeout, flash, AuthService, CategoryService, AUTH_EVENTS, ALERTS_CONSTANTS, predefinedCategories, CategoryColorService, SessionService, StatesHandler, Category, currencies) {
+    .module("revaluate.account")
+    .controller("SignUpSetUpRegistrationController", function ($q, $rootScope, $scope, $timeout, flash, AuthService, CategoryService, AUTH_EVENTS, ALERTS_CONSTANTS, predefinedCategories, colors, CategoryColorService, SessionService, StatesHandler, Category, currencies) {
 
         /**
          * All given currencies.
@@ -31,9 +31,21 @@ angular
         var TIMEOUT_DURATION = 300;
 
         /**
+         * Existing predefined colors.
+         */
+        $scope.colors = colors;
+
+        /**
          * Existing predefined categories.
          */
         $scope.categories = predefinedCategories;
+
+        // ---
+        // Populate predefined categories with colors.
+        // ---
+        _.each($scope.categories, function (category) {
+            category.color = CategoryColorService.randomizedColor($scope.colors);
+        });
 
         /**
          * Category to be added on the fly
@@ -104,7 +116,7 @@ angular
             else {
                 $scope.categories.push({
                     name: $scope.categoryOnTheFly,
-                    color: CategoryColorService.randomizedColor().color,
+                    color: CategoryColorService.randomizedColor($scope.colors),
                     selected: true
                 });
 

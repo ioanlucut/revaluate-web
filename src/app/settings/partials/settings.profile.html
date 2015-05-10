@@ -1,11 +1,11 @@
 <!-- Profile section -->
-<div class="account">
+<div class="settings__section">
 
     <!--Update profile section-->
-    <div class="account__section">
+    <div class="settings__section__form">
 
         <!-- Title -->
-        <h1 class="account__title">Modify profile</h1>
+        <h1 class="settings__title">Edit profile</h1>
 
         <!-- Profile form -->
         <form name="profileForm" ng-submit="updateProfile(profileData)" novalidate focus-first-error>
@@ -15,23 +15,26 @@
 
             <!-- Form group -->
             <div class="form-group-input" ng-class="{'has-error': profileForm.$submitted && (loginForm.firstName.$invalid || badPostSubmitResponse)}">
+                <label>First Name</label>
                 <input class="form-group-input__input" type="text" placeholder="First name" name="firstName" ng-model="profileData.firstName" required auto-focus />
                 <span class="form-group-input__message" ng-if="profileForm.firstName.$invalid && profileForm.$submitted">Please tell us your First Name.</span>
             </div>
 
             <!-- Form group -->
             <div class="form-group-input" ng-class="{'has-error': profileForm.$submitted && (profileForm.lastName.$invalid || badPostSubmitResponse)}">
+                <label>Last Name</label>
                 <input class="form-group-input__input" type="text" placeholder="Last name" name="lastName" ng-model="profileData.lastName" required />
                 <span class="form-group-input__message" ng-if="profileForm.lastName.$invalid && profileForm.$submitted">Please tell us your Last Name.</span>
             </div>
 
             <!-- Form group -->
             <div class="form-group-input">
+                <label>Email</label>
                 <input class="form-group-input__input" type="text" placeholder="Email" name="email" ng-value="user.model.email" disabled />
             </div>
 
             <!-- Button container -->
-            <button class="account__btn" type="submit">{{isRequestPending ? 'Saving..' : 'Save'}}</button>
+            <button class="settings__btn__save" type="submit">{{isRequestPending ? 'Saving..' : 'Save changes'}}</button>
 
         </form>
 

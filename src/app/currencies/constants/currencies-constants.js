@@ -2,7 +2,7 @@
  * Currencies constants.
  */
 angular
-    .module("currencies")
+    .module("revaluate.currencies")
     .constant("CURRENCY_URLS", {
         allCurrencies: "currency/list"
     });

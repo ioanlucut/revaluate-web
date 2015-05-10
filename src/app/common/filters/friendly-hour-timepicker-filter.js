@@ -1,7 +1,7 @@
 /* Friendly date filter */
 
 angular
-    .module("common")
+    .module("revaluate.common")
     .filter('friendlyHourTimePicker', function () {
         return function (date) {
 

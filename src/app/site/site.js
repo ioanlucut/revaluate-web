@@ -2,8 +2,8 @@
  * Main site module declaration including ui templates.
  */
 angular
-    .module("site", [
-        "common"
+    .module("revaluate.site", [
+        "revaluate.common"
     ])
     .config(function ($stateProvider, $urlRouterProvider) {
 

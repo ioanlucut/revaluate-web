@@ -1,11 +1,12 @@
 angular
-    .module("categories")
+    .module("revaluate.categories")
     .directive("editRemoveCategory", function ($rootScope, CATEGORY_EVENTS) {
         return {
             restrict: "A",
             controller: 'CategoryEditRemoveController',
             scope: {
-                category: "="
+                category: "=",
+                colors: "="
             },
             templateUrl: "app/categories/partials/edit-remove-category-directive-template.html",
             link: function (scope, el, attrs) {

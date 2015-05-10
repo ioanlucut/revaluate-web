@@ -42,7 +42,7 @@
             <div class="sign-up__box__categories">
 
                 <div class="sign-up__box__categories__category" ng-repeat="category in categories track by category.name">
-                    <div class="category-name" ng-style="{'background':category.color}" ng-class="{ 'category-name--unselected': !category.selected }" ng-click="toggleCategorySelection($index)"> {{category.name}}</div>
+                    <div class="category-name" ng-style="{'background':category.color.color}" ng-class="{ 'category-name--unselected': !category.selected }" ng-click="toggleCategorySelection($index)"> {{category.name}}</div>
                 </div>
 
                 <!--Toggle form-->

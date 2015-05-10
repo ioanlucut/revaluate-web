@@ -2,7 +2,7 @@
  * Categories constants.
  */
 angular
-    .module("categories")
+    .module("revaluate.categories")
     .constant("CATEGORY_URLS", {
         isUnique: "categories/isUniqueCategory",
         create: "categories",
