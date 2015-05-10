@@ -2,3 +2,11 @@
   padding-bottom: 10px;
   text-align: center;
 }
+
+.section-text {
+  //@include section-center(100%);
+  text-align: center;
+  padding-bottom: 30px;
+  font-size: $font-size-larger;
+  font-weight: $font-weight-light;
+}

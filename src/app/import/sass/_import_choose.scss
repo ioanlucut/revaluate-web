@@ -1,0 +1,45 @@
+.settings__import__choose {
+
+}
+
+.settings__import__choose__source {
+  border: solid 1px $gray-lighter;
+  @include size(450px 60px);
+  margin: 0 auto 20px;
+  padding: 0;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+  line-height: 56px;
+  font-size: $font-size-larger;
+  color: $gray-dark;
+
+  &:hover {
+    cursor: pointer;
+    border-color: $gray-light;
+
+    .settings__import__choose__source__label {
+      color: $gray-darker;
+    }
+  }
+
+  span {
+    display: block;
+    float: left;
+  }
+
+  .settings__import__choose__source__logo {
+    border: solid 1px black;
+    @include size(40px 40px);
+    @include border-radius(50%);
+    margin: 10px;
+    text-indent: -9999px;
+  }
+
+  .settings__import__choose__source__label {
+    width: 330px;
+  }
+
+  .settings__import__choose__source__arrow {
+    width: 40px;
+    text-align: center;
+  }
+}
