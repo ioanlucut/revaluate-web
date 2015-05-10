@@ -3,26 +3,16 @@
  */
 angular
     .module("revaluate.expensesImport")
-    .service("ImportService", function (IMPORT_URLS, $q, $http, ImportTransformerService) {
+    .service("ImportService", function (IMPORT_URLS, $http, ImportTransformerService) {
 
-        this.performMintImport = function (expensesImport) {
-
-            return importExpenses(IMPORT_URLS.importMint, expensesImport);
-        };
-
-        this.performSpendeeImport = function (expensesImport) {
-
-            return importExpenses(IMPORT_URLS.spendeeImport, expensesImport);
-        };
-
-        function importExpenses(targetUrl, expensesImport) {
+        this.importExpenses = function (importType, expensesImport) {
             return $http
-                .post(URLTo.api(targetUrl), ImportTransformerService.toImportDto(expensesImport))
+                .post(URLTo.api(IMPORT_URLS[importType]), ImportTransformerService.toImportDto(expensesImport))
                 .then(function (response) {
                     ImportTransformerService.toImport(response.data, expensesImport);
 
                     return response;
                 });
-        };
+        }
 
     });
