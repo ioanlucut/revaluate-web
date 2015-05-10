@@ -15,18 +15,21 @@
 
             <!-- Form group -->
             <div class="form-group-input" ng-class="{'has-error': profileForm.$submitted && (loginForm.firstName.$invalid || badPostSubmitResponse)}">
+                <label>First Name</label>
                 <input class="form-group-input__input" type="text" placeholder="First name" name="firstName" ng-model="profileData.firstName" required auto-focus />
                 <span class="form-group-input__message" ng-if="profileForm.firstName.$invalid && profileForm.$submitted">Please tell us your First Name.</span>
             </div>
 
             <!-- Form group -->
             <div class="form-group-input" ng-class="{'has-error': profileForm.$submitted && (profileForm.lastName.$invalid || badPostSubmitResponse)}">
+                <label>Last Name</label>
                 <input class="form-group-input__input" type="text" placeholder="Last name" name="lastName" ng-model="profileData.lastName" required />
                 <span class="form-group-input__message" ng-if="profileForm.lastName.$invalid && profileForm.$submitted">Please tell us your Last Name.</span>
             </div>
 
             <!-- Form group -->
             <div class="form-group-input">
+                <label>Email</label>
                 <input class="form-group-input__input" type="text" placeholder="Email" name="email" ng-value="user.model.email" disabled />
             </div>
 
