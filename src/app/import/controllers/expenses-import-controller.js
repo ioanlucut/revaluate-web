@@ -74,8 +74,7 @@ angular
         uploader.filters.push({
             name: 'csvFilter',
             fn: function (item, options) {
-                var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-                return '|csv|'.indexOf(type) !== -1;
+                return '|text/csv|application/vnd.ms-excel|text/plain|text/tsv|'.indexOf(item.type) !== -1;
             }
         });
 
