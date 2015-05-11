@@ -14,9 +14,10 @@
 
   &:hover {
     cursor: pointer;
-    border-color: $gray-light;
+    border-color: $gray-medium;
 
-    .settings__import__choose__source__label {
+    .settings__import__choose__source__label,
+    .settings__import__choose__source__arrow {
       color: $gray-darker;
     }
   }
@@ -26,9 +27,14 @@
     float: left;
   }
 
-  .settings__import__choose__source__logo {
-    border: solid 1px black;
-    @include size(40px 40px);
+  .settings__import__choose__source__logo--mint         { @include cssSprite($logo-mint);         }
+  .settings__import__choose__source__logo--spendee      { @include cssSprite($logo-spendee);      }
+  .settings__import__choose__source__logo--wally        { @include cssSprite($logo-wally);        }
+
+  .settings__import__choose__source__logo--mint,
+  .settings__import__choose__source__logo--spendee,
+  .settings__import__choose__source__logo--wally {
+    @include size(40px 40px);  //this needs to be after the cssSprite declaraion above, to normalize the size of the logo
     @include border-radius(50%);
     margin: 10px;
     text-indent: -9999px;
@@ -41,5 +47,19 @@
   .settings__import__choose__source__arrow {
     width: 40px;
     text-align: center;
+  }
+}
+
+.settings__import__choose__source--soon {
+  opacity: 0.5;
+
+  &:hover {
+    cursor: default;
+    border-color: $gray-lighter;
+
+    .settings__import__choose__source__label,
+    .settings__import__choose__source__arrow {
+      color: $gray-dark;
+    }
   }
 }
