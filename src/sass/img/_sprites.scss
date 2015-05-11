@@ -1,0 +1,14 @@
+@mixin cssSprite($spriteVals) {
+  width: nth($spriteVals, 1);
+  height: nth($spriteVals, 2);
+  background-repeat: no-repeat;
+  background-image: url( #{ nth($spriteVals, 3)} );
+  background-position: nth($spriteVals, 4) nth($spriteVals, 5);
+}
+
+
+// DON'T OVERRIDE THESE VALUES with the ones generated !!
+$Sprites-path: '../assets/img/sprites.png';
+$logo-wally: 35px 35px $Sprites-path -92px -2px;
+$logo-spendee: 38px 38px $Sprites-path -44px 0px;
+$logo-mint: 28px 38px $Sprites-path -2px 0px;
