@@ -1,6 +1,6 @@
 .expenses-import__edit {
-  @include span-columns(6);
-  @include shift(3);
+  @include span-columns(10);
+  @include shift(1);
   @include border-radius($base-border-radius);
 }
 

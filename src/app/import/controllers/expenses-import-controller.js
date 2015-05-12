@@ -40,9 +40,14 @@ angular
         $scope.user = $rootScope.currentUser;
 
         // ---
-        // Initial value.
+        // Flag which says if the upload is finished. Does not matter if successful/not.
         // ---
         $scope.isUploadFinished = false;
+
+        // ---
+        // Flag which says if the upload is successful.
+        // ---
+        $scope.isUploadSuccessful = false;
 
         // ---
         // This is the answer we get from server after analysing the import.
@@ -74,33 +79,46 @@ angular
         uploader.filters.push({
             name: 'csvFilter',
             fn: function (item, options) {
-                var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-                return '|csv|'.indexOf(type) !== -1;
+                return '|text/csv|application/vnd.ms-excel|text/plain|text/tsv|'.indexOf(item.type) !== -1;
             }
         });
 
         // ---
-        // If something went wrong, show an error message.
+        // If file does not pass the filter, show an error message.
         // ---
         uploader.onWhenAddingFileFailed = function (item, filter, options) {
 
-            flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to upload your expenses.'
+            flash.to($scope.alertIdentifierId).error = 'Hmm.. are you trying to upload anything but a CSV file?'
         };
 
         // ---
         // If successful, take the answer.
         // ---
         uploader.onSuccessItem = function (fileItem, response, status, headers) {
+            // ---
+            // If there was a previously error, just clear it.
+            // ---
+            flash.to($scope.alertIdentifierId).error = '';
 
+            // ---
+            // Build the import answer, and toggle view.
+            // ---
             $scope.expensesImportAnswer = ExpensesImport.build(response);
+            $timeout(function () {
+                $scope.isUploadSuccessful = true;
+            }, TIMEOUT_PENDING);
         };
 
         // ---
         // On error item.
         // ---
         uploader.onErrorItem = function (fileItem, response, status, headers) {
+            flash.to($scope.alertIdentifierId).error = 'Something went wrong. Can you please try one more time?';
 
-            flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to parse your expenses.'
+            // ---
+            // Reset previously added file.
+            // ---
+            $scope.uploader.clearQueue();
         };
 
         // ---
@@ -108,9 +126,7 @@ angular
         // ---
         uploader.onCompleteItem = function (fileItem, response, status, headers) {
 
-            $timeout(function () {
-                $scope.isUploadFinished = true;
-            }, TIMEOUT_PENDING);
+            $scope.isUploadFinished = true;
         };
 
         /**

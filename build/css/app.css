@@ -786,6 +786,14 @@ picture {
   text-align: center;
 }
 
+/* line 6, ../../src/sass/bitters/_blocks.scss */
+.section-text {
+  text-align: center;
+  padding: 30px 20px;
+  font-size: 18px;
+  font-weight: 300;
+}
+
 /* line 1, ../../src/sass/bitters/_links.scss */
 .link-navigation {
   display: block;
@@ -9475,7 +9483,7 @@ html, body {
 }
 /* line 57, ../../src/app/common/sass/_header.scss */
 .header__dropdown .header__dropdown__toggle:hover {
-  background-color: #fafafa;
+  color: #5F5F5F;
 }
 /* line 62, ../../src/app/common/sass/_header.scss */
 .header__dropdown .header__dropdown__avatar {
@@ -11223,24 +11231,6 @@ html, body {
 }
 
 /* line 1, ../../src/app/insight/sass/_insights_layout.scss */
-.insights__textsection {
-  width: 100%;
-  display: block;
-  padding: 15px;
-  margin-bottom: 15px;
-  min-height: 20px;
-  text-align: center;
-  text-align: center;
-  padding-bottom: 30px;
-}
-/* line 20, ../../bower_components/bourbon/app/assets/stylesheets/addons/_clearfix.scss */
-.insights__textsection::after {
-  clear: both;
-  content: "";
-  display: table;
-}
-
-/* line 7, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__section {
   width: 100%;
   display: block;
@@ -11257,16 +11247,16 @@ html, body {
   display: table;
 }
 
-/* line 12, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 6, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__controls {
   width: 100%;
   text-align: center;
 }
-/* line 16, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 10, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__controls .insights__controls__form {
   width: 100%;
 }
-/* line 19, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 13, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__controls .insights__controls__form .insights__controls__form__arrow {
   -webkit-border-radius: 50%;
   border-radius: 50%;
@@ -11282,17 +11272,17 @@ html, body {
   font-size: 18px;
   font-weight: 700;
 }
-/* line 34, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 28, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__controls .insights__controls__form .insights__controls__form__month {
   width: 250px;
   display: inline-block;
 }
-/* line 39, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 33, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__controls .insights__controls__form .insight__form__date__input__btn {
   width: 100%;
 }
 
-/* line 45, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 39, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__summary {
   padding: 40px 0;
 }
@@ -11302,7 +11292,7 @@ html, body {
   content: "";
   display: table;
 }
-/* line 49, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 43, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__summary .insights__summary__thumbnail {
   -webkit-border-radius: 3px;
   border-radius: 3px;
@@ -11318,60 +11308,60 @@ html, body {
   content: "";
   display: table;
 }
-/* line 58, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 52, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__summary .insights__summary__thumbnail:nth-child(1) {
   border-color: #4A90E2;
   background-color: #d7e6f9;
 }
-/* line 62, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 56, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__summary .insights__summary__thumbnail:nth-child(2) {
   border-color: #13ca6d;
   background-color: #8cf4bf;
 }
-/* line 66, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 60, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__summary .insights__summary__thumbnail:nth-child(3) {
   border-color: #ED5565;
   background-color: #fde9eb;
 }
-/* line 70, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 64, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__summary .insights__summary__thumbnail .insights__summary__thumbnail__number,
 .insights__summary .insights__summary__thumbnail .insights__summary__thumbnail__label {
   width: 100%;
   float: left;
   text-align: center;
 }
-/* line 77, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 71, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__summary .insights__summary__thumbnail .insights__summary__thumbnail__number {
   font-size: 24px;
   font-weight: 700;
 }
-/* line 82, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 76, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__summary .insights__summary__thumbnail .insights__summary__thumbnail__label {
   color: #999;
 }
 
-/* line 92, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 86, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__chart__bar {
   width: 90%;
   margin: 0 auto;
 }
 
-/* line 97, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 91, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__table {
   display: block;
   float: left;
   width: 49%;
   padding: 5px 15px 5px 30px;
 }
-/* line 103, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 97, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__table .insights__table__header {
   font-weight: 700;
 }
-/* line 107, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 101, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__table .insights__table__category {
   width: 80%;
 }
-/* line 110, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 104, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__table .insights__table__category .insights__table__category__color {
   -webkit-border-radius: 50%;
   border-radius: 50%;
@@ -11382,19 +11372,19 @@ html, body {
   margin-right: 5px;
   text-indent: -9999px;
 }
-/* line 120, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 114, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__table .insights__table__amount {
   text-align: right;
   width: 20%;
 }
 
-/* line 126, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 120, ../../src/app/insight/sass/_insights_layout.scss */
 .insights__chart__doughnut {
   width: 49%;
   float: left;
 }
 
-/* line 131, ../../src/app/insight/sass/_insights_layout.scss */
+/* line 125, ../../src/app/insight/sass/_insights_layout.scss */
 .insight__form__date__input__btn {
   display: inline-block;
   height: 35px;
@@ -11539,7 +11529,7 @@ html, body {
   max-width: 400px;
 }
 
-/* line 7, ../../src/app/settings/sass/_settings_profile.scss */
+/* line 6, ../../src/app/settings/sass/_settings_profile.scss */
 .settings__cancel__btn {
   display: inline-block;
   height: 35px;
@@ -11563,6 +11553,93 @@ html, body {
 }
 
 /* ExpensesImport sub-modules */
+/* line 5, ../../src/app/import/sass/_import_choose.scss */
+.settings__import__choose__source {
+  border: solid 1px #eeeeee;
+  height: 60px;
+  width: 450px;
+  margin: 0 auto 20px;
+  padding: 0;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+  line-height: 56px;
+  font-size: 18px;
+  color: #5F5F5F;
+}
+/* line 15, ../../src/app/import/sass/_import_choose.scss */
+.settings__import__choose__source:hover {
+  cursor: pointer;
+  border-color: #999;
+}
+/* line 19, ../../src/app/import/sass/_import_choose.scss */
+.settings__import__choose__source:hover .settings__import__choose__source__label,
+.settings__import__choose__source:hover .settings__import__choose__source__arrow {
+  color: #222222;
+}
+/* line 25, ../../src/app/import/sass/_import_choose.scss */
+.settings__import__choose__source span {
+  display: block;
+  float: left;
+}
+/* line 30, ../../src/app/import/sass/_import_choose.scss */
+.settings__import__choose__source .settings__import__choose__source__logo--mint {
+  width: 28px;
+  height: 38px;
+  background-repeat: no-repeat;
+  background-image: url(../assets/img/sprites.png);
+  background-position: -2px 0px;
+}
+/* line 31, ../../src/app/import/sass/_import_choose.scss */
+.settings__import__choose__source .settings__import__choose__source__logo--spendee {
+  width: 38px;
+  height: 38px;
+  background-repeat: no-repeat;
+  background-image: url(../assets/img/sprites.png);
+  background-position: -44px 0px;
+}
+/* line 32, ../../src/app/import/sass/_import_choose.scss */
+.settings__import__choose__source .settings__import__choose__source__logo--wally {
+  width: 35px;
+  height: 35px;
+  background-repeat: no-repeat;
+  background-image: url(../assets/img/sprites.png);
+  background-position: -92px -2px;
+}
+/* line 34, ../../src/app/import/sass/_import_choose.scss */
+.settings__import__choose__source .settings__import__choose__source__logo--mint,
+.settings__import__choose__source .settings__import__choose__source__logo--spendee,
+.settings__import__choose__source .settings__import__choose__source__logo--wally {
+  height: 40px;
+  width: 40px;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  margin: 10px;
+  text-indent: -9999px;
+}
+/* line 43, ../../src/app/import/sass/_import_choose.scss */
+.settings__import__choose__source .settings__import__choose__source__label {
+  width: 330px;
+}
+/* line 47, ../../src/app/import/sass/_import_choose.scss */
+.settings__import__choose__source .settings__import__choose__source__arrow {
+  width: 40px;
+  text-align: center;
+}
+
+/* line 53, ../../src/app/import/sass/_import_choose.scss */
+.settings__import__choose__source--soon {
+  opacity: 0.5;
+}
+/* line 56, ../../src/app/import/sass/_import_choose.scss */
+.settings__import__choose__source--soon:hover {
+  cursor: default;
+  border-color: #eeeeee;
+}
+/* line 60, ../../src/app/import/sass/_import_choose.scss */
+.settings__import__choose__source--soon:hover .settings__import__choose__source__label,
+.settings__import__choose__source--soon:hover .settings__import__choose__source__arrow {
+  color: #5F5F5F;
+}
+
 /* line 1, ../../src/app/import/sass/_import_common.scss */
 .expenses-import__title {
   text-align: center;
@@ -11652,13 +11729,58 @@ html, body {
   opacity: 0.5;
 }
 
+/* line 1, ../../src/app/import/sass/_import_uploadfile.scss */
+.settings__import__upload {
+  padding: 30px;
+  text-align: center;
+}
+
+/* line 6, ../../src/app/import/sass/_import_uploadfile.scss */
+.settings__import__upload__btn {
+  display: inline-block;
+  height: 35px;
+  background-color: #4A90E2;
+  padding: 0 15px;
+  line-height: 35px;
+  color: #ffffff;
+  text-align: center;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  position: relative;
+  overflow: hidden;
+  margin: 10px;
+  width: 200px;
+}
+/* line 15, ../../src/sass/components/_buttons.scss */
+.settings__import__upload__btn:hover, .settings__import__upload__btn:focus {
+  background-color: #609de6;
+  cursor: pointer;
+}
+/* line 21, ../../src/sass/components/_buttons.scss */
+.settings__import__upload__btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+/* line 13, ../../src/app/import/sass/_import_uploadfile.scss */
+.settings__import__upload__btn input.settings__import__upload__btn__input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
 /* line 1, ../../src/app/import/sass/_import_match.scss */
 .expenses-import__edit {
   float: left;
   display: block;
   margin-right: 2.12766%;
-  width: 48.93617%;
-  margin-left: 25.53191%;
+  width: 82.97872%;
+  margin-left: 8.51064%;
   -webkit-border-radius: 3px;
   border-radius: 3px;
 }

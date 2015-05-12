@@ -4368,9 +4368,14 @@ angular
         $scope.user = $rootScope.currentUser;
 
         // ---
-        // Initial value.
+        // Flag which says if the upload is finished. Does not matter if successful/not.
         // ---
         $scope.isUploadFinished = false;
+
+        // ---
+        // Flag which says if the upload is successful.
+        // ---
+        $scope.isUploadSuccessful = false;
 
         // ---
         // This is the answer we get from server after analysing the import.
@@ -4402,33 +4407,46 @@ angular
         uploader.filters.push({
             name: 'csvFilter',
             fn: function (item, options) {
-                var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-                return '|csv|'.indexOf(type) !== -1;
+                return '|text/csv|application/vnd.ms-excel|text/plain|text/tsv|'.indexOf(item.type) !== -1;
             }
         });
 
         // ---
-        // If something went wrong, show an error message.
+        // If file does not pass the filter, show an error message.
         // ---
         uploader.onWhenAddingFileFailed = function (item, filter, options) {
 
-            flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to upload your expenses.'
+            flash.to($scope.alertIdentifierId).error = 'Hmm.. are you trying to upload anything but a CSV file?'
         };
 
         // ---
         // If successful, take the answer.
         // ---
         uploader.onSuccessItem = function (fileItem, response, status, headers) {
+            // ---
+            // If there was a previously error, just clear it.
+            // ---
+            flash.to($scope.alertIdentifierId).error = '';
 
+            // ---
+            // Build the import answer, and toggle view.
+            // ---
             $scope.expensesImportAnswer = ExpensesImport.build(response);
+            $timeout(function () {
+                $scope.isUploadSuccessful = true;
+            }, TIMEOUT_PENDING);
         };
 
         // ---
         // On error item.
         // ---
         uploader.onErrorItem = function (fileItem, response, status, headers) {
+            flash.to($scope.alertIdentifierId).error = 'Something went wrong. Can you please try one more time?';
 
-            flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to parse your expenses.'
+            // ---
+            // Reset previously added file.
+            // ---
+            $scope.uploader.clearQueue();
         };
 
         // ---
@@ -4436,9 +4454,7 @@ angular
         // ---
         uploader.onCompleteItem = function (fileItem, response, status, headers) {
 
-            $timeout(function () {
-                $scope.isUploadFinished = true;
-            }, TIMEOUT_PENDING);
+            $scope.isUploadFinished = true;
         };
 
         /**
@@ -6649,11 +6665,39 @@ angular.module("app/import/partials/settings.import.abstract.html", []).run(["$t
 
 angular.module("app/import/partials/settings.import.choose.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/import/partials/settings.import.choose.html",
-    "<div class=\"settings__section__form\">\n" +
+    "<div class=\"settings__section\">\n" +
     "\n" +
-    "    <a href=\"javascript:void(0)\" ui-sref=\"settings.import.import({type: 'mint'})\">Mint</a>\n" +
-    "    <br/>\n" +
-    "    <a href=\"javascript:void(0)\" ui-sref=\"settings.import.import({type: 'spendee'})\">Spendee</a>\n" +
+    "    <div class=\"settings__title\">Import</div>\n" +
+    "\n" +
+    "    <div class=\"section-text\">Select the app you want to import from:</div>\n" +
+    "\n" +
+    "    <ul class=\"settings__import__choose\">\n" +
+    "        <li class=\"settings__import__choose__source\" ui-sref=\"settings.import.import({type: 'mint'})\">\n" +
+    "            <span class=\"settings__import__choose__source__logo--mint\">LG</span>\n" +
+    "            <span class=\"settings__import__choose__source__label\">Mint</span>\n" +
+    "            <span class=\"settings__import__choose__source__arrow\"> &rang; </span>\n" +
+    "        </li>\n" +
+    "        <li class=\"settings__import__choose__source\" ui-sref=\"settings.import.import({type: 'spendee'})\">\n" +
+    "            <span class=\"settings__import__choose__source__logo--spendee\">LG</span>\n" +
+    "            <span class=\"settings__import__choose__source__label\">Spendee</span>\n" +
+    "            <span class=\"settings__import__choose__source__arrow\"> &rang; </span>\n" +
+    "        </li>\n" +
+    "    </ul>\n" +
+    "\n" +
+    "    <div class=\"section-text\">Coming soon:</div>\n" +
+    "    <ul class=\"settings__import__choose\">\n" +
+    "        <li class=\"settings__import__choose__source settings__import__choose__source--soon\">\n" +
+    "            <span class=\"settings__import__choose__source__logo--wally\">LG</span>\n" +
+    "            <span class=\"settings__import__choose__source__label\">Wally</span>\n" +
+    "            <span class=\"settings__import__choose__source__arrow\"> &rang; </span>\n" +
+    "        </li>\n" +
+    "    </ul>\n" +
+    "\n" +
+    "    <div class=\"section-text\">\n" +
+    "        If you'd like to import your expenses from another app,\n" +
+    "        <a href=\"#\" ng-controller=\"FeedbackModalController\" ng-click=\"openFeedbackModal()\">let us know</a>\n" +
+    "        .\n" +
+    "    </div>\n" +
     "</div>");
 }]);
 
@@ -6661,15 +6705,19 @@ angular.module("app/import/partials/settings.import.import.html", []).run(["$tem
   $templateCache.put("app/import/partials/settings.import.import.html",
     "<div class=\"settings__section\">\n" +
     "\n" +
-    "    <div class=\"settings__title\">Import</div>\n" +
-    "\n" +
     "    <!-- Flash messages. -->\n" +
     "    <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
     "\n" +
     "    <!--Expenses import form-->\n" +
-    "    <form name=\"expensesImportForm\" ng-submit=\"submitPerformImport()\" novalidate ng-show=\"isUploadFinished\">\n" +
+    "    <form name=\"expensesImportForm\" ng-submit=\"submitPerformImport()\" novalidate ng-show=\"isUploadSuccessful\">\n" +
     "\n" +
     "        <div class=\"expenses-import__edit\">\n" +
+    "\n" +
+    "            <div class=\"section-text\">\n" +
+    "                Awesome! We found <strong>320 expenses</strong> in <strong>16 categories</strong>.\n" +
+    "                Please tell us where each category from Mint should be imported to.\n" +
+    "                Leave empty to create a new category in Revaluate using the same name.\n" +
+    "            </div>\n" +
     "\n" +
     "            <div class=\"expenses-import__edit__category\" ng-repeat=\"categoryMatchCandidate in expensesImportAnswer.model.expenseCategoryMatchingProfileDTOs track by categoryMatchCandidate.categoryCandidateName\">\n" +
     "\n" +
@@ -6714,82 +6762,26 @@ angular.module("app/import/partials/settings.import.import.html", []).run(["$tem
     "            </div>\n" +
     "\n" +
     "            <!-- Button -->\n" +
-    "            <button class=\"sign-up__setup__btn\" type=\"submit\">{{isImporting ? 'Importing..' : 'Import expenses'}}</button>\n" +
+    "            <button class=\"sign-up__setup__btn\" type=\"submit\">{{isImporting ? 'Importing...' : 'Import expenses'}}</button>\n" +
     "        </div>\n" +
     "\n" +
     "    </form>\n" +
     "\n" +
     "    <!--Import section form-->\n" +
-    "    <div class=\"settings__section__form\" ng-hide=\"isUploadFinished\">\n" +
+    "    <div class=\"settings__import__upload\" ng-hide=\"isUploadSuccessful\">\n" +
     "\n" +
-    "        <!-- Title -->\n" +
-    "        <h1 class=\"settings__title\">Import expenses</h1>\n" +
-    "\n" +
-    "        <div nv-file-drop=\"\" uploader=\"uploader\" filters=\"queueLimit, customFilter\">\n" +
-    "\n" +
-    "            <div class=\"container\">\n" +
-    "\n" +
-    "                <div class=\"row\">\n" +
-    "\n" +
-    "                    <div class=\"col-md-3\">\n" +
-    "\n" +
-    "                        <h3>Select files</h3>\n" +
-    "\n" +
-    "                        <input type=\"file\" nv-file-select=\"\" uploader=\"uploader\" />\n" +
-    "                    </div>\n" +
-    "\n" +
-    "                    <div class=\"col-md-9\" style=\"margin-bottom: 40px\">\n" +
-    "\n" +
-    "                        <h3>Upload queue</h3>\n" +
-    "\n" +
-    "                        <p>Queue length: {{ uploader.queue.length }}</p>\n" +
-    "\n" +
-    "                        <table class=\"table\">\n" +
-    "                            <thead>\n" +
-    "                            <tr>\n" +
-    "                                <th width=\"50%\">Name</th>\n" +
-    "                                <th ng-show=\"uploader.isHTML5\">Size</th>\n" +
-    "                                <th ng-show=\"uploader.isHTML5\">Progress</th>\n" +
-    "                                <th>Status</th>\n" +
-    "                                <th>Actions</th>\n" +
-    "                            </tr>\n" +
-    "                            </thead>\n" +
-    "                            <tdiv>\n" +
-    "                                <tr ng-repeat=\"item in uploader.queue\">\n" +
-    "                                    <td><strong>{{ item.file.name }}</strong></td>\n" +
-    "                                    <td ng-show=\"uploader.isHTML5\" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>\n" +
-    "                                    <td ng-show=\"uploader.isHTML5\">\n" +
-    "                                        <div class=\"progress\" style=\"margin-bottom: 0;\">\n" +
-    "                                            <div class=\"progress-bar\" role=\"progressbar\" ng-style=\"{ 'width': item.progress + '%' }\"></div>\n" +
-    "                                        </div>\n" +
-    "                                    </td>\n" +
-    "                                    <td class=\"text-center\">\n" +
-    "                                        <span ng-show=\"item.isSuccess\"><i class=\"glyphicon glyphicon-ok\"></i></span>\n" +
-    "                                        <span ng-show=\"item.isCancel\"><i class=\"glyphicon glyphicon-ban-circle\"></i></span>\n" +
-    "                                        <span ng-show=\"item.isError\"><i class=\"glyphicon glyphicon-remove\"></i></span>\n" +
-    "                                    </td>\n" +
-    "                                    <td nowrap>\n" +
-    "                                        <button type=\"button\" class=\"btn btn-success btn-xs\" ng-click=\"item.upload()\" ng-disabled=\"item.isReady || item.isUploading || item.isSuccess\">\n" +
-    "                                            <span class=\"glyphicon glyphicon-upload\"></span> Upload\n" +
-    "                                        </button>\n" +
-    "                                        <button type=\"button\" class=\"btn btn-warning btn-xs\" ng-click=\"item.cancel()\" ng-disabled=\"!item.isUploading\">\n" +
-    "                                            <span class=\"glyphicon glyphicon-ban-circle\"></span> Cancel\n" +
-    "                                        </button>\n" +
-    "                                        <button type=\"button\" class=\"btn btn-danger btn-xs\" ng-click=\"item.remove()\">\n" +
-    "                                            <span class=\"glyphicon glyphicon-trash\"></span> Remove\n" +
-    "                                        </button>\n" +
-    "                                    </td>\n" +
-    "                                </tr>\n" +
-    "                            </tdiv>\n" +
-    "                        </table>\n" +
-    "\n" +
-    "                    </div>\n" +
-    "\n" +
-    "                </div>\n" +
-    "\n" +
+    "        <div nv-file-drop=\"\" uploader=\"uploader\" filters=\"queueLimit, csvFilter\">\n" +
+    "            <div class=\"section-text\">Upload the CSV file you exported from Mint</div>\n" +
+    "            <div class=\"settings__import__upload__btn\">\n" +
+    "                <span>Select file</span>\n" +
+    "                <input class=\"settings__import__upload__btn__input\" type=\"file\" nv-file-select=\"\" uploader=\"uploader\" />\n" +
     "            </div>\n" +
-    "\n" +
     "        </div>\n" +
+    "\n" +
+    "        <ul>\n" +
+    "            <li><a href=\"#\">How do I export my expenses from Mint?</a></li>\n" +
+    "            <li><a href=\"#\"></a></li>\n" +
+    "        </ul>\n" +
     "    </div>\n" +
     "\n" +
     "</div>");

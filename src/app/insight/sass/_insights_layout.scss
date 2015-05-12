@@ -1,9 +1,3 @@
-.insights__textsection {
-  @include section-center(100%);
-  text-align: center;
-  padding-bottom: 30px;
-}
-
 .insights__section {
   @include section-center(100%);
   font-size: $font-size-large;
