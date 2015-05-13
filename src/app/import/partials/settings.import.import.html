@@ -6,7 +6,7 @@
     <!--Expenses import form-->
     <form name="expensesImportForm" ng-submit="submitPerformImport()" novalidate ng-show="isUploadSuccessful">
 
-        <div class="expenses-import__edit">
+        <div class="import__edit">
 
             <div class="section-text">
                 Awesome! We found <strong>320 expenses</strong> in <strong>16 categories</strong>.
@@ -14,20 +14,22 @@
                 Leave empty to create a new category in Revaluate using the same name.
             </div>
 
-            <div class="expenses-import__edit__category" ng-repeat="categoryMatchCandidate in expensesImportAnswer.model.expenseCategoryMatchingProfileDTOs track by categoryMatchCandidate.categoryCandidateName">
+            <div class="import__edit__categories" ng-repeat="categoryMatchCandidate in expensesImportAnswer.model.expenseCategoryMatchingProfileDTOs track by categoryMatchCandidate.categoryCandidateName">
 
                 <!--Category candidate name preview-->
-                <div class="expenses-import__edit__category__name">
+                <div class="import__edit__categories__src">
 
-                    <span class="expenses-import__edit__category__name__candidate">
+                    <span class="import__edit__categories__src__toggle">Toggle</span>
+
+                    <span class="import__edit__categories__src__name">
                         {{categoryMatchCandidate.categoryCandidateName}}
                     </span>
                 </div>
 
                 <!--Category select-->
-                <ng-form class="expenses-import__edit__category__controls" name="expensesImportCategoryMatchEntryForm">
+                <ng-form class="import__edit__categories__dest" name="expensesImportCategoryMatchEntryForm">
 
-                    <div class="expense__form__category expenses-import__edit__category__controls__category" ng-class="{'has-error': expensesImportForm.$submitted && (expensesImportCategoryMatchEntryForm.$error['autocomplete-required'] || expensesImportCategoryMatchEntryForm.category.$invalid || badPostSubmitResponse)}">
+                    <div class="import__edit__categories__dest__category" ng-class="{'has-error': expensesImportForm.$submitted && (expensesImportCategoryMatchEntryForm.$error['autocomplete-required'] || expensesImportCategoryMatchEntryForm.category.$invalid || badPostSubmitResponse)}">
 
                         <div angucomplete-alt
                              selected-object="categoryMatchCandidate.category"
@@ -35,11 +37,11 @@
                              search-fields="model.name"
                              title-field="model.name"
                              field-required="true"
-                             placeholder="Add category"
+                             placeholder="Select category"
                              maxlength="50"
                              pause="1"
                              minlength="0"
-                             input-class="expense__form__category__input"
+                             input-class="import__edit__categories__input"
                              match-class="angucomplete-highlight"
                              template-url="app/expenses/partials/expense.category.template.html">
                         </div>
@@ -57,7 +59,7 @@
             </div>
 
             <!-- Button -->
-            <button class="sign-up__setup__btn" type="submit">{{isImporting ? 'Importing...' : 'Import expenses'}}</button>
+            <button class="import__save__btn" type="submit">{{isImporting ? 'Importing...' : 'Import expenses'}}</button>
         </div>
 
     </form>
@@ -66,7 +68,7 @@
     <div class="settings__import__upload" ng-hide="isUploadSuccessful">
 
         <div nv-file-drop="" uploader="uploader" filters="queueLimit, csvFilter">
-            <div class="section-text">Upload the CSV file you exported from Mint</div>
+            <div class="section-text">Upload the CSV file you exported from <strong>Mint</strong>.</div>
             <div class="settings__import__upload__btn">
                 <span>Select file</span>
                 <input class="settings__import__upload__btn__input" type="file" nv-file-select="" uploader="uploader" />
@@ -75,7 +77,7 @@
 
         <ul>
             <li><a href="#">How do I export my expenses from Mint?</a></li>
-            <li><a href="#"></a></li>
+            <li><a href="#">How do I export my expenses from Spendee?</a></li>
         </ul>
     </div>
 
