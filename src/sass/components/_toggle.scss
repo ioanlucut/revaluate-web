@@ -1,0 +1,74 @@
+// HTML markup template
+//
+//<input class='tgl tgl-flat' id='id_toggle' type='checkbox'>
+//<label class='tgl-btn' for='id_toggle'></label>
+
+.tgl {
+  display: none !important;
+
+  &, &:after, &:before,
+  & *, & *:after, & *:before,
+  & + .tgl-btn{
+    box-sizing: border-box;
+    &::selection{
+      background: none;
+    }
+  }
+  + .tgl-btn{
+    outline: 0;
+    display: block !important;
+    width: 40px;
+    height: 20px;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    &:after, &:before{
+      position: relative;
+      display: block;
+      content: "";
+      width: 50%;
+      height: 100%;
+    }
+    &:after{
+      left: 0;
+    }
+    &:before{
+      display: none;
+    }
+  }
+  &:checked{
+    + .tgl-btn{
+      &:after{
+        left: 50%;
+      }
+    }
+  }
+}
+
+.tgl-flat{
+  display: inline-block;
+
+  + .tgl-btn{
+    padding: 2px;
+    transition: all .2s ease;
+    background: #fff;
+    border: 2px solid #f2f2f2;
+    border-radius: 2em;
+
+    &:after{
+      transition: all .2s ease;
+      background: #f2f2f2;
+      content: "";
+      border-radius: 1em;
+    }
+  }
+  &:checked{
+    + .tgl-btn{
+      border: 2px solid $gray-medium;
+      &:after{
+        left: 50%;
+        background: $brand-primary;
+      }
+    }
+  }
+}
