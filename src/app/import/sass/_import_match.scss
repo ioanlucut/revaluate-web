@@ -1,38 +1,55 @@
-.expenses-import__edit {
+.import__edit {
   @include span-columns(10);
   @include shift(1);
   @include border-radius($base-border-radius);
 }
 
-.expenses-import__edit__category {
+.import__edit__categories {
   @include span-columns(12);
   @include clearfix();
   @include border-radius($base-border-radius);
   padding: 0;
-  height: 50px;
-  margin-bottom: 10px;
+  margin: 0 0 15px 0;
 }
 
-.expenses-import__edit__category__name {
+.import__edit__categories__src {
   @include clearfix();
   float: left;
+  height: 35px;
+  line-height: 32px;
 
-  .expenses-import__edit__category__name__candidate {
+  .import__edit__categories__src__toggle {
+    border: solid 1px $gray-light;
+    @include size(12px 40px);
+    margin-right: 10px;
+  }
+
+  .import__edit__categories__src__name {
     @include user-select(none);
+    @include category-label($brand-default);
+    height: 27px;
     display: inline-block;
-    padding: 10px 0;
-    font-size: $font-size-base;
+    padding: 5px 10px;
+    color: $gray-dark;
+    text-shadow: none;
   }
 }
 
-.expenses-import__edit__category__controls {
+.import__edit__categories__dest {
   @include clearfix();
   float: right;
+  width: 180px;
 
-  .expenses-import__edit__category__controls__category {
+  .import__edit__categories__dest__category {
     padding: 0;
     position: relative;
     width: 100%;
     float: none;
   }
+}
+
+.import__save__btn {
+  @include btn-big($brand-primary);
+  display: block;
+  margin: 30px auto;
 }
