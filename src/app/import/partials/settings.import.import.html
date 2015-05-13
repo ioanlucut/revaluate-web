@@ -17,8 +17,10 @@
                 Leave empty to create a new category in Revaluate using the same name.
             </div>
 
-            <div class="expenses-import__edit__category" ng-repeat="categoryMatchCandidate in expensesImportAnswer.model.expenseCategoryMatchingProfileDTOs track by categoryMatchCandidate.categoryCandidateName">
-
+            <div class="import__edit__categories__header">
+                <div class="import__edit__categories__header__src">Import this category from Mint</div>
+                <div class="import__edit__categories__header__dest">Into this category in Revaluate</div>
+            </div>
 
             <div class="import__edit__categories" ng-repeat="categoryMatchCandidate in expensesImportAnswer.model.expenseCategoryMatchingProfileDTOs track by categoryMatchCandidate.categoryCandidateName">
 
@@ -76,8 +78,8 @@
     </form>
 
     <!--Import section form-->
-    <div class="import__upload" ng-hide="isUploadSuccessful">
-    <div class="settings__import__upload" ng-if="! isUploadSuccessful">
+    <!--<div class="import__upload" ng-hide="isUploadSuccessful">-->
+    <div class="import__upload" ng-if="! isUploadSuccessful">
 
         <div class="import__upload__area" nv-file-drop="" uploader="uploader" filters="queueLimit, csvFilter">
             <div class="section-text">Upload the CSV file you exported from <strong>Mint</strong>.</div>
