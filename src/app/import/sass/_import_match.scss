@@ -4,12 +4,37 @@
   @include border-radius($base-border-radius);
 }
 
+.import__edit__categories__header {
+  @include clearfix();
+  height: 35px;
+  background-color: #f3f3f3;
+  border-bottom: solid 1px $gray-light;
+  margin: 30px 0 20px 0;
+  padding: 0 15px;
+  line-height: 34px;
+
+  .import__edit__categories__header__src {
+    width: 200px;
+    float: left;
+  }
+
+  .import__edit__categories__header__dest {
+    float: right;
+    text-align: right;
+    width: 200px;
+  }
+}
+
 .import__edit__categories {
   @include span-columns(12);
   @include clearfix();
   @include border-radius($base-border-radius);
   padding: 0;
   margin: 0 0 15px 0;
+
+  &:first-child {
+    border-bottom: solid 1px $gray-light;
+  }
 }
 
 .import__edit__categories__src {
@@ -19,17 +44,19 @@
   line-height: 32px;
 
   .import__edit__categories__src__toggle {
-    border: solid 1px $gray-light;
-    @include size(12px 40px);
+    float: left;
     margin-right: 10px;
+    line-height: 32px;
+    padding-top: 6px;
   }
 
   .import__edit__categories__src__name {
     @include user-select(none);
     @include category-label($brand-default);
     height: 27px;
-    display: inline-block;
+    float: left;
     padding: 5px 10px;
+    margin-top: 3px;
     color: $gray-dark;
     text-shadow: none;
   }
@@ -38,7 +65,7 @@
 .import__edit__categories__dest {
   @include clearfix();
   float: right;
-  width: 180px;
+  width: 220px;
 
   .import__edit__categories__dest__category {
     padding: 0;
@@ -48,8 +75,18 @@
   }
 }
 
+.import__edit__categories__arrow {
+  margin: 0 auto;
+  width: 40px;
+  text-align: center;
+  font-size: $font-size-larger;
+  color: $gray-light;
+}
+
 .import__save__btn {
   @include btn-big($brand-primary);
+  width: 150px;
   display: block;
   margin: 30px auto;
+  text-transform: uppercase;
 }

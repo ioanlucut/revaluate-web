@@ -14,16 +14,26 @@
                 Leave empty to create a new category in Revaluate using the same name.
             </div>
 
+            <div class="import__edit__categories__header">
+                <div class="import__edit__categories__header__src">Import this category from Mint</div>
+                <!--<div class=""></div>-->
+                <div class="import__edit__categories__header__dest">Into this category in Revaluate</div>
+            </div>
+
+
             <div class="import__edit__categories" ng-repeat="categoryMatchCandidate in expensesImportAnswer.model.expenseCategoryMatchingProfileDTOs track by categoryMatchCandidate.categoryCandidateName">
 
                 <!--Category candidate name preview-->
                 <div class="import__edit__categories__src">
 
-                    <span class="import__edit__categories__src__toggle">Toggle</span>
+                    <div class="import__edit__categories__src__toggle">
+                        <input class='tgl tgl-flat' id='{{categoryMatchCandidate.categoryCandidateName}}_toggle' type='checkbox' checked>
+                        <label class='tgl-btn' for='{{categoryMatchCandidate.categoryCandidateName}}_toggle'></label>
+                    </div>
 
-                    <span class="import__edit__categories__src__name">
+                    <div class="import__edit__categories__src__name">
                         {{categoryMatchCandidate.categoryCandidateName}}
-                    </span>
+                    </div>
                 </div>
 
                 <!--Category select-->
@@ -56,6 +66,8 @@
 
                 </ng-form>
 
+                <div class="import__edit__categories__arrow">&#8594;</div>
+
             </div>
 
             <!-- Button -->
@@ -65,13 +77,13 @@
     </form>
 
     <!--Import section form-->
-    <div class="settings__import__upload" ng-hide="isUploadSuccessful">
+    <div class="import__upload" ng-hide="isUploadSuccessful">
 
-        <div nv-file-drop="" uploader="uploader" filters="queueLimit, csvFilter">
+        <div class="import__upload__area" nv-file-drop="" uploader="uploader" filters="queueLimit, csvFilter">
             <div class="section-text">Upload the CSV file you exported from <strong>Mint</strong>.</div>
-            <div class="settings__import__upload__btn">
+            <div class="import__upload__btn">
                 <span>Select file</span>
-                <input class="settings__import__upload__btn__input" type="file" nv-file-select="" uploader="uploader" />
+                <input class="import__upload__btn__input" type="file" nv-file-select="" uploader="uploader" />
             </div>
         </div>
 
