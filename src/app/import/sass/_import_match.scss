@@ -85,8 +85,8 @@
 
 .import__save__btn {
   @include btn-big($brand-primary);
-  width: 150px;
+  width: 240px;
   display: block;
-  margin: 30px auto;
+  margin: 0 auto;
   text-transform: uppercase;
 }
