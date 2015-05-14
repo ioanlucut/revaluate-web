@@ -1,16 +1,20 @@
-.settings__import__upload {
+.import__upload {
   padding: 30px;
   text-align: center;
 }
 
-.settings__import__upload__btn {
+.import__upload__area {
+  border: dashed 2px $gray-light;
+}
+
+.import__upload__btn {
   @include btn($brand-primary);
   position: relative;
   overflow: hidden;
   margin: 10px;
   width: 200px;
 
-  input.settings__import__upload__btn__input {
+  input.import__upload__btn__input {
     position: absolute;
     top: 0;
     right: 0;

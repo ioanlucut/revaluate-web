@@ -8752,11 +8752,11 @@ html, body {
   left: -webkit-calc(50% - (220px/2));
   left: calc(50% - (220px/2));
   background-color: #ffffff;
-  border: solid 1px #ececec;
+  border: solid 1px #f2f2f2;
   -webkit-border-radius: 3px;
   border-radius: 3px;
   width: 300px;
-  padding: 6px;
+  padding: 0;
   cursor: pointer;
   z-index: 9999;
   text-align: left;
@@ -9222,6 +9222,78 @@ html, body {
     right: auto;
   }
 }
+/* line 6, ../../src/sass/components/_toggle.scss */
+.tgl {
+  display: none !important;
+}
+/* line 9, ../../src/sass/components/_toggle.scss */
+.tgl, .tgl:after, .tgl:before, .tgl *, .tgl *:after, .tgl *:before, .tgl + .tgl-btn {
+  box-sizing: border-box;
+}
+/* line 13, ../../src/sass/components/_toggle.scss */
+.tgl::selection, .tgl:after::selection, .tgl:before::selection, .tgl *::selection, .tgl *:after::selection, .tgl *:before::selection, .tgl + .tgl-btn::selection {
+  background: none;
+}
+/* line 17, ../../src/sass/components/_toggle.scss */
+.tgl + .tgl-btn {
+  outline: 0;
+  display: block !important;
+  width: 40px;
+  height: 20px;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+/* line 25, ../../src/sass/components/_toggle.scss */
+.tgl + .tgl-btn:after, .tgl + .tgl-btn:before {
+  position: relative;
+  display: block;
+  content: "";
+  width: 50%;
+  height: 100%;
+}
+/* line 32, ../../src/sass/components/_toggle.scss */
+.tgl + .tgl-btn:after {
+  left: 0;
+}
+/* line 35, ../../src/sass/components/_toggle.scss */
+.tgl + .tgl-btn:before {
+  display: none;
+}
+/* line 41, ../../src/sass/components/_toggle.scss */
+.tgl:checked + .tgl-btn:after {
+  left: 50%;
+}
+
+/* line 48, ../../src/sass/components/_toggle.scss */
+.tgl-flat {
+  display: inline-block;
+}
+/* line 51, ../../src/sass/components/_toggle.scss */
+.tgl-flat + .tgl-btn {
+  padding: 2px;
+  transition: all .2s ease;
+  background: #fff;
+  border: 2px solid #f2f2f2;
+  border-radius: 2em;
+}
+/* line 58, ../../src/sass/components/_toggle.scss */
+.tgl-flat + .tgl-btn:after {
+  transition: all .2s ease;
+  background: #f2f2f2;
+  content: "";
+  border-radius: 1em;
+}
+/* line 66, ../../src/sass/components/_toggle.scss */
+.tgl-flat:checked + .tgl-btn {
+  border: 2px solid #999;
+}
+/* line 68, ../../src/sass/components/_toggle.scss */
+.tgl-flat:checked + .tgl-btn:after {
+  left: 50%;
+  background: #4A90E2;
+}
+
 /* Import sub-modules */
 /* line 1, ../../src/app/common/sass/_layout.scss */
 .view-container__header {
@@ -10496,9 +10568,7 @@ html, body {
   width: 310px;
   left: 0;
   top: 52px;
-  border-color: #999;
-  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border-color: #e8e8e8;
 }
 
 /* line 29, ../../src/app/expenses/sass/_expenses_add_form_category_angucomplete.scss */
@@ -11429,7 +11499,7 @@ html, body {
 /* line 7, ../../src/app/settings/sass/_settings_common.scss */
 .view-container__content__admin__aside {
   float: left;
-  width: 25%;
+  width: 180px;
 }
 /* line 11, ../../src/app/settings/sass/_settings_common.scss */
 .view-container__content__admin__aside li {
@@ -11458,7 +11528,8 @@ html, body {
 /* line 35, ../../src/app/settings/sass/_settings_common.scss */
 .view-container__content__admin__section {
   float: right;
-  width: 75%;
+  width: -webkit-calc(100% - 180px);
+  width: calc(100% - 180px);
 }
 /* line 20, ../../bower_components/bourbon/app/assets/stylesheets/addons/_clearfix.scss */
 .view-container__content__admin__section::after {
@@ -11467,7 +11538,7 @@ html, body {
   display: table;
 }
 
-/* line 42, ../../src/app/settings/sass/_settings_common.scss */
+/* line 43, ../../src/app/settings/sass/_settings_common.scss */
 .settings__section {
   width: 100%;
   display: block;
@@ -11484,19 +11555,19 @@ html, body {
   content: "";
   display: table;
 }
-/* line 47, ../../src/app/settings/sass/_settings_common.scss */
+/* line 48, ../../src/app/settings/sass/_settings_common.scss */
 .settings__section:last-child {
   margin-bottom: 0;
 }
 
-/* line 52, ../../src/app/settings/sass/_settings_common.scss */
+/* line 53, ../../src/app/settings/sass/_settings_common.scss */
 .settings__title {
   text-align: left;
   font-size: 20px;
   font-weight: 400;
 }
 
-/* line 58, ../../src/app/settings/sass/_settings_common.scss */
+/* line 59, ../../src/app/settings/sass/_settings_common.scss */
 .settings__btn__save {
   display: inline-block;
   height: 35px;
@@ -11730,13 +11801,18 @@ html, body {
 }
 
 /* line 1, ../../src/app/import/sass/_import_uploadfile.scss */
-.settings__import__upload {
+.import__upload {
   padding: 30px;
   text-align: center;
 }
 
 /* line 6, ../../src/app/import/sass/_import_uploadfile.scss */
-.settings__import__upload__btn {
+.import__upload__area {
+  border: dashed 2px #ddd;
+}
+
+/* line 10, ../../src/app/import/sass/_import_uploadfile.scss */
+.import__upload__btn {
   display: inline-block;
   height: 35px;
   background-color: #4A90E2;
@@ -11752,17 +11828,17 @@ html, body {
   width: 200px;
 }
 /* line 15, ../../src/sass/components/_buttons.scss */
-.settings__import__upload__btn:hover, .settings__import__upload__btn:focus {
+.import__upload__btn:hover, .import__upload__btn:focus {
   background-color: #609de6;
   cursor: pointer;
 }
 /* line 21, ../../src/sass/components/_buttons.scss */
-.settings__import__upload__btn:disabled {
+.import__upload__btn:disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }
-/* line 13, ../../src/app/import/sass/_import_uploadfile.scss */
-.settings__import__upload__btn input.settings__import__upload__btn__input {
+/* line 17, ../../src/app/import/sass/_import_uploadfile.scss */
+.import__upload__btn input.import__upload__btn__input {
   position: absolute;
   top: 0;
   right: 0;
@@ -11775,7 +11851,7 @@ html, body {
 }
 
 /* line 1, ../../src/app/import/sass/_import_match.scss */
-.expenses-import__edit {
+.import__edit {
   float: left;
   display: block;
   margin-right: 2.12766%;
@@ -11785,12 +11861,39 @@ html, body {
   border-radius: 3px;
 }
 /* line 89, ../../bower_components/neat/app/assets/stylesheets/grid/_span-columns.scss */
-.expenses-import__edit:last-child {
+.import__edit:last-child {
   margin-right: 0;
 }
 
 /* line 7, ../../src/app/import/sass/_import_match.scss */
-.expenses-import__edit__category {
+.import__edit__categories__header {
+  height: 35px;
+  background-color: #f3f3f3;
+  border-bottom: solid 1px #ddd;
+  margin: 30px 0 20px 0;
+  padding: 0 15px;
+  line-height: 34px;
+}
+/* line 20, ../../bower_components/bourbon/app/assets/stylesheets/addons/_clearfix.scss */
+.import__edit__categories__header::after {
+  clear: both;
+  content: "";
+  display: table;
+}
+/* line 16, ../../src/app/import/sass/_import_match.scss */
+.import__edit__categories__header .import__edit__categories__header__src {
+  width: 200px;
+  float: left;
+}
+/* line 21, ../../src/app/import/sass/_import_match.scss */
+.import__edit__categories__header .import__edit__categories__header__dest {
+  float: right;
+  text-align: right;
+  width: 200px;
+}
+
+/* line 28, ../../src/app/import/sass/_import_match.scss */
+.import__edit__categories {
   float: left;
   display: block;
   margin-right: 2.12766%;
@@ -11798,57 +11901,143 @@ html, body {
   -webkit-border-radius: 3px;
   border-radius: 3px;
   padding: 0;
-  height: 50px;
-  margin-bottom: 10px;
+  margin: 0 0 15px 0;
 }
 /* line 89, ../../bower_components/neat/app/assets/stylesheets/grid/_span-columns.scss */
-.expenses-import__edit__category:last-child {
+.import__edit__categories:last-child {
   margin-right: 0;
 }
 /* line 20, ../../bower_components/bourbon/app/assets/stylesheets/addons/_clearfix.scss */
-.expenses-import__edit__category::after {
+.import__edit__categories::after {
   clear: both;
   content: "";
   display: table;
+}
+/* line 35, ../../src/app/import/sass/_import_match.scss */
+.import__edit__categories:first-child {
+  border-bottom: solid 1px #ddd;
 }
 
-/* line 16, ../../src/app/import/sass/_import_match.scss */
-.expenses-import__edit__category__name {
+/* line 40, ../../src/app/import/sass/_import_match.scss */
+.import__edit__categories__src {
   float: left;
+  height: 35px;
+  line-height: 32px;
 }
 /* line 20, ../../bower_components/bourbon/app/assets/stylesheets/addons/_clearfix.scss */
-.expenses-import__edit__category__name::after {
+.import__edit__categories__src::after {
   clear: both;
   content: "";
   display: table;
 }
-/* line 20, ../../src/app/import/sass/_import_match.scss */
-.expenses-import__edit__category__name .expenses-import__edit__category__name__candidate {
+/* line 46, ../../src/app/import/sass/_import_match.scss */
+.import__edit__categories__src .import__edit__categories__src__toggle {
+  float: left;
+  margin-right: 10px;
+  line-height: 32px;
+  padding-top: 6px;
+}
+/* line 53, ../../src/app/import/sass/_import_match.scss */
+.import__edit__categories__src .import__edit__categories__src__name {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  display: inline-block;
-  padding: 10px 0;
-  font-size: 14px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  height: 20px;
+  line-height: 18px;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 700;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
+  background-color: #E7E7E7;
+  height: 27px;
+  float: left;
+  padding: 5px 10px;
+  margin-top: 3px;
+  color: #5F5F5F;
+  text-shadow: none;
 }
 
-/* line 28, ../../src/app/import/sass/_import_match.scss */
-.expenses-import__edit__category__controls {
+/* line 65, ../../src/app/import/sass/_import_match.scss */
+.import__edit__categories__dest {
   float: right;
+  width: 220px;
 }
 /* line 20, ../../bower_components/bourbon/app/assets/stylesheets/addons/_clearfix.scss */
-.expenses-import__edit__category__controls::after {
+.import__edit__categories__dest::after {
   clear: both;
   content: "";
   display: table;
 }
-/* line 32, ../../src/app/import/sass/_import_match.scss */
-.expenses-import__edit__category__controls .expenses-import__edit__category__controls__category {
+/* line 70, ../../src/app/import/sass/_import_match.scss */
+.import__edit__categories__dest .import__edit__categories__dest__category {
   padding: 0;
   position: relative;
   width: 100%;
   float: none;
+}
+
+/* line 78, ../../src/app/import/sass/_import_match.scss */
+.import__edit__categories__arrow {
+  margin: 0 auto;
+  width: 40px;
+  text-align: center;
+  font-size: 18px;
+  color: #ddd;
+}
+
+/* line 86, ../../src/app/import/sass/_import_match.scss */
+.import__save__btn {
+  display: inline-block;
+  height: 35px;
+  background-color: #4A90E2;
+  padding: 0 15px;
+  line-height: 35px;
+  color: #ffffff;
+  text-align: center;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  height: 40px;
+  line-height: 40px;
+  width: 240px;
+  display: block;
+  margin: 0 auto;
+  text-transform: uppercase;
+}
+/* line 15, ../../src/sass/components/_buttons.scss */
+.import__save__btn:hover, .import__save__btn:focus {
+  background-color: #609de6;
+  cursor: pointer;
+}
+/* line 21, ../../src/sass/components/_buttons.scss */
+.import__save__btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* line 1, ../../src/app/import/sass/_import_angucomplete.scss */
+.import__edit__categories__input {
+  height: 35px;
+  width: 100%;
+  padding: 0 10px;
+  border: solid 1px #eeeeee;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  color: #ffffff;
+  font-weight: 400;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
+}
+/* line 11, ../../src/app/import/sass/_import_angucomplete.scss */
+.import__edit__categories__input:focus {
+  outline: none;
+}
+
+/* line 21, ../../src/app/import/sass/_import_angucomplete.scss */
+.import__edit__categories__dest__category .angucomplete-holder .angucomplete-dropdown {
+  top: 36px;
 }
 
 /*# sourceMappingURL=app.css.map */

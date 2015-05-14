@@ -414,10 +414,13 @@ angular.module("app/import/partials/settings.import.import.html", []).run(["$tem
     "    <!-- Flash messages. -->\n" +
     "    <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
     "\n" +
-    "    <!--Expenses import form-->\n" +
-    "    <form name=\"expensesImportForm\" ng-submit=\"submitPerformImport()\" novalidate ng-show=\"isUploadSuccessful\">\n" +
+    "    <!--Let me try again, please-->\n" +
+    "    <a ng-if=\"importFinished\" ui-sref=\"settings.import.import({type: importType})\" ui-sref-opts=\"{reload:true}\">Let me try again!</a>\n" +
     "\n" +
-    "        <div class=\"expenses-import__edit\">\n" +
+    "    <!--Expenses import form-->\n" +
+    "    <form name=\"expensesImportForm\" ng-submit=\"submitPerformImport()\" novalidate ng-show=\"isUploadSuccessful && ! importFinished\">\n" +
+    "\n" +
+    "        <div class=\"import__edit\">\n" +
     "\n" +
     "            <div class=\"section-text\">\n" +
     "                Awesome! We found <strong>320 expenses</strong> in <strong>16 categories</strong>.\n" +
@@ -425,20 +428,30 @@ angular.module("app/import/partials/settings.import.import.html", []).run(["$tem
     "                Leave empty to create a new category in Revaluate using the same name.\n" +
     "            </div>\n" +
     "\n" +
-    "            <div class=\"expenses-import__edit__category\" ng-repeat=\"categoryMatchCandidate in expensesImportAnswer.model.expenseCategoryMatchingProfileDTOs track by categoryMatchCandidate.categoryCandidateName\">\n" +
+    "            <div class=\"import__edit__categories__header\">\n" +
+    "                <div class=\"import__edit__categories__header__src\">Import this category from Mint</div>\n" +
+    "                <div class=\"import__edit__categories__header__dest\">Into this category in Revaluate</div>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <div class=\"import__edit__categories\" ng-repeat=\"categoryMatchCandidate in expensesImportAnswer.model.expenseCategoryMatchingProfileDTOs track by categoryMatchCandidate.categoryCandidateName\">\n" +
     "\n" +
     "                <!--Category candidate name preview-->\n" +
-    "                <div class=\"expenses-import__edit__category__name\">\n" +
+    "                <div class=\"import__edit__categories__src\">\n" +
     "\n" +
-    "                    <span class=\"expenses-import__edit__category__name__candidate\">\n" +
+    "                    <div class=\"import__edit__categories__src__toggle\">\n" +
+    "                        <input class='tgl tgl-flat' id='{{categoryMatchCandidate.categoryCandidateName}}_toggle' type='checkbox' checked>\n" +
+    "                        <label class='tgl-btn' for='{{categoryMatchCandidate.categoryCandidateName}}_toggle'></label>\n" +
+    "                    </div>\n" +
+    "\n" +
+    "                    <div class=\"import__edit__categories__src__name\">\n" +
     "                        {{categoryMatchCandidate.categoryCandidateName}}\n" +
-    "                    </span>\n" +
+    "                    </div>\n" +
     "                </div>\n" +
     "\n" +
     "                <!--Category select-->\n" +
-    "                <ng-form class=\"expenses-import__edit__category__controls\" name=\"expensesImportCategoryMatchEntryForm\">\n" +
+    "                <ng-form class=\"import__edit__categories__dest\" name=\"expensesImportCategoryMatchEntryForm\">\n" +
     "\n" +
-    "                    <div class=\"expense__form__category expenses-import__edit__category__controls__category\" ng-class=\"{'has-error': expensesImportForm.$submitted && (expensesImportCategoryMatchEntryForm.$error['autocomplete-required'] || expensesImportCategoryMatchEntryForm.category.$invalid || badPostSubmitResponse)}\">\n" +
+    "                    <div class=\"import__edit__categories__dest__category\" ng-class=\"{'has-error': expensesImportForm.$submitted && (expensesImportCategoryMatchEntryForm.$error['autocomplete-required'] || expensesImportCategoryMatchEntryForm.category.$invalid || badPostSubmitResponse)}\">\n" +
     "\n" +
     "                        <div angucomplete-alt\n" +
     "                             selected-object=\"categoryMatchCandidate.category\"\n" +
@@ -446,11 +459,11 @@ angular.module("app/import/partials/settings.import.import.html", []).run(["$tem
     "                             search-fields=\"model.name\"\n" +
     "                             title-field=\"model.name\"\n" +
     "                             field-required=\"true\"\n" +
-    "                             placeholder=\"Add category\"\n" +
+    "                             placeholder=\"Select category\"\n" +
     "                             maxlength=\"50\"\n" +
     "                             pause=\"1\"\n" +
     "                             minlength=\"0\"\n" +
-    "                             input-class=\"expense__form__category__input\"\n" +
+    "                             input-class=\"import__edit__categories__input\"\n" +
     "                             match-class=\"angucomplete-highlight\"\n" +
     "                             template-url=\"app/expenses/partials/expense.category.template.html\">\n" +
     "                        </div>\n" +
@@ -465,28 +478,31 @@ angular.module("app/import/partials/settings.import.import.html", []).run(["$tem
     "\n" +
     "                </ng-form>\n" +
     "\n" +
+    "                <div class=\"import__edit__categories__arrow\">&#8594;</div>\n" +
+    "\n" +
     "            </div>\n" +
     "\n" +
     "            <!-- Button -->\n" +
-    "            <button class=\"sign-up__setup__btn\" type=\"submit\">{{isImporting ? 'Importing...' : 'Import expenses'}}</button>\n" +
+    "            <button class=\"import__save__btn\" type=\"submit\">{{isImporting ? 'Importing...' : 'Import expenses'}}</button>\n" +
     "        </div>\n" +
     "\n" +
     "    </form>\n" +
     "\n" +
     "    <!--Import section form-->\n" +
-    "    <div class=\"settings__import__upload\" ng-hide=\"isUploadSuccessful\">\n" +
+    "    <!--<div class=\"import__upload\" ng-hide=\"isUploadSuccessful\">-->\n" +
+    "    <div class=\"import__upload\" ng-if=\"! isUploadSuccessful\">\n" +
     "\n" +
-    "        <div nv-file-drop=\"\" uploader=\"uploader\" filters=\"queueLimit, csvFilter\">\n" +
-    "            <div class=\"section-text\">Upload the CSV file you exported from Mint</div>\n" +
-    "            <div class=\"settings__import__upload__btn\">\n" +
+    "        <div class=\"import__upload__area\" nv-file-drop=\"\" uploader=\"uploader\" filters=\"queueLimit, csvFilter\">\n" +
+    "            <div class=\"section-text\">Upload the CSV file you exported from <strong>Mint</strong>.</div>\n" +
+    "            <div class=\"import__upload__btn\">\n" +
     "                <span>Select file</span>\n" +
-    "                <input class=\"settings__import__upload__btn__input\" type=\"file\" nv-file-select=\"\" uploader=\"uploader\" />\n" +
+    "                <input class=\"import__upload__btn__input\" type=\"file\" nv-file-select=\"\" uploader=\"uploader\" />\n" +
     "            </div>\n" +
     "        </div>\n" +
     "\n" +
     "        <ul>\n" +
     "            <li><a href=\"#\">How do I export my expenses from Mint?</a></li>\n" +
-    "            <li><a href=\"#\"></a></li>\n" +
+    "            <li><a href=\"#\">How do I export my expenses from Spendee?</a></li>\n" +
     "        </ul>\n" +
     "    </div>\n" +
     "\n" +
