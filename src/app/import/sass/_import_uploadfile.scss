@@ -4,13 +4,13 @@
 }
 
 .import__upload__area {
-  @include border-radius(10px);
-  border: dashed 3px $gray-light;
+  @include border-radius(5px);
+  border: dashed 2px $gray-light;
 }
 
 .import__upload__area--over {
-  @include border-radius(10px);
-  border: dashed 3px $brand-primary;
+  @include border-radius(5px);
+  border: dashed 2px $brand-primary;
 }
 
 .import__upload__btn {
