@@ -17,11 +17,22 @@ angular
          */
         var TIMEOUT_PENDING = 300;
 
+        // ---
+        // Server status error.
+        // ---
+        var BAD_RESPONSE = 400;
+        var SERVER_ERROR = 500;
+
         /**
          * All given categories.
          * @type {categories|*}
          */
         $scope.categories = categories;
+
+        // ---
+        // The import type.
+        // ---
+        $scope.importType = importType;
 
         /**
          * Alert identifier
@@ -113,7 +124,14 @@ angular
         // On error item.
         // ---
         uploader.onErrorItem = function (fileItem, response, status, headers) {
-            flash.to($scope.alertIdentifierId).error = 'Something went wrong. Can you please try one more time?';
+            if ( status === BAD_RESPONSE ) {
+                flash.to($scope.alertIdentifierId).error = 'Heeey! Are you sure the CSV export is from selected app?';
+            }
+            else {
+                if ( status === SERVER_ERROR ) {
+                    flash.to($scope.alertIdentifierId).error = 'Something went wrong. Can you please try one more time?'
+                }
+            }
 
             // ---
             // Reset previously added file.
@@ -160,10 +178,11 @@ angular
 
                         flash.to($scope.alertIdentifierId).success = 'We\'ve successfully imported your expenses!';
 
-                        $timeout(function () {
-                            $scope.isImporting = false;
-                        }, TIMEOUT_PENDING);
-
+                        // ---
+                        // Import is finished.
+                        // ---
+                        $scope.isImporting = false;
+                        $scope.importFinished = true;
                     })
                     .catch(function () {
                         /* If bad feedback from server */
