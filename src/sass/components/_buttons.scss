@@ -42,3 +42,12 @@
   width: 100%;
   line-height: 45px;
 }
+
+@mixin btn-link($color) {
+  display: inline-block;
+  color: $color;
+
+  &:hover {
+    color: darken($color, 15%);
+  }
+}
