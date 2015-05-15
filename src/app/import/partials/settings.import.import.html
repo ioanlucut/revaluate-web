@@ -3,8 +3,27 @@
     <!-- Flash messages. -->
     <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
-    <!--Let me try again, please-->
-    <a ng-if="importFinished" ui-sref="settings.import.import({type: importType})" ui-sref-opts="{reload:true}">Let me try again!</a>
+    <!--Upload section form-->
+    <div class="import__upload" ng-if="! isUploadSuccessful">
+
+        <div class="import__upload__area" over-class="import__upload__area--over" nv-file-drop="" nv-file-over="" uploader="uploader" filters="queueLimit, csvFilter">
+            <div class="section-text">Drag and drop the CSV file you exported from
+                <strong>Mint</strong>, or browse to select it.
+            </div>
+            <div class="import__upload__btn">
+                <span>Select file</span>
+                <input class="import__upload__btn__input" type="file" nv-file-select="" uploader="uploader" />
+            </div>
+        </div>
+
+        <!--Loading flag-->
+        <div class="import__upload__loading" ng-if="uploader.isUploading">Uploading..</div>
+
+        <ul>
+            <li><a href="#">How do I export my expenses from Mint?</a></li>
+            <li><a href="#">How do I export my expenses from Spendee?</a></li>
+        </ul>
+    </div>
 
     <!--Expenses import form-->
     <form name="expensesImportForm" ng-submit="submitPerformImport()" novalidate ng-show="isUploadSuccessful && ! importFinished">
@@ -28,8 +47,8 @@
                 <div class="import__edit__categories__src">
 
                     <div class="import__edit__categories__src__toggle">
-                        <input class='tgl tgl-flat' id='{{categoryMatchCandidate.categoryCandidateName}}_toggle' type='checkbox' checked>
-                        <label class='tgl-btn' for='{{categoryMatchCandidate.categoryCandidateName}}_toggle'></label>
+                        <input class='tgl tgl-flat' id='toggle_{{index}}' type='checkbox' checked>
+                        <label class='tgl-btn' for='toggle_{{index}}'></label>
                     </div>
 
                     <div class="import__edit__categories__src__name">
@@ -77,22 +96,7 @@
 
     </form>
 
-    <!--Import section form-->
-    <!--<div class="import__upload" ng-hide="isUploadSuccessful">-->
-    <div class="import__upload" ng-if="! isUploadSuccessful">
-
-        <div class="import__upload__area" over-class="import__upload__area--over" nv-file-drop="" nv-file-over="" uploader="uploader" filters="queueLimit, csvFilter">
-                <div class="section-text">Drag and drop the CSV file you exported from <strong>Mint</strong>, or browse to select it.</div>
-                <div class="import__upload__btn">
-                    <span>Select file</span>
-                    <input class="import__upload__btn__input" type="file" nv-file-select="" uploader="uploader" />
-                </div>
-        </div>
-
-        <ul>
-            <li><a href="#">How do I export my expenses from Mint?</a></li>
-            <li><a href="#">How do I export my expenses from Spendee?</a></li>
-        </ul>
-    </div>
+    <!--After import-->
+    <a ng-if="importFinished" ui-sref="settings.import.import({type: importType})" ui-sref-opts="{reload:true}">Let me try again!</a>
 
 </div>
