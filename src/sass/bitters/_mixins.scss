@@ -12,3 +12,10 @@
   @include border-bottom-radius($radius);
   @include border-left-radius($radius);
 }
+
+@mixin no-user-select() {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
