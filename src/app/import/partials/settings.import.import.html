@@ -26,12 +26,13 @@
     </div>
 
     <!--Expenses import form-->
-    <form name="expensesImportForm" ng-submit="submitPerformImport()" novalidate ng-show="isUploadSuccessful && ! importFinished">
+    <form name="expensesImportForm" ng-submit="submitPerformImport(expensesImportForm)" novalidate ng-if="isUploadSuccessful && ! importFinished">
 
         <div class="import__edit">
 
             <div class="section-text">
-                Awesome! We found <strong>320 expenses</strong> in <strong>16 categories</strong>.
+                Awesome! We found <strong>{{expensesImportAnswer.model.totalCategoriesFound}} expenses</strong> in
+                <strong>{{expensesImportAnswer.model.expenseCategoryMatchingProfileDTOs.length}} categories</strong>.
                 Please tell us where each category from Mint should be imported to.
                 Leave empty to create a new category in Revaluate using the same name.
             </div>
@@ -47,17 +48,15 @@
                 <div class="import__edit__categories__src">
 
                     <div class="import__edit__categories__src__toggle">
-                        <input class='tgl tgl-flat' id='toggle_{{index}}' type='checkbox' checked>
-                        <label class='tgl-btn' for='toggle_{{index}}'></label>
+                        <input class='tgl tgl-flat' id='toggle_{{$index}}' type='checkbox' ng-model="categoryMatchCandidate.selected">
+                        <label class='tgl-btn' for='toggle_{{$index}}'></label>
                     </div>
 
-                    <div class="import__edit__categories__src__name">
-                        {{categoryMatchCandidate.categoryCandidateName}}
-                    </div>
+                    <div class="import__edit__categories__src__name">{{categoryMatchCandidate.categoryCandidateName}}</div>
                 </div>
 
                 <!--Category select-->
-                <ng-form class="import__edit__categories__dest" name="expensesImportCategoryMatchEntryForm">
+                <ng-form class="import__edit__categories__dest" name="expensesImportCategoryMatchEntryForm" ng-if="categoryMatchCandidate.selected">
 
                     <div class="import__edit__categories__dest__category" ng-class="{'has-error': expensesImportForm.$submitted && (expensesImportCategoryMatchEntryForm.$error['autocomplete-required'] || expensesImportCategoryMatchEntryForm.category.$invalid || badPostSubmitResponse)}">
 
@@ -72,6 +71,7 @@
                              pause="1"
                              minlength="0"
                              input-class="import__edit__categories__input"
+                             initial-value="{{categoryMatchCandidate.category.originalObject.model.name}}"
                              match-class="angucomplete-highlight"
                              template-url="app/expenses/partials/expense.category.template.html">
                         </div>
@@ -86,12 +86,15 @@
 
                 </ng-form>
 
+                <!--Category not selected-->
+                <div class="import__edit__categories__ignored" ng-if="! categoryMatchCandidate.selected"><strong>{{categoryMatchCandidate.categoryCandidateName}}</strong> expenses will be ignored</div>
+
                 <div class="import__edit__categories__arrow">&#8594;</div>
 
             </div>
 
-            <!-- Button -->
-            <button class="import__save__btn" type="submit">{{isImporting ? 'Importing...' : 'Import expenses'}}</button>
+            <!-- Perform import submit -->
+            <button class="import__save__btn" ng-disabled="! isEnoughSelectedMatchingCategories()" type="submit">{{isImporting ? 'Importing...' : 'Import expenses'}}</button>
         </div>
 
     </form>
