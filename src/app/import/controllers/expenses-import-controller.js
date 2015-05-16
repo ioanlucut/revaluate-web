@@ -29,6 +29,11 @@ angular
         // ---
         $scope.importType = importType;
 
+        // ---
+        // The import description.
+        // ---
+        $scope.importDescription = capitalizeFirstLetter(importType);
+
         /**
          * Alert identifier
          */
@@ -138,6 +143,23 @@ angular
         uploader.onCompleteItem = function (fileItem, response, status, headers) {
 
             $scope.isUploadFinished = true;
+        };
+
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        /**
+         * Show how to block content
+         * @type {boolean}
+         */
+        $scope.showHowToContent = false;
+
+        /**
+         * Toggle how to content
+         */
+        $scope.toggleHowToContent = function () {
+            $scope.showHowToContent = !$scope.showHowToContent;
         };
 
         /**
