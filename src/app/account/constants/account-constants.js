@@ -27,6 +27,8 @@ angular
         resetPasswordWithToken: "account/resetPassword/:email/:token",
         validatePasswordResetToken: "account/validateResetPasswordToken/:email/:token",
         updatePassword: "account/updatePassword",
+        fetchPaymentToken: "fetchToken/:customerId",
+        performPayment: "performPayment/:paymentNonce",
         //Below - deprecated
         refreshToken: "auth/refresh_token",
         validateRegistrationToken: "account/validate_email_verification_token/:email/:token",

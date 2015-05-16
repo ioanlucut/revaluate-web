@@ -1,6 +1,6 @@
 angular
     .module("revaluate.settings")
-    .controller("SettingsPaymentController", function ($q, $scope, $rootScope, $timeout, $braintree, clientToken, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+    .controller("SettingsPaymentController", function ($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
 
         var TIMEOUT_PENDING = 300;
 
@@ -32,30 +32,73 @@ angular
         });
 
         /**
-         * Form data
+         * Initial payment data
          */
-        $scope.creditCard = {
-            number: '',
-            expirationDate: ''
-        };
+        function getInitialPaymentData() {
+            return {
+                cardNumber: '',
+                cardExpirationDate: ''
+            }
+        }
 
-        $scope.payButtonClicked = function () {
+        /**
+         * Profile user information.
+         */
+        $scope.paymentData = angular.copy(getInitialPaymentData());
 
-            // - Validate $scope.creditCard
-            // - Make sure client is ready to use
-            $scope
-                .client
-                .tokenizeCard({
-                    number: $scope.creditCard.number,
-                    expirationDate: $scope.creditCard.expirationDate
-                }, function (err, nonce) {
+        // ---
+        // On submit, pay.
+        // ---
+        $scope.pay = function () {
+            if ( $scope.paymentForm.$valid && !$scope.isRequestPending ) {
 
-                    console.log(err);
-                    console.log(nonce);
+                // Show the loading bar
+                $scope.isRequestPending = true;
 
-                    // - Send nonce to your server (e.g. to make a transaction)
+                // - Validate $scope.paymentData
+                // - Make sure client is ready to use
+                $scope
+                    .client
+                    .tokenizeCard({
+                        number: $scope.paymentData.cardNumber,
+                        expirationDate: $scope.paymentData.cardExpirationDate
+                    }, function (err, nonce) {
 
-                });
+                        if ( err ) {
+                            flash.to($scope.alertIdentifierId).error = err;
+                        }
+                        else {
+                            flash.to($scope.alertIdentifierId).error = '';
+
+                            return $http
+                                .post(URLTo.api(AUTH_URLS.performPayment, { ":paymentNonce": nonce }), {})
+                                .then(function (response) {
+
+                                    console.log(response);
+
+                                    // ---
+                                    // Reset the payment data with empty new data.
+                                    // ---
+                                    $scope.paymentData = angular.copy(getInitialPaymentData());
+
+                                    $scope.paymentForm.$setPristine();
+                                    flash.to($scope.alertIdentifierId).success = 'We\'ve successfully performed the payment!';
+
+                                    $timeout(function () {
+                                        $scope.isRequestPending = false;
+                                    }, TIMEOUT_PENDING);
+                                })
+                                .catch(function () {
+                                    /* If bad feedback from server */
+                                    $scope.badPostSubmitResponse = true;
+                                    $scope.isRequestPending = false;
+
+                                    flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to perform the payment.';
+                                });
+                        }
+                    });
+            }
+
         };
 
     });
