@@ -20,6 +20,7 @@ angular
         insightsFetched: "Insights fetched",
         settings: "Settings",
         settingsProfile: "Settings profile",
+        settingsPayment: "Settings payment",
         settingsPreferences: "Settings preferences",
         settingsImport: "Settings import",
         error404: "error-404",

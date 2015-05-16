@@ -36,6 +36,9 @@ module.exports = function (grunt) {
                     "bower_components/es5-shim/es5-shim.js",
                     "bower_components/es5-shim/es5-sham.js",
 
+                    /* Braintree angular component */
+                    "bower_components/braintree-angular/dist/braintree-angular.js",
+
                     /* These are the angular ui used bootstrap */
                     "bower_components/angular-ui-bootstrap/src/bindHtml/bindHtml.js",
                     "bower_components/angular-ui-bootstrap/src/position/position.js",

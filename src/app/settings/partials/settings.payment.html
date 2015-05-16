@@ -1,0 +1,28 @@
+<!-- Payment section -->
+<div class="settings__section">
+
+    <!--Update payment section-->
+    <div class="settings__section__form">
+
+        <!-- Title -->
+        <h1 class="settings__title">Payment</h1>
+
+        <input
+                ng-model="creditCard.number"
+                placeholder="4111111111111111"
+                />
+
+        <input
+                ng-model="creditCard.expirationDate"
+                placeholder="10/18"
+                />
+
+        <input
+                type="submit"
+                value="Purchase"
+                ng-click="payButtonClicked()"
+                />
+
+    </div>
+
+</div>
