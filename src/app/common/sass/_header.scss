@@ -43,8 +43,8 @@
 }
 
 .header__dropdown {
-  float: right;
   @include calc(height, "#{$header-height} - 2px");
+  float: right;
   border: solid 0px $gray-medium;
   position: relative;
 
@@ -73,5 +73,17 @@
 
   .header__dropdown__menu {
     right: 0;
+    @include box-shadow(none);
+    @include border-radius($border-radius-base);
+    padding: 0;
+
+    li {
+      padding: 0;
+      margin: 0;
+
+      a {
+        padding: 10px 15px;
+      }
+    }
   }
 }
