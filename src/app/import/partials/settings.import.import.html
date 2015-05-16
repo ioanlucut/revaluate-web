@@ -8,7 +8,7 @@
 
         <div class="import__upload__area" over-class="import__upload__area--over" nv-file-drop="" nv-file-over="" uploader="uploader" filters="queueLimit, csvFilter">
             <div class="section-text">Drag and drop the CSV file you exported from
-                <strong>Mint</strong>, or browse to select it.
+                <strong>{{importDescription}}</strong>, or browse to select it.
             </div>
             <div class="import__upload__btn">
                 <span>Select file</span>
@@ -16,13 +16,13 @@
             </div>
         </div>
 
-        <!--Loading flag-->
-        <div class="import__upload__loading" ng-if="uploader.isUploading">Uploading..</div>
-
-        <ul>
-            <li><a href="#">How do I export my expenses from Mint?</a></li>
-            <li><a href="#">How do I export my expenses from Spendee?</a></li>
+        <!--How to content-->
+        <ul ng-if="! showHowToContent">
+            <li>
+                <a href="javascript:void(0)" ng-click="toggleHowToContent()"> How do I export my expenses from {{importDescription}}?</a>
+            </li>
         </ul>
+        <div ng-show="showHowToContent" ng-include src="'app/import/partials/howto/settings.import.howto.' + importType + '.html'"></div>
     </div>
 
     <!--Expenses import form-->
@@ -87,7 +87,9 @@
                 </ng-form>
 
                 <!--Category not selected-->
-                <div class="import__edit__categories__ignored" ng-if="! categoryMatchCandidate.selected"><strong>{{categoryMatchCandidate.categoryCandidateName}}</strong> expenses will be ignored</div>
+                <div class="import__edit__categories__ignored" ng-if="! categoryMatchCandidate.selected">
+                    <strong>{{categoryMatchCandidate.categoryCandidateName}}</strong> expenses will be ignored
+                </div>
 
                 <div class="import__edit__categories__arrow">&#8594;</div>
 
