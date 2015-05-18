@@ -27,6 +27,8 @@ $header-height: 60px;
 $setup-currency-input-width: 220px;
 $footer-height: 50px;
 $settings-aside-width: 180px;
+$add-expense-form-height: 50px;
+$add-category-form-height: 40px;
 
 // Other Sizes
 $base-border-radius: 3px;
@@ -89,4 +91,4 @@ $base-border: 2px solid $base-border-color; // DON'T EVEN THINK ABOUT TOUCHING T
 //$form-box-shadow: inset 0 1px 3px rgba(#000, 0.06);
 $form-box-shadow: none;
 $form-box-shadow-focus: $form-box-shadow, 0 0 5px adjust-color($action-color, $lightness: -5%, $alpha: -0.3);
-$add-category-form-height: 40px;
+$add-expense-form-border-color: $brand-primary;
