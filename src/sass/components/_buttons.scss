@@ -46,6 +46,9 @@
 @mixin btn-link($color) {
   display: inline-block;
   color: $color;
+  background-color: transparent;
+  height: 25px;
+  line-height: 0;
 
   &:hover {
     color: darken($color, 15%);
