@@ -100,21 +100,13 @@
         </div>
 
         <!-- Button container -->
-        <div class="expense__form__submit">
-            <span ng-if="isUpdating">
-                <span>Saving the expense...</span>
-            </span>
-            <span ng-if="! isUpdating">
-                <span class="expense__edit__form__cancelbtn">
-                    <button type="button" ng-click="cancel();">Discard</button>
-                    <span>changes.</span>
-                </span>
-                <span class="expense__edit__form__savebtn">
-                    <span>Enter to</span>
-                    <button type="submit">save</button>
-                    <span>the changes.</span>
-                </span>
-            </span>
+        <div class="expense__form__submit__save">
+            <button class="expense__edit__form__savebtn" type="submit">Save</button>
+        </div>
+
+        <div class="expense__form__submit__cancel">
+            <button class="expense__edit__form__cancelbtn" type="button" ng-click="cancel();">Discard changes</button>
+
         </div>
     </form>
 
