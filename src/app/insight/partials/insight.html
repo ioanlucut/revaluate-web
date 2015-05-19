@@ -2,10 +2,6 @@
 
 <div class="view-container__content">
 
-    <div class="insights__section">
-        Cool! Let's get some insights about your spendings.
-    </div>
-
     <!-- Insight fetch form -->
     <div class="insights__controls">
 
@@ -55,18 +51,21 @@
     </div>
 
     <div class="insights__summary">
-        <div class="insights__summary__thumbnail">
-            <span class="insights__summary__thumbnail__number ">{{insight.model.totalAmountSpent}}</span>
-            <span class="insights__summary__thumbnail__label">TOTAL this month</span>
-        </div>
-        <div class="insights__summary__thumbnail">
-            <span class="insights__summary__thumbnail__number">{{insight.model.numberOfTransactions}}</span>
-            <span class="insights__summary__thumbnail__label">transactions</span>
-        </div>
-        <div class="insights__summary__thumbnail">
-            <span class="insights__summary__thumbnail__number">+5%</span>
-            <span class="insights__summary__thumbnail__label">from previous month</span>
-        </div>
+        You've spent a total of <span>{{insight.model.totalAmountSpent}}</span> <span>{{user.model.currency.currencyCode}}</span>
+        in <span>{{(insightData.spentDate | friendlyMonthDate)}}</span>. That was done in <span>{{insight.model.numberOfTransactions}}</span>
+        transactions, which is <span>5% more</span> than the last month.
+        <!--<div class="insights__summary__thumbnail">-->
+            <!--<span class="insights__summary__thumbnail__number ">{{insight.model.totalAmountSpent}}</span>-->
+            <!--<span class="insights__summary__thumbnail__label">TOTAL this month</span>-->
+        <!--</div>-->
+        <!--<div class="insights__summary__thumbnail">-->
+            <!--<span class="insights__summary__thumbnail__number">{{insight.model.numberOfTransactions}}</span>-->
+            <!--<span class="insights__summary__thumbnail__label">transactions</span>-->
+        <!--</div>-->
+        <!--<div class="insights__summary__thumbnail">-->
+            <!--<span class="insights__summary__thumbnail__number">+5%</span>-->
+            <!--<span class="insights__summary__thumbnail__label">from previous month</span>-->
+        <!--</div>-->
     </div>
 
     <div class="insights__chart__bar">
@@ -74,7 +73,7 @@
                 class="chart chart-bar"
                 data="insightLineData"
                 series="insightLineSeries"
-                legend="true"
+                legend="false"
                 labels="insight.model.insightLabels">
         </canvas>
     </div>
@@ -82,9 +81,9 @@
     <div class="insights__table">
         <table>
             <thead class="insights__table__header">
-            <tr>
+            <tr class="">
                 <td>TOTAL</td>
-                <td class="insights__table__amount">{{insight.model.totalAmountSpent}}</td>
+                <td class="insights__table__amount">{{insight.model.totalAmountSpent}}<span>RON</span></td>
             </tr>
             </thead>
             <tbody>
@@ -93,7 +92,7 @@
                     <span class="insights__table__category__color" ng-style="{'background':totalPerCategory.categoryDTO.color.color}">C</span>
                     {{totalPerCategory.categoryDTO.name}}
                 </td>
-                <td class="insights__table__amount">{{totalPerCategory.totalAmount}}</td>
+                <td class="insights__table__amount">{{totalPerCategory.totalAmount}}<span>RON</span></td>
             </tr>
             </tbody>
         </table>
