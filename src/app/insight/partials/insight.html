@@ -11,7 +11,7 @@
             <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
             <!-- Select prev month -->
-            <button type="button" class="insights__controls__form__arrow" ng-disabled="isLoading || ! canLoadPrevMonth()" ng-click="prevMonth()">&#10094;</button>
+            <button type="button" class="insights__controls__form__arrow icon-chevron-left" ng-disabled="isLoading || ! canLoadPrevMonth()" ng-click="prevMonth()"></button>
 
             <div class="insights__controls__form__month" ng-class="{'has-error': insightForm.spentDate.$invalid && insightForm.$submitted}">
 
@@ -44,7 +44,7 @@
             </div>
 
             <!-- Select next month -->
-            <button type="button" class="insights__controls__form__arrow" ng-disabled="isLoading || ! canLoadNextMonth()" ng-click="nextMonth()">&#10095;</button>
+            <button type="button" class="insights__controls__form__arrow icon-chevron-right" ng-disabled="isLoading || ! canLoadNextMonth()" ng-click="nextMonth()"></button>
 
         </form>
 
