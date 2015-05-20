@@ -53,7 +53,8 @@ angular
 
                 return $http
                     .put(URLTo.api(AUTH_URLS.updateCustomer), paymentDetailsData)
-                    .then(function () {
+                    .then(function (response) {
+                        $scope.paymentInsights = response.data;
 
                         // ---
                         // Reset the payment data with empty new data.
