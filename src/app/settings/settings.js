@@ -58,18 +58,28 @@ angular
                 title: "Payment add - Revaluate"
             })
 
-            .state({
-                name: "settings.payment.insights",
+            .state("settings.payment.insights", {
                 url: "/insights",
-                templateUrl: "app/settings/partials/settings.payment.insights.html",
-                controller: "SettingsPaymentInsightsController",
-                resolve: {
-                    paymentInsights: function ($http, AUTH_URLS) {
-                        return $http
-                            .get(URLTo.api(AUTH_URLS.fetchPaymentInsights))
-                            .then(function (response) {
-                                return response.data;
-                            });
+                views: {
+                    '': {
+                        templateUrl: "app/settings/partials/settings.payment.insights.abstract.html"
+                    },
+                    'paymentInsights@settings.payment.insights': {
+                        templateUrl: "app/settings/partials/settings.payment.insights.insights.html",
+                        controller: "SettingsPaymentInsightsController",
+                        resolve: {
+                            paymentInsights: function ($http, AUTH_URLS) {
+                                return $http
+                                    .get(URLTo.api(AUTH_URLS.fetchPaymentInsights))
+                                    .then(function (response) {
+                                        return response.data;
+                                    });
+                            }
+                        }
+                    },
+                    'paymentSubscribe@settings.payment.insights': {
+                        templateUrl: "app/settings/partials/settings.payment.insights.subscribe.html",
+                        controller: "SettingsPaymentSubscribeController"
                     }
                 },
                 title: "Payment insights - Revaluate"
