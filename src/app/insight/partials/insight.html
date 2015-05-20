@@ -51,7 +51,7 @@
     </div>
 
     <div class="insights__summary">
-        You've spent a total of <span>{{insight.model.totalAmountSpent}}</span> <span>{{user.model.currency.currencyCode}}</span>
+        You've spent a total of <span>{{insight.model.totalAmountSpent | currency:""}}</span> <span>{{user.model.currency.currencyCode}}</span>
         in <span>{{(insightData.spentDate | friendlyMonthDate)}}</span>. That was done in <span>{{insight.model.numberOfTransactions}}</span>
         transactions, which is <span>5% more</span> than the last month.
         <!--<div class="insights__summary__thumbnail">-->
@@ -83,7 +83,7 @@
             <thead class="insights__table__header">
             <tr class="">
                 <td>TOTAL</td>
-                <td class="insights__table__amount">{{insight.model.totalAmountSpent}}<span>RON</span></td>
+                <td class="insights__table__amount">{{insight.model.totalAmountSpent | currency:""}}<span>{{user.model.currency.currencyCode}}</span></td>
             </tr>
             </thead>
             <tbody>
@@ -92,7 +92,7 @@
                     <span class="insights__table__category__color" ng-style="{'background':totalPerCategory.categoryDTO.color.color}">C</span>
                     {{totalPerCategory.categoryDTO.name}}
                 </td>
-                <td class="insights__table__amount">{{totalPerCategory.totalAmount}}<span>RON</span></td>
+                <td class="insights__table__amount">{{totalPerCategory.totalAmount | currency:""}}<span>{{user.model.currency.currencyCode}}</span></td>
             </tr>
             </tbody>
         </table>
