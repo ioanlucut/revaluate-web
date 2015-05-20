@@ -1,0 +1,23 @@
+<!-- Payment section -->
+<div class="settings__section">
+
+    <!--Subscription payment section-->
+    <div class="settings__section__form">
+
+        <!-- Title -->
+        <h1 class="settings__title">Payment subscribe</h1>
+
+        <!-- Payment form -->
+        <form name="paymentSubscriptionForm" ng-submit="performPaymentSubscription()" novalidate>
+
+            <!-- Flash messages. -->
+            <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
+            <!-- Button container -->
+            <button class="settings__btn__save" type="submit">{{isRequestPending ? 'Subscribing...' : 'Subscribe'}}</button>
+        </form>
+
+    </div>
+
+
+</div>

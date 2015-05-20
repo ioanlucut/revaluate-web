@@ -36,6 +36,9 @@ module.exports = function (grunt) {
                     "bower_components/es5-shim/es5-shim.js",
                     "bower_components/es5-shim/es5-sham.js",
 
+                    /* Braintree angular component */
+                    "bower_components/braintree-angular/dist/braintree-angular.js",
+
                     /* These are the angular ui used bootstrap */
                     "bower_components/angular-ui-bootstrap/src/bindHtml/bindHtml.js",
                     "bower_components/angular-ui-bootstrap/src/position/position.js",
@@ -127,6 +130,19 @@ module.exports = function (grunt) {
                     }
                 }
             },
+
+            localhost: {
+                options: {
+                    dest: 'src/app/app.env.config.js'
+                },
+                constants: {
+                    ENV: {
+                        name: 'localhost',
+                        apiEndpoint: 'http://localhost:8080',
+                        mixPanelId: 'e9ba9ca056ce11433777e3c8f59014b4'
+                    }
+                }
+            },
             production: {
                 options: {
                     dest: 'src/app/app.env.config.js'
@@ -143,6 +159,14 @@ module.exports = function (grunt) {
 
         processhtml: {
             dev: {
+                options: {
+                    data: {}
+                },
+                files: {
+                    'index.html': ['template.index.html']
+                }
+            },
+            local: {
                 options: {
                     data: {}
                 },
@@ -333,6 +357,17 @@ module.exports = function (grunt) {
             "concat",
             "copy",
             "processhtml:dev"
+        ]
+    );
+
+    grunt.registerTask("local",
+        [
+            'ngconstant:localhost',
+            "html2js",
+            "sass",
+            "concat",
+            "copy",
+            "processhtml:local"
         ]
     );
 
