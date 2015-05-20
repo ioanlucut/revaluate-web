@@ -29,6 +29,7 @@ angular
         updatePassword: "account/updatePassword",
         fetchPaymentToken: "payment/fetchToken",
         fetchPaymentInsights: "payment/fetchPaymentInsights",
+        subscribeToStandardPlan: "payment/subscribeToStandardPlan",
         createCustomerWithPaymentMethod: "payment/createCustomerWithPaymentMethod",
         //Below - deprecated
         refreshToken: "auth/refresh_token",
