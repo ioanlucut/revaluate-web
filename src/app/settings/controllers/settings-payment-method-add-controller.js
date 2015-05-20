@@ -1,6 +1,6 @@
 angular
     .module("revaluate.settings")
-    .controller("SettingsPaymentMethodController", function ($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentInsights, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+    .controller("SettingsPaymentMethodAddController", function ($q, $scope, $state, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentStatus, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
 
         var TIMEOUT_PENDING = 300;
 
@@ -27,7 +27,7 @@ angular
         // ---
         // Payment status.
         // ---
-        $scope.paymentInsights = paymentInsights;
+        $scope.paymentStatus = paymentStatus;
 
         // ---
         // Braintree client.
@@ -52,11 +52,18 @@ angular
         $scope.paymentData = angular.copy(getInitialPaymentData());
 
         /**
-         * Initial Payment details data
+         * Initial payment details data
          */
         function getInitialPaymentDetailsData() {
             return {
-                paymentMethodNonce: ''
+                paymentCustomerDetailsDTO: {
+                    firstName: $scope.user.model.firstName,
+                    lastName: $scope.user.model.lastName,
+                    email: $scope.user.model.email
+                },
+                paymentNonceDetailsDTO: {
+                    paymentMethodNonce: ''
+                }
             }
         }
 
@@ -66,10 +73,10 @@ angular
         $scope.paymentDetailsData = angular.copy(getInitialPaymentDetailsData());
 
         // ---
-        // UPDATE PAYMENT METHOD RELATED
+        // On submit, add payment method.
         // ---
-        $scope.updatePaymentMethod = function () {
-            if ( $scope.updatePaymentMethodForm.$valid && !$scope.isRequestPending ) {
+        $scope.addPaymentMethod = function () {
+            if ( $scope.addPaymentMethodForm.$valid && !$scope.isRequestPending ) {
 
                 // Show the loading bar
                 $scope.isRequestPending = true;
@@ -93,10 +100,10 @@ angular
                             // Update details with the received nonce.
                             // ---
                             var paymentDetailsData = angular.copy($scope.paymentDetailsData);
-                            paymentDetailsData.paymentMethodNonce = nonce;
+                            paymentDetailsData.paymentNonceDetailsDTO.paymentMethodNonce = nonce;
 
                             return $http
-                                .put(URLTo.api(AUTH_URLS.updatePaymentMethod), paymentDetailsData)
+                                .post(URLTo.api(AUTH_URLS.createCustomerWithPaymentMethod), paymentDetailsData)
                                 .then(function () {
 
                                     // ---
@@ -104,11 +111,16 @@ angular
                                     // ---
                                     $scope.paymentData = angular.copy(getInitialPaymentData());
 
-                                    $scope.updatePaymentMethodForm.$setPristine();
-                                    flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your payment method!';
+                                    $scope.addPaymentMethodForm.$setPristine();
+                                    flash.to($scope.alertIdentifierId).success = 'We\'ve successfully saved your payment method!';
 
                                     $timeout(function () {
                                         $scope.isRequestPending = false;
+
+                                        // ---
+                                        // If successful, go to insights.
+                                        // ---
+                                        $state.go("settings.payment.insights");
                                     }, TIMEOUT_PENDING);
                                 })
                                 .catch(function (response) {
@@ -124,7 +136,7 @@ angular
                                         flash.to($scope.alertIdentifierId).error = errors.join("\n");
                                     }
                                     else {
-                                        flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to update your payment method.';
+                                        flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to save your payment method.';
                                     }
                                 });
                         }

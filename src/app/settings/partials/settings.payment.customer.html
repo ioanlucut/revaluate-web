@@ -1,0 +1,35 @@
+<!-- Payment section -->
+<div class="settings__section">
+
+    <!--Payment customer section-->
+    <div class="settings__section__form">
+
+        <!-- Title -->
+        <h1 class="settings__title">Update customer information</h1>
+
+        <!-- Update customer information form -->
+        <form name="updateCustomerForm" ng-submit="updateCustomer()" novalidate focus-first-error>
+
+            <!-- Flash messages. -->
+            <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
+            <!-- Form group -->
+            <div class="form-group-input" ng-class="{'has-error': updateCustomerForm.$submitted && (updateCustomerForm.firstName.$invalid || badPostSubmitResponse)}">
+                <input class="form-group-input__input" type="text" placeholder="Last name" name="cardNumber" ng-model="paymentDetailsData.firstName" auto-focus required />
+                <span class="form-group-input__message" ng-if="updateCustomerForm.firstName.$invalid && updateCustomerForm.$submitted">Please enter your first name.</span>
+            </div>
+
+            <!-- Form group -->
+            <div class="form-group-input" ng-class="{'has-error': updateCustomerForm.$submitted && (updateCustomerForm.lastName.$invalid || badPostSubmitResponse)}">
+                <input class="form-group-input__input" type="text" placeholder="First name" name="cardExpirationDate" ng-model="paymentDetailsData.lastName" required />
+                <span class="form-group-input__message" ng-if="updateCustomerForm.lastName.$invalid && updateCustomerForm.$submitted">Please enter your last name.</span>
+            </div>
+
+            <!-- Button container -->
+            <button class="settings__btn__save" type="submit">{{isRequestPending ? 'Updating...' : 'Update customer'}}</button>
+        </form>
+
+    </div>
+
+
+</div>
