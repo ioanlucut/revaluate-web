@@ -1,6 +1,6 @@
 angular
     .module("revaluate.settings")
-    .controller("SettingsPaymentController", function ($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+    .controller("SettingsPaymentMethodController", function ($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
 
         var TIMEOUT_PENDING = 300;
 
@@ -63,9 +63,9 @@ angular
         $scope.paymentDetailsData = angular.copy(getInitialPaymentDetailsData());
 
         // ---
-        // On submit, pay.
+        // On submit, add payment method.
         // ---
-        $scope.pay = function () {
+        $scope.addPaymentMethod = function () {
             if ( $scope.paymentForm.$valid && !$scope.isRequestPending ) {
 
                 // Show the loading bar
