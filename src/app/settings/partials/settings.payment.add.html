@@ -5,10 +5,10 @@
     <div class="settings__section__form">
 
         <!-- Title -->
-        <h1 class="settings__title">Payment</h1>
+        <h1 class="settings__title">Payment method</h1>
 
         <!-- Payment form -->
-        <form name="paymentForm" ng-submit="pay()" novalidate focus-first-error>
+        <form name="paymentForm" ng-submit="addPaymentMethod()" novalidate focus-first-error>
 
             <!-- Flash messages. -->
             <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
@@ -26,7 +26,10 @@
             </div>
 
             <!-- Button container -->
-            <button class="settings__btn__save" type="submit">{{isRequestPending ? 'Paying...' : 'Pay'}}</button>
+            <button class="settings__btn__save" type="submit">{{isRequestPending ? 'Saving...' : 'Add payment'}}</button>
+
+            <!-- Go to billings -->
+            <a class="link-navigation" href="javascript:void(0)" ui-sref="settings.payment.insights">Go to billings.</a>
         </form>
 
     </div>

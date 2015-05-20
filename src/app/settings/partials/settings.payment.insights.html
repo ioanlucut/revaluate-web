@@ -1,4 +1,29 @@
 <div class="settings__section">
 
-    EMPTY
+    <!--Payment profile-->
+    <div class="settings__section__payment-profile">
+        <div class="settings__section__payment-profile__first-name">{{paymentInsights.paymentCustomerDTO.firstName}}</div>
+        <div class="settings__section__payment-profile__last-name">{{paymentInsights.paymentCustomerDTO.lastName}}</div>
+        <div class="settings__section__payment-profile__email">{{paymentInsights.paymentCustomerDTO.email}}</div>
+    </div>
+
+    <!--Payment method-->
+    <div class="settings__section__payment-payment-method" ng-repeat="paymentMethodDTO in paymentInsights.paymentMethodDTOs">
+        <div class="settings__section__payment-payment-method__card-type">{{paymentMethodDTO.cardType}}</div>
+        <div class="settings__section__payment-payment-method__expiration-month">{{paymentMethodDTO.expirationMonth}}</div>
+        <div class="settings__section__payment-payment-method__expiration-year">{{paymentMethodDTO.expirationYear}}</div>
+        <img ng-src="{{paymentMethodDTO.imageUrl}}" />
+
+        <div class="settings__section__payment-payment-method__expiration-number">{{paymentMethodDTO.bin}}****{{paymentMethodDTO.last4}}</div>
+    </div>
+
+    <!--Transactions-->
+    <div class="settings__section__payment-transaction" ng-repeat="paymentTransactionDTO in paymentInsights.paymentTransactionDTOs">
+        <div class="settings__section__payment-transaction__id">{{paymentTransactionDTO.id}}</div>
+        <div class="settings__section__payment-transaction__amount">{{paymentTransactionDTO.amount}}</div>
+        <div class="settings__section__payment-transaction__currency">{{paymentTransactionDTO.currencyCode}}</div>
+        <div class="settings__section__payment-transaction__recurring">{{paymentTransactionDTO.recurring}}</div>
+        <div class="settings__section__payment-transaction__status">{{paymentTransactionDTO.status}}</div>
+        <div class="settings__section__payment-transaction__created-at">{{paymentTransactionDTO.createdAt | friendlyDate}}</div>
+    </div>
 </div>

@@ -45,13 +45,13 @@ angular
                 name: "settings.payment.add",
                 url: "/add",
                 templateUrl: "app/settings/partials/settings.payment.add.html",
-                controller: "SettingsPaymentController",
+                controller: "SettingsPaymentMethodController",
                 resolve: {
                     clientToken: function ($http, AUTH_URLS) {
                         return $http
                             .post(URLTo.api(AUTH_URLS.fetchPaymentToken))
                             .then(function (response) {
-                                return response.data.answer;
+                                return response.data.clientToken;
                             });
                     }
                 },
@@ -62,6 +62,7 @@ angular
                 name: "settings.payment.insights",
                 url: "/insights",
                 templateUrl: "app/settings/partials/settings.payment.insights.html",
+                controller: "SettingsPaymentInsightsController",
                 resolve: {
                     paymentInsights: function ($http, AUTH_URLS) {
                         return $http
