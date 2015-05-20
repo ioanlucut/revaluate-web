@@ -4,6 +4,7 @@
 angular
     .module("app", [
         "config",
+        "braintree-angular",
         "angular-cache",
         "angularFileUpload",
         "ngAnimate",

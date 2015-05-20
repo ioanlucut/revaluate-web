@@ -1,0 +1,35 @@
+<!-- Payment section -->
+<div class="settings__section">
+
+    <!--Payment method section-->
+    <div class="settings__section__form">
+
+        <!-- Title -->
+        <h1 class="settings__title">Payment method</h1>
+
+        <!-- Add payment method form -->
+        <form name="addPaymentMethodForm" ng-submit="addPaymentMethod()" novalidate focus-first-error>
+
+            <!-- Flash messages. -->
+            <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
+            <!-- Form group -->
+            <div class="form-group-input" ng-class="{'has-error': addPaymentMethodForm.$submitted && (addPaymentMethodForm.cardNumber.$invalid || badPostSubmitResponse)}">
+                <input class="form-group-input__input" type="text" placeholder="4111111111111111" name="cardNumber" ng-model="paymentData.cardNumber" auto-focus required />
+                <span class="form-group-input__message" ng-if="addPaymentMethodForm.cardNumber.$invalid && addPaymentMethodForm.$submitted">Please enter your card number.</span>
+            </div>
+
+            <!-- Form group -->
+            <div class="form-group-input" ng-class="{'has-error': addPaymentMethodForm.$submitted && (addPaymentMethodForm.cardExpirationDate.$invalid || badPostSubmitResponse)}">
+                <input class="form-group-input__input" type="text" placeholder="10/18" name="cardExpirationDate" ng-model="paymentData.cardExpirationDate" required />
+                <span class="form-group-input__message" ng-if="addPaymentMethodForm.cardExpirationDate.$invalid && addPaymentMethodForm.$submitted">Please enter card expiration date.</span>
+            </div>
+
+            <!-- Button container -->
+            <button class="settings__btn__save" type="submit">{{isRequestPending ? 'Saving...' : 'Add payment'}}</button>
+        </form>
+
+    </div>
+
+
+</div>

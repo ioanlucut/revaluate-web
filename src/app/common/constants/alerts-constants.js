@@ -16,6 +16,7 @@ angular
         categoryList: "categoryList",
         createUpdateCategory: "createUpdateCategory",
         updateProfile: "updateProfile",
+        paymentProfile: "paymentProfile",
         cancelAccount: "cancelAccount",
         preferences: "preferences",
         import: "import"
