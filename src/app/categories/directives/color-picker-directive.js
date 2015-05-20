@@ -9,15 +9,10 @@ angular
                 colors: "="
             },
             templateUrl: "app/categories/partials/color-picker-directive-template.html",
-            link: function (scope, el, attrs) {
+            link: function (scope, elm, attrs) {
 
                 // By default the popover is closed
-                scope.isOpen = true;
-
-                // Open the popover
-                scope.open = function () {
-                    scope.isOpen = true;
-                };
+                scope.isOpen = false;
 
                 // Close the popover
                 scope.close = function () {
@@ -25,19 +20,13 @@ angular
                 };
 
                 // ---
-                // We check events on the sibling input.
+                // Label element clicks toggles the picker.
                 // ---
-                var input = el.prev('input');
+                var label = elm.prev().prev('label');
 
-                input.on("focus", function () {
+                label.on("click", function () {
                     scope.$apply(function () {
-                        scope.open();
-                    });
-                });
-
-                input.on("blur", function () {
-                    scope.$apply(function () {
-                        scope.close();
+                        scope.isOpen = !scope.isOpen;
                     });
                 });
 
@@ -46,10 +35,10 @@ angular
                 // Open or close the modal
                 scope.$watch("isOpen", function (isOpen, isOpenOld) {
                     if ( isOpen === true ) {
-                        $animate.addClass(el, CLASS_OPEN);
+                        $animate.addClass(elm, CLASS_OPEN);
                     }
                     else if ( isOpen === false && isOpenOld === true ) {
-                        $animate.removeClass(el, CLASS_OPEN);
+                        $animate.removeClass(elm, CLASS_OPEN);
                     }
                 });
 
