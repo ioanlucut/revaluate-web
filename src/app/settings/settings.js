@@ -45,6 +45,39 @@ angular
                 name: "settings.payment.add",
                 url: "/add",
                 templateUrl: "app/settings/partials/settings.payment.add.html",
+                controller: "SettingsPaymentMethodAddController",
+                resolve: {
+                    clientToken: function ($http, AUTH_URLS) {
+                        return $http
+                            .post(URLTo.api(AUTH_URLS.fetchPaymentToken))
+                            .then(function (response) {
+                                return response.data.clientToken;
+                            });
+                    },
+                    paymentStatus: function ($http, AUTH_URLS, $state) {
+                        return $http
+                            .get(URLTo.api(AUTH_URLS.isPaymentStatusDefined))
+                            .then(function (response) {
+                                if ( response.data.paymentStatusDefined ) {
+
+                                    $state.go("settings.payment.insights");
+                                }
+                                return response.data.paymentStatusDefined;
+                            })
+                            .catch(function () {
+
+                                $state.go("settings.payment.insights");
+                            });
+                    }
+
+                },
+                title: "Payment method - Revaluate"
+            })
+
+            .state({
+                name: "settings.payment.method",
+                url: "/method",
+                templateUrl: "app/settings/partials/settings.payment.method.html",
                 controller: "SettingsPaymentMethodController",
                 resolve: {
                     clientToken: function ($http, AUTH_URLS) {
@@ -53,9 +86,41 @@ angular
                             .then(function (response) {
                                 return response.data.clientToken;
                             });
+                    },
+                    paymentInsights: function ($http, $state, AUTH_URLS) {
+                        return $http
+                            .get(URLTo.api(AUTH_URLS.fetchPaymentInsights))
+                            .then(function (response) {
+                                return response.data;
+                            })
+                            .catch(function () {
+
+                                $state.go("settings.payment.insights");
+                            });
                     }
                 },
-                title: "Payment add - Revaluate"
+                title: "Payment edit payment method - Revaluate"
+            })
+
+            .state({
+                name: "settings.payment.customer",
+                url: "/customer",
+                templateUrl: "app/settings/partials/settings.payment.customer.html",
+                controller: "SettingsPaymentCustomerController",
+                resolve: {
+                    paymentInsights: function ($http, $state, AUTH_URLS) {
+                        return $http
+                            .get(URLTo.api(AUTH_URLS.fetchPaymentInsights))
+                            .then(function (response) {
+                                return response.data;
+                            })
+                            .catch(function () {
+
+                                $state.go("settings.payment.insights");
+                            });
+                    }
+                },
+                title: "Payment edit customer - Revaluate"
             })
 
             .state("settings.payment.insights", {
@@ -68,11 +133,15 @@ angular
                         templateUrl: "app/settings/partials/settings.payment.insights.insights.html",
                         controller: "SettingsPaymentInsightsController",
                         resolve: {
-                            paymentInsights: function ($http, AUTH_URLS) {
+                            paymentInsights: function ($http, $state, AUTH_URLS) {
                                 return $http
                                     .get(URLTo.api(AUTH_URLS.fetchPaymentInsights))
                                     .then(function (response) {
                                         return response.data;
+                                    })
+                                    .catch(function () {
+
+                                        $state.go("settings.payment.invalid");
                                     });
                             }
                         }
@@ -83,6 +152,12 @@ angular
                     }
                 },
                 title: "Payment insights - Revaluate"
+            })
+
+            .state("settings.payment.invalid", {
+                url: "/invalid",
+                templateUrl: "app/settings/partials/settings.payment.insights.invalid.html",
+                title: "Payment insights invalid - Revaluate"
             })
 
             // ---

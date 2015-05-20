@@ -61,7 +61,8 @@ angular
                     validateTokenResult: function ($stateParams, $q, AuthService, $state) {
                         var deferred = $q.defer();
 
-                        AuthService.validatePasswordResetToken($stateParams.email, $stateParams.token)
+                        AuthService
+                            .validatePasswordResetToken($stateParams.email, $stateParams.token)
                             .then(function (response) {
                                 deferred.resolve({ email: $stateParams.email, token: $stateParams.token });
                                 return response;

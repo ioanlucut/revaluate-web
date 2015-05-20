@@ -31,6 +31,10 @@ angular
         fetchPaymentInsights: "payment/fetchPaymentInsights",
         subscribeToStandardPlan: "payment/subscribeToStandardPlan",
         createCustomerWithPaymentMethod: "payment/createCustomerWithPaymentMethod",
+        fetchPaymentStatus: "payment/fetchPaymentStatus",
+        updateCustomer: "payment/updateCustomer",
+        updatePaymentMethod: "payment/updatePaymentMethod",
+        isPaymentStatusDefined: "payment/isPaymentStatusDefined",
         //Below - deprecated
         refreshToken: "auth/refresh_token",
         validateRegistrationToken: "account/validate_email_verification_token/:email/:token",
