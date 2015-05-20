@@ -18,7 +18,7 @@ angular
                         password: "",
                         timezone: "",
                         initiated: false,
-                        helpdeskAuthToken: "",
+                        userSubscriptionStatus: "",
                         currency: {
                             "currencyCode": ""
                         }
@@ -38,6 +38,14 @@ angular
                      */
                     isInitiated: function () {
                         return this.isAuthenticated() && this.model.initiated;
+                    },
+
+                    /**
+                     * Trial period has expired for this user.
+                     * @returns {boolean}
+                     */
+                    isTrialExpired: function () {
+                        return this.model.userSubscriptionStatus === "TRIAL_EXPIRED";
                     },
 
                     /**
