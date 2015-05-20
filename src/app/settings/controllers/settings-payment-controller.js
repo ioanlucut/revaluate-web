@@ -46,6 +46,22 @@ angular
          */
         $scope.paymentData = angular.copy(getInitialPaymentData());
 
+        /**
+         * Initial Payment details data
+         */
+        function getInitialPaymentDetailsData() {
+            return {
+                firstName: $scope.user.model.firstName,
+                lastName: $scope.user.model.lastName,
+                email: $scope.user.model.email
+            }
+        }
+
+        /**
+         * Payment details data.
+         */
+        $scope.paymentDetailsData = angular.copy(getInitialPaymentDetailsData());
+
         // ---
         // On submit, pay.
         // ---
@@ -70,11 +86,15 @@ angular
                         else {
                             flash.to($scope.alertIdentifierId).error = '';
 
-                            return $http
-                                .post(URLTo.api(AUTH_URLS.performPayment, { ":paymentNonce": nonce }), {})
-                                .then(function (response) {
+                            // ---
+                            // Update details with the received nonce.
+                            // ---
+                            var paymentDetailsData = angular.copy($scope.paymentDetailsData);
+                            paymentDetailsData.paymentMethodNonce = nonce;
 
-                                    console.log(response);
+                            return $http
+                                .post(URLTo.api(AUTH_URLS.createCustomerWithPaymentMethod), paymentDetailsData)
+                                .then(function () {
 
                                     // ---
                                     // Reset the payment data with empty new data.
@@ -82,18 +102,27 @@ angular
                                     $scope.paymentData = angular.copy(getInitialPaymentData());
 
                                     $scope.paymentForm.$setPristine();
-                                    flash.to($scope.alertIdentifierId).success = 'We\'ve successfully performed the payment!';
+                                    flash.to($scope.alertIdentifierId).success = 'We\'ve successfully saved your payment method!';
 
                                     $timeout(function () {
                                         $scope.isRequestPending = false;
                                     }, TIMEOUT_PENDING);
                                 })
-                                .catch(function () {
+                                .catch(function (response) {
                                     /* If bad feedback from server */
                                     $scope.badPostSubmitResponse = true;
                                     $scope.isRequestPending = false;
 
-                                    flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to perform the payment.';
+                                    // ---
+                                    // Show errors.
+                                    // ---
+                                    var errors = response.data;
+                                    if ( _.isArray(errors) ) {
+                                        flash.to($scope.alertIdentifierId).error = errors.join("\n");
+                                    }
+                                    else {
+                                        flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to save your payment method.';
+                                    }
                                 });
                         }
                     });
