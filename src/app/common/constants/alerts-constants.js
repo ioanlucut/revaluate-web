@@ -5,6 +5,7 @@ angular
         signUp: "signUp",
         signUpConfirm: "signUpConfirm",
         signUpSetUp: "signUpSetUp",
+        generalError: "generalError",
         forgotPassword: "forgotPassword",
         requestSignUpRegistration: "requestSignUpRegistration",
         resetPassword: "resetPassword",
