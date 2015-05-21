@@ -26,6 +26,14 @@
             <img ng-src="{{paymentMethodDTO.imageUrl}}" />
 
             <div class="settings__section__payment-payment-method__expiration-number">{{paymentMethodDTO.bin}}****{{paymentMethodDTO.last4}}</div>
+
+                <!--Payment method subscriptions-->
+                <div class="settings__section__payment-payment-method__subscription" ng-repeat="paymentSubscription in paymentMethodDTO.paymentSubscriptionDTOList">
+                    <div class="settings__section__payment-payment-method__subscription__id">{{paymentSubscription.id}}</div>
+                    <div class="settings__section__payment-payment-method__subscription__amount">{{paymentSubscription.amount}}</div>
+                    <div class="settings__section__payment-payment-method__subscription__status">{{paymentSubscription.status}}</div>
+                    <div class="settings__section__payment-payment-method__subscription__createdAt">{{paymentSubscription.createdAt | friendlyDate}}</div>
+                </div>
         </div>
 
         <!--Transactions-->
@@ -37,6 +45,30 @@
             <div class="settings__section__payment-transaction__status">{{paymentTransactionDTO.status}}</div>
             <div class="settings__section__payment-transaction__created-at">{{paymentTransactionDTO.createdAt | friendlyDate}}</div>
         </div>
+    </div>
+
+    <!--Subscription payment section-->
+    <div class="settings__section__form">
+
+        <!-- Title -->
+        <h1 class="settings__title">Payment subscribe</h1>
+
+        <!-- Payment form -->
+        <form ng-if="! paymentInsights.subscriptionActive" name="paymentSubscriptionForm" ng-submit="performPaymentSubscription()" novalidate>
+
+            <div>Please subscribe to revaluate plan in order to activate payments.</div>
+
+            <!-- Flash messages. -->
+            <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
+            <!-- Button container -->
+            <button class="settings__btn__save" type="submit">{{isRequestPending ? 'Subscribing...' : 'Subscribe'}}</button>
+        </form>
+
+        <div ng-if="paymentInsights.subscriptionActive">
+            You are already subscribed to revaluate plan.
+        </div>
+
     </div>
 
 </div>
