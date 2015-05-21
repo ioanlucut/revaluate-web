@@ -27,6 +27,8 @@ angular
         resetPasswordWithToken: "account/resetPassword/:email/:token",
         validatePasswordResetToken: "account/validateResetPasswordToken/:email/:token",
         updatePassword: "account/updatePassword",
+        requestConfirmationEmail: "account/requestConfirmationEmail/:email",
+        validateConfirmationEmailToken: "account/validateConfirmationEmailToken/:email/:token",
         fetchPaymentToken: "payment/fetchToken",
         fetchPaymentInsights: "payment/fetchPaymentInsights",
         subscribeToStandardPlan: "payment/subscribeToStandardPlan",
@@ -37,7 +39,6 @@ angular
         isPaymentStatusDefined: "payment/isPaymentStatusDefined",
         //Below - deprecated
         refreshToken: "auth/refresh_token",
-        validateRegistrationToken: "account/validate_email_verification_token/:email/:token",
         requestSignUpRegistration: "account/send_email_verification_token"
     })
     .constant("ACCOUNT_FORM_STATE", {

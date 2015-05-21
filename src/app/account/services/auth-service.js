@@ -6,8 +6,7 @@ angular
     .service("AuthService", function ($rootScope, $q, $http, $location, redirectToUrlAfterLogin, SessionService, AUTH_EVENTS, AUTH_URLS, AUTH_TOKEN_HEADER) {
 
         /**
-         * Is User already authenticated ?
-         * @returns {*}
+         * Is user already authenticated ?
          */
         this.isAuthenticated = function () {
             return SessionService.sessionExists();
@@ -15,10 +14,6 @@ angular
 
         /**
          * Login functionality
-         *
-         * @param email
-         * @param password
-         * @returns {*}
          */
         this.login = function (email, password) {
 
@@ -42,8 +37,6 @@ angular
 
         /**
          * Logout functionality
-         *
-         * @returns {*}
          */
         this.logout = function () {
             SessionService.destroy();
@@ -52,8 +45,6 @@ angular
 
         /**
          * Request password reset functionality
-         * @param email
-         * @returns {*}
          */
         this.requestPasswordReset = function (email) {
             return $http
@@ -62,8 +53,6 @@ angular
 
         /**
          * Request registration functionality
-         * @param email
-         * @returns {*}
          */
         this.requestSignUpRegistration = function (email) {
             return $http
@@ -72,14 +61,24 @@ angular
                 });
         };
 
+        this.requestConfirmationEmail = function (email) {
+            return $http
+                .post(URLTo.api(AUTH_URLS.requestConfirmationEmail, { ":email": email }))
+                .then(function (response) {
+                    return response.data;
+                });
+        };
+
+        this.validateConfirmationEmailToken = function (email, token) {
+            return $http
+                .post(URLTo.api(AUTH_URLS.validateConfirmationEmailToken, { ":email": email, ":token": token }))
+                .then(function (response) {
+                    return response.data;
+                });
+        };
+
         /**
          * Reset password with token.
-         *
-         * @param email
-         * @param password
-         * @param passwordConfirmation
-         * @param token
-         * @returns {*}
          */
         this.resetPasswordWithToken = function (email, password, passwordConfirmation, token) {
             return $http
@@ -98,9 +97,6 @@ angular
 
         /**
          * Validate password reset token.
-         *
-         * @param token
-         * @returns {*}
          */
         this.validatePasswordResetToken = function (email, token) {
             return $http
@@ -113,30 +109,7 @@ angular
         };
 
         /**
-         * Validate registration email token.
-         *
-         * @param token
-         * @param email
-         * @returns {*}
-         */
-        this.validateRegistrationToken = function (email, token) {
-            return $http
-                .post(URLTo.api(AUTH_URLS.validateRegistrationToken, { ":email": email, ":token": token }),
-                {
-                    skipAuthorization: true
-                })
-                .then(function (response) {
-                    return response.data;
-                });
-        };
-
-        /**
          * Update password.
-         *
-         * @param oldPassword
-         * @param newPassword
-         * @param newPasswordConfirmation
-         * @returns {*}
          */
         this.updatePassword = function (oldPassword, newPassword, newPasswordConfirmation) {
             return $http

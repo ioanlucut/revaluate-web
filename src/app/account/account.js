@@ -89,6 +89,53 @@ angular
                 isPublicPage: true
             })
 
+            ///////////////////////////////////////////////
+            /*Confirmation email related views*/
+            ///////////////////////////////////////////////
+
+            // Confirmation email abstract view
+            .state({
+                name: "account:confirmationEmail",
+                url: "/account/confirm-email",
+                templateUrl: "app/account/partials/email_confirmation_send_abstract.html",
+                abstract: true
+            })
+            // Validate confirmation email token - valid
+            .state({
+                name: "account:confirmationEmail.valid",
+                url: "/{email}/{token}",
+                templateUrl: "app/account/partials/email_confirmation_send_valid.html",
+                resolve: {
+                    validateTokenResult: function ($stateParams, $q, AuthService, $state) {
+                        var deferred = $q.defer();
+
+                        AuthService
+                            .validateConfirmationEmailToken($stateParams.email, $stateParams.token)
+                            .then(function (response) {
+                                deferred.resolve({});
+                                return response;
+                            })
+                            .catch(function (response) {
+
+                                $state.go("account:confirmationEmail.invalid");
+                                return response;
+                            });
+
+                        return deferred.promise;
+                    }
+                },
+                title: "Confirm email - Revaluate",
+                isPublicPage: true
+            })
+            // Validate password reset token - invalid token
+            .state({
+                name: "account:confirmationEmail.invalid",
+                url: "/invalid-token",
+                templateUrl: "app/account/partials/email_confirmation_send_invalid.html",
+                title: "Invalid confirmation email token - Revaluate",
+                isPublicPage: true
+            })
+
             // ---
             // Account - second step of registration (set up).
             // ---

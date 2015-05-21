@@ -19,6 +19,7 @@ angular
                         timezone: "",
                         initiated: false,
                         userSubscriptionStatus: "",
+                        emailConfirmed: false,
                         currency: {
                             "currencyCode": ""
                         }

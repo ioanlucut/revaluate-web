@@ -1,0 +1,14 @@
+<!-- Send confirmation email section -->
+<div class="account_send_email_section">
+
+    <!-- Send confirmation email form -->
+    <form name="sendConfirmationEmailForm" ng-submit="sendConfirmationEmail(sendConfirmationEmailForm)" novalidate>
+
+        <!-- Flash messages. -->
+        <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
+        <!-- Button container -->
+        <button class="account__btn" type="submit">Send confirmation email</button>
+    </form>
+
+</div>

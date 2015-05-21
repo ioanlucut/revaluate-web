@@ -11,6 +11,7 @@ angular
         resetPassword: "resetPassword",
         updatePassword: "updatePassword",
         validatePassword: "validatePassword",
+        sendConfirmationEmail: "sendConfirmationEmail",
         createUpdateExpense: "createUpdateExpense",
         expenseList: "expenseList",
         insights: "insights",
