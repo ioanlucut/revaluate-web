@@ -125,30 +125,19 @@ angular
 
             .state("settings.payment.insights", {
                 url: "/insights",
-                views: {
-                    '': {
-                        templateUrl: "app/settings/partials/settings.payment.insights.abstract.html"
-                    },
-                    'paymentInsights@settings.payment.insights': {
-                        templateUrl: "app/settings/partials/settings.payment.insights.insights.html",
-                        controller: "SettingsPaymentInsightsController",
-                        resolve: {
-                            paymentInsights: function ($http, $state, AUTH_URLS) {
-                                return $http
-                                    .get(URLTo.api(AUTH_URLS.fetchPaymentInsights))
-                                    .then(function (response) {
-                                        return response.data;
-                                    })
-                                    .catch(function () {
+                templateUrl: "app/settings/partials/settings.payment.insights.html",
+                controller: "SettingsPaymentInsightsController",
+                resolve: {
+                    paymentInsights: function ($http, $state, AUTH_URLS) {
+                        return $http
+                            .get(URLTo.api(AUTH_URLS.fetchPaymentInsights))
+                            .then(function (response) {
+                                return response.data;
+                            })
+                            .catch(function () {
 
-                                        $state.go("settings.payment.invalid");
-                                    });
-                            }
-                        }
-                    },
-                    'paymentSubscribe@settings.payment.insights': {
-                        templateUrl: "app/settings/partials/settings.payment.insights.subscribe.html",
-                        controller: "SettingsPaymentSubscribeController"
+                                $state.go("settings.payment.invalid");
+                            });
                     }
                 },
                 title: "Payment insights - Revaluate"
