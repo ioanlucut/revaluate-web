@@ -3,7 +3,7 @@
  */
 angular
     .module("app")
-    .controller("AppController", function ($rootScope, $scope, $state, $timeout, $log, AuthService, User, StatesHandler, AUTH_EVENTS, ACTIVITY_INTERCEPTOR, ERROR_INTERCEPTOR, ENV) {
+    .controller("AppController", function ($rootScope, $scope, $state, $timeout, $log, flash, AuthService, User, StatesHandler, AUTH_EVENTS, ALERTS_CONSTANTS, ACTIVITY_INTERCEPTOR, ERROR_INTERCEPTOR, ENV) {
 
         /**
          * Save the state on root scope
@@ -78,9 +78,17 @@ angular
         });
 
         /**
-         * Listen to the logout event
+         * Listen to the internal server error
          */
         $scope.$on(ERROR_INTERCEPTOR.status500, function () {
             $state.go('500');
+        });
+
+        /**
+         * Listen to the payment required error
+         */
+        $scope.$on(ERROR_INTERCEPTOR.status402, function () {
+
+            flash.to(ALERTS_CONSTANTS.generalError).error = "Payment method is required in order to use revaluate.";
         });
     });
