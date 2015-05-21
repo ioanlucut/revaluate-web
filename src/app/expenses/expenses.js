@@ -4,6 +4,7 @@
 angular
     .module("revaluate.expenses", [
         "revaluate.common",
+        "revaluate.account",
         "revaluate.statistics"
     ])
     .config(["$stateProvider", function ($stateProvider) {
