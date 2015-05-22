@@ -2,6 +2,11 @@
 
 <div class="view-container__content">
 
+    <!--Account confirmation alert-->
+    <div ng-if="! currentUser.model.emailConfirmed" ng-controller="EmailConfirmationSendController">
+        <div ng-include src="'app/account/partials/email_confirmation_send_send.html'"></div>
+    </div>
+
     <!-- Insight fetch form -->
     <div class="insights__controls">
 

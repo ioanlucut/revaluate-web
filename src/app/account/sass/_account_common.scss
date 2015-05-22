@@ -15,10 +15,15 @@
 }
 
 .account_send_email_section {
-  position: absolute;
-  border: solid 1px $gray-light;
-  background-color: $white;
-  z-index: 9999;
+
+  .account_send_email_section__alert {
+    margin-bottom: 0;
+
+    & > button {
+      @include btn($brand-info);
+      margin-left: 20px;
+    }
+  }
 }
 
 .account__title {
