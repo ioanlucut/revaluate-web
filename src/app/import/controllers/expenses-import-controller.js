@@ -123,7 +123,7 @@ angular
         // ---
         uploader.onErrorItem = function (fileItem, response, status, headers) {
             if ( status === BAD_RESPONSE ) {
-                flash.to($scope.alertIdentifierId).error = 'Heeey! Are you sure the CSV export is from selected app?';
+                flash.to($scope.alertIdentifierId).error = 'Hmmm... Are you sure the CSV export is from selected app?';
             }
             else {
                 if ( status === SERVER_ERROR ) {
