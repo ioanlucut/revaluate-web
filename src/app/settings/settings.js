@@ -145,7 +145,7 @@ angular
 
             .state("settings.payment.invalid", {
                 url: "/invalid",
-                templateUrl: "app/settings/partials/settings.payment.insights.invalid.html",
+                templateUrl: "app/settings/partials/settings.payment.invalid.html",
                 title: "Payment insights invalid - Revaluate"
             })
 
