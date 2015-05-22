@@ -12,7 +12,6 @@ module.exports = function (grunt) {
                     "bower_components/jquery/dist/jquery.js",
                     "bower_components/lodash/lodash.js",
                     "bower_components/mousetrap/mousetrap.js",
-                    "bower_components/uploader/uploader.js",
                     "bower_components/moment/moment.js",
                     "bower_components/url-to/url-to.js",
                     "bower_components/angular/angular.js",
@@ -25,12 +24,8 @@ module.exports = function (grunt) {
                     "bower_components/angular-flash/dist/angular-flash.js",
                     "bower_components/angucomplete-alt/angucomplete-alt.js",
                     "bower_components/jstz-detect/jstz.js",
-                    "bower_components/perfect-scrollbar/src/perfect-scrollbar.js",
                     "bower_components/angular-cache/dist/angular-cache.js",
                     "bower_components/angular-file-upload/angular-file-upload.js",
-
-                    "bower_components/perfect-scrollbar/src/jquery.mousewheel.js",
-                    "bower_components/angular-money-directive/angular-money-directive.js",
 
                     "bower_components/es5-shim/es5-shim.js",
                     "bower_components/es5-shim/es5-sham.js",
@@ -39,7 +34,6 @@ module.exports = function (grunt) {
                     "bower_components/braintree-angular/dist/braintree-angular.js",
 
                     /* These are the angular ui used bootstrap */
-                    "bower_components/angular-ui-bootstrap/src/bindHtml/bindHtml.js",
                     "bower_components/angular-ui-bootstrap/src/position/position.js",
                     "bower_components/angular-ui-bootstrap/src/transition/transition.js",
                     "bower_components/angular-ui-bootstrap/src/dropdown/dropdown.js",
