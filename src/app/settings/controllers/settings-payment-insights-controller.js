@@ -1,6 +1,6 @@
 angular
     .module("revaluate.settings")
-    .controller("SettingsPaymentInsightsController", function ($q, $scope, $rootScope, $timeout, paymentInsights, flash, AUTH_URLS, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+    .controller("SettingsPaymentInsightsController", function ($q, $scope, $rootScope, $timeout, $http, paymentInsights, flash, AUTH_URLS, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
 
         var TIMEOUT_PENDING = 300;
 
