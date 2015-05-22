@@ -56,6 +56,7 @@
 
 .sign-up__setup__tip {
   padding-top: 40px;
+  font-size: $font-size-larger;
 }
 
 .sign-up__setup__description {
@@ -70,15 +71,15 @@
   padding-top: 30px;
 
   .sign-up__box__categories__category {
-    @include span-columns(4);
-    @include omega(3n);
+    @include span-columns(6);
+    @include omega(2n);
     padding-bottom: 10px;
     font-size: $font-size-small;
   }
 
   .sign-up__box__categories__category__form {
-    @include span-columns(4);
-    @include omega(3n);
+    @include span-columns(6);
+    @include omega(2n);
   }
 
   .category-name {
@@ -93,17 +94,28 @@
     font-weight: bold;
     text-transform: uppercase;
     text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
+    position: relative;
+
+    span {
+      position: absolute;
+      top: 4px;
+      left: 5px;
+      font-size: 18px;
+    }
 
     &.category-name--unselected {
       opacity: 0.4;
-      border-color: $gray-lightest;
       text-shadow: none;
+
+      span {
+        display: none;
+      }
     }
   }
 
   .sign-up__box__categories__addbtn {
-    @include span-columns(4);
-    @include omega(3n);
+    @include span-columns(6);
+    @include omega(2n);
     height: 30px;
     padding: 0;
     font-size: $font-size-small;
