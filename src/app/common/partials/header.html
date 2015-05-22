@@ -22,9 +22,4 @@
         <li><a href="javascript:void(0)" ui-sref="insights">Insights</a></li>
         <li><a href="javascript:void(0)">Goals</a><span>Coming soon!</span></li>
     </ul>
-
-    <div ng-if="! currentUser.model.emailConfirmed" ng-controller="EmailConfirmationSendController">
-        <div ng-include src="'app/account/partials/email_confirmation_send_send.html'"></div>
-    </div>
-
 </header>
