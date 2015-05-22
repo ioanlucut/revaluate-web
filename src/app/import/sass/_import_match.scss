@@ -45,6 +45,7 @@
   line-height: 32px;
 
   .import__edit__categories__src__toggle {
+    @include user-select(none);
     float: left;
     margin-right: 10px;
     line-height: 32px;
