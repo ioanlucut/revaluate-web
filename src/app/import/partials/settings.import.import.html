@@ -33,12 +33,11 @@
             <div class="section-text">
                 Awesome! We found <strong>{{expensesImportAnswer.model.totalCategoriesFound}} expenses</strong> in
                 <strong>{{expensesImportAnswer.model.expenseCategoryMatchingProfileDTOs.length}} categories</strong>.
-                Please tell us where each category from Mint should be imported to.
-                Leave empty to create a new category in Revaluate using the same name.
+                Please tell us where each category from {{importDescription}} should be imported to.
             </div>
 
             <div class="import__edit__categories__header">
-                <div class="import__edit__categories__header__src">Import this category from Mint</div>
+                <div class="import__edit__categories__header__src">Import this category from {{importDescription}}</div>
                 <div class="import__edit__categories__header__dest">Into this category in Revaluate</div>
             </div>
 
