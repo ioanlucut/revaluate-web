@@ -25,9 +25,9 @@
 // Prevent the focus on the dropdown toggle when closing dropdowns
 .dropdown-toggle {
   @include border-radius(3px);
-  border: solid 1px $gray-light;
+  border: solid 1px $gray-light-1;
   padding: 5px;
-  color: $gray-dark;
+  color: $gray-dark-1;
   background-color: $white;
 
   &:focus {

@@ -33,7 +33,7 @@
     }
 
     span {
-      color: $gray-light;
+      color: $gray-light-1;
       position: absolute;
       top: 15px;
       left: 25px;
@@ -55,7 +55,7 @@
     color: $gray-medium;
 
     &:hover {
-      color: $gray-dark;
+      color: $gray-dark-1;
     }
   }
 

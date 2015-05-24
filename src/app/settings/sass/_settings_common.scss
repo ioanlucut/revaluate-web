@@ -1,5 +1,5 @@
 .view-container__content--settings {
-  background-color: $gray-lightest;
+  background-color: $gray-light-2;
   padding: 0;
   @include clearfix();
 }
@@ -24,7 +24,7 @@
   }
 
   .tab__active {
-    background: $gray-light;
+    background: $gray-light-1;
 
     a {
       color: $black;

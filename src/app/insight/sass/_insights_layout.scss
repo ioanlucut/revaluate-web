@@ -17,9 +17,9 @@
       width: 40px;
       padding: 4px 0 0 0;
       margin: 10px;
-      border: solid 1px $gray-dark;
+      border: solid 1px $gray-dark-1;
       background-color: $white;
-      color: $gray-dark;
+      color: $gray-dark-1;
       text-align: center;
       font-size: 22px;
       font-weight: $font-weight-bold;
@@ -56,7 +56,7 @@
 
   .insights__summary__thumbnail {
     @include border-radius($base-border-radius);
-    border: solid 2px $gray-lightest;
+    border: solid 2px $gray-light-2;
     margin: 10px 15px;
     padding: 10px;
     width: 30%;
@@ -131,7 +131,7 @@
 
     span {
       padding-left: 10px;
-      color: $gray-light;
+      color: $gray-light-1;
     }
   }
 }
@@ -143,7 +143,7 @@
 
 .insight__form__date__input__btn {
   @include btn-big($white);
-  border-bottom: dashed 1px $gray-light;
+  border-bottom: dashed 1px $gray-light-1;
   color: $brand-primary;
   font-size: $font-size-largest;
   font-weight: $font-weight-bold;

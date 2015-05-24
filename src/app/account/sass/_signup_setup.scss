@@ -40,11 +40,11 @@
     width: $setup-currency-input-width;
     height: 35px;
     padding: 5px 10px;
-    border: solid 2px $gray-lightest;
+    border: solid 2px $gray-light-2;
     @include border-radius($border-radius-base);
 
     &:hover {
-      border-color: $gray-light;
+      border-color: $gray-light-1;
     }
 
     &:focus {
