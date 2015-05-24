@@ -72,7 +72,7 @@
         &:first-child {
           width: 100%; /* Make the "Today button wide */
           @include btn($brand-default);
-          color: $gray-dark;
+          color: $gray-dark-1;
           @include border-radius(0);
         }
         &:last-child {
@@ -99,7 +99,7 @@
     background-color: $white;
 
     &:hover {
-      background-color: $gray-lightest;
+      background-color: $gray-light-2;
     }
   }
 

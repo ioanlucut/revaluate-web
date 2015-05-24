@@ -41,10 +41,13 @@ $base-z-index: 0;
 $white: #ffffff;
 $black: #000000;
 
-$gray-dark: #5F5F5F;
+$gray-dark-3: #333333;
+$gray-dark-2: #444444;
+$gray-dark-1: #5F5F5F;
 $gray-medium: #999;
-$gray-light: #ddd;
-$gray-lightest: #e8e8e8;
+$gray-light-1: #ddd;
+$gray-light-2: #e8e8e8;
+$gray-light-3: #f9f9f9;
 
 $brand-primary: #51D8E5;
 
@@ -81,7 +84,7 @@ $action-color: $brand-primary;
 
 
 // Border
-$base-border-color: $gray-light;
+$base-border-color: $gray-light-1;
 $base-border: 2px solid $base-border-color; // DON'T EVEN THINK ABOUT TOUCHING THIS !!!
 
 
