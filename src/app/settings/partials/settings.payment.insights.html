@@ -1,74 +1,79 @@
-<!-- Payment profile section -->
-<div class="settings__section">
+<!--Payment profile section-->
 
-    <!--Payment profile section-->
-    <div class="settings__section__form">
+<!-- Title -->
+<h1 class="settings__title">Billing</h1>
 
-        <!-- Title -->
-        <h1 class="settings__title">Payment profile</h1>
+<!--Subscription payment section-->
+<div class="settings__card__section">
 
-        <!-- Go to edit -->
-        <a class="link-navigation" href="javascript:void(0)" ui-sref="settings.payment.method">Edit payment method</a>
-        <a class="link-navigation" href="javascript:void(0)" ui-sref="settings.payment.customer">Edit customer information</a>
-
-        <!--Payment profile-->
-        <div class="settings__section__payment-profile">
-            <div class="settings__section__payment-profile__first-name">{{paymentInsights.paymentCustomerDTO.firstName}}</div>
-            <div class="settings__section__payment-profile__last-name">{{paymentInsights.paymentCustomerDTO.lastName}}</div>
-            <div class="settings__section__payment-profile__email">{{paymentInsights.paymentCustomerDTO.email}}</div>
-        </div>
-
-        <!--Payment method-->
-        <div class="settings__section__payment-payment-method" ng-repeat="paymentMethodDTO in paymentInsights.paymentMethodDTOs">
-            <div class="settings__section__payment-payment-method__card-type">{{paymentMethodDTO.cardType}}</div>
-            <div class="settings__section__payment-payment-method__expiration-month">{{paymentMethodDTO.expirationMonth}}</div>
-            <div class="settings__section__payment-payment-method__expiration-year">{{paymentMethodDTO.expirationYear}}</div>
-            <img ng-src="{{paymentMethodDTO.imageUrl}}" />
-
-            <div class="settings__section__payment-payment-method__expiration-number">{{paymentMethodDTO.bin}}****{{paymentMethodDTO.last4}}</div>
-
-                <!--Payment method subscriptions-->
-                <div class="settings__section__payment-payment-method__subscription" ng-repeat="paymentSubscription in paymentMethodDTO.paymentSubscriptionDTOList">
-                    <div class="settings__section__payment-payment-method__subscription__id">{{paymentSubscription.id}}</div>
-                    <div class="settings__section__payment-payment-method__subscription__amount">{{paymentSubscription.amount}}</div>
-                    <div class="settings__section__payment-payment-method__subscription__status">{{paymentSubscription.status}}</div>
-                    <div class="settings__section__payment-payment-method__subscription__createdAt">{{paymentSubscription.createdAt | friendlyDate}}</div>
-                </div>
-        </div>
-
-        <!--Transactions-->
-        <div class="settings__section__payment-transaction" ng-repeat="paymentTransactionDTO in paymentInsights.paymentTransactionDTOs">
-            <div class="settings__section__payment-transaction__id">{{paymentTransactionDTO.id}}</div>
-            <div class="settings__section__payment-transaction__amount">{{paymentTransactionDTO.amount}}</div>
-            <div class="settings__section__payment-transaction__currency">{{paymentTransactionDTO.currencyCode}}</div>
-            <div class="settings__section__payment-transaction__recurring">{{paymentTransactionDTO.recurring}}</div>
-            <div class="settings__section__payment-transaction__status">{{paymentTransactionDTO.status}}</div>
-            <div class="settings__section__payment-transaction__created-at">{{paymentTransactionDTO.createdAt | friendlyDate}}</div>
-        </div>
+    <div class="settings__card__payment__label">Subscription status</div>
+    <div class="settings__card__payment__subscription__status" ng-if="paymentInsights.subscriptionActive">
+        <div class="settings__card__payment__subscription__status--active">Active</div>
+        <div class="settings__card__payment__subscription__status--info">Next payment: $7.00 due 2015.05.25</div>
+    </div>
+    <div class="settings__card__payment__subscription__status" ng-if="! paymentInsights.subscriptionActive">
+        <div class="settings__card__payment__subscription__status--trial">Trial</div>
+        <div class="settings__card__payment__subscription__status--info">First billing: $7.00 due 2015.05.25</div>
     </div>
 
-    <!--Subscription payment section-->
-    <div class="settings__section__form">
+    <!-- Payment form -->
+    <form ng-if="! paymentInsights.subscriptionActive" name="paymentSubscriptionForm" ng-submit="performPaymentSubscription()" novalidate>
 
-        <!-- Title -->
-        <h1 class="settings__title">Payment subscribe</h1>
+        <!-- Flash messages. -->
+        <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
-        <!-- Payment form -->
-        <form ng-if="! paymentInsights.subscriptionActive" name="paymentSubscriptionForm" ng-submit="performPaymentSubscription()" novalidate>
-
-            <div>Please subscribe to revaluate plan in order to activate payments.</div>
-
-            <!-- Flash messages. -->
-            <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
-
-            <!-- Button container -->
-            <button class="settings__btn__save" type="submit">{{isRequestPending ? 'Subscribing...' : 'Subscribe'}}</button>
-        </form>
-
-        <div ng-if="paymentInsights.subscriptionActive">
-            You are already subscribed to revaluate plan.
-        </div>
-
-    </div>
-
+        <!-- Button container -->
+        <button class="settings__card__payment__subscription__btn" type="submit">{{isRequestPending ? 'Activating...' : 'Activate'}}</button>
+    </form>
 </div>
+
+<!--Payment profile-->
+<!--<div class="settings__card__payment-profile">-->
+    <!--<div class="settings__card__payment-profile__first-name">{{paymentInsights.paymentCustomerDTO.firstName}}</div>-->
+    <!--<div class="settings__card__payment-profile__last-name">{{paymentInsights.paymentCustomerDTO.lastName}}</div>-->
+    <!--<div class="settings__card__payment-profile__email">{{paymentInsights.paymentCustomerDTO.email}}</div>-->
+    <!--<a class="link-navigation" href="javascript:void(0)" ui-sref="settings.payment.customer">Edit customer information</a>-->
+<!--</div>-->
+
+<!--Payment method-->
+<div class="settings__card__payment__label">Payment method</div>
+
+<div class="settings__card__payment__method" ng-repeat="paymentMethodDTO in paymentInsights.paymentMethodDTOs">
+    <div class="settings__card__payment__method__cardno">{{paymentMethodDTO.cardType}} {{paymentMethodDTO.bin}}*** **** **** {{paymentMethodDTO.last4}}</div>
+    <div class="settings__card__payment__method__cardexp">Expiration: {{paymentMethodDTO.expirationMonth}} / {{paymentMethodDTO.expirationYear}}</div>
+    <img ng-src="{{paymentMethodDTO.imageUrl}}" />
+
+        <!--Payment method subscriptions-->
+        <!--<div class="settings__card__payment-payment-method__subscription" ng-repeat="paymentSubscription in paymentMethodDTO.paymentSubscriptionDTOList">-->
+            <!--<div class="settings__card__payment-payment-method__subscription__id">{{paymentSubscription.id}}</div>-->
+            <!--<div class="settings__card__payment-payment-method__subscription__amount">{{paymentSubscription.amount}}</div>-->
+            <!--<div class="settings__card__payment-payment-method__subscription__status">{{paymentSubscription.status}}</div>-->
+            <!--<div class="settings__card__payment-payment-method__subscription__createdAt">{{paymentSubscription.createdAt | friendlyDate}}</div>-->
+        <!--</div>-->
+
+    <a class="link-navigation" href="javascript:void(0)" ui-sref="settings.payment.method">Update payment method</a>
+</div>
+
+
+<!--Billing History-->
+<div class="settings__card__payment__label">Billing History</div>
+<table class="settings__card__payment__history">
+    <thead>
+        <tr>
+            <th>Status</th>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Payment method</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="paymentTransactionDTO in paymentInsights.paymentTransactionDTOs">
+            <td>{{paymentTransactionDTO.status}}</td>
+            <td>{{paymentTransactionDTO.id}}</td>
+            <td>{{paymentTransactionDTO.createdAt | friendlyDate}}</td>
+            <td>{{paymentTransactionDTO.currencyCode}} {{paymentTransactionDTO.amount}}</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
