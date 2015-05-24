@@ -34,10 +34,8 @@
 
 .view-container__content__admin__section {
   float: right;
-  //width: ;
   @include calc(width, "100% - #{$settings-aside-width}");
   @include clearfix();
-  //border: solid 1px red;
 }
 
 .settings__section {
