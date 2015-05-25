@@ -4,16 +4,16 @@
 <h1 class="settings__title">Billing</h1>
 
 <!--Subscription payment section-->
-<div class="settings__card__section">
+<div class="settings__box__section">
 
-    <div class="settings__card__payment__label">Subscription status</div>
-    <div class="settings__card__payment__subscription__status" ng-if="paymentInsights.subscriptionActive">
-        <div class="settings__card__payment__subscription__status--active">Active</div>
-        <div class="settings__card__payment__subscription__status--info">Next payment: $7.00 due 2015.05.25</div>
+    <div class="settings__box__payment__label">Subscription status</div>
+    <div class="settings__box__payment__subscription__status" ng-if="paymentInsights.subscriptionActive">
+        <div class="settings__box__payment__subscription__status--active">Active</div>
+        <div class="settings__box__payment__subscription__status--info">Next payment: $7.00 due 2015.05.25</div>
     </div>
-    <div class="settings__card__payment__subscription__status" ng-if="! paymentInsights.subscriptionActive">
-        <div class="settings__card__payment__subscription__status--trial">Trial</div>
-        <div class="settings__card__payment__subscription__status--info">First billing: $7.00 due 2015.05.25</div>
+    <div class="settings__box__payment__subscription__status" ng-if="! paymentInsights.subscriptionActive">
+        <div class="settings__box__payment__subscription__status--trial">Trial</div>
+        <div class="settings__box__payment__subscription__status--info">First billing: $7.00 due 2015.05.25</div>
     </div>
 
     <!-- Payment form -->
@@ -23,32 +23,32 @@
         <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
         <!-- Button container -->
-        <button class="settings__card__payment__subscription__btn" type="submit">{{isRequestPending ? 'Activating...' : 'Activate'}}</button>
+        <button class="settings__box__payment__subscription__btn" type="submit">{{isRequestPending ? 'Activating...' : 'Activate'}}</button>
     </form>
 </div>
 
 <!--Payment profile-->
-<!--<div class="settings__card__payment-profile">-->
-    <!--<div class="settings__card__payment-profile__first-name">{{paymentInsights.paymentCustomerDTO.firstName}}</div>-->
-    <!--<div class="settings__card__payment-profile__last-name">{{paymentInsights.paymentCustomerDTO.lastName}}</div>-->
-    <!--<div class="settings__card__payment-profile__email">{{paymentInsights.paymentCustomerDTO.email}}</div>-->
+<!--<div class="settings__box__payment-profile">-->
+    <!--<div class="settings__box__payment-profile__first-name">{{paymentInsights.paymentCustomerDTO.firstName}}</div>-->
+    <!--<div class="settings__box__payment-profile__last-name">{{paymentInsights.paymentCustomerDTO.lastName}}</div>-->
+    <!--<div class="settings__box__payment-profile__email">{{paymentInsights.paymentCustomerDTO.email}}</div>-->
     <!--<a class="link-navigation" href="javascript:void(0)" ui-sref="settings.payment.customer">Edit customer information</a>-->
 <!--</div>-->
 
 <!--Payment method-->
-<div class="settings__card__payment__label">Payment method</div>
+<div class="settings__box__payment__label">Payment method</div>
 
-<div class="settings__card__payment__method" ng-repeat="paymentMethodDTO in paymentInsights.paymentMethodDTOs">
-    <div class="settings__card__payment__method__cardno">{{paymentMethodDTO.cardType}} {{paymentMethodDTO.bin}}*** **** **** {{paymentMethodDTO.last4}}</div>
-    <div class="settings__card__payment__method__cardexp">Expiration: {{paymentMethodDTO.expirationMonth}} / {{paymentMethodDTO.expirationYear}}</div>
+<div class="settings__box__payment__method" ng-repeat="paymentMethodDTO in paymentInsights.paymentMethodDTOs">
+    <div class="settings__box__payment__method__cardno">{{paymentMethodDTO.cardType}} {{paymentMethodDTO.bin}}*** **** **** {{paymentMethodDTO.last4}}</div>
+    <div class="settings__box__payment__method__cardexp">Expiration: {{paymentMethodDTO.expirationMonth}} / {{paymentMethodDTO.expirationYear}}</div>
     <img ng-src="{{paymentMethodDTO.imageUrl}}" />
 
         <!--Payment method subscriptions-->
-        <!--<div class="settings__card__payment-payment-method__subscription" ng-repeat="paymentSubscription in paymentMethodDTO.paymentSubscriptionDTOList">-->
-            <!--<div class="settings__card__payment-payment-method__subscription__id">{{paymentSubscription.id}}</div>-->
-            <!--<div class="settings__card__payment-payment-method__subscription__amount">{{paymentSubscription.amount}}</div>-->
-            <!--<div class="settings__card__payment-payment-method__subscription__status">{{paymentSubscription.status}}</div>-->
-            <!--<div class="settings__card__payment-payment-method__subscription__createdAt">{{paymentSubscription.createdAt | friendlyDate}}</div>-->
+        <!--<div class="settings__box__payment-payment-method__subscription" ng-repeat="paymentSubscription in paymentMethodDTO.paymentSubscriptionDTOList">-->
+            <!--<div class="settings__box__payment-payment-method__subscription__id">{{paymentSubscription.id}}</div>-->
+            <!--<div class="settings__box__payment-payment-method__subscription__amount">{{paymentSubscription.amount}}</div>-->
+            <!--<div class="settings__box__payment-payment-method__subscription__status">{{paymentSubscription.status}}</div>-->
+            <!--<div class="settings__box__payment-payment-method__subscription__createdAt">{{paymentSubscription.createdAt | friendlyDate}}</div>-->
         <!--</div>-->
 
     <a class="link-navigation" href="javascript:void(0)" ui-sref="settings.payment.method">Update payment method</a>
@@ -56,8 +56,8 @@
 
 
 <!--Billing History-->
-<div class="settings__card__payment__label">Billing History</div>
-<table class="settings__card__payment__history">
+<div class="settings__box__payment__label">Billing History</div>
+<table class="settings__box__payment__history">
     <thead>
         <tr>
             <th>Status</th>
