@@ -38,7 +38,7 @@
   @include clearfix();
 }
 
-.settings__card {
+.settings__box {
   @include section(100%);
   @include border-radius($border-radius-base);
   background-color: $white;
