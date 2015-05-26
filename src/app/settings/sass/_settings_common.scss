@@ -17,6 +17,10 @@
       padding: 10px;
       color: $gray-medium;
 
+      &:hover {
+        color: $gray-dark-2;
+      }
+
       &:focus {
         outline: none;
       }
@@ -24,7 +28,8 @@
   }
 
   .tab__active {
-    background: $gray-light-1;
+    @include border-radius($base-border-radius);
+    background: $white;
 
     a {
       color: $black;
