@@ -1,105 +1,101 @@
-<div class="settings__box">
+<!-- Flash messages. -->
+<div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
-    <!-- Flash messages. -->
-    <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+<!--Upload section form-->
+<div class="import__upload" ng-if="! isUploadSuccessful">
 
-    <!--Upload section form-->
-    <div class="import__upload" ng-if="! isUploadSuccessful">
-
-        <div class="import__upload__area" over-class="import__upload__area--over" nv-file-drop="" nv-file-over="" uploader="uploader" filters="queueLimit, csvFilter">
-            <div class="import__upload__btn">
-                <div class="section-text">Drop the CSV file exported from
-                    <strong>{{importDescription}}</strong> here, or <span class="text-underlined">browse</span> to select it.
-                </div>
-                <input class="import__upload__btn__input" type="file" nv-file-select="" uploader="uploader" />
+    <div class="import__upload__area" over-class="import__upload__area--over" nv-file-drop="" nv-file-over="" uploader="uploader" filters="queueLimit, csvFilter">
+        <div class="import__upload__btn">
+            <div class="section-text">Drop the CSV file exported from
+                <strong>{{importDescription}}</strong> here, or <span class="text-underlined">browse</span> to select it.
             </div>
+            <input class="import__upload__btn__input" type="file" nv-file-select="" uploader="uploader" />
         </div>
-
-        <!--How to content-->
-        <ul class="section-text" ng-if="! showHowToContent">
-            <li>
-                <a href="javascript:void(0)" ng-click="toggleHowToContent()"> How do I export my expenses from {{importDescription}}?</a>
-            </li>
-        </ul>
-        <div ng-show="showHowToContent" ng-include src="'app/import/partials/howto/settings.import.howto.' + importType + '.html'"></div>
     </div>
 
-    <!--Expenses import form-->
-    <form name="expensesImportForm" ng-submit="submitPerformImport(expensesImportForm)" novalidate ng-if="isUploadSuccessful && ! importFinished">
+    <!--How to content-->
+    <ul class="section-text" ng-if="! showHowToContent">
+        <li>
+            <a href="javascript:void(0)" ng-click="toggleHowToContent()"> How do I export my expenses from {{importDescription}}?</a>
+        </li>
+    </ul>
+    <div ng-show="showHowToContent" ng-include src="'app/import/partials/howto/settings.import.howto.' + importType + '.html'"></div>
+</div>
 
-        <div class="import__edit">
+<!--Expenses import form-->
+<form name="expensesImportForm" ng-submit="submitPerformImport(expensesImportForm)" novalidate ng-if="isUploadSuccessful && ! importFinished">
 
-            <div class="section-text">
-                Awesome! We found <strong>{{expensesImportAnswer.model.totalCategoriesFound}} expenses</strong> in
-                <strong>{{expensesImportAnswer.model.expenseCategoryMatchingProfileDTOs.length}} categories</strong>.
-                Please tell us where each category from {{importDescription}} should be imported to.
-            </div>
+    <div class="import__edit">
 
-            <div class="import__edit__categories__header">
-                <div class="import__edit__categories__header__src">Import this category from {{importDescription}}</div>
-                <div class="import__edit__categories__header__dest">Into this category in Revaluate</div>
-            </div>
-
-            <div class="import__edit__categories" ng-repeat="categoryMatchCandidate in expensesImportAnswer.model.expenseCategoryMatchingProfileDTOs track by categoryMatchCandidate.categoryCandidateName">
-
-                <!--Category candidate name preview-->
-                <div class="import__edit__categories__src">
-
-                    <div class="import__edit__categories__src__toggle">
-                        <input class='tgl tgl-flat' id='toggle_{{$index}}' type='checkbox' ng-model="categoryMatchCandidate.selected">
-                        <label class='tgl-btn' for='toggle_{{$index}}'></label>
-                    </div>
-
-                    <div class="import__edit__categories__src__name">{{categoryMatchCandidate.categoryCandidateName}}</div>
-                </div>
-
-                <!--Category select-->
-                <ng-form class="import__edit__categories__dest" name="expensesImportCategoryMatchEntryForm" ng-if="categoryMatchCandidate.selected">
-
-                    <div class="import__edit__categories__dest__category" ng-class="{'has-error': expensesImportForm.$submitted && (expensesImportCategoryMatchEntryForm.$error['autocomplete-required'] || expensesImportCategoryMatchEntryForm.category.$invalid || badPostSubmitResponse)}">
-
-                        <div angucomplete-alt
-                             selected-object="categoryMatchCandidate.category"
-                             local-data="categories"
-                             search-fields="model.name"
-                             title-field="model.name"
-                             field-required="true"
-                             placeholder="Select category"
-                             maxlength="50"
-                             pause="1"
-                             minlength="0"
-                             input-class="import__edit__categories__input"
-                             initial-value="{{categoryMatchCandidate.category.originalObject.model.name}}"
-                             match-class="angucomplete-highlight"
-                             template-url="app/expenses/partials/expense.category.template.html">
-                        </div>
-
-                        <!-- Error messages -->
-                        <div class="form-group-input__message" ng-class="{'has-error': expensesImportCategoryMatchEntryForm.$invalid && expensesImportForm.$submitted}" ng-messages="expensesImportCategoryMatchEntryForm.$error" ng-if="expensesImportForm.$submitted">
-                            <div ng-message="autocomplete-required">Category is missing or is invalid.</div>
-                        </div>
-
-                        <div class="form-group-input__message" ng-if="expensesImportCategoryMatchEntryForm.category.$invalid && expensesImportForm.$submitted">Please add a category.</div>
-                    </div>
-
-                </ng-form>
-
-                <!--Category not selected-->
-                <div class="import__edit__categories__ignored" ng-if="! categoryMatchCandidate.selected">
-                    Expenses in <strong>{{categoryMatchCandidate.categoryCandidateName}}</strong> will be ignored.
-                </div>
-
-                <div class="import__edit__categories__arrow">&#8594;</div>
-
-            </div>
-
-            <!-- Perform import submit -->
-            <button class="import__save__btn" ng-disabled="! isEnoughSelectedMatchingCategories()" type="submit">{{isImporting ? 'Importing...' : 'Import expenses'}}</button>
+        <div class="section-text">
+            Awesome! We found <strong>{{expensesImportAnswer.model.totalCategoriesFound}} expenses</strong> in
+            <strong>{{expensesImportAnswer.model.expenseCategoryMatchingProfileDTOs.length}} categories</strong>.
+            Please tell us where each category from {{importDescription}} should be imported to.
         </div>
 
-    </form>
+        <div class="import__edit__categories__header">
+            <div class="import__edit__categories__header__src">Import this category from {{importDescription}}</div>
+            <div class="import__edit__categories__header__dest">Into this category in Revaluate</div>
+        </div>
 
-    <!--After import-->
-    <a ng-if="importFinished" ui-sref="settings.import.import({type: importType})" ui-sref-opts="{reload:true}">Let me try again!</a>
+        <div class="import__edit__categories" ng-repeat="categoryMatchCandidate in expensesImportAnswer.model.expenseCategoryMatchingProfileDTOs track by categoryMatchCandidate.categoryCandidateName">
 
-</div>
+            <!--Category candidate name preview-->
+            <div class="import__edit__categories__src">
+
+                <div class="import__edit__categories__src__toggle">
+                    <input class='tgl tgl-flat' id='toggle_{{$index}}' type='checkbox' ng-model="categoryMatchCandidate.selected">
+                    <label class='tgl-btn' for='toggle_{{$index}}'></label>
+                </div>
+
+                <div class="import__edit__categories__src__name">{{categoryMatchCandidate.categoryCandidateName}}</div>
+            </div>
+
+            <!--Category select-->
+            <ng-form class="import__edit__categories__dest" name="expensesImportCategoryMatchEntryForm" ng-if="categoryMatchCandidate.selected">
+
+                <div class="import__edit__categories__dest__category" ng-class="{'has-error': expensesImportForm.$submitted && (expensesImportCategoryMatchEntryForm.$error['autocomplete-required'] || expensesImportCategoryMatchEntryForm.category.$invalid || badPostSubmitResponse)}">
+
+                    <div angucomplete-alt
+                         selected-object="categoryMatchCandidate.category"
+                         local-data="categories"
+                         search-fields="model.name"
+                         title-field="model.name"
+                         field-required="true"
+                         placeholder="Select category"
+                         maxlength="50"
+                         pause="1"
+                         minlength="0"
+                         input-class="import__edit__categories__input"
+                         initial-value="{{categoryMatchCandidate.category.originalObject.model.name}}"
+                         match-class="angucomplete-highlight"
+                         template-url="app/expenses/partials/expense.category.template.html">
+                    </div>
+
+                    <!-- Error messages -->
+                    <div class="form-group-input__message" ng-class="{'has-error': expensesImportCategoryMatchEntryForm.$invalid && expensesImportForm.$submitted}" ng-messages="expensesImportCategoryMatchEntryForm.$error" ng-if="expensesImportForm.$submitted">
+                        <div ng-message="autocomplete-required">Category is missing or is invalid.</div>
+                    </div>
+
+                    <div class="form-group-input__message" ng-if="expensesImportCategoryMatchEntryForm.category.$invalid && expensesImportForm.$submitted">Please add a category.</div>
+                </div>
+
+            </ng-form>
+
+            <!--Category not selected-->
+            <div class="import__edit__categories__ignored" ng-if="! categoryMatchCandidate.selected">
+                Expenses in <strong>{{categoryMatchCandidate.categoryCandidateName}}</strong> will be ignored.
+            </div>
+
+            <div class="import__edit__categories__arrow">&#8594;</div>
+
+        </div>
+
+        <!-- Perform import submit -->
+        <button class="import__save__btn" ng-disabled="! isEnoughSelectedMatchingCategories()" type="submit">{{isImporting ? 'Importing...' : 'Import expenses'}}</button>
+    </div>
+
+</form>
+
+<!--After import-->
+<a ng-if="importFinished" ui-sref="settings.import.import({type: importType})" ui-sref-opts="{reload:true}">Let me try again!</a>
