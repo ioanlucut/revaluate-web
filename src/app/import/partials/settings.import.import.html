@@ -7,17 +7,16 @@
     <div class="import__upload" ng-if="! isUploadSuccessful">
 
         <div class="import__upload__area" over-class="import__upload__area--over" nv-file-drop="" nv-file-over="" uploader="uploader" filters="queueLimit, csvFilter">
-            <div class="section-text">Drag and drop the CSV file you exported from
-                <strong>{{importDescription}}</strong>, or browse to select it.
-            </div>
             <div class="import__upload__btn">
-                <span>Select file</span>
+                <div class="section-text">Drop the CSV file exported from
+                    <strong>{{importDescription}}</strong> here, or <span class="text-underlined">browse</span> to select it.
+                </div>
                 <input class="import__upload__btn__input" type="file" nv-file-select="" uploader="uploader" />
             </div>
         </div>
 
         <!--How to content-->
-        <ul ng-if="! showHowToContent">
+        <ul class="section-text" ng-if="! showHowToContent">
             <li>
                 <a href="javascript:void(0)" ng-click="toggleHowToContent()"> How do I export my expenses from {{importDescription}}?</a>
             </li>
@@ -87,7 +86,7 @@
 
                 <!--Category not selected-->
                 <div class="import__edit__categories__ignored" ng-if="! categoryMatchCandidate.selected">
-                    <strong>{{categoryMatchCandidate.categoryCandidateName}}</strong> expenses will be ignored
+                    Expenses in <strong>{{categoryMatchCandidate.categoryCandidateName}}</strong> will be ignored.
                 </div>
 
                 <div class="import__edit__categories__arrow">&#8594;</div>
