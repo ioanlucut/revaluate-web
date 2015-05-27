@@ -22,7 +22,7 @@
 }
 
 .alert-info {
-  @include flash($brand-info, $brand-info-light);
+  @include flash($brand-info-dark, $brand-info-light);
 
   .close {
     color: $brand-info;
