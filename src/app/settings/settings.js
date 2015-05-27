@@ -136,7 +136,7 @@ angular
                             })
                             .catch(function () {
 
-                                $state.go("settings.payment.invalid");
+                                $state.go("settings.payment.add");
                             });
                     }
                 },
