@@ -1,5 +1,10 @@
 * {
   margin: 0;
+
+  &:active,
+  &:focus {
+    outline: none;
+  }
 }
 
 html, body {
