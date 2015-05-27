@@ -38,7 +38,7 @@ angular
                     .then(function (response) {
                         $scope.paymentInsights = response.data;
 
-                        flash.to($scope.alertIdentifierId).success = 'We\'ve successfully subscribed you to a revaluate subscription!';
+                        flash.to($scope.alertIdentifierId).success = 'You\'ve successfully subscribed to Revaluate!';
 
                         $timeout(function () {
                             $scope.isRequestPending = false;
@@ -57,7 +57,7 @@ angular
                             flash.to($scope.alertIdentifierId).error = errors.join("\n");
                         }
                         else {
-                            flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to subscribed you to revaluate subscription.';
+                            flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to subscribe you to Revaluate.';
                         }
                     });
 

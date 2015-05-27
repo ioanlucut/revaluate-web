@@ -50,7 +50,6 @@
 
   .settings__box__payment__method__cardno {
     font-weight: $font-weight-bold;
-    text-transform: uppercase;
   }
 
   .settings__box__payment__method__cardexp {
@@ -69,12 +68,22 @@
 // Billing History
 // ---------------------------
 .settings__box__payment__history {
+  text-align: center;
+  width: 70%;
 
   thead tr {
     border-bottom: solid 1px $gray-medium;
+
+    th {
+      text-align: center;
+    }
   }
 
   tbody {
     color: $gray-medium;
+  }
+
+  .settings__box__payment__history__status--settled{
+    color: $brand-success;
   }
 }
