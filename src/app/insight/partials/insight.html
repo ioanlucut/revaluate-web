@@ -57,8 +57,9 @@
 
     <div class="insights__summary">
         You've spent a total of <span>{{insight.model.totalAmountSpent | currency:""}}</span> <span>{{user.model.currency.currencyCode}}</span>
-        in <span>{{(insightData.spentDate | friendlyMonthDate)}}</span>. That was done in <span>{{insight.model.numberOfTransactions}}</span>
-        transactions, which is <span>5% more</span> than the last month.
+        in <span>{{(insightData.spentDate | friendlyMonthDate)}}</span>, which is <span>5% more</span> than the last month.
+        You had <span>{{insight.model.numberOfTransactions}}</span> transactions, your top category was <span>FOOD</span>
+        and your highest expense was on <span>CLOTHES</span>, which was <span>340 {{user.model.currency.currencyCode}}</span>
     </div>
 
     <div class="insights__chart__bar">
