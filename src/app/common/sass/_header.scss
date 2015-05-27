@@ -1,3 +1,7 @@
+.header__wrapper {
+  background-color: $header-background-color;
+}
+
 .header {
   @include outer-container();
   @include clearfix();
@@ -9,35 +13,50 @@
 .header__brand {
   float: left;
   height: 60px;
+  //color:
 }
 
 .header__brand--name {
   @include brand-inline();
+  color: $white;
 }
 
 .header__navigation {
-  margin: 0 auto;
+  float: left;
+  margin-left: 40px;
   padding: 0;
   height: 60px;
-  width: 340px;
 
   li {
     display: inline-block;
-    width: 110px;
+    width: 80px;
     margin: 0;
+    padding: 0;
     text-align: center;
     position: relative;
 
     a {
-      display: block;
+      padding: 10px 5px 5px 5px;
+      color: lighten($brand-primary, 15%);
+
+      &:hover {
+        color: lighten($brand-primary, 10%);
+      }
     }
 
     span {
-      color: $gray-light-1;
+      color: lighten($header-background-color, 20%);
       position: absolute;
       top: 15px;
-      left: 25px;
+      left: 7px;
       font-size: 10px;
+    }
+  }
+
+  .header__navigation--active {
+    a {
+      border-bottom: solid 2px $brand-danger;
+      color: lighten($brand-primary, 25%);
     }
   }
 }
@@ -50,12 +69,15 @@
 
   .header__dropdown__toggle {
     @include btn($white);
+    background-color: transparent;
     border-width: 0;
     height: 100%;
     color: $gray-medium;
 
-    &:hover {
+    &:hover,
+    &:focus {
       color: $gray-dark-1;
+      background-color: transparent;
     }
   }
 

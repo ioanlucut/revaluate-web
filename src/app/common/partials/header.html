@@ -1,25 +1,35 @@
-<header class="header">
+<div class="header__wrapper">
+    <header class="header">
 
-    <div class="header__brand">
-        <a href="javascript:void(0)" class="header__brand--name">Revaluate</a>
-    </div>
+        <div class="header__brand">
+            <a href="javascript:void(0)" class="header__brand--name">Revaluate</a>
+        </div>
 
-    <div class="dropdown header__dropdown" dropdown is-open="status.isopen">
-        <button class="dropdown-toggle header__dropdown__toggle" ng-show="currentUser.model.firstName + currentUser.model.lastName" dropdown-toggle data-toggle="dropdown" role="button" aria-expanded="false">
-            <span class="header__dropdown__avatar">AV</span>
-            {{currentUser.model.firstName + " " + currentUser.model.lastName}}
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu header__dropdown__menu" role="menu">
-            <li><a href="javascript:void(0)" ui-sref="settings.profile">Preferences</a></li>
-            <li><a href="javascript:void(0)" id="feedback-trigger" ng-controller="FeedbackModalController" ng-click="openFeedbackModal()">Send feedback</a></li>
-            <li><a href="javascript:void(0)" ui-sref="account:logout">Logout</a></li>
+        <ul class="header__navigation">
+            <li ui-sref-active="header__navigation--active">
+                <a href="javascript:void(0)" ui-sref="expenses.regular">Wallet</a>
+            </li>
+            <li ui-sref-active="header__navigation--active">
+                <a href="javascript:void(0)" ui-sref="insights">Insights</a>
+            </li>
+            <li ui-sref-active="header__navigation--active">
+                <a href="javascript:void(0)">Goals</a>
+                <span>Coming soon!</span>
+            </li>
         </ul>
-    </div>
 
-    <ul class="header__navigation">
-        <li><a href="javascript:void(0)" ui-sref="expenses.regular">Wallet</a></li>
-        <li><a href="javascript:void(0)" ui-sref="insights">Insights</a></li>
-        <li><a href="javascript:void(0)">Goals</a><span>Coming soon!</span></li>
-    </ul>
-</header>
+        <div class="dropdown header__dropdown" dropdown is-open="status.isopen">
+            <button class="dropdown-toggle header__dropdown__toggle" ng-show="currentUser.model.firstName + currentUser.model.lastName" dropdown-toggle data-toggle="dropdown" role="button" aria-expanded="false">
+                <span class="header__dropdown__avatar">AV</span>
+                {{currentUser.model.firstName + " " + currentUser.model.lastName}}
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu header__dropdown__menu" role="menu">
+                <li><a href="javascript:void(0)" ui-sref="settings.profile">Preferences</a></li>
+                <li><a href="javascript:void(0)" id="feedback-trigger" ng-controller="FeedbackModalController" ng-click="openFeedbackModal()">Send feedback</a></li>
+                <li><a href="javascript:void(0)" ui-sref="account:logout">Logout</a></li>
+            </ul>
+        </div>
+
+    </header>
+</div>
