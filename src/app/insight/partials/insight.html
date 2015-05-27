@@ -2,6 +2,11 @@
 
 <div class="view-container__content">
 
+    <!--Trial period countdown  --  THIS WILL ONLY SHOW UP WITH 5 DAYS BEFORE TRIAL ENDS-->
+    <div>
+        <div ng-include src="'app/account/partials/trial_period_countdown.html'"></div>
+    </div>
+
     <!--Account confirmation alert-->
     <div ng-if="! currentUser.model.emailConfirmed" ng-controller="EmailConfirmationSendController">
         <div ng-include src="'app/account/partials/email_confirmation_send_send.html'"></div>
