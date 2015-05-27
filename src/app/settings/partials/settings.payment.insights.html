@@ -7,13 +7,27 @@
 <div class="settings__box__section">
 
     <div class="settings__box__payment__label">Subscription status</div>
-    <div class="settings__box__payment__subscription__status" ng-if="paymentInsights.subscriptionActive">
-        <div class="settings__box__payment__subscription__status--active">Active</div>
-        <div class="settings__box__payment__subscription__status--info">Next payment: $7.00 due 2015.05.25</div>
+
+    <div ng-repeat="paymentMethodDTO in paymentInsights.paymentMethodDTOs">
+
+        <!--Payment method subscriptions-->
+        <div class="settings__box__payment-payment-method__subscription" ng-repeat="paymentSubscription in paymentMethodDTO.paymentSubscriptionDTOList">
+
+            <div class="settings__box__payment__subscription__status" ng-if="paymentInsights.subscriptionActive">
+                <div>
+                    <span class="settings__box__payment__subscription__status--active">{{paymentSubscription.status}}</span>
+                    <span class="settings__box__payment__subscription__status--info"> - Next payment: ${{paymentSubscription.amount}} due {{paymentSubscription.billingPeriodEndDate | friendlyDate}}</span>
+                </div>
+            </div>
+
+        </div>
     </div>
+
     <div class="settings__box__payment__subscription__status" ng-if="! paymentInsights.subscriptionActive">
-        <div class="settings__box__payment__subscription__status--trial">Trial</div>
-        <div class="settings__box__payment__subscription__status--info">First billing: $7.00 due 2015.05.25</div>
+        <div>
+            <span class="settings__box__payment__subscription__status--trial">Trial</span>
+            <span class="settings__box__payment__subscription__status--info">- First billing: $7.00 due 2015.05.25</span>
+        </div>
     </div>
 
     <!-- Payment form -->
@@ -27,30 +41,14 @@
     </form>
 </div>
 
-<!--Payment profile-->
-<!--<div class="settings__box__payment-profile">-->
-    <!--<div class="settings__box__payment-profile__first-name">{{paymentInsights.paymentCustomerDTO.firstName}}</div>-->
-    <!--<div class="settings__box__payment-profile__last-name">{{paymentInsights.paymentCustomerDTO.lastName}}</div>-->
-    <!--<div class="settings__box__payment-profile__email">{{paymentInsights.paymentCustomerDTO.email}}</div>-->
-    <!--<a class="link-navigation" href="javascript:void(0)" ui-sref="settings.payment.customer">Edit customer information</a>-->
-<!--</div>-->
 
 <!--Payment method-->
 <div class="settings__box__payment__label">Payment method</div>
 
 <div class="settings__box__payment__method" ng-repeat="paymentMethodDTO in paymentInsights.paymentMethodDTOs">
-    <div class="settings__box__payment__method__cardno">{{paymentMethodDTO.cardType}} {{paymentMethodDTO.bin}}*** **** **** {{paymentMethodDTO.last4}}</div>
+    <div class="settings__box__payment__method__cardno">{{paymentMethodDTO.cardType}} ending with {{paymentMethodDTO.last4}}</div>
     <div class="settings__box__payment__method__cardexp">Expiration: {{paymentMethodDTO.expirationMonth}} / {{paymentMethodDTO.expirationYear}}</div>
     <img ng-src="{{paymentMethodDTO.imageUrl}}" />
-
-        <!--Payment method subscriptions-->
-        <!--<div class="settings__box__payment-payment-method__subscription" ng-repeat="paymentSubscription in paymentMethodDTO.paymentSubscriptionDTOList">-->
-            <!--<div class="settings__box__payment-payment-method__subscription__id">{{paymentSubscription.id}}</div>-->
-            <!--<div class="settings__box__payment-payment-method__subscription__amount">{{paymentSubscription.amount}}</div>-->
-            <!--<div class="settings__box__payment-payment-method__subscription__status">{{paymentSubscription.status}}</div>-->
-            <!--<div class="settings__box__payment-payment-method__subscription__createdAt">{{paymentSubscription.createdAt | friendlyDate}}</div>-->
-        <!--</div>-->
-
     <a class="link-navigation" href="javascript:void(0)" ui-sref="settings.payment.method">Update payment method</a>
 </div>
 
@@ -62,18 +60,21 @@
         <tr>
             <th>Status</th>
             <th>ID</th>
-            <th>Date</th>
             <th>Amount</th>
-            <th>Payment method</th>
+            <th>Date</th>
         </tr>
     </thead>
     <tbody>
         <tr ng-repeat="paymentTransactionDTO in paymentInsights.paymentTransactionDTOs">
-            <td>{{paymentTransactionDTO.status}}</td>
-            <td>{{paymentTransactionDTO.id}}</td>
+            <td>
+                <span class="icon-checkmark settings__box__payment__history__status--settled" ng-if="paymentTransactionDTO.status == 'SETTLED'"></span>
+                <span class="icon-checkmark" ng-if="paymentTransactionDTO.status != 'SETTLED'"></span>
+            </td>
+            <td>
+                <a href="javascript:void(0)">{{paymentTransactionDTO.id}}</a>
+            </td>
+            <td>$ {{paymentTransactionDTO.amount}}</td>
             <td>{{paymentTransactionDTO.createdAt | friendlyDate}}</td>
-            <td>{{paymentTransactionDTO.currencyCode}} {{paymentTransactionDTO.amount}}</td>
-            <td></td>
         </tr>
     </tbody>
 </table>
