@@ -3,6 +3,11 @@
 
   .insight__form__date__input__btn {
     width: 250px;
+
+    &:hover,
+    &:active {
+      background-color: $brand-primary-light;
+    }
   }
 
   .dropdown-menu {
