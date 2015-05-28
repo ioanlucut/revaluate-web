@@ -1,0 +1,14 @@
+.payment__form__addcard {
+  @include border-radius($border-radius-base);
+  border: solid 1px $gray-light-1;
+  padding: 10px;
+
+  .payment__form__addcard__number {
+
+  }
+
+  .payment__form__addcard__expiration {
+    width: 100px;
+  }
+}
+
