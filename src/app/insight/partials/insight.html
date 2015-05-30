@@ -12,91 +12,98 @@
         <div ng-include src="'app/account/partials/email_confirmation_send_send.html'"></div>
     </div>
 
-    <!-- Insight fetch form -->
-    <div class="insights__controls">
+    <!--Empty state-->
+    <div class="expenses__empty-state" ng-if="insight.model.numberOfTransactions === 0">
+        <h1>No data yet.</h1>
+        <div>Add some expenses to get insights.</div>
+    </div>
 
-        <form name="insightForm" class="insights__controls__form" ng-submit="submitLoadInsight()" novalidate>
+    <div ng-if="insight.model.numberOfTransactions != 0">
+        <!-- Insight fetch form -->
+        <div class="insights__controls">
 
-            <!-- Flash messages. -->
-            <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+            <form name="insightForm" class="insights__controls__form" ng-submit="submitLoadInsight()" novalidate>
 
-            <!-- Select prev month -->
-            <button type="button" class="insights__controls__form__arrow icon-chevron-left" ng-disabled="isLoading || ! canLoadPrevMonth()" ng-click="prevMonth()"></button>
+                <!-- Flash messages. -->
+                <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
-            <div class="insights__controls__form__month" ng-class="{'has-error': insightForm.spentDate.$invalid && insightForm.$submitted}">
+                <!-- Select prev month -->
+                <button type="button" class="insights__controls__form__arrow icon-chevron-left" ng-disabled="isLoading || ! canLoadPrevMonth()" ng-click="prevMonth()"></button>
 
-                <!--Hidden input of the insight chosen date-->
-                <input type="hidden" name="spentDate" ng-model="insightData.spentDate" required valid-date />
+                <div class="insights__controls__form__month" ng-class="{'has-error': insightForm.spentDate.$invalid && insightForm.$submitted}">
 
-                <!--insight date picker-->
-                <div class="insight__form__date__input">
-                    <button type="button"
-                            class="insight__form__date__input__btn"
-                            ng-click="openDatePicker($event)"
-                            ng-model="insightData.spentDate"
-                            datepicker-popup
-                            is-open="datePickerOpened"
-                            ng-change="onChange()"
-                            ng-disabled="isLoading"
-                            min-date="datePickerMinDate"
-                            max-date="datePickerMaxDate"
-                            datepicker-mode="'month'" min-mode="month"
-                            show-button-bar="false"
-                            datepicker-options="{minMode: 'month',datepickerMode: 'month'}">{{isLoading ? 'Loading' : (insightData.spentDate | friendlyMonthDate)}}
-                    </button>
+                    <!--Hidden input of the insight chosen date-->
+                    <input type="hidden" name="spentDate" ng-model="insightData.spentDate" required valid-date />
+
+                    <!--insight date picker-->
+                    <div class="insight__form__date__input">
+                        <button type="button"
+                                class="insight__form__date__input__btn"
+                                ng-click="openDatePicker($event)"
+                                ng-model="insightData.spentDate"
+                                datepicker-popup
+                                is-open="datePickerOpened"
+                                ng-change="onChange()"
+                                ng-disabled="isLoading"
+                                min-date="datePickerMinDate"
+                                max-date="datePickerMaxDate"
+                                datepicker-mode="'month'" min-mode="month"
+                                show-button-bar="false"
+                                datepicker-options="{minMode: 'month',datepickerMode: 'month'}">{{isLoading ? 'Loading' : (insightData.spentDate | friendlyMonthDate)}}
+                        </button>
+                    </div>
+
+                    <!--Error messages-->
+                    <div class="form-group-input__message" ng-class="{'has-error': insightForm.spentDate.$invalid && insightForm.$submitted}" ng-messages="insightForm.$error" ng-if="insightForm.$submitted">
+                        <div ng-message="required">Please add a date.</div>
+                        <div ng-message="validDate">Date should be in the past.</div>
+                    </div>
                 </div>
 
-                <!--Error messages-->
-                <div class="form-group-input__message" ng-class="{'has-error': insightForm.spentDate.$invalid && insightForm.$submitted}" ng-messages="insightForm.$error" ng-if="insightForm.$submitted">
-                    <div ng-message="required">Please add a date.</div>
-                    <div ng-message="validDate">Date should be in the past.</div>
-                </div>
-            </div>
+                <!-- Select next month -->
+                <button type="button" class="insights__controls__form__arrow icon-chevron-right" ng-disabled="isLoading || ! canLoadNextMonth()" ng-click="nextMonth()"></button>
 
-            <!-- Select next month -->
-            <button type="button" class="insights__controls__form__arrow icon-chevron-right" ng-disabled="isLoading || ! canLoadNextMonth()" ng-click="nextMonth()"></button>
+            </form>
 
-        </form>
+        </div>
 
-    </div>
+        <div class="insights__summary">
+            You've spent a total of <span>{{insight.model.totalAmountSpent | currency:""}}</span> <span>{{user.model.currency.currencyCode}}</span>
+            in <span>{{(insightData.spentDate | friendlyMonthDate)}}</span>, which is <span>5% more</span> than the last month.
+            You had <span>{{insight.model.numberOfTransactions}}</span> transactions, your top category was <span>FOOD</span>
+            and your highest expense was on <span>CLOTHES</span>, which was <span>340 {{user.model.currency.currencyCode}}</span>
+        </div>
 
-    <div class="insights__summary">
-        You've spent a total of <span>{{insight.model.totalAmountSpent | currency:""}}</span> <span>{{user.model.currency.currencyCode}}</span>
-        in <span>{{(insightData.spentDate | friendlyMonthDate)}}</span>, which is <span>5% more</span> than the last month.
-        You had <span>{{insight.model.numberOfTransactions}}</span> transactions, your top category was <span>FOOD</span>
-        and your highest expense was on <span>CLOTHES</span>, which was <span>340 {{user.model.currency.currencyCode}}</span>
-    </div>
+        <div class="insights__chart__bar">
+            <canvas id="bar"
+                    class="chart chart-bar"
+                    data="insightLineData"
+                    series="insightLineSeries"
+                    legend="false"
+                    options="chartOptions"
+                    labels="insight.model.insightLabels">
+            </canvas>
+        </div>
 
-    <div class="insights__chart__bar">
-        <canvas id="bar"
-                class="chart chart-bar"
-                data="insightLineData"
-                series="insightLineSeries"
-                legend="false"
-                options="chartOptions"
-                labels="insight.model.insightLabels">
-        </canvas>
-    </div>
-
-    <div class="insights__table">
-        <table>
-            <thead class="insights__table__header">
-            <tr class="">
-                <td>TOTAL</td>
-                <td class="insights__table__amount">{{insight.model.totalAmountSpent | currency:""}}<span>{{user.model.currency.currencyCode}}</span></td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="totalPerCategory in insight.model.totalPerCategoryInsightDTOs">
-                <td class="insights__table__category">
-                    <span class="insights__table__category__color" ng-style="{'background':totalPerCategory.categoryDTO.color.color}">C</span>
-                    {{totalPerCategory.categoryDTO.name}}
-                </td>
-                <td class="insights__table__amount">{{totalPerCategory.totalAmount | currency:""}}<span>{{user.model.currency.currencyCode}}</span></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+        <div class="insights__table">
+            <table>
+                <thead class="insights__table__header">
+                <tr class="">
+                    <td>TOTAL</td>
+                    <td class="insights__table__amount">{{insight.model.totalAmountSpent | currency:""}}<span>{{user.model.currency.currencyCode}}</span></td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="totalPerCategory in insight.model.totalPerCategoryInsightDTOs">
+                    <td class="insights__table__category">
+                        <span class="insights__table__category__color" ng-style="{'background':totalPerCategory.categoryDTO.color.color}">C</span>
+                        {{totalPerCategory.categoryDTO.name}}
+                    </td>
+                    <td class="insights__table__amount">{{totalPerCategory.totalAmount | currency:""}}<span>{{user.model.currency.currencyCode}}</span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
         <div class="insights__chart__doughnut">
             <canvas class="chart chart-doughnut"
@@ -106,6 +113,9 @@
                     colours="insight.model.insightColors">
             </canvas>
         </div>
+
+    </div>
+
     </div>
 
 <div footer class="view-container__footer"></div>
