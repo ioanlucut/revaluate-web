@@ -106,5 +106,12 @@
 
 </div>
 
+<!--Empty state-->
+<div class="expenses__empty-state" ng-if="expenses == ''">
+    <h1>No expenses yet.</h1>
+    <div>Here's where your expenses will show up.</div>
+</div>
+
+
 <!--The expenses list-->
 <div expense-list expenses="expenses" categories="categories" search-by-text="searchByText" sort="desc"></div>
