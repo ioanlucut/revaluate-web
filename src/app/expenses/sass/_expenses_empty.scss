@@ -3,4 +3,9 @@
   min-height: 200px;
   padding: 40px 100px;
   color: $gray-medium;
+
+  .expenses__empty-state__icon {
+    @include cssSprite($icon-timeline-color);
+    margin: 0 auto;
+  }
 }
