@@ -106,12 +106,20 @@ angular
                 url: "/{email}/{token}",
                 templateUrl: "app/account/partials/email_confirmation_send_valid.html",
                 resolve: {
-                    validateTokenResult: function ($stateParams, $q, AuthService, $state) {
+                    validateTokenResult: function ($rootScope, $stateParams, $q, AuthService, $state, AUTH_EVENTS) {
                         var deferred = $q.defer();
 
                         AuthService
                             .validateConfirmationEmailToken($stateParams.email, $stateParams.token)
                             .then(function (response) {
+                                // ---
+                                // Update user.
+                                // ---
+                                $rootScope
+                                    .currentUser
+                                    .setEmailConfirmedAndReload();
+                                $rootScope.$broadcast(AUTH_EVENTS.refreshUser, {});
+
                                 deferred.resolve({});
                                 return response;
                             })

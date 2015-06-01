@@ -82,12 +82,20 @@ angular
                     },
 
                     /**
+                     * Set email as confirmed
+                     */
+                    setEmailConfirmedAndReload: function () {
+                        this.loadFrom({ emailConfirmed: true });
+                        this.saveToSession();
+                    },
+
+                    /**
                      * Saves a user to cookies.
                      * @returns {*}
                      */
                     saveToSession: function () {
                         var sessionData = {};
-                        TransformerUtils.copyKeysFromTo(this, sessionData, ["password"]);
+                        TransformerUtils.copyKeysFromTo(this.model, sessionData, ["password"]);
                         SessionService.setData(sessionData);
 
                         return this;
