@@ -2,8 +2,8 @@
 
 <div class="view-container__content">
 
-    <!--Trial period countdown  --  THIS WILL ONLY SHOW UP WITH 5 DAYS BEFORE TRIAL ENDS-->
-    <div>
+    <!--Trial period countdown-->
+    <div ng-if="currentUser.showTrialRemainingDays()">
         <div ng-include src="'app/account/partials/trial_period_countdown.html'"></div>
     </div>
 
@@ -15,6 +15,7 @@
     <!--Empty state-->
     <div class="expenses__empty-state" ng-if="insight.model.numberOfTransactions === 0">
         <h1>No data yet.</h1>
+
         <div>Add some expenses to get insights.</div>
     </div>
 
@@ -68,8 +69,10 @@
         </div>
 
         <div class="insights__summary">
-            You've spent a total of <span>{{insight.model.totalAmountSpent | currency:""}}</span> <span>{{user.model.currency.currencyCode}}</span>
-            in <span>{{(insightData.spentDate | friendlyMonthDate)}}</span>, which is <span>5% more</span> than the last month.
+            You've spent a total of <span>{{insight.model.totalAmountSpent | currency:""}}</span>
+            <span>{{user.model.currency.currencyCode}}</span>
+            in <span>{{(insightData.spentDate | friendlyMonthDate)}}</span>, which is
+            <span>5% more</span> than the last month.
         </div>
 
         <div class="insights__chart__bar">
@@ -84,8 +87,10 @@
         </div>
 
         <div class="insights__summary">
-            You had <span>{{insight.model.numberOfTransactions}}</span> transactions, you spent mostly on <span>FOOD</span>
-            and your highest expense was on <span>CLOTHES</span>, which was <span>340 {{user.model.currency.currencyCode}}</span>.
+            You had <span>{{insight.model.numberOfTransactions}}</span> transactions, you spent mostly on
+            <span>FOOD</span>
+            and your highest expense was on <span>CLOTHES</span>, which was
+            <span>340 {{user.model.currency.currencyCode}}</span>.
         </div>
 
         <div class="insights__table">
@@ -93,7 +98,8 @@
                 <thead class="insights__table__header">
                 <tr class="">
                     <td>TOTAL</td>
-                    <td class="insights__table__amount">{{insight.model.totalAmountSpent | currency:""}}<span>{{user.model.currency.currencyCode}}</span></td>
+                    <td class="insights__table__amount">{{insight.model.totalAmountSpent | currency:""}}<span>{{user.model.currency.currencyCode}}</span>
+                    </td>
                 </tr>
                 </thead>
                 <tbody>
@@ -102,7 +108,8 @@
                         <span class="insights__table__category__color" ng-style="{'background':totalPerCategory.categoryDTO.color.color}">C</span>
                         {{totalPerCategory.categoryDTO.name}}
                     </td>
-                    <td class="insights__table__amount">{{totalPerCategory.totalAmount | currency:""}}<span>{{user.model.currency.currencyCode}}</span></td>
+                    <td class="insights__table__amount">{{totalPerCategory.totalAmount | currency:""}}<span>{{user.model.currency.currencyCode}}</span>
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -119,6 +126,6 @@
 
     </div>
 
-    </div>
+</div>
 
 <div footer class="view-container__footer"></div>

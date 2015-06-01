@@ -1,12 +1,12 @@
 <!-- Trial period ending section -->
 <div class="account_trial_period_section">
 
-        <!-- Flash messages. -->
-        <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+    <!-- Flash messages. -->
+    <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
-        <div class="alert-error account_send_email_section__alert">
-            Your trial period will end in <strong>2 days</strong>.
-            <a href="javascript:void(0)" ui-sref="settings.payment.insights">Add payment details</a>.
-        </div>
+    <div class="alert-error account_send_email_section__alert">
+        Your trial period will end in <strong>{{currentUser.getTrialRemainingDays()}} days</strong>.
+        <a href="javascript:void(0)" ui-sref="settings.payment.insights">Add payment details</a>.
+    </div>
 
 </div>
