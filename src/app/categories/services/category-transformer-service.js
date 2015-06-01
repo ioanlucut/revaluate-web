@@ -7,9 +7,6 @@ angular
 
         /**
          * Converts a category business object model to a categoryDto object.
-         * @param category
-         * @param skipKeys
-         * @returns {{}}
          */
         this.toCategoryDto = function (category, skipKeys) {
             var categoryDto = {};
@@ -21,23 +18,22 @@ angular
 
         /**
          * Converts a categoryDto object to a category business object model.
-         * @param categoryDto
-         * @param category
-         * @param skipKeys
-         * @returns {*}
          */
         this.toCategory = function (categoryDto, category, skipKeys) {
             category = category || $injector.get('Category').build();
 
             TransformerUtils.copyKeysFromTo(categoryDto, category.model, skipKeys);
 
+            // ---
+            // Should be always upper case (one way).
+            // ---
+            category.model.name = category.model.name.toUpperCase();
+
             return category;
         };
 
         /**
          * Transform a list of categories as JSON to a list of categories as business object.
-         * @param categoryDtos
-         * @returns {Array}
          */
         this.toCategories = function (categoryDtos) {
             var categories = [];
@@ -51,8 +47,6 @@ angular
 
         /**
          * Transform a list of categories as business objects to a list of DTOs.
-         * @param categories
-         * @returns {Array}
          */
         this.toCategoryDTOs = function (categories) {
             var categoryDTOs = [];
