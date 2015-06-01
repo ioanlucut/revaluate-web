@@ -5,7 +5,7 @@
   color: $gray-medium;
 
   .insights__empty-state__icon {
-    @include cssSprite($icon-chart-color);
+    @include cssSprite($icon-chart-gray);
     margin: 0 auto;
   }
 }
