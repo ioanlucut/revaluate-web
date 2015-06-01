@@ -20,13 +20,15 @@
 
         <div class="dropdown header__dropdown" dropdown is-open="status.isopen">
             <button class="dropdown-toggle header__dropdown__toggle" ng-show="currentUser.model.firstName + currentUser.model.lastName" dropdown-toggle data-toggle="dropdown" role="button" aria-expanded="false">
-                <span class="header__dropdown__avatar">AV</span>
+                <img gravatar-src="'{{currentUser.model.email}}'">
                 {{currentUser.model.firstName + " " + currentUser.model.lastName}}
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu header__dropdown__menu" role="menu">
                 <li><a href="javascript:void(0)" ui-sref="settings.profile">Preferences</a></li>
-                <li><a href="javascript:void(0)" id="feedback-trigger" ng-controller="FeedbackModalController" ng-click="openFeedbackModal()">Send feedback</a></li>
+                <li>
+                    <a href="javascript:void(0)" id="feedback-trigger" ng-controller="FeedbackModalController" ng-click="openFeedbackModal()">Send feedback</a>
+                </li>
                 <li><a href="javascript:void(0)" ui-sref="account:logout">Logout</a></li>
             </ul>
         </div>

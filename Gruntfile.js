@@ -40,6 +40,7 @@ module.exports = function (grunt) {
                     "bower_components/angular-ui-bootstrap/src/dateparser/dateparser.js",
                     "bower_components/angular-ui-bootstrap/src/datepicker/datepicker.js",
                     "bower_components/angular-ui-bootstrap/src/modal/modal.js",
+                    "bower_components/angular-gravatar/build/angular-gravatar.js",
                     /* End angular ui used bootstrap */
                     "bower_components/Chart.js/Chart.min.js",
                     "bower_components/angular-chart.js/dist/angular-chart.js",
