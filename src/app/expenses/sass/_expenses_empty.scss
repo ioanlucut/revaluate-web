@@ -5,7 +5,7 @@
   color: $gray-medium;
 
   .expenses__empty-state__icon {
-    @include cssSprite($icon-timeline-color);
+    @include cssSprite($icon-timeline-gray);
     margin: 0 auto;
   }
 }
