@@ -18,6 +18,8 @@ angular
                         password: "",
                         timezone: "",
                         initiated: false,
+                        createdDate: "",
+                        endTrialDate: "",
                         userSubscriptionStatus: "",
                         emailConfirmed: false,
                         currency: {
@@ -41,12 +43,23 @@ angular
                         return this.isAuthenticated() && this.model.initiated;
                     },
 
-                    /**
-                     * Trial period has expired for this user.
-                     * @returns {boolean}
-                     */
+                    getTrialRemainingDays: function () {
+                        var difference = moment(this.model.endTrialDate).diff(moment(), 'days');
+                        if ( difference < 0 ) {
+
+                            return 0;
+                        }
+                        return difference;
+                    },
+
+                    showTrialRemainingDays: function () {
+                        var trialRemainingDays = this.getTrialRemainingDays();
+
+                        return trialRemainingDays > 0 && trialRemainingDays <= 5;
+                    },
+
                     isTrialExpired: function () {
-                        return this.model.userSubscriptionStatus === "TRIAL_EXPIRED";
+                        return this.model.userSubscriptionStatus === "TRIAL_EXPIRED" || this.getTrialRemainingDays() === 0;
                     },
 
                     /**
