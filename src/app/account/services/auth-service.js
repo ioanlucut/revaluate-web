@@ -71,7 +71,9 @@ angular
 
         this.validateConfirmationEmailToken = function (email, token) {
             return $http
-                .post(URLTo.api(AUTH_URLS.validateConfirmationEmailToken, { ":email": email, ":token": token }))
+                .post(URLTo.api(AUTH_URLS.validateConfirmationEmailToken, { ":email": email, ":token": token }), {
+                    skipAuthorization: true
+                })
                 .then(function (response) {
                     return response.data;
                 });
