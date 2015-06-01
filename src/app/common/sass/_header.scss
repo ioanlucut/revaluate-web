@@ -72,29 +72,29 @@
     background-color: transparent;
     border-width: 0;
     height: 100%;
-    color: $gray-medium;
+    color: $gray-light-1;
+    position: relative;
+    padding-left: 50px;
 
     &:hover,
     &:focus {
-      color: $gray-dark-1;
+      color: $gray-light-3;
       background-color: transparent;
     }
   }
 
   .header__dropdown__avatar {
-    display: inline-block;
-    margin: 0 5px;
+    position: absolute;
+    left: 0;
+    top: 10px;
     width: 40px;
     height: 40px;
     @include border-radius(50%);
-    background: url("http://api.randomuser.me/portraits/thumb/women/8.jpg") no-repeat;
-    background-size: contain;
-    text-align: center;
-    text-indent: -9999px;
   }
 
   .header__dropdown__menu {
-    right: 0;
+    right: 10px;
+    top: 50px;
     @include box-shadow(none);
     @include border-radius($border-radius-base);
     padding: 0;
