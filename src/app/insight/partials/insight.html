@@ -12,15 +12,15 @@
         <div ng-include src="'app/account/partials/email_confirmation_send_send.html'"></div>
     </div>
 
-    <!--Empty state-->
-    <div class="insights__empty-state" ng-if="insight.model.numberOfTransactions === 0">
+    <!--Empty state if no expenses overall-->
+    <div class="insights__empty-state" ng-if="insight.model.totalNumberOfTransactions === 0">
         <div class="insights__empty-state__icon"></div>
         <h1>No data yet.</h1>
 
         <div>Add some expenses to get insights.</div>
     </div>
 
-    <div ng-if="insight.model.numberOfTransactions != 0">
+    <div ng-if="insight.model.totalNumberOfTransactions !== 0">
         <!-- Insight fetch form -->
         <div class="insights__controls">
 
@@ -35,7 +35,7 @@
                 <div class="insights__controls__form__month" ng-class="{'has-error': insightForm.spentDate.$invalid && insightForm.$submitted}">
 
                     <!--Hidden input of the insight chosen date-->
-                    <input type="hidden" name="spentDate" ng-model="insightData.spentDate" required valid-date />
+                    <input type="hidden" name="spentDate" ng-model="insightData.spentDate" required valid-date/>
 
                     <!--insight date picker-->
                     <div class="insight__form__date__input">
@@ -51,7 +51,8 @@
                                 max-date="datePickerMaxDate"
                                 datepicker-mode="'month'" min-mode="month"
                                 show-button-bar="false"
-                                datepicker-options="{minMode: 'month',datepickerMode: 'month'}">{{isLoading ? 'Loading' : (insightData.spentDate | friendlyMonthDate)}}
+                                datepicker-options="{minMode: 'month',datepickerMode: 'month'}">{{isLoading ? 'Loading'
+                            : (insightData.spentDate | friendlyMonthDate)}}
                         </button>
                     </div>
 
@@ -69,60 +70,70 @@
 
         </div>
 
-        <div class="insights__summary">
-            You've spent a total of <span>{{insight.model.totalAmountSpent | currency:""}}</span>
-            <span>{{user.model.currency.currencyCode}}</span>
-            in <span>{{(insightData.spentDate | friendlyMonthDate)}}</span>, which is
-            <span>5% more</span> than the last month.
+        <!--Empty state if no expenses for current month-->
+        <div class="insights__empty-state" ng-if="insight.model.numberOfTransactions === 0">
+            <div class="insights__empty-state__icon"></div>
+            <h1>No expenses on this month yet.</h1>
+
+            <div>You'll get some insights here.</div>
         </div>
 
-        <div class="insights__chart__bar">
-            <canvas id="bar"
-                    class="chart chart-bar"
-                    data="insightLineData"
-                    series="insightLineSeries"
-                    legend="false"
-                    options="chartOptions"
-                    labels="insight.model.insightLabels">
-            </canvas>
-        </div>
+        <div ng-if="insight.model.numberOfTransactions !== 0">
+            <div class="insights__summary">
+                You've spent a total of <span>{{insight.model.totalAmountSpent | currency:""}}</span>
+                <span>{{user.model.currency.currencyCode}}</span>
+                in <span>{{(insightData.spentDate | friendlyMonthDate)}}</span>, which is
+                <span>5% more</span> than the last month.
+            </div>
 
-        <div class="insights__summary">
-            You had <span>{{insight.model.numberOfTransactions}}</span> transactions, you spent mostly on
-            <span>FOOD</span>
-            and your highest expense was on <span>CLOTHES</span>, which was
-            <span>340 {{user.model.currency.currencyCode}}</span>.
-        </div>
+            <div class="insights__chart__bar">
+                <canvas id="bar"
+                        class="chart chart-bar"
+                        data="insightLineData"
+                        series="insightLineSeries"
+                        legend="false"
+                        options="chartOptions"
+                        labels="insight.model.insightLabels">
+                </canvas>
+            </div>
 
-        <div class="insights__table">
-            <table>
-                <thead class="insights__table__header">
-                <tr class="">
-                    <td>TOTAL</td>
-                    <td class="insights__table__amount">{{insight.model.totalAmountSpent | currency:""}}<span>{{user.model.currency.currencyCode}}</span>
-                    </td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="totalPerCategory in insight.model.totalPerCategoryInsightDTOs">
-                    <td class="insights__table__category">
-                        <span class="insights__table__category__color" ng-style="{'background':totalPerCategory.categoryDTO.color.color}">C</span>
-                        {{totalPerCategory.categoryDTO.name}}
-                    </td>
-                    <td class="insights__table__amount">{{totalPerCategory.totalAmount | currency:""}}<span>{{user.model.currency.currencyCode}}</span>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+            <div class="insights__summary">
+                You had <span>{{insight.model.numberOfTransactions}}</span> transactions, you spent mostly on
+                <span>FOOD</span>
+                and your highest expense was on <span>CLOTHES</span>, which was
+                <span>340 {{user.model.currency.currencyCode}}</span>.
+            </div>
 
-        <div class="insights__chart__doughnut">
-            <canvas class="chart chart-doughnut"
-                    data="insight.model.insightData"
-                    labels="insight.model.insightLabels"
-                    options="chartOptions"
-                    colours="insight.model.insightColors">
-            </canvas>
+            <div class="insights__table">
+                <table>
+                    <thead class="insights__table__header">
+                    <tr class="">
+                        <td>TOTAL</td>
+                        <td class="insights__table__amount">{{insight.model.totalAmountSpent | currency:""}}<span>{{user.model.currency.currencyCode}}</span>
+                        </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="totalPerCategory in insight.model.totalPerCategoryInsightDTOs">
+                        <td class="insights__table__category">
+                            <span class="insights__table__category__color" ng-style="{'background':totalPerCategory.categoryDTO.color.color}">C</span>
+                            {{totalPerCategory.categoryDTO.name}}
+                        </td>
+                        <td class="insights__table__amount">{{totalPerCategory.totalAmount | currency:""}}<span>{{user.model.currency.currencyCode}}</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="insights__chart__doughnut">
+                <canvas class="chart chart-doughnut"
+                        data="insight.model.insightData"
+                        labels="insight.model.insightLabels"
+                        options="chartOptions"
+                        colours="insight.model.insightColors">
+                </canvas>
+            </div>
         </div>
 
     </div>
