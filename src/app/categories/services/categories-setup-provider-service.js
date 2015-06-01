@@ -5,47 +5,43 @@ angular
         this.predefinedCategories = [
             {
                 "name": "Bills",
-                selected: false
+                selected: true
             },
             {
                 "name": "Food",
-                selected: false
+                selected: true
             },
             {
                 "name": "Clothes",
-                selected: false
+                selected: true
             },
             {
                 "name": "Car",
-                selected: false
+                selected: true
             },
             {
                 "name": "Donations",
-                selected: false
+                selected: true
             },
             {
                 "name": "Hobby",
-                selected: false
+                selected: true
             },
             {
                 "name": "Health",
-                selected: false
+                selected: true
             },
             {
                 "name": "Education",
-                selected: false
+                selected: true
             },
             {
                 "name": "Investments",
-                selected: false
-            },
-            {
-                "name": "House",
-                selected: false
+                selected: true
             },
             {
                 "name": "Entertainment",
-                selected: false
+                selected: true
             }];
 
         this.getPredefinedCategories = function () {
