@@ -201,13 +201,13 @@ angular
                 _.each(expensesImportPrepared.model.expenseCategoryMatchingProfileDTOs, function (expenseCategoryMatchingProfileDTO) {
                     if ( expenseCategoryMatchingProfileDTO.selected ) {
 
-                        expenseCategoryMatchingProfileDTO.categoryDTO = angular.copy(expenseCategoryMatchingProfileDTO.category.originalObject.model);
+                        expenseCategoryMatchingProfileDTO.categoryDTO = angular.copy(expenseCategoryMatchingProfileDTO.category.selected.model);
                     }
                     else {
                         // ---
                         // Really ugly, but we can't send back an invalid category..
                         // ---
-                        expenseCategoryMatchingProfileDTO.categoryDTO = angular.copy(getSelectedMatchingCategories()[0].category.originalObject.model);
+                        expenseCategoryMatchingProfileDTO.categoryDTO = angular.copy(getSelectedMatchingCategories()[0].category.selected.model);
                     }
                 });
 
