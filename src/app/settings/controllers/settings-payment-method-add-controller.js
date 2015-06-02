@@ -1,6 +1,6 @@
 angular
     .module("revaluate.settings")
-    .controller("SettingsPaymentMethodAddController", function ($q, $scope, $state, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentStatus, flash, ALERTS_CONSTANTS, AUTH_EVENTS, USER_SUBSCRIPTION_STATUS, MIXPANEL_EVENTS) {
+    .controller("SettingsPaymentMethodAddController", function ($q, $scope, $state, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentStatus, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
 
         var TIMEOUT_PENDING = 300;
 
@@ -113,15 +113,6 @@ angular
 
                                     $scope.addPaymentMethodForm.$setPristine();
                                     flash.to($scope.alertIdentifierId).success = 'We\'ve successfully saved your payment method!';
-
-                                    // ---
-                                    // Update user with subscription status ACTIVE.
-                                    // ---
-                                    $scope
-                                        .user
-                                        .setSubscriptionStatusAsAndReload(USER_SUBSCRIPTION_STATUS.ACTIVE);
-                                    $rootScope
-                                        .$broadcast(AUTH_EVENTS.refreshUser, {});
 
                                     $timeout(function () {
                                         $scope.isRequestPending = false;
