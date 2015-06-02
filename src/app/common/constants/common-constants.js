@@ -13,6 +13,7 @@ angular
         expenses: "expenses.regular",
         setUp: "setup",
         addPayment: "settings.payment.add",
+        insightsPayment: "settings.payment.insights",
         account: "account"
     })
     .constant("ACCESS_LEVEL", {
