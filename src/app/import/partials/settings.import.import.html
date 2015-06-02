@@ -54,30 +54,19 @@
             <!--Category select-->
             <ng-form class="import__edit__categories__dest" name="expensesImportCategoryMatchEntryForm" ng-if="categoryMatchCandidate.selected">
 
-                <div class="import__edit__categories__dest__category" ng-class="{'has-error': expensesImportForm.$submitted && (expensesImportCategoryMatchEntryForm.$error['autocomplete-required'] || expensesImportCategoryMatchEntryForm.category.$invalid || badPostSubmitResponse)}">
+                <div class="import__edit__categories__dest__category" ng-class="{'has-error': expensesImportForm.$submitted && (expensesImportCategoryMatchEntryForm.category.$invalid || badPostSubmitResponse)}">
 
-                    <div angucomplete-alt
-                         selected-object="categoryMatchCandidate.category"
-                         local-data="categories"
-                         search-fields="model.name"
-                         title-field="model.name"
-                         field-required="true"
-                         placeholder="Select category"
-                         maxlength="50"
-                         pause="1"
-                         minlength="0"
-                         input-class="import__edit__categories__input"
-                         initial-value="{{categoryMatchCandidate.category.originalObject.model.name}}"
-                         match-class="angucomplete-highlight"
-                         template-url="app/expenses/partials/expense.category.template.html">
-                    </div>
+                    <ui-select name="category" required ng-model="categoryMatchCandidate.category.selected" theme="selectize" title="Choose a category" class="import__edit__categories__input">
+                        <ui-select-match ng-style="{'background':$select.selected.model.color.color}" placeholder="Select a category">{{$select.selected.model.name}}</ui-select-match>
+                        <ui-select-choices ng-style="{'background':categoryEntry.model.color.color}" repeat="categoryEntry in categories | orderObjectBy : 'model.name' : false | filter:{model:{name:$select.search}} track by categoryEntry.model.id">
+                            <div ng-style="{'background':categoryEntry.model.color.color}" ng-bind-html="categoryEntry.model.name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
 
                     <!-- Error messages -->
-                    <div class="form-group-input__message" ng-class="{'has-error': expensesImportCategoryMatchEntryForm.$invalid && expensesImportForm.$submitted}" ng-messages="expensesImportCategoryMatchEntryForm.$error" ng-if="expensesImportForm.$submitted">
-                        <div ng-message="autocomplete-required">Category is missing or is invalid.</div>
+                    <div class="form-group-input__message" ng-class="{'has-error': expensesImportCategoryMatchEntryForm.category.$invalid && expensesImportForm.$submitted}" ng-messages="expensesImportCategoryMatchEntryForm.$error" ng-if="expensesImportForm.$submitted">
+                        <div ng-message="required">Please add a category.</div>
                     </div>
-
-                    <div class="form-group-input__message" ng-if="expensesImportCategoryMatchEntryForm.category.$invalid && expensesImportForm.$submitted">Please add a category.</div>
                 </div>
 
             </ng-form>
