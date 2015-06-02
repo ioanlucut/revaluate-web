@@ -54,6 +54,16 @@ angular
                 insight.model.lastExistingExpenseDate = moment(insight.model.lastExistingExpenseDate).toDate();
             }
 
+            insight.model.insightData = _.map(insight.model.totalPerCategoryInsightDTOs, function (totalPerCategoryInsightDTO) {
+                return totalPerCategoryInsightDTO.totalAmount;
+            });
+            insight.model.insightColors = _.map(insight.model.totalPerCategoryInsightDTOs, function (totalPerCategoryInsightDTO) {
+                return totalPerCategoryInsightDTO.categoryDTO.color.color;
+            });
+            insight.model.insightLabels = _.map(insight.model.totalPerCategoryInsightDTOs, function (totalPerCategoryInsightDTO) {
+                return totalPerCategoryInsightDTO.categoryDTO.name;
+            });
+
             return insight;
         };
 
