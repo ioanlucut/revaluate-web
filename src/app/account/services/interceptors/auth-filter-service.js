@@ -45,6 +45,10 @@ angular
 
                 /*If user is with trial expired, authenticated and tries to go to a non public page, go to payment*/
                 event.preventDefault();
+
+                // ---
+                // Show error.
+                // ---
                 flash.to(ALERTS_CONSTANTS.generalError).error = "You must define a payment method and subscribe to revaluate plan before further using revaluate.";
                 StatesHandler.goToAddPayment();
             }
