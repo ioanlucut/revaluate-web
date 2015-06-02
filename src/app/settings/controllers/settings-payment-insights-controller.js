@@ -1,6 +1,6 @@
 angular
     .module("revaluate.settings")
-    .controller("SettingsPaymentInsightsController", function ($q, $scope, $rootScope, $timeout, $http, paymentInsights, flash, AUTH_URLS, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+    .controller("SettingsPaymentInsightsController", function ($q, $scope, $rootScope, $timeout, $http, paymentInsights, flash, AUTH_URLS, ALERTS_CONSTANTS, MIXPANEL_EVENTS, AUTH_EVENTS, USER_SUBSCRIPTION_STATUS) {
 
         var TIMEOUT_PENDING = 300;
 
@@ -37,6 +37,15 @@ angular
                     .post(URLTo.api(AUTH_URLS.subscribeToStandardPlan), {})
                     .then(function (response) {
                         $scope.paymentInsights = response.data;
+
+                        // ---
+                        // Update user with subscription status ACTIVE.
+                        // ---
+                        $scope
+                            .user
+                            .setSubscriptionStatusAsAndReload(USER_SUBSCRIPTION_STATUS.ACTIVE);
+                        $rootScope
+                            .$broadcast(AUTH_EVENTS.refreshUser, {});
 
                         flash.to($scope.alertIdentifierId).success = 'You\'ve successfully subscribed to Revaluate!';
 
