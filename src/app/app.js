@@ -11,6 +11,7 @@ angular
         "ngMessages",
         "angucomplete-alt",
         "ngStorage",
+        "ngSanitize",
         "partials",
         "revaluate.site",
         "revaluate.feedback",
@@ -23,7 +24,8 @@ angular
         "revaluate.settings",
         "revaluate.insights",
         "angular.filter",
-        "ui.gravatar"
+        "ui.gravatar",
+        "ui.select"
     ])
     .config(function ($locationProvider, CacheFactoryProvider, gravatarServiceProvider) {
         angular.extend(CacheFactoryProvider.defaults, { maxAge: 15 * 60 * 1000 });
