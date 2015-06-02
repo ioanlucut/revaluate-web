@@ -47,6 +47,10 @@ angular
                         $rootScope
                             .$broadcast(AUTH_EVENTS.refreshUser, {});
 
+                        // ---
+                        // Clean previously errors.
+                        // ---
+                        flash.to(ALERTS_CONSTANTS.generalError).error = '';
                         flash.to($scope.alertIdentifierId).success = 'You\'ve successfully subscribed to Revaluate!';
 
                         $timeout(function () {
