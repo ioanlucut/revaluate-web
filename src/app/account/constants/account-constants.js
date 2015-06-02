@@ -3,6 +3,11 @@
  */
 angular
     .module("revaluate.account")
+    .constant("USER_SUBSCRIPTION_STATUS", {
+        TRIAL: "TRIAL",
+        TRIAL_EXPIRED: "TRIAL_EXPIRED",
+        ACTIVE: "ACTIVE"
+    })
     .constant("AUTH_EVENTS", {
         isLoggedIn: "auth-is-logged-in",
         loginSuccess: "auth-login-success",

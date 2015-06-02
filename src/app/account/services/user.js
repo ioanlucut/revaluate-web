@@ -1,6 +1,6 @@
 angular
     .module("revaluate.account")
-    .factory("User", function (SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
+    .factory("User", function (SessionService, TransformerUtils, $q, $http, AUTH_URLS, USER_SUBSCRIPTION_STATUS) {
         return {
 
             $new: function () {
@@ -58,8 +58,9 @@ angular
                         return trialRemainingDays > 0 && trialRemainingDays <= 5;
                     },
 
-                    isTrialExpired: function () {
-                        return this.model.userSubscriptionStatus === "TRIAL_EXPIRED" || this.getTrialRemainingDays() === 0;
+                    isTrialPeriodExpired: function () {
+
+                        return (this.model.userSubscriptionStatus === USER_SUBSCRIPTION_STATUS.TRIAL && this.getTrialRemainingDays() === 0) || this.model.userSubscriptionStatus === USER_SUBSCRIPTION_STATUS.TRIAL_EXPIRED;
                     },
 
                     /**
@@ -90,8 +91,15 @@ angular
                     },
 
                     /**
-                     * Saves a user to cookies.
-                     * @returns {*}
+                     * Update subscription status
+                     */
+                    setSubscriptionStatusAsAndReload: function (status) {
+                        this.loadFrom({ userSubscriptionStatus: status });
+                        this.saveToSession();
+                    },
+
+                    /**
+                     * Saves a user to local storage.
                      */
                     saveToSession: function () {
                         var sessionData = {};

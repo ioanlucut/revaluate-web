@@ -14,6 +14,10 @@ angular
             this.go(STATES.setUp);
         };
 
+        this.goToAddPayment = function () {
+            this.go(STATES.addPayment);
+        };
+
         this.goToLogin = function () {
             this.go(STATES.account);
         };

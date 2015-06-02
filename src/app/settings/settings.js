@@ -63,10 +63,6 @@ angular
                                     $state.go("settings.payment.insights");
                                 }
                                 return response.data.paymentStatusDefined;
-                            })
-                            .catch(function () {
-
-                                $state.go("settings.payment.insights");
                             });
                     }
 
@@ -95,7 +91,7 @@ angular
                             })
                             .catch(function () {
 
-                                $state.go("settings.payment.insights");
+                                $state.go("settings.payment.add");
                             });
                     }
                 },
@@ -116,7 +112,7 @@ angular
                             })
                             .catch(function () {
 
-                                $state.go("settings.payment.insights");
+                                $state.go("settings.payment.add");
                             });
                     }
                 },
@@ -141,12 +137,6 @@ angular
                     }
                 },
                 title: "Payment insights - Revaluate"
-            })
-
-            .state("settings.payment.invalid", {
-                url: "/invalid",
-                templateUrl: "app/settings/partials/settings.payment.invalid.html",
-                title: "Payment insights invalid - Revaluate"
             })
 
             // ---
