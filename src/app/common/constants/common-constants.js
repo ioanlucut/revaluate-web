@@ -12,6 +12,7 @@ angular
         profile: "profile",
         expenses: "expenses.regular",
         setUp: "setup",
+        addPayment: "settings.payment.add",
         account: "account"
     })
     .constant("ACCESS_LEVEL", {
