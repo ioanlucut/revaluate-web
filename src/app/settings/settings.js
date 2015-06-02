@@ -46,6 +46,7 @@ angular
                 url: "/add",
                 templateUrl: "app/settings/partials/settings.payment.add.html",
                 controller: "SettingsPaymentMethodAddController",
+                isPaymentRelatedPage: true,
                 resolve: {
                     clientToken: function ($http, AUTH_URLS) {
                         return $http
@@ -75,6 +76,7 @@ angular
                 url: "/method",
                 templateUrl: "app/settings/partials/settings.payment.method.html",
                 controller: "SettingsPaymentMethodController",
+                isPaymentRelatedPage: true,
                 resolve: {
                     clientToken: function ($http, AUTH_URLS) {
                         return $http
@@ -103,6 +105,7 @@ angular
                 url: "/customer",
                 templateUrl: "app/settings/partials/settings.payment.customer.html",
                 controller: "SettingsPaymentCustomerController",
+                isPaymentRelatedPage: true,
                 resolve: {
                     paymentInsights: function ($http, $state, AUTH_URLS) {
                         return $http
@@ -123,6 +126,7 @@ angular
                 url: "/insights",
                 templateUrl: "app/settings/partials/settings.payment.insights.html",
                 controller: "SettingsPaymentInsightsController",
+                isPaymentRelatedPage: true,
                 resolve: {
                     paymentInsights: function ($http, $state, AUTH_URLS) {
                         return $http
