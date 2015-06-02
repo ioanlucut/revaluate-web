@@ -20,7 +20,7 @@
 
         <div class="dropdown header__dropdown" dropdown is-open="status.isopen">
             <button class="dropdown-toggle header__dropdown__toggle" ng-show="currentUser.model.firstName + currentUser.model.lastName" dropdown-toggle data-toggle="dropdown" role="button" aria-expanded="false">
-                <img gravatar-src="'{{currentUser.model.email}}'">
+                <img class="header__dropdown__avatar" gravatar-src="'{{currentUser.model.email}}'" />
                 {{currentUser.model.firstName + " " + currentUser.model.lastName}}
                 <span class="caret"></span>
             </button>
