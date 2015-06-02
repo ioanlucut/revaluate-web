@@ -126,7 +126,7 @@ angular
                 $scope.isSaving = true;
 
                 // Update the  chosen category and master expense.
-                $scope.expense.model.category = angular.copy($scope.category.originalObject.model);
+                $scope.expense.model.category = angular.copy($scope.category.selected.model);
                 angular.copy($scope.expense, $scope.masterExpense);
 
                 $scope.masterExpense

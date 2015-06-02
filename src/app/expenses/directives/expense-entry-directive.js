@@ -1,6 +1,6 @@
 angular
     .module("revaluate.expenses")
-    .directive("expenseEntry", function ($rootScope, $timeout, EXPENSE_EVENTS) {
+    .directive("expenseEntry", function ($rootScope, $timeout, EXPENSE_EVENTS, CategoryTransformerService) {
         return {
             restrict: "A",
             controller: 'ExpenseEntryController',
@@ -29,6 +29,7 @@ angular
                  * @type {{}}
                  */
                 scope.category = {};
+                scope.category.selected = CategoryTransformerService.toCategory(scope.shownExpense.model.category);
 
                 /**
                  * Show block content
