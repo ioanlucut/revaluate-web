@@ -43,8 +43,12 @@ angular
         // ---
         // Populate predefined categories with colors.
         // ---
-        _.each($scope.categories, function (category) {
-            category.color = CategoryColorService.randomizedColor($scope.colors);
+        $scope.categories = _.map($scope.categories, function (category) {
+            return {
+                name: category,
+                selected: true,
+                color: $scope.colors[$scope.categories.indexOf(category)]
+            };
         });
 
         /**
@@ -161,7 +165,7 @@ angular
 
             var selectedCategories = angular.copy(getSelectedCategories());
             var userProfileToBeUpdated = {
-                currency: angular.copy($scope.currency.originalObject),
+                currency: angular.copy($scope.currency.selected),
                 initiated: true
             };
 

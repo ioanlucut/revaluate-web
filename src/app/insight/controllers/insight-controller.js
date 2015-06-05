@@ -3,7 +3,7 @@
  */
 angular
     .module("revaluate.insights")
-    .controller("InsightController", function ($scope, $rootScope, $timeout, flash, insight, statistics, InsightService, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
+    .controller("InsightController", function ($scope, $rootScope, $filter, $timeout, flash, insight, statistics, InsightService, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
 
         /**
          * Updating/deleting timeout
@@ -32,6 +32,7 @@ angular
          */
         $scope.insight = insight;
         $scope.insightLineData = [insight.model.insightData];
+        $scope.insightLineColors = [insight.model.insightColors];
         $scope.insightLineSeries = ["Categories"];
 
         /**
@@ -39,6 +40,28 @@ angular
          * @type {statistics|*}
          */
         $scope.statistics = statistics;
+
+        // ---
+        // Chart config options.
+        // ---
+        $scope.chartOptions = {
+            scaleLabel: function (label) {
+
+                return formatValue(label);
+            },
+            multiTooltipTemplate: function (label) {
+
+                return label.datasetLabel + ' ' + formatValue(label);
+            },
+            tooltipTemplate: function (label) {
+
+                return label.label + ' ' + formatValue(label);
+            }
+        };
+
+        function formatValue(label) {
+            return $filter('currency')(label.value.toString(), '') + ' ' + $scope.user.model.currency.currencyCode;
+        }
 
         /**
          * Open date picker

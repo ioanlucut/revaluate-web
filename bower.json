@@ -5,8 +5,6 @@
     "jquery": "2.1.3",
     "lodash": "3.0.1",
     "bootstrap-sass": "3.3.4",
-    "mousetrap": "1.4.6",
-    "uploader": "0.9.1",
     "angular": "1.3.6",
     "angular-animate": "1.3.6",
     "angular-sanitize": "1.3.6",
@@ -17,10 +15,6 @@
     "angular-ui-bootstrap": "~0.12.0",
     "angular-filter": "~0.5.2",
     "url-to": "0.1.1",
-    "hello": "1.2.2",
-    "jstz-detect": "1.0.5",
-    "perfect-scrollbar": "0.4.6",
-    "sugar-date": "1.4.1",
     "moment": "~2.8.4",
     "angular-flash": "~0.1.14",
     "simptip": "1.0.4",
@@ -29,12 +23,14 @@
     "bourbon": "~4.2.1",
     "bitters": "~1.0.0",
     "neat": "~1.7.1",
-    "angucomplete-alt": "git@github.com:ioanlucut/angucomplete-alt.git",
     "ngDialog": "~0.3.12",
     "angular-chart.js": "~0.7.0",
     "angular-cache": "~4.2.0",
     "angular-file-upload": "~1.1.5",
-    "es5-shim": "~4.1.1"
+    "es5-shim": "~4.1.1",
+    "braintree-angular": "~1.2.6",
+    "angular-gravatar": "~0.3.1",
+    "angular-ui-select": "~0.12.0"
   },
   "resolutions": {
     "angular": "1.3.6"

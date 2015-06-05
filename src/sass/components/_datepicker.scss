@@ -37,13 +37,14 @@
             }
           }
 
-          tr > th:last-child {
+          tr:first-child > th:last-child {
             text-align: right;
           }
         }
 
         tbody {
-          padding: 3px;
+          padding: 2px;
+          border: solid 2px transparent;
 
           tr {
             border-width: 0;
@@ -51,6 +52,7 @@
             td {
               border-width: 0;
               padding: 0 !important;
+              margin: 1px;
 
               .btn {
                 padding: 0;
@@ -62,13 +64,16 @@
     }
 
     li:last-child {
-      padding: 5px 2px 2px 2px !important;
+      padding: 2px 0 0 0 !important;
       margin: 0 !important;
       text-align: center;
 
       .btn-group button {
         &:first-child {
           width: 100%; /* Make the "Today button wide */
+          @include btn($brand-default);
+          color: $gray-dark-1;
+          @include border-radius(0);
         }
         &:last-child {
           display: none; /* Hide the "Clear" button */
@@ -94,7 +99,7 @@
     background-color: $white;
 
     &:hover {
-      background-color: $gray-lightest;
+      background-color: $gray-light-2;
     }
   }
 

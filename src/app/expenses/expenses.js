@@ -4,6 +4,7 @@
 angular
     .module("revaluate.expenses", [
         "revaluate.common",
+        "revaluate.account",
         "revaluate.statistics"
     ])
     .config(["$stateProvider", function ($stateProvider) {
@@ -12,7 +13,7 @@ angular
 
             .state("expenses", {
                 url: "/expenses",
-                templateUrl: 'app/expenses/partials/expense/expenses.template.html',
+                templateUrl: 'app/expenses/partials/expense/expenses.abstract.html',
                 abstract: true
             })
 

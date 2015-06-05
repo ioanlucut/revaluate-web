@@ -10,6 +10,10 @@
 0. Our commit conventions can be found here : https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit
 1. Our package structure convention can be found here : https://docs.google.com/document/d/1XXMvReO8-Awi1EZXAXS4PzDzdNvV6pGcuaF4Q9821Es/mobilebasic?pli=1
 
+#Local
+You might want to use local env:
+* grunt local && grunt local watch
+
 #Dev release
 0. git checkout develop
 1. git pull

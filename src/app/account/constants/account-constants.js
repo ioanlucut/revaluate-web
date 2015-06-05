@@ -3,6 +3,11 @@
  */
 angular
     .module("revaluate.account")
+    .constant("USER_SUBSCRIPTION_STATUS", {
+        TRIAL: "TRIAL",
+        TRIAL_EXPIRED: "TRIAL_EXPIRED",
+        ACTIVE: "ACTIVE"
+    })
     .constant("AUTH_EVENTS", {
         isLoggedIn: "auth-is-logged-in",
         loginSuccess: "auth-login-success",
@@ -27,9 +32,18 @@ angular
         resetPasswordWithToken: "account/resetPassword/:email/:token",
         validatePasswordResetToken: "account/validateResetPasswordToken/:email/:token",
         updatePassword: "account/updatePassword",
+        requestConfirmationEmail: "account/requestConfirmationEmail/:email",
+        validateConfirmationEmailToken: "account/validateConfirmationEmailToken/:email/:token",
+        fetchPaymentToken: "payment/fetchToken",
+        fetchPaymentInsights: "payment/fetchPaymentInsights",
+        subscribeToStandardPlan: "payment/subscribeToStandardPlan",
+        createCustomerWithPaymentMethod: "payment/createCustomerWithPaymentMethod",
+        fetchPaymentStatus: "payment/fetchPaymentStatus",
+        updateCustomer: "payment/updateCustomer",
+        updatePaymentMethod: "payment/updatePaymentMethod",
+        isPaymentStatusDefined: "payment/isPaymentStatusDefined",
         //Below - deprecated
         refreshToken: "auth/refresh_token",
-        validateRegistrationToken: "account/validate_email_verification_token/:email/:token",
         requestSignUpRegistration: "account/send_email_verification_token"
     })
     .constant("ACCOUNT_FORM_STATE", {

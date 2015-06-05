@@ -36,14 +36,21 @@ angular
          * Selected currency
          * @type {{}}
          */
-        $scope.currency = $scope.user.model.currency;
+        /**
+         * Selected category
+         * @type {{}}
+         */
+        $scope.currency = {};
+        $scope.currency.selected = _.find($scope.currencies, function (currencyCandidate) {
+            return currencyCandidate.currencyCode === $scope.user.model.currency.currencyCode;
+        });
 
         /**
          * Initial profile data
          */
         function getInitialProfileData() {
             return {
-                currency: $scope.user.model.currency
+                currency: $scope.currency.selected
             };
         }
 
@@ -61,7 +68,7 @@ angular
                 // Show the loading bar
                 $scope.isSaving = true;
 
-                $scope.profileData.currency = angular.copy($scope.currency.originalObject || $scope.currency);
+                $scope.profileData.currency = angular.copy($scope.currency.selected || $scope.currency);
 
                 // Update the user
                 $scope.user

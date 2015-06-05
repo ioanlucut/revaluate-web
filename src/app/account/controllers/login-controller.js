@@ -49,7 +49,8 @@ angular
                         $scope.badPostSubmitResponse = true;
 
                         flash.to($scope.alertIdentifierId).error = "Your email or password are wrong. Please try again.";
-                    }).finally(function () {
+                    })
+                    .finally(function () {
                         // Stop the loading bar
                         $timeout(function () {
                             $scope.isRequestPending = false;

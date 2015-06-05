@@ -1,0 +1,87 @@
+<!--Payment profile section-->
+
+<!-- Title -->
+<h1 class="settings__title">Billing</h1>
+
+<!--Subscription payment section-->
+<div class="settings__box__section--50">
+
+    <div class="settings__title__h2">Subscription status</div>
+
+    <div ng-repeat="paymentMethodDTO in paymentInsights.paymentMethodDTOs">
+
+        <!--Payment method subscriptions-->
+        <div class="settings__box__payment-payment-method__subscription" ng-repeat="paymentSubscription in paymentMethodDTO.paymentSubscriptionDTOList">
+
+            <div class="settings__box__payment__subscription__status" ng-if="paymentInsights.subscriptionActive">
+                <div>
+                    <span class="settings__box__payment__subscription__status--active">{{paymentSubscription.status}}</span>
+                    <span class="settings__box__payment__subscription__status--info"> - Next payment: ${{paymentSubscription.amount}} due {{paymentSubscription.billingPeriodEndDate | friendlyDate}}</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="settings__box__payment__subscription__status" ng-if="! paymentInsights.subscriptionActive">
+        <div>
+            <span class="settings__box__payment__subscription__status--trial">Trial</span>
+            <span class="settings__box__payment__subscription__status--info">- First billing: $7.00 due 2015.05.25</span>
+        </div>
+    </div>
+
+    <!-- Payment form -->
+    <form ng-if="! paymentInsights.subscriptionActive" name="paymentSubscriptionForm" ng-submit="performPaymentSubscription()" novalidate>
+
+        <!-- Flash messages. -->
+        <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
+        <!-- Button container -->
+        <button class="settings__box__payment__subscription__btn" type="submit">{{isRequestPending ? 'Activating...' : 'Activate'}}</button>
+    </form>
+</div>
+
+<!--Payment method-->
+<div class="settings__box__section--50">
+
+    <div class="settings__title__h2">Payment method</div>
+
+    <div class="settings__box__payment__method" ng-repeat="paymentMethodDTO in paymentInsights.paymentMethodDTOs">
+        <div class="settings__box__payment__method__cardno">{{paymentMethodDTO.cardType}} ending with {{paymentMethodDTO.last4}}</div>
+        <div class="settings__box__payment__method__cardexp">Expiration: {{paymentMethodDTO.expirationMonth}} / {{paymentMethodDTO.expirationYear}}</div>
+        <img ng-src="{{paymentMethodDTO.imageUrl}}" />
+        <a class="link-navigation" href="javascript:void(0)" ui-sref="settings.payment.method">Update payment method</a>
+    </div>
+
+</div>
+
+<!--Billing History-->
+<div class="settings__box__section--100">
+
+    <div class="settings__title__h2">Billing History</div>
+
+    <table class="settings__box__payment__history">
+        <thead>
+        <tr>
+            <th>Status</th>
+            <th>ID</th>
+            <th>Amount</th>
+            <th>Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="paymentTransactionDTO in paymentInsights.paymentTransactionDTOs">
+            <td>
+                <span class="icon-checkmark settings__box__payment__history__status--settled" ng-if="paymentTransactionDTO.status == 'SETTLED'"></span>
+                <span class="icon-checkmark" ng-if="paymentTransactionDTO.status != 'SETTLED'"></span>
+            </td>
+            <td>
+                <a href="javascript:void(0)">{{paymentTransactionDTO.id}}</a>
+            </td>
+            <td>$ {{paymentTransactionDTO.amount}}</td>
+            <td>{{paymentTransactionDTO.createdAt | friendlyDate}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>

@@ -1,4 +1,4 @@
-<div class="settings__section__form">
+<div class="settings__box__section--50">
 
     <!-- Delete account -->
     <h1 class="settings__title">Delete account</h1>
@@ -7,6 +7,6 @@
     <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
     <!--Cancel account-->
-    <button class="settings__cancel__btn" ng-click="cancelAccount()">{{isDeleting ? 'Deleting...' : 'Delete my account'}}</button>
+    <button class="settings__cancel__btn" ng-click="cancelAccount()" disabled>{{isDeleting ? 'Deleting...' : 'Delete my account'}}</button>
 
 </div>

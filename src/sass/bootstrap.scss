@@ -7,12 +7,13 @@
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/tooltip";
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/popovers";
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/dropdowns";
+@import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_modals.scss";
 
 // ---
 // GOOGLE FONT.
 // ---
 //@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+//@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
 //@import url(http://fonts.googleapis.com/css?family=Indie+Flower);
 
 // ---
@@ -38,11 +39,6 @@
 @import "layouts/scafolding";
 
 // ---
-// Animate SCSS.
-// ---
-@import "../../bower_components/animate.css-scss/animate";
-
-// ---
 // Simptip.
 // ---
 @import "../../bower_components/simptip/simptip";
@@ -57,6 +53,11 @@
 // Angucomplete.
 // ---
 @import "vendor-modified/angucomplete";
+
+// ---
+// Selectize
+// ---
+@import "vendor-modified/selectize.default";
 
 // ---
 // App icons.
@@ -87,3 +88,4 @@
 @import "../app/insight/sass/insights";
 @import "../app/settings/sass/settings";
 @import "../app/import/sass/import";
+@import "../app/feedback/sass/feedback";

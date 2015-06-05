@@ -15,8 +15,13 @@ angular
              */
             responseError: function (response) {
 
-                if ( response.status === 500 && !response.config.cache ) {
+                var INTERNAL_SERVER_ERROR = 500;
+                var PAYMENT_REQUIRED = 402;
+
+                if ( response.status === INTERNAL_SERVER_ERROR && !response.config.cache ) {
                     $rootScope.$broadcast(ERROR_INTERCEPTOR.status500, response);
+                } else if ( response.status === PAYMENT_REQUIRED && !response.config.cache ) {
+                    $rootScope.$broadcast(ERROR_INTERCEPTOR.status402, response);
                 }
 
                 return $q.reject(response);

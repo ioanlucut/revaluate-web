@@ -1,0 +1,43 @@
+<!-- Payment section -->
+<div class="settings__box">
+
+    <!--Payment method section-->
+    <div class="settings__box__section--50">
+
+        <!-- Title -->
+        <h1 class="settings__title">Billing</h1>
+
+        <div class="section-text">
+            It seems that you have no payment info added yet. In order to subscribe to Revaluate, please add your credit
+            card details below.
+        </div>
+
+        <!-- Add payment method form -->
+        <form class="payment__form__addcard" name="addPaymentMethodForm" ng-submit="addPaymentMethod()" novalidate focus-first-error>
+
+            <!-- Flash messages. -->
+            <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
+            <!-- Form group -->
+            <div class="form-group-input payment__form__addcard__number" ng-class="{'has-error': addPaymentMethodForm.$submitted && (addPaymentMethodForm.cardNumber.$invalid || badPostSubmitResponse)}">
+                <label>Credit Card Number</label>
+                <input class="form-group-input__input" type="text" placeholder="4111111111111111" name="cardNumber" ng-model="paymentData.cardNumber" auto-focus required/>
+                <span class="form-group-input__message" ng-if="addPaymentMethodForm.cardNumber.$invalid && addPaymentMethodForm.$submitted">Please enter your card number.</span>
+            </div>
+
+            <!-- Form group -->
+            <div class="form-group-input payment__form__addcard__expiration" ng-class="{'has-error': addPaymentMethodForm.$submitted && (addPaymentMethodForm.cardExpirationDate.$invalid || badPostSubmitResponse)}">
+                <label>Expiration</label>
+                <input class="form-group-input__input" type="text" placeholder="10/18" name="cardExpirationDate" ng-model="paymentData.cardExpirationDate" required/>
+                <span class="form-group-input__message" ng-if="addPaymentMethodForm.cardExpirationDate.$invalid && addPaymentMethodForm.$submitted">Please enter card expiration date.</span>
+            </div>
+
+            <!-- Button container -->
+            <button class="settings__btn__save" type="submit">{{isRequestPending ? 'Saving...' : 'Add credit card'}}
+            </button>
+        </form>
+
+    </div>
+
+
+</div>
