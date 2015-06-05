@@ -26,8 +26,8 @@ angular
                 && User.$new().loadFromSession().isInitiated() ) {
 
                 /*Once user is initiated, do not let user to setup page*/
-            /*    event.preventDefault();
-                StatesHandler.goToExpenses();*/
+                event.preventDefault();
+                StatesHandler.goToExpenses();
             } else if (
                 !toState.isPublicPage
                 && toState.url.indexOf("/setup") === -1
