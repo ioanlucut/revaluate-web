@@ -55,17 +55,20 @@ angular
         signUp: "signUp",
         signUpConfirm: "signUpConfirm",
         signUpSetUp: "signUpSetUp",
+        generalError: "generalError",
         forgotPassword: "forgotPassword",
         requestSignUpRegistration: "requestSignUpRegistration",
         resetPassword: "resetPassword",
         updatePassword: "updatePassword",
         validatePassword: "validatePassword",
+        sendConfirmationEmail: "sendConfirmationEmail",
         createUpdateExpense: "createUpdateExpense",
         expenseList: "expenseList",
         insights: "insights",
         categoryList: "categoryList",
         createUpdateCategory: "createUpdateCategory",
         updateProfile: "updateProfile",
+        paymentProfile: "paymentProfile",
         cancelAccount: "cancelAccount",
         preferences: "preferences",
         import: "import"
@@ -83,6 +86,8 @@ angular
         profile: "profile",
         expenses: "expenses.regular",
         setUp: "setup",
+        addPayment: "settings.payment.add",
+        insightsPayment: "settings.payment.insights",
         account: "account"
     })
     .constant("ACCESS_LEVEL", {
@@ -90,7 +95,8 @@ angular
         forGuestUser: "forGuestUser"
     })
     .constant("ERROR_INTERCEPTOR", {
-        status500: "status500"
+        status500: "status500",
+        status402: "status402"
     });
 ;/**
  * Date source constants.
@@ -122,6 +128,8 @@ angular
         insightsFetched: "Insights fetched",
         settings: "Settings",
         settingsProfile: "Settings profile",
+        settingsPayment: "Settings payment",
+        settingsPaymentCustomer: "Settings payment customer",
         settingsPreferences: "Settings preferences",
         settingsImport: "Settings import",
         error404: "error-404",
@@ -172,48 +180,6 @@ angular
             }
         }
     }]);
-;/* Email list */
-
-angular
-    .module("revaluate.common")
-    .directive("emailList", function () {
-        return {
-            restrict: "A",
-            require: "ngModel",
-            scope: {
-                emails: "=ngModel",
-                parentForm: "="
-            },
-            templateUrl: "app/common/partials/emailList/emailList.html",
-            link: function (scope, el, attrs) {
-
-                scope.canAddEmail = true;
-                scope.$watch("emails.length", function (newLength, oldLength) {
-
-                    if ( newLength > oldLength ) {
-
-                        // Focus the new input
-                        el.find("input").focus();
-                    }
-                });
-
-                scope.addEmail = function (email) {
-                    if ( isNaN(attrs.maxEmails) || scope.emails.length < parseInt(attrs.maxEmails) ) {
-                        scope.emails.push({ email: email });
-                    }
-
-                    if ( !isNaN(attrs.maxEmails) && scope.emails.length >= parseInt(attrs.maxEmails) ) {
-                        scope.canAddEmail = false;
-                    }
-                };
-
-                scope.removeEmail = function (index) {
-                    scope.emails.splice(index, 1);
-                    scope.canAddEmail = true;
-                };
-            }
-        }
-    });
 ;angular
     .module("revaluate.common")
     .directive('escKey', function () {
@@ -376,126 +342,7 @@ angular
                 }
             });
         };
-    });;/* Natural Language Date Input */
-
-angular
-    .module("revaluate.common")
-    .directive("nlpDate", ["$rootScope", "DATE_SOURCE", function ($rootScope, DATE_SOURCE) {
-        return {
-            require: 'ngModel',
-            scope: {
-                date: "=",
-                text: "=ngModel"
-            },
-            restrict: "A",
-            link: function (scope, el, attrs, ctrl) {
-                scope.$watch("text", function (text) {
-
-                    // Implement validation
-                    if ( attrs.required && text && attrs.separator ) {
-
-                        // Make sure there is text before the separator
-                        ctrl.$setValidity('nlp-required', $.trim(text).indexOf(attrs.separator) !== 0);
-                    }
-
-                    // If a separator was specified, use it
-                    if ( text && attrs.separator ) {
-                        text = text.split(attrs.separator)[1];
-                    }
-
-                    // Don't parse empty strings
-                    if ( !text ) return;
-
-                    // Parse the string with SugarJS (http://sugarjs.com/)
-                    var date = Date.create(text);
-                    if ( !date.isValid() ) return;
-
-                    // Make sure date limits are respected
-                    if ( attrs.minDate && date.isBefore(scope.$eval(attrs.minDate)) ) return;
-                    if ( attrs.maxDate && attrs.maxDate && date.isAfter(attrs.maxDate) ) return;
-
-                    if ( scope.date.getYear() != date.getYear() || scope.date.getMonth() != date.getMonth() || scope.date.getDay() != date.getDay() ) {
-
-                        // Date was changed
-                        $rootScope.$broadcast("nlpDate:dateChange", null);
-                    }
-
-                    if ( scope.date.getHours() != date.getHours() || scope.date.getMinutes() != date.getMinutes() || scope.date.getSeconds() != date.getSeconds() ) {
-
-                        // Time was changed
-                        $rootScope.$broadcast("nlpDate:timeChange", null);
-                    }
-
-                    /**
-                     * Set date source.
-                     * @type {boolean}
-                     */
-                    date[DATE_SOURCE.isFromNlp] = true;
-
-                    /**
-                     * Set the computed date
-                     * @type {text}
-                     */
-                    scope.date = date;
-                });
-            }
-        }
-    }]);
-;angular
-    .module("revaluate.common")
-    .directive("outsideClick", ["$document", function ($document) {
-        return {
-            restrict: "A",
-            link: function (scope, elem, attrs) {
-
-                $document.on("click", function (event) {
-
-                    /* please ignore clicks from angucomplete */
-                    if ( event.target.className.indexOf("angucomplete") > -1 ) {
-                        return;
-                    }
-                    var isChild = elem.find(event.target).length > 0;
-
-                    if ( !isChild ) {
-                        scope.$apply(attrs.outsideClick);
-                    }
-                });
-
-                elem.on('$destroy', function () {
-                    $document.off("click");
-                });
-            }
-        }
-    }]);;/* Perfect scrollbar */
-
-angular
-    .module("revaluate.common")
-    .directive("perfectScrollbar", function () {
-        return {
-            restrict: 'A',
-            link: function (scope, el, attrs) {
-
-                // Init the perfect scrollbar
-                el.perfectScrollbar({
-                    wheelSpeed: scope.$eval(attrs.wheelSpeed) || 50,
-                    wheelPropagation: scope.$eval(attrs.wheelPropagation) || false,
-                    minScrollbarLength: scope.$eval(attrs.minScrollbarLength) || false,
-                    useBothWheelAxes: scope.$eval(attrs.useBothWheelAxes) || false,
-                    useKeyboard: scope.$eval(attrs.useKeyboard) || true,
-                    suppressScrollX: scope.$eval(attrs.suppressScrollX) || false,
-                    suppressScrollY: scope.$eval(attrs.suppressScrollY) || false,
-                    scrollXMarginOffset: scope.$eval(attrs.scrollXMarginOffset) || 0,
-                    scrollYMarginOffset: scope.$eval(attrs.scrollYMarginOffset) || 0
-                });
-
-                // Update the perfect scrollbar
-                attrs.updateOn && scope.$on(attrs.updateOn, function () {
-                    el.perfectScrollbar("update");
-                });
-            }
-        }
-    });
-;/* Scroll to an element on the page */
+    });;/* Scroll to an element on the page */
 
 angular
     .module("revaluate.common")
@@ -512,16 +359,6 @@ angular
             }
         }
     }]);
-;angular
-    .module("revaluate.common")
-    .directive("searchWidget", function () {
-        return {
-            restrict: "A",
-            link: function (scope, el) {
-                new UISearch(document.getElementById('sb-search'));
-            }
-        };
-    });
 ;angular
     .module('revaluate.common')
     .directive('submitOn', function () {
@@ -799,8 +636,13 @@ angular
              */
             responseError: function (response) {
 
-                if ( response.status === 500 && !response.config.cache ) {
+                var INTERNAL_SERVER_ERROR = 500;
+                var PAYMENT_REQUIRED = 402;
+
+                if ( response.status === INTERNAL_SERVER_ERROR && !response.config.cache ) {
                     $rootScope.$broadcast(ERROR_INTERCEPTOR.status500, response);
+                } else if ( response.status === PAYMENT_REQUIRED && !response.config.cache ) {
+                    $rootScope.$broadcast(ERROR_INTERCEPTOR.status402, response);
                 }
 
                 return $q.reject(response);
@@ -1112,6 +954,10 @@ angular
             this.go(STATES.setUp);
         };
 
+        this.goToAddPayment = function () {
+            this.go(STATES.addPayment);
+        };
+
         this.goToLogin = function () {
             this.go(STATES.account);
         };
@@ -1342,9 +1188,8 @@ angular
     .module("revaluate.feedback", []);;angular
     .module("revaluate.feedback")
     .constant("FEEDBACK_URLS", {
-        feedback: "feedback/send"
-    });
-;angular
+        feedback: "account/sendFeedback"
+    });;angular
     .module("revaluate.feedback")
     .controller("FeedbackModalController", ["$scope", "FeedbackModalService", "Feedback", "$timeout", function ($scope, FeedbackModalService, Feedback, $timeout) {
 
@@ -1564,7 +1409,8 @@ angular
                     validateTokenResult: ["$stateParams", "$q", "AuthService", "$state", function ($stateParams, $q, AuthService, $state) {
                         var deferred = $q.defer();
 
-                        AuthService.validatePasswordResetToken($stateParams.email, $stateParams.token)
+                        AuthService
+                            .validatePasswordResetToken($stateParams.email, $stateParams.token)
                             .then(function (response) {
                                 deferred.resolve({ email: $stateParams.email, token: $stateParams.token });
                                 return response;
@@ -1588,6 +1434,64 @@ angular
                 templateUrl: "app/account/partials/validate_password_reset_token_invalid.html",
                 controller: "ValidatePasswordResetTokenInvalidController",
                 title: "Reset password - Revaluate",
+                isPublicPage: true
+            })
+
+            ///////////////////////////////////////////////
+            /*Confirmation email related views*/
+            ///////////////////////////////////////////////
+
+            // Confirmation email abstract view
+            .state({
+                name: "account:confirmationEmail",
+                url: "/account/confirm-email",
+                templateUrl: "app/account/partials/email_confirmation_send_abstract.html",
+                abstract: true
+            })
+            // Validate confirmation email token - valid
+            .state({
+                name: "account:confirmationEmail.valid",
+                url: "/{email}/{token}",
+                templateUrl: "app/account/partials/email_confirmation_send_valid.html",
+                resolve: {
+                    validateTokenResult: ["AuthService", "$rootScope", "$stateParams", "$q", "$state", "AUTH_EVENTS", function (AuthService, $rootScope, $stateParams, $q, $state, AUTH_EVENTS) {
+                        var deferred = $q.defer();
+
+                        AuthService
+                            .validateConfirmationEmailToken($stateParams.email, $stateParams.token)
+                            .then(function (response) {
+
+                                // ---
+                                // Update user if logged in.
+                                // ---
+                                if ( AuthService.isAuthenticated() ) {
+                                    $rootScope
+                                        .currentUser
+                                        .setEmailConfirmedAndReload();
+                                    $rootScope.$broadcast(AUTH_EVENTS.refreshUser, {});
+                                }
+
+                                deferred.resolve({});
+                                return response;
+                            })
+                            .catch(function (response) {
+
+                                $state.go("account:confirmationEmail.invalid");
+                                return response;
+                            });
+
+                        return deferred.promise;
+                    }]
+                },
+                title: "Confirm email - Revaluate",
+                isPublicPage: true
+            })
+            // Validate password reset token - invalid token
+            .state({
+                name: "account:confirmationEmail.invalid",
+                url: "/invalid-token",
+                templateUrl: "app/account/partials/email_confirmation_send_invalid.html",
+                title: "Invalid confirmation email token - Revaluate",
                 isPublicPage: true
             })
 
@@ -1623,6 +1527,11 @@ angular
  */
 angular
     .module("revaluate.account")
+    .constant("USER_SUBSCRIPTION_STATUS", {
+        TRIAL: "TRIAL",
+        TRIAL_EXPIRED: "TRIAL_EXPIRED",
+        ACTIVE: "ACTIVE"
+    })
     .constant("AUTH_EVENTS", {
         isLoggedIn: "auth-is-logged-in",
         loginSuccess: "auth-login-success",
@@ -1647,9 +1556,18 @@ angular
         resetPasswordWithToken: "account/resetPassword/:email/:token",
         validatePasswordResetToken: "account/validateResetPasswordToken/:email/:token",
         updatePassword: "account/updatePassword",
+        requestConfirmationEmail: "account/requestConfirmationEmail/:email",
+        validateConfirmationEmailToken: "account/validateConfirmationEmailToken/:email/:token",
+        fetchPaymentToken: "payment/fetchToken",
+        fetchPaymentInsights: "payment/fetchPaymentInsights",
+        subscribeToStandardPlan: "payment/subscribeToStandardPlan",
+        createCustomerWithPaymentMethod: "payment/createCustomerWithPaymentMethod",
+        fetchPaymentStatus: "payment/fetchPaymentStatus",
+        updateCustomer: "payment/updateCustomer",
+        updatePaymentMethod: "payment/updatePaymentMethod",
+        isPaymentStatusDefined: "payment/isPaymentStatusDefined",
         //Below - deprecated
         refreshToken: "auth/refresh_token",
-        validateRegistrationToken: "account/validate_email_verification_token/:email/:token",
         requestSignUpRegistration: "account/send_email_verification_token"
     })
     .constant("ACCOUNT_FORM_STATE", {
@@ -1672,6 +1590,52 @@ angular
     .constant("USER_URLS", {
         userUnique: "account/isUniqueEmail"
     });
+;angular
+    .module("revaluate.account")
+    .controller("EmailConfirmationSendController", ["$scope", "$rootScope", "$timeout", "flash", "AuthService", "StatesHandler", "ACCOUNT_FORM_STATE", "ALERTS_CONSTANTS", function ($scope, $rootScope, $timeout, flash, AuthService, StatesHandler, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {
+
+        var TIMEOUT_PENDING = 300;
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.validatePassword;
+
+        /**
+         * Current user.
+         */
+        $scope.user = $rootScope.currentUser;
+
+        var sendConfirmationEmailData = {
+            email: $scope.user.model.email
+        };
+
+        $scope.sendConfirmationEmail = function (sendConfirmationEmailForm) {
+            if ( sendConfirmationEmailForm.$valid && !$scope.isRequestPending ) {
+
+                // Show the loading bar
+                $scope.isRequestPending = true;
+
+                AuthService
+                    .requestConfirmationEmail(sendConfirmationEmailData.email)
+                    .then(function () {
+                        flash.to($scope.alertIdentifierId).success = 'We\'ve successfully sent the confirmation email!';
+
+                        $timeout(function () {
+                            $scope.isRequestPending = false;
+                        }, TIMEOUT_PENDING);
+                    })
+                    .catch(function () {
+                        /* If bad feedback from server */
+                        $scope.badPostSubmitResponse = true;
+                        $scope.isRequestPending = false;
+
+                        flash.to($scope.alertIdentifierId).error = "Sorry, something went wrong.";
+                    });
+            }
+        };
+
+    }]);
 ;/**
  * Forgot password controller responsible for user forgot password action.
  */
@@ -1819,7 +1783,8 @@ angular
                         $scope.badPostSubmitResponse = true;
 
                         flash.to($scope.alertIdentifierId).error = "Your email or password are wrong. Please try again.";
-                    }).finally(function () {
+                    })
+                    .finally(function () {
                         // Stop the loading bar
                         $timeout(function () {
                             $scope.isRequestPending = false;
@@ -1890,8 +1855,12 @@ angular
         // ---
         // Populate predefined categories with colors.
         // ---
-        _.each($scope.categories, function (category) {
-            category.color = CategoryColorService.randomizedColor($scope.colors);
+        $scope.categories = _.map($scope.categories, function (category) {
+            return {
+                name: category,
+                selected: true,
+                color: $scope.colors[$scope.categories.indexOf(category)]
+            };
         });
 
         /**
@@ -2008,7 +1977,7 @@ angular
 
             var selectedCategories = angular.copy(getSelectedCategories());
             var userProfileToBeUpdated = {
-                currency: angular.copy($scope.currency.originalObject),
+                currency: angular.copy($scope.currency.selected),
                 initiated: true
             };
 
@@ -2379,8 +2348,7 @@ angular
     .service("AuthService", ["$rootScope", "$q", "$http", "$location", "redirectToUrlAfterLogin", "SessionService", "AUTH_EVENTS", "AUTH_URLS", "AUTH_TOKEN_HEADER", function ($rootScope, $q, $http, $location, redirectToUrlAfterLogin, SessionService, AUTH_EVENTS, AUTH_URLS, AUTH_TOKEN_HEADER) {
 
         /**
-         * Is User already authenticated ?
-         * @returns {*}
+         * Is user already authenticated ?
          */
         this.isAuthenticated = function () {
             return SessionService.sessionExists();
@@ -2388,10 +2356,6 @@ angular
 
         /**
          * Login functionality
-         *
-         * @param email
-         * @param password
-         * @returns {*}
          */
         this.login = function (email, password) {
 
@@ -2415,8 +2379,6 @@ angular
 
         /**
          * Logout functionality
-         *
-         * @returns {*}
          */
         this.logout = function () {
             SessionService.destroy();
@@ -2425,8 +2387,6 @@ angular
 
         /**
          * Request password reset functionality
-         * @param email
-         * @returns {*}
          */
         this.requestPasswordReset = function (email) {
             return $http
@@ -2435,8 +2395,6 @@ angular
 
         /**
          * Request registration functionality
-         * @param email
-         * @returns {*}
          */
         this.requestSignUpRegistration = function (email) {
             return $http
@@ -2445,14 +2403,26 @@ angular
                 });
         };
 
+        this.requestConfirmationEmail = function (email) {
+            return $http
+                .post(URLTo.api(AUTH_URLS.requestConfirmationEmail, { ":email": email }))
+                .then(function (response) {
+                    return response.data;
+                });
+        };
+
+        this.validateConfirmationEmailToken = function (email, token) {
+            return $http
+                .post(URLTo.api(AUTH_URLS.validateConfirmationEmailToken, { ":email": email, ":token": token }), {
+                    skipAuthorization: true
+                })
+                .then(function (response) {
+                    return response.data;
+                });
+        };
+
         /**
          * Reset password with token.
-         *
-         * @param email
-         * @param password
-         * @param passwordConfirmation
-         * @param token
-         * @returns {*}
          */
         this.resetPasswordWithToken = function (email, password, passwordConfirmation, token) {
             return $http
@@ -2471,9 +2441,6 @@ angular
 
         /**
          * Validate password reset token.
-         *
-         * @param token
-         * @returns {*}
          */
         this.validatePasswordResetToken = function (email, token) {
             return $http
@@ -2486,30 +2453,7 @@ angular
         };
 
         /**
-         * Validate registration email token.
-         *
-         * @param token
-         * @param email
-         * @returns {*}
-         */
-        this.validateRegistrationToken = function (email, token) {
-            return $http
-                .post(URLTo.api(AUTH_URLS.validateRegistrationToken, { ":email": email, ":token": token }),
-                {
-                    skipAuthorization: true
-                })
-                .then(function (response) {
-                    return response.data;
-                });
-        };
-
-        /**
          * Update password.
-         *
-         * @param oldPassword
-         * @param newPassword
-         * @param newPasswordConfirmation
-         * @returns {*}
          */
         this.updatePassword = function (oldPassword, newPassword, newPasswordConfirmation) {
             return $http
@@ -2553,7 +2497,7 @@ angular
  */
 angular
     .module("revaluate.account")
-    .service("AuthFilter", ["AuthService", "StatesHandler", "User", function (AuthService, StatesHandler, User) {
+    .service("AuthFilter", ["AuthService", "StatesHandler", "User", "STATES", "flash", "ALERTS_CONSTANTS", function (AuthService, StatesHandler, User, STATES, flash, ALERTS_CONSTANTS) {
 
         return function (event, toState) {
             if (
@@ -2587,6 +2531,20 @@ angular
                 /*If user is not initiated but authenticated, and tries to go to a non public page, go to setup page*/
                 event.preventDefault();
                 StatesHandler.goToSetUp();
+            } else if (
+                !toState.isPublicPage
+                && !toState.isPaymentRelatedPage
+                && AuthService.isAuthenticated()
+                && User.$new().loadFromSession().isTrialPeriodExpired() ) {
+
+                /*If user is with trial expired, authenticated and tries to go to a non public page, go to payment*/
+                event.preventDefault();
+
+                // ---
+                // Show error.
+                // ---
+                flash.to(ALERTS_CONSTANTS.generalError).error = "You must define a payment method and subscribe to revaluate plan before further using revaluate.";
+                StatesHandler.goToAddPayment();
             }
 
         };
@@ -2695,7 +2653,7 @@ angular
     }]);
 ;angular
     .module("revaluate.account")
-    .factory("User", ["SessionService", "TransformerUtils", "$q", "$http", "AUTH_URLS", function (SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
+    .factory("User", ["SessionService", "TransformerUtils", "$q", "$http", "AUTH_URLS", "USER_SUBSCRIPTION_STATUS", function (SessionService, TransformerUtils, $q, $http, AUTH_URLS, USER_SUBSCRIPTION_STATUS) {
         return {
 
             $new: function () {
@@ -2713,10 +2671,11 @@ angular
                         password: "",
                         timezone: "",
                         initiated: false,
-                        helpdeskAuthToken: "",
-                        currency: {
-                            "currencyCode": ""
-                        }
+                        createdDate: "",
+                        endTrialDate: "",
+                        userSubscriptionStatus: "",
+                        emailConfirmed: false,
+                        currency: {}
                     },
 
                     /**
@@ -2733,6 +2692,26 @@ angular
                      */
                     isInitiated: function () {
                         return this.isAuthenticated() && this.model.initiated;
+                    },
+
+                    getTrialRemainingDays: function () {
+                        var difference = moment(this.model.endTrialDate).diff(moment(), 'days');
+                        if ( difference < 0 ) {
+
+                            return 0;
+                        }
+                        return difference;
+                    },
+
+                    showTrialRemainingDays: function () {
+                        var trialRemainingDays = this.getTrialRemainingDays();
+
+                        return trialRemainingDays > 0 && trialRemainingDays <= 5;
+                    },
+
+                    isTrialPeriodExpired: function () {
+
+                        return (this.model.userSubscriptionStatus === USER_SUBSCRIPTION_STATUS.TRIAL && this.getTrialRemainingDays() === 0) || this.model.userSubscriptionStatus === USER_SUBSCRIPTION_STATUS.TRIAL_EXPIRED;
                     },
 
                     /**
@@ -2755,12 +2734,27 @@ angular
                     },
 
                     /**
-                     * Saves a user to cookies.
-                     * @returns {*}
+                     * Set email as confirmed
+                     */
+                    setEmailConfirmedAndReload: function () {
+                        this.loadFrom({ emailConfirmed: true });
+                        this.saveToSession();
+                    },
+
+                    /**
+                     * Update subscription status
+                     */
+                    setSubscriptionStatusAsAndReload: function (status) {
+                        this.loadFrom({ userSubscriptionStatus: status });
+                        this.saveToSession();
+                    },
+
+                    /**
+                     * Saves a user to local storage.
                      */
                     saveToSession: function () {
                         var sessionData = {};
-                        TransformerUtils.copyKeysFromTo(this, sessionData, ["password"]);
+                        TransformerUtils.copyKeysFromTo(this.model, sessionData, ["password"]);
                         SessionService.setData(sessionData);
 
                         return this;
@@ -2868,6 +2862,119 @@ angular
             })
 
             // ---
+            // Payment pages.
+            // ---
+
+            .state({
+                name: "settings.payment",
+                url: "/payment",
+                templateUrl: "app/settings/partials/settings.payment.abstract.html",
+                abstract: true
+            })
+
+            .state({
+                name: "settings.payment.add",
+                url: "/add",
+                templateUrl: "app/settings/partials/settings.payment.add.html",
+                controller: "SettingsPaymentMethodAddController",
+                isPaymentRelatedPage: true,
+                resolve: {
+                    clientToken: ["$http", "AUTH_URLS", function ($http, AUTH_URLS) {
+                        return $http
+                            .post(URLTo.api(AUTH_URLS.fetchPaymentToken))
+                            .then(function (response) {
+                                return response.data.clientToken;
+                            });
+                    }],
+                    paymentStatus: ["$http", "AUTH_URLS", "$state", function ($http, AUTH_URLS, $state) {
+                        return $http
+                            .get(URLTo.api(AUTH_URLS.isPaymentStatusDefined))
+                            .then(function (response) {
+                                if ( response.data.paymentStatusDefined ) {
+
+                                    $state.go("settings.payment.insights");
+                                }
+                                return response.data.paymentStatusDefined;
+                            });
+                    }]
+
+                },
+                title: "Payment method - Revaluate"
+            })
+
+            .state({
+                name: "settings.payment.method",
+                url: "/method",
+                templateUrl: "app/settings/partials/settings.payment.method.html",
+                controller: "SettingsPaymentMethodController",
+                isPaymentRelatedPage: true,
+                resolve: {
+                    clientToken: ["$http", "AUTH_URLS", function ($http, AUTH_URLS) {
+                        return $http
+                            .post(URLTo.api(AUTH_URLS.fetchPaymentToken))
+                            .then(function (response) {
+                                return response.data.clientToken;
+                            });
+                    }],
+                    paymentInsights: ["$http", "$state", "AUTH_URLS", function ($http, $state, AUTH_URLS) {
+                        return $http
+                            .get(URLTo.api(AUTH_URLS.fetchPaymentInsights))
+                            .then(function (response) {
+                                return response.data;
+                            })
+                            .catch(function () {
+
+                                $state.go("settings.payment.add");
+                            });
+                    }]
+                },
+                title: "Payment edit payment method - Revaluate"
+            })
+
+            .state({
+                name: "settings.payment.customer",
+                url: "/customer",
+                templateUrl: "app/settings/partials/settings.payment.customer.html",
+                controller: "SettingsPaymentCustomerController",
+                isPaymentRelatedPage: true,
+                resolve: {
+                    paymentInsights: ["$http", "$state", "AUTH_URLS", function ($http, $state, AUTH_URLS) {
+                        return $http
+                            .get(URLTo.api(AUTH_URLS.fetchPaymentInsights))
+                            .then(function (response) {
+                                return response.data;
+                            })
+                            .catch(function () {
+
+                                $state.go("settings.payment.add");
+                            });
+                    }]
+                },
+                title: "Payment edit customer - Revaluate"
+            })
+
+            .state("settings.payment.insights", {
+                url: "/insights",
+                templateUrl: "app/settings/partials/settings.payment.insights.html",
+                controller: "SettingsPaymentInsightsController",
+                isPaymentRelatedPage: true,
+                resolve: {
+                    paymentInsights: ["$http", "$state", "AUTH_URLS", function ($http, $state, AUTH_URLS) {
+                        return $http
+                            .get(URLTo.api(AUTH_URLS.fetchPaymentInsights))
+                            .then(function (response) {
+                                return response.data;
+                            })
+                            .catch(function () {
+
+                                $state.go("settings.payment.add");
+                            });
+                    }]
+                },
+                title: "Payment insights - Revaluate"
+            })
+
+            // ---
             // Admin page.
             // ---
             .state("settings.admin", {
@@ -2957,6 +3064,459 @@ angular
                     });
             }
         };
+    }]);;angular
+    .module("revaluate.settings")
+    .value('clientTokenPath', URLTo.api("payment/fetchToken"));;angular
+    .module("revaluate.settings")
+    .controller("SettingsPaymentCustomerController", ["$q", "$scope", "$rootScope", "$timeout", "$http", "AUTH_URLS", "paymentInsights", "flash", "ALERTS_CONSTANTS", "MIXPANEL_EVENTS", function ($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, paymentInsights, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+
+        var TIMEOUT_PENDING = 300;
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.paymentProfile;
+
+        /**
+         * Track event.
+         */
+        mixpanel.track(MIXPANEL_EVENTS.settingsPaymentCustomer);
+
+        /**
+         * Current user.
+         */
+        $scope.user = $rootScope.currentUser;
+
+        // ---
+        // Payment status.
+        // ---
+        $scope.paymentInsights = paymentInsights;
+
+        /**
+         * Initial Payment details data
+         */
+        function getInitialPaymentDetailsData() {
+            return {
+                firstName: $scope.paymentInsights.paymentCustomerDTO.firstName,
+                lastName: $scope.paymentInsights.paymentCustomerDTO.lastName,
+                email: $scope.paymentInsights.paymentCustomerDTO.email
+            }
+        }
+
+        /**
+         * Payment details data.
+         */
+        $scope.paymentDetailsData = angular.copy(getInitialPaymentDetailsData());
+
+        // ---
+        // UPDATE CUSTOMER RELATED
+        // ---
+        $scope.updateCustomer = function () {
+            if ( $scope.updateCustomerForm.$valid && !$scope.isRequestPending ) {
+
+                // Show the loading bar
+                $scope.isRequestPending = true;
+
+                var paymentDetailsData = angular.copy($scope.paymentDetailsData);
+
+                return $http
+                    .put(URLTo.api(AUTH_URLS.updateCustomer), paymentDetailsData)
+                    .then(function (response) {
+                        $scope.paymentInsights = response.data;
+
+                        // ---
+                        // Reset the payment data with empty new data.
+                        // ---
+                        $scope.paymentDetailsData = angular.copy(getInitialPaymentDetailsData());
+
+                        $scope.updateCustomerForm.$setPristine();
+                        flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your customer information!';
+
+                        $timeout(function () {
+                            $scope.isRequestPending = false;
+                        }, TIMEOUT_PENDING);
+                    })
+                    .catch(function (response) {
+                        /* If bad feedback from server */
+                        $scope.badPostSubmitResponse = true;
+                        $scope.isRequestPending = false;
+
+                        // ---
+                        // Show errors.
+                        // ---
+                        var errors = response.data;
+                        if ( _.isArray(errors) ) {
+                            flash.to($scope.alertIdentifierId).error = errors.join("\n");
+                        }
+                        else {
+                            flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to update your customer information.';
+                        }
+                    });
+            }
+        };
+
+    }]);;angular
+    .module("revaluate.settings")
+    .controller("SettingsPaymentInsightsController", ["$q", "$scope", "$rootScope", "$timeout", "$http", "paymentInsights", "flash", "AUTH_URLS", "ALERTS_CONSTANTS", "MIXPANEL_EVENTS", "AUTH_EVENTS", "USER_SUBSCRIPTION_STATUS", function ($q, $scope, $rootScope, $timeout, $http, paymentInsights, flash, AUTH_URLS, ALERTS_CONSTANTS, MIXPANEL_EVENTS, AUTH_EVENTS, USER_SUBSCRIPTION_STATUS) {
+
+        var TIMEOUT_PENDING = 300;
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.paymentProfile;
+
+        /**
+         * Track event.
+         */
+        mixpanel.track(MIXPANEL_EVENTS.settingsPayment);
+
+        /**
+         * Current user.
+         */
+        $scope.user = $rootScope.currentUser;
+
+        // ---
+        // Payment insights got from server.
+        // ---
+        $scope.paymentInsights = paymentInsights;
+
+        // ---
+        // On submit, perform payment subscription.
+        // ---
+        $scope.performPaymentSubscription = function () {
+            if ( !$scope.isRequestPending ) {
+
+                // Show the loading bar
+                $scope.isRequestPending = true;
+
+                return $http
+                    .post(URLTo.api(AUTH_URLS.subscribeToStandardPlan), {})
+                    .then(function (response) {
+                        $scope.paymentInsights = response.data;
+
+                        // ---
+                        // Update user with subscription status ACTIVE.
+                        // ---
+                        $scope
+                            .user
+                            .setSubscriptionStatusAsAndReload(USER_SUBSCRIPTION_STATUS.ACTIVE);
+                        $rootScope
+                            .$broadcast(AUTH_EVENTS.refreshUser, {});
+
+                        // ---
+                        // Clean previously errors.
+                        // ---
+                        flash.to(ALERTS_CONSTANTS.generalError).error = '';
+                        flash.to($scope.alertIdentifierId).success = 'You\'ve successfully subscribed to Revaluate!';
+
+                        $timeout(function () {
+                            $scope.isRequestPending = false;
+                        }, TIMEOUT_PENDING);
+                    })
+                    .catch(function (response) {
+                        /* If bad feedback from server */
+                        $scope.badPostSubmitResponse = true;
+                        $scope.isRequestPending = false;
+
+                        // ---
+                        // Show errors.
+                        // ---
+                        var errors = response.data;
+                        if ( _.isArray(errors) ) {
+                            flash.to($scope.alertIdentifierId).error = errors.join("\n");
+                        }
+                        else {
+                            flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to subscribe you to Revaluate.';
+                        }
+                    });
+
+            }
+
+        };
+
+    }]);;angular
+    .module("revaluate.settings")
+    .controller("SettingsPaymentMethodAddController", ["$q", "$scope", "$state", "$rootScope", "$timeout", "$http", "AUTH_URLS", "$braintree", "clientToken", "paymentStatus", "flash", "ALERTS_CONSTANTS", "MIXPANEL_EVENTS", function ($q, $scope, $state, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentStatus, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+
+        var TIMEOUT_PENDING = 300;
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.paymentProfile;
+
+        /**
+         * Track event.
+         */
+        mixpanel.track(MIXPANEL_EVENTS.settingsPayment);
+
+        /**
+         * Current user.
+         */
+        $scope.user = $rootScope.currentUser;
+
+        // ---
+        // Braintree client token got from server.
+        // ---
+        $scope.clientToken = clientToken;
+
+        // ---
+        // Payment status.
+        // ---
+        $scope.paymentStatus = paymentStatus;
+
+        // ---
+        // Braintree client.
+        // ---
+        $scope.client = new $braintree.api.Client({
+            clientToken: clientToken
+        });
+
+        /**
+         * Initial payment data
+         */
+        function getInitialPaymentData() {
+            return {
+                cardNumber: '',
+                cardExpirationDate: ''
+            }
+        }
+
+        /**
+         * Profile user information.
+         */
+        $scope.paymentData = angular.copy(getInitialPaymentData());
+
+        /**
+         * Initial payment details data
+         */
+        function getInitialPaymentDetailsData() {
+            return {
+                paymentCustomerDetailsDTO: {
+                    firstName: $scope.user.model.firstName,
+                    lastName: $scope.user.model.lastName,
+                    email: $scope.user.model.email
+                },
+                paymentNonceDetailsDTO: {
+                    paymentMethodNonce: ''
+                }
+            }
+        }
+
+        /**
+         * Payment details data.
+         */
+        $scope.paymentDetailsData = angular.copy(getInitialPaymentDetailsData());
+
+        // ---
+        // On submit, add payment method.
+        // ---
+        $scope.addPaymentMethod = function () {
+            if ( $scope.addPaymentMethodForm.$valid && !$scope.isRequestPending ) {
+
+                // Show the loading bar
+                $scope.isRequestPending = true;
+
+                // - Validate $scope.paymentData
+                // - Make sure client is ready to use
+                $scope
+                    .client
+                    .tokenizeCard({
+                        number: $scope.paymentData.cardNumber,
+                        expirationDate: $scope.paymentData.cardExpirationDate
+                    }, function (err, nonce) {
+
+                        if ( err ) {
+                            flash.to($scope.alertIdentifierId).error = err;
+                        }
+                        else {
+                            flash.to($scope.alertIdentifierId).error = '';
+
+                            // ---
+                            // Update details with the received nonce.
+                            // ---
+                            var paymentDetailsData = angular.copy($scope.paymentDetailsData);
+                            paymentDetailsData.paymentNonceDetailsDTO.paymentMethodNonce = nonce;
+
+                            return $http
+                                .post(URLTo.api(AUTH_URLS.createCustomerWithPaymentMethod), paymentDetailsData)
+                                .then(function () {
+
+                                    // ---
+                                    // Reset the payment data with empty new data.
+                                    // ---
+                                    $scope.paymentData = angular.copy(getInitialPaymentData());
+
+                                    $scope.addPaymentMethodForm.$setPristine();
+                                    flash.to($scope.alertIdentifierId).success = 'We\'ve successfully saved your payment method!';
+
+                                    $timeout(function () {
+                                        $scope.isRequestPending = false;
+
+                                        // ---
+                                        // If successful, go to insights.
+                                        // ---
+                                        $state.go("settings.payment.insights");
+                                    }, TIMEOUT_PENDING);
+                                })
+                                .catch(function (response) {
+                                    /* If bad feedback from server */
+                                    $scope.badPostSubmitResponse = true;
+                                    $scope.isRequestPending = false;
+
+                                    // ---
+                                    // Show errors.
+                                    // ---
+                                    var errors = response.data;
+                                    if ( _.isArray(errors) ) {
+                                        flash.to($scope.alertIdentifierId).error = errors.join("\n");
+                                    }
+                                    else {
+                                        flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to save your payment method.';
+                                    }
+                                });
+                        }
+                    });
+            }
+
+        };
+
+    }]);;angular
+    .module("revaluate.settings")
+    .controller("SettingsPaymentMethodController", ["$q", "$scope", "$rootScope", "$timeout", "$http", "AUTH_URLS", "$braintree", "clientToken", "paymentInsights", "flash", "ALERTS_CONSTANTS", "MIXPANEL_EVENTS", function ($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentInsights, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+
+        var TIMEOUT_PENDING = 300;
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.paymentProfile;
+
+        /**
+         * Track event.
+         */
+        mixpanel.track(MIXPANEL_EVENTS.settingsPayment);
+
+        /**
+         * Current user.
+         */
+        $scope.user = $rootScope.currentUser;
+
+        // ---
+        // Braintree client token got from server.
+        // ---
+        $scope.clientToken = clientToken;
+
+        // ---
+        // Payment status.
+        // ---
+        $scope.paymentInsights = paymentInsights;
+
+        // ---
+        // Braintree client.
+        // ---
+        $scope.client = new $braintree.api.Client({
+            clientToken: clientToken
+        });
+
+        /**
+         * Initial payment data
+         */
+        function getInitialPaymentData() {
+            return {
+                cardNumber: '',
+                cardExpirationDate: ''
+            }
+        }
+
+        /**
+         * Profile user information.
+         */
+        $scope.paymentData = angular.copy(getInitialPaymentData());
+
+        /**
+         * Initial Payment details data
+         */
+        function getInitialPaymentDetailsData() {
+            return {
+                paymentMethodNonce: ''
+            }
+        }
+
+        /**
+         * Payment details data.
+         */
+        $scope.paymentDetailsData = angular.copy(getInitialPaymentDetailsData());
+
+        // ---
+        // UPDATE PAYMENT METHOD RELATED
+        // ---
+        $scope.updatePaymentMethod = function () {
+            if ( $scope.updatePaymentMethodForm.$valid && !$scope.isRequestPending ) {
+
+                // Show the loading bar
+                $scope.isRequestPending = true;
+
+                // - Validate $scope.paymentData
+                // - Make sure client is ready to use
+                $scope
+                    .client
+                    .tokenizeCard({
+                        number: $scope.paymentData.cardNumber,
+                        expirationDate: $scope.paymentData.cardExpirationDate
+                    }, function (err, nonce) {
+
+                        if ( err ) {
+                            flash.to($scope.alertIdentifierId).error = err;
+                        }
+                        else {
+                            flash.to($scope.alertIdentifierId).error = '';
+
+                            // ---
+                            // Update details with the received nonce.
+                            // ---
+                            var paymentDetailsData = angular.copy($scope.paymentDetailsData);
+                            paymentDetailsData.paymentMethodNonce = nonce;
+
+                            return $http
+                                .put(URLTo.api(AUTH_URLS.updatePaymentMethod), paymentDetailsData)
+                                .then(function () {
+
+                                    // ---
+                                    // Reset the payment data with empty new data.
+                                    // ---
+                                    $scope.paymentData = angular.copy(getInitialPaymentData());
+
+                                    $scope.updatePaymentMethodForm.$setPristine();
+                                    flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your payment method!';
+
+                                    $timeout(function () {
+                                        $scope.isRequestPending = false;
+                                    }, TIMEOUT_PENDING);
+                                })
+                                .catch(function (response) {
+                                    /* If bad feedback from server */
+                                    $scope.badPostSubmitResponse = true;
+                                    $scope.isRequestPending = false;
+
+                                    // ---
+                                    // Show errors.
+                                    // ---
+                                    var errors = response.data;
+                                    if ( _.isArray(errors) ) {
+                                        flash.to($scope.alertIdentifierId).error = errors.join("\n");
+                                    }
+                                    else {
+                                        flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to update your payment method.';
+                                    }
+                                });
+                        }
+                    });
+            }
+
+        };
+
     }]);;/**
  * Preferences controller responsible for user update preferences action.
  */
@@ -2995,14 +3555,21 @@ angular
          * Selected currency
          * @type {{}}
          */
-        $scope.currency = $scope.user.model.currency;
+        /**
+         * Selected category
+         * @type {{}}
+         */
+        $scope.currency = {};
+        $scope.currency.selected = _.find($scope.currencies, function (currencyCandidate) {
+            return currencyCandidate.currencyCode === $scope.user.model.currency.currencyCode;
+        });
 
         /**
          * Initial profile data
          */
         function getInitialProfileData() {
             return {
-                currency: $scope.user.model.currency
+                currency: $scope.currency.selected
             };
         }
 
@@ -3020,7 +3587,7 @@ angular
                 // Show the loading bar
                 $scope.isSaving = true;
 
-                $scope.profileData.currency = angular.copy($scope.currency.originalObject || $scope.currency);
+                $scope.profileData.currency = angular.copy($scope.currency.selected || $scope.currency);
 
                 // Update the user
                 $scope.user
@@ -3730,15 +4297,10 @@ angular
                 colors: "="
             },
             templateUrl: "app/categories/partials/color-picker-directive-template.html",
-            link: function (scope, el, attrs) {
+            link: function (scope, elm, attrs) {
 
                 // By default the popover is closed
-                scope.isOpen = true;
-
-                // Open the popover
-                scope.open = function () {
-                    scope.isOpen = true;
-                };
+                scope.isOpen = false;
 
                 // Close the popover
                 scope.close = function () {
@@ -3746,19 +4308,13 @@ angular
                 };
 
                 // ---
-                // We check events on the sibling input.
+                // Label element clicks toggles the picker.
                 // ---
-                var input = el.prev('input');
+                var label = elm.prev().prev('label');
 
-                input.on("focus", function () {
+                label.on("click", function () {
                     scope.$apply(function () {
-                        scope.open();
-                    });
-                });
-
-                input.on("blur", function () {
-                    scope.$apply(function () {
-                        scope.close();
+                        scope.isOpen = !scope.isOpen;
                     });
                 });
 
@@ -3767,10 +4323,10 @@ angular
                 // Open or close the modal
                 scope.$watch("isOpen", function (isOpen, isOpenOld) {
                     if ( isOpen === true ) {
-                        $animate.addClass(el, CLASS_OPEN);
+                        $animate.addClass(elm, CLASS_OPEN);
                     }
                     else if ( isOpen === false && isOpenOld === true ) {
-                        $animate.removeClass(el, CLASS_OPEN);
+                        $animate.removeClass(elm, CLASS_OPEN);
                     }
                 });
 
@@ -3924,54 +4480,9 @@ angular
     .module("revaluate.categories")
     .service("CategoriesSetupProvider", function () {
 
-        this.predefinedCategories = [
-            {
-                "name": "Bills",
-                selected: false
-            },
-            {
-                "name": "Food",
-                selected: false
-            },
-            {
-                "name": "Clothes",
-                selected: false
-            },
-            {
-                "name": "Car",
-                selected: false
-            },
-            {
-                "name": "Donations",
-                selected: false
-            },
-            {
-                "name": "Hobby",
-                selected: false
-            },
-            {
-                "name": "Health",
-                selected: false
-            },
-            {
-                "name": "Education",
-                selected: false
-            },
-            {
-                "name": "Investments",
-                selected: false
-            },
-            {
-                "name": "House",
-                selected: false
-            },
-            {
-                "name": "Entertainment",
-                selected: false
-            }];
-
         this.getPredefinedCategories = function () {
-            return this.predefinedCategories;
+
+            return ["Bills", "Food", "Clothes", "Car", "Donations", "Hobby", "Health", "Education", "Investments", "House"];
         };
 
     });
@@ -4117,9 +4628,6 @@ angular
 
         /**
          * Converts a category business object model to a categoryDto object.
-         * @param category
-         * @param skipKeys
-         * @returns {{}}
          */
         this.toCategoryDto = function (category, skipKeys) {
             var categoryDto = {};
@@ -4131,23 +4639,22 @@ angular
 
         /**
          * Converts a categoryDto object to a category business object model.
-         * @param categoryDto
-         * @param category
-         * @param skipKeys
-         * @returns {*}
          */
         this.toCategory = function (categoryDto, category, skipKeys) {
             category = category || $injector.get('Category').build();
 
             TransformerUtils.copyKeysFromTo(categoryDto, category.model, skipKeys);
 
+            // ---
+            // Should be always upper case (one way).
+            // ---
+            category.model.name = category.model.name.toUpperCase();
+
             return category;
         };
 
         /**
          * Transform a list of categories as JSON to a list of categories as business object.
-         * @param categoryDtos
-         * @returns {Array}
          */
         this.toCategories = function (categoryDtos) {
             var categories = [];
@@ -4161,8 +4668,6 @@ angular
 
         /**
          * Transform a list of categories as business objects to a list of DTOs.
-         * @param categories
-         * @returns {Array}
          */
         this.toCategoryDTOs = function (categories) {
             var categoryDTOs = [];
@@ -4340,11 +4845,6 @@ angular
         var AUTO_UPLOAD = true;
         var IS_EMPTY_AFTER_SELECTION = true;
 
-        /**
-         * Saving timeout
-         */
-        var TIMEOUT_PENDING = 300;
-
         // ---
         // Server status error.
         // ---
@@ -4361,6 +4861,11 @@ angular
         // The import type.
         // ---
         $scope.importType = importType;
+
+        // ---
+        // The import description.
+        // ---
+        $scope.importDescription = capitalizeFirstLetter(importType);
 
         /**
          * Alert identifier
@@ -4443,9 +4948,7 @@ angular
             // Build the import answer, and toggle view.
             // ---
             $scope.expensesImportAnswer = ExpensesImport.build(response);
-            $timeout(function () {
-                $scope.isUploadSuccessful = true;
-            }, TIMEOUT_PENDING);
+            $scope.isUploadSuccessful = true;
         };
 
         // ---
@@ -4453,7 +4956,7 @@ angular
         // ---
         uploader.onErrorItem = function (fileItem, response, status, headers) {
             if ( status === BAD_RESPONSE ) {
-                flash.to($scope.alertIdentifierId).error = 'Heeey! Are you sure the CSV export is from selected app?';
+                flash.to($scope.alertIdentifierId).error = 'Hmmm... Are you sure the CSV export is from selected app?';
             }
             else {
                 if ( status === SERVER_ERROR ) {
@@ -4475,11 +4978,47 @@ angular
             $scope.isUploadFinished = true;
         };
 
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        /**
+         * Show how to block content
+         * @type {boolean}
+         */
+        $scope.showHowToContent = false;
+
+        /**
+         * Toggle how to content
+         */
+        $scope.toggleHowToContent = function () {
+            $scope.showHowToContent = !$scope.showHowToContent;
+        };
+
+        /**
+         * Minimum categories to select
+         */
+        var MIN_CATEGORIES_TO_SELECT = 1;
+
+        function getSelectedMatchingCategories() {
+            return _.filter($scope.expensesImportAnswer.model.expenseCategoryMatchingProfileDTOs, 'selected', true);
+        }
+
+        /**
+         * Is enough selected categories
+         */
+        $scope.isEnoughSelectedMatchingCategories = function () {
+            if ( !$scope.isUploadSuccessful ) {
+                return false;
+            }
+            return getSelectedMatchingCategories().length >= MIN_CATEGORIES_TO_SELECT;
+        };
+
         /**
          * Update profile functionality.
          */
-        $scope.submitPerformImport = function () {
-            if ( $scope.expensesImportForm.$valid && !$scope.isImporting ) {
+        $scope.submitPerformImport = function (expensesImportForm) {
+            if ( expensesImportForm.$valid && !$scope.isImporting ) {
 
                 // Show the loading bar
                 $scope.isImporting = true;
@@ -4493,7 +5032,16 @@ angular
                 // We need to perform a transform of the selected categories.
                 // ---
                 _.each(expensesImportPrepared.model.expenseCategoryMatchingProfileDTOs, function (expenseCategoryMatchingProfileDTO) {
-                    expenseCategoryMatchingProfileDTO.categoryDTO = angular.copy(expenseCategoryMatchingProfileDTO.category.originalObject.model);
+                    if ( expenseCategoryMatchingProfileDTO.selected ) {
+
+                        expenseCategoryMatchingProfileDTO.categoryDTO = angular.copy(expenseCategoryMatchingProfileDTO.category.selected.model);
+                    }
+                    else {
+                        // ---
+                        // Really ugly, but we can't send back an invalid category..
+                        // ---
+                        expenseCategoryMatchingProfileDTO.categoryDTO = angular.copy(getSelectedMatchingCategories()[0].category.selected.model);
+                    }
                 });
 
                 // ---
@@ -4502,7 +5050,7 @@ angular
                 ImportService
                     .importExpenses(importType, expensesImportPrepared)
                     .then(function () {
-                        $scope.expensesImportForm.$setPristine();
+                        expensesImportForm.$setPristine();
 
                         flash.to($scope.alertIdentifierId).success = 'We\'ve successfully imported your expenses!';
 
@@ -4623,6 +5171,7 @@ angular
 angular
     .module("revaluate.expenses", [
         "revaluate.common",
+        "revaluate.account",
         "revaluate.statistics"
     ])
     .config(["$stateProvider", function ($stateProvider) {
@@ -4631,7 +5180,7 @@ angular
 
             .state("expenses", {
                 url: "/expenses",
-                templateUrl: 'app/expenses/partials/expense/expenses.template.html',
+                templateUrl: 'app/expenses/partials/expense/expenses.abstract.html',
                 abstract: true
             })
 
@@ -4723,9 +5272,6 @@ angular
          */
         $scope.initOrReset = function (expenseForm) {
 
-            //clear the input
-            $scope.$broadcast('angucomplete-alt:clearInput');
-
             /**
              * Keep master expense.
              * @type {XMLList|XML|*}
@@ -4800,7 +5346,7 @@ angular
                 $scope.isSaving = true;
 
                 // Update the  chosen category and master expense.
-                $scope.expense.model.category = angular.copy($scope.category.originalObject.model);
+                $scope.expense.model.category = angular.copy($scope.category.selected.model);
                 angular.copy($scope.expense, $scope.masterExpense);
 
                 $scope.masterExpense
@@ -5005,8 +5551,8 @@ angular
                 $scope.isUpdating = true;
 
                 // Update the  chosen category - if defined
-                if ( category && category.originalObject ) {
-                    expense.model.category = angular.copy(category.originalObject.model);
+                if ( category && category.selected ) {
+                    expense.model.category = angular.copy(category.selected.model);
                 }
 
                 expense
@@ -5077,7 +5623,7 @@ angular
         };
     });;angular
     .module("revaluate.expenses")
-    .directive("expenseEntry", ["$rootScope", "$timeout", "EXPENSE_EVENTS", function ($rootScope, $timeout, EXPENSE_EVENTS) {
+    .directive("expenseEntry", ["$rootScope", "$timeout", "EXPENSE_EVENTS", "CategoryTransformerService", function ($rootScope, $timeout, EXPENSE_EVENTS, CategoryTransformerService) {
         return {
             restrict: "A",
             controller: 'ExpenseEntryController',
@@ -5086,7 +5632,7 @@ angular
                 expense: "=",
                 isEnoughExpensesForBulkAction: "&"
             },
-            templateUrl: "app/expenses/partials/expense/expense.entry.template.html",
+            templateUrl: "app/expenses/partials/expense/expenses.entry.template.html",
             link: function (scope, el, attrs) {
 
                 var EXPENSE_INPUT_SELECTOR = '.expense__form__price__input';
@@ -5106,6 +5652,7 @@ angular
                  * @type {{}}
                  */
                 scope.category = {};
+                scope.category.selected = CategoryTransformerService.toCategory(scope.shownExpense.model.category);
 
                 /**
                  * Show block content
@@ -5201,7 +5748,7 @@ angular
                 categories: "=",
                 searchByText: "="
             },
-            templateUrl: "app/expenses/partials/expense/expense.list.template.html",
+            templateUrl: "app/expenses/partials/expense/expenses.list.template.html",
             link: function (scope, el, attrs) {
 
                 /**
@@ -5779,7 +6326,7 @@ angular
  */
 angular
     .module("revaluate.insights")
-    .controller("InsightController", ["$scope", "$rootScope", "$timeout", "flash", "insight", "statistics", "InsightService", "MIXPANEL_EVENTS", "ALERTS_CONSTANTS", function ($scope, $rootScope, $timeout, flash, insight, statistics, InsightService, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
+    .controller("InsightController", ["$scope", "$rootScope", "$filter", "$timeout", "flash", "insight", "statistics", "InsightService", "MIXPANEL_EVENTS", "ALERTS_CONSTANTS", function ($scope, $rootScope, $filter, $timeout, flash, insight, statistics, InsightService, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
 
         /**
          * Updating/deleting timeout
@@ -5808,6 +6355,7 @@ angular
          */
         $scope.insight = insight;
         $scope.insightLineData = [insight.model.insightData];
+        $scope.insightLineColors = [insight.model.insightColors];
         $scope.insightLineSeries = ["Categories"];
 
         /**
@@ -5815,6 +6363,28 @@ angular
          * @type {statistics|*}
          */
         $scope.statistics = statistics;
+
+        // ---
+        // Chart config options.
+        // ---
+        $scope.chartOptions = {
+            scaleLabel: function (label) {
+
+                return formatValue(label);
+            },
+            multiTooltipTemplate: function (label) {
+
+                return label.datasetLabel + ' ' + formatValue(label);
+            },
+            tooltipTemplate: function (label) {
+
+                return label.label + ' ' + formatValue(label);
+            }
+        };
+
+        function formatValue(label) {
+            return $filter('currency')(label.value.toString(), '') + ' ' + $scope.user.model.currency.currencyCode;
+        }
 
         /**
          * Open date picker
@@ -6060,6 +6630,16 @@ angular
                 insight.model.lastExistingExpenseDate = moment(insight.model.lastExistingExpenseDate).toDate();
             }
 
+            insight.model.insightData = _.map(insight.model.totalPerCategoryInsightDTOs, function (totalPerCategoryInsightDTO) {
+                return totalPerCategoryInsightDTO.totalAmount;
+            });
+            insight.model.insightColors = _.map(insight.model.totalPerCategoryInsightDTOs, function (totalPerCategoryInsightDTO) {
+                return totalPerCategoryInsightDTO.categoryDTO.color.color;
+            });
+            insight.model.insightLabels = _.map(insight.model.totalPerCategoryInsightDTOs, function (totalPerCategoryInsightDTO) {
+                return totalPerCategoryInsightDTO.categoryDTO.name;
+            });
+
             return insight;
         };
 
@@ -6176,8 +6756,6 @@ angular
 
         /**
          * Builds a insight with given data.
-         * @param data
-         * @returns {Insight}
          */
         Insight.build = function (data) {
             if ( _.isEmpty(data) ) {
@@ -6194,12 +6772,13 @@ angular
 angular
     .module("app", [
         "config",
+        "braintree-angular",
         "angular-cache",
         "angularFileUpload",
         "ngAnimate",
         "ngMessages",
-        "angucomplete-alt",
         "ngStorage",
+        "ngSanitize",
         "partials",
         "revaluate.site",
         "revaluate.feedback",
@@ -6211,9 +6790,11 @@ angular
         "revaluate.account",
         "revaluate.settings",
         "revaluate.insights",
-        "angular.filter"
+        "angular.filter",
+        "ui.gravatar",
+        "ui.select"
     ])
-    .config(["$locationProvider", "CacheFactoryProvider", function ($locationProvider, CacheFactoryProvider) {
+    .config(["$locationProvider", "CacheFactoryProvider", "gravatarServiceProvider", function ($locationProvider, CacheFactoryProvider, gravatarServiceProvider) {
         angular.extend(CacheFactoryProvider.defaults, { maxAge: 15 * 60 * 1000 });
 
         // Enable html5 mode
@@ -6221,6 +6802,17 @@ angular
             enabled: true,
             requireBase: false
         });
+
+        // ---
+        // Gravatar configs.
+        // ---
+        gravatarServiceProvider.defaults = {
+            size: 100,
+            "default": 'mm'
+        };
+
+        // Use https endpoint
+        gravatarServiceProvider.secure = true;
     }])
     .run(["ENV", function (ENV) {
 
@@ -6230,7 +6822,7 @@ angular
  */
 angular
     .module("app")
-    .controller("AppController", ["$rootScope", "$scope", "$state", "$timeout", "$log", "AuthService", "User", "StatesHandler", "AUTH_EVENTS", "ACTIVITY_INTERCEPTOR", "ERROR_INTERCEPTOR", "ENV", function ($rootScope, $scope, $state, $timeout, $log, AuthService, User, StatesHandler, AUTH_EVENTS, ACTIVITY_INTERCEPTOR, ERROR_INTERCEPTOR, ENV) {
+    .controller("AppController", ["$rootScope", "$scope", "$state", "$timeout", "$log", "flash", "AuthService", "User", "StatesHandler", "AUTH_EVENTS", "ALERTS_CONSTANTS", "ACTIVITY_INTERCEPTOR", "ERROR_INTERCEPTOR", "ENV", function ($rootScope, $scope, $state, $timeout, $log, flash, AuthService, User, StatesHandler, AUTH_EVENTS, ALERTS_CONSTANTS, ACTIVITY_INTERCEPTOR, ERROR_INTERCEPTOR, ENV) {
 
         /**
          * Save the state on root scope
@@ -6305,13 +6897,21 @@ angular
         });
 
         /**
-         * Listen to the logout event
+         * Listen to the internal server error
          */
         $scope.$on(ERROR_INTERCEPTOR.status500, function () {
             $state.go('500');
         });
+
+        /**
+         * Listen to the payment required error
+         */
+        $scope.$on(ERROR_INTERCEPTOR.status402, function () {
+
+            flash.to(ALERTS_CONSTANTS.generalError).error = "Payment method is required in order to use revaluate.";
+        });
     }]);
-;angular.module('partials', ['app/site/partials/404.html', 'app/site/partials/500.html', 'app/site/partials/about.html', 'app/site/partials/home.html', 'app/site/partials/privacy.html', 'app/categories/partials/add-category-directive-template.html', 'app/categories/partials/categories.html', 'app/categories/partials/color-picker-directive-template.html', 'app/categories/partials/edit-remove-category-directive-template.html', 'app/import/partials/settings.import.abstract.html', 'app/import/partials/settings.import.choose.html', 'app/import/partials/settings.import.import.html', 'app/expenses/partials/expense.category.template.html', 'app/expenses/partials/expense/expense.entry.template.html', 'app/expenses/partials/expense/expense.list.template.html', 'app/expenses/partials/expense/expenses.html', 'app/expenses/partials/expense/expenses.template.html', 'app/account/partials/account.html', 'app/account/partials/account_close.html', 'app/account/partials/logout.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/signup_setup.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/settings/partials/settings.abstract.html', 'app/settings/partials/settings.admin.abstract.html', 'app/settings/partials/settings.admin.cancelAccount.html', 'app/settings/partials/settings.admin.updatePassword.html', 'app/settings/partials/settings.preferences.abstract.html', 'app/settings/partials/settings.preferences.updateCurrency.html', 'app/settings/partials/settings.profile.html', 'app/insight/partials/insight.html', 'app/feedback/partials/feedback-modal.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/accordion/accordion-group.html', 'template/accordion/accordion.html', 'template/alert/alert.html', 'template/carousel/carousel.html', 'template/carousel/slide.html', 'template/datepicker/datepicker.html', 'template/datepicker/day.html', 'template/datepicker/month.html', 'template/datepicker/popup.html', 'template/datepicker/year.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/pagination/pager.html', 'template/pagination/pagination.html', 'template/popover/popover.html', 'template/progressbar/bar.html', 'template/progressbar/progress.html', 'template/progressbar/progressbar.html', 'template/rating/rating.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/timepicker/timepicker.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html', 'template/typeahead/typeahead-match.html', 'template/typeahead/typeahead-popup.html']);
+;angular.module('partials', ['app/site/partials/404.html', 'app/site/partials/500.html', 'app/site/partials/about.html', 'app/site/partials/home.html', 'app/site/partials/privacy.html', 'app/categories/partials/add-category-directive-template.html', 'app/categories/partials/categories.html', 'app/categories/partials/color-picker-directive-template.html', 'app/categories/partials/edit-remove-category-directive-template.html', 'app/import/partials/howto/settings.import.howto.mint.html', 'app/import/partials/howto/settings.import.howto.spendee.html', 'app/import/partials/settings.import.abstract.html', 'app/import/partials/settings.import.choose.html', 'app/import/partials/settings.import.import.html', 'app/expenses/partials/expense/expenses.abstract.html', 'app/expenses/partials/expense/expenses.entry.template.html', 'app/expenses/partials/expense/expenses.html', 'app/expenses/partials/expense/expenses.list.template.html', 'app/account/partials/account.html', 'app/account/partials/account_close.html', 'app/account/partials/email_confirmation_send_abstract.html', 'app/account/partials/email_confirmation_send_invalid.html', 'app/account/partials/email_confirmation_send_send.html', 'app/account/partials/email_confirmation_send_valid.html', 'app/account/partials/logout.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/signup_setup.html', 'app/account/partials/trial_period_countdown.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/settings/partials/settings.abstract.html', 'app/settings/partials/settings.admin.abstract.html', 'app/settings/partials/settings.admin.cancelAccount.html', 'app/settings/partials/settings.admin.updatePassword.html', 'app/settings/partials/settings.payment.abstract.html', 'app/settings/partials/settings.payment.add.html', 'app/settings/partials/settings.payment.customer.html', 'app/settings/partials/settings.payment.insights.html', 'app/settings/partials/settings.payment.method.html', 'app/settings/partials/settings.preferences.abstract.html', 'app/settings/partials/settings.preferences.updateCurrency.html', 'app/settings/partials/settings.profile.html', 'app/insight/partials/insight.html', 'app/feedback/partials/feedback-modal.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/accordion/accordion-group.html', 'template/accordion/accordion.html', 'template/alert/alert.html', 'template/carousel/carousel.html', 'template/carousel/slide.html', 'template/datepicker/datepicker.html', 'template/datepicker/day.html', 'template/datepicker/month.html', 'template/datepicker/popup.html', 'template/datepicker/year.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/pagination/pager.html', 'template/pagination/pagination.html', 'template/popover/popover.html', 'template/progressbar/bar.html', 'template/progressbar/progress.html', 'template/progressbar/progressbar.html', 'template/rating/rating.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/timepicker/timepicker.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html', 'template/typeahead/typeahead-match.html', 'template/typeahead/typeahead-popup.html']);
 
 angular.module("app/site/partials/404.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/404.html",
@@ -6571,9 +7171,9 @@ angular.module("app/categories/partials/add-category-directive-template.html", [
 
 angular.module("app/categories/partials/categories.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/categories/partials/categories.html",
-    "<div class=\"settings__section\">\n" +
-    "    <div class=\"categories__title\">Categories</div>\n" +
-    "    <div class=\"categories__text\">\n" +
+    "<div class=\"settings__box\">\n" +
+    "    <h1 class=\"settings__title\">Categories</h1>\n" +
+    "    <div class=\"section-text\">\n" +
     "        You can create new categories, edit the ones you already have or delete the ones that have no expenses associated.\n" +
     "    </div>\n" +
     "\n" +
@@ -6586,7 +7186,7 @@ angular.module("app/categories/partials/categories.html", []).run(["$templateCac
     "    <!--List all categories-->\n" +
     "    <div class=\"categories__edit\">\n" +
     "\n" +
-    "        <div class=\"categories__edit__category\" ng-repeat=\"category in categories | orderObjectBy : 'model.id' : false track by category.model.name\">\n" +
+    "        <div class=\"categories__edit__category\" ng-repeat=\"category in categories | orderObjectBy : 'model.id' : true track by category.model.name\">\n" +
     "\n" +
     "            <!--Edit/remove category-->\n" +
     "            <div edit-remove-category colors=\"colors\" category=\"category\"></div>\n" +
@@ -6604,7 +7204,7 @@ angular.module("app/categories/partials/color-picker-directive-template.html", [
     "\n" +
     "        <div class=\"color-picker__popover__colors\">\n" +
     "\n" +
-    "            <div class=\"color-picker__popover__colors__color\" ng-repeat=\"color in colors track by color.id\">\n" +
+    "            <div class=\"color-picker__popover__colors__color\" ng-repeat=\"color in colors | orderBy : 'priority' track by color.id \">\n" +
     "\n" +
     "                <!--Color picker-->\n" +
     "                <div class=\"color-picker__popover__colors__color__name\" ng-style=\"{'background':color.color}\" ng-click=\"select(color)\"></div>\n" +
@@ -6677,173 +7277,195 @@ angular.module("app/categories/partials/edit-remove-category-directive-template.
     "</form>");
 }]);
 
+angular.module("app/import/partials/howto/settings.import.howto.mint.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/import/partials/howto/settings.import.howto.mint.html",
+    "<div class=\"section-text\">\n" +
+    "    Here's how you can export your expenses from <strong>Mint</strong>.\n" +
+    "\n" +
+    "    <iframe src=\"//fast.wistia.net/embed/iframe/yu4eurkxc0\" allowtransparency=\"true\" frameborder=\"0\" scrolling=\"no\" class=\"wistia_embed\" name=\"wistia_embed\" allowfullscreen mozallowfullscreen webkitallowfullscreen oallowfullscreen msallowfullscreen width=\"640\" height=\"360\">\n" +
+    "    </iframe>\n" +
+    "    <script src=\"//fast.wistia.net/assets/external/E-v1.js\" async></script>\n" +
+    "\n" +
+    "</div>");
+}]);
+
+angular.module("app/import/partials/howto/settings.import.howto.spendee.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/import/partials/howto/settings.import.howto.spendee.html",
+    "<div class=\"section-text\">\n" +
+    "    Here's how you can export your expenses from <strong>Spendee</strong>.\n" +
+    "\n" +
+    "    <iframe src=\"//fast.wistia.net/embed/iframe/yu4eurkxc0\" allowtransparency=\"true\" frameborder=\"0\" scrolling=\"no\" class=\"wistia_embed\" name=\"wistia_embed\" allowfullscreen mozallowfullscreen webkitallowfullscreen oallowfullscreen msallowfullscreen width=\"640\" height=\"360\">\n" +
+    "    </iframe>\n" +
+    "    <script src=\"//fast.wistia.net/assets/external/E-v1.js\" async></script>\n" +
+    "\n" +
+    "</div>");
+}]);
+
 angular.module("app/import/partials/settings.import.abstract.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/import/partials/settings.import.abstract.html",
-    "<div class=\"settings__section\" ui-view></div>");
+    "<div class=\"settings__box\" ui-view></div>");
 }]);
 
 angular.module("app/import/partials/settings.import.choose.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/import/partials/settings.import.choose.html",
-    "<div class=\"settings__section\">\n" +
+    "<h1 class=\"settings__title\">Import</h1>\n" +
     "\n" +
-    "    <div class=\"settings__title\">Import</div>\n" +
+    "<div class=\"section-text\">Select the app you want to import from:</div>\n" +
     "\n" +
-    "    <div class=\"section-text\">Select the app you want to import from:</div>\n" +
+    "<ul class=\"settings__import__choose\">\n" +
+    "    <li class=\"settings__import__choose__source\" ui-sref=\"settings.import.import({type: 'mint'})\">\n" +
+    "        <span class=\"settings__import__choose__source__logo--mint\">LG</span>\n" +
+    "        <span class=\"settings__import__choose__source__label\">Mint</span>\n" +
+    "        <span class=\"settings__import__choose__source__arrow\"> &rang; </span>\n" +
+    "    </li>\n" +
+    "    <li class=\"settings__import__choose__source\" ui-sref=\"settings.import.import({type: 'spendee'})\">\n" +
+    "        <span class=\"settings__import__choose__source__logo--spendee\">LG</span>\n" +
+    "        <span class=\"settings__import__choose__source__label\">Spendee</span>\n" +
+    "        <span class=\"settings__import__choose__source__arrow\"> &rang; </span>\n" +
+    "    </li>\n" +
+    "</ul>\n" +
     "\n" +
-    "    <ul class=\"settings__import__choose\">\n" +
-    "        <li class=\"settings__import__choose__source\" ui-sref=\"settings.import.import({type: 'mint'})\">\n" +
-    "            <span class=\"settings__import__choose__source__logo--mint\">LG</span>\n" +
-    "            <span class=\"settings__import__choose__source__label\">Mint</span>\n" +
-    "            <span class=\"settings__import__choose__source__arrow\"> &rang; </span>\n" +
-    "        </li>\n" +
-    "        <li class=\"settings__import__choose__source\" ui-sref=\"settings.import.import({type: 'spendee'})\">\n" +
-    "            <span class=\"settings__import__choose__source__logo--spendee\">LG</span>\n" +
-    "            <span class=\"settings__import__choose__source__label\">Spendee</span>\n" +
-    "            <span class=\"settings__import__choose__source__arrow\"> &rang; </span>\n" +
-    "        </li>\n" +
-    "    </ul>\n" +
+    "<div class=\"section-text\">Coming soon:</div>\n" +
+    "<ul class=\"settings__import__choose\">\n" +
+    "    <li class=\"settings__import__choose__source settings__import__choose__source--soon\">\n" +
+    "        <span class=\"settings__import__choose__source__logo--wally\">LG</span>\n" +
+    "        <span class=\"settings__import__choose__source__label\">Wally</span>\n" +
+    "        <span class=\"settings__import__choose__source__arrow\"> &rang; </span>\n" +
+    "    </li>\n" +
+    "</ul>\n" +
     "\n" +
-    "    <div class=\"section-text\">Coming soon:</div>\n" +
-    "    <ul class=\"settings__import__choose\">\n" +
-    "        <li class=\"settings__import__choose__source settings__import__choose__source--soon\">\n" +
-    "            <span class=\"settings__import__choose__source__logo--wally\">LG</span>\n" +
-    "            <span class=\"settings__import__choose__source__label\">Wally</span>\n" +
-    "            <span class=\"settings__import__choose__source__arrow\"> &rang; </span>\n" +
-    "        </li>\n" +
-    "    </ul>\n" +
-    "\n" +
-    "    <div class=\"section-text\">\n" +
-    "        If you'd like to import your expenses from another app,\n" +
-    "        <a href=\"#\" ng-controller=\"FeedbackModalController\" ng-click=\"openFeedbackModal()\">let us know</a>\n" +
-    "        .\n" +
-    "    </div>\n" +
+    "<div class=\"section-text\">\n" +
+    "    If you'd like to import your expenses from another app,\n" +
+    "    <a href=\"#\" ng-controller=\"FeedbackModalController\" ng-click=\"openFeedbackModal()\">let us know</a>\n" +
+    "    .\n" +
     "</div>");
 }]);
 
 angular.module("app/import/partials/settings.import.import.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/import/partials/settings.import.import.html",
-    "<div class=\"settings__section\">\n" +
+    "<!-- Flash messages. -->\n" +
+    "<div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
+    "<!--Upload section form-->\n" +
+    "<div class=\"import__upload\" ng-if=\"! isUploadSuccessful\">\n" +
+    "\n" +
+    "    <div class=\"import__upload__area\" over-class=\"import__upload__area--over\" nv-file-drop=\"\" nv-file-over=\"\" uploader=\"uploader\" filters=\"queueLimit, csvFilter\">\n" +
+    "        <div class=\"import__upload__btn\">\n" +
+    "            <div class=\"section-text\">Drop the CSV file exported from\n" +
+    "                <strong>{{importDescription}}</strong> here, or <span class=\"text-underlined\">browse</span> to select it.\n" +
+    "            </div>\n" +
+    "            <input class=\"import__upload__btn__input\" type=\"file\" nv-file-select=\"\" uploader=\"uploader\" />\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!--How to content-->\n" +
+    "    <ul class=\"section-text\" ng-if=\"! showHowToContent\">\n" +
+    "        <li>\n" +
+    "            <a href=\"javascript:void(0)\" ng-click=\"toggleHowToContent()\"> How do I export my expenses from {{importDescription}}?</a>\n" +
+    "        </li>\n" +
+    "    </ul>\n" +
+    "    <div ng-show=\"showHowToContent\" ng-include src=\"'app/import/partials/howto/settings.import.howto.' + importType + '.html'\"></div>\n" +
+    "</div>\n" +
+    "\n" +
+    "<!--Expenses import form-->\n" +
+    "<form name=\"expensesImportForm\" ng-submit=\"submitPerformImport(expensesImportForm)\" novalidate ng-if=\"isUploadSuccessful && ! importFinished\">\n" +
+    "\n" +
+    "    <div class=\"import__edit\">\n" +
+    "\n" +
+    "        <div class=\"section-text\">\n" +
+    "            Awesome! We found <strong>{{expensesImportAnswer.model.totalCategoriesFound}} expenses</strong> in\n" +
+    "            <strong>{{expensesImportAnswer.model.expenseCategoryMatchingProfileDTOs.length}} categories</strong>.\n" +
+    "            Please tell us where each category from {{importDescription}} should be imported to.\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <div class=\"import__edit__categories__header\">\n" +
+    "            <div class=\"import__edit__categories__header__src\">Import this category from {{importDescription}}</div>\n" +
+    "            <div class=\"import__edit__categories__header__dest\">Into this category in Revaluate</div>\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <div class=\"import__edit__categories\" ng-repeat=\"categoryMatchCandidate in expensesImportAnswer.model.expenseCategoryMatchingProfileDTOs track by categoryMatchCandidate.categoryCandidateName\">\n" +
+    "\n" +
+    "            <!--Category candidate name preview-->\n" +
+    "            <div class=\"import__edit__categories__src\">\n" +
+    "\n" +
+    "                <div class=\"import__edit__categories__src__toggle\">\n" +
+    "                    <input class='tgl tgl-flat' id='toggle_{{$index}}' type='checkbox' ng-model=\"categoryMatchCandidate.selected\">\n" +
+    "                    <label class='tgl-btn' for='toggle_{{$index}}'></label>\n" +
+    "                </div>\n" +
+    "\n" +
+    "                <div class=\"import__edit__categories__src__name\">{{categoryMatchCandidate.categoryCandidateName}}</div>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!--Category select-->\n" +
+    "            <ng-form class=\"import__edit__categories__dest\" name=\"expensesImportCategoryMatchEntryForm\" ng-if=\"categoryMatchCandidate.selected\">\n" +
+    "\n" +
+    "                <div class=\"import__edit__categories__dest__category\" ng-class=\"{'has-error': expensesImportForm.$submitted && (expensesImportCategoryMatchEntryForm.category.$invalid || badPostSubmitResponse)}\">\n" +
+    "\n" +
+    "                    <ui-select name=\"category\" required ng-model=\"categoryMatchCandidate.category.selected\" theme=\"selectize\" title=\"Choose a category\" class=\"import__edit__categories__input\">\n" +
+    "                        <ui-select-match ng-style=\"{'background':$select.selected.model.color.color}\" placeholder=\"Select a category\">{{$select.selected.model.name}}</ui-select-match>\n" +
+    "                        <ui-select-choices ng-style=\"{'background':categoryEntry.model.color.color}\" repeat=\"categoryEntry in categories | orderObjectBy : 'model.name' : false | filter:{model:{name:$select.search}} track by categoryEntry.model.id\">\n" +
+    "                            <div ng-style=\"{'background':categoryEntry.model.color.color}\" ng-bind-html=\"categoryEntry.model.name | highlight: $select.search\"></div>\n" +
+    "                        </ui-select-choices>\n" +
+    "                    </ui-select>\n" +
+    "\n" +
+    "                    <!-- Error messages -->\n" +
+    "                    <div class=\"form-group-input__message\" ng-class=\"{'has-error': expensesImportCategoryMatchEntryForm.category.$invalid && expensesImportForm.$submitted}\" ng-messages=\"expensesImportCategoryMatchEntryForm.$error\" ng-if=\"expensesImportForm.$submitted\">\n" +
+    "                        <div ng-message=\"required\">Please add a category.</div>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "\n" +
+    "            </ng-form>\n" +
+    "\n" +
+    "            <!--Category not selected-->\n" +
+    "            <div class=\"import__edit__categories__ignored\" ng-if=\"! categoryMatchCandidate.selected\">\n" +
+    "                Expenses in <strong>{{categoryMatchCandidate.categoryCandidateName}}</strong> will be ignored.\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <div class=\"import__edit__categories__arrow\">&#8594;</div>\n" +
+    "\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <!-- Perform import submit -->\n" +
+    "        <button class=\"import__save__btn\" ng-disabled=\"! isEnoughSelectedMatchingCategories()\" type=\"submit\">{{isImporting ? 'Importing...' : 'Import expenses'}}</button>\n" +
+    "    </div>\n" +
+    "\n" +
+    "</form>\n" +
+    "\n" +
+    "<!--After import-->\n" +
+    "<a ng-if=\"importFinished\" ui-sref=\"settings.import.import({type: importType})\" ui-sref-opts=\"{reload:true}\">Let me try again!</a>");
+}]);
+
+angular.module("app/expenses/partials/expense/expenses.abstract.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/expenses/partials/expense/expenses.abstract.html",
+    "<div header class=\"view-container__header\"></div>\n" +
+    "\n" +
+    "<div class=\"view-container__content\">\n" +
+    "\n" +
+    "    <!--Trial period countdown-->\n" +
+    "    <div ng-if=\"currentUser.showTrialRemainingDays()\">\n" +
+    "        <div ng-include src=\"'app/account/partials/trial_period_countdown.html'\"></div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!--Account confirmation alert-->\n" +
+    "    <div ng-if=\"! currentUser.model.emailConfirmed\" ng-controller=\"EmailConfirmationSendController\">\n" +
+    "        <div ng-include src=\"'app/account/partials/email_confirmation_send_send.html'\"></div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- Flash messages. -->\n" +
+    "    <div flash-messages flash=\"flash\" identifier-id=\"generalError\"></div>\n" +
     "\n" +
     "    <!-- Flash messages. -->\n" +
     "    <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
     "\n" +
-    "    <!--Let me try again, please-->\n" +
-    "    <a ng-if=\"importFinished\" ui-sref=\"settings.import.import({type: importType})\" ui-sref-opts=\"{reload:true}\">Let me try again!</a>\n" +
+    "    <div ui-view=\"expenses\"></div>\n" +
     "\n" +
-    "    <!--Expenses import form-->\n" +
-    "    <form name=\"expensesImportForm\" ng-submit=\"submitPerformImport()\" novalidate ng-show=\"isUploadSuccessful && ! importFinished\">\n" +
+    "</div>\n" +
     "\n" +
-    "        <div class=\"import__edit\">\n" +
-    "\n" +
-    "            <div class=\"section-text\">\n" +
-    "                Awesome! We found <strong>320 expenses</strong> in <strong>16 categories</strong>.\n" +
-    "                Please tell us where each category from Mint should be imported to.\n" +
-    "                Leave empty to create a new category in Revaluate using the same name.\n" +
-    "            </div>\n" +
-    "\n" +
-    "            <div class=\"import__edit__categories__header\">\n" +
-    "                <div class=\"import__edit__categories__header__src\">Import this category from Mint</div>\n" +
-    "                <div class=\"import__edit__categories__header__dest\">Into this category in Revaluate</div>\n" +
-    "            </div>\n" +
-    "\n" +
-    "            <div class=\"import__edit__categories\" ng-repeat=\"categoryMatchCandidate in expensesImportAnswer.model.expenseCategoryMatchingProfileDTOs track by categoryMatchCandidate.categoryCandidateName\">\n" +
-    "\n" +
-    "                <!--Category candidate name preview-->\n" +
-    "                <div class=\"import__edit__categories__src\">\n" +
-    "\n" +
-    "                    <div class=\"import__edit__categories__src__toggle\">\n" +
-    "                        <input class='tgl tgl-flat' id='{{categoryMatchCandidate.categoryCandidateName}}_toggle' type='checkbox' checked>\n" +
-    "                        <label class='tgl-btn' for='{{categoryMatchCandidate.categoryCandidateName}}_toggle'></label>\n" +
-    "                    </div>\n" +
-    "\n" +
-    "                    <div class=\"import__edit__categories__src__name\">\n" +
-    "                        {{categoryMatchCandidate.categoryCandidateName}}\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "\n" +
-    "                <!--Category select-->\n" +
-    "                <ng-form class=\"import__edit__categories__dest\" name=\"expensesImportCategoryMatchEntryForm\">\n" +
-    "\n" +
-    "                    <div class=\"import__edit__categories__dest__category\" ng-class=\"{'has-error': expensesImportForm.$submitted && (expensesImportCategoryMatchEntryForm.$error['autocomplete-required'] || expensesImportCategoryMatchEntryForm.category.$invalid || badPostSubmitResponse)}\">\n" +
-    "\n" +
-    "                        <div angucomplete-alt\n" +
-    "                             selected-object=\"categoryMatchCandidate.category\"\n" +
-    "                             local-data=\"categories\"\n" +
-    "                             search-fields=\"model.name\"\n" +
-    "                             title-field=\"model.name\"\n" +
-    "                             field-required=\"true\"\n" +
-    "                             placeholder=\"Select category\"\n" +
-    "                             maxlength=\"50\"\n" +
-    "                             pause=\"1\"\n" +
-    "                             minlength=\"0\"\n" +
-    "                             input-class=\"import__edit__categories__input\"\n" +
-    "                             match-class=\"angucomplete-highlight\"\n" +
-    "                             template-url=\"app/expenses/partials/expense.category.template.html\">\n" +
-    "                        </div>\n" +
-    "\n" +
-    "                        <!-- Error messages -->\n" +
-    "                        <div class=\"form-group-input__message\" ng-class=\"{'has-error': expensesImportCategoryMatchEntryForm.$invalid && expensesImportForm.$submitted}\" ng-messages=\"expensesImportCategoryMatchEntryForm.$error\" ng-if=\"expensesImportForm.$submitted\">\n" +
-    "                            <div ng-message=\"autocomplete-required\">Category is missing or is invalid.</div>\n" +
-    "                        </div>\n" +
-    "\n" +
-    "                        <div class=\"form-group-input__message\" ng-if=\"expensesImportCategoryMatchEntryForm.category.$invalid && expensesImportForm.$submitted\">Please add a category.</div>\n" +
-    "                    </div>\n" +
-    "\n" +
-    "                </ng-form>\n" +
-    "\n" +
-    "                <div class=\"import__edit__categories__arrow\">&#8594;</div>\n" +
-    "\n" +
-    "            </div>\n" +
-    "\n" +
-    "            <!-- Button -->\n" +
-    "            <button class=\"import__save__btn\" type=\"submit\">{{isImporting ? 'Importing...' : 'Import expenses'}}</button>\n" +
-    "        </div>\n" +
-    "\n" +
-    "    </form>\n" +
-    "\n" +
-    "    <!--Import section form-->\n" +
-    "    <!--<div class=\"import__upload\" ng-hide=\"isUploadSuccessful\">-->\n" +
-    "    <div class=\"import__upload\" ng-if=\"! isUploadSuccessful\">\n" +
-    "\n" +
-    "        <div class=\"import__upload__area\" nv-file-drop=\"\" uploader=\"uploader\" filters=\"queueLimit, csvFilter\">\n" +
-    "            <div class=\"section-text\">Upload the CSV file you exported from <strong>Mint</strong>.</div>\n" +
-    "            <div class=\"import__upload__btn\">\n" +
-    "                <span>Select file</span>\n" +
-    "                <input class=\"import__upload__btn__input\" type=\"file\" nv-file-select=\"\" uploader=\"uploader\" />\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "\n" +
-    "        <ul>\n" +
-    "            <li><a href=\"#\">How do I export my expenses from Mint?</a></li>\n" +
-    "            <li><a href=\"#\">How do I export my expenses from Spendee?</a></li>\n" +
-    "        </ul>\n" +
-    "    </div>\n" +
-    "\n" +
-    "</div>");
+    "<div footer class=\"view-container__footer\"></div>");
 }]);
 
-angular.module("app/expenses/partials/expense.category.template.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("app/expenses/partials/expense.category.template.html",
-    "<div class=\"angucomplete-holder\" ng-class=\"{'angucomplete-dropdown-visible': showDropdown}\">\n" +
-    "    <input id=\"{{id}}_value\" ng-style=\"{'background':selectedObject.originalObject.model.color.color}\" ng-model=\"searchStr\" ng-disabled=\"disableInput\" type=\"{{type}}\" placeholder=\"{{placeholder}}\" maxlength=\"{{maxlength}}\" ng-focus=\"onFocusHandler()\" class=\"{{inputClass}}\" ng-focus=\"resetHideResults()\" ng-blur=\"hideResults($event)\" autocapitalize=\"off\" autocorrect=\"off\" autocomplete=\"off\" ng-change=\"inputChangeHandler(searchStr)\" />\n" +
-    "\n" +
-    "    <div id=\"{{id}}_dropdown\" class=\"angucomplete-dropdown expense__form__category__angucomplete-dropdown\" ng-show=\"showDropdown\">\n" +
-    "        <div class=\"angucomplete-searching\" ng-show=\"searching\" ng-bind=\"textSearching\"></div>\n" +
-    "        <div class=\"angucomplete-row\" ng-repeat=\"result in results\" ng-click=\"selectResult(result)\" ng-mouseenter=\"hoverRow($index)\" ng-class=\"{'angucomplete-selected-row': $index == currentIndex}\">\n" +
-    "            <div class=\"angucomplete-image-holder expense__form__category__angucomplete-image-holder\">\n" +
-    "                <label class=\"expense__form__category__color__preview\" ng-style=\"{'background':result.originalObject.model.color.color}\"></label>\n" +
-    "            </div>\n" +
-    "            <div class=\"angucomplete-title\" ng-if=\"matchClass\" ng-bind-html=\"result.title\"></div>\n" +
-    "            <div class=\"angucomplete-title\" ng-if=\"!matchClass\">{{ result.title }}</div>\n" +
-    "            <div ng-if=\"matchClass && result.description && result.description != ''\" class=\"angucomplete-description\" ng-bind-html=\"result.description\"></div>\n" +
-    "            <div ng-if=\"!matchClass && result.description && result.description != ''\" class=\"angucomplete-description\">{{result.description}}</div>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "</div>");
-}]);
-
-angular.module("app/expenses/partials/expense/expense.entry.template.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("app/expenses/partials/expense/expense.entry.template.html",
+angular.module("app/expenses/partials/expense/expenses.entry.template.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/expenses/partials/expense/expenses.entry.template.html",
     "<!--Display expense-->\n" +
     "<div class=\"expenses__list__entry__display\" ng-if=\"! showContent\" ng-class=\"expense.marked ? 'expense__bulk--marked' : ''\" ng-click=\"toggleMark();$event.stopPropagation();\">\n" +
     "\n" +
@@ -6884,30 +7506,19 @@ angular.module("app/expenses/partials/expense/expense.entry.template.html", []).
     "        </div>\n" +
     "\n" +
     "        <!-- Form group -->\n" +
-    "        <div class=\"expense__form__category\" ng-class=\"{'has-error': expenseForm.$submitted && (expenseForm.$error['autocomplete-required'] || expenseForm.category.$invalid || badPostSubmitResponse)}\">\n" +
+    "        <div class=\"expense__form__category\" ng-class=\"{'has-error': expenseForm.$submitted && (expenseForm.category.$invalid || badPostSubmitResponse)}\">\n" +
     "\n" +
-    "            <div angucomplete-alt\n" +
-    "                 selected-object=\"category\"\n" +
-    "                 local-data=\"categories\"\n" +
-    "                 search-fields=\"model.name\"\n" +
-    "                 title-field=\"model.name\"\n" +
-    "                 field-required=\"true\"\n" +
-    "                 placeholder=\"Add category\"\n" +
-    "                 maxlength=\"50\"\n" +
-    "                 pause=\"1\"\n" +
-    "                 minlength=\"0\"\n" +
-    "                 initial-value=\"{{shownExpense.model.category.name}}\"\n" +
-    "                 input-class=\"expense__form__category__input\"\n" +
-    "                 match-class=\"highlight\"\n" +
-    "                 template-url=\"app/expenses/partials/expense.category.template.html\">\n" +
-    "            </div>\n" +
+    "            <ui-select name=\"category\" required ng-model=\"category.selected\" theme=\"selectize\" title=\"Choose a category\" class=\"expense__form__category__input\">\n" +
+    "                <ui-select-match ng-style=\"{'background':$select.selected.model.color.color}\" placeholder=\"Select a category\">{{$select.selected.model.name}}</ui-select-match>\n" +
+    "                <ui-select-choices ng-style=\"{'background':categoryEntry.model.color.color}\" repeat=\"categoryEntry in categories | orderObjectBy : 'model.name' : false | filter:{model:{name:$select.search}} track by categoryEntry.model.id\">\n" +
+    "                    <div ng-style=\"{'background':categoryEntry.model.color.color}\" ng-bind-html=\"categoryEntry.model.name | highlight: $select.search\"></div>\n" +
+    "                </ui-select-choices>\n" +
+    "            </ui-select>\n" +
     "\n" +
     "            <!-- Error messages -->\n" +
-    "            <div class=\"form-group-input__message\" ng-class=\"{'has-error': expenseForm.$invalid && expenseForm.$submitted}\" ng-messages=\"expenseForm.$error\" ng-if=\"expenseForm.$submitted\">\n" +
-    "                <div ng-message=\"autocomplete-required\">Category is missing or is invalid.</div>\n" +
+    "            <div class=\"form-group-input__message\" ng-class=\"{'has-error': expenseForm.category.$invalid && expenseForm.$submitted}\" ng-messages=\"expenseForm.$error\" ng-if=\"expenseForm.$submitted\">\n" +
+    "                <div ng-message=\"required\">Please add a category.</div>\n" +
     "            </div>\n" +
-    "\n" +
-    "            <div class=\"form-group-input__message\" ng-if=\"expenseForm.category.$invalid && expenseForm.$submitted\">Please add a category.</div>\n" +
     "        </div>\n" +
     "\n" +
     "        <!-- Description input -->\n" +
@@ -6946,46 +7557,14 @@ angular.module("app/expenses/partials/expense/expense.entry.template.html", []).
     "        </div>\n" +
     "\n" +
     "        <!-- Button container -->\n" +
-    "        <div class=\"expense__form__submit\">\n" +
-    "            <span ng-if=\"isUpdating\">\n" +
-    "                <span>Saving the expense...</span>\n" +
-    "            </span>\n" +
-    "            <span ng-if=\"! isUpdating\">\n" +
-    "                <span class=\"expense__edit__form__cancelbtn\">\n" +
-    "                    <button type=\"button\" ng-click=\"cancel();\">Discard</button>\n" +
-    "                    <span>changes.</span>\n" +
-    "                </span>\n" +
-    "                <span class=\"expense__edit__form__savebtn\">\n" +
-    "                    <span>Enter to</span>\n" +
-    "                    <button type=\"submit\">save</button>\n" +
-    "                    <span>the changes.</span>\n" +
-    "                </span>\n" +
-    "            </span>\n" +
+    "        <div class=\"expense__form__submit__save\">\n" +
+    "            <button class=\"expense__edit__form__savebtn\" type=\"submit\">Save</button>\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <div class=\"expense__form__submit__cancel\">\n" +
+    "            <button class=\"expense__edit__form__cancelbtn\" type=\"button\" ng-click=\"cancel();\">Discard changes</button>\n" +
     "        </div>\n" +
     "    </form>\n" +
-    "\n" +
-    "\n" +
-    "</div>");
-}]);
-
-angular.module("app/expenses/partials/expense/expense.list.template.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("app/expenses/partials/expense/expense.list.template.html",
-    "<!--Expense list content.-->\n" +
-    "<div ng-show=\"showExpensesContent\" class=\"expense-list-box\" ng-class=\"{ 'expense-list-box--past-expenses': reverseOrder}\">\n" +
-    "\n" +
-    "    <div class=\"expenses__list\">\n" +
-    "\n" +
-    "        <!--Expense list-->\n" +
-    "        <div class=\"expenses__list__entry\"\n" +
-    "             ng-repeat=\"expense in expenses | orderObjectBy : 'model.spentDate' : reverseOrder | limitTo: expensesLimit | filter:{model:{description:searchByText}} as filteredExpenses track by expense.model.id\"\n" +
-    "             expense-entry expense=\"expense\" categories=\"categories\">\n" +
-    "\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <div ng-if=\"isStillExpensesToBeLoaded()\">\n" +
-    "        <button type=\"submit\" class=\"expenses__list__loadbtn\" ng-click=\"loadMoreExpenses()\">{{isLoadingMore ? 'Loading..' : 'Load more'}}</button>\n" +
-    "    </div>\n" +
     "\n" +
     "</div>");
 }]);
@@ -7013,29 +7592,21 @@ angular.module("app/expenses/partials/expense/expenses.html", []).run(["$templat
     "        </div>\n" +
     "\n" +
     "        <!-- Form group -->\n" +
-    "        <div class=\"expense__form__category\" ng-class=\"{'has-error': expenseForm.$submitted && (expenseForm.$error['autocomplete-required'] || expenseForm.category.$invalid || badPostSubmitResponse)}\">\n" +
+    "        <div class=\"expense__form__category\" ng-class=\"{'has-error': expenseForm.$submitted && (expenseForm.category.$invalid || badPostSubmitResponse)}\">\n" +
     "\n" +
-    "            <div angucomplete-alt\n" +
-    "                 selected-object=\"category\"\n" +
-    "                 local-data=\"categories\"\n" +
-    "                 search-fields=\"model.name\"\n" +
-    "                 title-field=\"model.name\"\n" +
-    "                 field-required=\"true\"\n" +
-    "                 placeholder=\"Add category\"\n" +
-    "                 maxlength=\"50\"\n" +
-    "                 pause=\"1\"\n" +
-    "                 minlength=\"0\"\n" +
-    "                 input-class=\"expense__form__category__input\"\n" +
-    "                 match-class=\"angucomplete-highlight\"\n" +
-    "                 template-url=\"app/expenses/partials/expense.category.template.html\">\n" +
-    "            </div>\n" +
+    "            <ui-select name=\"category\" class=\"expense__form__category__input\" ng-style=\"{'background':$select.selected.model.color.color}\" required ng-model=\"category.selected\" theme=\"selectize\">\n" +
+    "                <ui-select-match ng-style=\"{'background':$select.selected.model.color.color}\" placeholder=\"Select a category\">{{$select.selected.model.name}}</ui-select-match>\n" +
+    "                <ui-select-choices repeat=\"categoryEntry in categories | orderObjectBy : 'model.name' : false | filter:{model:{name:$select.search}} track by categoryEntry.model.id\">\n" +
+    "                    <!--<span class=\"expense__form__category__color__preview\" ng-style=\"{'background':categoryEntry.model.color.color}\"></span>-->\n" +
+    "                    <span class=\"expense__form__category__color__preview\" ng-style=\"{'background':categoryEntry.model.color.color}\">C</span>\n" +
+    "                    <span class=\"\" ng-bind-html=\"categoryEntry.model.name | highlight: $select.search\"></span>\n" +
+    "                </ui-select-choices>\n" +
+    "            </ui-select>\n" +
     "\n" +
     "            <!-- Error messages -->\n" +
-    "            <div class=\"form-group-input__message\" ng-class=\"{'has-error': expenseForm.$invalid && expenseForm.$submitted}\" ng-messages=\"expenseForm.$error\" ng-if=\"expenseForm.$submitted\">\n" +
-    "                <div ng-message=\"autocomplete-required\">Category is missing or is invalid.</div>\n" +
+    "            <div class=\"form-group-input__message\" ng-class=\"{'has-error': expenseForm.category.$invalid && expenseForm.$submitted}\" ng-messages=\"expenseForm.$error\" ng-if=\"expenseForm.$submitted\">\n" +
+    "                <div ng-message=\"required\">Please add a category.</div>\n" +
     "            </div>\n" +
-    "\n" +
-    "            <div class=\"form-group-input__message\" ng-if=\"expenseForm.category.$invalid && expenseForm.$submitted\">Please add a category.</div>\n" +
     "        </div>\n" +
     "\n" +
     "        <!-- Description input -->\n" +
@@ -7076,15 +7647,8 @@ angular.module("app/expenses/partials/expense/expenses.html", []).run(["$templat
     "        </div>\n" +
     "\n" +
     "        <!-- Button container -->\n" +
-    "        <div class=\"expense__form__submit\">\n" +
-    "            <span ng-if=\"isLoading\">\n" +
-    "                <span>Saving...</span>\n" +
-    "            </span>\n" +
-    "            <span ng-if=\"! isLoading\">\n" +
-    "                <span>Enter to</span>\n" +
-    "                <button type=\"submit\">save</button>\n" +
-    "                <span>the expense.</span>\n" +
-    "            </span>\n" +
+    "        <div class=\"expense__form__submit__save\">\n" +
+    "            <button class=\"expense__edit__form__savebtn\" type=\"submit\">Save</button>\n" +
     "        </div>\n" +
     "    </form>\n" +
     "\n" +
@@ -7107,24 +7671,39 @@ angular.module("app/expenses/partials/expense/expenses.html", []).run(["$templat
     "\n" +
     "</div>\n" +
     "\n" +
+    "<!--Empty state-->\n" +
+    "<div class=\"expenses__empty-state\" ng-if=\"expenses.length === 0\">\n" +
+    "    <div class=\"expenses__empty-state__icon\"></div>\n" +
+    "    <h1>No expenses yet.</h1>\n" +
+    "\n" +
+    "    <div>Here's where your expenses will show up.</div>\n" +
+    "</div>\n" +
+    "\n" +
+    "\n" +
     "<!--The expenses list-->\n" +
     "<div expense-list expenses=\"expenses\" categories=\"categories\" search-by-text=\"searchByText\" sort=\"desc\"></div>");
 }]);
 
-angular.module("app/expenses/partials/expense/expenses.template.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("app/expenses/partials/expense/expenses.template.html",
-    "<div header class=\"view-container__header\"></div>\n" +
+angular.module("app/expenses/partials/expense/expenses.list.template.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/expenses/partials/expense/expenses.list.template.html",
+    "<!--Expense list content.-->\n" +
+    "<div ng-show=\"showExpensesContent\" class=\"expense-list-box\" ng-class=\"{ 'expense-list-box--past-expenses': reverseOrder}\">\n" +
     "\n" +
-    "<div class=\"view-container__content\">\n" +
+    "    <div class=\"expenses__list\">\n" +
     "\n" +
-    "    <!-- Flash messages. -->\n" +
-    "    <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "        <!--Expense list-->\n" +
+    "        <div class=\"expenses__list__entry\"\n" +
+    "             ng-repeat=\"expense in expenses | orderObjectBy : 'model.spentDate' : reverseOrder | limitTo: expensesLimit | filter:{model:{description:searchByText}} as filteredExpenses track by expense.model.id\"\n" +
+    "             expense-entry expense=\"expense\" categories=\"categories\">\n" +
     "\n" +
-    "    <div ui-view=\"expenses\"></div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
     "\n" +
-    "</div>\n" +
+    "    <div ng-if=\"isStillExpensesToBeLoaded()\">\n" +
+    "        <button type=\"submit\" class=\"expenses__list__loadbtn\" ng-click=\"loadMoreExpenses()\">{{isLoadingMore ? 'Loading..' : 'Load more'}}</button>\n" +
+    "    </div>\n" +
     "\n" +
-    "<div footer class=\"view-container__footer\"></div>");
+    "</div>");
 }]);
 
 angular.module("app/account/partials/account.html", []).run(["$templateCache", function($templateCache) {
@@ -7289,6 +7868,79 @@ angular.module("app/account/partials/account_close.html", []).run(["$templateCac
     "<a class=\"account__close\" href=\"javascript:void(0)\">+</a>");
 }]);
 
+angular.module("app/account/partials/email_confirmation_send_abstract.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/account/partials/email_confirmation_send_abstract.html",
+    "<!--Validate password reset token section - abstract view-->\n" +
+    "<div class=\"account\">\n" +
+    "\n" +
+    "    <div ui-view></div>\n" +
+    "\n" +
+    "</div>");
+}]);
+
+angular.module("app/account/partials/email_confirmation_send_invalid.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/account/partials/email_confirmation_send_invalid.html",
+    "<!-- Invalid token result view -->\n" +
+    "<div class=\"alert alert-danger\">\n" +
+    "\n" +
+    "    <!-- Title -->\n" +
+    "    <h1 class=\"account__title\">Sorry..</h1>\n" +
+    "\n" +
+    "    <!-- Explain -->\n" +
+    "    <span class=\"account__explain\">\n" +
+    "        The token is invalid or expired.\n" +
+    "    </span>\n" +
+    "\n" +
+    "    <br />\n" +
+    "    <br />\n" +
+    "\n" +
+    "    <!-- Button container -->\n" +
+    "    <a class=\"link-navigation\" href=\"javascript:void(0)\" ui-sref=\"home\">Continue.</a>\n" +
+    "    <br />\n" +
+    "</div>");
+}]);
+
+angular.module("app/account/partials/email_confirmation_send_send.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/account/partials/email_confirmation_send_send.html",
+    "<!-- Send confirmation email section -->\n" +
+    "<div class=\"account_send_email_section\">\n" +
+    "\n" +
+    "    <!-- Send confirmation email form -->\n" +
+    "    <form name=\"sendConfirmationEmailForm\" ng-submit=\"sendConfirmationEmail(sendConfirmationEmailForm)\" novalidate>\n" +
+    "\n" +
+    "        <!-- Flash messages. -->\n" +
+    "        <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
+    "        <div class=\"alert-info account_send_email_section__alert\">\n" +
+    "            Please check your inbox at <strong>{{user.model.email}}</strong> to confirm your email address.\n" +
+    "            <button type=\"submit\">Resend email</button>\n" +
+    "        </div>\n" +
+    "    </form>\n" +
+    "\n" +
+    "</div>");
+}]);
+
+angular.module("app/account/partials/email_confirmation_send_valid.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/account/partials/email_confirmation_send_valid.html",
+    "<div class=\"account__section\">\n" +
+    "\n" +
+    "    <!-- Title -->\n" +
+    "    <h1 class=\"account__title\">Success!</h1>\n" +
+    "\n" +
+    "    <!-- Explain -->\n" +
+    "    <span class=\"account__explain\">\n" +
+    "        Your account was successfully validated.\n" +
+    "    </span>\n" +
+    "\n" +
+    "    <br />\n" +
+    "    <br />\n" +
+    "\n" +
+    "    <!-- Button container -->\n" +
+    "    <a class=\"link-navigation\" href=\"javascript:void(0)\" ui-sref=\"home\">Continue to Revaluate</a>\n" +
+    "    <br />\n" +
+    "</div>");
+}]);
+
 angular.module("app/account/partials/logout.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/account/partials/logout.html",
     "<!-- Account sections -->\n" +
@@ -7414,52 +8066,50 @@ angular.module("app/account/partials/signup_setup.html", []).run(["$templateCach
     "\n" +
     "    <div class=\"sign-up__setup__box\">\n" +
     "\n" +
-    "        <h2 class=\"sign-up__setup__title\">Awesome! Just one more step.</h2>\n" +
+    "        <h2 class=\"sign-up__setup__title\">Awesome! Select your currency and the categories and you're done!</h2>\n" +
     "\n" +
     "        <!-- Set up form -->\n" +
     "        <form name=\"setUpForm\" ng-submit=\"setUp()\" novalidate>\n" +
     "\n" +
     "            <div class=\"sign-up__setup__section\">\n" +
     "                Please choose your currency:\n" +
-    "                <div class=\"sign-up__setup__section--currency\" ng-class=\"{'has-error': setUpForm.$submitted && (setUpForm.$error['autocomplete-required'] || setUpForm.currency.$invalid || badPostSubmitResponse)}\">\n" +
-    "                    <div angucomplete-alt\n" +
-    "                         selected-object=\"currency\"\n" +
-    "                         local-data=\"currencies\"\n" +
-    "                         search-fields=\"displayName,currencyCode\"\n" +
-    "                         title-field=\"currencyCode,displayName\"\n" +
-    "                         field-required=\"true\"\n" +
-    "                         placeholder=\"Start typing your currency...\"\n" +
-    "                         maxlength=\"50\"\n" +
-    "                         pause=\"1\"\n" +
-    "                         minlength=\"0\"\n" +
-    "                         input-class=\"sign-up__setup__section--currency__input\"\n" +
-    "                         match-class=\"angucomplete-highlight\">\n" +
-    "                    </div>\n" +
+    "                <div class=\"sign-up__setup__section--currency\" ng-class=\"{'has-error': setUpForm.$submitted && (setUpForm.currency.$invalid || badPostSubmitResponse)}\">\n" +
+    "\n" +
+    "                    <ui-select name=\"currency\" class=\"sign-up__setup__section--currency__input\" required ng-model=\"currency.selected\" theme=\"selectize\" append-to-body=\"true\">\n" +
+    "                        <ui-select-match placeholder=\"Start typing your currency...\">{{$select.selected.currencyCode}}</ui-select-match>\n" +
+    "                        <ui-select-choices repeat=\"currencyEntry in currencies | orderObjectBy : 'currencyCode' : false | filter:{$:$select.search} track by currencyEntry.numericCode\">\n" +
+    "                            <span ng-bind-html=\"currencyEntry.currencyCode | highlight: $select.search\"></span>\n" +
+    "                            <span ng-bind-html=\"currencyEntry.displayName | highlight: $select.search\"></span>\n" +
+    "                        </ui-select-choices>\n" +
+    "                    </ui-select>\n" +
     "\n" +
     "                    <!-- Error messages -->\n" +
-    "                    <div class=\"form-group-input__message form-group-input__message--currency\" ng-class=\"{'has-error': setUpForm.$invalid && setUpForm.$submitted}\" ng-messages=\"setUpForm.$error\" ng-if=\"setUpForm.$submitted\">\n" +
-    "                        <div ng-message=\"autocomplete-required\">Currency is missing or is invalid.</div>\n" +
-    "                        <div ng-message=\"required\">Please add</div>\n" +
+    "                    <div class=\"form-group-input__message form-group-input__message--currency\" ng-class=\"{'has-error': setUpForm.category.$invalid && setUpForm.$submitted}\" ng-messages=\"setUpForm.$error\" ng-if=\"setUpForm.$submitted\">\n" +
+    "                        <div ng-message=\"required\">Please add a currency.</div>\n" +
     "                    </div>\n" +
-    "\n" +
-    "                    <div class=\"form-group-input__message form-group-input__message--currency\" ng-if=\"setUpForm.category.$invalid && setUpForm.$submitted\">Please add a currency.</div>\n" +
     "                </div>\n" +
     "            </div>\n" +
     "\n" +
     "            <div class=\"sign-up__setup__tip\">\n" +
-    "                Please choose\n" +
-    "                <strong>at least 3</strong> categories we suggested or add your own. You can change them later as well.\n" +
+    "                Here are a few categories we will add for you. Feel free to <strong>de-select</strong> or\n" +
+    "                <strong>add your own</strong> at the bottom. You can change them later as well.\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <div class=\"sign-up__box__categories\">\n" +
+    "                <div class=\"sign-up__box__categories__category\" ng-repeat=\"category in categories track by category.name\">\n" +
+    "                    <div class=\"category-name\" ng-style=\"{'background':category.color.color}\" ng-class=\"{ 'category-name--unselected': !category.selected }\" ng-click=\"toggleCategorySelection($index)\">\n" +
+    "                        <span class=\"icon-checkmark-light\"></span>\n" +
+    "                        {{category.name}}\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
     "            </div>\n" +
     "\n" +
     "            <div class=\"sign-up__box__categories\">\n" +
     "\n" +
-    "                <div class=\"sign-up__box__categories__category\" ng-repeat=\"category in categories track by category.name\">\n" +
-    "                    <div class=\"category-name\" ng-style=\"{'background':category.color.color}\" ng-class=\"{ 'category-name--unselected': !category.selected }\" ng-click=\"toggleCategorySelection($index)\"> {{category.name}}</div>\n" +
-    "                </div>\n" +
-    "\n" +
     "                <!--Toggle form-->\n" +
     "                <button ng-if=\"! showCategoryOnTheFlyInput\" class=\"sign-up__box__categories__addbtn\" ng-click=\"toggleContent()\">+ Add another</button>\n" +
     "\n" +
+    "                <!--Add category on the fly form-->\n" +
     "                <ng-form class=\"sign-up__box__categories__category__form\"\n" +
     "                         name=\"categoryOnTheFlyForm\"\n" +
     "                         submit-on=\"add-category-on-the-fly-event\"\n" +
@@ -7493,6 +8143,22 @@ angular.module("app/account/partials/signup_setup.html", []).run(["$templateCach
     "            <button class=\"sign-up__setup__btn\" ng-disabled=\"! isEnoughSelectedCategories()\" type=\"submit\">{{isSaving ? 'Saving..' : 'Done! Let\\'s start!'}}</button>\n" +
     "        </form>\n" +
     "\n" +
+    "    </div>\n" +
+    "\n" +
+    "</div>");
+}]);
+
+angular.module("app/account/partials/trial_period_countdown.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/account/partials/trial_period_countdown.html",
+    "<!-- Trial period ending section -->\n" +
+    "<div class=\"account_trial_period_section\">\n" +
+    "\n" +
+    "    <!-- Flash messages. -->\n" +
+    "    <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
+    "    <div class=\"alert-error account_send_email_section__alert\">\n" +
+    "        Your trial period will end in <strong>{{currentUser.getTrialRemainingDays()}} days</strong>.\n" +
+    "        <a href=\"javascript:void(0)\" ui-sref=\"settings.payment.insights\">Add payment details</a>.\n" +
     "    </div>\n" +
     "\n" +
     "</div>");
@@ -7581,7 +8247,7 @@ angular.module("app/settings/partials/settings.abstract.html", []).run(["$templa
     "            <a href=\"javascript:void(0)\" ui-sref=\"settings.profile\">Profile</a>\n" +
     "        </li>\n" +
     "        <li ui-sref-active=\"tab__active\">\n" +
-    "            <a href=\"javascript:void(0)\" ui-sref=\"settings.admin\">Account settings</a>\n" +
+    "            <a href=\"javascript:void(0)\" ui-sref=\"settings.admin\">Account</a>\n" +
     "        </li>\n" +
     "        <li ui-sref-active=\"tab__active\">\n" +
     "            <a href=\"javascript:void(0)\" ui-sref=\"settings.preferences\">Preferences</a>\n" +
@@ -7591,6 +8257,9 @@ angular.module("app/settings/partials/settings.abstract.html", []).run(["$templa
     "        </li>\n" +
     "        <li ui-sref-active=\"tab__active\">\n" +
     "            <a href=\"javascript:void(0)\" ui-sref=\"settings.import.choose\">Import</a>\n" +
+    "        </li>\n" +
+    "        <li ui-sref-active=\"tab__active\">\n" +
+    "            <a href=\"javascript:void(0)\" ui-sref=\"settings.payment.insights\">Billing</a>\n" +
     "        </li>\n" +
     "    </ul>\n" +
     "\n" +
@@ -7603,14 +8272,14 @@ angular.module("app/settings/partials/settings.abstract.html", []).run(["$templa
 
 angular.module("app/settings/partials/settings.admin.abstract.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/settings/partials/settings.admin.abstract.html",
-    "<div class=\"settings__section\" ui-view=\"updatePassword\"></div>\n" +
+    "<div class=\"settings__box\" ui-view=\"updatePassword\"></div>\n" +
     "\n" +
-    "<div class=\"settings__section\" ui-view=\"cancelAccount\"></div>");
+    "<div class=\"settings__box\" ui-view=\"cancelAccount\"></div>");
 }]);
 
 angular.module("app/settings/partials/settings.admin.cancelAccount.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/settings/partials/settings.admin.cancelAccount.html",
-    "<div class=\"settings__section__form\">\n" +
+    "<div class=\"settings__box__section--50\">\n" +
     "\n" +
     "    <!-- Delete account -->\n" +
     "    <h1 class=\"settings__title\">Delete account</h1>\n" +
@@ -7619,7 +8288,7 @@ angular.module("app/settings/partials/settings.admin.cancelAccount.html", []).ru
     "    <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
     "\n" +
     "    <!--Cancel account-->\n" +
-    "    <button class=\"settings__cancel__btn\" ng-click=\"cancelAccount()\">{{isDeleting ? 'Deleting...' : 'Delete my account'}}</button>\n" +
+    "    <button class=\"settings__cancel__btn\" ng-click=\"cancelAccount()\" disabled>{{isDeleting ? 'Deleting...' : 'Delete my account'}}</button>\n" +
     "\n" +
     "</div>");
 }]);
@@ -7627,7 +8296,7 @@ angular.module("app/settings/partials/settings.admin.cancelAccount.html", []).ru
 angular.module("app/settings/partials/settings.admin.updatePassword.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/settings/partials/settings.admin.updatePassword.html",
     "<!-- Update password section -->\n" +
-    "<div class=\"settings__section__form\">\n" +
+    "<div class=\"settings__box__section--50\">\n" +
     "\n" +
     "    <!-- Title -->\n" +
     "    <h1 class=\"settings__title\">Change password</h1>\n" +
@@ -7663,17 +8332,241 @@ angular.module("app/settings/partials/settings.admin.updatePassword.html", []).r
     "</div>");
 }]);
 
+angular.module("app/settings/partials/settings.payment.abstract.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/settings/partials/settings.payment.abstract.html",
+    "<!-- Flash messages. -->\n" +
+    "<div flash-messages flash=\"flash\" identifier-id=\"generalError\"></div>\n" +
+    "\n" +
+    "<!--The view-->\n" +
+    "<div class=\"settings__box\" ui-view></div>");
+}]);
+
+angular.module("app/settings/partials/settings.payment.add.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/settings/partials/settings.payment.add.html",
+    "<!-- Payment section -->\n" +
+    "<div class=\"settings__box\">\n" +
+    "\n" +
+    "    <!--Payment method section-->\n" +
+    "    <div class=\"settings__box__section--50\">\n" +
+    "\n" +
+    "        <!-- Title -->\n" +
+    "        <h1 class=\"settings__title\">Billing</h1>\n" +
+    "\n" +
+    "        <div class=\"section-text\">\n" +
+    "            It seems that you have no payment info added yet. In order to subscribe to Revaluate, please add your credit\n" +
+    "            card details below.\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <!-- Add payment method form -->\n" +
+    "        <form class=\"payment__form__addcard\" name=\"addPaymentMethodForm\" ng-submit=\"addPaymentMethod()\" novalidate focus-first-error>\n" +
+    "\n" +
+    "            <!-- Flash messages. -->\n" +
+    "            <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
+    "            <!-- Form group -->\n" +
+    "            <div class=\"form-group-input payment__form__addcard__number\" ng-class=\"{'has-error': addPaymentMethodForm.$submitted && (addPaymentMethodForm.cardNumber.$invalid || badPostSubmitResponse)}\">\n" +
+    "                <label>Credit Card Number</label>\n" +
+    "                <input class=\"form-group-input__input\" type=\"text\" placeholder=\"4111111111111111\" name=\"cardNumber\" ng-model=\"paymentData.cardNumber\" auto-focus required/>\n" +
+    "                <span class=\"form-group-input__message\" ng-if=\"addPaymentMethodForm.cardNumber.$invalid && addPaymentMethodForm.$submitted\">Please enter your card number.</span>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!-- Form group -->\n" +
+    "            <div class=\"form-group-input payment__form__addcard__expiration\" ng-class=\"{'has-error': addPaymentMethodForm.$submitted && (addPaymentMethodForm.cardExpirationDate.$invalid || badPostSubmitResponse)}\">\n" +
+    "                <label>Expiration</label>\n" +
+    "                <input class=\"form-group-input__input\" type=\"text\" placeholder=\"10/18\" name=\"cardExpirationDate\" ng-model=\"paymentData.cardExpirationDate\" required/>\n" +
+    "                <span class=\"form-group-input__message\" ng-if=\"addPaymentMethodForm.cardExpirationDate.$invalid && addPaymentMethodForm.$submitted\">Please enter card expiration date.</span>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!-- Button container -->\n" +
+    "            <button class=\"settings__btn__save\" type=\"submit\">{{isRequestPending ? 'Saving...' : 'Add credit card'}}\n" +
+    "            </button>\n" +
+    "        </form>\n" +
+    "\n" +
+    "    </div>\n" +
+    "\n" +
+    "\n" +
+    "</div>");
+}]);
+
+angular.module("app/settings/partials/settings.payment.customer.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/settings/partials/settings.payment.customer.html",
+    "<!-- Payment section -->\n" +
+    "<div class=\"settings__box\">\n" +
+    "\n" +
+    "    <!--Payment customer section-->\n" +
+    "    <div class=\"settings__box__section--50\">\n" +
+    "\n" +
+    "        <!-- Title -->\n" +
+    "        <h1 class=\"settings__title\">Update customer information</h1>\n" +
+    "\n" +
+    "        <!-- Update customer information form -->\n" +
+    "        <form name=\"updateCustomerForm\" ng-submit=\"updateCustomer()\" novalidate focus-first-error>\n" +
+    "\n" +
+    "            <!-- Flash messages. -->\n" +
+    "            <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
+    "            <!-- Form group -->\n" +
+    "            <div class=\"form-group-input\" ng-class=\"{'has-error': updateCustomerForm.$submitted && (updateCustomerForm.firstName.$invalid || badPostSubmitResponse)}\">\n" +
+    "                <input class=\"form-group-input__input\" type=\"text\" placeholder=\"Last name\" name=\"cardNumber\" ng-model=\"paymentDetailsData.firstName\" auto-focus required />\n" +
+    "                <span class=\"form-group-input__message\" ng-if=\"updateCustomerForm.firstName.$invalid && updateCustomerForm.$submitted\">Please enter your first name.</span>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!-- Form group -->\n" +
+    "            <div class=\"form-group-input\" ng-class=\"{'has-error': updateCustomerForm.$submitted && (updateCustomerForm.lastName.$invalid || badPostSubmitResponse)}\">\n" +
+    "                <input class=\"form-group-input__input\" type=\"text\" placeholder=\"First name\" name=\"cardExpirationDate\" ng-model=\"paymentDetailsData.lastName\" required />\n" +
+    "                <span class=\"form-group-input__message\" ng-if=\"updateCustomerForm.lastName.$invalid && updateCustomerForm.$submitted\">Please enter your last name.</span>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!-- Button container -->\n" +
+    "            <button class=\"settings__btn__save\" type=\"submit\">{{isRequestPending ? 'Updating...' : 'Update customer'}}</button>\n" +
+    "        </form>\n" +
+    "\n" +
+    "    </div>\n" +
+    "\n" +
+    "\n" +
+    "</div>");
+}]);
+
+angular.module("app/settings/partials/settings.payment.insights.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/settings/partials/settings.payment.insights.html",
+    "<!--Payment profile section-->\n" +
+    "\n" +
+    "<!-- Title -->\n" +
+    "<h1 class=\"settings__title\">Billing</h1>\n" +
+    "\n" +
+    "<!--Subscription payment section-->\n" +
+    "<div class=\"settings__box__section--50\">\n" +
+    "\n" +
+    "    <div class=\"settings__title__h2\">Subscription status</div>\n" +
+    "\n" +
+    "    <div ng-repeat=\"paymentMethodDTO in paymentInsights.paymentMethodDTOs\">\n" +
+    "\n" +
+    "        <!--Payment method subscriptions-->\n" +
+    "        <div class=\"settings__box__payment-payment-method__subscription\" ng-repeat=\"paymentSubscription in paymentMethodDTO.paymentSubscriptionDTOList\">\n" +
+    "\n" +
+    "            <div class=\"settings__box__payment__subscription__status\" ng-if=\"paymentInsights.subscriptionActive\">\n" +
+    "                <div>\n" +
+    "                    <span class=\"settings__box__payment__subscription__status--active\">{{paymentSubscription.status}}</span>\n" +
+    "                    <span class=\"settings__box__payment__subscription__status--info\"> - Next payment: ${{paymentSubscription.amount}} due {{paymentSubscription.billingPeriodEndDate | friendlyDate}}</span>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <div class=\"settings__box__payment__subscription__status\" ng-if=\"! paymentInsights.subscriptionActive\">\n" +
+    "        <div>\n" +
+    "            <span class=\"settings__box__payment__subscription__status--trial\">Trial</span>\n" +
+    "            <span class=\"settings__box__payment__subscription__status--info\">- First billing: $7.00 due 2015.05.25</span>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- Payment form -->\n" +
+    "    <form ng-if=\"! paymentInsights.subscriptionActive\" name=\"paymentSubscriptionForm\" ng-submit=\"performPaymentSubscription()\" novalidate>\n" +
+    "\n" +
+    "        <!-- Flash messages. -->\n" +
+    "        <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
+    "        <!-- Button container -->\n" +
+    "        <button class=\"settings__box__payment__subscription__btn\" type=\"submit\">{{isRequestPending ? 'Activating...' : 'Activate'}}</button>\n" +
+    "    </form>\n" +
+    "</div>\n" +
+    "\n" +
+    "<!--Payment method-->\n" +
+    "<div class=\"settings__box__section--50\">\n" +
+    "\n" +
+    "    <div class=\"settings__title__h2\">Payment method</div>\n" +
+    "\n" +
+    "    <div class=\"settings__box__payment__method\" ng-repeat=\"paymentMethodDTO in paymentInsights.paymentMethodDTOs\">\n" +
+    "        <div class=\"settings__box__payment__method__cardno\">{{paymentMethodDTO.cardType}} ending with {{paymentMethodDTO.last4}}</div>\n" +
+    "        <div class=\"settings__box__payment__method__cardexp\">Expiration: {{paymentMethodDTO.expirationMonth}} / {{paymentMethodDTO.expirationYear}}</div>\n" +
+    "        <img ng-src=\"{{paymentMethodDTO.imageUrl}}\" />\n" +
+    "        <a class=\"link-navigation\" href=\"javascript:void(0)\" ui-sref=\"settings.payment.method\">Update payment method</a>\n" +
+    "    </div>\n" +
+    "\n" +
+    "</div>\n" +
+    "\n" +
+    "<!--Billing History-->\n" +
+    "<div class=\"settings__box__section--100\">\n" +
+    "\n" +
+    "    <div class=\"settings__title__h2\">Billing History</div>\n" +
+    "\n" +
+    "    <table class=\"settings__box__payment__history\">\n" +
+    "        <thead>\n" +
+    "        <tr>\n" +
+    "            <th>Status</th>\n" +
+    "            <th>ID</th>\n" +
+    "            <th>Amount</th>\n" +
+    "            <th>Date</th>\n" +
+    "        </tr>\n" +
+    "        </thead>\n" +
+    "        <tbody>\n" +
+    "        <tr ng-repeat=\"paymentTransactionDTO in paymentInsights.paymentTransactionDTOs\">\n" +
+    "            <td>\n" +
+    "                <span class=\"icon-checkmark settings__box__payment__history__status--settled\" ng-if=\"paymentTransactionDTO.status == 'SETTLED'\"></span>\n" +
+    "                <span class=\"icon-checkmark\" ng-if=\"paymentTransactionDTO.status != 'SETTLED'\"></span>\n" +
+    "            </td>\n" +
+    "            <td>\n" +
+    "                <a href=\"javascript:void(0)\">{{paymentTransactionDTO.id}}</a>\n" +
+    "            </td>\n" +
+    "            <td>$ {{paymentTransactionDTO.amount}}</td>\n" +
+    "            <td>{{paymentTransactionDTO.createdAt | friendlyDate}}</td>\n" +
+    "        </tr>\n" +
+    "        </tbody>\n" +
+    "    </table>\n" +
+    "\n" +
+    "</div>");
+}]);
+
+angular.module("app/settings/partials/settings.payment.method.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/settings/partials/settings.payment.method.html",
+    "<!-- Payment section -->\n" +
+    "<div class=\"settings__box\">\n" +
+    "\n" +
+    "    <!--Payment method section-->\n" +
+    "    <div class=\"settings__box__section--50\">\n" +
+    "\n" +
+    "        <!-- Title -->\n" +
+    "        <h1 class=\"settings__title\">Update payment method</h1>\n" +
+    "\n" +
+    "        <!-- Update payment method form -->\n" +
+    "        <form name=\"updatePaymentMethodForm\" ng-submit=\"updatePaymentMethod()\" novalidate focus-first-error>\n" +
+    "\n" +
+    "            <!-- Flash messages. -->\n" +
+    "            <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
+    "            <!-- Form group -->\n" +
+    "            <div class=\"form-group-input\" ng-class=\"{'has-error': updatePaymentMethodForm.$submitted && (updatePaymentMethodForm.cardNumber.$invalid || badPostSubmitResponse)}\">\n" +
+    "                <input class=\"form-group-input__input\" type=\"text\" placeholder=\"4111111111111111\" name=\"cardNumber\" ng-model=\"paymentData.cardNumber\" auto-focus required />\n" +
+    "                <span class=\"form-group-input__message\" ng-if=\"updatePaymentMethodForm.cardNumber.$invalid && updatePaymentMethodForm.$submitted\">Please enter your card number.</span>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!-- Form group -->\n" +
+    "            <div class=\"form-group-input\" ng-class=\"{'has-error': updatePaymentMethodForm.$submitted && (updatePaymentMethodForm.cardExpirationDate.$invalid || badPostSubmitResponse)}\">\n" +
+    "                <input class=\"form-group-input__input\" type=\"text\" placeholder=\"10/18\" name=\"cardExpirationDate\" ng-model=\"paymentData.cardExpirationDate\" required />\n" +
+    "                <span class=\"form-group-input__message\" ng-if=\"updatePaymentMethodForm.cardExpirationDate.$invalid && updatePaymentMethodForm.$submitted\">Please enter card expiration date.</span>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!-- Button container -->\n" +
+    "            <button class=\"settings__btn__save\" type=\"submit\">{{isRequestPending ? 'Updating...' : 'Update payment'}}</button>\n" +
+    "        </form>\n" +
+    "\n" +
+    "    </div>\n" +
+    "\n" +
+    "</div>");
+}]);
+
 angular.module("app/settings/partials/settings.preferences.abstract.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/settings/partials/settings.preferences.abstract.html",
-    "<div class=\"settings__section\" ui-view=\"updateCurrency\"></div>");
+    "<div class=\"settings__box\" ui-view=\"updateCurrency\"></div>");
 }]);
 
 angular.module("app/settings/partials/settings.preferences.updateCurrency.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/settings/partials/settings.preferences.updateCurrency.html",
-    "<div class=\"settings__section__form\">\n" +
+    "<div class=\"settings__box__section--50\">\n" +
     "\n" +
     "    <!-- Title -->\n" +
-    "    <h1 class=\"settings__title\">Modify preferences</h1>\n" +
+    "    <h1 class=\"settings__title\">Change your currency</h1>\n" +
     "\n" +
     "    <form name=\"preferencesForm\" ng-submit=\"updatePreferences()\" novalidate>\n" +
     "\n" +
@@ -7682,29 +8575,20 @@ angular.module("app/settings/partials/settings.preferences.updateCurrency.html",
     "\n" +
     "        <div class=\"sign-up__setup__section\">\n" +
     "\n" +
-    "            <div class=\"sign-up__setup__section--currency\" ng-class=\"{'has-error': preferencesForm.$submitted && (preferencesForm.$error['autocomplete-required'] || preferencesForm.currency.$invalid || badPostSubmitResponse)}\">\n" +
-    "                <div angucomplete-alt\n" +
-    "                     selected-object=\"currency\"\n" +
-    "                     local-data=\"currencies\"\n" +
-    "                     search-fields=\"displayName,currencyCode\"\n" +
-    "                     title-field=\"currencyCode,displayName\"\n" +
-    "                     field-required=\"true\"\n" +
-    "                     placeholder=\"Start typing your currency...\"\n" +
-    "                     maxlength=\"50\"\n" +
-    "                     pause=\"1\"\n" +
-    "                     minlength=\"0\"\n" +
-    "                     initial-value=\"{{user.model.currency.currencyCode}}\"\n" +
-    "                     input-class=\"sign-up__setup__section--currency__input\"\n" +
-    "                     match-class=\"angucomplete-highlight\">\n" +
-    "                </div>\n" +
+    "            <div class=\"sign-up__setup__section--currency\" ng-class=\"{'has-error': preferencesForm.$submitted && (preferencesForm.currency.$invalid || badPostSubmitResponse)}\">\n" +
+    "\n" +
+    "                <ui-select name=\"currency\" class=\"sign-up__setup__section--currency__input\" required ng-model=\"currency.selected\" theme=\"selectize\" append-to-body=\"true\">\n" +
+    "                    <ui-select-match placeholder=\"Start typing your currency...\">{{$select.selected.currencyCode}}</ui-select-match>\n" +
+    "                    <ui-select-choices repeat=\"currencyEntry in currencies | orderObjectBy : 'currencyCode' : false | filter:{$:$select.search} track by currencyEntry.numericCode\">\n" +
+    "                        <span ng-bind-html=\"currencyEntry.currencyCode | highlight: $select.search\"></span>\n" +
+    "                        <span ng-bind-html=\"currencyEntry.displayName | highlight: $select.search\"></span>\n" +
+    "                    </ui-select-choices>\n" +
+    "                </ui-select>\n" +
     "\n" +
     "                <!-- Error messages -->\n" +
-    "                <div class=\"form-group-input__message form-group-input__message--currency\" ng-class=\"{'has-error': preferencesForm.$invalid && preferencesForm.$submitted}\" ng-messages=\"preferencesForm.$error\" ng-if=\"preferencesForm.$submitted\">\n" +
-    "                    <div ng-message=\"autocomplete-required\">Currency is missing or is invalid.</div>\n" +
-    "                    <div ng-message=\"required\">Please add</div>\n" +
+    "                <div class=\"form-group-input__message form-group-input__message--currency\" ng-class=\"{'has-error': preferencesForm.category.$invalid && expenseForm.$submitted}\" ng-messages=\"preferencesForm.$error\" ng-if=\"preferencesForm.$submitted\">\n" +
+    "                    <div ng-message=\"required\">Please add a currency.</div>\n" +
     "                </div>\n" +
-    "\n" +
-    "                <div class=\"form-group-input__message form-group-input__message--currency\" ng-if=\"preferencesForm.category.$invalid && preferencesForm.$submitted\">Please add a currency.</div>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "\n" +
@@ -7718,19 +8602,19 @@ angular.module("app/settings/partials/settings.preferences.updateCurrency.html",
 angular.module("app/settings/partials/settings.profile.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/settings/partials/settings.profile.html",
     "<!-- Profile section -->\n" +
-    "<div class=\"settings__section\">\n" +
+    "<div class=\"settings__box\">\n" +
+    "\n" +
+    "    <!-- Title -->\n" +
+    "    <h1 class=\"settings__title\">Edit profile</h1>\n" +
+    "\n" +
+    "    <!-- Flash messages. -->\n" +
+    "    <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
     "\n" +
     "    <!--Update profile section-->\n" +
-    "    <div class=\"settings__section__form\">\n" +
-    "\n" +
-    "        <!-- Title -->\n" +
-    "        <h1 class=\"settings__title\">Edit profile</h1>\n" +
+    "    <div class=\"settings__box__section--50\">\n" +
     "\n" +
     "        <!-- Profile form -->\n" +
     "        <form name=\"profileForm\" ng-submit=\"updateProfile(profileData)\" novalidate focus-first-error>\n" +
-    "\n" +
-    "            <!-- Flash messages. -->\n" +
-    "            <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
     "\n" +
     "            <!-- Form group -->\n" +
     "            <div class=\"form-group-input\" ng-class=\"{'has-error': profileForm.$submitted && (loginForm.firstName.$invalid || badPostSubmitResponse)}\">\n" +
@@ -7768,111 +8652,143 @@ angular.module("app/insight/partials/insight.html", []).run(["$templateCache", f
     "\n" +
     "<div class=\"view-container__content\">\n" +
     "\n" +
-    "    <div class=\"insights__section\">\n" +
-    "        Cool! Let's get some insights about your spendings.\n" +
+    "    <!--Trial period countdown-->\n" +
+    "    <div ng-if=\"currentUser.showTrialRemainingDays()\">\n" +
+    "        <div ng-include src=\"'app/account/partials/trial_period_countdown.html'\"></div>\n" +
     "    </div>\n" +
     "\n" +
-    "    <!-- Insight fetch form -->\n" +
-    "    <div class=\"insights__controls\">\n" +
+    "    <!--Account confirmation alert-->\n" +
+    "    <div ng-if=\"! currentUser.model.emailConfirmed\" ng-controller=\"EmailConfirmationSendController\">\n" +
+    "        <div ng-include src=\"'app/account/partials/email_confirmation_send_send.html'\"></div>\n" +
+    "    </div>\n" +
     "\n" +
-    "        <form name=\"insightForm\" class=\"insights__controls__form\" ng-submit=\"submitLoadInsight()\" novalidate>\n" +
+    "    <!--Empty state if no expenses overall-->\n" +
+    "    <div class=\"insights__empty-state\" ng-if=\"insight.model.totalNumberOfTransactions === 0\">\n" +
+    "        <div class=\"insights__empty-state__icon\"></div>\n" +
+    "        <h1>No data yet.</h1>\n" +
     "\n" +
-    "            <!-- Flash messages. -->\n" +
-    "            <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "        <div>Add some expenses to get insights.</div>\n" +
+    "    </div>\n" +
     "\n" +
-    "            <!-- Select prev month -->\n" +
-    "            <button type=\"button\" class=\"insights__controls__form__arrow\" ng-disabled=\"isLoading || ! canLoadPrevMonth()\" ng-click=\"prevMonth()\"> <</button>\n" +
+    "    <div ng-show=\"insight.model.totalNumberOfTransactions !== 0\">\n" +
+    "        <!-- Insight fetch form -->\n" +
+    "        <div class=\"insights__controls\">\n" +
     "\n" +
-    "            <div class=\"insights__controls__form__month\" ng-class=\"{'has-error': insightForm.spentDate.$invalid && insightForm.$submitted}\">\n" +
+    "            <form name=\"insightForm\" class=\"insights__controls__form\" ng-submit=\"submitLoadInsight()\" novalidate>\n" +
     "\n" +
-    "                <!--Hidden input of the insight chosen date-->\n" +
-    "                <input type=\"hidden\" name=\"spentDate\" ng-model=\"insightData.spentDate\" required valid-date />\n" +
+    "                <!-- Flash messages. -->\n" +
+    "                <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
     "\n" +
-    "                <!--insight date picker-->\n" +
-    "                <div class=\"insight__form__date__input\">\n" +
-    "                    <button type=\"button\"\n" +
-    "                            class=\"insight__form__date__input__btn\"\n" +
-    "                            ng-click=\"openDatePicker($event)\"\n" +
-    "                            ng-model=\"insightData.spentDate\"\n" +
-    "                            datepicker-popup\n" +
-    "                            is-open=\"datePickerOpened\"\n" +
-    "                            ng-change=\"onChange()\"\n" +
-    "                            ng-disabled=\"isLoading\"\n" +
-    "                            min-date=\"datePickerMinDate\"\n" +
-    "                            max-date=\"datePickerMaxDate\"\n" +
-    "                            datepicker-mode=\"'month'\" min-mode=\"month\"\n" +
-    "                            show-button-bar=\"false\"\n" +
-    "                            datepicker-options=\"{minMode: 'month',datepickerMode: 'month'}\">{{isLoading ? 'Loading' : (insightData.spentDate | friendlyMonthDate)}}\n" +
-    "                    </button>\n" +
+    "                <!-- Select prev month -->\n" +
+    "                <button type=\"button\" class=\"insights__controls__form__arrow icon-chevron-left\" ng-disabled=\"isLoading || ! canLoadPrevMonth()\" ng-click=\"prevMonth()\"></button>\n" +
+    "\n" +
+    "                <div class=\"insights__controls__form__month\" ng-class=\"{'has-error': insightForm.spentDate.$invalid && insightForm.$submitted}\">\n" +
+    "\n" +
+    "                    <!--Hidden input of the insight chosen date-->\n" +
+    "                    <input type=\"hidden\" name=\"spentDate\" ng-model=\"insightData.spentDate\" required valid-date/>\n" +
+    "\n" +
+    "                    <!--insight date picker-->\n" +
+    "                    <div class=\"insight__form__date__input\">\n" +
+    "                        <button type=\"button\"\n" +
+    "                                class=\"insight__form__date__input__btn\"\n" +
+    "                                ng-click=\"openDatePicker($event)\"\n" +
+    "                                ng-model=\"insightData.spentDate\"\n" +
+    "                                datepicker-popup\n" +
+    "                                is-open=\"datePickerOpened\"\n" +
+    "                                ng-change=\"onChange()\"\n" +
+    "                                ng-disabled=\"isLoading\"\n" +
+    "                                min-date=\"datePickerMinDate\"\n" +
+    "                                max-date=\"datePickerMaxDate\"\n" +
+    "                                datepicker-mode=\"'month'\" min-mode=\"month\"\n" +
+    "                                show-button-bar=\"false\"\n" +
+    "                                datepicker-options=\"{minMode: 'month',datepickerMode: 'month'}\">{{isLoading ? 'Loading'\n" +
+    "                            : (insightData.spentDate | friendlyMonthDate)}}\n" +
+    "                        </button>\n" +
+    "                    </div>\n" +
+    "\n" +
+    "                    <!--Error messages-->\n" +
+    "                    <div class=\"form-group-input__message\" ng-class=\"{'has-error': insightForm.spentDate.$invalid && insightForm.$submitted}\" ng-messages=\"insightForm.$error\" ng-if=\"insightForm.$submitted\">\n" +
+    "                        <div ng-message=\"required\">Please add a date.</div>\n" +
+    "                        <div ng-message=\"validDate\">Date should be in the past.</div>\n" +
+    "                    </div>\n" +
     "                </div>\n" +
     "\n" +
-    "                <!--Error messages-->\n" +
-    "                <div class=\"form-group-input__message\" ng-class=\"{'has-error': insightForm.spentDate.$invalid && insightForm.$submitted}\" ng-messages=\"insightForm.$error\" ng-if=\"insightForm.$submitted\">\n" +
-    "                    <div ng-message=\"required\">Please add a date.</div>\n" +
-    "                    <div ng-message=\"validDate\">Date should be in the past.</div>\n" +
-    "                </div>\n" +
+    "                <!-- Select next month -->\n" +
+    "                <button type=\"button\" class=\"insights__controls__form__arrow icon-chevron-right\" ng-disabled=\"isLoading || ! canLoadNextMonth()\" ng-click=\"nextMonth()\"></button>\n" +
+    "\n" +
+    "            </form>\n" +
+    "\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <!--Empty state if no expenses for current month-->\n" +
+    "        <div class=\"insights__empty-state\" ng-if=\"insight.model.numberOfTransactions === 0\">\n" +
+    "            <div class=\"insights__empty-state__icon\"></div>\n" +
+    "            <h1>No expenses on this month yet.</h1>\n" +
+    "\n" +
+    "            <div>You'll get some insights here.</div>\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <div ng-show=\"insight.model.numberOfTransactions !== 0\">\n" +
+    "            <div class=\"insights__summary\">\n" +
+    "                You've spent a total of <span>{{insight.model.totalAmountSpent | currency:\"\"}}</span>\n" +
+    "                <span>{{user.model.currency.currencyCode}}</span>\n" +
+    "                in <span>{{(insightData.spentDate | friendlyMonthDate)}}</span>, which is\n" +
+    "                <span>5% more</span> than the last month.\n" +
     "            </div>\n" +
     "\n" +
-    "            <!-- Select next month -->\n" +
-    "            <button type=\"button\" class=\"insights__controls__form__arrow\" ng-disabled=\"isLoading || ! canLoadNextMonth()\" ng-click=\"nextMonth()\"> ></button>\n" +
+    "            <div class=\"insights__chart__bar\">\n" +
+    "                <canvas id=\"bar\"\n" +
+    "                        class=\"chart chart-bar\"\n" +
+    "                        data=\"insightLineData\"\n" +
+    "                        series=\"insightLineSeries\"\n" +
+    "                        legend=\"false\"\n" +
+    "                        options=\"chartOptions\"\n" +
+    "                        labels=\"insight.model.insightLabels\">\n" +
+    "                </canvas>\n" +
+    "            </div>\n" +
     "\n" +
-    "        </form>\n" +
+    "            <div class=\"insights__summary\">\n" +
+    "                You had <span>{{insight.model.numberOfTransactions}}</span> transactions, you spent mostly on\n" +
+    "                <span>FOOD</span>\n" +
+    "                and your highest expense was on <span>CLOTHES</span>, which was\n" +
+    "                <span>340 {{user.model.currency.currencyCode}}</span>.\n" +
+    "            </div>\n" +
     "\n" +
-    "    </div>\n" +
+    "            <div class=\"insights__table\">\n" +
+    "                <table>\n" +
+    "                    <thead class=\"insights__table__header\">\n" +
+    "                    <tr class=\"\">\n" +
+    "                        <td>TOTAL</td>\n" +
+    "                        <td class=\"insights__table__amount\">{{insight.model.totalAmountSpent | currency:\"\"}}<span>{{user.model.currency.currencyCode}}</span>\n" +
+    "                        </td>\n" +
+    "                    </tr>\n" +
+    "                    </thead>\n" +
+    "                    <tbody>\n" +
+    "                    <tr ng-repeat=\"totalPerCategory in insight.model.totalPerCategoryInsightDTOs\">\n" +
+    "                        <td class=\"insights__table__category\">\n" +
+    "                            <span class=\"insights__table__category__color\" ng-style=\"{'background':totalPerCategory.categoryDTO.color.color}\">C</span>\n" +
+    "                            {{totalPerCategory.categoryDTO.name}}\n" +
+    "                        </td>\n" +
+    "                        <td class=\"insights__table__amount\">{{totalPerCategory.totalAmount | currency:\"\"}}<span>{{user.model.currency.currencyCode}}</span>\n" +
+    "                        </td>\n" +
+    "                    </tr>\n" +
+    "                    </tbody>\n" +
+    "                </table>\n" +
+    "            </div>\n" +
     "\n" +
-    "    <div class=\"insights__summary\">\n" +
-    "        <div class=\"insights__summary__thumbnail\">\n" +
-    "            <span class=\"insights__summary__thumbnail__number \">{{insight.model.totalAmountSpent}}</span>\n" +
-    "            <span class=\"insights__summary__thumbnail__label\">TOTAL this month</span>\n" +
+    "            <div class=\"insights__chart__doughnut\">\n" +
+    "                <canvas class=\"chart chart-doughnut\"\n" +
+    "                        data=\"insight.model.insightData\"\n" +
+    "                        labels=\"insight.model.insightLabels\"\n" +
+    "                        options=\"chartOptions\"\n" +
+    "                        colours=\"insight.model.insightColors\">\n" +
+    "                </canvas>\n" +
+    "            </div>\n" +
     "        </div>\n" +
-    "        <div class=\"insights__summary__thumbnail\">\n" +
-    "            <span class=\"insights__summary__thumbnail__number\">{{insight.model.numberOfTransactions}}</span>\n" +
-    "            <span class=\"insights__summary__thumbnail__label\">transactions</span>\n" +
-    "        </div>\n" +
-    "        <div class=\"insights__summary__thumbnail\">\n" +
-    "            <span class=\"insights__summary__thumbnail__number\">+5%</span>\n" +
-    "            <span class=\"insights__summary__thumbnail__label\">from previous month</span>\n" +
-    "        </div>\n" +
+    "\n" +
     "    </div>\n" +
     "\n" +
-    "    <div class=\"insights__chart__bar\">\n" +
-    "        <canvas id=\"bar\"\n" +
-    "                class=\"chart chart-bar\"\n" +
-    "                data=\"insightLineData\"\n" +
-    "                series=\"insightLineSeries\"\n" +
-    "                legend=\"true\"\n" +
-    "                labels=\"insight.model.insightLabels\">\n" +
-    "        </canvas>\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <div class=\"insights__table\">\n" +
-    "        <table>\n" +
-    "            <thead class=\"insights__table__header\">\n" +
-    "            <tr>\n" +
-    "                <td>TOTAL</td>\n" +
-    "                <td class=\"insights__table__amount\">{{insight.model.totalAmountSpent}}</td>\n" +
-    "            </tr>\n" +
-    "            </thead>\n" +
-    "            <tbody>\n" +
-    "            <tr ng-repeat=\"totalPerCategory in insight.model.totalPerCategoryInsightDTOs\">\n" +
-    "                <td class=\"insights__table__category\">\n" +
-    "                    <span class=\"insights__table__category__color\" ng-style=\"{'background':totalPerCategory.categoryDTO.color.color}\">C</span>\n" +
-    "                    {{totalPerCategory.categoryDTO.name}}\n" +
-    "                </td>\n" +
-    "                <td class=\"insights__table__amount\">{{totalPerCategory.totalAmount}}</td>\n" +
-    "            </tr>\n" +
-    "            </tbody>\n" +
-    "        </table>\n" +
-    "    </div>\n" +
-    "\n" +
-    "        <div class=\"insights__chart__doughnut\">\n" +
-    "            <canvas class=\"chart chart-doughnut\"\n" +
-    "                    data=\"insight.model.insightData\"\n" +
-    "                    labels=\"insight.model.insightLabels\"\n" +
-    "                    colours=\"insight.model.insightColors\">\n" +
-    "            </canvas>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
+    "</div>\n" +
     "\n" +
     "<div footer class=\"view-container__footer\"></div>");
 }]);
@@ -7881,16 +8797,16 @@ angular.module("app/feedback/partials/feedback-modal.html", []).run(["$templateC
   $templateCache.put("app/feedback/partials/feedback-modal.html",
     "<form name=\"feedbackForm\" ng-submit=\"sendFeedbackAndClose(feedbackForm)\" novalidate focus-first-error>\n" +
     "\n" +
-    "    <div class=\"feedback-modal__header\">Feedback</div>\n" +
+    "    <div class=\"feedback-modal__header\">Tell us something</div>\n" +
     "\n" +
-    "    <div class=\"expense-modal__form__cancel\">\n" +
+    "    <div class=\"feedback-modal__form__close\">\n" +
     "        <button type=\"button\" class=\"close\" ng-click=\"dismissFeedbackModal()\" aria-label=\"Close\">\n" +
     "            <span aria-hidden=\"true\">×</span>\n" +
     "        </button>\n" +
     "    </div>\n" +
     "\n" +
     "    <div class=\"modal-body\" ng-if=\"! isSending && ! isSent\">\n" +
-    "        <div class=\"form-group\" ng-class=\"{'has-error': feedbackForm.subject.$invalid && feedbackForm.$submitted}\">\n" +
+    "        <div class=\"form-group form-group-input\" ng-class=\"{'has-error': feedbackForm.subject.$invalid && feedbackForm.$submitted}\">\n" +
     "            <input class=\"form-control\" type=\"text\" name=\"subject\" ng-model=\"feedback.model.subject\" placeholder=\"Subject\" required />\n" +
     "        </div>\n" +
     "        <div class=\"form-group\" ng-class=\"{'has-error': feedbackForm.message.$invalid && feedbackForm.$submitted}\">\n" +
@@ -7907,29 +8823,11 @@ angular.module("app/feedback/partials/feedback-modal.html", []).run(["$templateC
     "    </div>\n" +
     "\n" +
     "    <div class=\"modal-footer\">\n" +
-    "        <button class=\"btn btn-link\" type=\"button\" ng-click=\"dismissFeedbackModal()\">Cancel</button>\n" +
-    "        <button class=\"btn btn-primary\" type=\"submit\" ng-disabled=\"isSending || isSent\">Send</button>\n" +
+    "        <button class=\"modal-footer__cancelbtn\" type=\"button\" ng-click=\"dismissFeedbackModal()\">Cancel</button>\n" +
+    "        <button class=\"modal-footer__sendbtn\" type=\"submit\" ng-disabled=\"isSending || isSent\">Send</button>\n" +
     "    </div>\n" +
     "\n" +
     "</form>");
-}]);
-
-angular.module("app/common/partials/emailList/emailList.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("app/common/partials/emailList/emailList.html",
-    "<div ng-repeat=\"email in emails track by $index\">\n" +
-    "    <ng-form name=\"emailForm\">\n" +
-    "        <div class=\"form-group form-group--email-icon\" ng-class=\"{'has-error': emailForm.email.$invalid && parentForm.$submitted}\">\n" +
-    "\n" +
-    "            <!--Inputs : first is your email-->\n" +
-    "            <input class=\"form-control form-control--friend-email\" type=\"email\" placeholder=\"{{$index === 0 ? 'Your email' : 'Your friend\\'s email address'}}\" name=\"email\" ng-model=\"emails[$index].email\" required ng-disabled=\"$index === 0\" />\n" +
-    "\n" +
-    "            <!--Remove emails buttons-->\n" +
-    "            <a href=\"javascript:void(0)\" ng-if=\"$index > 0\" class=\"close\" tabindex=\"-1\" ng-click=\"removeEmail($index)\">×</a>\n" +
-    "        </div>\n" +
-    "    </ng-form>\n" +
-    "</div>\n" +
-    "\n" +
-    "<a class=\"btn-add-emails\" href=\"javascript:void(0)\" ng-click=\"addEmail()\" ng-show=\"canAddEmail\">Add another email recipient</a>");
 }]);
 
 angular.module("app/common/partials/flash-messages.html", []).run(["$templateCache", function($templateCache) {
@@ -7991,7 +8889,9 @@ angular.module("app/common/partials/header-home.html", []).run(["$templateCache"
     "            <li><a href=\"javascript:void(0)\">Pricing</a></li>\n" +
     "            <li><a href=\"javascript:void(0)\">Blog</a></li>\n" +
     "            <li><a href=\"javascript:void(0)\">Contact</a></li>\n" +
-    "            <li><button class=\"header-home__navigation--btn\" account-modal-toggle=\"login\">Log in</button></li>\n" +
+    "            <li>\n" +
+    "                <button class=\"header-home__navigation--btn\" account-modal-toggle=\"login\">Log in</button>\n" +
+    "            </li>\n" +
     "        </ul>\n" +
     "\n" +
     "    </header>\n" +
@@ -8001,32 +8901,43 @@ angular.module("app/common/partials/header-home.html", []).run(["$templateCache"
 
 angular.module("app/common/partials/header.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/common/partials/header.html",
-    "<header class=\"header\">\n" +
+    "<div class=\"header__wrapper\">\n" +
+    "    <header class=\"header\">\n" +
     "\n" +
-    "    <div class=\"header__brand\">\n" +
-    "        <a href=\"javascript:void(0)\" class=\"header__brand--name\">Revaluate</a>\n" +
-    "    </div>\n" +
+    "        <div class=\"header__brand\">\n" +
+    "            <a href=\"javascript:void(0)\" class=\"header__brand--name\">Revaluate</a>\n" +
+    "        </div>\n" +
     "\n" +
-    "    <div class=\"dropdown header__dropdown\" dropdown is-open=\"status.isopen\">\n" +
-    "        <button class=\"dropdown-toggle header__dropdown__toggle\" ng-show=\"currentUser.model.firstName + currentUser.model.lastName\" dropdown-toggle data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">\n" +
-    "            <span class=\"header__dropdown__avatar\">AV</span>\n" +
-    "            {{currentUser.model.firstName + \" \" + currentUser.model.lastName}}\n" +
-    "            <span class=\"caret\"></span>\n" +
-    "        </button>\n" +
-    "        <ul class=\"dropdown-menu header__dropdown__menu\" role=\"menu\">\n" +
-    "            <li><a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"settings.profile\">Preferences</a></li>\n" +
-    "            <li><a class=\"nav-link\" href=\"javascript:void(0)\" id=\"feedback-trigger\" ng-controller=\"FeedbackModalController\" ng-click=\"openFeedbackModal()\">Send feedback</a></li>\n" +
-    "            <li><a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"account:logout\">Logout</a></li>\n" +
+    "        <ul class=\"header__navigation\">\n" +
+    "            <li ui-sref-active=\"header__navigation--active\">\n" +
+    "                <a href=\"javascript:void(0)\" ui-sref=\"expenses.regular\">Wallet</a>\n" +
+    "            </li>\n" +
+    "            <li ui-sref-active=\"header__navigation--active\">\n" +
+    "                <a href=\"javascript:void(0)\" ui-sref=\"insights\">Insights</a>\n" +
+    "            </li>\n" +
+    "            <li ui-sref-active=\"header__navigation--active\">\n" +
+    "                <a href=\"javascript:void(0)\">Goals</a>\n" +
+    "                <span>Coming soon!</span>\n" +
+    "            </li>\n" +
     "        </ul>\n" +
-    "    </div>\n" +
     "\n" +
-    "    <ul class=\"header__navigation\">\n" +
-    "        <li><a href=\"javascript:void(0)\" ui-sref=\"expenses.regular\">Wallet</a></li>\n" +
-    "        <li><a href=\"javascript:void(0)\" ui-sref=\"insights\">Insights</a></li>\n" +
-    "        <li><a href=\"javascript:void(0)\">Goals</a><span>Coming soon!</span></li>\n" +
-    "    </ul>\n" +
+    "        <div class=\"dropdown header__dropdown\" dropdown is-open=\"status.isopen\">\n" +
+    "            <button class=\"dropdown-toggle header__dropdown__toggle\" ng-show=\"currentUser.model.firstName + currentUser.model.lastName\" dropdown-toggle data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">\n" +
+    "                <img class=\"header__dropdown__avatar\" gravatar-src=\"'{{currentUser.model.email}}'\" />\n" +
+    "                {{currentUser.model.firstName + \" \" + currentUser.model.lastName}}\n" +
+    "                <span class=\"caret\"></span>\n" +
+    "            </button>\n" +
+    "            <ul class=\"dropdown-menu header__dropdown__menu\" role=\"menu\">\n" +
+    "                <li><a href=\"javascript:void(0)\" ui-sref=\"settings.profile\">Preferences</a></li>\n" +
+    "                <li>\n" +
+    "                    <a href=\"javascript:void(0)\" id=\"feedback-trigger\" ng-controller=\"FeedbackModalController\" ng-click=\"openFeedbackModal()\">Send feedback</a>\n" +
+    "                </li>\n" +
+    "                <li><a href=\"javascript:void(0)\" ui-sref=\"account:logout\">Logout</a></li>\n" +
+    "            </ul>\n" +
+    "        </div>\n" +
     "\n" +
-    "</header>");
+    "    </header>\n" +
+    "</div>");
 }]);
 
 angular.module("app/common/partials/timepickerPopup/timepickerPopup.html", []).run(["$templateCache", function($templateCache) {
