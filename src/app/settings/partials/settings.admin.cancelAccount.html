@@ -7,6 +7,8 @@
     <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
     <!--Cancel account-->
-    <button class="settings__cancel__btn" ng-click="cancelAccount()" disabled>{{isDeleting ? 'Deleting...' : 'Delete my account'}}</button>
+    <div inline-confirmation toggle="! isDeleting" confirm="cancelAccount()" message="Are you sure you want to delete your account?">
+        <button class="settings__cancel__btn">{{isDeleting ? 'Deleting...' : 'Delete my account'}}</button>
+    </div>
 
 </div>
