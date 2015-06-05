@@ -81,20 +81,19 @@
   .expense__form__category__input {
     height: $add-expense-form-height;
     width: 100%;
-    //padding-left: 15px;
-    //color: $white;
-    //font-weight: $font-weight-bold;
 
     &:focus {
       outline: none;
     }
   }
+}
 
-  .expense__form__category__color__preview {
-    @include border-radius(50%);
-    @include size(21px 21px);
-    margin: 0;
-  }
+.expense__form__category__color__preview {
+  @include border-radius(50%);
+  @include size(21px 21px);
+  margin: 3px 3px 3px 1px;
+  display: inline-block;
+  text-indent: -9999px;
 }
 
 
