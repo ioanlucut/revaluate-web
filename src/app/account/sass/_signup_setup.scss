@@ -22,32 +22,10 @@
 
 .sign-up__setup__section {
 
-}
+  .currency-select {
 
-.sign-up__setup__section--currency {
-  padding-top: 10px;
-  position: relative;
-
-  &.has-error {
-
-    input {
-      border-color: $brand-danger;
-    }
-  }
-
-  .sign-up__setup__section--currency__input {
-    display: block;
-    width: $setup-currency-input-width;
-    border: solid 2px $gray-light-2;
-    @include border-radius($border-radius-base);
-
-    &:hover {
-      border-color: $gray-light-1;
-    }
-
-    &:focus {
-      border-color: $brand-primary;
-      outline: none;
+    .currency-select__input{
+      margin: 0 auto;
     }
   }
 }
