@@ -12,11 +12,6 @@ angular
         var AUTO_UPLOAD = true;
         var IS_EMPTY_AFTER_SELECTION = true;
 
-        /**
-         * Saving timeout
-         */
-        var TIMEOUT_PENDING = 300;
-
         // ---
         // Server status error.
         // ---
@@ -33,6 +28,11 @@ angular
         // The import type.
         // ---
         $scope.importType = importType;
+
+        // ---
+        // The import description.
+        // ---
+        $scope.importDescription = capitalizeFirstLetter(importType);
 
         /**
          * Alert identifier
@@ -115,9 +115,7 @@ angular
             // Build the import answer, and toggle view.
             // ---
             $scope.expensesImportAnswer = ExpensesImport.build(response);
-            $timeout(function () {
-                $scope.isUploadSuccessful = true;
-            }, TIMEOUT_PENDING);
+            $scope.isUploadSuccessful = true;
         };
 
         // ---
@@ -125,7 +123,7 @@ angular
         // ---
         uploader.onErrorItem = function (fileItem, response, status, headers) {
             if ( status === BAD_RESPONSE ) {
-                flash.to($scope.alertIdentifierId).error = 'Heeey! Are you sure the CSV export is from selected app?';
+                flash.to($scope.alertIdentifierId).error = 'Hmmm... Are you sure the CSV export is from selected app?';
             }
             else {
                 if ( status === SERVER_ERROR ) {
@@ -147,11 +145,47 @@ angular
             $scope.isUploadFinished = true;
         };
 
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        /**
+         * Show how to block content
+         * @type {boolean}
+         */
+        $scope.showHowToContent = false;
+
+        /**
+         * Toggle how to content
+         */
+        $scope.toggleHowToContent = function () {
+            $scope.showHowToContent = !$scope.showHowToContent;
+        };
+
+        /**
+         * Minimum categories to select
+         */
+        var MIN_CATEGORIES_TO_SELECT = 1;
+
+        function getSelectedMatchingCategories() {
+            return _.filter($scope.expensesImportAnswer.model.expenseCategoryMatchingProfileDTOs, 'selected', true);
+        }
+
+        /**
+         * Is enough selected categories
+         */
+        $scope.isEnoughSelectedMatchingCategories = function () {
+            if ( !$scope.isUploadSuccessful ) {
+                return false;
+            }
+            return getSelectedMatchingCategories().length >= MIN_CATEGORIES_TO_SELECT;
+        };
+
         /**
          * Update profile functionality.
          */
-        $scope.submitPerformImport = function () {
-            if ( $scope.expensesImportForm.$valid && !$scope.isImporting ) {
+        $scope.submitPerformImport = function (expensesImportForm) {
+            if ( expensesImportForm.$valid && !$scope.isImporting ) {
 
                 // Show the loading bar
                 $scope.isImporting = true;
@@ -165,7 +199,16 @@ angular
                 // We need to perform a transform of the selected categories.
                 // ---
                 _.each(expensesImportPrepared.model.expenseCategoryMatchingProfileDTOs, function (expenseCategoryMatchingProfileDTO) {
-                    expenseCategoryMatchingProfileDTO.categoryDTO = angular.copy(expenseCategoryMatchingProfileDTO.category.originalObject.model);
+                    if ( expenseCategoryMatchingProfileDTO.selected ) {
+
+                        expenseCategoryMatchingProfileDTO.categoryDTO = angular.copy(expenseCategoryMatchingProfileDTO.category.selected.model);
+                    }
+                    else {
+                        // ---
+                        // Really ugly, but we can't send back an invalid category..
+                        // ---
+                        expenseCategoryMatchingProfileDTO.categoryDTO = angular.copy(getSelectedMatchingCategories()[0].category.selected.model);
+                    }
                 });
 
                 // ---
@@ -174,7 +217,7 @@ angular
                 ImportService
                     .importExpenses(importType, expensesImportPrepared)
                     .then(function () {
-                        $scope.expensesImportForm.$setPristine();
+                        expensesImportForm.$setPristine();
 
                         flash.to($scope.alertIdentifierId).success = 'We\'ve successfully imported your expenses!';
 

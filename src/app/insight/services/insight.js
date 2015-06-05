@@ -81,8 +81,6 @@ angular
 
         /**
          * Builds a insight with given data.
-         * @param data
-         * @returns {Insight}
          */
         Insight.build = function (data) {
             if ( _.isEmpty(data) ) {

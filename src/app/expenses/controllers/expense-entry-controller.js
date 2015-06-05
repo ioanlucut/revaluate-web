@@ -30,8 +30,8 @@ angular
                 $scope.isUpdating = true;
 
                 // Update the  chosen category - if defined
-                if ( category && category.originalObject ) {
-                    expense.model.category = angular.copy(category.originalObject.model);
+                if ( category && category.selected ) {
+                    expense.model.category = angular.copy(category.selected.model);
                 }
 
                 expense

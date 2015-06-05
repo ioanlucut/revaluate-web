@@ -2,3 +2,11 @@
   display: block;
   margin-top: 20px;
 }
+
+.text-underlined {
+  border-bottom: solid 1px $gray-light-1;
+
+  &:hover {
+    border-color: $gray-medium;
+  }
+}

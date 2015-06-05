@@ -3,7 +3,7 @@
  */
 angular
     .module("revaluate.account")
-    .service("AuthFilter", function (AuthService, StatesHandler, User) {
+    .service("AuthFilter", function (AuthService, StatesHandler, User, STATES, flash, ALERTS_CONSTANTS) {
 
         return function (event, toState) {
             if (
@@ -37,6 +37,20 @@ angular
                 /*If user is not initiated but authenticated, and tries to go to a non public page, go to setup page*/
                 event.preventDefault();
                 StatesHandler.goToSetUp();
+            } else if (
+                !toState.isPublicPage
+                && !toState.isPaymentRelatedPage
+                && AuthService.isAuthenticated()
+                && User.$new().loadFromSession().isTrialPeriodExpired() ) {
+
+                /*If user is with trial expired, authenticated and tries to go to a non public page, go to payment*/
+                event.preventDefault();
+
+                // ---
+                // Show error.
+                // ---
+                flash.to(ALERTS_CONSTANTS.generalError).error = "You must define a payment method and subscribe to revaluate plan before further using revaluate.";
+                StatesHandler.goToAddPayment();
             }
 
         };

@@ -1,0 +1,11 @@
+.expenses__empty-state {
+  @include section-center(100%);
+  min-height: 200px;
+  padding: 40px 100px;
+  color: $gray-medium;
+
+  .expenses__empty-state__icon {
+    @include cssSprite($icon-timeline-gray);
+    margin: 0 auto;
+  }
+}

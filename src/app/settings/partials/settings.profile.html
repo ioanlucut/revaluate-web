@@ -1,17 +1,17 @@
 <!-- Profile section -->
-<div class="settings__section">
+<div class="settings__box">
+
+    <!-- Title -->
+    <h1 class="settings__title">Edit profile</h1>
+
+    <!-- Flash messages. -->
+    <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
     <!--Update profile section-->
-    <div class="settings__section__form">
-
-        <!-- Title -->
-        <h1 class="settings__title">Edit profile</h1>
+    <div class="settings__box__section--50">
 
         <!-- Profile form -->
         <form name="profileForm" ng-submit="updateProfile(profileData)" novalidate focus-first-error>
-
-            <!-- Flash messages. -->
-            <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
             <!-- Form group -->
             <div class="form-group-input" ng-class="{'has-error': profileForm.$submitted && (loginForm.firstName.$invalid || badPostSubmitResponse)}">

@@ -1,98 +1,90 @@
-<div class="settings__section">
+<!-- Flash messages. -->
+<div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
-    <!-- Flash messages. -->
-    <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+<!--Upload section form-->
+<div class="import__upload" ng-if="! isUploadSuccessful">
 
-    <!--Let me try again, please-->
-    <a ng-if="importFinished" ui-sref="settings.import.import({type: importType})" ui-sref-opts="{reload:true}">Let me try again!</a>
+    <div class="import__upload__area" over-class="import__upload__area--over" nv-file-drop="" nv-file-over="" uploader="uploader" filters="queueLimit, csvFilter">
+        <div class="import__upload__btn">
+            <div class="section-text">Drop the CSV file exported from
+                <strong>{{importDescription}}</strong> here, or <span class="text-underlined">browse</span> to select it.
+            </div>
+            <input class="import__upload__btn__input" type="file" nv-file-select="" uploader="uploader" />
+        </div>
+    </div>
 
-    <!--Expenses import form-->
-    <form name="expensesImportForm" ng-submit="submitPerformImport()" novalidate ng-show="isUploadSuccessful && ! importFinished">
+    <!--How to content-->
+    <ul class="section-text" ng-if="! showHowToContent">
+        <li>
+            <a href="javascript:void(0)" ng-click="toggleHowToContent()"> How do I export my expenses from {{importDescription}}?</a>
+        </li>
+    </ul>
+    <div ng-show="showHowToContent" ng-include src="'app/import/partials/howto/settings.import.howto.' + importType + '.html'"></div>
+</div>
 
-        <div class="import__edit">
+<!--Expenses import form-->
+<form name="expensesImportForm" ng-submit="submitPerformImport(expensesImportForm)" novalidate ng-if="isUploadSuccessful && ! importFinished">
 
-            <div class="section-text">
-                Awesome! We found <strong>320 expenses</strong> in <strong>16 categories</strong>.
-                Please tell us where each category from Mint should be imported to.
-                Leave empty to create a new category in Revaluate using the same name.
+    <div class="import__edit">
+
+        <div class="section-text">
+            Awesome! We found <strong>{{expensesImportAnswer.model.totalCategoriesFound}} expenses</strong> in
+            <strong>{{expensesImportAnswer.model.expenseCategoryMatchingProfileDTOs.length}} categories</strong>.
+            Please tell us where each category from {{importDescription}} should be imported to.
+        </div>
+
+        <div class="import__edit__categories__header">
+            <div class="import__edit__categories__header__src">Import this category from {{importDescription}}</div>
+            <div class="import__edit__categories__header__dest">Into this category in Revaluate</div>
+        </div>
+
+        <div class="import__edit__categories" ng-repeat="categoryMatchCandidate in expensesImportAnswer.model.expenseCategoryMatchingProfileDTOs track by categoryMatchCandidate.categoryCandidateName">
+
+            <!--Category candidate name preview-->
+            <div class="import__edit__categories__src">
+
+                <div class="import__edit__categories__src__toggle">
+                    <input class='tgl tgl-flat' id='toggle_{{$index}}' type='checkbox' ng-model="categoryMatchCandidate.selected">
+                    <label class='tgl-btn' for='toggle_{{$index}}'></label>
+                </div>
+
+                <div class="import__edit__categories__src__name">{{categoryMatchCandidate.categoryCandidateName}}</div>
             </div>
 
-            <div class="import__edit__categories__header">
-                <div class="import__edit__categories__header__src">Import this category from Mint</div>
-                <div class="import__edit__categories__header__dest">Into this category in Revaluate</div>
-            </div>
+            <!--Category select-->
+            <ng-form class="import__edit__categories__dest" name="expensesImportCategoryMatchEntryForm" ng-if="categoryMatchCandidate.selected">
 
-            <div class="import__edit__categories" ng-repeat="categoryMatchCandidate in expensesImportAnswer.model.expenseCategoryMatchingProfileDTOs track by categoryMatchCandidate.categoryCandidateName">
+                <div class="import__edit__categories__dest__category" ng-class="{'has-error': expensesImportForm.$submitted && (expensesImportCategoryMatchEntryForm.category.$invalid || badPostSubmitResponse)}">
 
-                <!--Category candidate name preview-->
-                <div class="import__edit__categories__src">
+                    <ui-select name="category" required ng-model="categoryMatchCandidate.category.selected" theme="selectize" title="Choose a category" class="import__edit__categories__input">
+                        <ui-select-match ng-style="{'background':$select.selected.model.color.color}" placeholder="Select a category">{{$select.selected.model.name}}</ui-select-match>
+                        <ui-select-choices ng-style="{'background':categoryEntry.model.color.color}" repeat="categoryEntry in categories | orderObjectBy : 'model.name' : false | filter:{model:{name:$select.search}} track by categoryEntry.model.id">
+                            <div ng-style="{'background':categoryEntry.model.color.color}" ng-bind-html="categoryEntry.model.name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
 
-                    <div class="import__edit__categories__src__toggle">
-                        <input class='tgl tgl-flat' id='{{categoryMatchCandidate.categoryCandidateName}}_toggle' type='checkbox' checked>
-                        <label class='tgl-btn' for='{{categoryMatchCandidate.categoryCandidateName}}_toggle'></label>
-                    </div>
-
-                    <div class="import__edit__categories__src__name">
-                        {{categoryMatchCandidate.categoryCandidateName}}
+                    <!-- Error messages -->
+                    <div class="form-group-input__message" ng-class="{'has-error': expensesImportCategoryMatchEntryForm.category.$invalid && expensesImportForm.$submitted}" ng-messages="expensesImportCategoryMatchEntryForm.$error" ng-if="expensesImportForm.$submitted">
+                        <div ng-message="required">Please add a category.</div>
                     </div>
                 </div>
 
-                <!--Category select-->
-                <ng-form class="import__edit__categories__dest" name="expensesImportCategoryMatchEntryForm">
+            </ng-form>
 
-                    <div class="import__edit__categories__dest__category" ng-class="{'has-error': expensesImportForm.$submitted && (expensesImportCategoryMatchEntryForm.$error['autocomplete-required'] || expensesImportCategoryMatchEntryForm.category.$invalid || badPostSubmitResponse)}">
-
-                        <div angucomplete-alt
-                             selected-object="categoryMatchCandidate.category"
-                             local-data="categories"
-                             search-fields="model.name"
-                             title-field="model.name"
-                             field-required="true"
-                             placeholder="Select category"
-                             maxlength="50"
-                             pause="1"
-                             minlength="0"
-                             input-class="import__edit__categories__input"
-                             match-class="angucomplete-highlight"
-                             template-url="app/expenses/partials/expense.category.template.html">
-                        </div>
-
-                        <!-- Error messages -->
-                        <div class="form-group-input__message" ng-class="{'has-error': expensesImportCategoryMatchEntryForm.$invalid && expensesImportForm.$submitted}" ng-messages="expensesImportCategoryMatchEntryForm.$error" ng-if="expensesImportForm.$submitted">
-                            <div ng-message="autocomplete-required">Category is missing or is invalid.</div>
-                        </div>
-
-                        <div class="form-group-input__message" ng-if="expensesImportCategoryMatchEntryForm.category.$invalid && expensesImportForm.$submitted">Please add a category.</div>
-                    </div>
-
-                </ng-form>
-
-                <div class="import__edit__categories__arrow">&#8594;</div>
-
+            <!--Category not selected-->
+            <div class="import__edit__categories__ignored" ng-if="! categoryMatchCandidate.selected">
+                Expenses in <strong>{{categoryMatchCandidate.categoryCandidateName}}</strong> will be ignored.
             </div>
 
-            <!-- Button -->
-            <button class="import__save__btn" type="submit">{{isImporting ? 'Importing...' : 'Import expenses'}}</button>
+            <div class="import__edit__categories__arrow">&#8594;</div>
+
         </div>
 
-    </form>
-
-    <!--Import section form-->
-    <!--<div class="import__upload" ng-hide="isUploadSuccessful">-->
-    <div class="import__upload" ng-if="! isUploadSuccessful">
-
-        <div class="import__upload__area" nv-file-drop="" uploader="uploader" filters="queueLimit, csvFilter">
-            <div class="section-text">Upload the CSV file you exported from <strong>Mint</strong>.</div>
-            <div class="import__upload__btn">
-                <span>Select file</span>
-                <input class="import__upload__btn__input" type="file" nv-file-select="" uploader="uploader" />
-            </div>
-        </div>
-
-        <ul>
-            <li><a href="#">How do I export my expenses from Mint?</a></li>
-            <li><a href="#">How do I export my expenses from Spendee?</a></li>
-        </ul>
+        <!-- Perform import submit -->
+        <button class="import__save__btn" ng-disabled="! isEnoughSelectedMatchingCategories()" type="submit">{{isImporting ? 'Importing...' : 'Import expenses'}}</button>
     </div>
 
-</div>
+</form>
+
+<!--After import-->
+<a ng-if="importFinished" ui-sref="settings.import.import({type: importType})" ui-sref-opts="{reload:true}">Let me try again!</a>

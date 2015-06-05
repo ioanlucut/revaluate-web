@@ -10,7 +10,7 @@
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
   line-height: 56px;
   font-size: $font-size-larger;
-  color: $gray-dark;
+  color: $gray-dark-1;
 
   &:hover {
     cursor: pointer;
@@ -59,7 +59,7 @@
 
     .settings__import__choose__source__label,
     .settings__import__choose__source__arrow {
-      color: $gray-dark;
+      color: $gray-dark-1;
     }
   }
 }

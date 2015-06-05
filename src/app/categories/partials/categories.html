@@ -1,6 +1,6 @@
-<div class="settings__section">
-    <div class="categories__title">Categories</div>
-    <div class="categories__text">
+<div class="settings__box">
+    <h1 class="settings__title">Categories</h1>
+    <div class="section-text">
         You can create new categories, edit the ones you already have or delete the ones that have no expenses associated.
     </div>
 
@@ -13,7 +13,7 @@
     <!--List all categories-->
     <div class="categories__edit">
 
-        <div class="categories__edit__category" ng-repeat="category in categories | orderObjectBy : 'model.id' : false track by category.model.name">
+        <div class="categories__edit__category" ng-repeat="category in categories | orderObjectBy : 'model.id' : true track by category.model.name">
 
             <!--Edit/remove category-->
             <div edit-remove-category colors="colors" category="category"></div>

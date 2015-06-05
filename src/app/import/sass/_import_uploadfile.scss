@@ -4,22 +4,25 @@
 }
 
 .import__upload__area {
-  border: dashed 2px $gray-light;
+  @include border-radius(5px);
+  border: dashed 2px $gray-light-1;
+}
+
+.import__upload__area--over {
+  @include border-radius(5px);
+  border: dashed 2px $brand-primary;
 }
 
 .import__upload__btn {
-  @include btn($brand-primary);
   position: relative;
   overflow: hidden;
-  margin: 10px;
-  width: 200px;
 
   input.import__upload__btn__input {
     position: absolute;
     top: 0;
     right: 0;
     margin: 0;
-    padding: 0;
+    padding: 70px 0;
     font-size: 20px;
     cursor: pointer;
     opacity: 0;

@@ -1,5 +1,5 @@
 .view-container__content--settings {
-  background-color: $gray-lightest;
+  background-color: $gray-light-2;
   padding: 0;
   @include clearfix();
 }
@@ -17,6 +17,10 @@
       padding: 10px;
       color: $gray-medium;
 
+      &:hover {
+        color: $gray-dark-2;
+      }
+
       &:focus {
         outline: none;
       }
@@ -24,7 +28,9 @@
   }
 
   .tab__active {
-    background: $gray-light;
+    @include border-radius($base-border-radius);
+    background: $white;
+    border-left: solid 4px $brand-primary;
 
     a {
       color: $black;
@@ -34,29 +40,60 @@
 
 .view-container__content__admin__section {
   float: right;
-  //width: ;
+  min-height: 500px;
   @include calc(width, "100% - #{$settings-aside-width}");
   @include clearfix();
-  //border: solid 1px red;
-}
-
-.settings__section {
-  @include section(100%);
   @include border-radius($border-radius-base);
   background-color: $white;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
 }
 
 .settings__title {
   text-align: left;
   font-size: 20px;
   font-weight: $font-weight-regular;
+  //border: solid 1px red;
+  width: 100%;
+}
+
+.settings__title__h2 {
+  margin-top: 40px;
+  font-size: $font-size-larger;
+  font-weight: $font-weight-light;
+}
+
+.settings__box {
+  @include clearfix();
+  @include section(100%);
+  border-bottom: solid 1px $gray-light-2;
+  //border: solid 1px red;
+
+  &:last-child {
+    margin-bottom: 0;
+    border-color: transparent;
+  }
+}
+
+.settings__box__section--100,
+.settings__box__section--75,
+.settings__box__section--50 {
+  float: left;
+  margin: 0 auto;
+  //border: solid 1px green;
+}
+
+.settings__box__section--100 {
+  width: 100%;
+}
+
+.settings__box__section--75 {
+  width: 75%;
+}
+
+.settings__box__section--50 {
+  width: 50%;
 }
 
 .settings__btn__save {
-  @include btn-block($brand-primary);
+  @include btn-big($brand-primary);
   margin-top: 10px;
 }

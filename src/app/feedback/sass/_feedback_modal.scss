@@ -1,16 +1,17 @@
 // Feedback modal
 // ----------------
 
+.modal-content {
+  box-shadow: none;
+  border-color: transparent;
+}
+
 .modal-feedback {
 
   // Modal header
   // -------------
 
   .modal-header {
-    background: $brand-primary;
-    padding: 14px 0;
-    border-bottom-color: #999;
-    @include border-top-radius(2px);
 
     // Modal header title
     // -------------------
@@ -29,7 +30,7 @@
   // ------------
 
   .modal-body {
-    padding: 25px 25px 10px;
+    padding: 40px 15px 15px 15px;
 
     // Textarea
     // ----------
@@ -54,6 +55,7 @@
 
   .modal-footer {
     margin-top: 0;
+    border-color: transparent;
 
     // Buttons
     // ---------
@@ -77,6 +79,33 @@
   font-size: 16px;
   line-height: 26px;
   @include border-top-radius(3px);
+}
+
+.feedback-modal__form__close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 9999;
+
+  button {
+    font-size: 30px;
+    padding: 14px;
+    background-color: transparent;
+  }
+}
+
+.modal-footer__cancelbtn,
+.modal-footer__sendbtn {
+  width: 120px;
+}
+
+.modal-footer__cancelbtn {
+  @include btn-big(transparent);
+  color: $gray-medium;
+}
+
+.modal-footer__sendbtn {
+  @include btn-big($brand-primary);
 }
 
 .sending-status {

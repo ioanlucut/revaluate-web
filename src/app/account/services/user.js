@@ -1,6 +1,6 @@
 angular
     .module("revaluate.account")
-    .factory("User", function (SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
+    .factory("User", function (SessionService, TransformerUtils, $q, $http, AUTH_URLS, USER_SUBSCRIPTION_STATUS) {
         return {
 
             $new: function () {
@@ -18,10 +18,11 @@ angular
                         password: "",
                         timezone: "",
                         initiated: false,
-                        helpdeskAuthToken: "",
-                        currency: {
-                            "currencyCode": ""
-                        }
+                        createdDate: "",
+                        endTrialDate: "",
+                        userSubscriptionStatus: "",
+                        emailConfirmed: false,
+                        currency: {}
                     },
 
                     /**
@@ -38,6 +39,26 @@ angular
                      */
                     isInitiated: function () {
                         return this.isAuthenticated() && this.model.initiated;
+                    },
+
+                    getTrialRemainingDays: function () {
+                        var difference = moment(this.model.endTrialDate).diff(moment(), 'days');
+                        if ( difference < 0 ) {
+
+                            return 0;
+                        }
+                        return difference;
+                    },
+
+                    showTrialRemainingDays: function () {
+                        var trialRemainingDays = this.getTrialRemainingDays();
+
+                        return trialRemainingDays > 0 && trialRemainingDays <= 5;
+                    },
+
+                    isTrialPeriodExpired: function () {
+
+                        return (this.model.userSubscriptionStatus === USER_SUBSCRIPTION_STATUS.TRIAL && this.getTrialRemainingDays() === 0) || this.model.userSubscriptionStatus === USER_SUBSCRIPTION_STATUS.TRIAL_EXPIRED;
                     },
 
                     /**
@@ -60,12 +81,27 @@ angular
                     },
 
                     /**
-                     * Saves a user to cookies.
-                     * @returns {*}
+                     * Set email as confirmed
+                     */
+                    setEmailConfirmedAndReload: function () {
+                        this.loadFrom({ emailConfirmed: true });
+                        this.saveToSession();
+                    },
+
+                    /**
+                     * Update subscription status
+                     */
+                    setSubscriptionStatusAsAndReload: function (status) {
+                        this.loadFrom({ userSubscriptionStatus: status });
+                        this.saveToSession();
+                    },
+
+                    /**
+                     * Saves a user to local storage.
                      */
                     saveToSession: function () {
                         var sessionData = {};
-                        TransformerUtils.copyKeysFromTo(this, sessionData, ["password"]);
+                        TransformerUtils.copyKeysFromTo(this.model, sessionData, ["password"]);
                         SessionService.setData(sessionData);
 
                         return this;

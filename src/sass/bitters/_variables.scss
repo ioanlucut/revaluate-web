@@ -1,7 +1,9 @@
 // Typography
 //$base-font-family: "Open Sans", "Verdana", "Roboto", "Arial", sans-serif;
-$base-font-family: "Lato", "Verdana", "Roboto", "Arial", sans-serif;
-$heading-font-family: $base-font-family;
+//$base-font-family: "Lato", "Verdana", "Roboto", "Arial", sans-serif;
+$base-font-family: museo-sans, "Arial", sans-serif;
+
+$heading-font-family: museo-slab, serif;
 
 // Font Sizes
 $font-size-base: 14px;
@@ -14,8 +16,8 @@ $font-size-h2: 24px;
 $font-size-h3: 18px;
 
 // Font Weights
-$font-weight-light: 300;
-$font-weight-regular: 400;
+$font-weight-light: 100;
+$font-weight-regular: 300;
 $font-weight-bold: 700;
 
 // Line height
@@ -27,6 +29,9 @@ $header-height: 60px;
 $setup-currency-input-width: 220px;
 $footer-height: 50px;
 $settings-aside-width: 180px;
+$add-expense-form-height: 50px;
+$add-category-form-height: 40px;
+$selectize-dropdown-height: 45px;
 
 // Other Sizes
 $base-border-radius: 3px;
@@ -39,34 +44,42 @@ $base-z-index: 0;
 $white: #ffffff;
 $black: #000000;
 
-$gray-dark: #5F5F5F;
+$gray-dark-3: #333333;
+$gray-dark-2: #444444;
+$gray-dark-1: #5F5F5F;
 $gray-medium: #999;
-$gray-light: #ddd;
-$gray-lightest: #e8e8e8;
+$gray-light-1: #ddd;
+$gray-light-2: #e8e8e8;
+$gray-light-3: #f9f9f9;
 
-$brand-primary: #4A90E2;
+$brand-primary: #4183D7;
+$brand-primary-light: lighten($brand-primary, 40%);
 
 $brand-default: #E7E7E7;
 $brand-default-dark: #D6D6D6;
 
-$brand-success: #13ca6d;//#48CFAD;
-$brand-success-dark: #8CC152;//#37BC9B;
+$brand-success: #13ca6d;
+$brand-success-accent: #13ca6d;
+$brand-success-dark: darken($brand-success, 20%);
+$brand-success-light: lighten($brand-success, 48%);
 
 $brand-info: #4FC1E9;
-$brand-info-dark: #3BAFDA;
+$brand-info-accent: #3BAFDA;
+$brand-info-dark: darken($brand-info, 20%);
+$brand-info-light: lighten($brand-info, 35%);
 
 $brand-danger: #ED5565;
-$brand-danger-dark: #DA4453;
+$brand-danger-accent: #DA4453;
+$brand-danger-dark: darken($brand-danger, 20%);
+$brand-danger-light: lighten($brand-danger, 32%);
 
 $brand-warning: #FFCE54;
-$brand-warning-dark: #F6BB42;
+$brand-warning-accent: #F6BB42;
+$brand-warning-dark: darken($brand-warning, 20%);
+$brand-warning-light: lighten($brand-warning, 30%);
 
+$header-background-color: #2C3E50;
 
-// Alert
-$alert-color: $brand-warning;//#fff6bf !default;
-$error-color: $brand-danger;//#fbe3e4 !default;
-$notice-color: $brand-info;//#e5edf8 !default;
-$success-color: $brand-success;//#b9df90;//#e6efc2 !default;
 
 // Close
 // ------------------------
@@ -81,7 +94,7 @@ $action-color: $brand-primary;
 
 
 // Border
-$base-border-color: $gray-light;
+$base-border-color: $gray-light-1;
 $base-border: 2px solid $base-border-color; // DON'T EVEN THINK ABOUT TOUCHING THIS !!!
 
 
@@ -89,4 +102,4 @@ $base-border: 2px solid $base-border-color; // DON'T EVEN THINK ABOUT TOUCHING T
 //$form-box-shadow: inset 0 1px 3px rgba(#000, 0.06);
 $form-box-shadow: none;
 $form-box-shadow-focus: $form-box-shadow, 0 0 5px adjust-color($action-color, $lightness: -5%, $alpha: -0.3);
-$add-category-form-height: 40px;
+$add-expense-form-border-color: $brand-primary;

@@ -48,7 +48,7 @@
 .home__section__signup {
   @include span-columns(5);
   @include border-radius($base-border-radius);
-  border: solid 1px $gray-light;
+  border: solid 1px $gray-light-1;
   padding: 10px 40px 40px 40px;
   background-color: $white;
   margin-bottom: 30px;

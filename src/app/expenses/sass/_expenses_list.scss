@@ -99,9 +99,9 @@
 }
 
 .expenses__list__loadbtn {
-  @include btn($gray-lightest);
+  @include btn($gray-light-2);
   width: 120px;
-  color: $gray-dark;
+  color: $gray-dark-1;
   margin: 20px auto 40px auto;
   display: block;
 }

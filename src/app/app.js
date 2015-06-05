@@ -4,12 +4,13 @@
 angular
     .module("app", [
         "config",
+        "braintree-angular",
         "angular-cache",
         "angularFileUpload",
         "ngAnimate",
         "ngMessages",
-        "angucomplete-alt",
         "ngStorage",
+        "ngSanitize",
         "partials",
         "revaluate.site",
         "revaluate.feedback",
@@ -21,9 +22,11 @@ angular
         "revaluate.account",
         "revaluate.settings",
         "revaluate.insights",
-        "angular.filter"
+        "angular.filter",
+        "ui.gravatar",
+        "ui.select"
     ])
-    .config(function ($locationProvider, CacheFactoryProvider) {
+    .config(function ($locationProvider, CacheFactoryProvider, gravatarServiceProvider) {
         angular.extend(CacheFactoryProvider.defaults, { maxAge: 15 * 60 * 1000 });
 
         // Enable html5 mode
@@ -31,6 +34,17 @@ angular
             enabled: true,
             requireBase: false
         });
+
+        // ---
+        // Gravatar configs.
+        // ---
+        gravatarServiceProvider.defaults = {
+            size: 100,
+            "default": 'mm'
+        };
+
+        // Use https endpoint
+        gravatarServiceProvider.secure = true;
     })
     .run(function (ENV) {
 

@@ -8,13 +8,13 @@
   @include clearfix();
   height: 35px;
   background-color: #f3f3f3;
-  border-bottom: solid 1px $gray-light;
+  border-bottom: solid 1px $gray-light-1;
   margin: 30px 0 20px 0;
   padding: 0 15px;
   line-height: 34px;
 
   .import__edit__categories__header__src {
-    width: 200px;
+    width: 250px;
     float: left;
   }
 
@@ -31,9 +31,10 @@
   @include border-radius($base-border-radius);
   padding: 0;
   margin: 0 0 15px 0;
+  @include no-user-select();
 
   &:first-child {
-    border-bottom: solid 1px $gray-light;
+    border-bottom: solid 1px $gray-light-1;
   }
 }
 
@@ -44,6 +45,7 @@
   line-height: 32px;
 
   .import__edit__categories__src__toggle {
+    @include user-select(none);
     float: left;
     margin-right: 10px;
     line-height: 32px;
@@ -57,7 +59,7 @@
     float: left;
     padding: 5px 10px;
     margin-top: 3px;
-    color: $gray-dark;
+    color: $gray-dark-1;
     text-shadow: none;
   }
 }
@@ -72,7 +74,20 @@
     position: relative;
     width: 100%;
     float: none;
+
+    &.has-error input {
+      border-color: $brand-danger;
+    }
   }
+}
+
+.import__edit__categories__ignored {
+  float: right;
+  width: 220px;
+  font-size: 11px;
+  height: 35px;
+  line-height: 35px;
+  font-style: italic;
 }
 
 .import__edit__categories__arrow {
@@ -80,7 +95,7 @@
   width: 40px;
   text-align: center;
   font-size: $font-size-larger;
-  color: $gray-light;
+  color: $gray-light-1;
 }
 
 .import__save__btn {
