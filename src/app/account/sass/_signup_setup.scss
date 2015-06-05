@@ -36,10 +36,8 @@
   }
 
   .sign-up__setup__section--currency__input {
-    display: inline-block;
+    display: block;
     width: $setup-currency-input-width;
-    height: 35px;
-    padding: 5px 10px;
     border: solid 2px $gray-light-2;
     @include border-radius($border-radius-base);
 

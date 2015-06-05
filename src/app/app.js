@@ -9,7 +9,6 @@ angular
         "angularFileUpload",
         "ngAnimate",
         "ngMessages",
-        "angucomplete-alt",
         "ngStorage",
         "ngSanitize",
         "partials",

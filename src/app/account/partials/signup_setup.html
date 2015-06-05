@@ -9,28 +9,20 @@
 
             <div class="sign-up__setup__section">
                 Please choose your currency:
-                <div class="sign-up__setup__section--currency" ng-class="{'has-error': setUpForm.$submitted && (setUpForm.$error['autocomplete-required'] || setUpForm.currency.$invalid || badPostSubmitResponse)}">
-                    <div angucomplete-alt
-                         selected-object="currency"
-                         local-data="currencies"
-                         search-fields="displayName,currencyCode"
-                         title-field="currencyCode,displayName"
-                         field-required="true"
-                         placeholder="Start typing your currency..."
-                         maxlength="50"
-                         pause="1"
-                         minlength="0"
-                         input-class="sign-up__setup__section--currency__input"
-                         match-class="angucomplete-highlight">
-                    </div>
+                <div class="sign-up__setup__section--currency" ng-class="{'has-error': setUpForm.$submitted && (setUpForm.currency.$invalid || badPostSubmitResponse)}">
+
+                    <ui-select name="currency" class="sign-up__setup__section--currency__input" required ng-model="currency.selected" theme="selectize" append-to-body="true">
+                        <ui-select-match placeholder="Start typing your currency...">{{$select.selected.currencyCode}}</ui-select-match>
+                        <ui-select-choices repeat="currencyEntry in currencies | orderObjectBy : 'currencyCode' : false | filter:{$:$select.search} track by currencyEntry.numericCode">
+                            <span ng-bind-html="currencyEntry.currencyCode | highlight: $select.search"></span>
+                            <span ng-bind-html="currencyEntry.displayName | highlight: $select.search"></span>
+                        </ui-select-choices>
+                    </ui-select>
 
                     <!-- Error messages -->
-                    <div class="form-group-input__message form-group-input__message--currency" ng-class="{'has-error': setUpForm.$invalid && setUpForm.$submitted}" ng-messages="setUpForm.$error" ng-if="setUpForm.$submitted">
-                        <div ng-message="autocomplete-required">Currency is missing or is invalid.</div>
-                        <div ng-message="required">Please add</div>
+                    <div class="form-group-input__message form-group-input__message--currency" ng-class="{'has-error': setUpForm.category.$invalid && setUpForm.$submitted}" ng-messages="setUpForm.$error" ng-if="setUpForm.$submitted">
+                        <div ng-message="required">Please add a currency.</div>
                     </div>
-
-                    <div class="form-group-input__message form-group-input__message--currency" ng-if="setUpForm.category.$invalid && setUpForm.$submitted">Please add a currency.</div>
                 </div>
             </div>
 

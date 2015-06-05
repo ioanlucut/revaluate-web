@@ -22,9 +22,7 @@ angular
                         endTrialDate: "",
                         userSubscriptionStatus: "",
                         emailConfirmed: false,
-                        currency: {
-                            "currencyCode": ""
-                        }
+                        currency: {}
                     },
 
                     /**
