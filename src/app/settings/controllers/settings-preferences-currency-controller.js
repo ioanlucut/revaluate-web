@@ -15,17 +15,6 @@ angular
          * @type {currencies|*}
          */
         $scope.currencies = currencies;
-        /*
-         $scope.currencies = [{
-         "currencyCode": "USD",
-         "displayName": "US Dollar",
-         "numericCode": 3
-         }, { "currencyCode": "EUR", "displayName": "Euro", "numericCode": 978 }, {
-         "currencyCode": "OMR",
-         "displayName": "Omani Rial",
-         "numericCode": 512
-         }];
-         */
 
         /**
          * Alert identifier
@@ -69,21 +58,6 @@ angular
          * Profile user information.
          */
         $scope.profileData = angular.copy(getInitialProfileData());
-
-        $scope.criteriaMatch = function (criteria) {
-            return function (item) {
-                if ( criteria.currencyCode === "" ) {
-                    return true;
-                }
-                var result = item.currencyCode === criteria.currencyCode || item.currencyCode.indexOf(criteria.currencyCode) > -1;
-                if ( result ) {
-                    console.log(criteria);
-                    console.log(item);
-                    console.log("..........");
-                }
-                return result;
-            };
-        };
 
         /**
          * Update profile functionality.
