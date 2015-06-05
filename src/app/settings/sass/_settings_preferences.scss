@@ -1,0 +1,40 @@
+.settings__preferences__section {
+
+}
+
+.currency-select {
+  padding-top: 10px;
+  text-align: left;
+
+  &.has-error {
+
+    input {
+      border-color: $brand-danger;
+    }
+  }
+
+  .currency-select__input,
+  .selectize-input,
+  .selectize-dropdown {
+    width: $setup-currency-input-width;
+  }
+
+  .currency-select__input {
+    display: block;
+    @include border-radius($border-radius-base);
+
+    &:hover {
+      border-color: $gray-light-1;
+    }
+
+    &:focus {
+      border-color: $brand-primary;
+      outline: none;
+    }
+  }
+
+  .selectize-control,
+  .selectize-input {
+    text-align: left;
+  }
+}
