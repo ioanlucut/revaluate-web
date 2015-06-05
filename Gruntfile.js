@@ -22,7 +22,6 @@ module.exports = function (grunt) {
                     "bower_components/angular-inflector/dist/angular-inflector.js",
                     "bower_components/angular-messages/angular-messages.js",
                     "bower_components/angular-flash/dist/angular-flash.js",
-                    "bower_components/angucomplete-alt/angucomplete-alt.js",
                     "bower_components/jstz-detect/jstz.js",
                     "bower_components/angular-cache/dist/angular-cache.js",
                     "bower_components/angular-file-upload/angular-file-upload.js",

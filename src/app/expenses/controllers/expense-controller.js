@@ -49,9 +49,6 @@ angular
          */
         $scope.initOrReset = function (expenseForm) {
 
-            //clear the input
-            $scope.$broadcast('angucomplete-alt:clearInput');
-
             /**
              * Keep master expense.
              * @type {XMLList|XML|*}

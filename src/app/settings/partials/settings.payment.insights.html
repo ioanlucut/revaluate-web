@@ -41,7 +41,6 @@
     </form>
 </div>
 
-
 <!--Payment method-->
 <div class="settings__box__section--50">
 
@@ -56,7 +55,6 @@
 
 </div>
 
-
 <!--Billing History-->
 <div class="settings__box__section--100">
 
@@ -64,25 +62,25 @@
 
     <table class="settings__box__payment__history">
         <thead>
-            <tr>
-                <th>Status</th>
-                <th>ID</th>
-                <th>Amount</th>
-                <th>Date</th>
-            </tr>
+        <tr>
+            <th>Status</th>
+            <th>ID</th>
+            <th>Amount</th>
+            <th>Date</th>
+        </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="paymentTransactionDTO in paymentInsights.paymentTransactionDTOs">
-                <td>
-                    <span class="icon-checkmark settings__box__payment__history__status--settled" ng-if="paymentTransactionDTO.status == 'SETTLED'"></span>
-                    <span class="icon-checkmark" ng-if="paymentTransactionDTO.status != 'SETTLED'"></span>
-                </td>
-                <td>
-                    <a href="javascript:void(0)">{{paymentTransactionDTO.id}}</a>
-                </td>
-                <td>$ {{paymentTransactionDTO.amount}}</td>
-                <td>{{paymentTransactionDTO.createdAt | friendlyDate}}</td>
-            </tr>
+        <tr ng-repeat="paymentTransactionDTO in paymentInsights.paymentTransactionDTOs">
+            <td>
+                <span class="icon-checkmark settings__box__payment__history__status--settled" ng-if="paymentTransactionDTO.status == 'SETTLED'"></span>
+                <span class="icon-checkmark" ng-if="paymentTransactionDTO.status != 'SETTLED'"></span>
+            </td>
+            <td>
+                <a href="javascript:void(0)">{{paymentTransactionDTO.id}}</a>
+            </td>
+            <td>$ {{paymentTransactionDTO.amount}}</td>
+            <td>{{paymentTransactionDTO.createdAt | friendlyDate}}</td>
+        </tr>
         </tbody>
     </table>
 

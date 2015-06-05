@@ -165,7 +165,7 @@ angular
 
             var selectedCategories = angular.copy(getSelectedCategories());
             var userProfileToBeUpdated = {
-                currency: angular.copy($scope.currency.originalObject),
+                currency: angular.copy($scope.currency.selected),
                 initiated: true
             };
 

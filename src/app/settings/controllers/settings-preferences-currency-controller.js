@@ -15,6 +15,17 @@ angular
          * @type {currencies|*}
          */
         $scope.currencies = currencies;
+        /*
+         $scope.currencies = [{
+         "currencyCode": "USD",
+         "displayName": "US Dollar",
+         "numericCode": 3
+         }, { "currencyCode": "EUR", "displayName": "Euro", "numericCode": 978 }, {
+         "currencyCode": "OMR",
+         "displayName": "Omani Rial",
+         "numericCode": 512
+         }];
+         */
 
         /**
          * Alert identifier
@@ -36,14 +47,21 @@ angular
          * Selected currency
          * @type {{}}
          */
-        $scope.currency = $scope.user.model.currency;
+        /**
+         * Selected category
+         * @type {{}}
+         */
+        $scope.currency = {};
+        $scope.currency.selected = _.find($scope.currencies, function (currencyCandidate) {
+            return currencyCandidate.currencyCode === $scope.user.model.currency.currencyCode;
+        });
 
         /**
          * Initial profile data
          */
         function getInitialProfileData() {
             return {
-                currency: $scope.user.model.currency
+                currency: $scope.currency.selected
             };
         }
 
@@ -51,6 +69,21 @@ angular
          * Profile user information.
          */
         $scope.profileData = angular.copy(getInitialProfileData());
+
+        $scope.criteriaMatch = function (criteria) {
+            return function (item) {
+                if ( criteria.currencyCode === "" ) {
+                    return true;
+                }
+                var result = item.currencyCode === criteria.currencyCode || item.currencyCode.indexOf(criteria.currencyCode) > -1;
+                if ( result ) {
+                    console.log(criteria);
+                    console.log(item);
+                    console.log("..........");
+                }
+                return result;
+            };
+        };
 
         /**
          * Update profile functionality.
@@ -61,7 +94,7 @@ angular
                 // Show the loading bar
                 $scope.isSaving = true;
 
-                $scope.profileData.currency = angular.copy($scope.currency.originalObject || $scope.currency);
+                $scope.profileData.currency = angular.copy($scope.currency.selected || $scope.currency);
 
                 // Update the user
                 $scope.user
