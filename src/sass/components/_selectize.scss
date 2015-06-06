@@ -1,0 +1,56 @@
+.category-select__input {
+  height: $category-select-height;
+  @include border-radius($border-radius-base);
+
+  .selectize-input {
+    width: 100%;
+    height: $category-select-height;
+    line-height: 35px !important;
+    background-color: transparent !important;// $gray-light-2;
+    border: solid 1px $gray-light-3 !important;
+    color: white;
+    font-weight: $font-weight-regular;
+
+    & > input {
+      height: $category-select-height;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.currency-select {
+  padding-top: 10px;
+  text-align: left;
+
+  &.has-error {
+
+    input {
+      border-color: $brand-danger;
+    }
+  }
+
+  .currency-select__input,
+  .selectize-input,
+  .selectize-dropdown {
+    width: $setup-currency-input-width;
+  }
+
+  .currency-select__input {
+    display: block;
+    @include border-radius($border-radius-base);
+
+    &:hover {
+      border-color: $gray-light-1;
+    }
+
+    &:focus {
+      border-color: $brand-primary;
+      outline: none;
+    }
+  }
+
+  .selectize-control,
+  .selectize-input {
+    text-align: left;
+  }
+}
