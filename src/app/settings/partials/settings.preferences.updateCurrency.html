@@ -13,10 +13,11 @@
             <div class="currency-select" ng-class="{'has-error': preferencesForm.$submitted && (preferencesForm.currency.$invalid || badPostSubmitResponse)}">
 
                 <ui-select name="currency" class="currency-select__input" required ng-model="currency.selected" theme="selectize">
-                    <ui-select-match placeholder="Start typing your currency...">{{$select.selected.currencyCode}} - {{$select.selected.displayName}}</ui-select-match>
+                    <ui-select-match placeholder="Start typing your currency...">{{$select.selected.displayName}} - {{$select.selected.currencyCode}}</ui-select-match>
                     <ui-select-choices repeat="currencyEntry in currencies | orderObjectBy : 'currencyCode' : false | filter:{$:$select.search} track by currencyEntry.numericCode">
-                        <span ng-bind-html="currencyEntry.currencyCode | highlight: $select.search"></span>
                         <span ng-bind-html="currencyEntry.displayName | highlight: $select.search"></span>
+                        <span>-</span>
+                        <span ng-bind-html="currencyEntry.currencyCode | highlight: $select.search"></span>
                     </ui-select-choices>
                 </ui-select>
 
