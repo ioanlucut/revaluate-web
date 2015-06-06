@@ -1,10 +1,13 @@
 .expenses__form {
   @include clearfix();
-  width: 800px;
-  margin: 30px auto;
+  //width: 800px;
+  width: 100%;
+  padding: 0 70px;
+  margin: 0 auto 30px auto;
   color: $black;
   font-weight: $font-weight-bold;
   position: relative;
+//  border: solid 1px green;
 
   .expense__form__price__input,
   .expense__form__category__input,
@@ -140,20 +143,6 @@
       width: 100%;
       text-align: center;
       background-color: $gray-light-3;
-
-      &:after {
-        position: absolute;
-        top: 50%;
-        right: 15px;
-        display: block;
-        width: 0;
-        height: 0;
-        margin-top: -3px;
-        border-color: $gray-medium transparent transparent transparent;
-        border-style: solid;
-        border-width: 5px 5px 0 5px;
-        content: ' ';
-      }
     }
   }
 }
@@ -189,43 +178,4 @@
   padding: 1px 4px;
   border-radius: 3px;
   line-height: 1;
-}
-
-.expenses__bulk-actions {
-  @include clearfix();
-  width: 800px;
-  margin: 0 auto;
-  color: $black;
-  font-weight: $font-weight-bold;
-  position: relative;
-
-  .expenses__bulk-actions__buttons {
-    position: absolute;
-    left: 0;
-    right: 0;
-
-    .expenses__bulk-actions__delete {
-
-      .expenses__bulk-actions__delete__btn-delete {
-        @include btn($brand-danger);
-        display: block;
-        float: left;
-      }
-    }
-
-    .expenses__bulk-actions__cancel {
-
-      .expenses__bulk-actions__delete__btn-cancel {
-        @include btn($brand-default);
-        color: $gray-dark-1;
-        display: block;
-        float: left;
-      }
-    }
-
-    .expenses__bulk-actions__delete,
-    .expenses__bulk-actions__cancel {
-      display: inline-block;
-    }
-  }
 }

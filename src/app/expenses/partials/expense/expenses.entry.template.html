@@ -21,7 +21,7 @@
 </div>
 
 <!-- Display expense in edit mode -->
-<div class="expenses__form" ng-if="showContent">
+<div class="expenses__form expenses__form--edit" ng-if="showContent">
 
     <form name="expenseForm" ng-submit="updateExpense(expenseForm, shownExpense, category)" novalidate focus-first-error>
 
@@ -84,7 +84,7 @@
 
             <!--Error messages-->
             <div class="form-group-input__message" ng-class="{'has-error': expenseForm.spentDate.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.$error" ng-if="expenseForm.$submitted">
-                <div ng-message="required">Please make that you add a date.</div>
+                <div ng-message="required">Please add a date.</div>
                 <div ng-message="validDate">Date should be in the past.</div>
             </div>
         </div>
