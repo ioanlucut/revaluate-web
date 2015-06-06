@@ -58,7 +58,7 @@
 
                     <ui-select name="category" class="category-select__input" ng-style="{'background':$select.selected.model.color.color}" required ng-model="category.selected" theme="selectize">
                         <ui-select-match ng-style="{'background':$select.selected.model.color.color}" placeholder="Select a category">{{$select.selected.model.name}}</ui-select-match>
-                        <ui-select-choices ng-style="{'background':$select.selected.model.color.color}" repeat="categoryEntry in categories | orderObjectBy : 'model.name' : false | filter:{model:{name:$select.search}} track by categoryEntry.model.id">
+                        <ui-select-choices repeat="categoryEntry in categories | orderObjectBy : 'model.name' : false | filter:{model:{name:$select.search}} track by categoryEntry.model.id">
                             <span class="expense__form__category__color__preview" ng-style="{'background':categoryEntry.model.color.color}">C</span>
                             <span class="" ng-bind-html="categoryEntry.model.name | highlight: $select.search"></span>
                         </ui-select-choices>
