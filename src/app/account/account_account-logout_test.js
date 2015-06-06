@@ -32,6 +32,22 @@ describe('app/account/logout', function () {
             $httpBackend.whenGET(URLTo.api(COLOR_URLS.allColors)).respond(200, []);
             $httpBackend.whenGET(URLTo.api(EXPENSE_URLS.allExpenses)).respond(200, []);
             $httpBackend.whenGET(URLTo.api(CATEGORY_URLS.allCategories)).respond(200, []);
+
+            AuthServiceMock.isAuthenticated = jasmine.createSpy('isAuthenticated').and.returnValue(true);
+            AuthServiceMock.logout = jasmine.createSpy('logout');
+
+            UserMock.$new = jasmine.createSpy('$new').and.returnValue({
+                loadFromSession: function () {
+                    return {
+                        isInitiated: function () {
+                            return true;
+                        },
+                        isTrialPeriodExpired: function () {
+                            return false;
+                        }
+                    };
+                }
+            });
         })
     });
 
@@ -40,22 +56,6 @@ describe('app/account/logout', function () {
     });
 
     it('should interpret values correctly', function () {
-        AuthServiceMock.isAuthenticated = jasmine.createSpy('isAuthenticated').and.returnValue(true);
-        AuthServiceMock.logout = jasmine.createSpy('logout');
-
-        UserMock.$new = jasmine.createSpy('$new').and.returnValue({
-            loadFromSession: function () {
-                return {
-                    isInitiated: function () {
-                        return true;
-                    },
-                    isTrialPeriodExpired: function () {
-                        return false;
-                    }
-                };
-            }
-        });
-
         $state.go(state);
         $rootScope.$digest();
 
@@ -68,22 +68,6 @@ describe('app/account/logout', function () {
     });
 
     it('should resolve data', function () {
-        AuthServiceMock.isAuthenticated = jasmine.createSpy('isAuthenticated').and.returnValue(true);
-        AuthServiceMock.logout = jasmine.createSpy('logout');
-
-        UserMock.$new = jasmine.createSpy('$new').and.returnValue({
-            loadFromSession: function () {
-                return {
-                    isInitiated: function () {
-                        return true;
-                    },
-                    isTrialPeriodExpired: function () {
-                        return false;
-                    }
-                };
-            }
-        });
-
         $state.go(state);
         $rootScope.$digest();
         expect($state.current.name).toBe(state);
