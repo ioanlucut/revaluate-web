@@ -18,6 +18,10 @@
       text-transform: uppercase;
     }
   }
+
+  .selectize-dropdown {
+    width: $category-select-width;
+  }
 }
 
 
