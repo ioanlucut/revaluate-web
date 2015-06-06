@@ -1,4 +1,4 @@
-describe('app/account', function () {
+describe('app/account/account', function () {
 
     var $rootScope, $state, $injector, state = 'account';
 
