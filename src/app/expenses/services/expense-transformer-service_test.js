@@ -10,45 +10,39 @@ describe('ExpenseTransformerService', function () {
     it('Should transform a expense DTO to expense business object', inject(function (ExpenseTransformerService) {
         var expenseDto = {
             id: "1",
-            text: "ABC",
-            dueOn: new Date(),
-            recipients: [{ email: "xx@xx" }, { email: "yy@yy" }]
+            description: "ABC",
+            spentDate: new Date()
         };
 
         var actual = ExpenseTransformerService.toExpense(expenseDto);
         expect(actual.model).toBeTruthy();
         expect(actual.model.id).toEqual(expenseDto.id);
-        expect(actual.model.dueOn).toEqual(expenseDto.dueOn);
-        expect(actual.model.recipients).toEqual([{ email: "xx@xx" }, { email: "yy@yy" }]);
+        expect(actual.model.spentDate).toEqual(expenseDto.spentDate);
     }));
 
     it('Should transform a expense to a expense DTO and remove everything after @', inject(function (ExpenseTransformerService, Expense) {
 
         var expense = Expense.build({
             id: "1",
-            text: "ABC @Today",
-            recipients: [{ email: "xx@xx" }, { email: "yy@yy" }]
+            description: "ABC @Today"
         });
 
         var actualExpenseDto = ExpenseTransformerService.toExpenseDto(expense);
         expect(actualExpenseDto).toBeTruthy();
         expect(actualExpenseDto.id).toEqual(expense.model.id);
-        expect(actualExpenseDto.text).toEqual("ABC");
-        expect(actualExpenseDto.recipients).toEqual([{ email: "xx@xx" }, { email: "yy@yy" }]);
+        expect(actualExpenseDto.description).toEqual("ABC @Today");
     }));
 
     it('Should transform a expense to a expense DTO', inject(function (ExpenseTransformerService, Expense) {
 
         var expense = Expense.build({
             id: "1",
-            text: "ABC",
-            recipients: [{ email: "xx@xx" }, { email: "yy@yy" }]
+            description: "ABC"
         });
 
         var actualExpenseDto = ExpenseTransformerService.toExpenseDto(expense);
         expect(actualExpenseDto).toBeTruthy();
         expect(actualExpenseDto.id).toEqual(expense.model.id);
-        expect(actualExpenseDto.recipients).toEqual([{ email: "xx@xx" }, { email: "yy@yy" }]);
     }));
 
     it('Should be truthy even toExpenses is called with empty params', inject(function (ExpenseTransformerService) {
@@ -67,9 +61,8 @@ describe('ExpenseTransformerService', function () {
     it('Should transform a expense list of DTOs to a list of expenses business object', inject(function (ExpenseTransformerService) {
         var expenseDto = {
             id: "1",
-            text: "ABC",
-            dueOn: new Date(),
-            recipients: [{ email: "xx@xx" }, { email: "yy@yy" }]
+            description: "ABC",
+            spentDate: new Date()
         };
 
         var actualExpenses = ExpenseTransformerService.toExpenses([expenseDto, expenseDto]);
@@ -80,30 +73,24 @@ describe('ExpenseTransformerService', function () {
 
         expect(actualExpenses[0].model).toBeTruthy();
         expect(actualExpenses[0].model.id).toEqual(expenseDto.id);
-        expect(actualExpenses[0].model.dueOn).toEqual(expenseDto.dueOn);
-        expect(actualExpenses[0].model.recipients).toEqual([{ email: "xx@xx" }, { email: "yy@yy" }]);
+        expect(actualExpenses[0].model.spentDate).toEqual(expenseDto.spentDate);
 
         expect(actualExpenses[1].model).toBeTruthy();
         expect(actualExpenses[1].model.id).toEqual(expenseDto.id);
-        expect(actualExpenses[1].model.dueOn).toEqual(expenseDto.dueOn);
-        expect(actualExpenses[1].model.recipients).toEqual([{ email: "xx@xx" }, { email: "yy@yy" }]);
+        expect(actualExpenses[1].model.spentDate).toEqual(expenseDto.spentDate);
     }));
 
     it('Should remove duplicate emails inside a expense recipients', inject(function (ExpenseTransformerService, Expense) {
 
         var expense = Expense.build({
             id: "1",
-            text: "ABC @Today",
-            recipients: [{ email: "xx@xx" }, { email: "xx@xx" }, { email: "tyxx@xx" }, { email: "xxx@xx" }]
+            description: "ABC @Today"
         });
 
         var actualExpenseDto = ExpenseTransformerService.toExpenseDto(expense);
         expect(actualExpenseDto).toBeTruthy();
         expect(actualExpenseDto.id).toEqual(expense.model.id);
-        expect(actualExpenseDto.text).toEqual("ABC");
-
-        console.log(actualExpenseDto.recipients);
-        expect(actualExpenseDto.recipients).toEqual([{ email: "xx@xx" }, { email: "tyxx@xx" }, { email: "xxx@xx" }]);
+        expect(actualExpenseDto.description).toEqual("ABC @Today");
     }));
 
 });
