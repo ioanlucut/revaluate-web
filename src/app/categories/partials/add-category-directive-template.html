@@ -36,12 +36,12 @@
                    name="name"
                    class="categories__form__input-group__name"
                    placeholder="Category name"
-                   ng-maxlength="25"
-                   maxlength="25"
+                   ng-maxlength="20"
+                   maxlength="20"
                    ng-model="category.model.name"
                    auto-focus required valid-category-name unique-category-name />
 
-            <div class="categories__form__input-group__count">{{25 - category.model.name.length}}</div>
+            <div class="categories__form__input-group__count">{{20 - category.model.name.length}}</div>
 
             <div color-picker colors="colors" category-color="category.model.color"></div>
         </div>
