@@ -34,7 +34,7 @@
             <a class="link-navigation" href="javascript:void(0)" ng-click="AccountModal.setState(ACCOUNT_FORM_STATE.forgotPassword)">Forgot login details?</a>
 
             <!-- Button container -->
-            <button class="account__btn" type="submit">{{isRequestPending ? 'Logging in..' : 'Log in'}}</button>
+            <button class="account__btn" type="submit">{{isRequestPending ? 'Logging in..' : isWaitingForCloseEvent ? 'Loading..' : 'Log in'}}</button>
         </form>
 
         <a class="link-navigation" href="javascript:void(0)" ng-click="AccountModal.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration)">Don't have an account yet? Sign up!</a>
