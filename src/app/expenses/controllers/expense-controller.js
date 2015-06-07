@@ -1,6 +1,6 @@
 angular
     .module("revaluate.expenses")
-    .controller("ExpenseController", function ($scope, $rootScope, $stateParams, AccountModal, Expense, expenses, ExpenseService, categories, $window, DatesUtils, $timeout, StatesHandler, EXPENSE_EVENTS, flash, MIXPANEL_EVENTS, AUTH_MODAL, ALERTS_CONSTANTS) {
+    .controller("ExpenseController", function ($scope, $rootScope, $stateParams, Expense, expenses, ExpenseService, categories, $window, DatesUtils, $timeout, StatesHandler, EXPENSE_EVENTS, flash, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
 
         /**
          * Updating/deleting timeout
@@ -11,13 +11,6 @@ angular
          * Minimum expenses to enable bulk actions
          */
         var MIN_EXPENSES_TO_ENABLE_BULK_ACTION = 1;
-
-        // ---
-        // Close login modal if everything is loaded.
-        // ---
-        if ( AccountModal.isOpen ) {
-            $rootScope.$broadcast(AUTH_MODAL.close, {})
-        }
 
         /**
          * Alert identifier
