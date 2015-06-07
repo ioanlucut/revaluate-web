@@ -1,6 +1,6 @@
 angular
     .module("revaluate.settings")
-    .controller("SettingsPaymentMethodAddController", function ($q, $scope, $state, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentStatus, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+    .controller("SettingsPaymentMethodAddController", function ($q, $scope, $state, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentStatus, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS, AUTH_EVENTS, USER_SUBSCRIPTION_STATUS) {
 
         var TIMEOUT_PENDING = 300;
 
@@ -103,8 +103,24 @@ angular
                             paymentDetailsData.paymentNonceDetailsDTO.paymentMethodNonce = nonce;
 
                             return $http
-                                .post(URLTo.api(AUTH_URLS.createCustomerWithPaymentMethod), paymentDetailsData)
-                                .then(function () {
+                                .post(URLTo.api(AUTH_URLS.createCustomerWithPaymentMethodSubscribeToStandardPlan), paymentDetailsData)
+                                .then(function (response) {
+                                    // ---
+                                    // Update user with subscription status ACTIVE if subscription is also successful.
+                                    // ---
+                                    var paymentInsights = response.data;
+                                    if ( paymentInsights.subscriptionActive ) {
+                                        $scope
+                                            .user
+                                            .setSubscriptionStatusAsAndReload(USER_SUBSCRIPTION_STATUS.ACTIVE);
+                                        $rootScope
+                                            .$broadcast(AUTH_EVENTS.refreshUser, {});
+                                    }
+
+                                    // ---
+                                    // Clean previously errors.
+                                    // ---
+                                    flash.to(ALERTS_CONSTANTS.generalError).error = '';
 
                                     // ---
                                     // Reset the payment data with empty new data.

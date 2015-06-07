@@ -37,7 +37,7 @@ angular
         fetchPaymentToken: "payment/fetchToken",
         fetchPaymentInsights: "payment/fetchPaymentInsights",
         subscribeToStandardPlan: "payment/subscribeToStandardPlan",
-        createCustomerWithPaymentMethod: "payment/createCustomerWithPaymentMethod",
+        createCustomerWithPaymentMethodSubscribeToStandardPlan: "payment/createCustomerWithPaymentMethodSubscribeToStandardPlan",
         fetchPaymentStatus: "payment/fetchPaymentStatus",
         updateCustomer: "payment/updateCustomer",
         updatePaymentMethod: "payment/updatePaymentMethod",
