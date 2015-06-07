@@ -4,8 +4,7 @@
     <div class="expenses__list__entry__select icon-checkmark" ng-if="expense.marked"></div>
 
     <div class="expenses__list__entry__price">
-        {{expense.model.value | currency:""}}
-        <span class="expenses__list__entry__currency">{{user.model.currency.currencyCode}}</span>
+        {{expense.model.value | currency:user.model.currency.symbol}}
     </div>
 
     <!--Expense category-->

@@ -56,7 +56,7 @@
 
                 <div class="import__edit__categories__dest__category" ng-class="{'has-error': expensesImportForm.$submitted && (expensesImportCategoryMatchEntryForm.category.$invalid || badPostSubmitResponse)}">
 
-                    <ui-select name="category" class="category-select__input" ng-style="{'background':$select.selected.model.color.color}" required ng-model="category.selected" theme="selectize">
+                    <ui-select name="category" class="category-select__input" ng-style="{'background':$select.selected.model.color.color}" required ng-model="categoryMatchCandidate.category.selected" theme="selectize">
                         <ui-select-match ng-style="{'background':$select.selected.model.color.color}" placeholder="Select a category">{{$select.selected.model.name}}</ui-select-match>
                         <ui-select-choices repeat="categoryEntry in categories | orderObjectBy : 'model.name' : false | filter:{model:{name:$select.search}} track by categoryEntry.model.id">
                             <span class="category__color__preview" ng-style="{'background':categoryEntry.model.color.color}">C</span>

@@ -35,7 +35,7 @@
                 <div class="insights__controls__form__month" ng-class="{'has-error': insightForm.spentDate.$invalid && insightForm.$submitted}">
 
                     <!--Hidden input of the insight chosen date-->
-                    <input type="hidden" name="spentDate" ng-model="insightData.spentDate" required valid-date/>
+                    <input type="hidden" name="spentDate" ng-model="insightData.spentDate" required valid-date />
 
                     <!--insight date picker-->
                     <div class="insight__form__date__input">
@@ -80,8 +80,8 @@
 
         <div ng-show="insight.model.numberOfTransactions !== 0">
             <div class="insights__summary">
-                You've spent a total of <span>{{insight.model.totalAmountSpent | currency:""}}</span>
-                <span>{{user.model.currency.currencyCode}}</span>
+                You've spent a total of
+                <span>{{insight.model.totalAmountSpent | currency:user.model.currency.symbol}}</span>
                 in <span>{{(insightData.spentDate | friendlyMonthDate)}}</span>, which is
                 <span>5% more</span> than the last month.
             </div>
@@ -98,10 +98,7 @@
             </div>
 
             <div class="insights__summary">
-                You had <span>{{insight.model.numberOfTransactions}}</span> transactions, you spent mostly on
-                <span>FOOD</span>
-                and your highest expense was on <span>CLOTHES</span>, which was
-                <span>340 {{user.model.currency.currencyCode}}</span>.
+                You had <span>{{insight.model.numberOfTransactions}}</span> transactions
             </div>
 
             <div class="insights__table">
@@ -109,7 +106,7 @@
                     <thead class="insights__table__header">
                     <tr class="">
                         <td>TOTAL</td>
-                        <td class="insights__table__amount">{{insight.model.totalAmountSpent | currency:""}}<span>{{user.model.currency.currencyCode}}</span>
+                        <td class="insights__table__amount">{{insight.model.totalAmountSpent | currency:user.model.currency.symbol}}<span>{{user.model.currency.currencyCode}}</span>
                         </td>
                     </tr>
                     </thead>
@@ -119,7 +116,7 @@
                             <span class="insights__table__category__color" ng-style="{'background':totalPerCategory.categoryDTO.color.color}">C</span>
                             {{totalPerCategory.categoryDTO.name}}
                         </td>
-                        <td class="insights__table__amount">{{totalPerCategory.totalAmount | currency:""}}<span>{{user.model.currency.currencyCode}}</span>
+                        <td class="insights__table__amount">{{totalPerCategory.totalAmount | currency:user.model.currency.symbol}}<span>{{user.model.currency.currencyCode}}</span>
                         </td>
                     </tr>
                     </tbody>
