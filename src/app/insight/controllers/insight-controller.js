@@ -3,7 +3,7 @@
  */
 angular
     .module("revaluate.insights")
-    .controller("InsightController", function ($scope, $rootScope, $filter, $timeout, flash, insight, statistics, InsightService, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
+    .controller("InsightController", function ($scope, $rootScope, $filter, $timeout, flash, insight, statistics, InsightService, MIXPANEL_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
 
         /**
          * Updating/deleting timeout
@@ -28,12 +28,19 @@ angular
 
         /**
          * Default insights loaded.
-         * @type {insight|*}
          */
         $scope.insight = insight;
+
         $scope.insightLineData = [insight.model.insightData];
         $scope.insightLineColors = [insight.model.insightColors];
         $scope.insightLineSeries = ["Categories"];
+
+        $scope.INSIGHTS_CHARTS = INSIGHTS_CHARTS;
+        $scope.activeChart = $scope.INSIGHTS_CHARTS.BAR;
+
+        $scope.setActiveChart = function (chartType) {
+            $scope.activeChart = chartType;
+        };
 
         /**
          * Expenses statistics
