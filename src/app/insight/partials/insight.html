@@ -86,7 +86,10 @@
                 <span>5% more</span> than the last month.
             </div>
 
-            <div class="insights__chart__bar">
+            <a ng-class="{'insights__chart--active': activeChart === INSIGHTS_CHARTS.BAR}" href="javascript:void(0)" ng-click="setActiveChart(INSIGHTS_CHARTS.BAR)">Bar</a>
+            <a ng-class="{'insights__chart--active': activeChart === INSIGHTS_CHARTS.DONUTS}" href="javascript:void(0)" ng-click="setActiveChart(INSIGHTS_CHARTS.DONUTS)">Donut</a>
+
+            <div ng-if="activeChart === INSIGHTS_CHARTS.BAR" class="insights__chart__bar">
                 <canvas id="bar"
                         class="chart chart-bar"
                         data="insightLineData"
@@ -94,6 +97,15 @@
                         legend="false"
                         options="chartOptions"
                         labels="insight.model.insightLabels">
+                </canvas>
+            </div>
+
+            <div ng-if="activeChart === INSIGHTS_CHARTS.DONUTS" class="insights__chart__doughnut">
+                <canvas class="chart chart-doughnut"
+                        data="insight.model.insightData"
+                        labels="insight.model.insightLabels"
+                        options="chartOptions"
+                        colours="insight.model.insightColors">
                 </canvas>
             </div>
 
@@ -123,14 +135,6 @@
                 </table>
             </div>
 
-            <div class="insights__chart__doughnut">
-                <canvas class="chart chart-doughnut"
-                        data="insight.model.insightData"
-                        labels="insight.model.insightLabels"
-                        options="chartOptions"
-                        colours="insight.model.insightColors">
-                </canvas>
-            </div>
         </div>
 
     </div>
