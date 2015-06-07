@@ -60,7 +60,7 @@ angular
         };
 
         function formatValue(label) {
-            return $filter('currency')(label.value.toString(), '') + ' ' + $scope.user.model.currency.currencyCode;
+            return $filter('currency')(label.value.toString(), $scope.user.model.currency.symbol);
         }
 
         /**
