@@ -1,0 +1,45 @@
+.expenses__form--edit {
+  @include border-radius($border-radius-base);
+  background-color: floralwhite;
+  padding: 10px 70px 5px 70px;
+  margin: 0 auto;
+}
+
+.expenses__bulk-actions {
+  @include clearfix();
+  width: 800px;
+  margin: 0 auto;
+  color: $black;
+  font-weight: $font-weight-bold;
+  position: relative;
+
+  .expenses__bulk-actions__buttons {
+    position: absolute;
+    left: 0;
+    right: 0;
+
+    .expenses__bulk-actions__delete {
+
+      .expenses__bulk-actions__delete__btn-delete {
+        @include btn($brand-danger);
+        display: block;
+        float: left;
+      }
+    }
+
+    .expenses__bulk-actions__cancel {
+
+      .expenses__bulk-actions__delete__btn-cancel {
+        @include btn($brand-default);
+        color: $gray-dark-1;
+        display: block;
+        float: left;
+      }
+    }
+
+    .expenses__bulk-actions__delete,
+    .expenses__bulk-actions__cancel {
+      display: inline-block;
+    }
+  }
+}

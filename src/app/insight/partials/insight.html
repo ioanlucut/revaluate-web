@@ -12,6 +12,9 @@
         <div ng-include src="'app/account/partials/email_confirmation_send_send.html'"></div>
     </div>
 
+    <!-- Flash messages. -->
+    <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
     <!--Empty state if no expenses overall-->
     <div class="insights__empty-state" ng-if="insight.model.totalNumberOfTransactions === 0">
         <div class="insights__empty-state__icon"></div>
@@ -26,16 +29,13 @@
 
             <form name="insightForm" class="insights__controls__form" ng-submit="submitLoadInsight()" novalidate>
 
-                <!-- Flash messages. -->
-                <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
-
                 <!-- Select prev month -->
                 <button type="button" class="insights__controls__form__arrow icon-chevron-left" ng-disabled="isLoading || ! canLoadPrevMonth()" ng-click="prevMonth()"></button>
 
                 <div class="insights__controls__form__month" ng-class="{'has-error': insightForm.spentDate.$invalid && insightForm.$submitted}">
 
                     <!--Hidden input of the insight chosen date-->
-                    <input type="hidden" name="spentDate" ng-model="insightData.spentDate" required valid-date/>
+                    <input type="hidden" name="spentDate" ng-model="insightData.spentDate" required valid-date />
 
                     <!--insight date picker-->
                     <div class="insight__form__date__input">
@@ -68,6 +68,11 @@
 
             </form>
 
+            <div class="insights__controls__chart-toggle">
+                <a ng-class="{'insights__chart--active': activeChart === INSIGHTS_CHARTS.BAR}" href="javascript:void(0)" ng-click="setActiveChart(INSIGHTS_CHARTS.BAR)">Bar</a>
+                <a ng-class="{'insights__chart--active': activeChart === INSIGHTS_CHARTS.DOUGHNUT}" href="javascript:void(0)" ng-click="setActiveChart(INSIGHTS_CHARTS.DOUGHNUT)">Pie</a>
+            </div>
+
         </div>
 
         <!--Empty state if no expenses for current month-->
@@ -80,13 +85,12 @@
 
         <div ng-show="insight.model.numberOfTransactions !== 0">
             <div class="insights__summary">
-                You've spent a total of <span>{{insight.model.totalAmountSpent | currency:""}}</span>
-                <span>{{user.model.currency.currencyCode}}</span>
-                in <span>{{(insightData.spentDate | friendlyMonthDate)}}</span>, which is
-                <span>5% more</span> than the last month.
+                Hey, <span>{{currentUser.model.firstName}}</span>! In <span>{{(insightData.spentDate | friendlyMonthDate)}}</span>
+                you've spent a total of <span>{{insight.model.totalAmountSpent | currency:user.model.currency.symbol}}</span>,
+                which is <span>5% more</span> than the last month.
             </div>
 
-            <div class="insights__chart__bar">
+            <div ng-if="activeChart === INSIGHTS_CHARTS.BAR" class="insights__chart__bar">
                 <canvas id="bar"
                         class="chart chart-bar"
                         data="insightLineData"
@@ -97,11 +101,19 @@
                 </canvas>
             </div>
 
+            <div ng-if="activeChart === INSIGHTS_CHARTS.DOUGHNUT" class="insights__chart__doughnut">
+                <canvas class="chart chart-doughnut"
+                        data="insight.model.insightData"
+                        labels="insight.model.insightLabels"
+                        legend="true"
+                        options="chartOptions"
+                        colours="insight.model.insightColors">
+                </canvas>
+            </div>
+
             <div class="insights__summary">
-                You had <span>{{insight.model.numberOfTransactions}}</span> transactions, you spent mostly on
-                <span>FOOD</span>
-                and your highest expense was on <span>CLOTHES</span>, which was
-                <span>340 {{user.model.currency.currencyCode}}</span>.
+                You had a total of <span>{{insight.model.numberOfTransactions}} transactions</span>, in
+                <span>{{insight.model.totalPerCategoryInsightDTOs.length}} categories</span>.
             </div>
 
             <div class="insights__table">
@@ -109,7 +121,7 @@
                     <thead class="insights__table__header">
                     <tr class="">
                         <td>TOTAL</td>
-                        <td class="insights__table__amount">{{insight.model.totalAmountSpent | currency:""}}<span>{{user.model.currency.currencyCode}}</span>
+                        <td class="insights__table__amount">{{insight.model.totalAmountSpent | currency:user.model.currency.symbol}}<span>{{user.model.currency.currencyCode}}</span>
                         </td>
                     </tr>
                     </thead>
@@ -119,21 +131,13 @@
                             <span class="insights__table__category__color" ng-style="{'background':totalPerCategory.categoryDTO.color.color}">C</span>
                             {{totalPerCategory.categoryDTO.name}}
                         </td>
-                        <td class="insights__table__amount">{{totalPerCategory.totalAmount | currency:""}}<span>{{user.model.currency.currencyCode}}</span>
+                        <td class="insights__table__amount">{{totalPerCategory.totalAmount | currency:user.model.currency.symbol}}<span>{{user.model.currency.currencyCode}}</span>
                         </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
 
-            <div class="insights__chart__doughnut">
-                <canvas class="chart chart-doughnut"
-                        data="insight.model.insightData"
-                        labels="insight.model.insightLabels"
-                        options="chartOptions"
-                        colours="insight.model.insightColors">
-                </canvas>
-            </div>
         </div>
 
     </div>

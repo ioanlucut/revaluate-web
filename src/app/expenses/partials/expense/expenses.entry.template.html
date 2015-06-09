@@ -4,8 +4,7 @@
     <div class="expenses__list__entry__select icon-checkmark" ng-if="expense.marked"></div>
 
     <div class="expenses__list__entry__price">
-        {{expense.model.value | currency:""}}
-        <span class="expenses__list__entry__currency">{{user.model.currency.currencyCode}}</span>
+        {{expense.model.value | currency:user.model.currency.symbol}}
     </div>
 
     <!--Expense category-->
@@ -21,7 +20,7 @@
 </div>
 
 <!-- Display expense in edit mode -->
-<div class="expenses__form" ng-if="showContent">
+<div class="expenses__form expenses__form--edit" ng-if="showContent">
 
     <form name="expenseForm" ng-submit="updateExpense(expenseForm, shownExpense, category)" novalidate focus-first-error>
 
@@ -40,10 +39,11 @@
         <!-- Form group -->
         <div class="expense__form__category" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.category.$invalid || badPostSubmitResponse)}">
 
-            <ui-select name="category" required ng-model="category.selected" theme="selectize" title="Choose a category" class="expense__form__category__input">
+            <ui-select name="category" class="category-select__input" ng-style="{'background':$select.selected.model.color.color}" required ng-model="category.selected" theme="selectize">
                 <ui-select-match ng-style="{'background':$select.selected.model.color.color}" placeholder="Select a category">{{$select.selected.model.name}}</ui-select-match>
-                <ui-select-choices ng-style="{'background':categoryEntry.model.color.color}" repeat="categoryEntry in categories | orderObjectBy : 'model.name' : false | filter:{model:{name:$select.search}} track by categoryEntry.model.id">
-                    <div ng-style="{'background':categoryEntry.model.color.color}" ng-bind-html="categoryEntry.model.name | highlight: $select.search"></div>
+                <ui-select-choices repeat="categoryEntry in categories | orderObjectBy : 'model.name' : false | filter:{model:{name:$select.search}} track by categoryEntry.model.id">
+                    <span class="category__color__preview" ng-style="{'background':categoryEntry.model.color.color}">C</span>
+                    <span class="" ng-bind-html="categoryEntry.model.name | highlight: $select.search"></span>
                 </ui-select-choices>
             </ui-select>
 
@@ -83,7 +83,7 @@
 
             <!--Error messages-->
             <div class="form-group-input__message" ng-class="{'has-error': expenseForm.spentDate.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.$error" ng-if="expenseForm.$submitted">
-                <div ng-message="required">Please make that you add a date.</div>
+                <div ng-message="required">Please add a date.</div>
                 <div ng-message="validDate">Date should be in the past.</div>
             </div>
         </div>

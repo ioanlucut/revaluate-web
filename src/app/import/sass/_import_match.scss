@@ -67,7 +67,7 @@
 .import__edit__categories__dest {
   @include clearfix();
   float: right;
-  width: 220px;
+  width: $category-select-width;
 
   .import__edit__categories__dest__category {
     padding: 0;
@@ -83,11 +83,12 @@
 
 .import__edit__categories__ignored {
   float: right;
-  width: 220px;
+  width: $category-select-width;
   font-size: 11px;
   height: 35px;
   line-height: 35px;
-  font-style: italic;
+  columns: $gray-light-1;
+  color: $brand-danger;
 }
 
 .import__edit__categories__arrow {

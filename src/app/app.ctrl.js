@@ -3,7 +3,7 @@
  */
 angular
     .module("app")
-    .controller("AppController", function ($rootScope, $scope, $state, $timeout, $log, flash, AuthService, User, StatesHandler, AUTH_EVENTS, ALERTS_CONSTANTS, ACTIVITY_INTERCEPTOR, ERROR_INTERCEPTOR, ENV) {
+    .controller("AppController", function ($rootScope, $scope, $state, $timeout, $log, flash, AuthService, AccountModal, User, StatesHandler, AUTH_EVENTS, ALERTS_CONSTANTS, ACTIVITY_INTERCEPTOR, AUTH_MODAL, ERROR_INTERCEPTOR, ENV) {
 
         /**
          * Save the state on root scope
@@ -74,6 +74,12 @@ angular
         });
 
         $rootScope.$on('$viewContentLoaded', function () {
+            // ---
+            // Close login modal if everything is loaded.
+            // ---
+            if ( AccountModal.isOpen ) {
+                $rootScope.$broadcast(AUTH_MODAL.close, {})
+            }
             $rootScope.$broadcast(ACTIVITY_INTERCEPTOR.activityEnd);
         });
 

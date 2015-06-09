@@ -58281,6 +58281,7 @@ module
 // see https://github.com/umdjs/umd/blob/master/returnExports.js
 (function (root, factory) {
     'use strict';
+
     /*global define, exports, module */
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
@@ -58316,6 +58317,7 @@ var array_slice = ArrayPrototype.slice;
 var array_splice = ArrayPrototype.splice;
 var array_push = ArrayPrototype.push;
 var array_unshift = ArrayPrototype.unshift;
+var array_concat = ArrayPrototype.concat;
 var call = FunctionPrototype.call;
 
 // Having a toString local variable name breaks in Opera so use to_string.
@@ -58348,8 +58350,10 @@ var isArguments = function isArguments(value) {
 var defineProperties = (function (has) {
   var supportsDescriptors = Object.defineProperty && (function () {
       try {
-          Object.defineProperty({}, 'x', {});
-          return true;
+          var obj = {};
+          Object.defineProperty(obj, 'x', { enumerable: false, value: obj });
+          for (var _ in obj) { return false; }
+          return obj.x === obj;
       } catch (e) { /* this is ES3 */
           return false;
       }
@@ -58389,14 +58393,10 @@ var defineProperties = (function (has) {
 //
 
 /* replaceable with https://npmjs.com/package/es-abstract /helpers/isPrimitive */
-function isPrimitive(input) {
+var isPrimitive = function isPrimitive(input) {
     var type = typeof input;
-    return input === null ||
-        type === 'undefined' ||
-        type === 'boolean' ||
-        type === 'number' ||
-        type === 'string';
-}
+    return input === null || (type !== 'object' && type !== 'function');
+};
 
 var ES = {
     // ES5 9.4
@@ -58506,7 +58506,7 @@ defineProperties(FunctionPrototype, {
 
                 var result = target.apply(
                     this,
-                    args.concat(array_slice.call(arguments))
+                    array_concat.call(args, array_slice.call(arguments))
                 );
                 if (Object(result) === result) {
                     return result;
@@ -58535,7 +58535,7 @@ defineProperties(FunctionPrototype, {
                 // equiv: target.call(this, ...boundArgs, ...args)
                 return target.apply(
                     that,
-                    args.concat(array_slice.call(arguments))
+                    array_concat.call(args, array_slice.call(arguments))
                 );
 
             }
@@ -58696,6 +58696,7 @@ var properlyBoxesContext = function properlyBoxed(method) {
 
         method.call([1], function () {
             'use strict';
+
             properlyBoxesStrict = typeof this === 'string';
         }, 'x');
     }
@@ -58703,24 +58704,30 @@ var properlyBoxesContext = function properlyBoxed(method) {
 };
 
 defineProperties(ArrayPrototype, {
-    forEach: function forEach(fun /*, thisp*/) {
-        var object = ES.ToObject(this),
-            self = splitString && isString(this) ? this.split('') : object,
-            thisp = arguments[1],
-            i = -1,
-            length = self.length >>> 0;
+    forEach: function forEach(callbackfn /*, thisArg*/) {
+        var object = ES.ToObject(this);
+        var self = splitString && isString(this) ? this.split('') : object;
+        var i = -1;
+        var length = self.length >>> 0;
+        var T;
+        if (arguments.length > 1) {
+          T = arguments[1];
+        }
 
         // If no callback function or if callback is not a callable function
-        if (!isCallable(fun)) {
-            throw new TypeError(); // TODO message
+        if (!isCallable(callbackfn)) {
+            throw new TypeError('Array.prototype.forEach callback must be a function');
         }
 
         while (++i < length) {
             if (i in self) {
                 // Invoke the callback function with call, passing arguments:
                 // context, property value, property key, thisArg object
-                // context
-                fun.call(thisp, self[i], i, object);
+                if (typeof T !== 'undefined') {
+                    callbackfn.call(T, self[i], i, object);
+                } else {
+                    callbackfn(self[i], i, object);
+                }
             }
         }
     }
@@ -58730,21 +58737,28 @@ defineProperties(ArrayPrototype, {
 // http://es5.github.com/#x15.4.4.19
 // https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Objects/Array/map
 defineProperties(ArrayPrototype, {
-    map: function map(fun /*, thisp*/) {
-        var object = ES.ToObject(this),
-            self = splitString && isString(this) ? this.split('') : object,
-            length = self.length >>> 0,
-            result = Array(length),
-            thisp = arguments[1];
+    map: function map(callbackfn/*, thisArg*/) {
+        var object = ES.ToObject(this);
+        var self = splitString && isString(this) ? this.split('') : object;
+        var length = self.length >>> 0;
+        var result = Array(length);
+        var T;
+        if (arguments.length > 1) {
+            T = arguments[1];
+        }
 
         // If no callback function or if callback is not a callable function
-        if (!isCallable(fun)) {
-            throw new TypeError(fun + ' is not a function');
+        if (!isCallable(callbackfn)) {
+            throw new TypeError('Array.prototype.map callback must be a function');
         }
 
         for (var i = 0; i < length; i++) {
             if (i in self) {
-                result[i] = fun.call(thisp, self[i], i, object);
+                if (typeof T !== 'undefined') {
+                    result[i] = callbackfn.call(T, self[i], i, object);
+                } else {
+                    result[i] = callbackfn(self[i], i, object);
+                }
             }
         }
         return result;
@@ -58755,23 +58769,26 @@ defineProperties(ArrayPrototype, {
 // http://es5.github.com/#x15.4.4.20
 // https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Objects/Array/filter
 defineProperties(ArrayPrototype, {
-    filter: function filter(fun /*, thisp */) {
-        var object = ES.ToObject(this),
-            self = splitString && isString(this) ? this.split('') : object,
-            length = self.length >>> 0,
-            result = [],
-            value,
-            thisp = arguments[1];
+    filter: function filter(callbackfn /*, thisArg*/) {
+        var object = ES.ToObject(this);
+        var self = splitString && isString(this) ? this.split('') : object;
+        var length = self.length >>> 0;
+        var result = [];
+        var value;
+        var T;
+        if (arguments.length > 1) {
+            T = arguments[1];
+        }
 
         // If no callback function or if callback is not a callable function
-        if (!isCallable(fun)) {
-            throw new TypeError(fun + ' is not a function');
+        if (!isCallable(callbackfn)) {
+            throw new TypeError('Array.prototype.filter callback must be a function');
         }
 
         for (var i = 0; i < length; i++) {
             if (i in self) {
                 value = self[i];
-                if (fun.call(thisp, value, i, object)) {
+                if (typeof T === 'undefined' ? callbackfn(value, i, object) : callbackfn.call(T, value, i, object)) {
                     result.push(value);
                 }
             }
@@ -58784,19 +58801,22 @@ defineProperties(ArrayPrototype, {
 // http://es5.github.com/#x15.4.4.16
 // https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/every
 defineProperties(ArrayPrototype, {
-    every: function every(fun /*, thisp */) {
-        var object = ES.ToObject(this),
-            self = splitString && isString(this) ? this.split('') : object,
-            length = self.length >>> 0,
-            thisp = arguments[1];
+    every: function every(callbackfn /*, thisArg*/) {
+        var object = ES.ToObject(this);
+        var self = splitString && isString(this) ? this.split('') : object;
+        var length = self.length >>> 0;
+        var T;
+        if (arguments.length > 1) {
+            T = arguments[1];
+        }
 
         // If no callback function or if callback is not a callable function
-        if (!isCallable(fun)) {
-            throw new TypeError(fun + ' is not a function');
+        if (!isCallable(callbackfn)) {
+            throw new TypeError('Array.prototype.every callback must be a function');
         }
 
         for (var i = 0; i < length; i++) {
-            if (i in self && !fun.call(thisp, self[i], i, object)) {
+            if (i in self && !(typeof T === 'undefined' ? callbackfn(self[i], i, object) : callbackfn.call(T, self[i], i, object))) {
                 return false;
             }
         }
@@ -58808,19 +58828,22 @@ defineProperties(ArrayPrototype, {
 // http://es5.github.com/#x15.4.4.17
 // https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/some
 defineProperties(ArrayPrototype, {
-    some: function some(fun /*, thisp */) {
-        var object = ES.ToObject(this),
-            self = splitString && isString(this) ? this.split('') : object,
-            length = self.length >>> 0,
-            thisp = arguments[1];
+    some: function some(callbackfn/*, thisArg */) {
+        var object = ES.ToObject(this);
+        var self = splitString && isString(this) ? this.split('') : object;
+        var length = self.length >>> 0;
+        var T;
+        if (arguments.length > 1) {
+            T = arguments[1];
+        }
 
         // If no callback function or if callback is not a callable function
-        if (!isCallable(fun)) {
-            throw new TypeError(fun + ' is not a function');
+        if (!isCallable(callbackfn)) {
+            throw new TypeError('Array.prototype.some callback must be a function');
         }
 
         for (var i = 0; i < length; i++) {
-            if (i in self && fun.call(thisp, self[i], i, object)) {
+            if (i in self && (typeof T === 'undefined' ? callbackfn(self[i], i, object) : callbackfn.call(T, self[i], i, object))) {
                 return true;
             }
         }
@@ -58836,18 +58859,18 @@ if (ArrayPrototype.reduce) {
     reduceCoercesToObject = typeof ArrayPrototype.reduce.call('es5', function (_, __, ___, list) { return list; }) === 'object';
 }
 defineProperties(ArrayPrototype, {
-    reduce: function reduce(fun /*, initial*/) {
-        var object = ES.ToObject(this),
-            self = splitString && isString(this) ? this.split('') : object,
-            length = self.length >>> 0;
+    reduce: function reduce(callbackfn /*, initialValue*/) {
+        var object = ES.ToObject(this);
+        var self = splitString && isString(this) ? this.split('') : object;
+        var length = self.length >>> 0;
 
         // If no callback function or if callback is not a callable function
-        if (!isCallable(fun)) {
-            throw new TypeError(fun + ' is not a function');
+        if (!isCallable(callbackfn)) {
+            throw new TypeError('Array.prototype.reduce callback must be a function');
         }
 
         // no value to return if no initial value and an empty array
-        if (!length && arguments.length === 1) {
+        if (length === 0 && arguments.length === 1) {
             throw new TypeError('reduce of empty array with no initial value');
         }
 
@@ -58871,7 +58894,7 @@ defineProperties(ArrayPrototype, {
 
         for (; i < length; i++) {
             if (i in self) {
-                result = fun.call(void 0, result, self[i], i, object);
+                result = callbackfn(result, self[i], i, object);
             }
         }
 
@@ -58887,22 +58910,23 @@ if (ArrayPrototype.reduceRight) {
     reduceRightCoercesToObject = typeof ArrayPrototype.reduceRight.call('es5', function (_, __, ___, list) { return list; }) === 'object';
 }
 defineProperties(ArrayPrototype, {
-    reduceRight: function reduceRight(fun /*, initial*/) {
-        var object = ES.ToObject(this),
-            self = splitString && isString(this) ? this.split('') : object,
-            length = self.length >>> 0;
+    reduceRight: function reduceRight(callbackfn/*, initial*/) {
+        var object = ES.ToObject(this);
+        var self = splitString && isString(this) ? this.split('') : object;
+        var length = self.length >>> 0;
 
         // If no callback function or if callback is not a callable function
-        if (!isCallable(fun)) {
-            throw new TypeError(fun + ' is not a function');
+        if (!isCallable(callbackfn)) {
+            throw new TypeError('Array.prototype.reduceRight callback must be a function');
         }
 
         // no value to return if no initial value, empty array
-        if (!length && arguments.length === 1) {
+        if (length === 0 && arguments.length === 1) {
             throw new TypeError('reduceRight of empty array with no initial value');
         }
 
-        var result, i = length - 1;
+        var result;
+        var i = length - 1;
         if (arguments.length >= 2) {
             result = arguments[1];
         } else {
@@ -58925,7 +58949,7 @@ defineProperties(ArrayPrototype, {
 
         do {
             if (i in self) {
-                result = fun.call(void 0, result, self[i], i, object);
+                result = callbackfn(result, self[i], i, object);
             }
         } while (i--);
 
@@ -58938,11 +58962,11 @@ defineProperties(ArrayPrototype, {
 // https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/indexOf
 var hasFirefox2IndexOfBug = Array.prototype.indexOf && [0, 1].indexOf(1, 2) !== -1;
 defineProperties(ArrayPrototype, {
-    indexOf: function indexOf(sought /*, fromIndex */) {
-        var self = splitString && isString(this) ? this.split('') : ES.ToObject(this),
-            length = self.length >>> 0;
+    indexOf: function indexOf(searchElement /*, fromIndex */) {
+        var self = splitString && isString(this) ? this.split('') : ES.ToObject(this);
+        var length = self.length >>> 0;
 
-        if (!length) {
+        if (length === 0) {
             return -1;
         }
 
@@ -58954,7 +58978,7 @@ defineProperties(ArrayPrototype, {
         // handle negative indices
         i = i >= 0 ? i : Math.max(0, length + i);
         for (; i < length; i++) {
-            if (i in self && self[i] === sought) {
+            if (i in self && self[i] === searchElement) {
                 return i;
             }
         }
@@ -58967,11 +58991,11 @@ defineProperties(ArrayPrototype, {
 // https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/lastIndexOf
 var hasFirefox2LastIndexOfBug = Array.prototype.lastIndexOf && [0, 1].lastIndexOf(0, -3) !== -1;
 defineProperties(ArrayPrototype, {
-    lastIndexOf: function lastIndexOf(sought /*, fromIndex */) {
-        var self = splitString && isString(this) ? this.split('') : ES.ToObject(this),
-            length = self.length >>> 0;
+    lastIndexOf: function lastIndexOf(searchElement /*, fromIndex */) {
+        var self = splitString && isString(this) ? this.split('') : ES.ToObject(this);
+        var length = self.length >>> 0;
 
-        if (!length) {
+        if (length === 0) {
             return -1;
         }
         var i = length - 1;
@@ -58981,7 +59005,7 @@ defineProperties(ArrayPrototype, {
         // handle negative indices
         i = i >= 0 ? i : length - Math.abs(i);
         for (; i >= 0; i--) {
-            if (i in self && sought === self[i]) {
+            if (i in self && searchElement === self[i]) {
                 return i;
             }
         }
@@ -58998,7 +59022,7 @@ defineProperties(ArrayPrototype, {
 // http://es5.github.com/#x15.2.3.14
 
 // http://whattheheadsaid.com/2010/10/a-safer-object-keys-compatibility-implementation
-var hasDontEnumBug = !({'toString': null}).propertyIsEnumerable('toString'),
+var hasDontEnumBug = !({ 'toString': null }).propertyIsEnumerable('toString'),
     hasProtoEnumBug = function () {}.propertyIsEnumerable('prototype'),
     hasStringEnumBug = !owns('x', '0'),
     dontEnums = [
@@ -59180,7 +59204,7 @@ if (!dateToJSONIsSupported) {
 // based on work shared by Daniel Friesen (dantman)
 // http://gist.github.com/303249
 var supportsExtendedYears = Date.parse('+033658-09-27T01:46:40.000Z') === 1e15;
-var acceptsInvalidDates = !isNaN(Date.parse('2012-04-04T24:00:00.500Z')) || !isNaN(Date.parse('2012-11-31T23:59:59.000Z'));
+var acceptsInvalidDates = !isNaN(Date.parse('2012-04-04T24:00:00.500Z')) || !isNaN(Date.parse('2012-11-31T23:59:59.000Z')) || !isNaN(Date.parse('2012-12-31T23:59:60.000Z'));
 var doesNotParseY2KNewYear = isNaN(Date.parse('2000-01-01T00:00:00.000Z'));
 if (!Date.parse || doesNotParseY2KNewYear || acceptsInvalidDates || !supportsExtendedYears) {
     // XXX global assignment won't work in embeddings that use
@@ -59190,12 +59214,13 @@ if (!Date.parse || doesNotParseY2KNewYear || acceptsInvalidDates || !supportsExt
     Date = (function (NativeDate) {
     /*eslint-enable no-undef*/
         // Date.length === 7
-        function Date(Y, M, D, h, m, s, ms) {
+        var DateShim = function Date(Y, M, D, h, m, s, ms) {
             var length = arguments.length;
+            var date;
             if (this instanceof NativeDate) {
-                var date = length === 1 && String(Y) === Y ? // isString(Y)
+                date = length === 1 && String(Y) === Y ? // isString(Y)
                     // We explicitly pass it through parse:
-                    new NativeDate(Date.parse(Y)) :
+                    new NativeDate(DateShim.parse(Y)) :
                     // We have to manually make calls depending on argument
                     // length here
                     length >= 7 ? new NativeDate(Y, M, D, h, m, s, ms) :
@@ -59206,12 +59231,13 @@ if (!Date.parse || doesNotParseY2KNewYear || acceptsInvalidDates || !supportsExt
                     length >= 2 ? new NativeDate(Y, M) :
                     length >= 1 ? new NativeDate(Y) :
                                   new NativeDate();
-                // Prevent mixups with unfixed Date object
-                defineProperties(date, { constructor: Date }, true);
-                return date;
+            } else {
+                date = NativeDate.apply(this, arguments);
             }
-            return NativeDate.apply(this, arguments);
-        }
+            // Prevent mixups with unfixed Date object
+            defineProperties(date, { constructor: DateShim }, true);
+            return date;
+        };
 
         // 15.9.1.15 Date Time String Format.
         var isoDateExpression = new RegExp('^' +
@@ -59236,11 +59262,9 @@ if (!Date.parse || doesNotParseY2KNewYear || acceptsInvalidDates || !supportsExt
             ')?)?)?)?' +
         '$');
 
-        var months = [
-            0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365
-        ];
+        var months = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365];
 
-        function dayFromMonth(year, month) {
+        var dayFromMonth = function dayFromMonth(year, month) {
             var t = month > 1 ? 1 : 0;
             return (
                 months[month] +
@@ -59249,25 +59273,31 @@ if (!Date.parse || doesNotParseY2KNewYear || acceptsInvalidDates || !supportsExt
                 Math.floor((year - 1601 + t) / 400) +
                 365 * (year - 1970)
             );
-        }
+        };
 
-        function toUTC(t) {
+        var toUTC = function toUTC(t) {
             return Number(new NativeDate(1970, 0, 1, 0, 0, 0, t));
-        }
+        };
 
         // Copy any custom methods a 3rd party library may have added
         for (var key in NativeDate) {
-            Date[key] = NativeDate[key];
+            if (owns(NativeDate, key)) {
+                DateShim[key] = NativeDate[key];
+            }
         }
 
         // Copy "native" methods explicitly; they may be non-enumerable
-        Date.now = NativeDate.now;
-        Date.UTC = NativeDate.UTC;
-        Date.prototype = NativeDate.prototype;
-        Date.prototype.constructor = Date;
+        defineProperties(DateShim, {
+            now: NativeDate.now,
+            UTC: NativeDate.UTC
+        }, true);
+        DateShim.prototype = NativeDate.prototype;
+        defineProperties(DateShim.prototype, {
+            constructor: DateShim
+        }, true);
 
         // Upgrade Date.parse to handle simplified ISO 8601 strings
-        Date.parse = function parse(string) {
+        DateShim.parse = function parse(string) {
             var match = isoDateExpression.exec(string);
             if (match) {
                 // parse months, days, hours, minutes, seconds, and milliseconds
@@ -59323,7 +59353,7 @@ if (!Date.parse || doesNotParseY2KNewYear || acceptsInvalidDates || !supportsExt
             return NativeDate.parse.apply(this, arguments);
         };
 
-        return Date;
+        return DateShim;
     }(Date));
     /*global Date: false */
 }
@@ -59712,6 +59742,7 @@ if (parseInt(ws + '08') !== 8 || parseInt(ws + '0x16') !== 22) {
 // see https://github.com/umdjs/umd/blob/master/returnExports.js
 (function (root, factory) {
     'use strict';
+
     /*global define, exports, module */
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
@@ -59773,14 +59804,14 @@ if (!Object.getPrototypeOf) {
 //ES5 15.2.3.3
 //http://es5.github.com/#x15.2.3.3
 
-function doesGetOwnPropertyDescriptorWork(object) {
+var doesGetOwnPropertyDescriptorWork = function doesGetOwnPropertyDescriptorWork(object) {
     try {
         object.sentinel = 0;
         return Object.getOwnPropertyDescriptor(object, 'sentinel').value === 0;
     } catch (exception) {
         return false;
     }
-}
+};
 
 //check whether getOwnPropertyDescriptor works if it's given. Otherwise,
 //shim partially.
@@ -59921,7 +59952,7 @@ if (!Object.create) {
             empty.__proto__ = null;
             /*eslint-enable no-proto */
 
-            function Empty() {}
+            var Empty = function Empty() {};
             Empty.prototype = empty;
             // short-circuit future calls
             createEmpty = function () {
@@ -59934,7 +59965,7 @@ if (!Object.create) {
     Object.create = function create(prototype, properties) {
 
         var object;
-        function Type() {} // An empty constructor.
+        var Type = function Type() {}; // An empty constructor.
 
         if (prototype === null) {
             object = createEmpty();
@@ -59978,14 +60009,14 @@ if (!Object.create) {
 // WebKit Bugs:
 //     https://bugs.webkit.org/show_bug.cgi?id=36423
 
-function doesDefinePropertyWork(object) {
+var doesDefinePropertyWork = function doesDefinePropertyWork(object) {
     try {
         Object.defineProperty(object, 'sentinel', {});
         return 'sentinel' in object;
     } catch (exception) {
         return false;
     }
-}
+};
 
 // check whether defineProperty works if it's given. Otherwise,
 // shim partially.
@@ -60084,11 +60115,11 @@ if (!Object.defineProperties || definePropertiesFallback) {
             }
         }
 
-        for (var property in properties) {
-            if (owns(properties, property) && property !== '__proto__') {
+        Object.keys(properties).forEach(function (property) {
+            if (property !== '__proto__') {
                 Object.defineProperty(object, property, properties[property]);
             }
-        }
+        });
         return object;
     };
 }
@@ -60125,7 +60156,7 @@ if (!Object.freeze) {
 try {
     Object.freeze(function () {});
 } catch (exception) {
-    Object.freeze = (function freeze(freezeObject) {
+    Object.freeze = (function (freezeObject) {
         return function freeze(object) {
             if (typeof object === 'function') {
                 return object;
@@ -64340,8 +64371,9 @@ $templateCache.put("selectize/select.tpl.html","<div class=\"ui-select-container
 
     function getColours (type, scope) {
       var colours = angular.copy(scope.colours ||
-        Chart.defaults.global.colours ||
-        ChartJs.getOptions(type).colours);
+        ChartJs.getOptions(type).colours ||
+        Chart.defaults.global.colours
+      );
       while (colours.length < scope.data.length) {
         colours.push(scope.getColour());
       }
@@ -64443,16 +64475,25 @@ $templateCache.put("selectize/select.tpl.html","<div class=\"ui-select-container
 
   }
 }));
-;'use strict';
+;(function(angular, factory) {
+    'use strict';
+    if (typeof define === 'function' && define.amd) {
+        define('ngStorage', ['angular'], function(angular) {
+            return factory(angular);
+        });
+    } else {
+        return factory(angular);
+    }
+}(typeof angular === 'undefined' ? null : angular, function(angular) {
 
-(function() {
+    'use strict';
 
     /**
      * @ngdoc overview
      * @name ngStorage
      */
 
-    angular.module('ngStorage', []).
+    angular.module('ngStorage', [])
 
     /**
      * @ngdoc object
@@ -64461,7 +64502,7 @@ $templateCache.put("selectize/select.tpl.html","<div class=\"ui-select-container
      * @requires $window
      */
 
-    factory('$localStorage', _storageFactory('localStorage')).
+    .factory('$localStorage', _storageFactory('localStorage'))
 
     /**
      * @ngdoc object
@@ -64470,19 +64511,44 @@ $templateCache.put("selectize/select.tpl.html","<div class=\"ui-select-container
      * @requires $window
      */
 
-    factory('$sessionStorage', _storageFactory('sessionStorage'));
+    .factory('$sessionStorage', _storageFactory('sessionStorage'));
 
     function _storageFactory(storageType) {
         return [
             '$rootScope',
             '$window',
+            '$log',
+            '$timeout',
 
             function(
                 $rootScope,
-                $window
+                $window,
+                $log,
+                $timeout
             ){
+                function isStorageSupported(storageType) {
+                    var supported = $window[storageType];
+
+                    // When Safari (OS X or iOS) is in private browsing mode, it appears as though localStorage
+                    // is available, but trying to call .setItem throws an exception below:
+                    // "QUOTA_EXCEEDED_ERR: DOM Exception 22: An attempt was made to add something to storage that exceeded the quota."
+                    if (supported && storageType === 'localStorage') {
+                        var key = '__' + Math.round(Math.random() * 1e7);
+
+                        try {
+                            localStorage.setItem(key, key);
+                            localStorage.removeItem(key);
+                        }
+                        catch (err) {
+                            supported = false;
+                        }
+                    }
+
+                    return supported;
+                }
+
                 // #9: Assign a placeholder object if Web Storage is unavailable to prevent breaking the entire AngularJS app
-                var webStorage = $window[storageType] || (console.warn('This browser does not support Web Storage!'), {}),
+                var webStorage = isStorageSupported(storageType) || ($log.warn('This browser does not support Web Storage!'), {setItem: function() {}, getItem: function() {}}),
                     $storage = {
                         $default: function(items) {
                             for (var k in items) {
@@ -64502,7 +64568,15 @@ $templateCache.put("selectize/select.tpl.html","<div class=\"ui-select-container
                     _last$storage,
                     _debounce;
 
-                for (var i = 0, k; i < webStorage.length; i++) {
+                try {
+                    webStorage = $window[storageType];
+                    webStorage.length;
+                } catch(e) {
+                    $log.warn('This browser does not support Web Storage!');
+                    webStorage = {};
+                }
+
+                for (var i = 0, l = webStorage.length, k; i < l; i++) {
                     // #8, #10: `webStorage.key(i)` may be an empty string (or throw an exception in IE9 if `webStorage` is empty)
                     (k = webStorage.key(i)) && 'ngStorage-' === k.slice(0, 10) && ($storage[k.slice(10)] = angular.fromJson(webStorage.getItem(k)));
                 }
@@ -64510,23 +64584,25 @@ $templateCache.put("selectize/select.tpl.html","<div class=\"ui-select-container
                 _last$storage = angular.copy($storage);
 
                 $rootScope.$watch(function() {
-                    _debounce || (_debounce = setTimeout(function() {
+                    var temp$storage;
+                    _debounce || (_debounce = $timeout(function() {
                         _debounce = null;
 
                         if (!angular.equals($storage, _last$storage)) {
+                            temp$storage = angular.copy(_last$storage);
                             angular.forEach($storage, function(v, k) {
                                 angular.isDefined(v) && '$' !== k[0] && webStorage.setItem('ngStorage-' + k, angular.toJson(v));
 
-                                delete _last$storage[k];
+                                delete temp$storage[k];
                             });
 
-                            for (var k in _last$storage) {
+                            for (var k in temp$storage) {
                                 webStorage.removeItem('ngStorage-' + k);
                             }
 
                             _last$storage = angular.copy($storage);
                         }
-                    }, 100));
+                    }, 100, false));
                 });
 
                 // #6: Use `$window.addEventListener` instead of `angular.element` to avoid the jQuery-specific `event.originalEvent`
@@ -64545,7 +64621,7 @@ $templateCache.put("selectize/select.tpl.html","<div class=\"ui-select-container
         ];
     }
 
-})();
+}));
 ;/**
  * Bunch of useful filters for angularJS(with no external dependencies!)
  * @version v0.5.4 - 2015-02-20 * @link https://github.com/a8m/angular-filter

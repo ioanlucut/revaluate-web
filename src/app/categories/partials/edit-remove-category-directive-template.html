@@ -6,7 +6,9 @@
 
 <div class="categories__edit__category__controls" ng-if="! showContent">
     <!--Show content-->
-    <button class="categories__edit__category__delete" ng-click="deleteCategory(category)">{{isDeleting ? 'Deleting..' : 'Delete'}}</button>
+    <div inline-confirmation toggle="! isDeleting" confirm="deleteCategory(category)" message="Are you sure?" style="float: right">
+        <button class="categories__edit__category__delete">{{isDeleting ? 'Deleting..' : 'Delete'}}</button>
+    </div>
     <button class="categories__edit__category__edit" ng-click="toggleContent()">Edit</button>
 </div>
 
@@ -32,7 +34,20 @@
         <div class="categories__form__input-group" ng-class="{'has-error': categoryForm.$submitted && (categoryForm.name.$invalid || badPostSubmitResponse)}">
             <!--Color preview-->
             <label class="categories__form__color__preview" ng-style="{'background':category.model.color.color}"></label>
-            <input class="categories__form__input-group__name" type="text" placeholder="Category name" name="name" ng-model="category.model.name" auto-focus required valid-category-name unique-category-name except="masterCategory.model.name" />
+            <input class="categories__form__input-group__name"
+                   type="text"
+                   ng-maxlength="20"
+                   maxlength="20"
+                   placeholder="Category name"
+                   name="name"
+                   ng-model="category.model.name"
+                   auto-focus
+                   required
+                   valid-category-name
+                   unique-category-name
+                   except="masterCategory.model.name" />
+
+            <div class="categories__form__input-group__count">{{20 - category.model.name.length}}</div>
 
             <!-- Error messages -->
             <div class="form-group-input__message" ng-class="{'has-error': categoryForm.name.$invalid && categoryForm.$submitted}" ng-messages="categoryForm.name.$error" ng-if="categoryForm.$submitted">
