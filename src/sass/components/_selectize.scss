@@ -29,13 +29,16 @@
 // -------------------------
 
 .currency-select {
-  padding-top: 10px;
+  padding-top: 16px;
   text-align: left;
+  position: relative;
+  width: $setup-currency-input-width;
+  margin: 0 auto;
 
   &.has-error {
 
-    input {
-      border-color: $brand-danger;
+    .selectize-input {
+      border: solid 2px $brand-danger !important;
     }
   }
 
