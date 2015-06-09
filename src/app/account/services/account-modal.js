@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.account")
-    .service("AccountModal", function ($rootScope, $timeout, AUTH_EVENTS) {
+    .service("AccountModal", function ($rootScope, $timeout, AUTH_MODAL) {
 
         // By default the modal is closed
         this.isOpen = false;
@@ -36,7 +36,7 @@ angular
         };
 
         // Listen to the login event
-        $rootScope.$on(AUTH_EVENTS.loginSuccess, _.bind(function () {
+        $rootScope.$on(AUTH_MODAL.close, _.bind(function () {
             this.close();
         }, this));
     });

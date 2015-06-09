@@ -17,6 +17,8 @@ angular
         sessionTimeout: "auth-session-timeout",
         notAuthenticated: "auth-not-authenticated",
         notAuthorized: "auth-not-authorized"
+    }).constant("AUTH_MODAL", {
+        close: "close"
     })
     .constant("AUTH_URLS", {
         login: "account/login",
@@ -37,7 +39,7 @@ angular
         fetchPaymentToken: "payment/fetchToken",
         fetchPaymentInsights: "payment/fetchPaymentInsights",
         subscribeToStandardPlan: "payment/subscribeToStandardPlan",
-        createCustomerWithPaymentMethod: "payment/createCustomerWithPaymentMethod",
+        createCustomerWithPaymentMethodSubscribeToStandardPlan: "payment/createCustomerWithPaymentMethodSubscribeToStandardPlan",
         fetchPaymentStatus: "payment/fetchPaymentStatus",
         updateCustomer: "payment/updateCustomer",
         updatePaymentMethod: "payment/updatePaymentMethod",

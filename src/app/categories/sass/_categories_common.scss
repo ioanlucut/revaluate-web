@@ -6,7 +6,6 @@
   vertical-align: middle;
   position: relative;
   float: left;
-  width: 100%;
 
   .categories__form__color__preview {
     @include border-radius(50%);
@@ -25,9 +24,18 @@
 
   .categories__form__input-group__name {
     height: $add-category-form-height;
-    padding-left: 40px;
+    padding: 1px 0 0 40px;
     text-transform: uppercase;
     width: 250px;
+  }
+
+  .categories__form__input-group__count {
+    position: absolute;
+    right: -17px;
+    top: 0;
+    text-align: right;
+    font-size: $font-size-small;
+    color: $gray-medium;
   }
 }
 

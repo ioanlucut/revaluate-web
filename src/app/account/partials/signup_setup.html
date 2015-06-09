@@ -2,20 +2,21 @@
 
     <div class="sign-up__setup__box">
 
-        <h2 class="sign-up__setup__title">Awesome! Select your currency and the categories and you're done!</h2>
+        <h2 class="sign-up__setup__title">Awesome! Let's set some basics!</h2>
 
         <!-- Set up form -->
         <form name="setUpForm" ng-submit="setUp()" novalidate>
 
             <div class="sign-up__setup__section">
                 Please choose your currency:
-                <div class="sign-up__setup__section--currency" ng-class="{'has-error': setUpForm.$submitted && (setUpForm.currency.$invalid || badPostSubmitResponse)}">
+                <div class="currency-select" ng-class="{'has-error': setUpForm.$submitted && (setUpForm.currency.$invalid || badPostSubmitResponse)}">
 
-                    <ui-select name="currency" class="sign-up__setup__section--currency__input" required ng-model="currency.selected" theme="selectize" append-to-body="true">
-                        <ui-select-match placeholder="Start typing your currency...">{{$select.selected.currencyCode}}</ui-select-match>
-                        <ui-select-choices repeat="currencyEntry in currencies | orderObjectBy : 'currencyCode' : false | filter:{$:$select.search} track by currencyEntry.numericCode">
-                            <span ng-bind-html="currencyEntry.currencyCode | highlight: $select.search"></span>
+                    <ui-select name="currency" class="currency-select__input" required ng-model="currency.selected" theme="selectize">
+                        <ui-select-match placeholder="Start typing your currency...">{{$select.selected.displayName}} - {{$select.selected.symbol}}</ui-select-match>
+                        <ui-select-choices repeat="currencyEntry in currencies | orderObjectBy : 'displayName' : false | filter:{$:$select.search} track by currencyEntry.numericCode">
                             <span ng-bind-html="currencyEntry.displayName | highlight: $select.search"></span>
+                            <span>-</span>
+                            <span ng-bind-html="currencyEntry.symbol | highlight: $select.search"></span>
                         </ui-select-choices>
                     </ui-select>
 
@@ -27,8 +28,7 @@
             </div>
 
             <div class="sign-up__setup__tip">
-                Here are a few categories we will add for you. Feel free to <strong>de-select</strong> or
-                <strong>add your own</strong> at the bottom. You can change them later as well.
+                Let's add some categories. <strong>Unselect or add another</strong>. You can change them later as well.
             </div>
 
             <div class="sign-up__box__categories">

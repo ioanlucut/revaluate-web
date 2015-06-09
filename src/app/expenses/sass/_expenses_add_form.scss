@@ -1,7 +1,9 @@
 .expenses__form {
   @include clearfix();
-  width: 800px;
-  margin: 30px auto;
+  //width: 800px;
+  width: 100%;
+  padding: 0 70px;
+  margin: 10px auto 30px auto;
   color: $black;
   font-weight: $font-weight-bold;
   position: relative;
@@ -77,21 +79,30 @@
   padding: 0;
   width: 30%;
   position: relative;
+  height: $add-expense-form-height;
 
-  .expense__form__category__input {
+  .category-select__input {
     height: $add-expense-form-height;
-    width: 100%;
+    background-color: $gray-light-3;
 
-    &:focus {
-      outline: none;
+    .selectize-input {
+      @include border-radius(0);
+      border-width: 2px 0 !important;
+      border-color: $add-expense-form-border-color !important;
+      height: $add-expense-form-height;
+      line-height: 46px !important;
+
+      & > input {
+        height: 46px;
+      }
     }
   }
 }
 
-.expense__form__category__color__preview {
+.category__color__preview {
   @include border-radius(50%);
   @include size(21px 21px);
-  margin: 3px 3px 3px 1px;
+  margin: 3px 3px 3px 0;
   display: inline-block;
   text-indent: -9999px;
 }
@@ -130,11 +141,7 @@
       height: 100%;
       width: 100%;
       text-align: center;
-      background-color: $white;
-
-      &:hover {
-        background-color: lighten($brand-primary, 35%);
-      }
+      background-color: $gray-light-3;
     }
   }
 }
@@ -170,43 +177,4 @@
   padding: 1px 4px;
   border-radius: 3px;
   line-height: 1;
-}
-
-.expenses__bulk-actions {
-  @include clearfix();
-  width: 800px;
-  margin: 0 auto;
-  color: $black;
-  font-weight: $font-weight-bold;
-  position: relative;
-
-  .expenses__bulk-actions__buttons {
-    position: absolute;
-    left: 0;
-    right: 0;
-
-    .expenses__bulk-actions__delete {
-
-      .expenses__bulk-actions__delete__btn-delete {
-        @include btn($brand-danger);
-        display: block;
-        float: left;
-      }
-    }
-
-    .expenses__bulk-actions__cancel {
-
-      .expenses__bulk-actions__delete__btn-cancel {
-        @include btn($brand-default);
-        color: $gray-dark-1;
-        display: block;
-        float: left;
-      }
-    }
-
-    .expenses__bulk-actions__delete,
-    .expenses__bulk-actions__cancel {
-      display: inline-block;
-    }
-  }
 }

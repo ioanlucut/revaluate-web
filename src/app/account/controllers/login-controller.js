@@ -17,11 +17,8 @@ angular
             AccountModal.openWithState(ACCOUNT_FORM_STATE.login)
         }
 
-        var TIMEOUT_PENDING = 300;
-
         /**
          * Login user information.
-         * @type {{username: string, password: string}}
          */
         $scope.loginData = {
             email: "",
@@ -30,18 +27,19 @@ angular
 
         /**
          * Login functionality.
-         * @param loginData
          */
         $scope.login = function (loginData) {
             if ( $scope.loginForm.$valid && !$scope.isRequestPending ) {
 
                 // Show the loading bar
                 $scope.isRequestPending = true;
+                $scope.isWaitingForCloseEvent = false;
 
                 AuthService
                     .login(loginData.email, loginData.password)
                     .then(function () {
 
+                        $scope.isWaitingForCloseEvent = true;
                         StatesHandler.goToExpenses();
                     })
                     .catch(function () {
@@ -51,10 +49,7 @@ angular
                         flash.to($scope.alertIdentifierId).error = "Your email or password are wrong. Please try again.";
                     })
                     .finally(function () {
-                        // Stop the loading bar
-                        $timeout(function () {
-                            $scope.isRequestPending = false;
-                        }, TIMEOUT_PENDING);
+                        $scope.isRequestPending = false;
                     })
             }
         };

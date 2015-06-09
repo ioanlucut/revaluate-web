@@ -7,10 +7,12 @@
 
 .categories__add__form {
   text-align: left;
+  @include clearfix();
 }
 
 .categories__add__form__content__left {
   float: left;
+  @include clearfix();
 }
 
 .categories__add__form__content__right {
