@@ -27,12 +27,6 @@ angular
                 title: "Privacy - Revaluate",
                 isPublicPage: true
             })
-            .state("about", {
-                url: "/about",
-                templateUrl: "app/site/partials/about.html",
-                title: "About - Revaluate",
-                isPublicPage: true
-            })
             .state("404", {
                 url: "/404",
                 templateUrl: "app/site/partials/404.html",
