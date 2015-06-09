@@ -95,6 +95,7 @@
     height: 30px;
     padding: 0;
     font-size: $font-size-small;
+    @include transition(none);
   }
 
   .sign-up__box__categories__addinput {
