@@ -36,7 +36,7 @@ angular
         $scope.insightLineSeries = ["Categories"];
 
         $scope.INSIGHTS_CHARTS = INSIGHTS_CHARTS;
-        $scope.activeChart = $scope.INSIGHTS_CHARTS.BAR;
+        $scope.activeChart = $scope.INSIGHTS_CHARTS.DOUGHNUT;
 
         $scope.setActiveChart = function (chartType) {
             $scope.activeChart = chartType;
