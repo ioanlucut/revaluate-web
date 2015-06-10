@@ -25,7 +25,7 @@
 .pricing__box__btn {
   @include btn-block($white);
   color: $gray-dark-3;
-  //border: solid 2px $white;
+  margin-top: 25px;
 
   &:hover {
     background-color: $brand-primary-light;
