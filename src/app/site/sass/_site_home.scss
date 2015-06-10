@@ -1,6 +1,6 @@
 .home__title {
   padding-top: 90px;
-  font-size: 40px;
+  font-size: 50px;
   font-weight: $font-weight-bold;
   color: $white;
 }
@@ -24,7 +24,6 @@
   li {
     padding-bottom: 15px;
     color: darken($brand-primary, 30%);;
-    font-size: 18px;
 
     span{
       display: inline-block;
@@ -33,7 +32,6 @@
     }
   }
 }
-
 
 
 // Call to action button
