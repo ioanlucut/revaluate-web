@@ -58,8 +58,8 @@ angular
         // ---
         $translateProvider.translations('en', ({
             'HOME': {
-                'TITLE_TEXT': 'Change the way you spend your money',
-                'DESCRIPTION_TEXT': 'Personal finance simplified to its basics.'
+                'TITLE_TEXT': 'Spend your money better!',
+                'DESCRIPTION_TEXT': 'Personal finance simplified.'
             }
         }));
     })
