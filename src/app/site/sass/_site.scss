@@ -1,8 +1,12 @@
 // Import site specific styles
 // ---------------------------
 
-@import "home";
-@import "home_signup_form";
+@import "site_common";
+
+@import "site_home";
+@import "site_home_signup_form";
+
+@import "site_pricing";
 
 @import "site_error";
 @import "site_error_responsive";

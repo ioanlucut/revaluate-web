@@ -42,10 +42,11 @@
 }
 
 .account__title {
-  padding-bottom: 10px;
+  padding: 10px;
   font-size: $font-size-h2;
   font-weight: $font-weight-bold;
   text-align: center;
+  color: $base-font-color;
 }
 
 .account__explain {
