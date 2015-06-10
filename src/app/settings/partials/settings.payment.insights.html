@@ -3,6 +3,9 @@
 <!-- Title -->
 <h1 class="settings__title">Billing</h1>
 
+<!-- Flash messages. -->
+<div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
 <!--Subscription payment section-->
 <div class="settings__box__section--50">
 
@@ -33,9 +36,6 @@
     <!-- Payment form -->
     <form ng-if="! paymentInsights.subscriptionActive" name="paymentSubscriptionForm" ng-submit="performPaymentSubscription()" novalidate>
 
-        <!-- Flash messages. -->
-        <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
-
         <!-- Button container -->
         <button class="settings__box__payment__subscription__btn" type="submit">{{isRequestPending ? 'Activating...' : 'Activate'}}</button>
     </form>
@@ -51,6 +51,13 @@
         <div class="settings__box__payment__method__cardexp">Expiration: {{paymentMethodDTO.expirationMonth}} / {{paymentMethodDTO.expirationYear}}</div>
         <img ng-src="{{paymentMethodDTO.imageUrl}}" />
         <a class="link-navigation" href="javascript:void(0)" ui-sref="settings.payment.method">Update payment method</a>
+
+        <!-- Remove payment method form -->
+        <form ng-if="paymentInsights.subscriptionActive" name="paymentSubscriptionForm" ng-submit="performRemovePayment()" novalidate>
+
+            <!-- Button container -->
+            <button class="settings__box__payment__subscription__btn" type="submit">{{isRequestPending ? 'Removing...' : 'Remove payment method'}}</button>
+        </form>
     </div>
 
 </div>

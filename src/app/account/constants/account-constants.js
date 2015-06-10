@@ -43,6 +43,7 @@ angular
         fetchPaymentStatus: "payment/fetchPaymentStatus",
         updateCustomer: "payment/updateCustomer",
         updatePaymentMethod: "payment/updatePaymentMethod",
+        removePaymentMethod: "payment/removePaymentMethod",
         isPaymentStatusDefined: "payment/isPaymentStatusDefined",
         //Below - deprecated
         refreshToken: "auth/refresh_token",
