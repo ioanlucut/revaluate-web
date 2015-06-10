@@ -47,6 +47,7 @@ module.exports = function (grunt) {
 
                     "bower_components/ngstorage/ngStorage.js",
                     "bower_components/angular-filter/dist/angular-filter.js",
+                    "bower_components/angular-payments/lib/angular-payments.js",
                     /* Vendor styles */
                     "src/app/vendor/js/jquery.price_format.2.0.js"
                 ],
