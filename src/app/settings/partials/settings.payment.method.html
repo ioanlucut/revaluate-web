@@ -15,14 +15,28 @@
 
             <!-- Form group -->
             <div class="form-group-input" ng-class="{'has-error': updatePaymentMethodForm.$submitted && (updatePaymentMethodForm.cardNumber.$invalid || badPostSubmitResponse)}">
-                <input class="form-group-input__input" type="text" placeholder="4111111111111111" name="cardNumber" ng-model="paymentData.cardNumber" auto-focus required />
-                <span class="form-group-input__message" ng-if="updatePaymentMethodForm.cardNumber.$invalid && updatePaymentMethodForm.$submitted">Please enter your card number.</span>
+                <label>Credit Card Number</label>
+                <input class="form-group-input__input" type="text" placeholder="4111 1111 1111 1111" name="cardNumber" ng-model="paymentData.cardNumber" payments-format="card" payments-validate="card" auto-focus required />
+
+                <!-- Error messages -->
+                <div class="form-group-input__message" ng-class="{'has-error': updatePaymentMethodForm.cardNumber.$invalid && updatePaymentMethodForm.$submitted}" ng-messages="updatePaymentMethodForm.cardNumber.$error" ng-if="updatePaymentMethodForm.$submitted">
+                    <div ng-message="required">Please enter your card number.</div>
+                    <div ng-message="parse">Please enter a valid card number.</div>
+                    <div ng-message="card">Please enter a valid card number.</div>
+                </div>
             </div>
 
             <!-- Form group -->
             <div class="form-group-input" ng-class="{'has-error': updatePaymentMethodForm.$submitted && (updatePaymentMethodForm.cardExpirationDate.$invalid || badPostSubmitResponse)}">
-                <input class="form-group-input__input" type="text" placeholder="10/18" name="cardExpirationDate" ng-model="paymentData.cardExpirationDate" required />
-                <span class="form-group-input__message" ng-if="updatePaymentMethodForm.cardExpirationDate.$invalid && updatePaymentMethodForm.$submitted">Please enter card expiration date.</span>
+                <label>Expiration</label>
+                <input class="form-group-input__input" type="text" placeholder="10 / 2018" name="cardExpirationDate" ng-model="paymentData.cardExpirationDate" payments-format="expiry" payments-validate="expiry" required />
+
+                <!-- Error messages -->
+                <div class="form-group-input__message" ng-class="{'has-error': updatePaymentMethodForm.cardExpirationDate.$invalid && updatePaymentMethodForm.$submitted}" ng-messages="updatePaymentMethodForm.cardExpirationDate.$error" ng-if="updatePaymentMethodForm.$submitted">
+                    <div ng-message="required">Please enter card expiration date.</div>
+                    <div ng-message="parse">Please enter a valid expiration date.</div>
+                    <div ng-message="expiry">Please enter a valid expiration date.</div>
+                </div>
             </div>
 
             <!-- Button container -->

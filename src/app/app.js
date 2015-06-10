@@ -24,6 +24,7 @@ angular
         "revaluate.insights",
         "angular.filter",
         "ui.gravatar",
+        "angularPayments",
         "ui.select"
     ])
     .config(function ($locationProvider, CacheFactoryProvider, gravatarServiceProvider) {
