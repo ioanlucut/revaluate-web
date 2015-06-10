@@ -21,6 +21,13 @@ angular
                 title: "Change the way you spend your money",
                 isPublicPage: true
             })
+            .state("pricing", {
+                url: "/pricing",
+                templateUrl: "app/site/partials/pricing.html",
+                controller: "PricingPageController",
+                title: "Change the way you spend your money",
+                isPublicPage: true
+            })
             .state("privacy", {
                 url: "/privacy",
                 templateUrl: "app/site/partials/privacy.html",
