@@ -5,8 +5,7 @@
 .expenses__list__entry {
   width: 100%;
   margin: 0 auto;
-  padding-top: 4px;
-  padding-bottom: 4px;
+  padding: 4px 0;
   position: relative;
 
   &:first-child {
@@ -14,13 +13,13 @@
   }
 
   .expenses__list__entry__display {
-    width: 100%;
+    padding: 0 0 0 30px;
+    margin: 0 50px;
     height: 34px;
     line-height: 26px;
     border: solid 2px transparent;
     @include border-radius($border-radius-base);
     cursor: pointer;
-    padding:0 70px;
 
     div {
       display: inline-block;
@@ -38,7 +37,7 @@
 
   .expenses__list__entry__select {
     position: absolute;
-    left: 0;
+    left: 45px;
     top: 9px;
     display: inline-block;
     width: 30px;
@@ -60,7 +59,7 @@
   }
 
   .expenses__list__entry__price {
-    width: 160px;
+    width: 120px;
     text-align: right;
     font-weight: $font-weight-bold;
     margin-right: 15px;
@@ -91,7 +90,6 @@
 
 .expense__bulk--marked {
   background: $brand-warning-light !important;
-  border: solid 2px $brand-primary;
 
   .expenses__list__entry__select {
     opacity: 1;
