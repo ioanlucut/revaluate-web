@@ -1,7 +1,7 @@
 .expenses__form--edit {
   @include border-radius($border-radius-base);
-  background-color: floralwhite;
-  padding: 10px 70px 5px 70px;
+  background-color: $brand-warning-light;
+  padding: 20px 50px 0 50px;
   margin: 0 auto;
 }
 
