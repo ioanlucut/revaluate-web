@@ -5903,8 +5903,18 @@ a:focus, button:focus {
 }
 
 /* line 55, ../../src/sass/fonts/_app-icons.scss */
+.icon-checkmark-light-unchecked:before {
+  content: "g";
+}
+
+/* line 58, ../../src/sass/fonts/_app-icons.scss */
 .icon-checkmark-light:before {
-  content: "f";
+  content: "h";
+}
+
+/* line 61, ../../src/sass/fonts/_app-icons.scss */
+.icon-checkmark-strong-unchecked:before {
+  content: "i";
 }
 
 /* line 4, ../../src/sass/components/_datepicker.scss */
@@ -6785,43 +6795,55 @@ a:focus, button:focus {
     width: 100%;
   }
 }
-/* line 1, ../../src/app/site/sass/_home.scss */
-.home {
+/* line 1, ../../src/app/site/sass/_site_common.scss */
+.site__container {
   text-align: center;
-  background-color: #4183D7;
+  padding: 50px;
+  font-size: 18px;
+}
+/* line 6, ../../src/app/site/sass/_site_common.scss */
+.site__container h1 {
+  margin: 0;
+  padding-bottom: 30px;
 }
 
-/* line 6, ../../src/app/site/sass/_home.scss */
-.home__section {
+/* line 12, ../../src/app/site/sass/_site_common.scss */
+.site__container--brand {
+  background-color: #4183D7;
+  color: #ffffff;
+}
+
+/* line 17, ../../src/app/site/sass/_site_common.scss */
+.site__container__section {
   max-width: 71.25em;
   margin-left: auto;
   margin-right: auto;
   margin-top: 0;
 }
 /* line 20, ../../bower_components/bourbon/app/assets/stylesheets/addons/_clearfix.scss */
-.home__section::after {
+.site__container__section::after {
   clear: both;
   content: "";
   display: table;
 }
 
-/* line 11, ../../src/app/site/sass/_home.scss */
+/* line 1, ../../src/app/site/sass/_site_home.scss */
 .home__title {
-  padding-top: 50px;
-  font-size: 40px;
+  padding-top: 90px;
+  font-size: 50px;
   font-weight: 700;
   color: #ffffff;
 }
 
-/* line 18, ../../src/app/site/sass/_home.scss */
+/* line 8, ../../src/app/site/sass/_site_home.scss */
 .home__description {
-  padding: 10px 10px 40px 10px;
+  padding: 10px 10px 90px 10px;
   color: #bfd5f2;
   font-size: 22px;
   font-weight: 100;
 }
 
-/* line 25, ../../src/app/site/sass/_home.scss */
+/* line 15, ../../src/app/site/sass/_site_home.scss */
 .home__section__features {
   float: left;
   display: block;
@@ -6835,43 +6857,23 @@ a:focus, button:focus {
   margin-right: 0;
 }
 
-/* line 31, ../../src/app/site/sass/_home.scss */
+/* line 21, ../../src/app/site/sass/_site_home.scss */
 .home__section__features--list {
   padding-top: 20px;
 }
-/* line 34, ../../src/app/site/sass/_home.scss */
+/* line 24, ../../src/app/site/sass/_site_home.scss */
 .home__section__features--list li {
   padding-bottom: 15px;
-  color: #1f5293;
-  font-size: 18px;
-  font-weight: 100;
+  color: #163b69;
 }
-/* line 40, ../../src/app/site/sass/_home.scss */
+/* line 28, ../../src/app/site/sass/_site_home.scss */
 .home__section__features--list li span {
   display: inline-block;
-  color: #6b9ee0;
+  color: #95bae9;
   margin-right: 20px;
 }
 
-/* line 48, ../../src/app/site/sass/_home.scss */
-.home__section__signup {
-  float: left;
-  display: block;
-  margin-right: 2.12766%;
-  width: 40.42553%;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  border: solid 1px #ddd;
-  padding: 10px 40px 40px 40px;
-  background-color: #ffffff;
-  margin-bottom: 30px;
-}
-/* line 89, ../../bower_components/neat/app/assets/stylesheets/grid/_span-columns.scss */
-.home__section__signup:last-child {
-  margin-right: 0;
-}
-
-/* line 57, ../../src/app/site/sass/_home.scss */
+/* line 40, ../../src/app/site/sass/_site_home.scss */
 .home__action-btn {
   display: inline-block;
   height: 35px;
@@ -6904,27 +6906,45 @@ a:focus, button:focus {
   opacity: 0.5;
 }
 
-/* line 66, ../../src/app/site/sass/_home.scss */
+/* line 49, ../../src/app/site/sass/_site_home.scss */
 .home__action-btn--label {
   font-size: 24px;
   font-weight: 700;
   text-transform: uppercase;
 }
 
-/* line 72, ../../src/app/site/sass/_home.scss */
+/* line 55, ../../src/app/site/sass/_site_home.scss */
 .home__action-btn--pricing {
   font-size: 14px;
   font-weight: 100;
 }
 
-/* line 77, ../../src/app/site/sass/_home.scss */
+/* line 60, ../../src/app/site/sass/_site_home.scss */
 .home__action-btn--info {
   padding: 3px 10px;
   font-size: 12px;
   color: #999;
 }
 
-/* line 1, ../../src/app/site/sass/_home_signup_form.scss */
+/* line 1, ../../src/app/site/sass/_site_home_signup_form.scss */
+.home__section__signup {
+  float: left;
+  display: block;
+  margin-right: 2.12766%;
+  width: 40.42553%;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  border: solid 1px #ddd;
+  padding: 10px 40px 40px 40px;
+  background-color: #ffffff;
+  margin-bottom: 30px;
+}
+/* line 89, ../../bower_components/neat/app/assets/stylesheets/grid/_span-columns.scss */
+.home__section__signup:last-child {
+  margin-right: 0;
+}
+
+/* line 10, ../../src/app/site/sass/_site_home_signup_form.scss */
 .home__section__signup__btn {
   display: inline-block;
   height: 35px;
@@ -6938,6 +6958,8 @@ a:focus, button:focus {
   height: 45px;
   width: 100%;
   line-height: 45px;
+  font-size: 16px;
+  font-weight: 700;
   margin-top: 25px;
   font-size: 16px;
   font-weight: 700;
@@ -6953,6 +6975,153 @@ a:focus, button:focus {
   opacity: 0.5;
 }
 
+/* line 1, ../../src/app/site/sass/_site_pricing.scss */
+.pricing__box {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 300px;
+  padding: 40px;
+  border: solid 2px rgba(255, 255, 255, 0.1);
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+/* line 10, ../../src/app/site/sass/_site_pricing.scss */
+.pricing__box ul {
+  font-size: 16px;
+  opacity: 0.7;
+}
+
+/* line 16, ../../src/app/site/sass/_site_pricing.scss */
+.pricing__box__amount {
+  padding-bottom: 30px;
+}
+/* line 19, ../../src/app/site/sass/_site_pricing.scss */
+.pricing__box__amount span {
+  font-size: 40px;
+  font-weight: 700;
+}
+
+/* line 25, ../../src/app/site/sass/_site_pricing.scss */
+.pricing__box__btn {
+  display: inline-block;
+  height: 35px;
+  background-color: #ffffff;
+  padding: 0 15px;
+  line-height: 35px;
+  color: #ffffff;
+  text-align: center;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  height: 45px;
+  width: 100%;
+  line-height: 45px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #333333;
+  margin-top: 25px;
+}
+/* line 15, ../../src/sass/components/_buttons.scss */
+.pricing__box__btn:hover, .pricing__box__btn:focus {
+  background-color: white;
+  cursor: pointer;
+}
+/* line 21, ../../src/sass/components/_buttons.scss */
+.pricing__box__btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+/* line 30, ../../src/app/site/sass/_site_pricing.scss */
+.pricing__box__btn:hover {
+  background-color: #eaf1fa;
+  color: #4183D7;
+}
+
+/* line 36, ../../src/app/site/sass/_site_pricing.scss */
+.pricing__box__info {
+  font-size: 12px;
+  opacity: 0.3;
+}
+
+/* line 1, ../../src/app/site/sass/_site_error.scss */
+.error__sections {
+  position: relative;
+  margin: 120px auto 0;
+  padding: 20px;
+  text-align: center;
+  background-color: #4183D7;
+  min-height: 330px;
+  max-width: 480px;
+  color: #ffffff;
+  border: solid 8px white;
+  border-radius: 3px;
+}
+
+/* line 14, ../../src/app/site/sass/_site_error.scss */
+.error__sections__heading {
+  font-size: 36px;
+  text-align: center;
+  max-width: 100%;
+  margin-left: 90px;
+  margin-right: 90px;
+  font-weight: bold;
+}
+
+/* line 23, ../../src/app/site/sass/_site_error.scss */
+.error__sections__reason {
+  font-size: 16px;
+  font-weight: 200;
+  text-align: center;
+  max-width: 100%;
+  margin-top: 15px;
+  margin-left: 100px;
+  margin-right: 100px;
+  line-height: 1.4;
+}
+
+/* line 34, ../../src/app/site/sass/_site_error.scss */
+.error__sections__reason--last {
+  margin-bottom: 20px;
+}
+
+/* line 38, ../../src/app/site/sass/_site_error.scss */
+.error__sections__link {
+  display: block;
+  font-size: 16px;
+  text-decoration: underline;
+  color: white;
+}
+/* line 44, ../../src/app/site/sass/_site_error.scss */
+.error__sections__link:hover {
+  color: #bfd5f2;
+}
+
+@media (max-width: 480px) {
+  /* line 3, ../../src/app/site/sass/_site_error_responsive.scss */
+  .error__sections {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    padding: 10px;
+    border: solid 3px white;
+  }
+  /* line 10, ../../src/app/site/sass/_site_error_responsive.scss */
+  .error__sections h1 {
+    font-size: 26px;
+  }
+
+  /* line 15, ../../src/app/site/sass/_site_error_responsive.scss */
+  .error__sections__heading {
+    max-width: 100%;
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+
+  /* line 21, ../../src/app/site/sass/_site_error_responsive.scss */
+  .error__sections__reason {
+    margin-left: 35px;
+    margin-right: 35px;
+  }
+}
 /* Import sub-modules */
 /* line 1, ../../src/app/account/sass/_signup_setup.scss */
 .sign-up__setup {
@@ -7251,20 +7420,21 @@ a:focus, button:focus {
 
 /* line 44, ../../src/app/account/sass/_account_common.scss */
 .account__title {
-  padding-bottom: 10px;
+  padding: 10px;
   font-size: 24px;
   font-weight: 700;
   text-align: center;
+  color: #000000;
 }
 
-/* line 51, ../../src/app/account/sass/_account_common.scss */
+/* line 52, ../../src/app/account/sass/_account_common.scss */
 .account__explain {
   padding-top: 20px;
   font-size: 14px;
   text-align: center;
 }
 
-/* line 57, ../../src/app/account/sass/_account_common.scss */
+/* line 58, ../../src/app/account/sass/_account_common.scss */
 .account__description {
   padding: 10px 10px 40px 10px;
   color: #999;
@@ -7286,6 +7456,8 @@ a:focus, button:focus {
   height: 45px;
   width: 100%;
   line-height: 45px;
+  font-size: 16px;
+  font-weight: 700;
   margin-top: 25px;
   font-size: 16px;
   font-weight: 700;
@@ -7315,6 +7487,8 @@ a:focus, button:focus {
   height: 45px;
   width: 100%;
   line-height: 45px;
+  font-size: 16px;
+  font-weight: 700;
   margin-top: 25px;
   font-size: 16px;
   font-weight: 700;
@@ -7726,6 +7900,8 @@ a:focus, button:focus {
   height: 45px;
   width: 100%;
   line-height: 45px;
+  font-size: 16px;
+  font-weight: 700;
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
   height: 100%;
@@ -7758,7 +7934,7 @@ a:focus, button:focus {
   color: #5F5F5F;
   font-size: 12px;
 }
-/* line 53, ../../src/sass/components/_buttons.scss */
+/* line 55, ../../src/sass/components/_buttons.scss */
 .expense__form__submit__cancel .expense__edit__form__cancelbtn:hover {
   color: #235ea8;
 }
@@ -7810,56 +7986,46 @@ a:focus, button:focus {
   background-color: #f9f9f9;
 }
 /* line 33, ../../src/app/expenses/sass/_expenses_list.scss */
-.expenses__list__entry .expenses__list__entry__display:hover .expenses__list__entry__editbtn {
+.expenses__list__entry .expenses__list__entry__display:hover .expenses__list__entry__select {
   opacity: 1;
 }
 /* line 39, ../../src/app/expenses/sass/_expenses_list.scss */
 .expenses__list__entry .expenses__list__entry__select {
   position: absolute;
-  left: -30px;
-  top: 7px;
+  left: 0;
+  top: 9px;
   display: inline-block;
   width: 30px;
   height: 25px;
   margin-right: 15px;
   text-align: right;
-  color: #ED5565;
+  font-size: 20px;
+  color: #999;
+  opacity: 0;
 }
-/* line 50, ../../src/app/expenses/sass/_expenses_list.scss */
+/* line 52, ../../src/app/expenses/sass/_expenses_list.scss */
+.expenses__list__entry .expenses__list__entry__select:hover {
+  color: #444444;
+}
+/* line 56, ../../src/app/expenses/sass/_expenses_list.scss */
 .expenses__list__entry .expenses__list__entry__select input {
   height: 100%;
   width: 100%;
 }
-/* line 56, ../../src/app/expenses/sass/_expenses_list.scss */
-.expenses__list__entry .expenses__list__entry__editbtn {
-  position: absolute;
-  left: 3px;
-  height: 30px;
-  width: 30px;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-  padding: 0;
-  background-color: transparent;
-  opacity: 0;
-}
-/* line 65, ../../src/app/expenses/sass/_expenses_list.scss */
-.expenses__list__entry .expenses__list__entry__editbtn:hover {
-  background-color: rgba(255, 255, 255, 0.8);
-}
-/* line 70, ../../src/app/expenses/sass/_expenses_list.scss */
+/* line 62, ../../src/app/expenses/sass/_expenses_list.scss */
 .expenses__list__entry .expenses__list__entry__price {
   width: 160px;
   text-align: right;
   font-weight: 700;
   margin-right: 15px;
 }
-/* line 76, ../../src/app/expenses/sass/_expenses_list.scss */
+/* line 68, ../../src/app/expenses/sass/_expenses_list.scss */
 .expenses__list__entry .expenses__list__entry__price span {
   padding-left: 5px;
   color: #999;
   font-weight: 100;
 }
-/* line 83, ../../src/app/expenses/sass/_expenses_list.scss */
+/* line 75, ../../src/app/expenses/sass/_expenses_list.scss */
 .expenses__list__entry .expenses__list__entry__category {
   -webkit-border-radius: 2px;
   border-radius: 2px;
@@ -7872,11 +8038,11 @@ a:focus, button:focus {
   text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
   background-color: #4183D7;
 }
-/* line 87, ../../src/app/expenses/sass/_expenses_list.scss */
+/* line 79, ../../src/app/expenses/sass/_expenses_list.scss */
 .expenses__list__entry .expenses__list__entry__details {
   color: #999;
 }
-/* line 91, ../../src/app/expenses/sass/_expenses_list.scss */
+/* line 83, ../../src/app/expenses/sass/_expenses_list.scss */
 .expenses__list__entry .expenses__list__entry__date {
   width: 140px;
   float: right;
@@ -7885,13 +8051,17 @@ a:focus, button:focus {
   font-size: 12px;
 }
 
-/* line 100, ../../src/app/expenses/sass/_expenses_list.scss */
+/* line 92, ../../src/app/expenses/sass/_expenses_list.scss */
 .expense__bulk--marked {
-  background: #fef6f7 !important;
+  background: #fffaed !important;
   border: solid 2px #4183D7;
 }
+/* line 96, ../../src/app/expenses/sass/_expenses_list.scss */
+.expense__bulk--marked .expenses__list__entry__select {
+  opacity: 1;
+}
 
-/* line 105, ../../src/app/expenses/sass/_expenses_list.scss */
+/* line 101, ../../src/app/expenses/sass/_expenses_list.scss */
 .expenses__list__loadbtn {
   display: inline-block;
   height: 35px;
@@ -8934,7 +9104,7 @@ a:focus, button:focus {
 .settings__box__section--75,
 .settings__box__section--50 {
   float: left;
-  margin: 0 auto;
+  padding: 10px;
 }
 
 /* line 83, ../../src/app/settings/sass/_settings_common.scss */
@@ -8979,6 +9149,26 @@ a:focus, button:focus {
 }
 
 /* line 1, ../../src/app/settings/sass/_settings_profile.scss */
+.settings__profile__avatar {
+  text-align: center;
+  padding-top: 50px;
+}
+
+/* line 6, ../../src/app/settings/sass/_settings_profile.scss */
+.settings__profile__avatar--picture {
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* line 11, ../../src/app/settings/sass/_settings_profile.scss */
+.settings__profile__avatar--src {
+  color: #999;
+  font-size: 12px;
+}
+
+/* line 16, ../../src/app/settings/sass/_settings_profile.scss */
 .settings__cancel__btn {
   display: inline-block;
   height: 35px;

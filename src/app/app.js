@@ -24,9 +24,11 @@ angular
         "revaluate.insights",
         "angular.filter",
         "ui.gravatar",
+        "angularPayments",
+        "pascalprecht.translate",
         "ui.select"
     ])
-    .config(function ($locationProvider, CacheFactoryProvider, gravatarServiceProvider) {
+    .config(function ($locationProvider, $translateProvider, CacheFactoryProvider, gravatarServiceProvider) {
         angular.extend(CacheFactoryProvider.defaults, { maxAge: 15 * 60 * 1000 });
 
         // Enable html5 mode
@@ -45,6 +47,21 @@ angular
 
         // Use https endpoint
         gravatarServiceProvider.secure = true;
+
+        // ---
+        // Angular translation.
+        // ---
+        $translateProvider.preferredLanguage('en');
+
+        // ---
+        // Angular translations.
+        // ---
+        $translateProvider.translations('en', ({
+            'HOME': {
+                'TITLE_TEXT': 'Start spending your money better!',
+                'DESCRIPTION_TEXT': 'Personal finance simplified.'
+            }
+        }));
     })
     .run(function (ENV) {
 

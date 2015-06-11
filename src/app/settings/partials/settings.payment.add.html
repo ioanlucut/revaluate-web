@@ -21,15 +21,27 @@
             <!-- Form group -->
             <div class="form-group-input payment__form__addcard__number" ng-class="{'has-error': addPaymentMethodForm.$submitted && (addPaymentMethodForm.cardNumber.$invalid || badPostSubmitResponse)}">
                 <label>Credit Card Number</label>
-                <input class="form-group-input__input" type="text" placeholder="4111111111111111" name="cardNumber" ng-model="paymentData.cardNumber" auto-focus required/>
-                <span class="form-group-input__message" ng-if="addPaymentMethodForm.cardNumber.$invalid && addPaymentMethodForm.$submitted">Please enter your card number.</span>
+                <input class="form-group-input__input" type="text" placeholder="4111 1111 1111 1111" name="cardNumber" ng-model="paymentData.cardNumber" payments-format="card" payments-validate="card" auto-focus required />
+
+                <!-- Error messages -->
+                <div class="form-group-input__message" ng-class="{'has-error': addPaymentMethodForm.cardNumber.$invalid && addPaymentMethodForm.$submitted}" ng-messages="addPaymentMethodForm.cardNumber.$error" ng-if="addPaymentMethodForm.$submitted">
+                    <div ng-message="required">Please enter your card number.</div>
+                    <div ng-message="parse">Please enter a valid card number.</div>
+                    <div ng-message="card">Please enter a valid card number.</div>
+                </div>
             </div>
 
             <!-- Form group -->
             <div class="form-group-input payment__form__addcard__expiration" ng-class="{'has-error': addPaymentMethodForm.$submitted && (addPaymentMethodForm.cardExpirationDate.$invalid || badPostSubmitResponse)}">
                 <label>Expiration</label>
-                <input class="form-group-input__input" type="text" placeholder="10/18" name="cardExpirationDate" ng-model="paymentData.cardExpirationDate" required/>
-                <span class="form-group-input__message" ng-if="addPaymentMethodForm.cardExpirationDate.$invalid && addPaymentMethodForm.$submitted">Please enter card expiration date.</span>
+                <input class="form-group-input__input" type="text" placeholder="10 / 2018" name="cardExpirationDate" ng-model="paymentData.cardExpirationDate" payments-format="expiry" payments-validate="expiry" required />
+
+                <!-- Error messages -->
+                <div class="form-group-input__message" ng-class="{'has-error': addPaymentMethodForm.cardExpirationDate.$invalid && addPaymentMethodForm.$submitted}" ng-messages="addPaymentMethodForm.cardExpirationDate.$error" ng-if="addPaymentMethodForm.$submitted">
+                    <div ng-message="required">Please enter card expiration date.</div>
+                    <div ng-message="parse">Please enter a valid expiration date.</div>
+                    <div ng-message="expiry">Please enter a valid expiration date.</div>
+                </div>
             </div>
 
             <!-- Button container -->

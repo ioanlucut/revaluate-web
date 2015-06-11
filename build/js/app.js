@@ -1621,6 +1621,7 @@ angular
         fetchPaymentStatus: "payment/fetchPaymentStatus",
         updateCustomer: "payment/updateCustomer",
         updatePaymentMethod: "payment/updatePaymentMethod",
+        removePaymentMethod: "payment/removePaymentMethod",
         isPaymentStatusDefined: "payment/isPaymentStatusDefined",
         //Below - deprecated
         refreshToken: "auth/refresh_token",
@@ -3210,7 +3211,7 @@ angular
 
     }]);;angular
     .module("revaluate.settings")
-    .controller("SettingsPaymentInsightsController", ["$q", "$scope", "$rootScope", "$timeout", "$http", "paymentInsights", "flash", "AUTH_URLS", "ALERTS_CONSTANTS", "MIXPANEL_EVENTS", "AUTH_EVENTS", "USER_SUBSCRIPTION_STATUS", function ($q, $scope, $rootScope, $timeout, $http, paymentInsights, flash, AUTH_URLS, ALERTS_CONSTANTS, MIXPANEL_EVENTS, AUTH_EVENTS, USER_SUBSCRIPTION_STATUS) {
+    .controller("SettingsPaymentInsightsController", ["$q", "$state", "$scope", "$rootScope", "$timeout", "$http", "paymentInsights", "flash", "AUTH_URLS", "ALERTS_CONSTANTS", "MIXPANEL_EVENTS", "AUTH_EVENTS", "USER_SUBSCRIPTION_STATUS", function ($q, $state, $scope, $rootScope, $timeout, $http, paymentInsights, flash, AUTH_URLS, ALERTS_CONSTANTS, MIXPANEL_EVENTS, AUTH_EVENTS, USER_SUBSCRIPTION_STATUS) {
 
         var TIMEOUT_PENDING = 300;
 
@@ -3281,6 +3282,60 @@ angular
                         }
                         else {
                             flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to subscribe you to Revaluate.';
+                        }
+                    });
+
+            }
+
+        };
+
+        // ---
+        // Remove payment method.
+        // ---
+        $scope.performRemovePayment = function () {
+            if ( !$scope.isRequestPending ) {
+
+                // Show the loading bar
+                $scope.isRequestPending = true;
+
+                return $http
+                    .delete(URLTo.api(AUTH_URLS.removePaymentMethod), {})
+                    .then(function () {
+
+                        // ---
+                        // Update user with subscription status ACTIVE.
+                        // ---
+                        $scope
+                            .user
+                            .setSubscriptionStatusAsAndReload(USER_SUBSCRIPTION_STATUS.TRIAL_EXPIRED);
+                        $rootScope
+                            .$broadcast(AUTH_EVENTS.refreshUser, {});
+
+                        flash.to($scope.alertIdentifierId).success = 'You\'ve successfully removed payment method!';
+
+                        $timeout(function () {
+                            $scope.isRequestPending = false;
+
+                            // ---
+                            // If successful, go to expenses.
+                            // ---
+                            $state.go("expenses.regular");
+                        }, TIMEOUT_PENDING);
+                    })
+                    .catch(function (response) {
+                        /* If bad feedback from server */
+                        $scope.badPostSubmitResponse = true;
+                        $scope.isRequestPending = false;
+
+                        // ---
+                        // Show errors.
+                        // ---
+                        var errors = response.data;
+                        if ( _.isArray(errors) ) {
+                            flash.to($scope.alertIdentifierId).error = errors.join("\n");
+                        }
+                        else {
+                            flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to remove payment method';
                         }
                     });
 
@@ -3876,16 +3931,17 @@ angular
                 title: "Change the way you spend your money",
                 isPublicPage: true
             })
+            .state("pricing", {
+                url: "/pricing",
+                templateUrl: "app/site/partials/pricing.html",
+                controller: "PricingPageController",
+                title: "Change the way you spend your money",
+                isPublicPage: true
+            })
             .state("privacy", {
                 url: "/privacy",
                 templateUrl: "app/site/partials/privacy.html",
                 title: "Privacy - Revaluate",
-                isPublicPage: true
-            })
-            .state("about", {
-                url: "/about",
-                templateUrl: "app/site/partials/about.html",
-                title: "About - Revaluate",
                 isPublicPage: true
             })
             .state("404", {
@@ -6872,9 +6928,11 @@ angular
         "revaluate.insights",
         "angular.filter",
         "ui.gravatar",
+        "angularPayments",
+        "pascalprecht.translate",
         "ui.select"
     ])
-    .config(["$locationProvider", "CacheFactoryProvider", "gravatarServiceProvider", function ($locationProvider, CacheFactoryProvider, gravatarServiceProvider) {
+    .config(["$locationProvider", "$translateProvider", "CacheFactoryProvider", "gravatarServiceProvider", function ($locationProvider, $translateProvider, CacheFactoryProvider, gravatarServiceProvider) {
         angular.extend(CacheFactoryProvider.defaults, { maxAge: 15 * 60 * 1000 });
 
         // Enable html5 mode
@@ -6893,6 +6951,21 @@ angular
 
         // Use https endpoint
         gravatarServiceProvider.secure = true;
+
+        // ---
+        // Angular translation.
+        // ---
+        $translateProvider.preferredLanguage('en');
+
+        // ---
+        // Angular translations.
+        // ---
+        $translateProvider.translations('en', ({
+            'HOME': {
+                'TITLE_TEXT': 'Start spending your money better!',
+                'DESCRIPTION_TEXT': 'Personal finance simplified.'
+            }
+        }));
     }])
     .run(["ENV", function (ENV) {
 
@@ -6997,14 +7070,14 @@ angular
             flash.to(ALERTS_CONSTANTS.generalError).error = "Payment method is required in order to use revaluate.";
         });
     }]);
-;angular.module('partials', ['app/site/partials/404.html', 'app/site/partials/500.html', 'app/site/partials/about.html', 'app/site/partials/home.html', 'app/site/partials/privacy.html', 'app/categories/partials/add-category-directive-template.html', 'app/categories/partials/categories.html', 'app/categories/partials/color-picker-directive-template.html', 'app/categories/partials/edit-remove-category-directive-template.html', 'app/import/partials/howto/settings.import.howto.mint.html', 'app/import/partials/howto/settings.import.howto.spendee.html', 'app/import/partials/settings.import.abstract.html', 'app/import/partials/settings.import.choose.html', 'app/import/partials/settings.import.import.html', 'app/expenses/partials/expense/expenses.abstract.html', 'app/expenses/partials/expense/expenses.entry.template.html', 'app/expenses/partials/expense/expenses.html', 'app/expenses/partials/expense/expenses.list.template.html', 'app/account/partials/account.html', 'app/account/partials/account_close.html', 'app/account/partials/email_confirmation_send_abstract.html', 'app/account/partials/email_confirmation_send_invalid.html', 'app/account/partials/email_confirmation_send_send.html', 'app/account/partials/email_confirmation_send_valid.html', 'app/account/partials/logout.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/signup_setup.html', 'app/account/partials/trial_period_countdown.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/settings/partials/settings.abstract.html', 'app/settings/partials/settings.admin.abstract.html', 'app/settings/partials/settings.admin.cancelAccount.html', 'app/settings/partials/settings.admin.updatePassword.html', 'app/settings/partials/settings.payment.abstract.html', 'app/settings/partials/settings.payment.add.html', 'app/settings/partials/settings.payment.customer.html', 'app/settings/partials/settings.payment.insights.html', 'app/settings/partials/settings.payment.method.html', 'app/settings/partials/settings.preferences.abstract.html', 'app/settings/partials/settings.preferences.updateCurrency.html', 'app/settings/partials/settings.profile.html', 'app/insight/partials/insight.html', 'app/feedback/partials/feedback-modal.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/inline.confirmation.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/accordion/accordion-group.html', 'template/accordion/accordion.html', 'template/alert/alert.html', 'template/carousel/carousel.html', 'template/carousel/slide.html', 'template/datepicker/datepicker.html', 'template/datepicker/day.html', 'template/datepicker/month.html', 'template/datepicker/popup.html', 'template/datepicker/year.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/pagination/pager.html', 'template/pagination/pagination.html', 'template/popover/popover.html', 'template/progressbar/bar.html', 'template/progressbar/progress.html', 'template/progressbar/progressbar.html', 'template/rating/rating.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/timepicker/timepicker.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html', 'template/typeahead/typeahead-match.html', 'template/typeahead/typeahead-popup.html']);
+;angular.module('partials', ['app/site/partials/404.html', 'app/site/partials/500.html', 'app/site/partials/home.html', 'app/site/partials/pricing.html', 'app/site/partials/privacy.html', 'app/categories/partials/add-category-directive-template.html', 'app/categories/partials/categories.html', 'app/categories/partials/color-picker-directive-template.html', 'app/categories/partials/edit-remove-category-directive-template.html', 'app/import/partials/howto/settings.import.howto.mint.html', 'app/import/partials/howto/settings.import.howto.spendee.html', 'app/import/partials/settings.import.abstract.html', 'app/import/partials/settings.import.choose.html', 'app/import/partials/settings.import.import.html', 'app/expenses/partials/expense/expenses.abstract.html', 'app/expenses/partials/expense/expenses.entry.template.html', 'app/expenses/partials/expense/expenses.html', 'app/expenses/partials/expense/expenses.list.template.html', 'app/account/partials/account.html', 'app/account/partials/account_close.html', 'app/account/partials/email_confirmation_send_abstract.html', 'app/account/partials/email_confirmation_send_invalid.html', 'app/account/partials/email_confirmation_send_send.html', 'app/account/partials/email_confirmation_send_valid.html', 'app/account/partials/logout.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/signup_setup.html', 'app/account/partials/trial_period_countdown.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/settings/partials/settings.abstract.html', 'app/settings/partials/settings.admin.abstract.html', 'app/settings/partials/settings.admin.cancelAccount.html', 'app/settings/partials/settings.admin.updatePassword.html', 'app/settings/partials/settings.payment.abstract.html', 'app/settings/partials/settings.payment.add.html', 'app/settings/partials/settings.payment.customer.html', 'app/settings/partials/settings.payment.insights.html', 'app/settings/partials/settings.payment.method.html', 'app/settings/partials/settings.preferences.abstract.html', 'app/settings/partials/settings.preferences.updateCurrency.html', 'app/settings/partials/settings.profile.html', 'app/insight/partials/insight.html', 'app/feedback/partials/feedback-modal.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/inline.confirmation.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/accordion/accordion-group.html', 'template/accordion/accordion.html', 'template/alert/alert.html', 'template/carousel/carousel.html', 'template/carousel/slide.html', 'template/datepicker/datepicker.html', 'template/datepicker/day.html', 'template/datepicker/month.html', 'template/datepicker/popup.html', 'template/datepicker/year.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/pagination/pager.html', 'template/pagination/pagination.html', 'template/popover/popover.html', 'template/progressbar/bar.html', 'template/progressbar/progress.html', 'template/progressbar/progressbar.html', 'template/rating/rating.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/timepicker/timepicker.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html', 'template/typeahead/typeahead-match.html', 'template/typeahead/typeahead-popup.html']);
 
 angular.module("app/site/partials/404.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/404.html",
     "<div class=\"error__sections\">\n" +
-    "    <h1 class=\"error__sections__heading\">Hmm... looks like a 404</h1>\n" +
+    "    <h1 class=\"error__sections__heading\">You found a glitch...</h1>\n" +
     "\n" +
-    "    <div class=\"error__sections__reason\">We can't really impress you since that page doesn't actually exist.</div>\n" +
+    "    <div class=\"error__sections__reason\">We know this is not what you were looking for.</div>\n" +
     "    <div class=\"error__sections__reason error__sections__reason--last\">Probably a typo or the page may have moved.</div>\n" +
     "\n" +
     "    <a class=\"error__sections__link\" href=\"javascript:void(0)\" ng-click=\"goToHomePage()\">Go to homepage</a>\n" +
@@ -7015,69 +7088,30 @@ angular.module("app/site/partials/404.html", []).run(["$templateCache", function
 angular.module("app/site/partials/500.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/500.html",
     "<div class=\"error__sections\">\n" +
-    "    <h1 class=\"error__sections__heading\">Oops... you found a 500</h1>\n" +
+    "    <h1 class=\"error__sections__heading\">Ooops.. little stumble on the server.</h1>\n" +
     "\n" +
     "    <div class=\"error__sections__reason\">Nothing you did. It seems like an internal problem on the server.</div>\n" +
-    "    <div class=\"error__sections__reason error__sections__reason--last\">If this happens again please let us know at <a class=\"link-primary\" href=\"mailto:hello@reme.io\">hello@reme.io</a></div>\n" +
+    "    <div class=\"error__sections__reason error__sections__reason--last\">If this seems like an ongoing problem please let us know at <a class=\"link-primary\" href=\"mailto:hello@revaluate.io\">hello@revaluate.io</a></div>\n" +
     "\n" +
     "    <a class=\"error__sections__link\" href=\"javascript:void(0)\" ng-click=\"goToHomePage()\">Go to homepage</a>\n" +
     "\n" +
     "</div>");
 }]);
 
-angular.module("app/site/partials/about.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("app/site/partials/about.html",
-    "<div header-home class=\"view-container__header\"></div>\n" +
-    "\n" +
-    "<div class=\"view-container--about\">\n" +
-    "    <div class=\"about__sections\">\n" +
-    "        <h1 class=\"about__sections__heading\">About us</h1>\n" +
-    "\n" +
-    "        <h1 class=\"about__sections__description\">\n" +
-    "            We are a small team of 2 and we're really passioned about building Reme. Our main goal is to make our users happy (that's you!)\n" +
-    "            and we hope you like using it. If you'd like to say hi, here we are.\n" +
-    "        </h1>\n" +
-    "\n" +
-    "        <div class=\"about__sections__team\">\n" +
-    "            <div class=\"about__sections__team__entry\">\n" +
-    "                <img class=\"about__sections__team__entry__img\" src=\"/build/assets/img/c4162760-9cf2-11e4-9312-dbead076a43a.png\">\n" +
-    "\n" +
-    "                <div class=\"about__sections__team__desc\">Sorin Pantiş</div>\n" +
-    "                <div class=\"about__sections__team__link\">\n" +
-    "                    <a href=\"https://twitter.com/sorinpantis\" target=\"_blank\">@sorinpantis</a>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "\n" +
-    "            <div class=\"about__sections__team__entry\">\n" +
-    "                <img class=\"about__sections__team__entry__img\" src=\"/build/assets/img/c4105efc-9cf2-11e4-99aa-22889cb05bd0s.jpg\">\n" +
-    "\n" +
-    "                <div class=\"about__sections__team__desc\">Ioan Lucuţ</div>\n" +
-    "                <div class=\"about__sections__team__link\">\n" +
-    "                    <a href=\"https://twitter.com/ioanlucut\" target=\"_blank\">@ioanlucut</a>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "\n" +
-    "    </div>\n" +
-    "</div>\n" +
-    "\n" +
-    "<div footer-home class=\"view-container__footer footer-about\"></div>");
-}]);
-
 angular.module("app/site/partials/home.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/home.html",
     "<div header-home></div>\n" +
     "\n" +
-    "<div class=\"home\">\n" +
+    "<div class=\"site__container site__container--brand\">\n" +
     "\n" +
-    "    <div class=\"home__section\">\n" +
-    "        <h1 class=\"home__title\">Change the way you spend your money</h1>\n" +
+    "    <div class=\"site__container__section\">\n" +
     "\n" +
-    "        <h3 class=\"home__description\">Keep a record of all your expenses. Or just some of them.\n" +
-    "            <br> Have simple insights and set clear goals.</h3>\n" +
+    "        <h1 class=\"home__title\" translate=\"HOME.TITLE_TEXT\"></h1>\n" +
+    "\n" +
+    "        <h3 class=\"home__description\" translate=\"HOME.DESCRIPTION_TEXT\"></h3>\n" +
     "    </div>\n" +
     "\n" +
-    "    <div class=\"home__section\">\n" +
+    "    <div class=\"site__container__section\">\n" +
     "        <div class=\"home__section__features\">\n" +
     "            <ul class=\"home__section__features--list\">\n" +
     "                <li><span class=\"icon-checkmark\"></span>Easy and fast input of your expenses</li>\n" +
@@ -7132,13 +7166,59 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                </div>\n" +
     "\n" +
     "                <!-- Button container -->\n" +
-    "                <button class=\"home__section__signup__btn\" type=\"submit\">{{isRequestPending ? 'Signing up..' : 'Start my 14 day free trial'}}</button>\n" +
+    "                <button class=\"home__section__signup__btn\" type=\"submit\">{{isRequestPending ? 'Signing up..' : 'Start my 21 day free trial'}}</button>\n" +
     "            </form>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "\n" +
-    "    <div class=\"home__section\">\n" +
+    "</div>\n" +
     "\n" +
+    "<div footer-home class=\"view-container__footer\"></div>\n" +
+    "\n" +
+    "");
+}]);
+
+angular.module("app/site/partials/pricing.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/site/partials/pricing.html",
+    "<div header-home></div>\n" +
+    "\n" +
+    "<div class=\"site__container site__container--brand\">\n" +
+    "\n" +
+    "    <div class=\"site__container__section\">\n" +
+    "\n" +
+    "        <h1>Simple pricing</h1>\n" +
+    "\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <div class=\"site__container__section\">\n" +
+    "\n" +
+    "        <div class=\"pricing__box\">\n" +
+    "\n" +
+    "            <div class=\"pricing__box__amount\">\n" +
+    "                <span>$5</span>/month\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <ul>\n" +
+    "                <li>Everything included</li>\n" +
+    "                <li>No hidden fees, no catch</li>\n" +
+    "                <li></li>\n" +
+    "            </ul>\n" +
+    "\n" +
+    "            <button class=\"pricing__box__btn\" type=\"submit\">Start 21 day free trial</button>\n" +
+    "\n" +
+    "            <div class=\"pricing__box__info\">No credit card needed</div>\n" +
+    "\n" +
+    "        </div>\n" +
+    "\n" +
+    "    </div>\n" +
+    "\n" +
+    "</div>\n" +
+    "\n" +
+    "\n" +
+    "<div class=\"site__container\">\n" +
+    "\n" +
+    "    <div class=\"site__container__section\">\n" +
+    "        <h1>FAQ</h1>\n" +
     "    </div>\n" +
     "\n" +
     "</div>\n" +
@@ -7569,12 +7649,15 @@ angular.module("app/expenses/partials/expense/expenses.abstract.html", []).run([
 angular.module("app/expenses/partials/expense/expenses.entry.template.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/expenses/partials/expense/expenses.entry.template.html",
     "<!--Display expense-->\n" +
-    "<div class=\"expenses__list__entry__display\" ng-if=\"! showContent\" ng-class=\"expense.marked ? 'expense__bulk--marked' : ''\" ng-click=\"toggleMark();$event.stopPropagation();\">\n" +
+    "<div class=\"expenses__list__entry__display\" ng-if=\"! showContent\" ng-class=\"expense.marked ? 'expense__bulk--marked' : ''\" ng-click=\"toggleContent();\">\n" +
     "\n" +
-    "    <div class=\"expenses__list__entry__select icon-checkmark\" ng-if=\"expense.marked\"></div>\n" +
+    "    <!--Actions on expense-->\n" +
+    "    <div class=\"expenses__list__entry__select icon-checkmark-strong-unchecked\" ng-if=\"! expense.marked\" ng-click=\"toggleMark();$event.stopPropagation();\"></div>\n" +
+    "    <div class=\"expenses__list__entry__select icon-checkmark-strong\" ng-if=\"expense.marked\" ng-click=\"toggleMark();$event.stopPropagation();\"></div>\n" +
     "\n" +
     "    <div class=\"expenses__list__entry__price\">\n" +
     "        {{expense.model.value | currency:user.model.currency.symbol}}\n" +
+    "        <span class=\"expenses__list__entry__currency\">{{user.model.currency.symbol}}</span>\n" +
     "    </div>\n" +
     "\n" +
     "    <!--Expense category-->\n" +
@@ -7585,8 +7668,6 @@ angular.module("app/expenses/partials/expense/expenses.entry.template.html", [])
     "\n" +
     "    <!--Expense date-->\n" +
     "    <div class=\"expenses__list__entry__date\">{{expense.model.spentDate | friendlyDate}}</div>\n" +
-    "\n" +
-    "    <button class=\"expenses__list__entry__editbtn icon-pen\" type=\"button\" ng-click=\"toggleContent();\"></button>\n" +
     "</div>\n" +
     "\n" +
     "<!-- Display expense in edit mode -->\n" +
@@ -7684,7 +7765,7 @@ angular.module("app/expenses/partials/expense/expenses.html", []).run(["$templat
     "        <!-- Form groups -->\n" +
     "        <div class=\"expense__form__price\" ng-class=\"{'has-error': expenseForm.$submitted && (expenseForm.value.$invalid || badPostSubmitResponse)}\">\n" +
     "            <input class=\"expense__form__price__input\" type=\"text\" name=\"value\" placeholder=\"The value\" maxlength=\"14\" ng-model=\"expense.model.value\" format-price format=\"number\" caret-price-position required valid-price auto-focus />\n" +
-    "            <span class=\"expense__form__price__currency\">{{user.model.currency.currencyCode}}</span>\n" +
+    "            <span class=\"expense__form__price__currency\">{{user.model.currency.symbol}}</span>\n" +
     "\n" +
     "            <!-- Error messages -->\n" +
     "            <div class=\"form-group-input__message\" ng-class=\"{'has-error': expenseForm.value.$invalid && expenseForm.$submitted}\" ng-messages=\"expenseForm.$error\" ng-if=\"expenseForm.$submitted\">\n" +
@@ -8412,7 +8493,7 @@ angular.module("app/settings/partials/settings.admin.updatePassword.html", []).r
     "\n" +
     "        <!-- Form group -->\n" +
     "        <div class=\"form-group-input\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.oldPassword.$invalid || badPostSubmitResponse)}\">\n" +
-    "            <input class=\"form-group-input__input\" type=\"password\" placeholder=\"Old password\" name=\"oldPassword\" ng-model=\"updatePasswordData.oldPassword\" auto-focus required />\n" +
+    "            <input class=\"form-group-input__input\" type=\"password\" placeholder=\"Old password\" name=\"oldPassword\" ng-model=\"updatePasswordData.oldPassword\" required />\n" +
     "            <span class=\"form-group-input__message\" ng-if=\"updatePasswordForm.oldPassword.$invalid && updatePasswordForm.$submitted\">Please enter your old password.</span>\n" +
     "        </div>\n" +
     "\n" +
@@ -8469,15 +8550,27 @@ angular.module("app/settings/partials/settings.payment.add.html", []).run(["$tem
     "            <!-- Form group -->\n" +
     "            <div class=\"form-group-input payment__form__addcard__number\" ng-class=\"{'has-error': addPaymentMethodForm.$submitted && (addPaymentMethodForm.cardNumber.$invalid || badPostSubmitResponse)}\">\n" +
     "                <label>Credit Card Number</label>\n" +
-    "                <input class=\"form-group-input__input\" type=\"text\" placeholder=\"4111111111111111\" name=\"cardNumber\" ng-model=\"paymentData.cardNumber\" auto-focus required/>\n" +
-    "                <span class=\"form-group-input__message\" ng-if=\"addPaymentMethodForm.cardNumber.$invalid && addPaymentMethodForm.$submitted\">Please enter your card number.</span>\n" +
+    "                <input class=\"form-group-input__input\" type=\"text\" placeholder=\"4111 1111 1111 1111\" name=\"cardNumber\" ng-model=\"paymentData.cardNumber\" payments-format=\"card\" payments-validate=\"card\" auto-focus required />\n" +
+    "\n" +
+    "                <!-- Error messages -->\n" +
+    "                <div class=\"form-group-input__message\" ng-class=\"{'has-error': addPaymentMethodForm.cardNumber.$invalid && addPaymentMethodForm.$submitted}\" ng-messages=\"addPaymentMethodForm.cardNumber.$error\" ng-if=\"addPaymentMethodForm.$submitted\">\n" +
+    "                    <div ng-message=\"required\">Please enter your card number.</div>\n" +
+    "                    <div ng-message=\"parse\">Please enter a valid card number.</div>\n" +
+    "                    <div ng-message=\"card\">Please enter a valid card number.</div>\n" +
+    "                </div>\n" +
     "            </div>\n" +
     "\n" +
     "            <!-- Form group -->\n" +
     "            <div class=\"form-group-input payment__form__addcard__expiration\" ng-class=\"{'has-error': addPaymentMethodForm.$submitted && (addPaymentMethodForm.cardExpirationDate.$invalid || badPostSubmitResponse)}\">\n" +
     "                <label>Expiration</label>\n" +
-    "                <input class=\"form-group-input__input\" type=\"text\" placeholder=\"10/18\" name=\"cardExpirationDate\" ng-model=\"paymentData.cardExpirationDate\" required/>\n" +
-    "                <span class=\"form-group-input__message\" ng-if=\"addPaymentMethodForm.cardExpirationDate.$invalid && addPaymentMethodForm.$submitted\">Please enter card expiration date.</span>\n" +
+    "                <input class=\"form-group-input__input\" type=\"text\" placeholder=\"10 / 2018\" name=\"cardExpirationDate\" ng-model=\"paymentData.cardExpirationDate\" payments-format=\"expiry\" payments-validate=\"expiry\" required />\n" +
+    "\n" +
+    "                <!-- Error messages -->\n" +
+    "                <div class=\"form-group-input__message\" ng-class=\"{'has-error': addPaymentMethodForm.cardExpirationDate.$invalid && addPaymentMethodForm.$submitted}\" ng-messages=\"addPaymentMethodForm.cardExpirationDate.$error\" ng-if=\"addPaymentMethodForm.$submitted\">\n" +
+    "                    <div ng-message=\"required\">Please enter card expiration date.</div>\n" +
+    "                    <div ng-message=\"parse\">Please enter a valid expiration date.</div>\n" +
+    "                    <div ng-message=\"expiry\">Please enter a valid expiration date.</div>\n" +
+    "                </div>\n" +
     "            </div>\n" +
     "\n" +
     "            <!-- Button container -->\n" +
@@ -8537,6 +8630,9 @@ angular.module("app/settings/partials/settings.payment.insights.html", []).run([
     "<!-- Title -->\n" +
     "<h1 class=\"settings__title\">Billing</h1>\n" +
     "\n" +
+    "<!-- Flash messages. -->\n" +
+    "<div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
     "<!--Subscription payment section-->\n" +
     "<div class=\"settings__box__section--50\">\n" +
     "\n" +
@@ -8567,9 +8663,6 @@ angular.module("app/settings/partials/settings.payment.insights.html", []).run([
     "    <!-- Payment form -->\n" +
     "    <form ng-if=\"! paymentInsights.subscriptionActive\" name=\"paymentSubscriptionForm\" ng-submit=\"performPaymentSubscription()\" novalidate>\n" +
     "\n" +
-    "        <!-- Flash messages. -->\n" +
-    "        <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
-    "\n" +
     "        <!-- Button container -->\n" +
     "        <button class=\"settings__box__payment__subscription__btn\" type=\"submit\">{{isRequestPending ? 'Activating...' : 'Activate'}}</button>\n" +
     "    </form>\n" +
@@ -8585,6 +8678,13 @@ angular.module("app/settings/partials/settings.payment.insights.html", []).run([
     "        <div class=\"settings__box__payment__method__cardexp\">Expiration: {{paymentMethodDTO.expirationMonth}} / {{paymentMethodDTO.expirationYear}}</div>\n" +
     "        <img ng-src=\"{{paymentMethodDTO.imageUrl}}\" />\n" +
     "        <a class=\"link-navigation\" href=\"javascript:void(0)\" ui-sref=\"settings.payment.method\">Update payment method</a>\n" +
+    "\n" +
+    "        <!-- Remove payment method form -->\n" +
+    "        <form ng-if=\"paymentInsights.subscriptionActive\" name=\"paymentSubscriptionForm\" ng-submit=\"performRemovePayment()\" novalidate>\n" +
+    "\n" +
+    "            <!-- Button container -->\n" +
+    "            <button class=\"settings__box__payment__subscription__btn\" type=\"submit\">{{isRequestPending ? 'Removing...' : 'Remove payment method'}}</button>\n" +
+    "        </form>\n" +
     "    </div>\n" +
     "\n" +
     "</div>\n" +
@@ -8640,14 +8740,28 @@ angular.module("app/settings/partials/settings.payment.method.html", []).run(["$
     "\n" +
     "            <!-- Form group -->\n" +
     "            <div class=\"form-group-input\" ng-class=\"{'has-error': updatePaymentMethodForm.$submitted && (updatePaymentMethodForm.cardNumber.$invalid || badPostSubmitResponse)}\">\n" +
-    "                <input class=\"form-group-input__input\" type=\"text\" placeholder=\"4111111111111111\" name=\"cardNumber\" ng-model=\"paymentData.cardNumber\" auto-focus required />\n" +
-    "                <span class=\"form-group-input__message\" ng-if=\"updatePaymentMethodForm.cardNumber.$invalid && updatePaymentMethodForm.$submitted\">Please enter your card number.</span>\n" +
+    "                <label>Credit Card Number</label>\n" +
+    "                <input class=\"form-group-input__input\" type=\"text\" placeholder=\"4111 1111 1111 1111\" name=\"cardNumber\" ng-model=\"paymentData.cardNumber\" payments-format=\"card\" payments-validate=\"card\" auto-focus required />\n" +
+    "\n" +
+    "                <!-- Error messages -->\n" +
+    "                <div class=\"form-group-input__message\" ng-class=\"{'has-error': updatePaymentMethodForm.cardNumber.$invalid && updatePaymentMethodForm.$submitted}\" ng-messages=\"updatePaymentMethodForm.cardNumber.$error\" ng-if=\"updatePaymentMethodForm.$submitted\">\n" +
+    "                    <div ng-message=\"required\">Please enter your card number.</div>\n" +
+    "                    <div ng-message=\"parse\">Please enter a valid card number.</div>\n" +
+    "                    <div ng-message=\"card\">Please enter a valid card number.</div>\n" +
+    "                </div>\n" +
     "            </div>\n" +
     "\n" +
     "            <!-- Form group -->\n" +
     "            <div class=\"form-group-input\" ng-class=\"{'has-error': updatePaymentMethodForm.$submitted && (updatePaymentMethodForm.cardExpirationDate.$invalid || badPostSubmitResponse)}\">\n" +
-    "                <input class=\"form-group-input__input\" type=\"text\" placeholder=\"10/18\" name=\"cardExpirationDate\" ng-model=\"paymentData.cardExpirationDate\" required />\n" +
-    "                <span class=\"form-group-input__message\" ng-if=\"updatePaymentMethodForm.cardExpirationDate.$invalid && updatePaymentMethodForm.$submitted\">Please enter card expiration date.</span>\n" +
+    "                <label>Expiration</label>\n" +
+    "                <input class=\"form-group-input__input\" type=\"text\" placeholder=\"10 / 2018\" name=\"cardExpirationDate\" ng-model=\"paymentData.cardExpirationDate\" payments-format=\"expiry\" payments-validate=\"expiry\" required />\n" +
+    "\n" +
+    "                <!-- Error messages -->\n" +
+    "                <div class=\"form-group-input__message\" ng-class=\"{'has-error': updatePaymentMethodForm.cardExpirationDate.$invalid && updatePaymentMethodForm.$submitted}\" ng-messages=\"updatePaymentMethodForm.cardExpirationDate.$error\" ng-if=\"updatePaymentMethodForm.$submitted\">\n" +
+    "                    <div ng-message=\"required\">Please enter card expiration date.</div>\n" +
+    "                    <div ng-message=\"parse\">Please enter a valid expiration date.</div>\n" +
+    "                    <div ng-message=\"expiry\">Please enter a valid expiration date.</div>\n" +
+    "                </div>\n" +
     "            </div>\n" +
     "\n" +
     "            <!-- Button container -->\n" +
@@ -8723,7 +8837,7 @@ angular.module("app/settings/partials/settings.profile.html", []).run(["$templat
     "            <!-- Form group -->\n" +
     "            <div class=\"form-group-input\" ng-class=\"{'has-error': profileForm.$submitted && (loginForm.firstName.$invalid || badPostSubmitResponse)}\">\n" +
     "                <label>First Name</label>\n" +
-    "                <input class=\"form-group-input__input\" type=\"text\" placeholder=\"First name\" name=\"firstName\" ng-model=\"profileData.firstName\" required auto-focus />\n" +
+    "                <input class=\"form-group-input__input\" type=\"text\" placeholder=\"First name\" name=\"firstName\" ng-model=\"profileData.firstName\" required />\n" +
     "                <span class=\"form-group-input__message\" ng-if=\"profileForm.firstName.$invalid && profileForm.$submitted\">Please tell us your First Name.</span>\n" +
     "            </div>\n" +
     "\n" +
@@ -8745,6 +8859,11 @@ angular.module("app/settings/partials/settings.profile.html", []).run(["$templat
     "\n" +
     "        </form>\n" +
     "\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <div class=\"settings__box__section--50 settings__profile__avatar\">\n" +
+    "        <img class=\"settings__profile__avatar--picture\" gravatar-src=\"'{{currentUser.model.email}}'\" />\n" +
+    "        <div class=\"settings__profile__avatar--src\">Synced from Gravatar</div>\n" +
     "    </div>\n" +
     "\n" +
     "</div>");
@@ -8956,10 +9075,9 @@ angular.module("app/common/partials/footer-home.html", []).run(["$templateCache"
     "        </div>\n" +
     "\n" +
     "        <ul class=\"footer__links\">\n" +
-    "            <li>Read our <a href=\"http://blog.revaluate.io\" target=\"_blank\">Blog</a></li>\n" +
     "            <li>Follow us on <a href=\"https://twitter.com/revaluateapp\" target=\"_blank\">Twitter</a></li>\n" +
+    "            <li>Follow us on <a href=\"https://instagram.com/revaluateapp\" target=\"_blank\">Instagram</a></li>\n" +
     "            <li>Like us on <a href=\"https://www.facebook.com/revaluateapp\" target=\"_blank\">Facebook</a></li>\n" +
-    "            <li>Contact us via <a href=\"mailto:hello@revaluate.io\">Email</a></li>\n" +
     "        </ul>\n" +
     "    </div>\n" +
     "</footer>");
@@ -8974,8 +9092,8 @@ angular.module("app/common/partials/footer.html", []).run(["$templateCache", fun
     "        </div>\n" +
     "\n" +
     "        <ul class=\"footer__links\">\n" +
-    "            <li>Read our <a href=\"http://blog.revaluate.io\" target=\"_blank\">Blog</a></li>\n" +
     "            <li>Follow us on <a href=\"https://twitter.com/revaluateapp\" target=\"_blank\">Twitter</a></li>\n" +
+    "            <li>Follow us on <a href=\"https://instagram.com/revaluateapp\" target=\"_blank\">Instagram</a></li>\n" +
     "            <li>Like us on <a href=\"https://www.facebook.com/revaluateapp\" target=\"_blank\">Facebook</a></li>\n" +
     "        </ul>\n" +
     "    </div>\n" +
@@ -8990,12 +9108,11 @@ angular.module("app/common/partials/header-home.html", []).run(["$templateCache"
     "\n" +
     "        <div class=\"header-home__brand\">\n" +
     "            <div class=\"header-home__brand--logo\">Logo</div>\n" +
-    "            <a href=\"javascript:void(0)\" class=\"header-home__brand--name\">Revaluate</a>\n" +
+    "            <a class=\"header-home__brand--name\" href=\"javascript:void(0)\" ui-sref=\"home\">Revaluate</a>\n" +
     "        </div>\n" +
     "\n" +
     "        <ul class=\"header-home__navigation\">\n" +
-    "            <li><a href=\"javascript:void(0)\">Pricing</a></li>\n" +
-    "            <li><a href=\"javascript:void(0)\">Blog</a></li>\n" +
+    "            <li><a href=\"javascript:void(0)\" ui-sref=\"pricing\">Pricing</a></li>\n" +
     "            <li><a href=\"javascript:void(0)\">Contact</a></li>\n" +
     "            <li>\n" +
     "                <button class=\"header-home__navigation--btn\" account-modal-toggle=\"login\">Log in</button>\n" +

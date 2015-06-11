@@ -30,7 +30,7 @@
     &:hover {
       background-color: $gray-light-3;
 
-      .expenses__list__entry__editbtn {
+      .expenses__list__entry__select {
         opacity: 1;
       }
     }
@@ -38,32 +38,24 @@
 
   .expenses__list__entry__select {
     position: absolute;
-    left: -30px;
-    top: 7px;
+    left: 0;
+    top: 9px;
     display: inline-block;
     width: 30px;
     height: 25px;
     margin-right: 15px;
     text-align: right;
-    color: $brand-danger;
+    font-size: 20px;
+    color: $gray-medium;
+    opacity: 0;
+
+    &:hover {
+      color: $gray-dark-2;
+    }
 
     input {
       height: 100%;
       width: 100%;
-    }
-  }
-
-  .expenses__list__entry__editbtn {
-    position: absolute;
-    left: 3px;
-    @include size(30px 30px);
-    @include border-radius(50%);
-    padding: 0;
-    background-color: transparent;
-    opacity: 0;
-
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.8);
     }
   }
 
@@ -98,8 +90,12 @@
 }
 
 .expense__bulk--marked {
-  background: lighten($brand-danger, 35%) !important;
+  background: $brand-warning-light !important;
   border: solid 2px $brand-primary;
+
+  .expenses__list__entry__select {
+    opacity: 1;
+  }
 }
 
 .expenses__list__loadbtn {
