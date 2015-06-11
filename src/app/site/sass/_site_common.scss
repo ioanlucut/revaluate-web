@@ -1,0 +1,20 @@
+.site__container {
+  text-align: center;
+  padding: 50px;
+  font-size: 18px;
+
+  h1 {
+    margin: 0;
+    padding-bottom: 30px;
+  }
+}
+
+.site__container--brand {
+  background-color: $brand-primary;
+  color: $white;
+}
+
+.site__container__section {
+  @include outer-container();
+  margin-top: 0;
+}

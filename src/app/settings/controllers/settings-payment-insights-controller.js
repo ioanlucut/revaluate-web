@@ -1,6 +1,6 @@
 angular
     .module("revaluate.settings")
-    .controller("SettingsPaymentInsightsController", function ($q, $scope, $rootScope, $timeout, $http, paymentInsights, flash, AUTH_URLS, ALERTS_CONSTANTS, MIXPANEL_EVENTS, AUTH_EVENTS, USER_SUBSCRIPTION_STATUS) {
+    .controller("SettingsPaymentInsightsController", function ($q, $state, $scope, $rootScope, $timeout, $http, paymentInsights, flash, AUTH_URLS, ALERTS_CONSTANTS, MIXPANEL_EVENTS, AUTH_EVENTS, USER_SUBSCRIPTION_STATUS) {
 
         var TIMEOUT_PENDING = 300;
 
@@ -71,6 +71,60 @@ angular
                         }
                         else {
                             flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to subscribe you to Revaluate.';
+                        }
+                    });
+
+            }
+
+        };
+
+        // ---
+        // Remove payment method.
+        // ---
+        $scope.performRemovePayment = function () {
+            if ( !$scope.isRequestPending ) {
+
+                // Show the loading bar
+                $scope.isRequestPending = true;
+
+                return $http
+                    .delete(URLTo.api(AUTH_URLS.removePaymentMethod), {})
+                    .then(function () {
+
+                        // ---
+                        // Update user with subscription status ACTIVE.
+                        // ---
+                        $scope
+                            .user
+                            .setSubscriptionStatusAsAndReload(USER_SUBSCRIPTION_STATUS.TRIAL_EXPIRED);
+                        $rootScope
+                            .$broadcast(AUTH_EVENTS.refreshUser, {});
+
+                        flash.to($scope.alertIdentifierId).success = 'You\'ve successfully removed payment method!';
+
+                        $timeout(function () {
+                            $scope.isRequestPending = false;
+
+                            // ---
+                            // If successful, go to expenses.
+                            // ---
+                            $state.go("expenses.regular");
+                        }, TIMEOUT_PENDING);
+                    })
+                    .catch(function (response) {
+                        /* If bad feedback from server */
+                        $scope.badPostSubmitResponse = true;
+                        $scope.isRequestPending = false;
+
+                        // ---
+                        // Show errors.
+                        // ---
+                        var errors = response.data;
+                        if ( _.isArray(errors) ) {
+                            flash.to($scope.alertIdentifierId).error = errors.join("\n");
+                        }
+                        else {
+                            flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to remove payment method';
                         }
                     });
 

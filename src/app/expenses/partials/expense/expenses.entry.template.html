@@ -1,10 +1,13 @@
 <!--Display expense-->
-<div class="expenses__list__entry__display" ng-if="! showContent" ng-class="expense.marked ? 'expense__bulk--marked' : ''" ng-click="toggleMark();$event.stopPropagation();">
+<div class="expenses__list__entry__display" ng-if="! showContent" ng-class="expense.marked ? 'expense__bulk--marked' : ''" ng-click="toggleContent();">
 
-    <div class="expenses__list__entry__select icon-checkmark" ng-if="expense.marked"></div>
+    <!--Actions on expense-->
+    <div class="expenses__list__entry__select icon-checkmark-strong-unchecked" ng-if="! expense.marked" ng-click="toggleMark();$event.stopPropagation();"></div>
+    <div class="expenses__list__entry__select icon-checkmark-strong" ng-if="expense.marked" ng-click="toggleMark();$event.stopPropagation();"></div>
 
     <div class="expenses__list__entry__price">
         {{expense.model.value | currency:user.model.currency.symbol}}
+        <span class="expenses__list__entry__currency">{{user.model.currency.symbol}}</span>
     </div>
 
     <!--Expense category-->
@@ -15,8 +18,6 @@
 
     <!--Expense date-->
     <div class="expenses__list__entry__date">{{expense.model.spentDate | friendlyDate}}</div>
-
-    <button class="expenses__list__entry__editbtn icon-pen" type="button" ng-click="toggleContent();"></button>
 </div>
 
 <!-- Display expense in edit mode -->
