@@ -92,11 +92,11 @@ angular
                     .then(function () {
 
                         // ---
-                        // Update user with subscription status ACTIVE.
+                        // Update user with subscription status.
                         // ---
                         $scope
                             .user
-                            .setSubscriptionStatusAsAndReload(USER_SUBSCRIPTION_STATUS.TRIAL_EXPIRED);
+                            .resetSubscriptionStatusAfterRemovePaymentIsPerformed();
                         $rootScope
                             .$broadcast(AUTH_EVENTS.refreshUser, {});
 
