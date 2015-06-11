@@ -8,17 +8,11 @@ angular
             transclude: true,
             scope: {
                 toggle: "=",
-                message: "@",
                 confirm: "&",
                 cancel: "&"
             },
             templateUrl: "app/common/partials/inline.confirmation.html",
             link: function (scope, el, attrs) {
-
-                // ---
-                // The clear autoCancelTimeoutPromise timeout period.
-                // ---
-                var TIMEOUT_PERIOD = 2500;
 
                 /**
                  * Show block content
@@ -26,25 +20,28 @@ angular
                  */
                 scope.showContent = false;
 
-                // ---
-                // Define auto cancel timeout promise.
-                // ---
-                var autoCancelTimeoutPromise = null;
+                /**
+                 * Is message acknowledge
+                 * @type {boolean}
+                 */
+                scope.messageAcknowledged = false;
+
+                /**
+                 * Perform confirm.
+                 */
+                scope.doConfirm = function () {
+                    if ( scope.messageAcknowledged ) {
+                        return;
+                    }
+
+                    scope.confirm();
+                };
 
                 /**
                  * Toggle content
                  */
                 scope.toggleContent = function () {
                     scope.showContent = !scope.showContent;
-
-                    if ( scope.showContent ) {
-                        autoCancelTimeoutPromise = $timeout(function () {
-                            scope.toggleContent()
-                        }, TIMEOUT_PERIOD);
-                    }
-                    else if ( autoCancelTimeoutPromise ) {
-                        $timeout.cancel(autoCancelTimeoutPromise);
-                    }
                 };
 
                 /**
