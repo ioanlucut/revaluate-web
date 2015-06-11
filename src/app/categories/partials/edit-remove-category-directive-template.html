@@ -4,12 +4,13 @@
     <span class="categories__edit__category__label">{{category.model.name}}</span>
 </div>
 
-<div class="categories__edit__category__controls" ng-if="! showContent">
-    <!--Show content-->
-    <div inline-confirmation toggle="! isDeleting" confirm="deleteCategory(category)" message="Are you sure?" style="float: right">
+<!--Show content-->
+<div inline-confirmation toggle="! isDeleting" confirm="deleteCategory(category)">
+    <div class="categories__edit__category__controls" ng-if="! showContent">
         <button class="categories__edit__category__delete">{{isDeleting ? 'Deleting..' : 'Delete'}}</button>
+
+        <button class="categories__edit__category__edit" ng-click="toggleContent()">Edit</button>
     </div>
-    <button class="categories__edit__category__edit" ng-click="toggleContent()">Edit</button>
 </div>
 
 <!-- Update category form -->
