@@ -85,9 +85,10 @@
 
         <div ng-show="insight.model.numberOfTransactions !== 0">
             <div class="insights__summary">
-                Hey, <span>{{currentUser.model.firstName}}</span>! In <span>{{(insightData.spentDate | friendlyMonthDate)}}</span>
-                you've spent a total of <span>{{insight.model.totalAmountSpent | currency:user.model.currency.symbol}}</span>,
-                which is <span>5% more</span> than the last month.
+                Hey, <span>{{currentUser.model.firstName}}</span>! In
+                <span>{{(insightData.spentDate | friendlyMonthDate)}}</span>
+                you've spent a total of
+                <span>{{insight.model.totalAmountSpent | currency:user.model.currency.symbol:user.model.currency.fractionSize}}</span>.
             </div>
 
             <div ng-if="activeChart === INSIGHTS_CHARTS.BAR" class="insights__chart__bar">
@@ -121,8 +122,7 @@
                     <thead class="insights__table__header">
                     <tr class="">
                         <td>TOTAL</td>
-                        <td class="insights__table__amount">{{insight.model.totalAmountSpent | currency:user.model.currency.symbol}}<span>{{user.model.currency.currencyCode}}</span>
-                        </td>
+                        <td class="insights__table__amount">{{insight.model.totalAmountSpent | currency:user.model.currency.symbol:user.model.currency.fractionSize}}</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -131,7 +131,7 @@
                             <span class="insights__table__category__color" ng-style="{'background':totalPerCategory.categoryDTO.color.color}">C</span>
                             {{totalPerCategory.categoryDTO.name}}
                         </td>
-                        <td class="insights__table__amount">{{totalPerCategory.totalAmount | currency:user.model.currency.symbol}}<span>{{user.model.currency.currencyCode}}</span>
+                        <td class="insights__table__amount">{{totalPerCategory.totalAmount | currency:user.model.currency.symbol:user.model.currency.fractionSize}}
                         </td>
                     </tr>
                     </tbody>

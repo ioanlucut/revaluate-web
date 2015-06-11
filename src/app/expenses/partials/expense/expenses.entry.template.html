@@ -5,10 +5,7 @@
     <div class="expenses__list__entry__select icon-checkmark-strong-unchecked" ng-if="! expense.marked" ng-click="toggleMark();$event.stopPropagation();"></div>
     <div class="expenses__list__entry__select icon-checkmark-strong" ng-if="expense.marked" ng-click="toggleMark();$event.stopPropagation();"></div>
 
-    <div class="expenses__list__entry__price">
-        {{expense.model.value | currency:user.model.currency.symbol}}
-        <span class="expenses__list__entry__currency">{{user.model.currency.symbol}}</span>
-    </div>
+    <div class="expenses__list__entry__price"> {{expense.model.value | currency:user.model.currency.symbol:user.model.currency.fractionSize}}</div>
 
     <!--Expense category-->
     <div class="expenses__list__entry__category" ng-style="{'background':expense.model.category.color.color}" ng-bind-html="expense.model.category.name"></div>
