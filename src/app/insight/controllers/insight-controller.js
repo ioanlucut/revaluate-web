@@ -62,7 +62,7 @@ angular
         };
 
         $scope.donutChartOptions = angular.extend({}, $scope.defaultChartOptions);
-        $scope.donutChartOptions.legendTemplate = $templateCache.get("app/insight/partials/chart.doughnut.legend.template.html");
+        $scope.donutChartOptions.legendTemplate = $templateCache.get("app/insight/partials/chart/chart.doughnut.legend.template.html");
 
         function formatValue(label) {
             return $filter('currency')(label.value.toString(), $scope.user.model.currency.symbol);
