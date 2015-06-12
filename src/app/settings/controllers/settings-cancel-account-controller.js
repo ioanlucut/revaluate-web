@@ -17,36 +17,37 @@ angular
          */
         vm.cancelAccount = function () {
 
-            if ( !vm.isDeleting ) {
-
-                vm.isDeleting = true;
-
-                AuthService
-                    .cancelAccount()
-                    .then(function () {
-
-                        flash.to(vm.alertIdentifierId).success = 'We\'ve successfully deleted your account!';
-                        vm.isDeleting = false;
-
-                        $timeout(function () {
-
-                            // ---
-                            // We need to set the data and refresh the user.
-                            // ---
-                            AuthService
-                                .logout();
-                            StatesHandler
-                                .goHome();
-                        }, TIMEOUT_PENDING);
-
-                    })
-                    .catch(function () {
-                        /* If bad feedback from server */
-                        vm.badPostSubmitResponse = true;
-                        vm.isDeleting = false;
-
-                        flash.to(vm.alertIdentifierId).error = 'We\'ve encountered an error while trying to remove your account.';
-                    });
+            if ( vm.isDeleting ) {
+                return;
             }
+
+            vm.isDeleting = true;
+
+            AuthService
+                .cancelAccount()
+                .then(function () {
+
+                    flash.to(vm.alertIdentifierId).success = 'We\'ve successfully deleted your account!';
+                    vm.isDeleting = false;
+
+                    $timeout(function () {
+
+                        // ---
+                        // We need to set the data and refresh the user.
+                        // ---
+                        AuthService
+                            .logout();
+                        StatesHandler
+                            .goHome();
+                    }, TIMEOUT_PENDING);
+
+                })
+                .catch(function () {
+                    /* If bad feedback from server */
+                    vm.badPostSubmitResponse = true;
+                    vm.isDeleting = false;
+
+                    flash.to(vm.alertIdentifierId).error = 'We\'ve encountered an error while trying to remove your account.';
+                });
         };
     });
