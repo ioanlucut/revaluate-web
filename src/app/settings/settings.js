@@ -200,7 +200,7 @@ angular
             // ---
             .state("setup", {
                 url: "/setup",
-                templateUrl: 'app/settings/partials/settings.signup.setup.html',
+                templateUrl: 'app/settings/partials/settings.setup.registration.html',
                 controller: "SettingsSetUpRegistrationController",
                 resolve: {
                     currencies: function (CurrencyService) {
