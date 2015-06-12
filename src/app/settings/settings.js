@@ -160,7 +160,8 @@ angular
                     },
                     'updatePassword@settings.admin': {
                         templateUrl: "app/settings/partials/settings.admin.updatePassword.html",
-                        controller: "SettingsUpdatePasswordController"
+                        controller: "SettingsUpdatePasswordController",
+                        controllerAs: 'vm'
                     },
                     'cancelAccount@settings.admin': {
                         templateUrl: "app/settings/partials/settings.admin.cancelAccount.html",
