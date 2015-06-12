@@ -78,8 +78,9 @@ angular
             .state({
                 name: "settings.payment.method",
                 url: "/method",
-                templateUrl: "app/settings/partials/settings.payment.method.html",
-                controller: "SettingsPaymentMethodController",
+                templateUrl: "app/settings/partials/settings.payment.method.update.html",
+                controller: "SettingsEditPaymentMethodController",
+                controllerAs: 'vm',
                 isPaymentRelatedPage: true,
                 resolve: {
                     clientToken: function ($http, AUTH_URLS) {
