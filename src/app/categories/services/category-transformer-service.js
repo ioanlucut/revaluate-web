@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Category transformer service which transforms a category DTO model object to a category business object.
  */

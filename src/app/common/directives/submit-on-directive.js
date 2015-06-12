@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module('revaluate.common')
     .directive('submitOn', function () {

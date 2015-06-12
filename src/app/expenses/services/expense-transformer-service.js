@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Expense transformer service which transforms a expense DTO model object to a expense business object.
  */

@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Directive responsible for switching update profile forms between them.
  */

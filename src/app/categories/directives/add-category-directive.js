@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.categories")
     .directive("addCategory", function ($rootScope, CATEGORY_EVENTS) {

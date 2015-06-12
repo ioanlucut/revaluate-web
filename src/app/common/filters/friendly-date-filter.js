@@ -1,3 +1,5 @@
+'use strict';
+
 /* Friendly date filter */
 
 angular

@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.settings")
     .controller("SettingsSetUpRegistrationController", function ($q, $scope, $rootScope, $timeout, flash, AuthService, CategoryService, AUTH_EVENTS, ALERTS_CONSTANTS, MIXPANEL_EVENTS, predefinedCategories, colors, CategoryColorService, SessionService, StatesHandler, Category, currencies) {

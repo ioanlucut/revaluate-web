@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.account")
     .factory("User", function (SessionService, TransformerUtils, $q, $http, AUTH_URLS, USER_SUBSCRIPTION_STATUS) {

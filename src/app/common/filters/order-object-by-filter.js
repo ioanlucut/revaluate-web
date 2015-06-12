@@ -1,3 +1,5 @@
+'use strict';
+
 // See https://github.com/fmquaglia/ngOrderObjectB
 angular
     .module('revaluate.common')

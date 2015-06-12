@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Main site module declaration including ui templates.
  */

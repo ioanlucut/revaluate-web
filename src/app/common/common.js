@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Main common module declaration including ui templates.
  */

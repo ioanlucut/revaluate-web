@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.feedback")
     .service("FeedbackService", function (FEEDBACK_URLS, $http) {

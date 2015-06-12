@@ -1,9 +1,10 @@
+'use strict';
+
 /**
  * Main app module declaration.
  */
 angular
-    .module("app", [
-        "config",
+    .module("revaluate", [
         "braintree-angular",
         "angular-cache",
         "angularFileUpload",
@@ -11,7 +12,6 @@ angular
         "ngMessages",
         "ngStorage",
         "ngSanitize",
-        "partials",
         "revaluate.site",
         "revaluate.feedback",
         "revaluate.common",

@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.statistics")
     .factory("Statistic", function ($q, StatisticTransformerService) {

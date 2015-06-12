@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Currencies service which encapsulates the whole logic related to currencies.
  */

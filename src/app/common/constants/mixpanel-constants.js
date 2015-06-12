@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Common mixpanel events.
  */

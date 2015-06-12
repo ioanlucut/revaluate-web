@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Insights service which encapsulates the whole logic related to insights.
  */

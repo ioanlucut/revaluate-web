@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.settings")
     .controller("SettingsCancelAccountController", function ($q, $rootScope, $timeout, StatesHandler, AuthService, flash, ALERTS_CONSTANTS) {

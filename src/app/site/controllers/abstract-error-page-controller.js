@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Abstract error page controller.
  */

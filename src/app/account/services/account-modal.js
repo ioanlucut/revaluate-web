@@ -1,5 +1,6 @@
-/* Account modal */
+'use strict';
 
+/* Account modal */
 angular
     .module("revaluate.account")
     .service("AccountModal", function ($rootScope, $timeout, AUTH_MODAL) {

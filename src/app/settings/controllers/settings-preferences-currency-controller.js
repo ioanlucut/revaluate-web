@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Preferences controller responsible for user update preferences action.
  */

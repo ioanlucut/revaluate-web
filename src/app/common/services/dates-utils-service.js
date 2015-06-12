@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Dates utils service.
  */

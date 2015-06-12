@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.expenses")
     .filter('expensesHeader', function ($sce) {
