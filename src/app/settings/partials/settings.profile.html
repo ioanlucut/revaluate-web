@@ -14,14 +14,14 @@
         <form name="vm.profileForm" ng-submit="vm.updateProfile()" novalidate focus-first-error>
 
             <!-- Form group -->
-            <div class="form-group-input" ng-class="{'has-error': vm.profileForm.$submitted && (loginForm.firstName.$invalid || badPostSubmitResponse)}">
+            <div class="form-group-input" ng-class="{'has-error': vm.profileForm.$submitted && (loginForm.firstName.$invalid || vm.badPostSubmitResponse)}">
                 <label>First Name</label>
                 <input class="form-group-input__input" type="text" placeholder="First name" name="firstName" ng-model="vm.profileData.firstName" required />
                 <span class="form-group-input__message" ng-if="vm.profileForm.firstName.$invalid && vm.profileForm.$submitted">Please tell us your First Name.</span>
             </div>
 
             <!-- Form group -->
-            <div class="form-group-input" ng-class="{'has-error': vm.profileForm.$submitted && (vm.profileForm.lastName.$invalid || badPostSubmitResponse)}">
+            <div class="form-group-input" ng-class="{'has-error': vm.profileForm.$submitted && (vm.profileForm.lastName.$invalid || vm.badPostSubmitResponse)}">
                 <label>Last Name</label>
                 <input class="form-group-input__input" type="text" placeholder="Last name" name="lastName" ng-model="vm.profileData.lastName" required />
                 <span class="form-group-input__message" ng-if="vm.profileForm.lastName.$invalid && vm.profileForm.$submitted">Please tell us your Last Name.</span>

@@ -5,15 +5,15 @@
         <h2 class="sign-up__setup__title">Awesome! Let's set some basics!</h2>
 
         <!-- Set up form -->
-        <form name="setUpForm" ng-submit="setUp()" novalidate>
+        <form name="vm.setUpForm" ng-submit="vm.setUp()" novalidate>
 
             <div class="sign-up__setup__section">
                 Please choose your currency:
-                <div class="currency-select" ng-class="{'has-error': setUpForm.$submitted && (setUpForm.currency.$invalid || badPostSubmitResponse)}">
+                <div class="currency-select" ng-class="{'has-error': vm.setUpForm.$submitted && (vm.setUpForm.currency.$invalid || vm.badPostSubmitResponse)}">
 
-                    <ui-select name="currency" class="currency-select__input" required ng-model="currency.selected" theme="selectize">
+                    <ui-select name="currency" class="currency-select__input" required ng-model="vm.currency.selected" theme="selectize">
                         <ui-select-match placeholder="Start typing your currency...">{{$select.selected.displayName}} - {{$select.selected.symbol}}</ui-select-match>
-                        <ui-select-choices repeat="currencyEntry in currencies | orderObjectBy : 'displayName' : false | filter:{$:$select.search} track by currencyEntry.numericCode">
+                        <ui-select-choices repeat="currencyEntry in vm.currencies | orderObjectBy : 'displayName' : false | filter:{$:$select.search} track by currencyEntry.numericCode">
                             <span ng-bind-html="currencyEntry.displayName | highlight: $select.search"></span>
                             <span>-</span>
                             <span ng-bind-html="currencyEntry.symbol | highlight: $select.search"></span>
@@ -21,7 +21,7 @@
                     </ui-select>
 
                     <!-- Error messages -->
-                    <div class="form-group-input__message form-group-input__message--currency" ng-class="{'has-error': setUpForm.category.$invalid && setUpForm.$submitted}" ng-messages="setUpForm.$error" ng-if="setUpForm.$submitted">
+                    <div class="form-group-input__message form-group-input__message--currency" ng-class="{'has-error': vm.setUpForm.category.$invalid && vm.setUpForm.$submitted}" ng-messages="vm.setUpForm.$error" ng-if="vm.setUpForm.$submitted">
                         <div ng-message="required">Please add a currency.</div>
                     </div>
                 </div>
@@ -32,8 +32,8 @@
             </div>
 
             <div class="sign-up__box__categories">
-                <div class="sign-up__box__categories__category" ng-repeat="category in categories track by category.name">
-                    <div class="category-name" ng-style="{'background':category.color.color}" ng-class="{ 'category-name--unselected': !category.selected }" ng-click="toggleCategorySelection($index)">
+                <div class="sign-up__box__categories__category" ng-repeat="category in vm.categories track by category.name">
+                    <div class="category-name" ng-style="{'background':category.color.color}" ng-class="{ 'category-name--unselected': !category.selected }" ng-click="vm.toggleCategorySelection($index)">
                         <span class="icon-checkmark-light"></span>
                         {{category.name}}
                     </div>
@@ -43,14 +43,14 @@
             <div class="sign-up__box__categories">
 
                 <!--Toggle form-->
-                <button ng-if="! showCategoryOnTheFlyInput" class="sign-up__box__categories__addbtn" ng-click="toggleContent()">+ Add another</button>
+                <button ng-if="! vm.showCategoryOnTheFlyInput" class="sign-up__box__categories__addbtn" ng-click="vm.toggleContent()">+ Add another</button>
 
                 <!--Add category on the fly form-->
                 <ng-form class="sign-up__box__categories__category__form"
                          name="categoryOnTheFlyForm"
                          submit-on="add-category-on-the-fly-event"
-                         ng-submit="onSubmitted($event)"
-                         ng-if="showCategoryOnTheFlyInput">
+                         ng-submit="vm.onSubmitted($event)"
+                         ng-if="vm.showCategoryOnTheFlyInput">
 
                     <div ng-class="{'has-error': categoryOnTheFlyForm.$submitted && categoryOnTheFlyForm.name.$invalid}">
 
@@ -63,9 +63,9 @@
                         <!--The on the fly input category-->
                         <input class="sign-up__box__categories__addinput" type="text" name="name"
                                maxlength="15"
-                               ng-model="$parent.categoryOnTheFly"
-                               ng-enter="triggerSubmit()"
-                               ng-blur="cancelAddCategoryOnTheFly()"
+                               ng-model="vm.categoryOnTheFly"
+                               ng-enter="vm.triggerSubmit()"
+                               ng-blur="vm.cancelAddCategoryOnTheFly()"
                                auto-focus required valid-category-name />
 
                     </div>
@@ -73,10 +73,10 @@
             </div>
 
             <!-- Flash messages. -->
-            <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+            <div flash-messages flash="flash" identifier-id="{{vm.alertIdentifierId}}"></div>
 
             <!-- Button -->
-            <button class="sign-up__setup__btn" ng-disabled="! isEnoughSelectedCategories()" type="submit">{{isSaving ? 'Saving..' : 'Done! Let\'s start!'}}</button>
+            <button class="sign-up__setup__btn" ng-disabled="! vm.isEnoughSelectedCategories()" type="submit">{{vm.isSaving ? 'Saving..' : 'Done! Let\'s start!'}}</button>
         </form>
 
     </div>
