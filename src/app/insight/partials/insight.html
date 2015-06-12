@@ -115,6 +115,12 @@
             <div class="insights__summary">
                 You had a total of <span>{{insight.model.numberOfTransactions}} transactions</span>, in
                 <span>{{insight.model.totalPerCategoryInsightDTOs.length}} categories</span>.
+
+                Your biggest expense was <span>{{insight.model.biggestExpense.value | currency:user.model.currency.symbol:user.model.currency.fractionSize}}</span>, from <span>{{insight.model.biggestExpense.category.name}}</span>.
+
+                The most expenses were made in <span>{{insight.model.categoryWithTheMostTransactionsInsightsDTO.categoryDTO.name}}</span>, with a total of <span>{{insight.model.categoryWithTheMostTransactionsInsightsDTO.numberOfTransactions}}</span> transactions.
+
+                The category with the highest amount is <span>{{insight.model.highestAmountCategory.name}}</span>.
             </div>
 
             <div class="insights__table">
