@@ -17,9 +17,8 @@ angular
             .state("home", {
                 url: "/",
                 templateUrl: "app/site/partials/home.html",
-                controller: "LandingPageController",
                 title: "Change the way you spend your money",
-                mixpanelId: MIXPANEL_EVENTS.landingPageLoaded,
+                mixpanelId: MIXPANEL_EVENTS.homePage,
                 isPublicPage: true
             })
             .state("pricing", {

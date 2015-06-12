@@ -1,6 +1,6 @@
 angular
     .module("revaluate.account")
-    .controller("HomeSignUpRegistrationController", function ($scope, $timeout, flash, ALERTS_CONSTANTS, StatesHandler, User, AuthService, MIXPANEL_EVENTS) {
+    .controller("SignUpController", function ($scope, $timeout, flash, ALERTS_CONSTANTS, StatesHandler, User, AuthService, MIXPANEL_EVENTS) {
 
         /**
          * Alert identifier
@@ -32,9 +32,6 @@ angular
                 User.$new()
                     .create(signUpData)
                     .then(function () {
-                        /**
-                         * Track event.
-                         */
                         mixpanel.track(MIXPANEL_EVENTS.signUpCompleted);
 
                         AuthService

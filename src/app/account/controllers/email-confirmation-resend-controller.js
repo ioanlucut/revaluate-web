@@ -1,6 +1,6 @@
 angular
     .module("revaluate.account")
-    .controller("EmailConfirmationSendController", function ($scope, $rootScope, $timeout, flash, AuthService, StatesHandler, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {
+    .controller("EmailConfirmationResendController", function ($scope, $rootScope, $timeout, flash, AuthService, StatesHandler, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {
 
         var TIMEOUT_PENDING = 300;
 
