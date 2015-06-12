@@ -1,30 +1,34 @@
 angular
     .module("revaluate.settings")
-    .controller("SettingsCancelAccountController", function ($q, $scope, $rootScope, $timeout, StatesHandler, AuthService, flash, ALERTS_CONSTANTS) {
+    .controller("SettingsCancelAccountController", function ($q, $rootScope, $timeout, StatesHandler, AuthService, flash, ALERTS_CONSTANTS) {
+
+        /* jshint validthis: true */
+        var vm = this;
 
         var TIMEOUT_PENDING = 1000;
 
         /**
          * Alert identifier
          */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.cancelAccount;
+        vm.alertIdentifierId = ALERTS_CONSTANTS.cancelAccount;
 
         /**
          * Cancel account functionality.
          */
-        $scope.cancelAccount = function () {
+        vm.cancelAccount = function () {
 
-            if ( !$scope.isDeleting ) {
+            if ( !vm.isDeleting ) {
 
-                $scope.isDeleting = true;
+                vm.isDeleting = true;
 
                 AuthService
                     .cancelAccount()
                     .then(function () {
 
+                        flash.to(vm.alertIdentifierId).success = 'We\'ve successfully deleted your account!';
+                        vm.isDeleting = false;
+
                         $timeout(function () {
-                            $scope.isDeleting = false;
-                            flash.to($scope.alertIdentifierId).success = 'We\'ve successfully deleted your account!';
 
                             // ---
                             // We need to set the data and refresh the user.
@@ -38,10 +42,10 @@ angular
                     })
                     .catch(function () {
                         /* If bad feedback from server */
-                        $scope.badPostSubmitResponse = true;
-                        $scope.isDeleting = false;
+                        vm.badPostSubmitResponse = true;
+                        vm.isDeleting = false;
 
-                        flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to remove your account.';
+                        flash.to(vm.alertIdentifierId).error = 'We\'ve encountered an error while trying to remove your account.';
                     });
             }
         };

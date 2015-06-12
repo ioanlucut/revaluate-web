@@ -165,7 +165,8 @@ angular
                     },
                     'cancelAccount@settings.admin': {
                         templateUrl: "app/settings/partials/settings.admin.cancelAccount.html",
-                        controller: "SettingsCancelAccountController"
+                        controller: "SettingsCancelAccountController",
+                        controllerAs: 'vm'
                     }
                 },
                 mixpanelId: MIXPANEL_EVENTS.settingsAccount,
