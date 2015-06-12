@@ -37,10 +37,6 @@ angular
                 expense
                     .save()
                     .then(function () {
-
-                        /**
-                         * Track event.
-                         */
                         mixpanel.track(MIXPANEL_EVENTS.expenseUpdated);
 
                         $timeout(function () {
