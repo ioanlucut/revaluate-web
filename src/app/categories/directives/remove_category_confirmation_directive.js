@@ -1,17 +1,18 @@
 /* Auto focus */
 
 angular
-    .module("revaluate.common")
-    .directive("inlineConfirmation", function ($timeout) {
+    .module("revaluate.categories")
+    .directive("removeCategoryConfirmation", function ($timeout) {
         return {
             restrict: "A",
             transclude: true,
             scope: {
-                toggle: "=",
+                category: "=",
+                autoToggleWhen: "=",
                 confirm: "&",
                 cancel: "&"
             },
-            templateUrl: "app/common/partials/inline.confirmation.html",
+            templateUrl: "app/categories/partials/remove_category_confirmation_template.html",
             link: function (scope, el, attrs) {
 
                 /**
@@ -47,7 +48,7 @@ angular
                 /**
                  * Auto toggle
                  */
-                scope.$watch('toggle', function (val, valOld) {
+                scope.$watch('autoToggleWhen', function (val, valOld) {
                     if ( val === true && valOld === false ) {
                         $timeout(function () {
                             scope.toggleContent();
