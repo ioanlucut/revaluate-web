@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Profile form toggle responsible to keep the state of the current displayed update profile form.
  */

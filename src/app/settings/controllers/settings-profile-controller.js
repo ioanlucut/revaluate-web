@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Profile controller responsible for user update profile action.
  */

@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.categories")
     .controller("CategoryEditRemoveController", function ($scope, $rootScope, Category, $timeout, CATEGORY_EVENTS, MIXPANEL_EVENTS) {

@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Main account module declaration including ui templates.
  */

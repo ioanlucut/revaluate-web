@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Header directive responsible for header common template.
  */

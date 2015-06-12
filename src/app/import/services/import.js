@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.expensesImport")
     .factory("ExpensesImport", function ($q, $http, ImportService, ImportTransformerService) {

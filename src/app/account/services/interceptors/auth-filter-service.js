@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Authentication service filter used to redirect user to the home page if it is already logged in.
  */

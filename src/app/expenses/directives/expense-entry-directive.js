@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.expenses")
     .directive("expenseEntry", function ($rootScope, $timeout, EXPENSE_EVENTS, CategoryTransformerService) {

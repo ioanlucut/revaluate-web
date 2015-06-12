@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.settings")
     .controller("SettingsPaymentCustomerController", function ($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, paymentInsights, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {

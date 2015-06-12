@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.insights")
     .factory("Insight", function ($q, $http, InsightService, InsightTransformerService) {

@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Authentication service interceptor used to listen to server responses.
  */

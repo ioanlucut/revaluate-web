@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * ExpensesImport transformer service which transforms a expensesImport DTO model object to a expensesImport business object.
  */

@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Update password controller.
  */

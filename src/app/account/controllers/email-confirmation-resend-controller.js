@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.account")
     .controller("EmailConfirmationResendController", function ($scope, $rootScope, $timeout, flash, AuthService, StatesHandler, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {

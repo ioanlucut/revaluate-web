@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Directive responsible for checking of an email is valid.
  */

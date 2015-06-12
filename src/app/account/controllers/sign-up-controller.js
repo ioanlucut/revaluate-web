@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.account")
     .controller("SignUpController", function ($scope, $timeout, flash, ALERTS_CONSTANTS, StatesHandler, User, AuthService, MIXPANEL_EVENTS) {

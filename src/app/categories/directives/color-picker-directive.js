@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.categories")
     .directive("colorPicker", function (CATEGORY_EVENTS, CategoryColorService, $timeout, $animate) {

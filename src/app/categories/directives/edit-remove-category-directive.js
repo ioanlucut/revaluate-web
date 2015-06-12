@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.categories")
     .directive("editRemoveCategory", function ($rootScope, CATEGORY_EVENTS) {

@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Login controller responsible for user login actions.
  */

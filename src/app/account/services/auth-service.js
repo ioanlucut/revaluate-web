@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Authentication service which encapsulates the whole logic account related of a user.
  */

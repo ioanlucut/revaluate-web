@@ -1,3 +1,5 @@
+'use strict';
+
 /* Scroll to an element on the page */
 
 angular

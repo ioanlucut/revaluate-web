@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Directive responsible for checking of a category name is valid.
  */

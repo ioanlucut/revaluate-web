@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.expenses")
     .controller("ExpenseEntryController", function ($scope, $rootScope, Expense, $timeout, EXPENSE_EVENTS, MIXPANEL_EVENTS) {

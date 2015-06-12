@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Logout controller responsible for user logout actions.
  */
