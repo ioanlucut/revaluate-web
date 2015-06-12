@@ -132,6 +132,7 @@ angular
                 url: "/insights",
                 templateUrl: "app/settings/partials/settings.payment.insights.html",
                 controller: "SettingsPaymentInsightsController",
+                controllerAs: 'vm',
                 isPaymentRelatedPage: true,
                 resolve: {
                     paymentInsights: function ($http, $state, AUTH_URLS) {

@@ -1,42 +1,45 @@
 angular
     .module("revaluate.settings")
-    .controller("SettingsPaymentInsightsController", function ($q, $state, $scope, $rootScope, $timeout, $http, paymentInsights, flash, AUTH_URLS, ALERTS_CONSTANTS, MIXPANEL_EVENTS, AUTH_EVENTS, USER_SUBSCRIPTION_STATUS) {
+    .controller("SettingsPaymentInsightsController", function ($q, $state, $rootScope, $timeout, $http, paymentInsights, flash, AUTH_URLS, ALERTS_CONSTANTS, MIXPANEL_EVENTS, AUTH_EVENTS, USER_SUBSCRIPTION_STATUS) {
+
+        /* jshint validthis: true */
+        var vm = this;
 
         var TIMEOUT_PENDING = 300;
 
         /**
          * Alert identifier
          */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.paymentProfile;
+        vm.alertIdentifierId = ALERTS_CONSTANTS.paymentProfile;
 
         /**
          * Current user.
          */
-        $scope.user = $rootScope.currentUser;
+        vm.user = $rootScope.currentUser;
 
         // ---
         // Payment insights got from server.
         // ---
-        $scope.paymentInsights = paymentInsights;
+        vm.paymentInsights = paymentInsights;
 
         // ---
         // On submit, perform payment subscription.
         // ---
-        $scope.performPaymentSubscription = function () {
-            if ( !$scope.isRequestPending ) {
+        vm.performPaymentSubscription = function () {
+            if ( !vm.isRequestPending ) {
 
                 // Show the loading bar
-                $scope.isRequestPending = true;
+                vm.isRequestPending = true;
 
                 return $http
                     .post(URLTo.api(AUTH_URLS.subscribeToStandardPlan), {})
                     .then(function (response) {
-                        $scope.paymentInsights = response.data;
+                        vm.paymentInsights = response.data;
 
                         // ---
                         // Update user with subscription status ACTIVE.
                         // ---
-                        $scope
+                        vm
                             .user
                             .setSubscriptionStatusAsAndReload(USER_SUBSCRIPTION_STATUS.ACTIVE);
                         $rootScope
@@ -48,24 +51,24 @@ angular
                         flash.to(ALERTS_CONSTANTS.generalError).error = '';
 
                         $timeout(function () {
-                            $scope.isRequestPending = false;
-                            flash.to($scope.alertIdentifierId).success = 'You\'ve successfully subscribed to Revaluate!';
+                            vm.isRequestPending = false;
+                            flash.to(vm.alertIdentifierId).success = 'You\'ve successfully subscribed to Revaluate!';
                         }, TIMEOUT_PENDING);
                     })
                     .catch(function (response) {
                         /* If bad feedback from server */
-                        $scope.badPostSubmitResponse = true;
-                        $scope.isRequestPending = false;
+                        vm.badPostSubmitResponse = true;
+                        vm.isRequestPending = false;
 
                         // ---
                         // Show errors.
                         // ---
                         var errors = response.data;
                         if ( _.isArray(errors) ) {
-                            flash.to($scope.alertIdentifierId).error = errors.join("\n");
+                            flash.to(vm.alertIdentifierId).error = errors.join("\n");
                         }
                         else {
-                            flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to subscribe you to Revaluate.';
+                            flash.to(vm.alertIdentifierId).error = 'We\'ve encountered an error while trying to subscribe you to Revaluate.';
                         }
                     });
 
@@ -76,11 +79,11 @@ angular
         // ---
         // Remove payment method.
         // ---
-        $scope.performRemovePayment = function () {
-            if ( !$scope.isRequestPending ) {
+        vm.performRemovePayment = function () {
+            if ( !vm.isRequestPending ) {
 
                 // Show the loading bar
-                $scope.isRequestPending = true;
+                vm.isRequestPending = true;
 
                 return $http
                     .delete(URLTo.api(AUTH_URLS.removePaymentMethod), {})
@@ -89,16 +92,16 @@ angular
                         // ---
                         // Update user with subscription status.
                         // ---
-                        $scope
+                        vm
                             .user
                             .resetSubscriptionStatusAfterRemovePaymentIsPerformed();
                         $rootScope
                             .$broadcast(AUTH_EVENTS.refreshUser, {});
 
-                        flash.to($scope.alertIdentifierId).success = 'You\'ve successfully removed payment method!';
+                        flash.to(vm.alertIdentifierId).success = 'You\'ve successfully removed payment method!';
 
                         $timeout(function () {
-                            $scope.isRequestPending = false;
+                            vm.isRequestPending = false;
 
                             // ---
                             // If successful, go to expenses.
@@ -108,18 +111,18 @@ angular
                     })
                     .catch(function (response) {
                         /* If bad feedback from server */
-                        $scope.badPostSubmitResponse = true;
-                        $scope.isRequestPending = false;
+                        vm.badPostSubmitResponse = true;
+                        vm.isRequestPending = false;
 
                         // ---
                         // Show errors.
                         // ---
                         var errors = response.data;
                         if ( _.isArray(errors) ) {
-                            flash.to($scope.alertIdentifierId).error = errors.join("\n");
+                            flash.to(vm.alertIdentifierId).error = errors.join("\n");
                         }
                         else {
-                            flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to remove payment method';
+                            flash.to(vm.alertIdentifierId).error = 'We\'ve encountered an error while trying to remove payment method';
                         }
                     });
 
