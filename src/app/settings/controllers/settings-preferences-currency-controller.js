@@ -92,10 +92,10 @@ angular
                         $scope.profileData = angular.copy(getInitialProfileData());
 
                         $scope.preferencesForm.$setPristine();
-                        flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your preferences!';
 
                         $timeout(function () {
                             $scope.isSaving = false;
+                            flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your preferences!';
                         }, TIMEOUT_PENDING);
 
                     })

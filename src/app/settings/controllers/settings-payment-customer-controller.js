@@ -62,10 +62,10 @@ angular
                         $scope.paymentDetailsData = angular.copy(getInitialPaymentDetailsData());
 
                         $scope.updateCustomerForm.$setPristine();
-                        flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your customer information!';
 
                         $timeout(function () {
                             $scope.isRequestPending = false;
+                            flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your customer information!';
                         }, TIMEOUT_PENDING);
                     })
                     .catch(function (response) {

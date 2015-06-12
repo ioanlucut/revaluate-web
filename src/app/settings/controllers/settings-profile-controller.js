@@ -74,10 +74,10 @@ angular
                         vm.profileData = angular.copy(getInitialProfileData());
 
                         vm.profileForm.$setPristine();
-                        flash.to(vm.alertIdentifierId).success = 'We\'ve successfully updated your account!';
 
                         $timeout(function () {
                             vm.isRequestPending = false;
+                            flash.to(vm.alertIdentifierId).success = 'We\'ve successfully updated your account!';
                         }, TIMEOUT_PENDING);
                     })
                     .catch(function () {

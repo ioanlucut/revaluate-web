@@ -105,10 +105,10 @@ angular
                                     $scope.paymentData = angular.copy(getInitialPaymentData());
 
                                     $scope.updatePaymentMethodForm.$setPristine();
-                                    flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your payment method!';
 
                                     $timeout(function () {
                                         $scope.isRequestPending = false;
+                                        flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your payment method!';
                                     }, TIMEOUT_PENDING);
                                 })
                                 .catch(function (response) {

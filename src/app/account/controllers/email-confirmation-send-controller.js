@@ -27,10 +27,9 @@ angular
                 AuthService
                     .requestConfirmationEmail(sendConfirmationEmailData.email)
                     .then(function () {
-                        flash.to($scope.alertIdentifierId).success = 'We\'ve successfully sent the confirmation email!';
-
                         $timeout(function () {
                             $scope.isRequestPending = false;
+                            flash.to($scope.alertIdentifierId).success = 'We\'ve successfully sent the confirmation email!';
                         }, TIMEOUT_PENDING);
                     })
                     .catch(function () {

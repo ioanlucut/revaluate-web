@@ -51,10 +51,10 @@ angular
                         // Clean previously errors.
                         // ---
                         flash.to(ALERTS_CONSTANTS.generalError).error = '';
-                        flash.to($scope.alertIdentifierId).success = 'You\'ve successfully subscribed to Revaluate!';
 
                         $timeout(function () {
                             $scope.isRequestPending = false;
+                            flash.to($scope.alertIdentifierId).success = 'You\'ve successfully subscribed to Revaluate!';
                         }, TIMEOUT_PENDING);
                     })
                     .catch(function (response) {

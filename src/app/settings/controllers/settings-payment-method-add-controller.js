@@ -128,10 +128,10 @@ angular
                                     $scope.paymentData = angular.copy(getInitialPaymentData());
 
                                     $scope.addPaymentMethodForm.$setPristine();
-                                    flash.to($scope.alertIdentifierId).success = 'We\'ve successfully saved your payment method!';
 
                                     $timeout(function () {
                                         $scope.isRequestPending = false;
+                                        flash.to($scope.alertIdentifierId).success = 'We\'ve successfully saved your payment method!';
 
                                         // ---
                                         // If successful, go to insights.

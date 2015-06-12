@@ -21,10 +21,10 @@ angular
                 AuthService
                     .cancelAccount()
                     .then(function () {
-                        flash.to($scope.alertIdentifierId).success = 'We\'ve successfully deleted your account!';
 
                         $timeout(function () {
                             $scope.isDeleting = false;
+                            flash.to($scope.alertIdentifierId).success = 'We\'ve successfully deleted your account!';
 
                             // ---
                             // We need to set the data and refresh the user.
