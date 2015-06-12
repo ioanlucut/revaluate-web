@@ -152,28 +152,6 @@ angular
                 mixpanelId: MIXPANEL_EVENTS.accountConfirmationEmailInvalid,
                 isPublicPage: true
             })
-
-            // ---
-            // Account - second step of registration (set up).
-            // ---
-            .state("setup", {
-                url: "/setup",
-                templateUrl: 'app/account/partials/signup_setup.html',
-                controller: "SetUpRegistrationController",
-                resolve: {
-                    currencies: function (CurrencyService) {
-                        return CurrencyService.getAllCurrencies();
-                    },
-                    colors: function (ColorService) {
-                        return ColorService.getAllColors();
-                    },
-                    predefinedCategories: function (CategoriesSetupProvider) {
-                        return CategoriesSetupProvider.getPredefinedCategories();
-                    }
-                },
-                title: "Setup - revaluate",
-                mixpanelId: MIXPANEL_EVENTS.accountSetup
-            });
     })
 
     .run(function ($rootScope, AuthFilter) {
