@@ -1,9 +1,9 @@
 angular
     .module("revaluate.categories", [
-        "revaluate.color",
-        "revaluate.common"
+        "revaluate.common",
+        "revaluate.color"
     ])
-    .config(["$stateProvider", function ($stateProvider) {
+    .config(function ($stateProvider, MIXPANEL_EVENTS) {
 
         $stateProvider
 
@@ -23,7 +23,8 @@ angular
                         return ColorService.getAllColors();
                     }
                 },
-                title: "Categories - Revaluate"
+                title: "Categories - Revaluate",
+                mixpanelId: MIXPANEL_EVENTS.categoriesPage
             });
 
-    }]);
+    });

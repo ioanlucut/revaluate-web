@@ -41,7 +41,7 @@ angular
                         /**
                          * Track event.
                          */
-                        mixpanel.track(MIXPANEL_EVENTS.expenseCreated);
+                        mixpanel.track(MIXPANEL_EVENTS.expenseUpdated);
 
                         $timeout(function () {
                             $scope.isUpdating = false;

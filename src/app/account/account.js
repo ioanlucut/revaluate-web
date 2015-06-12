@@ -7,7 +7,7 @@ angular
         "revaluate.currencies",
         "revaluate.categories"
     ])
-    .config(function ($stateProvider, $httpProvider) {
+    .config(function ($stateProvider, $httpProvider, MIXPANEL_EVENTS) {
 
         // Register AuthInterceptor
         $httpProvider.interceptors.push("AuthInterceptor");
@@ -21,6 +21,7 @@ angular
                 controller: "LoginController",
                 templateUrl: "app/site/partials/home.html",
                 title: "Login - Revaluate",
+                mixpanelId: MIXPANEL_EVENTS.account,
                 isPublicPage: true
             })
 
@@ -37,6 +38,7 @@ angular
                     }
                 },
                 title: "Logout - Revaluate",
+                mixpanelId: MIXPANEL_EVENTS.accountLogout,
                 isPublicPage: true
             })
 
@@ -77,6 +79,7 @@ angular
                     }
                 },
                 title: "Reset password - Revaluate",
+                mixpanelId: MIXPANEL_EVENTS.accountValidatePasswordResetTokenValid,
                 isPublicPage: true
             })
             // Validate password reset token - invalid token
@@ -86,6 +89,7 @@ angular
                 templateUrl: "app/account/partials/validate_password_reset_token_invalid.html",
                 controller: "ValidatePasswordResetTokenInvalidController",
                 title: "Reset password - Revaluate",
+                mixpanelId: MIXPANEL_EVENTS.accountValidatePasswordResetTokenInvalid,
                 isPublicPage: true
             })
 
@@ -136,6 +140,7 @@ angular
                     }
                 },
                 title: "Confirm email - Revaluate",
+                mixpanelId: MIXPANEL_EVENTS.accountConfirmationEmailValid,
                 isPublicPage: true
             })
             // Validate password reset token - invalid token
@@ -144,6 +149,7 @@ angular
                 url: "/invalid-token",
                 templateUrl: "app/account/partials/email_confirmation_send_invalid.html",
                 title: "Invalid confirmation email token - Revaluate",
+                mixpanelId: MIXPANEL_EVENTS.accountConfirmationEmailInvalid,
                 isPublicPage: true
             })
 
@@ -154,7 +160,6 @@ angular
                 url: "/setup",
                 templateUrl: 'app/account/partials/signup_setup.html',
                 controller: "SignUpSetUpRegistrationController",
-                title: "Setup - Revaluate",
                 resolve: {
                     currencies: function (CurrencyService) {
                         return CurrencyService.getAllCurrencies();
@@ -165,7 +170,9 @@ angular
                     predefinedCategories: function (CategoriesSetupProvider) {
                         return CategoriesSetupProvider.getPredefinedCategories();
                     }
-                }
+                },
+                title: "Setup - revaluate",
+                mixpanelId: MIXPANEL_EVENTS.accountSetup
             });
     })
 

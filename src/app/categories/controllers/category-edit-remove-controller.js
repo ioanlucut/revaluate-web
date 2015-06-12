@@ -23,7 +23,7 @@ angular
                         /**
                          * Track event.
                          */
-                        mixpanel.track(MIXPANEL_EVENTS.categoryCreated);
+                        mixpanel.track(MIXPANEL_EVENTS.categoryUpdated);
 
                         $timeout(function () {
                             $scope.isUpdating = false;

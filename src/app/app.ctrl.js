@@ -73,6 +73,15 @@ angular
             $rootScope.$broadcast(ACTIVITY_INTERCEPTOR.activityStart);
         });
 
+        /**
+         * Track mixpanel activity
+         */
+        $rootScope.$on('$stateChangeSuccess', function (event, toState) {
+            if ( toState.mixpanelId ) {
+                mixpanel.track(toState.mixpanelId);
+            }
+        });
+
         $rootScope.$on('$viewContentLoaded', function () {
             // ---
             // Close login modal if everything is loaded.

@@ -11,11 +11,6 @@ angular
         var TIMEOUT_PENDING = 300;
 
         /**
-         * Track event.
-         */
-        mixpanel.track(MIXPANEL_EVENTS.settingsProfile);
-
-        /**
          * Alert identifier
          */
         vm.alertIdentifierId = ALERTS_CONSTANTS.updateProfile;

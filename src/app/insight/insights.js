@@ -3,7 +3,7 @@ angular
         "revaluate.common",
         "revaluate.expenses"
     ])
-    .config(["$stateProvider", function ($stateProvider) {
+    .config(function ($stateProvider, MIXPANEL_EVENTS) {
 
         $stateProvider
             .state("insights", {
@@ -23,7 +23,8 @@ angular
                             .fetchStatistics();
                     }
                 },
-                title: "Insights - Revaluate"
+                title: "Insights - Revaluate",
+                mixpanelId: MIXPANEL_EVENTS.insightsPage
             })
 
-    }]);
+    });
