@@ -18,11 +18,6 @@ angular
         $scope.alertIdentifierId = ALERTS_CONSTANTS.expenseList;
 
         /**
-         * Track event.
-         */
-        mixpanel.track(MIXPANEL_EVENTS.expensesPage);
-
-        /**
          * Search by text
          * @type {string}
          */

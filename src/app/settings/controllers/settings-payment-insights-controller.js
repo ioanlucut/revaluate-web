@@ -10,11 +10,6 @@ angular
         $scope.alertIdentifierId = ALERTS_CONSTANTS.paymentProfile;
 
         /**
-         * Track event.
-         */
-        mixpanel.track(MIXPANEL_EVENTS.settingsPayment);
-
-        /**
          * Current user.
          */
         $scope.user = $rootScope.currentUser;

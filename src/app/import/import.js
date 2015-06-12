@@ -3,7 +3,7 @@ angular
         "revaluate.color",
         "revaluate.common"
     ])
-    .config(["$stateProvider", function ($stateProvider) {
+    .config(function ($stateProvider, MIXPANEL_EVENTS) {
 
         $stateProvider
 
@@ -18,6 +18,7 @@ angular
                 name: "settings.import.choose",
                 url: "/choose",
                 templateUrl: "app/import/partials/settings.import.choose.html",
+                mixpanelId: MIXPANEL_EVENTS.settingsImportChoose,
                 title: "Expenses import choose - Revaluate"
             })
 
@@ -43,7 +44,8 @@ angular
                         return deferred.promise;
                     }
                 },
+                mixpanelId: MIXPANEL_EVENTS.settingsImport,
                 title: "Expenses import - Revaluate"
             })
 
-    }]);
+    });

@@ -5,7 +5,7 @@ angular
     .module("revaluate.settings", [
         "revaluate.account"
     ])
-    .config(function ($stateProvider) {
+    .config(function ($stateProvider, MIXPANEL_EVENTS) {
 
         $stateProvider
 
@@ -28,7 +28,8 @@ angular
                 templateUrl: "app/settings/partials/settings.profile.html",
                 controller: "SettingsProfileController",
                 controllerAs: 'vm',
-                title: "Profile - Revaluate"
+                title: "Profile - Revaluate",
+                mixpanelId: MIXPANEL_EVENTS.settingsProfile
             })
 
             // ---
@@ -69,7 +70,8 @@ angular
                     }
 
                 },
-                title: "Payment method - Revaluate"
+                title: "Payment method - Revaluate",
+                mixpanelId: MIXPANEL_EVENTS.settingsPaymentAdd
             })
 
             .state({
@@ -98,6 +100,7 @@ angular
                             });
                     }
                 },
+                mixpanelId: MIXPANEL_EVENTS.settingsPaymentMethodEdit,
                 title: "Payment edit payment method - Revaluate"
             })
 
@@ -120,6 +123,7 @@ angular
                             });
                     }
                 },
+                mixpanelId: MIXPANEL_EVENTS.settingsPaymentMethodEditCustomer,
                 title: "Payment edit customer - Revaluate"
             })
 
@@ -141,6 +145,7 @@ angular
                             });
                     }
                 },
+                mixpanelId: MIXPANEL_EVENTS.settingsPaymentInsights,
                 title: "Payment insights - Revaluate"
             })
 
@@ -162,6 +167,7 @@ angular
                         controller: "SettingsCancelAccountController"
                     }
                 },
+                mixpanelId: MIXPANEL_EVENTS.settingsAccount,
                 title: "Admin - Revaluate"
             })
 
@@ -185,6 +191,7 @@ angular
 
                     }
                 },
+                mixpanelId: MIXPANEL_EVENTS.settingsPreferences,
                 title: "Preferences - Revaluate"
             })
     });

@@ -22,11 +22,6 @@ angular
         $scope.alertIdentifierId = ALERTS_CONSTANTS.insights;
 
         /**
-         * Track event.
-         */
-        mixpanel.track(MIXPANEL_EVENTS.insightsPage);
-
-        /**
          * Default insights loaded.
          */
         $scope.insight = insight;

@@ -10,11 +10,6 @@ angular
         $scope.alertIdentifierId = ALERTS_CONSTANTS.createUpdateCategory;
 
         /**
-         * Track event.
-         */
-        mixpanel.track(MIXPANEL_EVENTS.categoriesPage);
-
-        /**
          * The current user
          * @type {$rootScope.currentUser|*}
          */

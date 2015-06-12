@@ -22,11 +22,6 @@ angular
         $scope.alertIdentifierId = ALERTS_CONSTANTS.preferences;
 
         /**
-         * Track event.
-         */
-        mixpanel.track(MIXPANEL_EVENTS.settingsPreferences);
-
-        /**
          * Current user.
          * @type {$rootScope.currentUser|*}
          */

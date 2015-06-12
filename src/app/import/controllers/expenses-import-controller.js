@@ -40,11 +40,6 @@ angular
         $scope.alertIdentifierId = ALERTS_CONSTANTS.import;
 
         /**
-         * Track event.
-         */
-        mixpanel.track(MIXPANEL_EVENTS.settingsImport);
-
-        /**
          * Current user.
          * @type {$rootScope.currentUser|*}
          */
