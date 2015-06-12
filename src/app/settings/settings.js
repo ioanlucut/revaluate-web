@@ -48,6 +48,7 @@ angular
                 url: "/add",
                 templateUrl: "app/settings/partials/settings.payment.add.html",
                 controller: "SettingsPaymentMethodAddController",
+                controllerAs: 'vm',
                 isPaymentRelatedPage: true,
                 resolve: {
                     clientToken: function ($http, AUTH_URLS) {
