@@ -120,7 +120,7 @@ module.exports = function (grunt) {
                     ENV: {
                         name: 'development',
                         apiEndpoint: 'http://revaluate-api-dev.herokuapp.com',
-                        mixPanelId: 'e9ba9ca056ce11433777e3c8f59014b4'
+                        mixPanelId: '216177bcdddef0cf2edd1650e63a3449'
                     }
                 }
             },
@@ -133,7 +133,7 @@ module.exports = function (grunt) {
                     ENV: {
                         name: 'localhost',
                         apiEndpoint: 'http://localhost:8080',
-                        mixPanelId: 'e9ba9ca056ce11433777e3c8f59014b4'
+                        mixPanelId: '216177bcdddef0cf2edd1650e63a3449'
                     }
                 }
             },
@@ -144,8 +144,8 @@ module.exports = function (grunt) {
                 constants: {
                     ENV: {
                         name: 'production',
-                        apiEndpoint: 'http://api.Revaluate',
-                        mixPanelId: '56fe410177092150db2338e36196a1ff'
+                        apiEndpoint: 'http://api.revaluate',
+                        mixPanelId: '1e6d81ba283c1393b2dee527e165013f'
                     }
                 }
             }
