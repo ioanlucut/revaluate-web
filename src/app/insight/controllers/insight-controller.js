@@ -3,7 +3,7 @@
  */
 angular
     .module("revaluate.insights")
-    .controller("InsightController", function ($scope, $rootScope, $filter, $timeout, flash, insight, statistics, InsightService, MIXPANEL_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
+    .controller("InsightController", function ($templateCache, $scope, $rootScope, $filter, $timeout, flash, insight, statistics, InsightService, MIXPANEL_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
 
         /**
          * Updating/deleting timeout
@@ -46,7 +46,7 @@ angular
         // ---
         // Chart config options.
         // ---
-        $scope.chartOptions = {
+        $scope.defaultChartOptions = {
             scaleLabel: function (label) {
 
                 return formatValue(label);
@@ -60,6 +60,9 @@ angular
                 return label.label + ' ' + formatValue(label);
             }
         };
+
+        $scope.donutChartOptions = angular.extend({}, $scope.defaultChartOptions);
+        $scope.donutChartOptions.legendTemplate = $templateCache.get("app/insight/partials/chart.doughnut.legend.template.html");
 
         function formatValue(label) {
             return $filter('currency')(label.value.toString(), $scope.user.model.currency.symbol);

@@ -97,7 +97,7 @@
                         data="insightLineData"
                         series="insightLineSeries"
                         legend="false"
-                        options="chartOptions"
+                        options="defaultChartOptions"
                         labels="insight.model.insightLabels">
                 </canvas>
             </div>
@@ -107,7 +107,7 @@
                         data="insight.model.insightData"
                         labels="insight.model.insightLabels"
                         legend="true"
-                        options="chartOptions"
+                        options="donutChartOptions"
                         colours="insight.model.insightColors">
                 </canvas>
             </div>
@@ -126,7 +126,7 @@
             <div class="insights__table">
                 <table>
                     <thead class="insights__table__header">
-                    <tr class="">
+                    <tr>
                         <td>TOTAL</td>
                         <td class="insights__table__amount">{{insight.model.totalAmountSpent | currency:user.model.currency.symbol:user.model.currency.fractionSize}}</td>
                     </tr>
