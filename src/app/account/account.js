@@ -101,14 +101,14 @@ angular
             .state({
                 name: "account:confirmationEmail",
                 url: "/account/confirm-email",
-                templateUrl: "app/account/partials/email_confirmation_send_abstract.html",
+                templateUrl: "app/account/partials/email_confirmation_resend_abstract.html",
                 abstract: true
             })
             // Validate confirmation email token - valid
             .state({
                 name: "account:confirmationEmail.valid",
                 url: "/{email}/{token}",
-                templateUrl: "app/account/partials/email_confirmation_send_valid.html",
+                templateUrl: "app/account/partials/email_confirmation_resend_valid.html",
                 resolve: {
                     validateTokenResult: function (AuthService, $rootScope, $stateParams, $q, $state, AUTH_EVENTS) {
                         var deferred = $q.defer();
@@ -147,7 +147,7 @@ angular
             .state({
                 name: "account:confirmationEmail.invalid",
                 url: "/invalid-token",
-                templateUrl: "app/account/partials/email_confirmation_send_invalid.html",
+                templateUrl: "app/account/partials/email_confirmation_resend_invalid.html",
                 title: "Invalid confirmation email token - Revaluate",
                 mixpanelId: MIXPANEL_EVENTS.accountConfirmationEmailInvalid,
                 isPublicPage: true
@@ -159,7 +159,7 @@ angular
             .state("setup", {
                 url: "/setup",
                 templateUrl: 'app/account/partials/signup_setup.html',
-                controller: "SignUpSetUpRegistrationController",
+                controller: "SetUpRegistrationController",
                 resolve: {
                     currencies: function (CurrencyService) {
                         return CurrencyService.getAllCurrencies();

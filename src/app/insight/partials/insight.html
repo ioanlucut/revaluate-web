@@ -8,8 +8,8 @@
     </div>
 
     <!--Account confirmation alert-->
-    <div ng-if="! currentUser.model.emailConfirmed" ng-controller="EmailConfirmationSendController">
-        <div ng-include src="'app/account/partials/email_confirmation_send_send.html'"></div>
+    <div ng-if="! currentUser.model.emailConfirmed">
+        <div ng-include src="'app/account/partials/email_confirmation_resend_template.html'"></div>
     </div>
 
     <!-- Flash messages. -->

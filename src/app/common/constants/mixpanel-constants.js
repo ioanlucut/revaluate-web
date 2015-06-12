@@ -4,7 +4,7 @@
 angular
     .module("revaluate.common")
     .constant("MIXPANEL_EVENTS", {
-        landingPageLoaded: "Landing page loaded",
+        homePage: "Landing page loaded",
         pricingPage: "Landing page loaded",
         privacyPage: "Landing page loaded",
 
@@ -43,6 +43,8 @@ angular
         accountConfirmationEmailValid: "Settings import",
         accountConfirmationEmailInvalid: "Settings import",
         accountSetup: "Settings import",
+
+        accountSetupFinished: "Settings import",
 
         error404: "error-404",
         error500: "error-500"

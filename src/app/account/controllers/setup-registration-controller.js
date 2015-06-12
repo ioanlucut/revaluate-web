@@ -1,6 +1,6 @@
 angular
     .module("revaluate.account")
-    .controller("SignUpSetUpRegistrationController", function ($q, $rootScope, $scope, $timeout, flash, AuthService, CategoryService, AUTH_EVENTS, ALERTS_CONSTANTS, predefinedCategories, colors, CategoryColorService, SessionService, StatesHandler, Category, currencies) {
+    .controller("SetUpRegistrationController", function ($q, $rootScope, $scope, $timeout, flash, AuthService, CategoryService, AUTH_EVENTS, ALERTS_CONSTANTS, MIXPANEL_EVENTS, predefinedCategories, colors, CategoryColorService, SessionService, StatesHandler, Category, currencies) {
 
         /**
          * All given currencies.
@@ -217,6 +217,8 @@ angular
                         // ---
                         SessionService.setData(response.data);
                         $rootScope.$broadcast(AUTH_EVENTS.refreshUser, response);
+
+                        mixpanel.track(MIXPANEL_EVENTS.accountSetupFinished);
 
                         // ---
                         // Show some feedback.
