@@ -194,4 +194,26 @@ angular
                 mixpanelId: MIXPANEL_EVENTS.settingsPreferences,
                 title: "Preferences - Revaluate"
             })
+
+            // ---
+            // Account - second step of registration (set up).
+            // ---
+            .state("setup", {
+                url: "/setup",
+                templateUrl: 'app/settings/partials/settings.signup.setup.html',
+                controller: "SettingsSetUpRegistrationController",
+                resolve: {
+                    currencies: function (CurrencyService) {
+                        return CurrencyService.getAllCurrencies();
+                    },
+                    colors: function (ColorService) {
+                        return ColorService.getAllColors();
+                    },
+                    predefinedCategories: function (CategoriesSetupProvider) {
+                        return CategoriesSetupProvider.getPredefinedCategories();
+                    }
+                },
+                title: "Settings setup - revaluate",
+                mixpanelId: MIXPANEL_EVENTS.accountSetup
+            });
     });
