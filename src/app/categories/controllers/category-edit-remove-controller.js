@@ -57,10 +57,6 @@ angular
                 category
                     .destroy()
                     .then(function () {
-
-                        /**
-                         * Track event.
-                         */
                         mixpanel.track(MIXPANEL_EVENTS.categoryDeleted);
 
                         $rootScope.$broadcast(CATEGORY_EVENTS.isDeleted, {

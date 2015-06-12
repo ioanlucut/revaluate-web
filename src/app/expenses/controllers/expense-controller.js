@@ -124,10 +124,6 @@ angular
                 $scope.masterExpense
                     .save()
                     .then(function () {
-
-                        /**
-                         * Track event.
-                         */
                         mixpanel.track(MIXPANEL_EVENTS.expenseCreated);
 
                         var expenseToBePushed = angular.copy($scope.masterExpense);
