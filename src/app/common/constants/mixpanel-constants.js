@@ -4,36 +4,35 @@
 angular
     .module("revaluate.common")
     .constant("MIXPANEL_EVENTS", {
-        homePage: "Landing page loaded",
-        pricingPage: "Landing page loaded",
-        privacyPage: "Landing page loaded",
+        homePage: "Home page",
+        pricingPage: "Pricing page",
+        privacyPage: "Privacy page",
 
         signUpRequested: "Signup requested",
         signUpCompleted: "Signup completed",
 
-        expensesPage: "Expenses page (site visited)",
-        expenseModalOpened: "Expense modal opened",
+        expensesPage: "Expenses page",
         expenseCreated: "Expense created",
         expenseUpdated: "Expense updated",
         expenseDeleted: "Expense deleted",
 
-        categoriesPage: "Categories page (site visited)",
+        categoriesPage: "Categories page",
         categoryCreated: "Category created",
         categoryUpdated: "Category updated",
         categoryDeleted: "Category deleted",
 
-        insightsPage: "Insights page (site visited)",
+        insightsPage: "Insights page",
         insightsFetched: "Insights fetched",
 
         settings: "Settings",
         settingsProfile: "Settings profile",
-        settingsPaymentAdd: "Settings payment",
-        settingsPaymentMethodEdit: "Settings payment",
-        settingsPaymentMethodEditCustomer: "Settings payment",
-        settingsPaymentInsights: "Settings payment customer",
-        settingsAccount: "Settings payment customer",
+        settingsPaymentAdd: "Settings payment method add",
+        settingsPaymentMethodEdit: "Settings payment method edit",
+        settingsPaymentMethodEditCustomer: "Settings payment method edit customer",
+        settingsPaymentInsights: "Settings payment insights",
+        settingsAccount: "Settings account",
         settingsPreferences: "Settings preferences",
-        settingsImportChoose: "Settings import",
+        settingsImportChoose: "Settings import choose",
         settingsImport: "Settings import",
 
         account: "Settings import",
