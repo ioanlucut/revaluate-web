@@ -3,7 +3,10 @@
  */
 angular
     .module("revaluate.settings")
-    .controller("SettingsPreferencesCurrencyController", function ($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, flash, currencies, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+    .controller("SettingsPreferencesCurrencyController", function ($q, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, flash, currencies, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+
+        /* jshint validthis: true */
+        var vm = this;
 
         /**
          * Saving timeout
@@ -14,30 +17,26 @@ angular
          * All given currencies.
          * @type {currencies|*}
          */
-        $scope.currencies = currencies;
+        vm.currencies = currencies;
 
         /**
          * Alert identifier
          */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.preferences;
+        vm.alertIdentifierId = ALERTS_CONSTANTS.preferences;
 
         /**
          * Current user.
          * @type {$rootScope.currentUser|*}
          */
-        $scope.user = $rootScope.currentUser;
+        vm.user = $rootScope.currentUser;
 
         /**
          * Selected currency
          * @type {{}}
          */
-        /**
-         * Selected category
-         * @type {{}}
-         */
-        $scope.currency = {};
-        $scope.currency.selected = _.find($scope.currencies, function (currencyCandidate) {
-            return currencyCandidate.currencyCode === $scope.user.model.currency.currencyCode;
+        vm.currency = {};
+        vm.currency.selected = _.find(vm.currencies, function (currencyCandidate) {
+            return currencyCandidate.currencyCode === vm.user.model.currency.currencyCode;
         });
 
         /**
@@ -45,34 +44,34 @@ angular
          */
         function getInitialProfileData() {
             return {
-                currency: $scope.currency.selected
+                currency: vm.currency.selected
             };
         }
 
         /**
          * Profile user information.
          */
-        $scope.profileData = angular.copy(getInitialProfileData());
+        vm.profileData = angular.copy(getInitialProfileData());
 
         /**
          * Update profile functionality.
          */
-        $scope.updatePreferences = function () {
-            if ( $scope.preferencesForm.$valid && !$scope.isSaving ) {
+        vm.updatePreferences = function () {
+            if ( vm.preferencesForm.$valid && !vm.isSaving ) {
 
                 // Show the loading bar
-                $scope.isSaving = true;
+                vm.isSaving = true;
 
-                $scope.profileData.currency = angular.copy($scope.currency.selected || $scope.currency);
+                vm.profileData.currency = angular.copy(vm.currency.selected || vm.currency);
 
                 // Update the user
-                $scope.user
-                    .updateCurrency($scope.profileData)
+                vm.user
+                    .updateCurrency(vm.profileData)
                     .then(function (response) {
                         // ---
                         // Reload data with given response.
                         // ---
-                        $scope.user
+                        vm.user
                             .loadFrom(response.data);
 
                         // ---
@@ -84,22 +83,22 @@ angular
                         // ---
                         // Reset the profile data with possible new data.
                         // ---
-                        $scope.profileData = angular.copy(getInitialProfileData());
+                        vm.profileData = angular.copy(getInitialProfileData());
 
-                        $scope.preferencesForm.$setPristine();
+                        vm.preferencesForm.$setPristine();
 
                         $timeout(function () {
-                            $scope.isSaving = false;
-                            flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your preferences!';
+                            vm.isSaving = false;
+                            flash.to(vm.alertIdentifierId).success = 'We\'ve successfully updated your preferences!';
                         }, TIMEOUT_PENDING);
 
                     })
                     .catch(function () {
                         /* If bad feedback from server */
-                        $scope.badPostSubmitResponse = true;
-                        $scope.isSaving = false;
+                        vm.badPostSubmitResponse = true;
+                        vm.isSaving = false;
 
-                        flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to update your preferences.';
+                        flash.to(vm.alertIdentifierId).error = 'We\'ve encountered an error while trying to update your preferences.';
                     });
             }
         };

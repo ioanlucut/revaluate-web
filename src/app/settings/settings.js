@@ -184,6 +184,7 @@ angular
                     'updateCurrency@settings.preferences': {
                         templateUrl: "app/settings/partials/settings.preferences.updateCurrency.html",
                         controller: "SettingsPreferencesCurrencyController",
+                        controllerAs: 'vm',
                         resolve: {
                             currencies: function (CurrencyService) {
                                 return CurrencyService.getAllCurrencies();
