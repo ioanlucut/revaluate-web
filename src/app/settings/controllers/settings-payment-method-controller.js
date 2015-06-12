@@ -1,33 +1,36 @@
 angular
     .module("revaluate.settings")
-    .controller("SettingsPaymentMethodController", function ($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentInsights, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+    .controller("SettingsEditPaymentMethodController", function ($q, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentInsights, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+
+        /* jshint validthis: true */
+        var vm = this;
 
         var TIMEOUT_PENDING = 300;
 
         /**
          * Alert identifier
          */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.paymentProfile;
+        vm.alertIdentifierId = ALERTS_CONSTANTS.paymentProfile;
 
         /**
          * Current user.
          */
-        $scope.user = $rootScope.currentUser;
+        vm.user = $rootScope.currentUser;
 
         // ---
         // Braintree client token got from server.
         // ---
-        $scope.clientToken = clientToken;
+        vm.clientToken = clientToken;
 
         // ---
         // Payment status.
         // ---
-        $scope.paymentInsights = paymentInsights;
+        vm.paymentInsights = paymentInsights;
 
         // ---
         // Braintree client.
         // ---
-        $scope.client = new $braintree.api.Client({
+        vm.client = new $braintree.api.Client({
             clientToken: clientToken
         });
 
@@ -44,7 +47,7 @@ angular
         /**
          * Profile user information.
          */
-        $scope.paymentData = angular.copy(getInitialPaymentData());
+        vm.paymentData = angular.copy(getInitialPaymentData());
 
         /**
          * Initial Payment details data
@@ -58,36 +61,36 @@ angular
         /**
          * Payment details data.
          */
-        $scope.paymentDetailsData = angular.copy(getInitialPaymentDetailsData());
+        vm.paymentDetailsData = angular.copy(getInitialPaymentDetailsData());
 
         // ---
         // UPDATE PAYMENT METHOD RELATED
         // ---
-        $scope.updatePaymentMethod = function () {
-            if ( $scope.updatePaymentMethodForm.$valid && !$scope.isRequestPending ) {
+        vm.updatePaymentMethod = function () {
+            if ( vm.updatePaymentMethodForm.$valid && !vm.isRequestPending ) {
 
                 // Show the loading bar
-                $scope.isRequestPending = true;
+                vm.isRequestPending = true;
 
-                // - Validate $scope.paymentData
+                // - Validate vm.paymentData
                 // - Make sure client is ready to use
-                $scope
+                vm
                     .client
                     .tokenizeCard({
-                        number: $scope.paymentData.cardNumber,
-                        expirationDate: $scope.paymentData.cardExpirationDate
+                        number: vm.paymentData.cardNumber,
+                        expirationDate: vm.paymentData.cardExpirationDate
                     }, function (err, nonce) {
 
                         if ( err ) {
-                            flash.to($scope.alertIdentifierId).error = err;
+                            flash.to(vm.alertIdentifierId).error = err;
                         }
                         else {
-                            flash.to($scope.alertIdentifierId).error = '';
+                            flash.to(vm.alertIdentifierId).error = '';
 
                             // ---
                             // Update details with the received nonce.
                             // ---
-                            var paymentDetailsData = angular.copy($scope.paymentDetailsData);
+                            var paymentDetailsData = angular.copy(vm.paymentDetailsData);
                             paymentDetailsData.paymentMethodNonce = nonce;
 
                             return $http
@@ -97,29 +100,29 @@ angular
                                     // ---
                                     // Reset the payment data with empty new data.
                                     // ---
-                                    $scope.paymentData = angular.copy(getInitialPaymentData());
+                                    vm.paymentData = angular.copy(getInitialPaymentData());
 
-                                    $scope.updatePaymentMethodForm.$setPristine();
+                                    vm.updatePaymentMethodForm.$setPristine();
 
                                     $timeout(function () {
-                                        $scope.isRequestPending = false;
-                                        flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your payment method!';
+                                        vm.isRequestPending = false;
+                                        flash.to(vm.alertIdentifierId).success = 'We\'ve successfully updated your payment method!';
                                     }, TIMEOUT_PENDING);
                                 })
                                 .catch(function (response) {
                                     /* If bad feedback from server */
-                                    $scope.badPostSubmitResponse = true;
-                                    $scope.isRequestPending = false;
+                                    vm.badPostSubmitResponse = true;
+                                    vm.isRequestPending = false;
 
                                     // ---
                                     // Show errors.
                                     // ---
                                     var errors = response.data;
                                     if ( _.isArray(errors) ) {
-                                        flash.to($scope.alertIdentifierId).error = errors.join("\n");
+                                        flash.to(vm.alertIdentifierId).error = errors.join("\n");
                                     }
                                     else {
-                                        flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to update your payment method.';
+                                        flash.to(vm.alertIdentifierId).error = 'We\'ve encountered an error while trying to update your payment method.';
                                     }
                                 });
                         }
