@@ -10,7 +10,7 @@
 
         <div class="settings__preferences__section">
 
-            <div class="currency-select" ng-class="{'has-error': vm.preferencesForm.$submitted && (vm.preferencesForm.currency.$invalid || badPostSubmitResponse)}">
+            <div class="currency-select" ng-class="{'has-error': vm.preferencesForm.$submitted && (vm.preferencesForm.currency.$invalid || vm.badPostSubmitResponse)}">
 
                 <ui-select name="currency" class="currency-select__input" required ng-model="vm.currency.selected" theme="selectize">
                     <ui-select-match placeholder="Start typing your currency...">{{$select.selected.displayName}} - {{$select.selected.symbol}}</ui-select-match>

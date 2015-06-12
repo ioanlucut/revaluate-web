@@ -204,6 +204,7 @@ angular
                 url: "/setup",
                 templateUrl: 'app/settings/partials/settings.setup.registration.html',
                 controller: "SettingsSetUpRegistrationController",
+                controllerAs: 'vm',
                 resolve: {
                     currencies: function (CurrencyService) {
                         return CurrencyService.getAllCurrencies();

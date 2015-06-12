@@ -1,29 +1,32 @@
 angular
     .module("revaluate.settings")
-    .controller("SettingsSetUpRegistrationController", function ($q, $rootScope, $scope, $timeout, flash, AuthService, CategoryService, AUTH_EVENTS, ALERTS_CONSTANTS, MIXPANEL_EVENTS, predefinedCategories, colors, CategoryColorService, SessionService, StatesHandler, Category, currencies) {
+    .controller("SettingsSetUpRegistrationController", function ($q, $scope, $rootScope, $timeout, flash, AuthService, CategoryService, AUTH_EVENTS, ALERTS_CONSTANTS, MIXPANEL_EVENTS, predefinedCategories, colors, CategoryColorService, SessionService, StatesHandler, Category, currencies) {
+
+        /* jshint validthis: true */
+        var vm = this;
 
         /**
          * All given currencies.
          * @type {currencies|*}
          */
-        $scope.currencies = currencies;
+        vm.currencies = currencies;
 
         /**
          * Alert identifier
          */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.signUpSetUp;
+        vm.alertIdentifierId = ALERTS_CONSTANTS.signUpSetUp;
 
         /**
          * Current user.
          * @type {$rootScope.currentUser|*}
          */
-        $scope.user = $rootScope.currentUser;
+        vm.user = $rootScope.currentUser;
 
         /**
          * Selected currency
          * @type {{}}
          */
-        $scope.currency = {};
+        vm.currency = {};
 
         /**
          * Saving timeout
@@ -33,21 +36,21 @@ angular
         /**
          * Existing predefined colors.
          */
-        $scope.colors = colors;
+        vm.colors = colors;
 
         /**
          * Existing predefined categories.
          */
-        $scope.categories = predefinedCategories;
+        vm.categories = predefinedCategories;
 
         // ---
         // Populate predefined categories with colors.
         // ---
-        $scope.categories = _.map($scope.categories, function (category) {
+        vm.categories = _.map(vm.categories, function (category) {
             return {
                 name: category,
                 selected: true,
-                color: $scope.colors[$scope.categories.indexOf(category)]
+                color: vm.colors[vm.categories.indexOf(category)]
             };
         });
 
@@ -55,32 +58,32 @@ angular
          * Category to be added on the fly
          * @type {string}
          */
-        $scope.categoryOnTheFly = "";
+        vm.categoryOnTheFly = "";
 
         /**
          * Show block content
          * @type {boolean}
          */
-        $scope.showCategoryOnTheFlyInput = false;
+        vm.showCategoryOnTheFlyInput = false;
 
         /**
          * Toggle content
          */
-        $scope.toggleContent = function () {
-            $scope.showCategoryOnTheFlyInput = !$scope.showCategoryOnTheFlyInput;
+        vm.toggleContent = function () {
+            vm.showCategoryOnTheFlyInput = !vm.showCategoryOnTheFlyInput;
         };
 
         /**
          * Trigger submit of the category on the fly nested form
          */
-        $scope.triggerSubmit = function () {
+        vm.triggerSubmit = function () {
             $scope.$broadcast('add-category-on-the-fly-event');
         };
 
         /**
          * To be called when on blur.
          */
-        $scope.cancelAddCategoryOnTheFly = function () {
+        vm.cancelAddCategoryOnTheFly = function () {
             resetCategoryOnTheFlyForm();
         };
 
@@ -88,39 +91,39 @@ angular
          * Reset the category on the fly
          */
         function resetCategoryOnTheFlyForm() {
-            $scope.showCategoryOnTheFlyInput = false;
-            $scope.categoryOnTheFly = "";
-            $scope.setUpForm.categoryOnTheFlyForm.$setPristine();
-            $scope.badPostSubmitResponse = false;
+            vm.showCategoryOnTheFlyInput = false;
+            vm.categoryOnTheFly = "";
+            vm.setUpForm.categoryOnTheFlyForm.$setPristine();
+            vm.badPostSubmitResponse = false;
 
             // ---
             // If there was a previously error, just clear it.
             // ---
-            flash.to($scope.alertIdentifierId).error = '';
+            flash.to(vm.alertIdentifierId).error = '';
         }
 
         /**
          * Add a custom category to existing ones (only if name is unique)
          */
-        $scope.onSubmitted = function ($event) {
+        vm.onSubmitted = function ($event) {
             $event.stopPropagation();
 
-            $scope.setUpForm.categoryOnTheFlyForm.$submitted = true;
-            if ( $scope.setUpForm.categoryOnTheFlyForm.$invalid ) {
+            vm.setUpForm.categoryOnTheFlyForm.$submitted = true;
+            if ( vm.setUpForm.categoryOnTheFlyForm.$invalid ) {
                 return;
             }
 
-            var result = _.some($scope.categories, function (category) {
-                return category.name === $scope.categoryOnTheFly;
+            var result = _.some(vm.categories, function (category) {
+                return category.name === vm.categoryOnTheFly;
             });
 
             if ( result ) {
-                flash.to($scope.alertIdentifierId).error = "Category is not unique";
+                flash.to(vm.alertIdentifierId).error = "Category is not unique";
             }
             else {
-                $scope.categories.push({
-                    name: $scope.categoryOnTheFly,
-                    color: CategoryColorService.randomizedColor($scope.colors),
+                vm.categories.push({
+                    name: vm.categoryOnTheFly,
+                    color: CategoryColorService.randomizedColor(vm.colors),
                     selected: true
                 });
 
@@ -134,8 +137,8 @@ angular
         /**
          * Toggle category selection
          */
-        $scope.toggleCategorySelection = function (index) {
-            $scope.categories[index].selected = !$scope.categories[index].selected;
+        vm.toggleCategorySelection = function (index) {
+            vm.categories[index].selected = !vm.categories[index].selected;
         };
 
         /**
@@ -144,28 +147,28 @@ angular
         var MIN_CATEGORIES_TO_SELECT = 3;
 
         function getSelectedCategories() {
-            return _.filter($scope.categories, 'selected', true);
+            return _.filter(vm.categories, 'selected', true);
         }
 
         /**
          * Is enough selected categories
          */
-        $scope.isEnoughSelectedCategories = function () {
+        vm.isEnoughSelectedCategories = function () {
             return getSelectedCategories().length >= MIN_CATEGORIES_TO_SELECT;
         };
 
         /**
          * Update profile functionality.
          */
-        $scope.setUp = function () {
-            if ( $scope.setUpForm.$invalid || $scope.isSaving ) {
+        vm.setUp = function () {
+            if ( vm.setUpForm.$invalid || vm.isSaving ) {
 
                 return;
             }
 
             var selectedCategories = angular.copy(getSelectedCategories());
             var userProfileToBeUpdated = {
-                currency: angular.copy($scope.currency.selected),
+                currency: angular.copy(vm.currency.selected),
                 initiated: true
             };
 
@@ -184,7 +187,7 @@ angular
             // ---
             // Flag is saving flag.
             // ---
-            $scope.isSaving = true;
+            vm.isSaving = true;
 
             // ---
             // Try to save them at once and if successfully, update the user.
@@ -192,7 +195,7 @@ angular
             CategoryService
                 .bulkCreate(selectedCategoriesToBeSaved)
                 .then(function () {
-                    $scope.user
+                    vm.user
                         .save(userProfileToBeUpdated)
                         .then(function (response) {
                             deferred.resolve(response);
@@ -223,8 +226,8 @@ angular
                         // ---
                         // Show some feedback.
                         // ---
-                        $scope.isSaving = false;
-                        flash.to($scope.alertIdentifierId).success = "Set up successfully! Preparing expenses..";
+                        vm.isSaving = false;
+                        flash.to(vm.alertIdentifierId).success = "Set up successfully! Preparing expenses..";
 
                         /**
                          * Finally, go to expenses.
@@ -235,9 +238,9 @@ angular
                 .catch(function () {
 
                     // Error
-                    $scope.isSaving = false;
-                    flash.to($scope.alertIdentifierId).error = "Set up could not have been performed.";
-                    $scope.badPostSubmitResponse = true;
+                    vm.isSaving = false;
+                    flash.to(vm.alertIdentifierId).error = "Set up could not have been performed.";
+                    vm.badPostSubmitResponse = true;
                 });
         };
 
