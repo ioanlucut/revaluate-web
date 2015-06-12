@@ -1,33 +1,36 @@
 angular
     .module("revaluate.settings")
-    .controller("SettingsPaymentMethodAddController", function ($q, $scope, $state, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentStatus, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS, AUTH_EVENTS, USER_SUBSCRIPTION_STATUS) {
+    .controller("SettingsPaymentMethodAddController", function ($q, $state, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentStatus, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS, AUTH_EVENTS, USER_SUBSCRIPTION_STATUS) {
+
+        /* jshint validthis: true */
+        var vm = this;
 
         var TIMEOUT_PENDING = 300;
 
         /**
          * Alert identifier
          */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.paymentProfile;
+        vm.alertIdentifierId = ALERTS_CONSTANTS.paymentProfile;
 
         /**
          * Current user.
          */
-        $scope.user = $rootScope.currentUser;
+        vm.user = $rootScope.currentUser;
 
         // ---
         // Braintree client token got from server.
         // ---
-        $scope.clientToken = clientToken;
+        vm.clientToken = clientToken;
 
         // ---
         // Payment status.
         // ---
-        $scope.paymentStatus = paymentStatus;
+        vm.paymentStatus = paymentStatus;
 
         // ---
         // Braintree client.
         // ---
-        $scope.client = new $braintree.api.Client({
+        vm.client = new $braintree.api.Client({
             clientToken: clientToken
         });
 
@@ -44,7 +47,7 @@ angular
         /**
          * Profile user information.
          */
-        $scope.paymentData = angular.copy(getInitialPaymentData());
+        vm.paymentData = angular.copy(getInitialPaymentData());
 
         /**
          * Initial payment details data
@@ -52,9 +55,9 @@ angular
         function getInitialPaymentDetailsData() {
             return {
                 paymentCustomerDetailsDTO: {
-                    firstName: $scope.user.model.firstName,
-                    lastName: $scope.user.model.lastName,
-                    email: $scope.user.model.email
+                    firstName: vm.user.model.firstName,
+                    lastName: vm.user.model.lastName,
+                    email: vm.user.model.email
                 },
                 paymentNonceDetailsDTO: {
                     paymentMethodNonce: ''
@@ -65,36 +68,36 @@ angular
         /**
          * Payment details data.
          */
-        $scope.paymentDetailsData = angular.copy(getInitialPaymentDetailsData());
+        vm.paymentDetailsData = angular.copy(getInitialPaymentDetailsData());
 
         // ---
         // On submit, add payment method.
         // ---
-        $scope.addPaymentMethod = function () {
-            if ( $scope.addPaymentMethodForm.$valid && !$scope.isRequestPending ) {
+        vm.addPaymentMethod = function () {
+            if ( vm.addPaymentMethodForm.$valid && !vm.isRequestPending ) {
 
                 // Show the loading bar
-                $scope.isRequestPending = true;
+                vm.isRequestPending = true;
 
-                // - Validate $scope.paymentData
+                // - Validate vm.paymentData
                 // - Make sure client is ready to use
-                $scope
+                vm
                     .client
                     .tokenizeCard({
-                        number: $scope.paymentData.cardNumber,
-                        expirationDate: $scope.paymentData.cardExpirationDate
+                        number: vm.paymentData.cardNumber,
+                        expirationDate: vm.paymentData.cardExpirationDate
                     }, function (err, nonce) {
 
                         if ( err ) {
-                            flash.to($scope.alertIdentifierId).error = err;
+                            flash.to(vm.alertIdentifierId).error = err;
                         }
                         else {
-                            flash.to($scope.alertIdentifierId).error = '';
+                            flash.to(vm.alertIdentifierId).error = '';
 
                             // ---
                             // Update details with the received nonce.
                             // ---
-                            var paymentDetailsData = angular.copy($scope.paymentDetailsData);
+                            var paymentDetailsData = angular.copy(vm.paymentDetailsData);
                             paymentDetailsData.paymentNonceDetailsDTO.paymentMethodNonce = nonce;
 
                             return $http
@@ -105,7 +108,7 @@ angular
                                     // ---
                                     var paymentInsights = response.data;
                                     if ( paymentInsights.subscriptionActive ) {
-                                        $scope
+                                        vm
                                             .user
                                             .setSubscriptionStatusAsAndReload(USER_SUBSCRIPTION_STATUS.ACTIVE);
                                         $rootScope
@@ -120,13 +123,13 @@ angular
                                     // ---
                                     // Reset the payment data with empty new data.
                                     // ---
-                                    $scope.paymentData = angular.copy(getInitialPaymentData());
+                                    vm.paymentData = angular.copy(getInitialPaymentData());
 
-                                    $scope.addPaymentMethodForm.$setPristine();
+                                    vm.addPaymentMethodForm.$setPristine();
 
                                     $timeout(function () {
-                                        $scope.isRequestPending = false;
-                                        flash.to($scope.alertIdentifierId).success = 'We\'ve successfully saved your payment method!';
+                                        vm.isRequestPending = false;
+                                        flash.to(vm.alertIdentifierId).success = 'We\'ve successfully saved your payment method!';
 
                                         // ---
                                         // If successful, go to insights.
@@ -136,18 +139,18 @@ angular
                                 })
                                 .catch(function (response) {
                                     /* If bad feedback from server */
-                                    $scope.badPostSubmitResponse = true;
-                                    $scope.isRequestPending = false;
+                                    vm.badPostSubmitResponse = true;
+                                    vm.isRequestPending = false;
 
                                     // ---
                                     // Show errors.
                                     // ---
                                     var errors = response.data;
                                     if ( _.isArray(errors) ) {
-                                        flash.to($scope.alertIdentifierId).error = errors.join("\n");
+                                        flash.to(vm.alertIdentifierId).error = errors.join("\n");
                                     }
                                     else {
-                                        flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to save your payment method.';
+                                        flash.to(vm.alertIdentifierId).error = 'We\'ve encountered an error while trying to save your payment method.';
                                     }
                                 });
                         }

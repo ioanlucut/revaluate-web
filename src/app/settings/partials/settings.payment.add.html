@@ -13,18 +13,18 @@
         </div>
 
         <!-- Add payment method form -->
-        <form class="payment__form__addcard" name="addPaymentMethodForm" ng-submit="addPaymentMethod()" novalidate focus-first-error>
+        <form class="payment__form__addcard" name="vm.addPaymentMethodForm" ng-submit="vm.addPaymentMethod()" novalidate focus-first-error>
 
             <!-- Flash messages. -->
-            <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+            <div flash-messages flash="flash" identifier-id="{{vm.alertIdentifierId}}"></div>
 
             <!-- Form group -->
-            <div class="form-group-input payment__form__addcard__number" ng-class="{'has-error': addPaymentMethodForm.$submitted && (addPaymentMethodForm.cardNumber.$invalid || badPostSubmitResponse)}">
+            <div class="form-group-input payment__form__addcard__number" ng-class="{'has-error': vm.addPaymentMethodForm.$submitted && (vm.addPaymentMethodForm.cardNumber.$invalid || vm.badPostSubmitResponse)}">
                 <label>Credit Card Number</label>
-                <input class="form-group-input__input" type="text" placeholder="4111 1111 1111 1111" name="cardNumber" ng-model="paymentData.cardNumber" payments-format="card" payments-validate="card" auto-focus required />
+                <input class="form-group-input__input" type="text" placeholder="4111 1111 1111 1111" name="cardNumber" ng-model="vm.paymentData.cardNumber" payments-format="card" payments-validate="card" auto-focus required />
 
                 <!-- Error messages -->
-                <div class="form-group-input__message" ng-class="{'has-error': addPaymentMethodForm.cardNumber.$invalid && addPaymentMethodForm.$submitted}" ng-messages="addPaymentMethodForm.cardNumber.$error" ng-if="addPaymentMethodForm.$submitted">
+                <div class="form-group-input__message" ng-class="{'has-error': vm.addPaymentMethodForm.cardNumber.$invalid && vm.addPaymentMethodForm.$submitted}" ng-messages="vm.addPaymentMethodForm.cardNumber.$error" ng-if="vm.addPaymentMethodForm.$submitted">
                     <div ng-message="required">Please enter your card number.</div>
                     <div ng-message="parse">Please enter a valid card number.</div>
                     <div ng-message="card">Please enter a valid card number.</div>
@@ -32,12 +32,12 @@
             </div>
 
             <!-- Form group -->
-            <div class="form-group-input payment__form__addcard__expiration" ng-class="{'has-error': addPaymentMethodForm.$submitted && (addPaymentMethodForm.cardExpirationDate.$invalid || badPostSubmitResponse)}">
+            <div class="form-group-input payment__form__addcard__expiration" ng-class="{'has-error': vm.addPaymentMethodForm.$submitted && (vm.addPaymentMethodForm.cardExpirationDate.$invalid || vm.badPostSubmitResponse)}">
                 <label>Expiration</label>
-                <input class="form-group-input__input" type="text" placeholder="10 / 2018" name="cardExpirationDate" ng-model="paymentData.cardExpirationDate" payments-format="expiry" payments-validate="expiry" required />
+                <input class="form-group-input__input" type="text" placeholder="10 / 2018" name="cardExpirationDate" ng-model="vm.paymentData.cardExpirationDate" payments-format="expiry" payments-validate="expiry" required />
 
                 <!-- Error messages -->
-                <div class="form-group-input__message" ng-class="{'has-error': addPaymentMethodForm.cardExpirationDate.$invalid && addPaymentMethodForm.$submitted}" ng-messages="addPaymentMethodForm.cardExpirationDate.$error" ng-if="addPaymentMethodForm.$submitted">
+                <div class="form-group-input__message" ng-class="{'has-error': vm.addPaymentMethodForm.cardExpirationDate.$invalid && vm.addPaymentMethodForm.$submitted}" ng-messages="vm.addPaymentMethodForm.cardExpirationDate.$error" ng-if="vm.addPaymentMethodForm.$submitted">
                     <div ng-message="required">Please enter card expiration date.</div>
                     <div ng-message="parse">Please enter a valid expiration date.</div>
                     <div ng-message="expiry">Please enter a valid expiration date.</div>
@@ -45,8 +45,7 @@
             </div>
 
             <!-- Button container -->
-            <button class="settings__btn__save" type="submit">{{isRequestPending ? 'Saving...' : 'Add credit card'}}
-            </button>
+            <button class="settings__btn__save" type="submit">{{vm.isRequestPending ? 'Saving...' : 'Add credit card'}}</button>
         </form>
 
     </div>
