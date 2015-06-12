@@ -27,6 +27,7 @@ angular
                 url: "/profile",
                 templateUrl: "app/settings/partials/settings.profile.html",
                 controller: "SettingsProfileController",
+                controllerAs: 'vm',
                 title: "Profile - Revaluate"
             })
 
