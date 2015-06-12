@@ -47,10 +47,10 @@ angular
             AuthService
                 .updatePassword(updatePasswordData.oldPassword, updatePasswordData.newPassword, updatePasswordData.newPasswordConfirmation)
                 .then(function () {
-                    flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your account!';
 
                     $timeout(function () {
                         $scope.isRequestPending = false;
+                        flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your account!';
                     }, TIMEOUT_PENDING);
                 })
                 .catch(function () {
