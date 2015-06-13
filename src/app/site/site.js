@@ -18,14 +18,14 @@ angular
             // Home page
             .state("home", {
                 url: "/",
-                templateUrl: "app/site/partials/home.html",
+                templateUrl: "/app/site/partials/home.html",
                 title: "Change the way you spend your money",
                 mixpanelId: MIXPANEL_EVENTS.homePage,
                 isPublicPage: true
             })
             .state("pricing", {
                 url: "/pricing",
-                templateUrl: "app/site/partials/pricing.html",
+                templateUrl: "/app/site/partials/pricing.html",
                 controller: "PricingPageController",
                 title: "Change the way you spend your money",
                 mixpanelId: MIXPANEL_EVENTS.pricingPage,
@@ -33,14 +33,14 @@ angular
             })
             .state("privacy", {
                 url: "/privacy",
-                templateUrl: "app/site/partials/privacy.html",
+                templateUrl: "/app/site/partials/privacy.html",
                 title: "Privacy - Revaluate",
                 mixpanelId: MIXPANEL_EVENTS.privacyPage,
                 isPublicPage: true
             })
             .state("404", {
                 url: "/404",
-                templateUrl: "app/site/partials/404.html",
+                templateUrl: "/app/site/partials/404.html",
                 controller: "Error404PageController",
                 title: "Hmm... looks like a 404",
                 mixpanelId: MIXPANEL_EVENTS.error404,
@@ -48,7 +48,7 @@ angular
             })
             .state("500", {
                 url: "/500",
-                templateUrl: "app/site/partials/500.html",
+                templateUrl: "/app/site/partials/500.html",
                 controller: "Error500PageController",
                 title: "Oops... You found a 500",
                 mixpanelId: MIXPANEL_EVENTS.error500,

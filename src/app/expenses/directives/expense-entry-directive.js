@@ -11,7 +11,7 @@ angular
                 expense: "=",
                 isEnoughExpensesForBulkAction: "&"
             },
-            templateUrl: "app/expenses/partials/expense/expenses.entry.template.html",
+            templateUrl: "/app/expenses/partials/expense/expenses.entry.template.html",
             link: function (scope, el, attrs) {
 
                 var EXPENSE_INPUT_SELECTOR = '.expense__form__price__input';

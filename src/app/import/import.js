@@ -12,14 +12,14 @@ angular
             .state({
                 name: "settings.import",
                 url: "/import",
-                templateUrl: "app/import/partials/settings.import.abstract.html",
+                templateUrl: "/app/import/partials/settings.import.abstract.html",
                 abstract: true
             })
 
             .state({
                 name: "settings.import.choose",
                 url: "/choose",
-                templateUrl: "app/import/partials/settings.import.choose.html",
+                templateUrl: "/app/import/partials/settings.import.choose.html",
                 mixpanelId: MIXPANEL_EVENTS.settingsImportChoose,
                 title: "Expenses import choose - Revaluate"
             })
@@ -27,7 +27,7 @@ angular
             .state({
                 name: "settings.import.import",
                 url: "/{type}",
-                templateUrl: "app/import/partials/settings.import.import.html",
+                templateUrl: "/app/import/partials/settings.import.import.html",
                 controller: "ExpensesImportController",
                 resolve: {
                     categories: function (CategoryService) {
