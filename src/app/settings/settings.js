@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Main settings module declaration including ui templates.
  */
@@ -5,7 +7,7 @@ angular
     .module("revaluate.settings", [
         "revaluate.account"
     ])
-    .config(function ($stateProvider) {
+    .config(function ($stateProvider, MIXPANEL_EVENTS) {
 
         $stateProvider
 
@@ -15,7 +17,7 @@ angular
             .state({
                 name: "settings",
                 url: "/account/settings",
-                templateUrl: "app/settings/partials/settings.abstract.html",
+                templateUrl: "/app/settings/partials/settings.abstract.html",
                 abstract: true
             })
 
@@ -25,9 +27,11 @@ angular
             .state({
                 name: "settings.profile",
                 url: "/profile",
-                templateUrl: "app/settings/partials/settings.profile.html",
+                templateUrl: "/app/settings/partials/settings.profile.html",
                 controller: "SettingsProfileController",
-                title: "Profile - Revaluate"
+                controllerAs: 'vm',
+                title: "Profile - Revaluate",
+                mixpanelId: MIXPANEL_EVENTS.settingsProfile
             })
 
             // ---
@@ -37,15 +41,16 @@ angular
             .state({
                 name: "settings.payment",
                 url: "/payment",
-                templateUrl: "app/settings/partials/settings.payment.abstract.html",
+                templateUrl: "/app/settings/partials/settings.payment.abstract.html",
                 abstract: true
             })
 
             .state({
                 name: "settings.payment.add",
                 url: "/add",
-                templateUrl: "app/settings/partials/settings.payment.add.html",
+                templateUrl: "/app/settings/partials/settings.payment.add.html",
                 controller: "SettingsPaymentMethodAddController",
+                controllerAs: 'vm',
                 isPaymentRelatedPage: true,
                 resolve: {
                     clientToken: function ($http, AUTH_URLS) {
@@ -68,14 +73,16 @@ angular
                     }
 
                 },
-                title: "Payment method - Revaluate"
+                title: "Payment method - Revaluate",
+                mixpanelId: MIXPANEL_EVENTS.settingsPaymentAdd
             })
 
             .state({
                 name: "settings.payment.method",
                 url: "/method",
-                templateUrl: "app/settings/partials/settings.payment.method.html",
-                controller: "SettingsPaymentMethodController",
+                templateUrl: "/app/settings/partials/settings.payment.method.update.html",
+                controller: "SettingsEditPaymentMethodController",
+                controllerAs: 'vm',
                 isPaymentRelatedPage: true,
                 resolve: {
                     clientToken: function ($http, AUTH_URLS) {
@@ -97,13 +104,14 @@ angular
                             });
                     }
                 },
+                mixpanelId: MIXPANEL_EVENTS.settingsPaymentMethodEdit,
                 title: "Payment edit payment method - Revaluate"
             })
 
             .state({
                 name: "settings.payment.customer",
                 url: "/customer",
-                templateUrl: "app/settings/partials/settings.payment.customer.html",
+                templateUrl: "/app/settings/partials/settings.payment.customer.html",
                 controller: "SettingsPaymentCustomerController",
                 isPaymentRelatedPage: true,
                 resolve: {
@@ -119,13 +127,15 @@ angular
                             });
                     }
                 },
+                mixpanelId: MIXPANEL_EVENTS.settingsPaymentMethodEditCustomer,
                 title: "Payment edit customer - Revaluate"
             })
 
             .state("settings.payment.insights", {
                 url: "/insights",
-                templateUrl: "app/settings/partials/settings.payment.insights.html",
+                templateUrl: "/app/settings/partials/settings.payment.insights.html",
                 controller: "SettingsPaymentInsightsController",
+                controllerAs: 'vm',
                 isPaymentRelatedPage: true,
                 resolve: {
                     paymentInsights: function ($http, $state, AUTH_URLS) {
@@ -140,6 +150,7 @@ angular
                             });
                     }
                 },
+                mixpanelId: MIXPANEL_EVENTS.settingsPaymentInsights,
                 title: "Payment insights - Revaluate"
             })
 
@@ -150,17 +161,20 @@ angular
                 url: "/admin",
                 views: {
                     '': {
-                        templateUrl: "app/settings/partials/settings.admin.abstract.html"
+                        templateUrl: "/app/settings/partials/settings.admin.abstract.html"
                     },
                     'updatePassword@settings.admin': {
-                        templateUrl: "app/settings/partials/settings.admin.updatePassword.html",
-                        controller: "SettingsUpdatePasswordController"
+                        templateUrl: "/app/settings/partials/settings.admin.updatePassword.html",
+                        controller: "SettingsUpdatePasswordController",
+                        controllerAs: 'vm'
                     },
                     'cancelAccount@settings.admin': {
-                        templateUrl: "app/settings/partials/settings.admin.cancelAccount.html",
-                        controller: "SettingsCancelAccountController"
+                        templateUrl: "/app/settings/partials/settings.admin.cancelAccount.html",
+                        controller: "SettingsCancelAccountController",
+                        controllerAs: 'vm'
                     }
                 },
+                mixpanelId: MIXPANEL_EVENTS.settingsAccount,
                 title: "Admin - Revaluate"
             })
 
@@ -171,11 +185,12 @@ angular
                 url: "/preferences",
                 views: {
                     '': {
-                        templateUrl: "app/settings/partials/settings.preferences.abstract.html"
+                        templateUrl: "/app/settings/partials/settings.preferences.abstract.html"
                     },
                     'updateCurrency@settings.preferences': {
-                        templateUrl: "app/settings/partials/settings.preferences.updateCurrency.html",
+                        templateUrl: "/app/settings/partials/settings.preferences.updateCurrency.html",
                         controller: "SettingsPreferencesCurrencyController",
+                        controllerAs: 'vm',
                         resolve: {
                             currencies: function (CurrencyService) {
                                 return CurrencyService.getAllCurrencies();
@@ -184,6 +199,30 @@ angular
 
                     }
                 },
+                mixpanelId: MIXPANEL_EVENTS.settingsPreferences,
                 title: "Preferences - Revaluate"
             })
+
+            // ---
+            // Account - second step of registration (set up).
+            // ---
+            .state("setup", {
+                url: "/setup",
+                templateUrl: '/app/settings/partials/settings.setup.registration.html',
+                controller: "SettingsSetUpRegistrationController",
+                controllerAs: 'vm',
+                resolve: {
+                    currencies: function (CurrencyService) {
+                        return CurrencyService.getAllCurrencies();
+                    },
+                    colors: function (ColorService) {
+                        return ColorService.getAllColors();
+                    },
+                    predefinedCategories: function (CategoriesSetupProvider) {
+                        return CategoriesSetupProvider.getPredefinedCategories();
+                    }
+                },
+                title: "Settings setup - revaluate",
+                mixpanelId: MIXPANEL_EVENTS.accountSetup
+            });
     });

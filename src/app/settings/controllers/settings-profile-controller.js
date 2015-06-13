@@ -1,62 +1,62 @@
+'use strict';
+
 /**
  * Profile controller responsible for user update profile action.
  */
 angular
     .module("revaluate.settings")
-    .controller("SettingsProfileController", function ($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+    .controller("SettingsProfileController", function ($q, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+
+        /* jshint validthis: true */
+        var vm = this;
 
         var TIMEOUT_PENDING = 300;
 
         /**
          * Alert identifier
          */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.updateProfile;
-
-        /**
-         * Track event.
-         */
-        mixpanel.track(MIXPANEL_EVENTS.settingsProfile);
+        vm.alertIdentifierId = ALERTS_CONSTANTS.updateProfile;
 
         /**
          * Current user.
          */
-        $scope.user = $rootScope.currentUser;
+        vm.user = $rootScope.currentUser;
 
         /**
          * Initial profile data
          */
         function getInitialProfileData() {
             return {
-                firstName: $scope.user.model.firstName,
-                lastName: $scope.user.model.lastName,
-                initiated: $scope.user.model.initiated,
-                currency: $scope.user.model.currency
+                firstName: vm.user.model.firstName,
+                lastName: vm.user.model.lastName,
+                initiated: vm.user.model.initiated,
+                currency: vm.user.model.currency
             };
         }
 
         /**
          * Profile user information.
          */
-        $scope.profileData = angular.copy(getInitialProfileData());
+        vm.profileData = angular.copy(getInitialProfileData());
 
         /**
          * Update profile functionality.
          */
-        $scope.updateProfile = function (profileData) {
+        vm.updateProfile = function () {
 
-            if ( $scope.profileForm.$valid && !$scope.isRequestPending ) {
+            if ( vm.profileForm.$valid && !vm.isRequestPending ) {
 
                 // Show the loading bar
-                $scope.isRequestPending = true;
+                vm.isRequestPending = true;
 
                 // Update the user
-                $scope.user
-                    .save(profileData)
+                vm.user
+                    .save(vm.profileData)
                     .then(function (response) {
                         // ---
                         // Reload data with given response.
                         // ---
-                        $scope.user
+                        vm.user
                             .loadFrom(response.data);
 
                         // ---
@@ -68,21 +68,21 @@ angular
                         // ---
                         // Reset the profile data with possible new data.
                         // ---
-                        $scope.profileData = angular.copy(getInitialProfileData());
+                        vm.profileData = angular.copy(getInitialProfileData());
 
-                        $scope.profileForm.$setPristine();
-                        flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your account!';
+                        vm.profileForm.$setPristine();
 
                         $timeout(function () {
-                            $scope.isRequestPending = false;
+                            vm.isRequestPending = false;
+                            flash.to(vm.alertIdentifierId).success = 'We\'ve successfully updated your account!';
                         }, TIMEOUT_PENDING);
                     })
                     .catch(function () {
                         /* If bad feedback from server */
-                        $scope.badPostSubmitResponse = true;
-                        $scope.isRequestPending = false;
+                        vm.badPostSubmitResponse = true;
+                        vm.isRequestPending = false;
 
-                        flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to update your account.';
+                        flash.to(vm.alertIdentifierId).error = 'We\'ve encountered an error while trying to update your account.';
                     });
             }
         };

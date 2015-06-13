@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Error service interceptor used to listen to ajax server responses.
  */

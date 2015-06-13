@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.feedback")
     .constant("FEEDBACK_URLS", {

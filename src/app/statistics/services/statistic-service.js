@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Summaries service which encapsulates the whole logic related to statistics.
  */

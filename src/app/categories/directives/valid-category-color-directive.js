@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Directive responsible for checking of a category color is valid hex value.
  */

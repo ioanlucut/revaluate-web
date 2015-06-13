@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.categories")
     .directive("uniqueCategoryName", function ($q, CategoryService) {

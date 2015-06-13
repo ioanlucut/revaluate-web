@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Insight transformer service which transforms a insight DTO model object to a insight business object.
  */

@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Main site module declaration including ui templates.
  */
@@ -7,13 +9,13 @@ angular
         "revaluate.account",
         "revaluate.statistics"
     ])
-    .config(["$stateProvider", function ($stateProvider) {
+    .config(function ($stateProvider, MIXPANEL_EVENTS) {
 
         $stateProvider
 
             .state("expenses", {
                 url: "/expenses",
-                templateUrl: 'app/expenses/partials/expense/expenses.abstract.html',
+                templateUrl: '/app/expenses/partials/expense/expenses.abstract.html',
                 abstract: true
             })
 
@@ -22,7 +24,7 @@ angular
                 url: "",
                 views: {
                     'expenses': {
-                        templateUrl: "app/expenses/partials/expense/expenses.html",
+                        templateUrl: "/app/expenses/partials/expense/expenses.html",
                         controller: "ExpenseController",
                         resolve: {
                             expenses: function (ExpenseService) {
@@ -34,7 +36,8 @@ angular
                         }
                     }
                 },
-                title: "Expenses - Revaluate"
+                title: "Expenses - Revaluate",
+                mixpanelId: MIXPANEL_EVENTS.expensesPage
             })
 
-    }]);
+    });

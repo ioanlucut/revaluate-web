@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.expenses")
     .controller("ExpenseController", function ($scope, $rootScope, $stateParams, Expense, expenses, ExpenseService, categories, $window, DatesUtils, $timeout, StatesHandler, EXPENSE_EVENTS, flash, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
@@ -16,11 +18,6 @@ angular
          * Alert identifier
          */
         $scope.alertIdentifierId = ALERTS_CONSTANTS.expenseList;
-
-        /**
-         * Track event.
-         */
-        mixpanel.track(MIXPANEL_EVENTS.expensesPage);
 
         /**
          * Search by text
@@ -129,10 +126,6 @@ angular
                 $scope.masterExpense
                     .save()
                     .then(function () {
-
-                        /**
-                         * Track event.
-                         */
                         mixpanel.track(MIXPANEL_EVENTS.expenseCreated);
 
                         var expenseToBePushed = angular.copy($scope.masterExpense);

@@ -1,8 +1,10 @@
+'use strict';
+
 /**
  * Main app module declaration.
  */
 angular
-    .module("app", [
+    .module("revaluate", [
         "config",
         "braintree-angular",
         "angular-cache",
@@ -11,7 +13,6 @@ angular
         "ngMessages",
         "ngStorage",
         "ngSanitize",
-        "partials",
         "revaluate.site",
         "revaluate.feedback",
         "revaluate.common",
@@ -62,6 +63,8 @@ angular
                 'DESCRIPTION_TEXT': 'Personal finance simplified.'
             }
         }));
+
+        $translateProvider.useSanitizeValueStrategy('sanitize');
     })
     .run(function (ENV) {
 

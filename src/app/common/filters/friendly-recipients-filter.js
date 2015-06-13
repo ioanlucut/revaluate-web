@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.common")
     .filter('friendlyRecipients', function ($rootScope) {

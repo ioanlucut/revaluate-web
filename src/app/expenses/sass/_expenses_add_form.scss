@@ -1,8 +1,7 @@
 .expenses__form {
   @include clearfix();
-  //width: 800px;
   width: 100%;
-  padding: 0 70px;
+  padding: 15px 50px;
   margin: 10px auto 30px auto;
   color: $black;
   font-weight: $font-weight-bold;

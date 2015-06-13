@@ -4,17 +4,17 @@
     <h1 class="settings__title">Change your currency</h1>
 
     <!-- Flash messages. -->
-    <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+    <div flash-messages flash="flash" identifier-id="{{vm.alertIdentifierId}}"></div>
 
-    <form name="preferencesForm" ng-submit="updatePreferences()" novalidate>
+    <form name="vm.preferencesForm" ng-submit="vm.updatePreferences()" novalidate>
 
         <div class="settings__preferences__section">
 
-            <div class="currency-select" ng-class="{'has-error': preferencesForm.$submitted && (preferencesForm.currency.$invalid || badPostSubmitResponse)}">
+            <div class="currency-select" ng-class="{'has-error': vm.preferencesForm.$submitted && (vm.preferencesForm.currency.$invalid || vm.badPostSubmitResponse)}">
 
-                <ui-select name="currency" class="currency-select__input" required ng-model="currency.selected" theme="selectize">
+                <ui-select name="currency" class="currency-select__input" required ng-model="vm.currency.selected" theme="selectize">
                     <ui-select-match placeholder="Start typing your currency...">{{$select.selected.displayName}} - {{$select.selected.symbol}}</ui-select-match>
-                    <ui-select-choices repeat="currencyEntry in currencies | orderObjectBy : 'displayName' : false | filter:{$:$select.search} track by currencyEntry.numericCode">
+                    <ui-select-choices repeat="currencyEntry in vm.currencies | orderObjectBy : 'displayName' : false | filter:{$:$select.search} track by currencyEntry.numericCode">
                         <span ng-bind-html="currencyEntry.displayName | highlight: $select.search"></span>
                         <span>-</span>
                         <span ng-bind-html="currencyEntry.symbol | highlight: $select.search"></span>
@@ -22,14 +22,14 @@
                 </ui-select>
 
                 <!-- Error messages -->
-                <div class="form-group-input__message form-group-input__message--currency" ng-class="{'has-error': preferencesForm.category.$invalid && expenseForm.$submitted}" ng-messages="preferencesForm.$error" ng-if="preferencesForm.$submitted">
+                <div class="form-group-input__message form-group-input__message--currency" ng-class="{'has-error': vm.preferencesForm.category.$invalid && expenseForm.$submitted}" ng-messages="vm.preferencesForm.$error" ng-if="vm.preferencesForm.$submitted">
                     <div ng-message="required">Please add a currency.</div>
                 </div>
             </div>
         </div>
 
         <!-- Button -->
-        <button class="settings__btn__save" type="submit">{{isSaving ? 'Saving...' : 'Save changes'}}</button>
+        <button class="settings__btn__save" type="submit">{{vm.isSaving ? 'Saving...' : 'Save changes'}}</button>
     </form>
 
 </div>

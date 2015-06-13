@@ -1,8 +1,10 @@
+'use strict';
+
 /**
  * Main app controller declaration.
  */
 angular
-    .module("app")
+    .module("revaluate")
     .controller("AppController", function ($rootScope, $scope, $state, $timeout, $log, flash, AuthService, AccountModal, User, StatesHandler, AUTH_EVENTS, ALERTS_CONSTANTS, ACTIVITY_INTERCEPTOR, AUTH_MODAL, ERROR_INTERCEPTOR, ENV) {
 
         /**
@@ -71,6 +73,15 @@ angular
          */
         $rootScope.$on('$stateChangeStart', function () {
             $rootScope.$broadcast(ACTIVITY_INTERCEPTOR.activityStart);
+        });
+
+        /**
+         * Track mixpanel activity
+         */
+        $rootScope.$on('$stateChangeSuccess', function (event, toState) {
+            if ( toState.mixpanelId ) {
+                mixpanel.track(toState.mixpanelId);
+            }
         });
 
         $rootScope.$on('$viewContentLoaded', function () {

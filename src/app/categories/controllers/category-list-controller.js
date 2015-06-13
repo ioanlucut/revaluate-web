@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Categories controller.
  */
@@ -8,11 +10,6 @@ angular
          * Alert identifier
          */
         $scope.alertIdentifierId = ALERTS_CONSTANTS.createUpdateCategory;
-
-        /**
-         * Track event.
-         */
-        mixpanel.track(MIXPANEL_EVENTS.categoriesPage);
 
         /**
          * The current user

@@ -1,3 +1,5 @@
+'use strict';
+
 /* Feedback modal */
 
 angular
@@ -16,7 +18,7 @@ angular
         this.open = function () {
 
             this.modalInstance = $modal.open({
-                templateUrl: "app/feedback/partials/feedback-modal.html",
+                templateUrl: "/app/feedback/partials/feedback-modal.html",
                 controller: "FeedbackModalController",
                 windowClass: "modal-feedback"
             });

@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Setting import controller.
  */
@@ -38,11 +40,6 @@ angular
          * Alert identifier
          */
         $scope.alertIdentifierId = ALERTS_CONSTANTS.import;
-
-        /**
-         * Track event.
-         */
-        mixpanel.track(MIXPANEL_EVENTS.settingsImport);
 
         /**
          * Current user.

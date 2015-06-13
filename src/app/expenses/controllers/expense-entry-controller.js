@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.expenses")
     .controller("ExpenseEntryController", function ($scope, $rootScope, Expense, $timeout, EXPENSE_EVENTS, MIXPANEL_EVENTS) {
@@ -37,11 +39,7 @@ angular
                 expense
                     .save()
                     .then(function () {
-
-                        /**
-                         * Track event.
-                         */
-                        mixpanel.track(MIXPANEL_EVENTS.expenseCreated);
+                        mixpanel.track(MIXPANEL_EVENTS.expenseUpdated);
 
                         $timeout(function () {
                             $scope.isUpdating = false;

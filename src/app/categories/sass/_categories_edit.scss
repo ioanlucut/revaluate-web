@@ -9,7 +9,7 @@
   @include clearfix();
   @include border-radius($base-border-radius);
   padding: 0;
-  height: 42px;
+  min-height: 42px;
 }
 
 .categories__edit__category__name {

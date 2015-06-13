@@ -1,3 +1,5 @@
+'use strict';
+
 describe('app/account/logout', function () {
 
     var $rootScope, $state, $injector, $httpBackend, $q, ENV, CURRENCY_URLS, COLOR_URLS, EXPENSE_URLS, CATEGORY_URLS, AuthServiceMock, UserMock, state = 'account:logout';
@@ -7,7 +9,7 @@ describe('app/account/logout', function () {
         // ---
         // Just inject the module and define dependencies.
         // ---
-        module('app', function ($provide) {
+        module('revaluate', function ($provide) {
             $provide.value('AuthService', AuthServiceMock = {});
             $provide.value('User', UserMock = {});
         });

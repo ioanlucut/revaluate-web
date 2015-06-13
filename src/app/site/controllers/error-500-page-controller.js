@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * 500 page controller.
  */

@@ -1,0 +1,14 @@
+<!--Show content-->
+<div ng-if="showContent">
+    <button type="button" ng-click="cancel();toggleContent();">Cancel</button>
+
+    <!--Message-->
+    <div class="message">Are you sure you want to do this shit, to cancel your account?</div>
+
+    <input type="checkbox" ng-model="messageAcknowledged" />
+
+    <button type="button" ng-disabled="! messageAcknowledged" ng-click="doConfirm();">Ok</button>
+</div>
+
+<!--Transclude content-->
+<div ng-transclude ng-if="! showContent" ng-click="toggleContent()"></div>

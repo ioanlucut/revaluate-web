@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Categories service which encapsulates the whole logic related to categories.
  */

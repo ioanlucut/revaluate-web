@@ -1,7 +1,7 @@
 describe('ExpenseTransformerService', function () {
 
     // Inject app
-    beforeEach(module("app"));
+    beforeEach(module("revaluate"));
 
     it('Should inject the service', inject(function (ExpenseTransformerService) {
         expect(ExpenseTransformerService).toBeTruthy();

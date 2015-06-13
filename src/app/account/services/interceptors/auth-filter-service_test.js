@@ -1,3 +1,5 @@
+'use strict';
+
 describe('app/AuthFilter', function () {
 
     var $rootScope, $location, $state, $injector, $httpBackend, $q, ENV, AccountModal, CURRENCY_URLS, COLOR_URLS, EXPENSE_URLS, CATEGORY_URLS, STATES, AuthServiceMock, UserMock;
@@ -7,7 +9,7 @@ describe('app/AuthFilter', function () {
         // ---
         // Just inject the module and define dependencies.
         // ---
-        module('app', function ($provide) {
+        module('revaluate', function ($provide) {
             $provide.value('AuthService', AuthServiceMock = {});
             $provide.value('User', UserMock = {});
         });

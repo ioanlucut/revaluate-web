@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.feedback")
     .controller("FeedbackModalController", function ($scope, FeedbackModalService, Feedback, $timeout) {

@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.expenses")
     .directive('caretPricePosition', function ($timeout) {

@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Forgot password controller responsible for user forgot password action.
  */

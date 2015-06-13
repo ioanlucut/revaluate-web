@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Main common module declaration including ui templates.
  */
@@ -6,6 +8,7 @@ angular
         "chart.js",
         "ui.router",
         "ngSanitize",
+        "ui.bootstrap.tpls",
         "ui.bootstrap.transition",
         "ui.bootstrap.datepicker",
         "ui.bootstrap.dateparser",

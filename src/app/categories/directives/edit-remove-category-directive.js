@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.categories")
     .directive("editRemoveCategory", function ($rootScope, CATEGORY_EVENTS) {
@@ -8,7 +10,7 @@ angular
                 category: "=",
                 colors: "="
             },
-            templateUrl: "app/categories/partials/edit-remove-category-directive-template.html",
+            templateUrl: "/app/categories/partials/edit-remove-category-directive-template.html",
             link: function (scope, el, attrs) {
 
                 /**

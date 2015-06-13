@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Header directive responsible for header common template.
  */
@@ -6,7 +8,7 @@ angular
     .directive("header", function ($rootScope) {
         return {
             restrict: "A",
-            templateUrl: "app/common/partials/header.html",
+            templateUrl: "/app/common/partials/header.html",
             link: function (scope, el) {
             }
         };

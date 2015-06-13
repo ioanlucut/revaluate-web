@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Directive responsible for checking of a password is strong enough.
  */
