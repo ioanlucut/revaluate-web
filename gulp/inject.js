@@ -23,7 +23,7 @@ module.exports = function (options) {
 
         var injectOptions = {
             ignorePath: [options.src, options.tmp + '/serve'],
-            addRootSlash: false
+            addRootSlash: true
         };
 
         return gulp.src(options.src + '/*.html')
