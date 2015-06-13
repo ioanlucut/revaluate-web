@@ -1,0 +1,46 @@
+.categories__delete__confirmation {
+  @include border-radius($border-radius-base);
+  background-color: $brand-danger-light;
+  clear: left;
+  position: relative;
+  padding: 15px 40px;
+  text-align: center;
+
+  button:first-child {
+    @include btn-small($gray-dark-1);
+    position: absolute;
+    right: 0;
+    top: -37px;
+    width: 72px;
+  }
+
+  .categories__delete__confirmation__check {
+    @include clearfix();
+    @include user-select(none);
+    position: relative;
+    margin: 20px auto;
+    min-width: 350px;
+
+    input,
+    label {
+      float: left;
+      display: inline-block;
+      font-size: $font-size-large;
+    }
+
+    input {
+      width: 22px;
+      height: 22px;
+    }
+
+    label {
+      @include calc(width, "100% - 25px");
+      margin: 0;
+      text-align: left;
+    }
+  }
+
+  button:last-child {
+    @include btn-big($brand-danger);
+  }
+}
