@@ -3,6 +3,7 @@ node_modules/
 bower_components/
 .sass-cache/
 .tmp/
+.divshot-cache/
 dist/
 build
 npm-debug.log
