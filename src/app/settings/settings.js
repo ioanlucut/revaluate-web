@@ -208,7 +208,7 @@ angular
             // ---
             .state("setup", {
                 url: "/setup",
-                templateUrl: 'app/settings/partials/settings.setup.registration.html',
+                templateUrl: '/app/settings/partials/settings.setup.registration.html',
                 controller: "SettingsSetUpRegistrationController",
                 controllerAs: 'vm',
                 resolve: {
