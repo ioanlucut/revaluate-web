@@ -13,7 +13,7 @@ angular
                 confirm: "&",
                 cancel: "&"
             },
-            templateUrl: "app/settings/partials/cancel_account_confirmation_template.html",
+            templateUrl: "/app/settings/partials/cancel_account_confirmation_template.html",
             link: function (scope, el, attrs) {
 
                 /**

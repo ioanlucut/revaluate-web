@@ -10,7 +10,7 @@ angular
                 categoryColor: "=",
                 colors: "="
             },
-            templateUrl: "app/categories/partials/color-picker-directive-template.html",
+            templateUrl: "/app/categories/partials/color-picker-directive-template.html",
             link: function (scope, elm, attrs) {
 
                 // By default the popover is closed

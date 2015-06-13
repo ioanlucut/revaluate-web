@@ -17,7 +17,7 @@ angular
             .state({
                 name: "settings",
                 url: "/account/settings",
-                templateUrl: "app/settings/partials/settings.abstract.html",
+                templateUrl: "/app/settings/partials/settings.abstract.html",
                 abstract: true
             })
 
@@ -27,7 +27,7 @@ angular
             .state({
                 name: "settings.profile",
                 url: "/profile",
-                templateUrl: "app/settings/partials/settings.profile.html",
+                templateUrl: "/app/settings/partials/settings.profile.html",
                 controller: "SettingsProfileController",
                 controllerAs: 'vm',
                 title: "Profile - Revaluate",
@@ -41,14 +41,14 @@ angular
             .state({
                 name: "settings.payment",
                 url: "/payment",
-                templateUrl: "app/settings/partials/settings.payment.abstract.html",
+                templateUrl: "/app/settings/partials/settings.payment.abstract.html",
                 abstract: true
             })
 
             .state({
                 name: "settings.payment.add",
                 url: "/add",
-                templateUrl: "app/settings/partials/settings.payment.add.html",
+                templateUrl: "/app/settings/partials/settings.payment.add.html",
                 controller: "SettingsPaymentMethodAddController",
                 controllerAs: 'vm',
                 isPaymentRelatedPage: true,
@@ -80,7 +80,7 @@ angular
             .state({
                 name: "settings.payment.method",
                 url: "/method",
-                templateUrl: "app/settings/partials/settings.payment.method.update.html",
+                templateUrl: "/app/settings/partials/settings.payment.method.update.html",
                 controller: "SettingsEditPaymentMethodController",
                 controllerAs: 'vm',
                 isPaymentRelatedPage: true,
@@ -111,7 +111,7 @@ angular
             .state({
                 name: "settings.payment.customer",
                 url: "/customer",
-                templateUrl: "app/settings/partials/settings.payment.customer.html",
+                templateUrl: "/app/settings/partials/settings.payment.customer.html",
                 controller: "SettingsPaymentCustomerController",
                 isPaymentRelatedPage: true,
                 resolve: {
@@ -133,7 +133,7 @@ angular
 
             .state("settings.payment.insights", {
                 url: "/insights",
-                templateUrl: "app/settings/partials/settings.payment.insights.html",
+                templateUrl: "/app/settings/partials/settings.payment.insights.html",
                 controller: "SettingsPaymentInsightsController",
                 controllerAs: 'vm',
                 isPaymentRelatedPage: true,
@@ -161,15 +161,15 @@ angular
                 url: "/admin",
                 views: {
                     '': {
-                        templateUrl: "app/settings/partials/settings.admin.abstract.html"
+                        templateUrl: "/app/settings/partials/settings.admin.abstract.html"
                     },
                     'updatePassword@settings.admin': {
-                        templateUrl: "app/settings/partials/settings.admin.updatePassword.html",
+                        templateUrl: "/app/settings/partials/settings.admin.updatePassword.html",
                         controller: "SettingsUpdatePasswordController",
                         controllerAs: 'vm'
                     },
                     'cancelAccount@settings.admin': {
-                        templateUrl: "app/settings/partials/settings.admin.cancelAccount.html",
+                        templateUrl: "/app/settings/partials/settings.admin.cancelAccount.html",
                         controller: "SettingsCancelAccountController",
                         controllerAs: 'vm'
                     }
@@ -185,10 +185,10 @@ angular
                 url: "/preferences",
                 views: {
                     '': {
-                        templateUrl: "app/settings/partials/settings.preferences.abstract.html"
+                        templateUrl: "/app/settings/partials/settings.preferences.abstract.html"
                     },
                     'updateCurrency@settings.preferences': {
-                        templateUrl: "app/settings/partials/settings.preferences.updateCurrency.html",
+                        templateUrl: "/app/settings/partials/settings.preferences.updateCurrency.html",
                         controller: "SettingsPreferencesCurrencyController",
                         controllerAs: 'vm',
                         resolve: {

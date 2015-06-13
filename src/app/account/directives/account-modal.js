@@ -7,7 +7,7 @@ angular
     .directive("accountModal", function ($rootScope, $animate, ACCOUNT_FORM_STATE, AccountModal) {
         return {
             restrict: "A",
-            templateUrl: "app/account/partials/account.html",
+            templateUrl: "/app/account/partials/account.html",
             link: function (scope, el) {
 
                 scope.ACCOUNT_FORM_STATE = ACCOUNT_FORM_STATE;

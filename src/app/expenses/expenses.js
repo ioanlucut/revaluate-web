@@ -24,7 +24,7 @@ angular
                 url: "",
                 views: {
                     'expenses': {
-                        templateUrl: "app/expenses/partials/expense/expenses.html",
+                        templateUrl: "/app/expenses/partials/expense/expenses.html",
                         controller: "ExpenseController",
                         resolve: {
                             expenses: function (ExpenseService) {

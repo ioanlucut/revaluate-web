@@ -14,7 +14,7 @@ angular
                 confirm: "&",
                 cancel: "&"
             },
-            templateUrl: "app/categories/partials/remove_category_confirmation_template.html",
+            templateUrl: "/app/categories/partials/remove_category_confirmation_template.html",
             link: function (scope, el, attrs) {
 
                 /**
