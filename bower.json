@@ -23,7 +23,6 @@
     "bourbon": "~4.2.1",
     "bitters": "~1.0.0",
     "neat": "~1.7.1",
-    "ngDialog": "~0.3.12",
     "angular-chart.js": "~0.7.0",
     "angular-cache": "~4.2.0",
     "angular-file-upload": "~1.1.5",
