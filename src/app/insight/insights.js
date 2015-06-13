@@ -10,7 +10,7 @@ angular
         $stateProvider
             .state("insights", {
                 url: "/insights",
-                templateUrl: 'app/insight/partials/insight.html',
+                templateUrl: '/app/insight/partials/insight.html',
                 controller: "InsightController",
                 resolve: {
                     insight: function (InsightService) {

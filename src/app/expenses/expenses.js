@@ -15,7 +15,7 @@ angular
 
             .state("expenses", {
                 url: "/expenses",
-                templateUrl: 'app/expenses/partials/expense/expenses.abstract.html',
+                templateUrl: '/app/expenses/partials/expense/expenses.abstract.html',
                 abstract: true
             })
 
