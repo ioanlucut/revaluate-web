@@ -44,3 +44,13 @@ You might want to use local env:
 * `git add .`
 * `git commit -m "add composer"`
 * `git push`
+
+# GULP
+* Configs are three, they can be found at e.g. `app.config.production.json`. To activate the environment, just pass to the gulp arguments, e.g. `gulp serve:dist --env=localhost`
+* Build `DEV`: `gulp build:dev`
+* Build `PROD`: `gulp build:prod`
+* Build `localhost`: `gulp build:local`
+* Same applies for `gulp serve`
+* Same applies for `gulp serve:dist`
+* Build `custom`: `gulp --env=localhost` but the configs have to be defined for that specific custom environments.
+* Note: All paths are `relative`. Always use `/app/sometheing`, and not `app/something`
