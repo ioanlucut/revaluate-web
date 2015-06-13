@@ -19,7 +19,7 @@ module.exports = function (options) {
             }))
             .pipe($.angularTemplatecache('templateCacheHtml.js', {
                 module: 'revaluate',
-                root: 'app'
+                root: '/app'
             }))
             .pipe(gulp.dest(options.tmp + '/partials/'));
     });
