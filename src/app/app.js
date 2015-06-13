@@ -5,6 +5,7 @@
  */
 angular
     .module("revaluate", [
+        "config",
         "braintree-angular",
         "angular-cache",
         "angularFileUpload",
@@ -62,6 +63,8 @@ angular
                 'DESCRIPTION_TEXT': 'Personal finance simplified.'
             }
         }));
+
+        $translateProvider.useSanitizeValueStrategy('sanitize');
     })
     .run(function (ENV) {
 

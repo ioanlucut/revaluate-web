@@ -205,7 +205,7 @@ module.exports = function (grunt) {
                     lineNumbers: true
                 },
                 files: {
-                    "build/css/app.css": "src/sass/bootstrap.scss"
+                    "build/css/app.css": "src/sass/index.scss"
                 }
             }
         },
