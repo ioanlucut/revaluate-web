@@ -1,7 +1,10 @@
 {
   "name": "revaluate",
   "version": "1.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "gulp-ng-constant": "^0.3.0",
+    "yargs": "^3.10.0"
+  },
   "scripts": {
     "test": "gulp test"
   },
@@ -53,4 +56,3 @@
     "node": ">=0.10.0"
   }
 }
-
