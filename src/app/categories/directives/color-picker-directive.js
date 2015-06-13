@@ -24,7 +24,7 @@ angular
                 // ---
                 // Label element clicks toggles the picker.
                 // ---
-                var label = elm.prev().prev('label');
+                var label = elm.prev().prev().prev('label');
 
                 label.on("click", function () {
                     scope.$apply(function () {
