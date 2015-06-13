@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.settings")
     .controller("SettingsPaymentCustomerController", function ($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, paymentInsights, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
@@ -8,11 +10,6 @@ angular
          * Alert identifier
          */
         $scope.alertIdentifierId = ALERTS_CONSTANTS.paymentProfile;
-
-        /**
-         * Track event.
-         */
-        mixpanel.track(MIXPANEL_EVENTS.settingsPaymentCustomer);
 
         /**
          * Current user.
@@ -62,10 +59,10 @@ angular
                         $scope.paymentDetailsData = angular.copy(getInitialPaymentDetailsData());
 
                         $scope.updateCustomerForm.$setPristine();
-                        flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your customer information!';
 
                         $timeout(function () {
                             $scope.isRequestPending = false;
+                            flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your customer information!';
                         }, TIMEOUT_PENDING);
                     })
                     .catch(function (response) {

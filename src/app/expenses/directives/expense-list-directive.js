@@ -1,3 +1,5 @@
+'use strict';
+
 /* Email list */
 
 angular
@@ -10,7 +12,7 @@ angular
                 categories: "=",
                 searchByText: "="
             },
-            templateUrl: "app/expenses/partials/expense/expenses.list.template.html",
+            templateUrl: "/app/expenses/partials/expense/expenses.list.template.html",
             link: function (scope, el, attrs) {
 
                 /**

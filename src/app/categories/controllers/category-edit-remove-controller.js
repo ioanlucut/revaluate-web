@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.categories")
     .controller("CategoryEditRemoveController", function ($scope, $rootScope, Category, $timeout, CATEGORY_EVENTS, MIXPANEL_EVENTS) {
@@ -23,7 +25,7 @@ angular
                         /**
                          * Track event.
                          */
-                        mixpanel.track(MIXPANEL_EVENTS.categoryCreated);
+                        mixpanel.track(MIXPANEL_EVENTS.categoryUpdated);
 
                         $timeout(function () {
                             $scope.isUpdating = false;
@@ -48,32 +50,29 @@ angular
          * Remove category;
          */
         $scope.deleteCategory = function (category) {
-            if ( !$scope.isDeleting ) {
-
-                // Is deleting category
-                $scope.isDeleting = true;
-
-                // Destroy category
-                category
-                    .destroy()
-                    .then(function () {
-
-                        /**
-                         * Track event.
-                         */
-                        mixpanel.track(MIXPANEL_EVENTS.categoryDeleted);
-
-                        $rootScope.$broadcast(CATEGORY_EVENTS.isDeleted, {
-                            category: category
-                        });
-                    })
-                    .catch(function () {
-
-                        // Error
-                        $scope.isDeleting = false;
-                        $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, {});
-                    });
+            if ( $scope.isDeleting ) {
+                return;
             }
+
+            // Is deleting category
+            $scope.isDeleting = true;
+
+            // Destroy category
+            category
+                .destroy()
+                .then(function () {
+                    mixpanel.track(MIXPANEL_EVENTS.categoryDeleted);
+
+                    $rootScope.$broadcast(CATEGORY_EVENTS.isDeleted, {
+                        category: category
+                    });
+                })
+                .catch(function () {
+
+                    // Error
+                    $scope.isDeleting = false;
+                    $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, {});
+                });
         };
 
     });

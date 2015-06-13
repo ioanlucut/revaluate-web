@@ -1,6 +1,8 @@
+'use strict';
+
 angular
     .module("revaluate.account")
-    .controller("EmailConfirmationSendController", function ($scope, $rootScope, $timeout, flash, AuthService, StatesHandler, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {
+    .controller("EmailConfirmationResendController", function ($scope, $rootScope, $timeout, flash, AuthService, StatesHandler, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {
 
         var TIMEOUT_PENDING = 300;
 
@@ -27,10 +29,9 @@ angular
                 AuthService
                     .requestConfirmationEmail(sendConfirmationEmailData.email)
                     .then(function () {
-                        flash.to($scope.alertIdentifierId).success = 'We\'ve successfully sent the confirmation email!';
-
                         $timeout(function () {
                             $scope.isRequestPending = false;
+                            flash.to($scope.alertIdentifierId).success = 'We\'ve successfully sent the confirmation email!';
                         }, TIMEOUT_PENDING);
                     })
                     .catch(function () {

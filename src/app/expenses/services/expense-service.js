@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Expenses service which encapsulates the whole logic related to expenses.
  */

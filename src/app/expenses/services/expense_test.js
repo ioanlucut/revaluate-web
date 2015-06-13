@@ -1,7 +1,9 @@
+'use strict';
+
 describe('Expense', function () {
 
     // Inject app
-    beforeEach(module("app"));
+    beforeEach(module("revaluate"));
 
     it('Should inject the service', inject(function (Expense) {
         expect(Expense).toBeTruthy();

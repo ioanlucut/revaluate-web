@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Main account module declaration including ui templates.
  */
@@ -7,7 +9,7 @@ angular
         "revaluate.currencies",
         "revaluate.categories"
     ])
-    .config(function ($stateProvider, $httpProvider) {
+    .config(function ($stateProvider, $httpProvider, MIXPANEL_EVENTS) {
 
         // Register AuthInterceptor
         $httpProvider.interceptors.push("AuthInterceptor");
@@ -19,8 +21,9 @@ angular
             .state("account", {
                 url: "/account",
                 controller: "LoginController",
-                templateUrl: "app/site/partials/home.html",
+                templateUrl: "/app/site/partials/home.html",
                 title: "Login - Revaluate",
+                mixpanelId: MIXPANEL_EVENTS.account,
                 isPublicPage: true
             })
 
@@ -28,7 +31,7 @@ angular
             .state("account:logout", {
                 url: "/account/logout",
                 controller: "LogoutController",
-                templateUrl: "app/account/partials/logout.html",
+                templateUrl: "/app/account/partials/logout.html",
                 resolve: {
                     isSuccessfullyLoggedOut: function ($q, AuthService) {
                         AuthService.logout();
@@ -37,6 +40,7 @@ angular
                     }
                 },
                 title: "Logout - Revaluate",
+                mixpanelId: MIXPANEL_EVENTS.accountLogout,
                 isPublicPage: true
             })
 
@@ -48,14 +52,14 @@ angular
             .state({
                 name: "account:validatePasswordResetToken",
                 url: "/account/reset-password",
-                templateUrl: "app/account/partials/validate_password_reset_token_abstract.html",
+                templateUrl: "/app/account/partials/validate_password_reset_token_abstract.html",
                 abstract: true
             })
             // Validate password reset token - valid
             .state({
                 name: "account:validatePasswordResetToken.valid",
                 url: "/{email}/{token}",
-                templateUrl: "app/account/partials/validate_password_reset_token_valid.html",
+                templateUrl: "/app/account/partials/validate_password_reset_token_valid.html",
                 controller: "ValidatePasswordResetTokenController",
                 resolve: {
                     validateTokenResult: function ($stateParams, $q, AuthService, $state) {
@@ -77,15 +81,17 @@ angular
                     }
                 },
                 title: "Reset password - Revaluate",
+                mixpanelId: MIXPANEL_EVENTS.accountValidatePasswordResetTokenValid,
                 isPublicPage: true
             })
             // Validate password reset token - invalid token
             .state({
                 name: "account:validatePasswordResetToken.invalid",
                 url: "/invalid-token",
-                templateUrl: "app/account/partials/validate_password_reset_token_invalid.html",
+                templateUrl: "/app/account/partials/validate_password_reset_token_invalid.html",
                 controller: "ValidatePasswordResetTokenInvalidController",
                 title: "Reset password - Revaluate",
+                mixpanelId: MIXPANEL_EVENTS.accountValidatePasswordResetTokenInvalid,
                 isPublicPage: true
             })
 
@@ -97,14 +103,14 @@ angular
             .state({
                 name: "account:confirmationEmail",
                 url: "/account/confirm-email",
-                templateUrl: "app/account/partials/email_confirmation_send_abstract.html",
+                templateUrl: "/app/account/partials/email_confirmation_resend_abstract.html",
                 abstract: true
             })
             // Validate confirmation email token - valid
             .state({
                 name: "account:confirmationEmail.valid",
                 url: "/{email}/{token}",
-                templateUrl: "app/account/partials/email_confirmation_send_valid.html",
+                templateUrl: "/app/account/partials/email_confirmation_resend_valid.html",
                 resolve: {
                     validateTokenResult: function (AuthService, $rootScope, $stateParams, $q, $state, AUTH_EVENTS) {
                         var deferred = $q.defer();
@@ -136,37 +142,18 @@ angular
                     }
                 },
                 title: "Confirm email - Revaluate",
+                mixpanelId: MIXPANEL_EVENTS.accountConfirmationEmailValid,
                 isPublicPage: true
             })
             // Validate password reset token - invalid token
             .state({
                 name: "account:confirmationEmail.invalid",
                 url: "/invalid-token",
-                templateUrl: "app/account/partials/email_confirmation_send_invalid.html",
+                templateUrl: "/app/account/partials/email_confirmation_resend_invalid.html",
                 title: "Invalid confirmation email token - Revaluate",
+                mixpanelId: MIXPANEL_EVENTS.accountConfirmationEmailInvalid,
                 isPublicPage: true
             })
-
-            // ---
-            // Account - second step of registration (set up).
-            // ---
-            .state("setup", {
-                url: "/setup",
-                templateUrl: 'app/account/partials/signup_setup.html',
-                controller: "SignUpSetUpRegistrationController",
-                title: "Setup - Revaluate",
-                resolve: {
-                    currencies: function (CurrencyService) {
-                        return CurrencyService.getAllCurrencies();
-                    },
-                    colors: function (ColorService) {
-                        return ColorService.getAllColors();
-                    },
-                    predefinedCategories: function (CategoriesSetupProvider) {
-                        return CategoriesSetupProvider.getPredefinedCategories();
-                    }
-                }
-            });
     })
 
     .run(function ($rootScope, AuthFilter) {

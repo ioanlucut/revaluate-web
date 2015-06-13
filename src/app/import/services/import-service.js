@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * ExpensesImport service which encapsulates the whole logic related to expensesImport.
  */

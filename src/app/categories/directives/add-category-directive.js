@@ -1,10 +1,12 @@
+'use strict';
+
 angular
     .module("revaluate.categories")
     .directive("addCategory", function ($rootScope, CATEGORY_EVENTS) {
         return {
             restrict: "A",
             controller: 'CategoryCreateController',
-            templateUrl: "app/categories/partials/add-category-directive-template.html",
+            templateUrl: "/app/categories/partials/add-category-directive-template.html",
             link: function (scope, el, attrs) {
 
                 /**

@@ -1,0 +1,9 @@
+{
+    "name": "revaluate",
+    "root": "./dist",
+    "clean_urls": true,
+    "cache_control": {},
+    "routes": {
+        "**": "index.html"
+    }
+}

@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.account")
     .service("UserService", function ($http, $q, USER_URLS) {

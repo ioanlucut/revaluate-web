@@ -4,11 +4,11 @@
     <h1 class="settings__title">Delete account</h1>
 
     <!-- Flash messages. -->
-    <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+    <div flash-messages flash="flash" identifier-id="{{vm.alertIdentifierId}}"></div>
 
     <!--Cancel account-->
-    <div inline-confirmation toggle="! isDeleting" confirm="cancelAccount()" message="Are you sure you want to delete your account?">
-        <button class="settings__cancel__btn">{{isDeleting ? 'Deleting...' : 'Delete my account'}}</button>
+    <div cancel-account-confirmation confirm="vm.cancelAccount()" auto-toggle-when="! vm.isDeleting">
+        <button class="settings__cancel__btn">{{vm.isDeleting ? 'Deleting...' : 'Delete my account'}}</button>
     </div>
 
 </div>

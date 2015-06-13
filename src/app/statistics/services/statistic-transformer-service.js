@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Statistic transformer service which transforms a statistic DTO model object to a statistic business object.
  */

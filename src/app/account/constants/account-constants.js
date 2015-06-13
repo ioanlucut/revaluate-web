@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Account related constants.
  */

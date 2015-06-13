@@ -1,3 +1,5 @@
+'use strict';
+
 /* Focus the first erroneous input on form submit */
 
 angular

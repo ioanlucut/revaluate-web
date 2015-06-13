@@ -1,14 +1,16 @@
+'use strict';
+
 angular
     .module("revaluate.insights", [
         "revaluate.common",
         "revaluate.expenses"
     ])
-    .config(["$stateProvider", function ($stateProvider) {
+    .config(function ($stateProvider, MIXPANEL_EVENTS) {
 
         $stateProvider
             .state("insights", {
                 url: "/insights",
-                templateUrl: 'app/insight/partials/insight.html',
+                templateUrl: '/app/insight/partials/insight.html',
                 controller: "InsightController",
                 resolve: {
                     insight: function (InsightService) {
@@ -23,7 +25,8 @@ angular
                             .fetchStatistics();
                     }
                 },
-                title: "Insights - Revaluate"
+                title: "Insights - Revaluate",
+                mixpanelId: MIXPANEL_EVENTS.insightsPage
             })
 
-    }]);
+    });

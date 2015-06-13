@@ -1,3 +1,5 @@
+'use strict';
+
 /* Activity interceptor */
 
 angular

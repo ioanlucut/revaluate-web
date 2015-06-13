@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.categories")
     .directive("colorPicker", function (CATEGORY_EVENTS, CategoryColorService, $timeout, $animate) {
@@ -8,7 +10,7 @@ angular
                 categoryColor: "=",
                 colors: "="
             },
-            templateUrl: "app/categories/partials/color-picker-directive-template.html",
+            templateUrl: "/app/categories/partials/color-picker-directive-template.html",
             link: function (scope, elm, attrs) {
 
                 // By default the popover is closed
@@ -22,7 +24,7 @@ angular
                 // ---
                 // Label element clicks toggles the picker.
                 // ---
-                var label = elm.prev().prev('label');
+                var label = elm.prev().prev().prev('label');
 
                 label.on("click", function () {
                     scope.$apply(function () {

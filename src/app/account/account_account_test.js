@@ -1,3 +1,5 @@
+'use strict';
+
 describe('app/account/account', function () {
 
     var $rootScope, $state, $injector, state = 'account';
@@ -7,7 +9,7 @@ describe('app/account/account', function () {
         // ---
         // Just inject the module and define dependencies.
         // ---
-        module('app', function () {
+        module('revaluate', function () {
         });
 
         inject(function (_$rootScope_, _$state_, _$injector_, $templateCache) {

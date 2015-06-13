@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.categories")
     .controller("CategoryCreateController", function ($scope, $rootScope, CategoryColorService, Category, $timeout, CATEGORY_EVENTS, MIXPANEL_EVENTS) {
@@ -37,10 +39,6 @@ angular
                 $scope.category
                     .save()
                     .then(function () {
-
-                        /**
-                         * Track event.
-                         */
                         mixpanel.track(MIXPANEL_EVENTS.categoryCreated);
 
                         $timeout(function () {

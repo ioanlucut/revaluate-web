@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.account")
     .factory("User", function (SessionService, TransformerUtils, $q, $http, AUTH_URLS, USER_SUBSCRIPTION_STATUS) {
@@ -96,6 +98,14 @@ angular
                     setSubscriptionStatusAsAndReload: function (status) {
                         this.loadFrom({ userSubscriptionStatus: status });
                         this.saveToSession();
+                    },
+
+                    resetSubscriptionStatusAfterRemovePaymentIsPerformed: function () {
+                        var status = this.getTrialRemainingDays() === 0
+                            ? USER_SUBSCRIPTION_STATUS.TRIAL_EXPIRED
+                            : USER_SUBSCRIPTION_STATUS.TRIAL
+
+                        this.setSubscriptionStatusAsAndReload(status);
                     },
 
                     /**

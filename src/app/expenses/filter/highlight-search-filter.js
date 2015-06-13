@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.expenses")
     .filter('highlightSearch', function ($sce) {

@@ -1,9 +1,11 @@
+'use strict';
+
 angular
     .module("revaluate.categories", [
-        "revaluate.color",
-        "revaluate.common"
+        "revaluate.common",
+        "revaluate.color"
     ])
-    .config(["$stateProvider", function ($stateProvider) {
+    .config(function ($stateProvider, MIXPANEL_EVENTS) {
 
         $stateProvider
 
@@ -13,7 +15,7 @@ angular
             .state({
                 name: "settings.categories",
                 url: "/categories",
-                templateUrl: "app/categories/partials/categories.html",
+                templateUrl: "/app/categories/partials/categories.html",
                 controller: "CategoryListController",
                 resolve: {
                     categories: function (CategoryService) {
@@ -23,7 +25,8 @@ angular
                         return ColorService.getAllColors();
                     }
                 },
-                title: "Categories - Revaluate"
+                title: "Categories - Revaluate",
+                mixpanelId: MIXPANEL_EVENTS.categoriesPage
             });
 
-    }]);
+    });

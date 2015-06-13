@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Color service which encapsulates the whole logic related to color.
  */

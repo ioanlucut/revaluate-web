@@ -4,12 +4,12 @@
 
     <!--Trial period countdown-->
     <div ng-if="currentUser.showTrialRemainingDays()">
-        <div ng-include src="'app/account/partials/trial_period_countdown.html'"></div>
+        <div ng-include src="'/app/account/partials/trial_period_countdown.html'"></div>
     </div>
 
     <!--Account confirmation alert-->
-    <div ng-if="! currentUser.model.emailConfirmed" ng-controller="EmailConfirmationSendController">
-        <div ng-include src="'app/account/partials/email_confirmation_send_send.html'"></div>
+    <div ng-if="! currentUser.model.emailConfirmed">
+        <div ng-include src="'/app/account/partials/email_confirmation_resend_template.html'"></div>
     </div>
 
     <!-- Flash messages. -->
@@ -85,9 +85,10 @@
 
         <div ng-show="insight.model.numberOfTransactions !== 0">
             <div class="insights__summary">
-                Hey, <span>{{currentUser.model.firstName}}</span>! In <span>{{(insightData.spentDate | friendlyMonthDate)}}</span>
-                you've spent a total of <span>{{insight.model.totalAmountSpent | currency:user.model.currency.symbol}}</span>,
-                which is <span>5% more</span> than the last month.
+                Hey, <span>{{currentUser.model.firstName}}</span>! In
+                <span>{{(insightData.spentDate | friendlyMonthDate)}}</span>
+                you've spent a total of
+                <span>{{insight.model.totalAmountSpent | currency:user.model.currency.symbol:user.model.currency.fractionSize}}</span>.
             </div>
 
             <div ng-if="activeChart === INSIGHTS_CHARTS.BAR" class="insights__chart__bar">
@@ -96,7 +97,7 @@
                         data="insightLineData"
                         series="insightLineSeries"
                         legend="false"
-                        options="chartOptions"
+                        options="defaultChartOptions"
                         labels="insight.model.insightLabels">
                 </canvas>
             </div>
@@ -106,7 +107,7 @@
                         data="insight.model.insightData"
                         labels="insight.model.insightLabels"
                         legend="true"
-                        options="chartOptions"
+                        options="donutChartOptions"
                         colours="insight.model.insightColors">
                 </canvas>
             </div>
@@ -114,15 +115,20 @@
             <div class="insights__summary">
                 You had a total of <span>{{insight.model.numberOfTransactions}} transactions</span>, in
                 <span>{{insight.model.totalPerCategoryInsightDTOs.length}} categories</span>.
+
+                Your biggest expense was <span>{{insight.model.biggestExpense.value | currency:user.model.currency.symbol:user.model.currency.fractionSize}}</span>, from <span>{{insight.model.biggestExpense.category.name}}</span>.
+
+                The most expenses were made in <span>{{insight.model.categoryWithTheMostTransactionsInsightsDTO.categoryDTO.name}}</span>, with a total of <span>{{insight.model.categoryWithTheMostTransactionsInsightsDTO.numberOfTransactions}}</span> transactions.
+
+                The category with the highest amount is <span>{{insight.model.highestAmountCategory.name}}</span>.
             </div>
 
             <div class="insights__table">
                 <table>
                     <thead class="insights__table__header">
-                    <tr class="">
+                    <tr>
                         <td>TOTAL</td>
-                        <td class="insights__table__amount">{{insight.model.totalAmountSpent | currency:user.model.currency.symbol}}<span>{{user.model.currency.currencyCode}}</span>
-                        </td>
+                        <td class="insights__table__amount">{{insight.model.totalAmountSpent | currency:user.model.currency.symbol:user.model.currency.fractionSize}}</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -131,7 +137,7 @@
                             <span class="insights__table__category__color" ng-style="{'background':totalPerCategory.categoryDTO.color.color}">C</span>
                             {{totalPerCategory.categoryDTO.name}}
                         </td>
-                        <td class="insights__table__amount">{{totalPerCategory.totalAmount | currency:user.model.currency.symbol}}<span>{{user.model.currency.currencyCode}}</span>
+                        <td class="insights__table__amount">{{totalPerCategory.totalAmount | currency:user.model.currency.symbol:user.model.currency.fractionSize}}
                         </td>
                     </tr>
                     </tbody>

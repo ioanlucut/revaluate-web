@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Header directive responsible for header common template.
  */
@@ -10,7 +12,7 @@ angular
                 identifierId: "@"
             },
             restrict: "A",
-            templateUrl: "app/common/partials/flash-messages.html",
+            templateUrl: "/app/common/partials/flash-messages.html",
             link: function (scope, el, attrs) {
             }
         };

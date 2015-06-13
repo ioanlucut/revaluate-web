@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.account")
     .constant("USER_URLS", {

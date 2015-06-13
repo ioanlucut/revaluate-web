@@ -1,3 +1,5 @@
+'use strict';
+
 angular
     .module("revaluate.categories")
     .factory("Category", function ($q, $http, CategoryService, CategoryTransformerService) {
