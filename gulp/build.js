@@ -19,7 +19,7 @@ module.exports = function (options) {
             }))
             .pipe($.angularTemplatecache('templateCacheHtml.js', {
                 module: 'revaluate',
-                root: 'app'
+                root: '/app'
             }))
             .pipe(gulp.dest(options.tmp + '/partials/'));
     });
@@ -85,4 +85,7 @@ module.exports = function (options) {
     });
 
     gulp.task('build', ['html', 'fonts', 'config', 'other']);
+    gulp.task('build:local', ['html', 'fonts', 'config:local', 'other']);
+    gulp.task('build:dev', ['html', 'fonts', 'config:dev', 'other']);
+    gulp.task('build:prod', ['html', 'fonts', 'config:prod', 'other']);
 };
