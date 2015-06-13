@@ -55,4 +55,4 @@ You might want to use local env:
 * Build `custom`: `gulp --env=localhost` but the configs have to be defined for that specific custom environments.
 * Note: All paths are `relative`. Always use `/app/sometheing`, and not `app/something`
 * More infos `https://github.com/Swiip/generator-gulp-angular`
-* `Trigger build`
+* `Trigger build `
