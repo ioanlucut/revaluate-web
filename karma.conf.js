@@ -8,7 +8,7 @@ module.exports = function (config) {
         frameworks: ['jasmine'],
 
         ngHtml2JsPreprocessor: {
-            stripPrefix: 'src/',
+            stripPrefix: 'src',
             moduleName: 'gulpAngular'
         },
 
