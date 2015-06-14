@@ -9,7 +9,7 @@ describe('app/account/logout', function () {
         // ---
         // Just inject the module and define dependencies.
         // ---
-        module('revaluate', function ($provide) {
+        module("revaluate", function ($provide) {
             $provide.value('AuthService', AuthServiceMock = {});
             $provide.value('User', UserMock = {});
         });
@@ -64,7 +64,7 @@ describe('app/account/logout', function () {
         expect($state.current.url).toBe("/account/logout");
         expect($state.current.name).toBe("account:logout");
         expect($state.current.controller).toBe("LogoutController");
-        expect($state.current.templateUrl).toBe("app/account/partials/logout.html");
+        expect($state.current.templateUrl).toBe("/app/account/partials/logout.html");
         expect($state.current.title).toBe("Logout - Revaluate");
         expect($state.current.isPublicPage).toBeTruthy();
     });
