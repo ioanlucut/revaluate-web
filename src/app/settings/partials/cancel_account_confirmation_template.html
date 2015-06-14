@@ -1,13 +1,16 @@
 <!--Show content-->
-<div ng-if="showContent">
-    <button type="button" ng-click="cancel();toggleContent();">Cancel</button>
+<div class="account__delete__confirmation" ng-if="showContent">
 
     <!--Message-->
-    <div class="message">Are you sure you want to do this shit, to cancel your account?</div>
+    <div class="message">Are you sure you want to delete your account?</div>
 
-    <input type="checkbox" ng-model="messageAcknowledged" />
+    <div class="categories__delete__confirmation__check">
+        <input type="checkbox" ng-model="messageAcknowledged" id="check"/>
+        <label class="categories__delete__confirmation__check" for="check">I am sure. I want to delete my account.</label>
+    </div>
 
-    <button type="button" ng-disabled="! messageAcknowledged" ng-click="doConfirm();">Ok</button>
+    <button type="button" ng-click="cancel();toggleContent();">Cancel</button>
+    <button type="button" ng-disabled="! messageAcknowledged" ng-click="doConfirm();">Delete account</button>
 </div>
 
 <!--Transclude content-->
