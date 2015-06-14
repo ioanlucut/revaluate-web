@@ -7,6 +7,11 @@ describe('app/account/logout', function () {
     beforeEach(function () {
 
         // ---
+        // Load templates.
+        // ---
+        module("gulpAngular");
+
+        // ---
         // Just inject the module and define dependencies.
         // ---
         module("revaluate", function ($provide) {
