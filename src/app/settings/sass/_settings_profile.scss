@@ -14,5 +14,5 @@
 }
 
 .settings__cancel__btn {
-  @include btn($brand-danger);
+  @include btn-link($brand-danger);
 }
