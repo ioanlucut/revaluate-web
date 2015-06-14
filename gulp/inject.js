@@ -5,6 +5,7 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 
 var wiredep = require('wiredep').stream;
+var _ = require('lodash');
 
 module.exports = function (options) {
     gulp.task('inject', ['scripts', 'styles'], function () {
@@ -29,7 +30,7 @@ module.exports = function (options) {
         return gulp.src(options.src + '/*.html')
             .pipe($.inject(injectStyles, injectOptions))
             .pipe($.inject(injectScripts, injectOptions))
-            .pipe(wiredep(options.wiredep))
+            .pipe(wiredep(_.extend({}, options.wiredep)))
             .pipe(gulp.dest(options.tmp + '/serve'));
 
     });
