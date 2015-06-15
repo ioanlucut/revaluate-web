@@ -21,7 +21,8 @@ angular
         $httpProvider.interceptors.push("JWTInterceptor");
         $httpProvider.interceptors.push("ActivityInterceptor");
         $httpProvider.interceptors.push("ErrorInterceptor");
-    }).run(function () {
+    })
+    .run(function () {
 
         /**
          * Callback function to check if the date should include year too.

@@ -7,6 +7,11 @@ describe('app/account/account', function () {
     beforeEach(function () {
 
         // ---
+        // Load templates.
+        // ---
+        module("gulpAngular");
+
+        // ---
         // Just inject the module and define dependencies.
         // ---
         module('revaluate', function () {
@@ -33,7 +38,7 @@ describe('app/account/account', function () {
         expect($state.current.url).toBe("/account");
         expect($state.current.name).toBe("account");
         expect($state.current.controller).toBe("LoginController");
-        expect($state.current.templateUrl).toBe("app/site/partials/home.html");
+        expect($state.current.templateUrl).toBe("/app/site/partials/home.html");
         expect($state.current.title).toBe("Login - Revaluate");
         expect($state.current.isPublicPage).toBeTruthy();
     });

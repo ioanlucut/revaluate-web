@@ -1,18 +1,10 @@
 .account__delete__confirmation {
   @include border-radius($border-radius-base);
-  background-color: $brand-danger-light;
+  border: solid 2px $brand-danger;
   clear: left;
   position: relative;
   padding: 15px 40px;
   text-align: center;
-
-  button:first-child {
-    @include btn-small($gray-dark-1);
-    //position: absolute;
-    //right: 0;
-    //top: -37px;
-    //width: 72px;
-  }
 
   .account__delete__confirmation__check {
     @include clearfix();
@@ -40,7 +32,12 @@
     }
   }
 
+  button:first-of-type {
+    @include btn-small($brand-primary);
+    margin-right: 10px;
+  }
+
   button:last-child {
-    @include btn-big($brand-danger);
+    @include btn-small($brand-danger);
   }
 }

@@ -7,9 +7,14 @@ describe('app/AuthFilter', function () {
     beforeEach(function () {
 
         // ---
+        // Load templates.
+        // ---
+        module("gulpAngular");
+
+        // ---
         // Just inject the module and define dependencies.
         // ---
-        module('revaluate', function ($provide) {
+        module("revaluate", function ($provide) {
             $provide.value('AuthService', AuthServiceMock = {});
             $provide.value('User', UserMock = {});
         });
