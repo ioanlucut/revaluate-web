@@ -12,7 +12,7 @@ var configTask = function () {
         constants: myConfig,
         stream: true,
         name: 'config',
-        dest: 'app.env.config.js'
+        dest: 'revaluate-app-config.js'
     })
         .pipe(gulp.dest('src/app'));
 };
