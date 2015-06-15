@@ -21,7 +21,7 @@ angular
                  * Show block content
                  * @type {boolean}
                  */
-                scope.showContent = false;
+                scope.showConfirmationContent = false;
 
                 /**
                  * Is message acknowledge
@@ -43,8 +43,16 @@ angular
                 /**
                  * Toggle content
                  */
-                scope.toggleContent = function () {
-                    scope.showContent = !scope.showContent;
+                scope.toggleConfirmationContent = function () {
+                    scope.showConfirmationContent = !scope.showConfirmationContent;
+                };
+
+                /**
+                 * Close and toggle content
+                 */
+                scope.closeAndToggle = function () {
+                    scope.cancel();
+                    scope.toggleConfirmationContent();
                 };
 
                 /**
@@ -53,7 +61,7 @@ angular
                 scope.$watch('autoToggleWhen', function (val, valOld) {
                     if ( val === true && valOld === false ) {
                         $timeout(function () {
-                            scope.toggleContent();
+                            scope.toggleConfirmationContent();
                         });
                     }
                 });
