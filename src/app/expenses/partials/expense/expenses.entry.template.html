@@ -2,9 +2,9 @@
 <div class="expenses__list__entry__display" ng-if="! showContent" ng-class="expense.marked ? 'expense__bulk--marked' : ''">
 
     <!--Actions on expense-->
-    <div class="expenses__list__entry__select icon-checkmark-strong-unchecked" ng-if="! expense.marked" ng-click="toggleMark();$event.stopPropagation();"></div>
-    <div class="expenses__list__entry__select icon-checkmark-strong" ng-if="expense.marked" ng-click="toggleMark();$event.stopPropagation();"></div>
-    <div class="expenses__list__entry__edit icon-pen" ng-click="toggleContent();"></div>
+    <div class="expenses__list__entry__select icon-checkbox-square-unchecked-1" ng-if="! expense.marked" ng-click="toggleMark();$event.stopPropagation();"></div>
+    <div class="expenses__list__entry__select icon-checkbox-square-1" ng-if="expense.marked" ng-click="toggleMark();$event.stopPropagation();"></div>
+    <div class="expenses__list__entry__edit" ng-click="toggleContent();">Edit</div>
 
     <div class="expenses__list__entry__price"> {{expense.model.value | currency:user.model.currency.symbol:user.model.currency.fractionSize}}</div>
 
