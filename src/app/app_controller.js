@@ -4,7 +4,7 @@
  * Main app controller declaration.
  */
 angular
-    .module("revaluate", [])
+    .module("revaluate")
     .controller("AppController", function ($rootScope, $scope, $state, $timeout, $log, flash, AuthService, AccountModal, User, StatesHandler, AUTH_EVENTS, ALERTS_CONSTANTS, ACTIVITY_INTERCEPTOR, AUTH_MODAL, ERROR_INTERCEPTOR, ENV) {
 
         /**
