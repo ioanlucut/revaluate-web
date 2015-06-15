@@ -7,7 +7,7 @@
 <!--Show content-->
 <div remove-category-confirmation category="category" confirm="deleteCategory(category)" auto-toggle-when="! isDeleting">
     <div class="categories__edit__category__controls" ng-if="! showContent">
-        <button class="categories__edit__category__delete">{{isDeleting ? 'Deleting..' : 'Delete'}}</button>
+        <button class="categories__edit__category__delete" ng-click="$parent.$parent.toggleConfirmationContent()">{{isDeleting ? 'Deleting..' : 'Delete'}}</button>
 
         <button class="categories__edit__category__edit" ng-click="toggleContent()">Edit</button>
     </div>

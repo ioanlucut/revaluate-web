@@ -1,6 +1,9 @@
-<!--Show content-->
-<div class="categories__delete__confirmation" ng-if="showContent">
-    <button type="button" ng-click="cancel();toggleContent();">Close</button>
+<!--Transcluded content which will contain custom block-->
+<div ng-transclude ng-if="! showConfirmationContent"></div>
+
+<!--Show confirmation content-->
+<div class="categories__delete__confirmation" ng-if="showConfirmationContent">
+    <button type="button" ng-click="closeAndToggle()">Close</button>
 
     <!--Message-->
     <div class="message">Are you sure? This action can't be undone and will delete all the expenses in <strong>{{category.model.name}}</strong>.</div>
@@ -12,6 +15,3 @@
 
     <button type="button" ng-disabled="! messageAcknowledged" ng-click="doConfirm();">Permanently delete <strong>{{category.model.name}}</strong></button>
 </div>
-
-<!--Transclude content-->
-<div ng-transclude ng-if="! showContent" ng-click="toggleContent()"></div>
