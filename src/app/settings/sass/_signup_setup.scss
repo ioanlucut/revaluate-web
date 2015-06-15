@@ -64,13 +64,17 @@
     height: 30px;
     line-height: 25px;
     padding: 2px 2px;
-    border: solid 1px transparent;
+    border: solid 2px transparent;
     cursor: pointer;
     color: $white;
     font-weight: bold;
     text-transform: uppercase;
     text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
     position: relative;
+
+    &:hover {
+      opacity: 0.8;
+    }
 
     span {
       position: absolute;
@@ -80,11 +84,17 @@
     }
 
     &.category-name--unselected {
-      opacity: 0.4;
+      background: transparent !important;
+      border: solid 2px $gray-light-1;
       text-shadow: none;
+      color: $gray-dark-2;
+
+      &:hover {
+        border-color: $gray-medium;
+      }
 
       span {
-        display: none;
+        color: $gray-medium;
       }
     }
   }
