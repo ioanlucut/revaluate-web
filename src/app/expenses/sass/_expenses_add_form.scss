@@ -143,6 +143,11 @@
       background-color: $gray-light-3;
     }
   }
+
+  & > .form-group-input__message {
+    top: 0;
+    right: 140px;
+  }
 }
 
 .expense__form__submit__save {
