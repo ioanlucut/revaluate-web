@@ -3,7 +3,10 @@
 module.exports = function (config) {
 
     var configuration = {
+
         autoWatch: false,
+
+        colors: true,
 
         frameworks: ['jasmine'],
 
@@ -22,7 +25,11 @@ module.exports = function (config) {
 
         preprocessors: {
             'src/**/*.html': ['ng-html2js']
-        }
+        },
+
+        exclude: [
+            '**/*bootstrapper.js'
+        ]
     };
 
     config.set(configuration);
