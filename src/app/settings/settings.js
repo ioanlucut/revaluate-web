@@ -215,11 +215,11 @@ angular
                     currencies: function (CurrencyService) {
                         return CurrencyService.getAllCurrencies();
                     },
-                    colors: function (ColorService) {
-                        return ColorService.getAllColors();
+                    colors: function (APP_CONFIG) {
+                        return APP_CONFIG.ALL_COLORS;
                     },
-                    predefinedCategories: function (CategoriesSetupProvider) {
-                        return CategoriesSetupProvider.getPredefinedCategories();
+                    predefinedCategories: function (APP_CONFIG) {
+                        return APP_CONFIG.PREDEFINED_CATEGORIES;
                     }
                 },
                 title: "Settings setup - revaluate",
