@@ -26,7 +26,7 @@ angular
          * On app load, retrieve user profile previously saved (if exists).
          */
         $rootScope.currentUser = User.$new().loadFromSession();
-        $log.log("Current user: ", $rootScope.currentUser);
+        $log.log("Current user: ", $rootScope.currentUser.model);
 
         /**
          * Listen to login success event. If user is properly logged in,
@@ -35,7 +35,7 @@ angular
         $scope.$on(AUTH_EVENTS.loginSuccess, function () {
             $rootScope.currentUser = User.$new().loadFromSession();
             AuthService.redirectToAttemptedUrl();
-            $log.log("Logged in: ", $rootScope.currentUser);
+            $log.log("Logged in: ", $rootScope.currentUser.model);
         });
 
         /**
@@ -43,7 +43,7 @@ angular
          */
         $scope.$on(AUTH_EVENTS.refreshUser, function () {
             $rootScope.currentUser = User.$new().loadFromSession();
-            $log.log("Refreshed user: ", $rootScope.currentUser);
+            $log.log("Refreshed user: ", $rootScope.currentUser.model);
         });
 
         /**
@@ -111,6 +111,6 @@ angular
          */
         $scope.$on(ERROR_INTERCEPTOR.status402, function () {
 
-            flash.to(ALERTS_CONSTANTS.generalError).error = "Payment method is required in order to use revaluate.";
+            flash.to(ALERTS_CONSTANTS.generalError).error = "Payment method is required in order to use Revaluate.";
         });
     });
