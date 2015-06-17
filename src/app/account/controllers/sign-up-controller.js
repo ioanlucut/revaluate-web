@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.account")
-    .controller("SignUpController", function ($scope, $timeout, flash, ALERTS_CONSTANTS, StatesHandler, User, AuthService, MIXPANEL_EVENTS) {
+    .controller("SignUpController", function ($scope, $timeout, flash, ALERTS_CONSTANTS, StatesHandler, User, AuthService, MIXPANEL_EVENTS, APP_CONFIG) {
 
         /**
          * Alert identifier
@@ -21,6 +21,11 @@ angular
                 "currencyCode": "EUR"
             }
         };
+
+        /**
+         * Trial days
+         */
+        $scope.trialDays = APP_CONFIG.TRIAL_DAYS;
 
         /*
          * Sign up functionality.

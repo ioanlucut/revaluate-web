@@ -2,7 +2,6 @@
 
 angular
     .module("revaluate.expensesImport", [
-        "revaluate.color",
         "revaluate.common"
     ])
     .config(function ($stateProvider, MIXPANEL_EVENTS) {

@@ -34,7 +34,7 @@
   &.has-error {
 
     input {
-      border-color: $brand-danger;
+
     }
   }
 }
@@ -142,6 +142,11 @@
       text-align: center;
       background-color: $gray-light-3;
     }
+  }
+
+  & > .form-group-input__message {
+    top: 0;
+    right: 140px;
   }
 }
 

@@ -32,7 +32,8 @@ module.exports = function (options) {
         browserSync.instance = browserSync.init({
             startPath: '/',
             server: server,
-            browser: browser
+            browser: browser,
+            open: false
         });
     }
 
@@ -40,19 +41,19 @@ module.exports = function (options) {
         selector: '[ng-app]'// Only needed for angular apps
     }));
 
-    gulp.task('serve', ['watch'], function () {
+    gulp.task('serve', ['config', 'watch'], function () {
         browserSyncInit([options.tmp + '/serve', options.src]);
     });
 
-    gulp.task('serve:dist', ['build'], function () {
+    gulp.task('serve:dist', ['config', 'build'], function () {
         browserSyncInit(options.dist);
     });
 
-    gulp.task('serve:e2e', ['inject'], function () {
+    gulp.task('serve:e2e', ['config', 'inject'], function () {
         browserSyncInit([options.tmp + '/serve', options.src], []);
     });
 
-    gulp.task('serve:e2e-dist', ['build'], function () {
+    gulp.task('serve:e2e-dist', ['config', 'build'], function () {
         browserSyncInit(options.dist, []);
     });
 };
