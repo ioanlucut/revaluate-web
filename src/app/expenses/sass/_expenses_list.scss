@@ -27,9 +27,9 @@
 
     &:hover {
       background-color: $gray-light-4;
+      cursor: pointer;
 
-      .expenses__list__entry__select,
-      .expenses__list__entry__edit {
+      .expenses__list__entry__select {
         opacity: 1;
       }
     }
@@ -59,12 +59,12 @@
 
   .expenses__list__entry__select {
     top: 9px;
-    left: 55px;
+    left: 30px;
   }
 
   .expenses__list__entry__edit {
     top: 7px;
-    left: 20px;
+    right: 15px;
     cursor: pointer;
   }
 
