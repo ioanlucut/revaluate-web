@@ -19,6 +19,9 @@
             <a href="javascript:void(0)" ng-click="toggleHowToContent()"> How do I export my expenses from {{importDescription}}?</a>
         </li>
     </ul>
+    <div ng-if="showHowToContent">
+        <a href="javascript:void(0)" ng-click="toggleHowToContent()">Got it.</a>
+    </div>
     <div ng-show="showHowToContent" ng-include src="'/app/import/partials/howto/settings.import.howto.' + importType + '.html'"></div>
 </div>
 
