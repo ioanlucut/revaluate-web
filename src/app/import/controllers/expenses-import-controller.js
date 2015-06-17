@@ -15,6 +15,11 @@ angular
         var IS_EMPTY_AFTER_SELECTION = true;
 
         // ---
+        // Timeout.
+        // ---
+        var TIMEOUT_PENDING = 1000;
+
+        // ---
         // Server status error.
         // ---
         var BAD_RESPONSE = 400;
@@ -223,6 +228,13 @@ angular
                         // ---
                         $scope.isImporting = false;
                         $scope.importFinished = true;
+
+                        // ---
+                        // Go to expenses after 1,5 sec.
+                        // ---
+                        $timeout(function () {
+                            StatesHandler.goHome();
+                        }, TIMEOUT_PENDING);
                     })
                     .catch(function () {
                         /* If bad feedback from server */
