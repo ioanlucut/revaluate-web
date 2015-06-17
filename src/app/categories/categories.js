@@ -2,8 +2,7 @@
 
 angular
     .module("revaluate.categories", [
-        "revaluate.common",
-        "revaluate.color"
+        "revaluate.common"
     ])
     .config(function ($stateProvider, MIXPANEL_EVENTS) {
 
@@ -21,8 +20,8 @@ angular
                     categories: function (CategoryService) {
                         return CategoryService.getAllCategories();
                     },
-                    colors: function (ColorService) {
-                        return ColorService.getAllColors();
+                    colors: function (APP_CONFIG) {
+                        return APP_CONFIG.ALL_COLORS;
                     }
                 },
                 title: "Categories - Revaluate",

@@ -55,8 +55,11 @@ $gray-light-2: #e8e8e8;
 $gray-light-3: #f9f9f9;
 $gray-light-4: #fcfcfc;
 
-$brand-primary: #4183D7;
+$brand-primary: #22A7F0;//#4183D7;
 $brand-primary-light: lighten($brand-primary, 40%);
+
+$brand-secondary: #ED8E7B;
+$brand-secondary-light: lighten($brand-secondary, 10%);
 
 $brand-default: #E7E7E7;
 $brand-default-dark: #D6D6D6;

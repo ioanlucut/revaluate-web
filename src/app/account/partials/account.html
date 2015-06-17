@@ -42,7 +42,7 @@
     </div>
 
     <!--Sign up-->
-    <div class="account__section" ng-if="AccountModal.state == ACCOUNT_FORM_STATE.requestSignUpRegistration" ng-controller="HomeSignUpRegistrationController">
+    <div class="account__section" ng-if="AccountModal.state == ACCOUNT_FORM_STATE.requestSignUpRegistration" ng-controller="SignUpController">
 
         <!--Close-->
         <div account-modal-close></div>
@@ -90,7 +90,7 @@
             </div>
 
             <!-- Button container -->
-            <button class="home__section__signup__btn" type="submit">Start my 14 day free trial</button>
+            <button class="home__section__signup__btn" type="submit">Start my 15 day free trial</button>
         </form>
 
         <a class="link-navigation" href="javascript:void(0)" ng-click="AccountModal.setState(ACCOUNT_FORM_STATE.login)">Already have an account? Sign in here!</a>
