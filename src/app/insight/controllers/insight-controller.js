@@ -64,7 +64,7 @@ angular
         };
 
         $scope.donutChartOptions = angular.extend({}, $scope.defaultChartOptions);
-        $scope.donutChartOptions.legendTemplate =  "<ul class=\"doughnut__chart\"><% for (var i=0; i<segments.length; i++){%><li class=\"doughnut__chart__legend\"><span class=\"doughnut__chart__legend__color\" style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>";
+        $scope.donutChartOptions.legendTemplate =  "<ul class=\"doughnut__chart\"><% for (var i=0; i<segments.length; i++){%><li class=\"doughnut__chart__legend\"><span class=\"doughnut__chart__legend__color\" style=\"background-color:<%=segments[i].fillColor%>\"></span><span class=\"doughnut__chart__legend__label\"><%if(segments[i].label){%><%=segments[i].label%><%}%></span></li><%}%></ul>";
 
         function formatValue(label) {
             return $filter('currency')(label.value.toString(), $scope.user.model.currency.symbol);
