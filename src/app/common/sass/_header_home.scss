@@ -12,15 +12,24 @@
 .header-home__brand {
   float: left;
   height: 60px;
+  position: relative;
 }
 
 .header-home__brand--logo {
-  @include size(32px 32px);
-  display: inline-block;
+  @include size(40px 40px);
+  background: url("../assets/img/logo.svg") no-repeat top left;
+  background-size: contain;
+  position: absolute;
+  display: block;
+  left: 5px;
+  top: 10px;
 }
 
 .header-home__brand--name {
   @include brand-inline();
+  padding: 3px 0 0 55px;
+  font-size: $font-size-largest;
+  font-weight: $font-weight-light;
 }
 
 .header-home__navigation {
