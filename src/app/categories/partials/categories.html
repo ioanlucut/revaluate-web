@@ -10,7 +10,7 @@
     <!--List all categories-->
     <div class="categories__edit">
 
-        <div class="categories__edit__category" ng-repeat="category in categories | orderObjectBy : 'model.id' : true track by category.model.name">
+        <div class="categories__edit__category" ng-repeat="category in categories | orderObjectBy : 'model.id' : true track by category.model.id">
 
             <!--Edit/remove category-->
             <div edit-remove-category colors="colors" category="category"></div>
