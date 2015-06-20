@@ -1,36 +1,36 @@
 <!--Show content-->
 <div class="categories__add__controls" ng-if="! showContent">
-    <button class="categories__add__controls__btn" ng-click="toggleContent()">Add category</button>
+    <button class="categories__add__controls__btn" ng-disabled="vm.isMaximumNumberOfAllowedCategoriesExceeded()" ng-click="toggleContent()">Add category</button>
 </div>
 
 <!-- Add category form -->
-<form name="categoryForm" class="categories__add__form" ng-if="showContent" ng-submit="saveCategory(categoryForm)" novalidate focus-first-error>
+<form name="vm.categoryForm" class="categories__add__form" ng-if="showContent" ng-submit="vm.saveCategory(vm.categoryForm)" novalidate focus-first-error>
 
     <!--Content left-->
     <div class="categories__add__form__content__left">
 
         <!-- Form group -->
-        <div class="categories__form__input-group" ng-class="{'has-error': categoryForm.$submitted && (categoryForm.color.$invalid || badPostSubmitResponse)}">
+        <div class="categories__form__input-group" ng-class="{'has-error': vm.categoryForm.$submitted && (vm.categoryForm.color.$invalid || vm.badPostSubmitResponse)}">
 
-            <input class="categories__form__input-group__color" type="hidden" placeholder="Category color" name="color" ng-model="category.model.color.color" required valid-category-color />
+            <input class="categories__form__input-group__color" type="hidden" placeholder="Category color" name="color" ng-model="vm.category.model.color.color" required valid-category-color />
 
             <!-- Error messages -->
-            <div class="form-group-input__message" ng-class="{'has-error': categoryForm.color.$invalid && categoryForm.$submitted}" ng-messages="categoryForm.color.$error" ng-if="categoryForm.$submitted">
+            <div class="form-group-input__message" ng-class="{'has-error': vm.categoryForm.color.$invalid && vm.categoryForm.$submitted}" ng-messages="vm.categoryForm.color.$error" ng-if="vm.categoryForm.$submitted">
                 <div ng-message="required">Color is mandatory.</div>
                 <div ng-message="validCategoryColor">Color is not valid.</div>
             </div>
         </div>
 
-        <div class="categories__form__input-group" ng-class="{'has-error': categoryForm.$submitted && (categoryForm.name.$invalid || badPostSubmitResponse)}">
+        <div class="categories__form__input-group" ng-class="{'has-error': vm.categoryForm.$submitted && (vm.categoryForm.name.$invalid || vm.badPostSubmitResponse)}">
             <!-- Error messages -->
-            <div class="form-group-input__message" ng-class="{'has-error': categoryForm.name.$invalid && categoryForm.$submitted}" ng-messages="categoryForm.name.$error" ng-if="categoryForm.$submitted">
+            <div class="form-group-input__message" ng-class="{'has-error': vm.categoryForm.name.$invalid && vm.categoryForm.$submitted}" ng-messages="vm.categoryForm.name.$error" ng-if="vm.categoryForm.$submitted">
                 <div ng-message="required">Name is mandatory.</div>
                 <div ng-message="validCategoryName">Name is not valid.</div>
                 <div ng-message="uniqueCategoryName">Name is already used.</div>
             </div>
 
             <!--Color preview-->
-            <label class="categories__form__color__preview" ng-style="{'background':category.model.color.color}"></label>
+            <label class="categories__form__color__preview" ng-style="{'background':vm.category.model.color.color}"></label>
 
             <input type="text"
                    name="name"
@@ -38,12 +38,12 @@
                    placeholder="Category name"
                    ng-maxlength="20"
                    maxlength="20"
-                   ng-model="category.model.name"
+                   ng-model="vm.category.model.name"
                    auto-focus required valid-category-name unique-category-name />
 
-            <div class="categories__form__input-group__count">{{20 - category.model.name.length}}</div>
+            <div class="categories__form__input-group__count">{{20 - vm.category.model.name.length}}</div>
 
-            <div color-picker colors="colors" category-color="category.model.color"></div>
+            <div color-picker colors="vm.colors" category-color="vm.category.model.color"></div>
         </div>
 
     </div>
@@ -51,8 +51,8 @@
     <!--Content right-->
     <div class="categories__add__form__content__right">
         <!--Reset-->
-        <button type="button" class="categories__add__form__content__right__cancel" ng-click="toggleContent();initOrReset(categoryForm)">Nevermind</button>
+        <button type="button" class="categories__add__form__content__right__cancel" ng-click="toggleContent();initOrReset(vm.categoryForm)">Nevermind</button>
         <!-- Submit button container -->
-        <button class="categories__add__form__content__right__add" type="submit">{{isSaving ? 'Saving...' : 'Save category'}}</button>
+        <button class="categories__add__form__content__right__add" type="submit">{{vm.isSaving ? 'Saving...' : 'Save category'}}</button>
     </div>
 </form>

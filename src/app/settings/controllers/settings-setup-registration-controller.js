@@ -2,7 +2,11 @@
 
 angular
     .module("revaluate.settings")
-    .controller("SettingsSetUpRegistrationController", function ($q, $scope, $rootScope, $timeout, flash, AuthService, CategoryService, AUTH_EVENTS, ALERTS_CONSTANTS, MIXPANEL_EVENTS,  CategoryColorService, SessionService, StatesHandler, Category, currencies) {
+    .controller("SettingsSetUpRegistrationController", function ($q, $scope, $rootScope, $timeout, flash, AuthService, CategoryService, AUTH_EVENTS, ALERTS_CONSTANTS, MIXPANEL_EVENTS, CategoryColorService, SessionService, StatesHandler, Category, APP_CONFIG, currencies) {
+        /**
+         * Saving timeout
+         */
+        var TIMEOUT_DURATION = 300;
 
         /* jshint validthis: true */
         var vm = this;
@@ -29,11 +33,6 @@ angular
          * @type {{}}
          */
         vm.currency = {};
-
-        /**
-         * Saving timeout
-         */
-        var TIMEOUT_DURATION = 300;
 
         /**
          * Existing predefined colors.
@@ -143,11 +142,6 @@ angular
             vm.categories[index].selected = !vm.categories[index].selected;
         };
 
-        /**
-         * Minimum categories to select
-         */
-        var MIN_CATEGORIES_TO_SELECT = 3;
-
         function getSelectedCategories() {
             return _.filter(vm.categories, 'selected', true);
         }
@@ -156,7 +150,7 @@ angular
          * Is enough selected categories
          */
         vm.isEnoughSelectedCategories = function () {
-            return getSelectedCategories().length >= MIN_CATEGORIES_TO_SELECT;
+            return getSelectedCategories().length >= APP_CONFIG.SETUP_MIN_CATEGORIES_TO_SELECT;
         };
 
         /**
