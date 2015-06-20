@@ -25,6 +25,11 @@ angular
         vm.paymentInsights = paymentInsights;
 
         // ---
+        // Is payment method defined ?.
+        // ---
+        vm.isPaymentMethodDefined = vm.paymentInsights.paymentMethodDTOs && vm.paymentInsights.paymentMethodDTOs.length > 0;
+
+        // ---
         // Remove payment method.
         // ---
         vm.performRemovePayment = function () {
