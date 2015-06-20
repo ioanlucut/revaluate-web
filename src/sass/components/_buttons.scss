@@ -45,6 +45,22 @@
   font-size: $font-size-large;
 }
 
+@mixin btn-outline($color) {
+  background-color: transparent;
+  border: solid 2px $color;
+  color: $color;
+}
+
+@mixin btn-translucent($color) {
+  background-color: rgba(255, 255, 255, 0.3);
+  color: $white;
+
+  &:hover {
+    color: $color;
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+}
+
 @mixin btn-link($color) {
   display: inline-block;
   color: $color;
