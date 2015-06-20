@@ -38,8 +38,6 @@ describe('app/AuthFilter', function () {
             // We need add the template entry into the templateCache if we ever specify a templateUrl
             $templateCache.put('template.html', '');
 
-            $httpBackend.whenGET(URLTo.api(CURRENCY_URLS.allCurrencies)).respond(200, []);
-            $httpBackend.whenGET(URLTo.api(COLOR_URLS.allColors)).respond(200, []);
             $httpBackend.whenGET(URLTo.api(EXPENSE_URLS.allExpenses)).respond(200, []);
             $httpBackend.whenGET(URLTo.api(CATEGORY_URLS.allCategories)).respond(200, []);
 

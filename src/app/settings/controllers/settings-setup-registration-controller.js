@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.settings")
-    .controller("SettingsSetUpRegistrationController", function ($q, $scope, $rootScope, $timeout, flash, AuthService, CategoryService, AUTH_EVENTS, ALERTS_CONSTANTS, MIXPANEL_EVENTS, CategoryColorService, SessionService, StatesHandler, Category, APP_CONFIG, currencies) {
+    .controller("SettingsSetUpRegistrationController", function ($q, $scope, $rootScope, $timeout, flash, AuthService, CategoryService, AUTH_EVENTS, ALERTS_CONSTANTS, MIXPANEL_EVENTS, CategoryColorService, SessionService, StatesHandler, Category, APP_CONFIG) {
         /**
          * Saving timeout
          */
@@ -15,7 +15,7 @@ angular
          * All given currencies.
          * @type {currencies|*}
          */
-        vm.currencies = currencies;
+        vm.currencies = APP_CONFIG.CURRENCIES;
 
         /**
          * Alert identifier

@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.settings")
-    .controller("SettingsPreferencesCurrencyController", function ($q, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, flash, currencies, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+    .controller("SettingsPreferencesCurrencyController", function ($q, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, flash, ALERTS_CONSTANTS, APP_CONFIG) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -19,7 +19,7 @@ angular
          * All given currencies.
          * @type {currencies|*}
          */
-        vm.currencies = currencies;
+        vm.currencies = APP_CONFIG.CURRENCIES;
 
         /**
          * Alert identifier
