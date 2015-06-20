@@ -26,19 +26,9 @@
         </div>
     </div>
 
-    <div class="settings__box__payment__subscription__status" ng-if="! vm.paymentInsights.subscriptionActive">
-        <div>
-            <span class="settings__box__payment__subscription__status--trial">Trial</span>
-            <span class="settings__box__payment__subscription__status--info">- First billing: $7.00 due 2015.05.25</span>
-        </div>
+    <div class="settings__box__payment__subscription__status" ng-if="! vm.paymentInsights.subscriptionActive && vm.isPaymentMethodDefined">
+        <span class="settings__box__payment__subscription__status--inactive">Subscription will be activated as soon as your trial period expires.</span>
     </div>
-
-    <!-- Payment form -->
-    <form ng-if="! vm.paymentInsights.subscriptionActive" name="vm.paymentSubscriptionForm" ng-submit="performPaymentSubscription()" novalidate>
-
-        <!-- Button container -->
-        <button class="settings__box__payment__subscription__btn" type="submit">{{vm.isRequestPending ? 'Activating...' : 'Activate'}}</button>
-    </form>
 </div>
 
 <!--Payment method-->
@@ -53,7 +43,7 @@
         <a class="link-navigation" href="javascript:void(0)" ui-sref="settings.payment.method">Update payment method</a>
 
         <!-- Remove payment method form -->
-        <form ng-if="vm.paymentInsights.subscriptionActive" name="vm.paymentSubscriptionForm" ng-submit="vm.performRemovePayment()" novalidate>
+        <form ng-if="vm.isPaymentMethodDefined" name="vm.paymentSubscriptionForm" ng-submit="vm.performRemovePayment()" novalidate>
 
             <!-- Button container -->
             <button class="settings__box__payment__subscription__btn" type="submit">{{vm.isRequestPending ? 'Removing...' : 'Remove payment method'}}</button>
