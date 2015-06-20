@@ -15,7 +15,7 @@
 //@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
 //@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
 //@import url(http://fonts.googleapis.com/css?family=Indie+Flower);
-@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
+//@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
 
 // ---
 // BOURBON.
@@ -61,9 +61,10 @@
 @import "vendor-modified/selectize.default";
 
 // ---
-// App icons.
+// Fonts.
 // ---
 @import "fonts/app-icons";
+@import "fonts/montserrat";
 
 // ---
 // Image sprites.
