@@ -1,15 +1,20 @@
 .site__container {
   text-align: center;
   padding: 30px 0;
+  background-color: $white;
 
   h1 {
     margin: 0;
-    padding-bottom: 30px;
   }
 }
 
-.site__container--brand {
-  background-color: $brand-primary;
+.site__container--gradient1 {
+  color: $white;
+  background: #22a7f0;
+}
+
+.site__container--dark {
+  background-color: $gray-dark-2;
   color: $white;
 }
 

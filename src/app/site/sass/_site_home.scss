@@ -1,37 +1,62 @@
 .home__title {
-  padding-top: 90px;
+  padding: 40px 10px 5px 10px;
   font-size: 50px;
   font-weight: $font-weight-bold;
   color: $white;
 }
 
 .home__description {
-  padding: 10px 10px 90px 10px;
+  padding: 5px 10px 20px 10px;
   color: lighten($brand-primary, 30%);
   font-size: 22px;
   font-weight: $font-weight-light;
+  font-family: $base-font-family;
 }
 
-.home__section__features {
-  @include span-columns(7);
-  padding: 10px 10px 10px 30px;
+.home__section__start__btn {
+  @include btn-big($white);
+  color: $brand-primary;
+  margin-right: 20px;
+}
+
+.home__section__learn__btn {
+  @include btn-big($white);
+  @include btn-translucent($brand-primary);
+  text-align: center;
+}
+
+.home__section__start__btn,
+.home__section__learn__btn {
+  width: 250px;
+  height: 60px;
+  font-size: $font-size-large;
+}
+
+
+// Features
+// ----------------------------
+
+.site__container__section__feature__text {
+  @include span-columns(6);
   text-align: left;
-}
 
-.home__section__features--list {
-  padding-top: 20px;
-
-  li {
-    padding-bottom: 15px;
-    color: darken($brand-primary, 30%);;
-
-    span{
-      display: inline-block;
-      color: lighten($brand-primary, 20%);
-      margin-right: 20px;
-    }
+  h2 {
+    font-size: $font-size-h2;
+    font-family: $base-font-family;
   }
 }
+
+.site__container__section__feature__img {
+  @include span-columns(6);
+}
+
+
+
+
+
+
+
+
 
 
 // Call to action button

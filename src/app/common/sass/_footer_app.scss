@@ -1,6 +1,6 @@
-.footer__home {
+.footer {
   width: 100%;
-  height: $footer__home-height;
+  height: $footer-height;
   padding: 10px 5px 30px 5px;
   position: absolute;
   bottom: 0;
@@ -9,20 +9,19 @@
   color: $gray-medium;
 }
 
-.footer__home__wrapper {
+.footer__wrapper {
   @include outer-container();
 }
 
-.footer__home__logo {
+.footer__logo {
   @include span-columns(4);
 }
 
-.footer__home__links {
-  @include span-columns(3);
-  @include shift(5);
-  //text-align: right;
+.footer__links {
+  @include span-columns(8);
+  text-align: right;
 
   li {
-    //display: inline-block;
+    display: inline-block;
   }
 }
