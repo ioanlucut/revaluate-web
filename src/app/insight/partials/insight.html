@@ -57,7 +57,7 @@
                     </div>
 
                     <!--Error messages-->
-                    <div class="form-group-input__message" ng-class="{'has-error': insightForm.spentDate.$invalid && insightForm.$submitted}" ng-messages="insightForm.$error" ng-if="insightForm.$submitted">
+                    <div class="form-group-input__message" ng-class="{'has-error': insightForm.spentDate.$invalid && insightForm.$submitted}" ng-messages="insightForm.spentDate.$error" ng-if="insightForm.$submitted">
                         <div ng-message="required">Please add a date.</div>
                         <div ng-message="validDate">Date should be in the past.</div>
                     </div>
