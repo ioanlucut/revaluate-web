@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.settings")
-    .controller("SettingsSetUpRegistrationController", function ($q, $scope, $rootScope, $timeout, flash, AuthService, CategoryService, AUTH_EVENTS, ALERTS_CONSTANTS, MIXPANEL_EVENTS, predefinedCategories, colors, CategoryColorService, SessionService, StatesHandler, Category, currencies) {
+    .controller("SettingsSetUpRegistrationController", function ($q, $scope, $rootScope, $timeout, flash, AuthService, CategoryService, AUTH_EVENTS, ALERTS_CONSTANTS, MIXPANEL_EVENTS,  CategoryColorService, SessionService, StatesHandler, Category, currencies) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -38,12 +38,12 @@ angular
         /**
          * Existing predefined colors.
          */
-        vm.colors = colors;
+        vm.colors = APP_CONFIG.ALL_COLORS;
 
         /**
          * Existing predefined categories.
          */
-        vm.categories = predefinedCategories;
+        vm.categories = APP_CONFIG.PREDEFINED_CATEGORIES;
 
         // ---
         // Populate predefined categories with colors.

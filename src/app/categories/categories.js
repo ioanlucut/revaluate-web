@@ -20,9 +20,6 @@ angular
                 resolve: {
                     categories: function (CategoryService) {
                         return CategoryService.getAllCategories();
-                    },
-                    colors: function (APP_CONFIG) {
-                        return APP_CONFIG.ALL_COLORS;
                     }
                 },
                 title: "Categories - Revaluate",
