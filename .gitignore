@@ -7,3 +7,4 @@ bower_components/
 dist/
 build
 npm-debug.log
+.DS_Store
