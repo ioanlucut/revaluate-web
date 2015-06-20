@@ -103,7 +103,7 @@ angular
                     resetSubscriptionStatusAfterRemovePaymentIsPerformed: function () {
                         var status = this.getTrialRemainingDays() === 0
                             ? USER_SUBSCRIPTION_STATUS.TRIAL_EXPIRED
-                            : USER_SUBSCRIPTION_STATUS.TRIAL
+                            : USER_SUBSCRIPTION_STATUS.TRIAL;
 
                         this.setSubscriptionStatusAsAndReload(status);
                     },
