@@ -100,14 +100,6 @@ angular
                         this.saveToSession();
                     },
 
-                    resetSubscriptionStatusAfterRemovePaymentIsPerformed: function () {
-                        var status = this.getTrialRemainingDays() === 0
-                            ? USER_SUBSCRIPTION_STATUS.TRIAL_EXPIRED
-                            : USER_SUBSCRIPTION_STATUS.TRIAL;
-
-                        this.setSubscriptionStatusAsAndReload(status);
-                    },
-
                     /**
                      * Saves a user to local storage.
                      */
