@@ -39,9 +39,16 @@
 
   li {
     display: inline-block;
+
+    text-transform: uppercase;
   }
 }
 
-.header-home__navigation--btn {
-  @include btn-small($brand-primary);
+.header-home__navigation--loginbtn {
+  @include btn-small($brand-default);
+  color: $gray-dark-1;
+}
+
+.header-home__navigation--signupbtn {
+  @include btn-small($brand-secondary);
 }
