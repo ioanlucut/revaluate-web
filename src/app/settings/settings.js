@@ -193,13 +193,7 @@ angular
                     'updateCurrency@settings.preferences': {
                         templateUrl: "/app/settings/partials/settings.preferences.updateCurrency.html",
                         controller: "SettingsPreferencesCurrencyController",
-                        controllerAs: 'vm',
-                        resolve: {
-                            currencies: function (CurrencyService) {
-                                return CurrencyService.getAllCurrencies();
-                            }
-                        }
-
+                        controllerAs: 'vm'
                     }
                 },
                 mixpanelId: MIXPANEL_EVENTS.settingsPreferences,
@@ -214,11 +208,6 @@ angular
                 templateUrl: '/app/settings/partials/settings.setup.registration.html',
                 controller: "SettingsSetUpRegistrationController",
                 controllerAs: 'vm',
-                resolve: {
-                    currencies: function (CurrencyService) {
-                        return CurrencyService.getAllCurrencies();
-                    }
-                },
                 title: "Settings setup - revaluate",
                 mixpanelId: MIXPANEL_EVENTS.accountSetup
             });

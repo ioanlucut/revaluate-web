@@ -9,6 +9,7 @@
             "VERSION": "",
             "TRIAL_DAYS": -1,
             "PREDEFINED_CATEGORIES": [],
+            "CURRENCIES": [],
             "ALL_COLORS": [],
             "SETUP_MIN_CATEGORIES_TO_SELECT": -1,
             "IMPORT_MIN_CATEGORIES_TO_SELECT": 0,
