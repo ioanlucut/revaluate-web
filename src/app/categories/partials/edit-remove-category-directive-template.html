@@ -5,34 +5,35 @@
 </div>
 
 <!--Show content-->
-<div remove-category-confirmation category="category" confirm="deleteCategory(category)" auto-toggle-when="! isDeleting">
+<div remove-category-confirmation category="category" confirm="vm.deleteCategory(category)" auto-toggle-when="! vm.isDeleting">
     <div class="categories__edit__category__controls" ng-if="! showContent">
-        <button class="categories__edit__category__delete" ng-click="$parent.$parent.toggleConfirmationContent()">{{isDeleting ? 'Deleting..' : 'Delete'}}</button>
+        <button class="categories__edit__category__delete" ng-disabled="isMinimumNumberOfAllowedCategoriesExceeded()" ng-click="$parent.$parent.toggleConfirmationContent()">{{vm.isDeleting ? 'Deleting..' : 'Delete'}}</button>
 
         <button class="categories__edit__category__edit" ng-click="toggleContent()">Edit</button>
     </div>
 </div>
 
 <!-- Update category form -->
-<form name="categoryForm" class="categories__edit__form" ng-if="showContent" ng-submit="updateCategory(categoryForm, category)" novalidate focus-first-error>
+<form name="vm.categoryForm" class="categories__edit__form" ng-if="showContent" ng-submit="vm.updateCategory(vm.categoryForm, category)" novalidate focus-first-error>
 
     <!--Content left-->
     <div class="categories__edit__form__content__left">
 
         <!-- Category color form group -->
-        <div class="categories__form__input-group" ng-class="{'has-error': categoryForm.$submitted && (categoryForm.color.$invalid || badPostSubmitResponse)}">
+        <div class="categories__form__input-group" ng-class="{'has-error': vm.categoryForm.$submitted && (vm.categoryForm.color.$invalid || vm.badPostSubmitResponse)}">
 
             <input class="categories__form__input-group__color" type="hidden" placeholder="Category color" name="color" ng-model="category.model.color.color" required valid-category-color />
 
             <!-- Error messages -->
-            <div class="form-group-input__message" ng-class="{'has-error': categoryForm.color.$invalid && categoryForm.$submitted}" ng-messages="categoryForm.color.$error" ng-if="categoryForm.$submitted">
+            <div class="form-group-input__message" ng-class="{'has-error': vm.categoryForm.color.$invalid && vm.categoryForm.$submitted}" ng-messages="vm.categoryForm.color.$error" ng-if="vm.categoryForm.$submitted">
                 <div ng-message="required">Color is mandatory.</div>
                 <div ng-message="validCategoryColor">Color is not valid.</div>
             </div>
         </div>
 
         <!-- Category label form group-->
-        <div class="categories__form__input-group" ng-class="{'has-error': categoryForm.$submitted && (categoryForm.name.$invalid || badPostSubmitResponse)}">
+        <div class="categories__form__input-group" ng-class="{'has-error': vm.categoryForm.$submitted && (vm.categoryForm.name.$invalid || vm.badPostSubmitResponse)}">
+
             <!--Color preview-->
             <label class="categories__form__color__preview" ng-style="{'background':category.model.color.color}"></label>
             <input class="categories__form__input-group__name"
@@ -51,13 +52,13 @@
             <div class="categories__form__input-group__count">{{20 - category.model.name.length}}</div>
 
             <!-- Error messages -->
-            <div class="form-group-input__message" ng-class="{'has-error': categoryForm.name.$invalid && categoryForm.$submitted}" ng-messages="categoryForm.name.$error" ng-if="categoryForm.$submitted">
+            <div class="form-group-input__message" ng-class="{'has-error': vm.categoryForm.name.$invalid && vm.categoryForm.$submitted}" ng-messages="vm.categoryForm.name.$error" ng-if="vm.categoryForm.$submitted">
                 <div ng-message="required">Name is mandatory.</div>
                 <div ng-message="validCategoryName">Name is not valid.</div>
                 <div ng-message="uniqueCategoryName">Name is already used.</div>
             </div>
 
-            <div color-picker colors="colors" category-color="category.model.color"></div>
+            <div color-picker colors="vm.colors" category-color="category.model.color"></div>
         </div>
 
     </div>
@@ -67,7 +68,7 @@
         <!--Reset-->
         <button type="button" class="categories__edit__form__content__right__cancel" ng-click="cancel();">Nevermind</button>
         <!-- Button container -->
-        <button class="categories__edit__form__content__right__update" type="submit">{{isUpdating ? 'Saving..' : 'Save changes'}}</button>
+        <button class="categories__edit__form__content__right__update" type="submit">{{vm.isUpdating ? 'Saving..' : 'Save changes'}}</button>
     </div>
 
 </form>

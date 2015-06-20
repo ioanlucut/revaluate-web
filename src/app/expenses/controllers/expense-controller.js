@@ -262,8 +262,6 @@ angular
 
         /**
          * Removes given expense from the list.
-         * @param expenseList
-         * @param expenseToBeRemoved
          */
         function removeExpenseFrom(expenseList, expenseToBeRemoved) {
             return _.remove(expenseList, function (expenseFromArray) {
@@ -279,8 +277,6 @@ angular
 
         /**
          * Remove a list of expenses from given existing list.
-         * @param expenseList
-         * @param expensesToBeRemoved
          */
         function removeAllExpenseFrom(expenseList, expensesToBeRemoved) {
             _.each(expensesToBeRemoved, function (expenseToBeRemoved) {

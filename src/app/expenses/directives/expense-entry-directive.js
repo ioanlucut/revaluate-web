@@ -8,8 +8,7 @@ angular
             controller: 'ExpenseEntryController',
             scope: {
                 categories: "=",
-                expense: "=",
-                isEnoughExpensesForBulkAction: "&"
+                expense: "="
             },
             templateUrl: "/app/expenses/partials/expense/expenses.entry.template.html",
             link: function (scope, el, attrs) {

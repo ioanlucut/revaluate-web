@@ -2,18 +2,18 @@
     <h1 class="settings__title">Categories</h1>
 
     <!-- Flash messages. -->
-    <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+    <div flash-messages flash="flash" identifier-id="{{vm.alertIdentifierId}}"></div>
 
     <!--Add category-->
-    <div class="categories__add" add-category colors="colors"></div>
+    <div class="categories__add" add-category colors="vm.colors"></div>
 
     <!--List all categories-->
     <div class="categories__edit">
 
-        <div class="categories__edit__category" ng-repeat="category in categories | orderObjectBy : 'model.id' : true track by category.model.id">
+        <div class="categories__edit__category" ng-repeat="category in vm.categories | orderObjectBy : 'model.id' : true track by category.model.id">
 
             <!--Edit/remove category-->
-            <div edit-remove-category colors="colors" category="category"></div>
+            <div edit-remove-category colors="vm.colors" category="category" is-minimum-number-of-allowed-categories-exceeded="vm.isMinimumNumberOfAllowedCategoriesExceeded()" ></div>
         </div>
 
     </div>

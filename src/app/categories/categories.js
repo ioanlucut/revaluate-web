@@ -15,7 +15,8 @@ angular
                 name: "settings.categories",
                 url: "/categories",
                 templateUrl: "/app/categories/partials/categories.html",
-                controller: "CategoryListController",
+                controller: "CategoryController",
+                controllerAs: "vm",
                 isPaymentMissingUnrestrictedPage: true,
                 resolve: {
                     categories: function (CategoryService) {
