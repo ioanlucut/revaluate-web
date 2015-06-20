@@ -217,12 +217,6 @@ angular
                 resolve: {
                     currencies: function (CurrencyService) {
                         return CurrencyService.getAllCurrencies();
-                    },
-                    colors: function (APP_CONFIG) {
-                        return APP_CONFIG.ALL_COLORS;
-                    },
-                    predefinedCategories: function (APP_CONFIG) {
-                        return APP_CONFIG.PREDEFINED_CATEGORIES;
                     }
                 },
                 title: "Settings setup - revaluate",

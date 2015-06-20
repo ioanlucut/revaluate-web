@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.categories")
-    .controller("CategoryListController", function ($scope, $rootScope, Category, flash, CATEGORY_EVENTS, $timeout, categories, colors, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
+    .controller("CategoryListController", function ($scope, $rootScope, Category, flash, CATEGORY_EVENTS, $timeout, categories, MIXPANEL_EVENTS, APP_CONFIG, ALERTS_CONSTANTS) {
         /**
          * Alert identifier
          */
@@ -21,7 +21,7 @@ angular
          * Existing colors
          * @type {colors|*}
          */
-        $scope.colors = colors;
+        $scope.colors = APP_CONFIG.ALL_COLORS;
 
         /**
          * Existing categories.
