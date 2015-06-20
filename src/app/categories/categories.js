@@ -16,6 +16,7 @@ angular
                 url: "/categories",
                 templateUrl: "/app/categories/partials/categories.html",
                 controller: "CategoryListController",
+                isPaymentMissingUnrestrictedPage: true,
                 resolve: {
                     categories: function (CategoryService) {
                         return CategoryService.getAllCategories();

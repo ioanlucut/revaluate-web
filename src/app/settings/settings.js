@@ -30,6 +30,7 @@ angular
                 templateUrl: "/app/settings/partials/settings.profile.html",
                 controller: "SettingsProfileController",
                 controllerAs: 'vm',
+                isPaymentMissingUnrestrictedPage: true,
                 title: "Profile - Revaluate",
                 mixpanelId: MIXPANEL_EVENTS.settingsProfile
             })
@@ -51,7 +52,7 @@ angular
                 templateUrl: "/app/settings/partials/settings.payment.add.html",
                 controller: "SettingsPaymentMethodAddController",
                 controllerAs: 'vm',
-                isPaymentRelatedPage: true,
+                isPaymentMissingUnrestrictedPage: true,
                 resolve: {
                     clientToken: function ($http, AUTH_URLS) {
                         return $http
@@ -83,7 +84,7 @@ angular
                 templateUrl: "/app/settings/partials/settings.payment.method.update.html",
                 controller: "SettingsEditPaymentMethodController",
                 controllerAs: 'vm',
-                isPaymentRelatedPage: true,
+                isPaymentMissingUnrestrictedPage: true,
                 resolve: {
                     clientToken: function ($http, AUTH_URLS) {
                         return $http
@@ -113,7 +114,7 @@ angular
                 url: "/customer",
                 templateUrl: "/app/settings/partials/settings.payment.customer.html",
                 controller: "SettingsPaymentCustomerController",
-                isPaymentRelatedPage: true,
+                isPaymentMissingUnrestrictedPage: true,
                 resolve: {
                     paymentInsights: function ($http, $state, AUTH_URLS) {
                         return $http
@@ -136,7 +137,7 @@ angular
                 templateUrl: "/app/settings/partials/settings.payment.insights.html",
                 controller: "SettingsPaymentInsightsController",
                 controllerAs: 'vm',
-                isPaymentRelatedPage: true,
+                isPaymentMissingUnrestrictedPage: true,
                 resolve: {
                     paymentInsights: function ($http, $state, AUTH_URLS) {
                         return $http
@@ -159,6 +160,7 @@ angular
             // ---
             .state("settings.admin", {
                 url: "/admin",
+                isPaymentMissingUnrestrictedPage: true,
                 views: {
                     '': {
                         templateUrl: "/app/settings/partials/settings.admin.abstract.html"
@@ -183,6 +185,7 @@ angular
             // ---
             .state("settings.preferences", {
                 url: "/preferences",
+                isPaymentMissingUnrestrictedPage: true,
                 views: {
                     '': {
                         templateUrl: "/app/settings/partials/settings.preferences.abstract.html"

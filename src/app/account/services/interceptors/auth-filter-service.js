@@ -41,7 +41,7 @@ angular
                 StatesHandler.goToSetUp();
             } else if (
                 !toState.isPublicPage
-                && !toState.isPaymentRelatedPage
+                && !toState.isPaymentMissingUnrestrictedPage
                 && AuthService.isAuthenticated()
                 && User.$new().loadFromSession().isTrialPeriodExpired() ) {
 
