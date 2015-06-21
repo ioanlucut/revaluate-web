@@ -22,19 +22,21 @@ angular
             return $http.post(URLTo.api(AUTH_URLS.login), {
                 email: email,
                 password: password
-            }).then(function (response) {
+            })
+                .then(function (response) {
 
-                SessionService.create(response.data, response.headers()[AUTH_TOKEN_HEADER]);
-                $rootScope.$broadcast(AUTH_EVENTS.loginSuccess, response);
+                    SessionService.create(response.data, response.headers()[AUTH_TOKEN_HEADER]);
+                    $rootScope.$broadcast(AUTH_EVENTS.loginSuccess, response);
 
-                return response;
-            }).catch(function (response) {
+                    return response;
+                })
+                .catch(function (response) {
 
-                SessionService.destroy();
-                $rootScope.$broadcast(AUTH_EVENTS.loginFailed, response);
+                    SessionService.destroy();
+                    $rootScope.$broadcast(AUTH_EVENTS.loginFailed, response);
 
-                return $q.reject(response);
-            });
+                    return $q.reject(response);
+                });
         };
 
         /**
@@ -122,7 +124,8 @@ angular
                     oldPassword: oldPassword,
                     newPassword: newPassword,
                     newPasswordConfirmation: newPasswordConfirmation
-                }).then(function (response) {
+                })
+                .then(function (response) {
                     return response.data;
                 });
         };

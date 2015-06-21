@@ -15,6 +15,11 @@ angular
 
             TransformerUtils.copyKeysFromTo(category.model, categoryDto, skipKeys);
 
+            // ---
+            // Should be always upper case.
+            // ---
+            categoryDto.name = categoryDto.name.toUpperCase();
+
             return categoryDto;
         };
 
@@ -27,7 +32,7 @@ angular
             TransformerUtils.copyKeysFromTo(categoryDto, category.model, skipKeys);
 
             // ---
-            // Should be always upper case (one way).
+            // Should be always upper case.
             // ---
             category.model.name = category.model.name.toUpperCase();
 

@@ -1,8 +1,8 @@
 // Typography
 //$base-font-family: "Open Sans", "Verdana", "Roboto", "Arial", sans-serif;
 //$base-font-family: "Lato", "Verdana", "Roboto", "Arial", sans-serif;
-$base-font-family: museo-sans, "Arial", sans-serif;
-
+//$base-font-family: museo-sans, "Arial", sans-serif;
+$base-font-family: "Montserrat", "Arial", sans-serif;
 $heading-font-family: museo-slab, serif;
 
 // Font Sizes
@@ -17,8 +17,8 @@ $font-size-h3: 18px;
 
 // Font Weights
 $font-weight-light: 100;
-$font-weight-regular: 300;
-$font-weight-bold: 700;
+$font-weight-regular: 200;
+$font-weight-bold: 300;
 
 // Line height
 $base-line-height: 1.5;
@@ -28,6 +28,7 @@ $heading-line-height: 1.2;
 $header-height: 60px;
 $setup-currency-input-width: 320px;
 $footer-height: 50px;
+$footer__home-height: 100px;
 $settings-aside-width: 180px;
 $add-expense-form-height: 50px;
 $add-category-form-height: 40px;
@@ -58,7 +59,7 @@ $gray-light-4: #fcfcfc;
 $brand-primary: #22A7F0;//#4183D7;
 $brand-primary-light: lighten($brand-primary, 40%);
 
-$brand-secondary: #ED8E7B;
+$brand-secondary: #ED4B4C;
 $brand-secondary-light: lighten($brand-secondary, 10%);
 
 $brand-default: #E7E7E7;

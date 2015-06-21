@@ -8,13 +8,11 @@
   height: 50px;
   padding: 10px 40px;
   @include clearfix();
-  //border: solid 1px blue;
 
   .insights__controls__form {
     //width: 100%;
     height: 50px;
     float: left;
-    //border: solid 1px red;
 
     .insights__controls__form__arrow {
       @include border-radius(50%);
@@ -74,12 +72,10 @@
 .insights__summary {
   width: 70%;
   margin: 0 auto;
-  font-size: $font-size-h2;
+  font-size: $font-size-largest;
   font-weight: $font-weight-light;
   color: $gray-medium;
   text-align: center;
-
-  //@include clearfix();
   padding: 40px 0;
 
   span {
@@ -88,13 +84,22 @@
   }
 }
 
-
 .insights__chart__bar,
 .insights__chart__doughnut {
   width: 90%;
   margin: 0 auto;
   padding: 20px;
-  //border: solid 1px blue;
+}
+
+.insights__chart__doughnut {
+
+  .chart-container {
+
+    canvas.chart-doughnut {
+      margin: 0;
+      padding: 0;
+    }
+  }
 }
 
 .insights__table {

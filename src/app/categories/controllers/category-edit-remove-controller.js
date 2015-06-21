@@ -2,7 +2,10 @@
 
 angular
     .module("revaluate.categories")
-    .controller("CategoryEditRemoveController", function ($scope, $rootScope, Category, $timeout, CATEGORY_EVENTS, MIXPANEL_EVENTS) {
+    .controller("CategoryEditRemoveController", function ($scope, $rootScope, Category, $timeout, CATEGORY_EVENTS, APP_CONFIG, MIXPANEL_EVENTS) {
+
+        /* jshint validthis: true */
+        var vm = this;
 
         /**
          * Edit/update timeout
@@ -12,11 +15,11 @@ angular
         /**
          * Update the category.
          */
-        $scope.updateCategory = function (categoryForm, category) {
-            if ( categoryForm.$valid && !$scope.isUpdating ) {
+        vm.updateCategory = function (categoryForm, category) {
+            if ( categoryForm.$valid && !vm.isUpdating ) {
 
                 // Is saving category
-                $scope.isUpdating = true;
+                vm.isUpdating = true;
 
                 category
                     .save()
@@ -28,7 +31,7 @@ angular
                         mixpanel.track(MIXPANEL_EVENTS.categoryUpdated);
 
                         $timeout(function () {
-                            $scope.isUpdating = false;
+                            vm.isUpdating = false;
 
                             $rootScope.$broadcast(CATEGORY_EVENTS.isUpdated, {
                                 category: category
@@ -39,8 +42,8 @@ angular
                     .catch(function () {
 
                         // Error
-                        $scope.isUpdating = false;
-                        $scope.badPostSubmitResponse = true;
+                        vm.isUpdating = false;
+                        vm.badPostSubmitResponse = true;
                         $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, {});
                     });
             }
@@ -49,13 +52,13 @@ angular
         /**
          * Remove category;
          */
-        $scope.deleteCategory = function (category) {
-            if ( $scope.isDeleting ) {
+        vm.deleteCategory = function (category) {
+            if ( vm.isDeleting ) {
                 return;
             }
 
             // Is deleting category
-            $scope.isDeleting = true;
+            vm.isDeleting = true;
 
             // Destroy category
             category
@@ -70,7 +73,7 @@ angular
                 .catch(function () {
 
                     // Error
-                    $scope.isDeleting = false;
+                    vm.isDeleting = false;
                     $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, {});
                 });
         };

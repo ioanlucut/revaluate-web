@@ -26,7 +26,6 @@ angular
             .state("pricing", {
                 url: "/pricing",
                 templateUrl: "/app/site/partials/pricing.html",
-                controller: "PricingPageController",
                 title: "Change the way you spend your money",
                 mixpanelId: MIXPANEL_EVENTS.pricingPage,
                 isPublicPage: true

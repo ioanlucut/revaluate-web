@@ -26,7 +26,9 @@ angular
          * On app load, retrieve user profile previously saved (if exists).
          */
         $rootScope.currentUser = User.$new().loadFromSession();
-        $log.log("Current user: ", $rootScope.currentUser.model);
+        if ( !ENV.isProduction ) {
+            $log.log("Current user: ", $rootScope.currentUser.model);
+        }
 
         /**
          * Listen to login success event. If user is properly logged in,
@@ -35,7 +37,10 @@ angular
         $scope.$on(AUTH_EVENTS.loginSuccess, function () {
             $rootScope.currentUser = User.$new().loadFromSession();
             AuthService.redirectToAttemptedUrl();
-            $log.log("Logged in: ", $rootScope.currentUser.model);
+
+            if ( !ENV.isProduction ) {
+                $log.log("Logged in: ", $rootScope.currentUser.model);
+            }
         });
 
         /**
@@ -43,14 +48,19 @@ angular
          */
         $scope.$on(AUTH_EVENTS.refreshUser, function () {
             $rootScope.currentUser = User.$new().loadFromSession();
-            $log.log("Refreshed user: ", $rootScope.currentUser.model);
+
+            if ( !ENV.isProduction ) {
+                $log.log("Refreshed user: ", $rootScope.currentUser.model);
+            }
         });
 
         /**
          * Listen to the session timeout event
          */
         $scope.$on(AUTH_EVENTS.sessionTimeout, function () {
-            $log.log("Session timed out.");
+            if ( !ENV.isProduction ) {
+                $log.log("Session timed out.");
+            }
             AuthService.logout();
         });
 
@@ -58,7 +68,9 @@ angular
          * Listen to the not authenticated event
          */
         $scope.$on(AUTH_EVENTS.notAuthenticated, function () {
-            $log.log("Not authenticated.");
+            if ( !ENV.isProduction ) {
+                $log.log("Not authenticated.");
+            }
 
             AuthService.logout();
             AuthService.saveAttemptUrl();
@@ -70,7 +82,9 @@ angular
          */
         $scope.$on(AUTH_EVENTS.logoutSuccess, function () {
             $rootScope.currentUser = User.$new();
-            $log.log("Logged out.");
+            if ( !ENV.isProduction ) {
+                $log.log("Logged out.");
+            }
         });
 
         /**

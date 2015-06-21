@@ -19,6 +19,9 @@
             <a href="javascript:void(0)" ng-click="toggleHowToContent()"> How do I export my expenses from {{importDescription}}?</a>
         </li>
     </ul>
+    <div ng-if="showHowToContent">
+        <a href="javascript:void(0)" ng-click="toggleHowToContent()">Got it.</a>
+    </div>
     <div ng-show="showHowToContent" ng-include src="'/app/import/partials/howto/settings.import.howto.' + importType + '.html'"></div>
 </div>
 
@@ -65,7 +68,7 @@
                     </ui-select>
 
                     <!-- Error messages -->
-                    <div class="form-group-input__message" ng-class="{'has-error': expensesImportCategoryMatchEntryForm.category.$invalid && expensesImportForm.$submitted}" ng-messages="expensesImportCategoryMatchEntryForm.$error" ng-if="expensesImportForm.$submitted">
+                    <div class="form-group-input__message" ng-class="{'has-error': expensesImportCategoryMatchEntryForm.category.$invalid && expensesImportForm.$submitted}" ng-messages="expensesImportCategoryMatchEntryForm.category.$error" ng-if="expensesImportForm.$submitted">
                         <div ng-message="required">Please add a category.</div>
                     </div>
                 </div>
@@ -88,4 +91,4 @@
 </form>
 
 <!--After import-->
-<a ng-if="importFinished" ui-sref="settings.import.import({type: importType})" ui-sref-opts="{reload:true}">Let me try again!</a>
+<a ng-if="importFinished" ui-sref="settings.import.import({type: importType})" ui-sref-opts="{reload:true}">Preparing expenses..</a>

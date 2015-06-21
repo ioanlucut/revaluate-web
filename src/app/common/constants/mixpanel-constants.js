@@ -34,8 +34,12 @@ angular
         settingsPaymentInsights: "Settings payment insights",
         settingsAccount: "Settings account",
         settingsPreferences: "Settings preferences",
+
         settingsImportChoose: "Settings import choose",
         settingsImport: "Settings import",
+        settingsImportServerError: "Settings import server error",
+        settingsImportUploadSuccess: "Settings import upload success",
+        settingsImportSuccess: "Settings import success",
 
         account: "Settings import",
         accountLogout: "Settings import",

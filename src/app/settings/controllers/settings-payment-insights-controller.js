@@ -25,58 +25,9 @@ angular
         vm.paymentInsights = paymentInsights;
 
         // ---
-        // On submit, perform payment subscription.
+        // Is payment method defined ?.
         // ---
-        vm.performPaymentSubscription = function () {
-            if ( !vm.isRequestPending ) {
-
-                // Show the loading bar
-                vm.isRequestPending = true;
-
-                return $http
-                    .post(URLTo.api(AUTH_URLS.subscribeToStandardPlan), {})
-                    .then(function (response) {
-                        vm.paymentInsights = response.data;
-
-                        // ---
-                        // Update user with subscription status ACTIVE.
-                        // ---
-                        vm
-                            .user
-                            .setSubscriptionStatusAsAndReload(USER_SUBSCRIPTION_STATUS.ACTIVE);
-                        $rootScope
-                            .$broadcast(AUTH_EVENTS.refreshUser, {});
-
-                        // ---
-                        // Clean previously errors.
-                        // ---
-                        flash.to(ALERTS_CONSTANTS.generalError).error = '';
-
-                        $timeout(function () {
-                            vm.isRequestPending = false;
-                            flash.to(vm.alertIdentifierId).success = 'You\'ve successfully subscribed to Revaluate!';
-                        }, TIMEOUT_PENDING);
-                    })
-                    .catch(function (response) {
-                        /* If bad feedback from server */
-                        vm.badPostSubmitResponse = true;
-                        vm.isRequestPending = false;
-
-                        // ---
-                        // Show errors.
-                        // ---
-                        var errors = response.data;
-                        if ( _.isArray(errors) ) {
-                            flash.to(vm.alertIdentifierId).error = errors.join("\n");
-                        }
-                        else {
-                            flash.to(vm.alertIdentifierId).error = 'We\'ve encountered an error while trying to subscribe you to Revaluate.';
-                        }
-                    });
-
-            }
-
-        };
+        vm.isPaymentMethodDefined = vm.paymentInsights.paymentMethodDTOs && vm.paymentInsights.paymentMethodDTOs.length > 0;
 
         // ---
         // Remove payment method.
@@ -89,19 +40,18 @@ angular
 
                 return $http
                     .delete(URLTo.api(AUTH_URLS.removePaymentMethod), {})
-                    .then(function () {
+                    .then(function (response) {
 
                         // ---
                         // Update user with subscription status.
                         // ---
                         vm
                             .user
-                            .resetSubscriptionStatusAfterRemovePaymentIsPerformed();
+                            .setSubscriptionStatusAsAndReload(response.data.userSubscriptionStatus);
                         $rootScope
                             .$broadcast(AUTH_EVENTS.refreshUser, {});
 
                         flash.to(vm.alertIdentifierId).success = 'You\'ve successfully removed payment method!';
-
                         $timeout(function () {
                             vm.isRequestPending = false;
 

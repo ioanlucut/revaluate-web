@@ -12,9 +12,9 @@
             <span class="expense__form__price__currency">{{user.model.currency.symbol}}</span>
 
             <!-- Error messages -->
-            <div class="form-group-input__message" ng-class="{'has-error': expenseForm.value.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.$error" ng-if="expenseForm.$submitted">
+            <div class="form-group-input__message" ng-class="{'has-error': expenseForm.value.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.value.$error" ng-if="expenseForm.$submitted">
                 <div ng-message="required">Don't forget the price.</div>
-                <div ng-message="validPrice">Oops, you missed the price.</div>
+                <div ng-message="validPrice">Oops, you  missed the price.</div>
             </div>
         </div>
 
@@ -30,7 +30,7 @@
             </ui-select>
 
             <!-- Error messages -->
-            <div class="form-group-input__message" ng-class="{'has-error': expenseForm.category.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.$error" ng-if="expenseForm.$submitted">
+            <div class="form-group-input__message" ng-class="{'has-error': expenseForm.category.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.category.$error" ng-if="expenseForm.$submitted">
                 <div ng-message="required">Please add a category.</div>
             </div>
         </div>
@@ -40,7 +40,7 @@
             <input class="expense__form__details__input" type="text" name="description" ng-maxlength="30" maxlength="30" placeholder="Add details (optional)" ng-model="expense.model.description" escape-html />
 
             <!-- Error messages -->
-            <div class="form-group-input__message" ng-class="{'has-error': expenseForm.description.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.$error" ng-if="expenseForm.$submitted">
+            <div class="form-group-input__message" ng-class="{'has-error': expenseForm.description.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.description.$error" ng-if="expenseForm.$submitted">
                 <div ng-message="maxlength">Hmm. Too long. Make it shorter.</div>
             </div>
         </div>
@@ -66,7 +66,7 @@
             </div>
 
             <!--Error messages-->
-            <div class="form-group-input__message" ng-class="{'has-error': expenseForm.spentDate.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.$error" ng-if="expenseForm.$submitted">
+            <div class="form-group-input__message" ng-class="{'has-error': expenseForm.spentDate.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.spentDate.$error" ng-if="expenseForm.$submitted">
                 <div ng-message="required">Please add a date.</div>
                 <div ng-message="validDate">Date should be in the past.</div>
             </div>
@@ -74,7 +74,7 @@
 
         <!-- Button container -->
         <div class="expense__form__submit__save">
-            <button class="expense__edit__form__savebtn" type="submit">Save</button>
+            <button class="expense__edit__form__savebtn" type="submit">Add</button>
         </div>
     </form>
 

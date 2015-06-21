@@ -6,7 +6,6 @@
 angular
     .module("revaluate.account", [
         "revaluate.common",
-        "revaluate.currencies",
         "revaluate.categories"
     ])
     .config(function ($stateProvider, $httpProvider, MIXPANEL_EVENTS) {

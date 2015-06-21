@@ -9,7 +9,14 @@ angular
                 return {
                     pre: function preLink() {
                         var mixpanel = $window.mixpanel || {};
-                        mixpanel.init(ENV.mixPanelId);
+                        if ( ENV.isProduction ) {
+                            mixpanel.init(ENV.mixPanelId);
+                        }
+                        else {
+                            $window.mixpanel = {};
+                            $window.mixpanel.track = function () {
+                            };
+                        }
                     }
                 };
             }
