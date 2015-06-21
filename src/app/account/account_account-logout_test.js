@@ -2,7 +2,7 @@
 
 describe('app/account/logout', function () {
 
-    var $rootScope, $state, $injector, $httpBackend, $q, ENV, CURRENCY_URLS, COLOR_URLS, EXPENSE_URLS, CATEGORY_URLS, AuthServiceMock, UserMock, state = 'account:logout';
+    var $rootScope, $state, $injector, $httpBackend, $q, ENV, EXPENSE_URLS, CATEGORY_URLS, AuthServiceMock, UserMock, state = 'account:logout';
 
     beforeEach(function () {
 
@@ -12,6 +12,35 @@ describe('app/account/logout', function () {
         module("gulpAngular");
 
         // ---
+        // Provide APP_CONFIG.
+        // ---
+        module(function ($provide) {
+            $provide.constant('APP_CONFIG', {
+                "SETUP_MIN_CATEGORIES_TO_SELECT": 3,
+                "PREDEFINED_CATEGORIES": ["Bills", "Food"],
+                "CURRENCIES": [{
+                    "currencyCode": "AED",
+                    "displayName": "United Arab Emirates Dirham",
+                    "symbol": "د.إ.‏",
+                    "numericCode": 784,
+                    "fractionSize": 2
+                }],
+                "VERSION": "1.0.0",
+                "MAX_ALLOWED_CATEGORIES": 20,
+                "IMPORT_MIN_CATEGORIES_TO_SELECT": 1,
+                "TRIAL_DAYS": 15,
+                "MIN_ALLOWED_CATEGORIES": 3,
+                "MIN_EXPENSES_TO_ENABLE_BULK_ACTION": 1,
+                "ALL_COLORS": [{ "id": 1, "color": "#DD5440", "colorName": "red", "priority": 1 }, {
+                    "id": 2,
+                    "color": "#E29C45",
+                    "colorName": "orange",
+                    "priority": 2
+                }]
+            });
+        });
+
+        // ---
         // Just inject the module and define dependencies.
         // ---
         module("revaluate", function ($provide) {
@@ -19,15 +48,13 @@ describe('app/account/logout', function () {
             $provide.value('User', UserMock = {});
         });
 
-        inject(function (_$rootScope_, _$state_, _$injector_, _$httpBackend_, _$q_, _ENV_, _CURRENCY_URLS_, _COLOR_URLS_, _EXPENSE_URLS_, _CATEGORY_URLS_, $templateCache) {
+        inject(function (_$rootScope_, _$state_, _$injector_, _$httpBackend_, _$q_, _ENV_, _EXPENSE_URLS_, _CATEGORY_URLS_, $templateCache) {
             $rootScope = _$rootScope_;
             $state = _$state_;
             $injector = _$injector_;
             $httpBackend = _$httpBackend_;
             $q = _$q_;
             ENV = _ENV_;
-            CURRENCY_URLS = _CURRENCY_URLS_;
-            COLOR_URLS = _COLOR_URLS_;
             EXPENSE_URLS = _EXPENSE_URLS_;
             CATEGORY_URLS = _CATEGORY_URLS_;
             URLTo.apiBase(ENV.apiEndpoint);
