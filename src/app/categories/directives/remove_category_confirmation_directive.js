@@ -11,6 +11,7 @@ angular
             scope: {
                 category: "=",
                 autoToggleWhen: "=",
+                progress: "=",
                 confirm: "&",
                 cancel: "&"
             },
@@ -62,6 +63,7 @@ angular
                     if ( val === true && valOld === false ) {
                         $timeout(function () {
                             scope.toggleConfirmationContent();
+
                         });
                     }
                 });

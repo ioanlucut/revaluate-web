@@ -135,10 +135,11 @@ angular
                         $scope.initOrReset($scope.expenseForm);
                     })
                     .catch(function () {
-
-                        flash.to($scope.alertIdentifierId).error = "Could not add expense.";
-                        $scope.isSaving = false;
                         $scope.badPostSubmitResponse = true;
+                        $scope.isSaving = false;
+                        $rootScope.$broadcast(EXPENSE_EVENTS.isErrorOccurred, {
+                            errorMessage: "We've encountered an error while trying to add this expense."
+                        });
                     });
             }
         };
@@ -202,10 +203,11 @@ angular
                     }, TIMEOUT_DURATION);
                 })
                 .catch(function () {
-
-                    // Error
                     $scope.isBulkDeleting = false;
-                    flash.to($scope.alertIdentifierId).error = "Could not perform bulk action.";
+                    $scope.cancelBulkAction();
+                    $rootScope.$broadcast(EXPENSE_EVENTS.isErrorOccurred, {
+                        errorMessage: "We've encountered an error while trying to perform bulk action."
+                    });
                 });
         };
 
@@ -250,9 +252,9 @@ angular
         /**
          * On error occurred.
          */
-        $scope.$on(EXPENSE_EVENTS.isErrorOccurred, function () {
+        $scope.$on(EXPENSE_EVENTS.isErrorOccurred, function (event, args) {
 
-            flash.to($scope.alertIdentifierId).error = "Error occurred!";
+            flash.to($scope.alertIdentifierId).error = args.errorMessage;
         });
 
         /**
