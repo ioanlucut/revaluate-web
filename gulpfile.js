@@ -3,6 +3,7 @@
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var wrench = require('wrench');
+var fixmyjs = require("gulp-fixmyjs");
 
 var options = {
     src: 'src',
@@ -35,4 +36,13 @@ wrench.readdirSyncRecursive('./gulp').filter(function (file) {
 
 gulp.task('default', ['clean'], function () {
     gulp.start('build');
+});
+
+gulp.task('fixmyjs', function () {
+
+    return gulp.src("./src/**/*.js")
+        .pipe(fixmyjs({
+            // JSHint settings here
+        }))
+        .pipe(gulp.dest("./src"));
 });
