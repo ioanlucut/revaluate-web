@@ -9,7 +9,7 @@ angular
                 return {
                     pre: function preLink() {
                         var mixpanel = $window.mixpanel || {};
-                        if ( ENV.name === 'production' ) {
+                        if ( ENV.isProduction ) {
                             mixpanel.init(ENV.mixPanelId);
                         }
                         else {
