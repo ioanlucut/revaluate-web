@@ -13,12 +13,24 @@
 .header__brand {
   float: left;
   height: 60px;
-  //color:
+  position: relative;
+  margin-right: 40px;
+}
+
+.header__brand--logo {
+  @include size(40px 40px);
+  background: url("../assets/img/logo.svg") no-repeat top left;
+  background-size: contain;
+  position: absolute;
+  display: block;
+  left: 5px;
+  top: 10px;
 }
 
 .header__brand--name {
   @include brand-inline();
   color: $white;
+  display: none;
 }
 
 .header__navigation {

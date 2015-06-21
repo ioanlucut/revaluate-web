@@ -19,6 +19,7 @@ angular
                 name: "settings.import.choose",
                 url: "/choose",
                 templateUrl: "/app/import/partials/settings.import.choose.html",
+                isPaymentMissingUnrestrictedPage: true,
                 mixpanelId: MIXPANEL_EVENTS.settingsImportChoose,
                 title: "Expenses import choose - Revaluate"
             })
@@ -28,6 +29,7 @@ angular
                 url: "/{type}",
                 templateUrl: "/app/import/partials/settings.import.import.html",
                 controller: "ExpensesImportController",
+                isPaymentMissingUnrestrictedPage: true,
                 resolve: {
                     categories: function (CategoryService) {
                         return CategoryService.getAllCategories();

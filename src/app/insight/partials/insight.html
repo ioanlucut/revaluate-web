@@ -57,7 +57,7 @@
                     </div>
 
                     <!--Error messages-->
-                    <div class="form-group-input__message" ng-class="{'has-error': insightForm.spentDate.$invalid && insightForm.$submitted}" ng-messages="insightForm.$error" ng-if="insightForm.$submitted">
+                    <div class="form-group-input__message" ng-class="{'has-error': insightForm.spentDate.$invalid && insightForm.$submitted}" ng-messages="insightForm.spentDate.$error" ng-if="insightForm.$submitted">
                         <div ng-message="required">Please add a date.</div>
                         <div ng-message="validDate">Date should be in the past.</div>
                     </div>
@@ -97,7 +97,7 @@
                         data="insightLineData"
                         series="insightLineSeries"
                         legend="false"
-                        options="defaultChartOptions"
+                        options="barOptions"
                         labels="insight.model.insightLabels">
                 </canvas>
             </div>
@@ -114,13 +114,12 @@
 
             <div class="insights__summary">
                 <div>
-                    You've spent the most on <span class="label-uppercase">{{insight.model.highestAmountCategory.name}}</span>.
-                </div>
-                <div>
                 You had <span>{{insight.model.numberOfTransactions}} transactions</span>, in <span>{{insight.model.totalPerCategoryInsightDTOs.length}} categories</span>.
                 Your biggest transaction was <span>{{insight.model.biggestExpense.value | currency:user.model.currency.symbol:user.model.currency.fractionSize}}</span>, on <span class="label-uppercase">{{insight.model.biggestExpense.category.name}}</span>.
                 </div>
-
+                <div>
+                    You've spent the most on <span class="label-uppercase">{{insight.model.highestAmountCategory.name}}</span>.
+                </div>
                 <div>
                 The category with the most transactions is <span class="label-uppercase">{{insight.model.categoryWithTheMostTransactionsInsightsDTO.categoryDTO.name}}</span>, with <span>{{insight.model.categoryWithTheMostTransactionsInsightsDTO.numberOfTransactions}}</span> transactions.
 

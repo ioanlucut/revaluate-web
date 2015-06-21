@@ -50,7 +50,6 @@
 .categories__cancel__btn {
   @include btn-big($brand-danger);
   font-size: 16px;
-  font-weight: $font-weight-bold;
   display: inline-block;
   min-width: 40px;
   vertical-align: middle;

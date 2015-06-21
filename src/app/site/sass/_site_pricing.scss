@@ -18,7 +18,6 @@
 
   span {
     font-size: 40px;
-    font-weight: $font-weight-bold;
   }
 }
 
@@ -35,5 +34,39 @@
 
 .pricing__box__info {
   font-size: $font-size-small;
-  opacity: 0.3;
+  opacity: 0.5;
 }
+
+// FAQ section
+// -----------------------------
+
+.site__container__section__faq {
+  padding: 0;
+  @include outer-container();
+
+  li {
+    @include border-radius($base-border-radius);
+    @include span-columns(6);
+    @include omega(2n);
+    height: 110px;
+    padding: 10px;
+    margin: 0 21px 21px 0;
+    text-align: left;
+
+    &:nth-child(2) {
+      margin-right: 0px;
+    }
+  }
+}
+
+.site__container__section__faq__contact {
+  @include border-radius($base-border-radius);
+  background-color: $white;
+  margin-top: 20px;
+  padding: 10px;
+  font-size: $font-size-large;
+}
+
+
+
+

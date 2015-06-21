@@ -15,17 +15,14 @@ angular
             templateUrl: "/app/expenses/partials/expense/expenses.list.template.html",
             link: function (scope, el, attrs) {
 
+                var LOAD_MORE_TIMEOUT = 500;
+                var DEFAULT_EXPENSES_LIMIT = 20;
+
                 /**
                  * The way of sort
                  * @type {boolean}
                  */
                 scope.reverseOrder = attrs.sort === "desc";
-
-                /**
-                 * Load more timeout
-                 * @type {number}
-                 */
-                var LOAD_MORE_TIMEOUT = 500;
 
                 /**
                  * Current user.
@@ -36,7 +33,7 @@ angular
                  * Default number of expenses to be displayed.
                  * @type {number}
                  */
-                scope.defaultExpensesLimit = 20;
+                scope.defaultExpensesLimit = DEFAULT_EXPENSES_LIMIT;
 
                 /**
                  * Number of the filtered expenses

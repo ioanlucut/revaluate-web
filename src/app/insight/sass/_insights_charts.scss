@@ -1,13 +1,24 @@
+.doughnut__chart {
+  width: 200px;
+  padding: 0;
+}
+
 .doughnut__chart__legend {
+  @include clearfix();
 
   .doughnut__chart__legend__color {
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    display: inline-block;
+    display: block;
+    float: left;
+    margin: 3px 3px 0 0;
+    width: 25px;
+    height: 25px;
+    @include border-radius(50%);
   }
 
   .doughnut__chart__legend__label {
-    display: inline-block;
+    display: block;
+    float: left;
+    line-height: 33px;
+    text-transform: uppercase;
   }
 }

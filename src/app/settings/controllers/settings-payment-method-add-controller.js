@@ -106,7 +106,7 @@ angular
                                 .post(URLTo.api(AUTH_URLS.createCustomerWithPaymentMethodSubscribeToStandardPlan), paymentDetailsData)
                                 .then(function (response) {
                                     // ---
-                                    // Update user with subscription status ACTIVE if subscription is also successful.
+                                    // Update user with subscription status ACTIVE if subscription is also activated.
                                     // ---
                                     var paymentInsights = response.data;
                                     if ( paymentInsights.subscriptionActive ) {

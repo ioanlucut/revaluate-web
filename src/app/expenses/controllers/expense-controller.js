@@ -2,17 +2,12 @@
 
 angular
     .module("revaluate.expenses")
-    .controller("ExpenseController", function ($scope, $rootScope, $stateParams, Expense, expenses, ExpenseService, categories, $window, DatesUtils, $timeout, StatesHandler, EXPENSE_EVENTS, flash, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
+    .controller("ExpenseController", function ($scope, $rootScope, $stateParams, Expense, expenses, ExpenseService, categories, $window, DatesUtils, $timeout, StatesHandler, EXPENSE_EVENTS, flash, MIXPANEL_EVENTS, ALERTS_CONSTANTS, APP_CONFIG) {
 
         /**
          * Updating/deleting timeout
          */
         var TIMEOUT_DURATION = 300;
-
-        /**
-         * Minimum expenses to enable bulk actions
-         */
-        var MIN_EXPENSES_TO_ENABLE_BULK_ACTION = 1;
 
         /**
          * Alert identifier
@@ -160,7 +155,7 @@ angular
          * Is enough selected expenses for bulk action
          */
         $scope.isBulkActionEnabled = function () {
-            return getSelectedExpensesForBulkAction().length >= MIN_EXPENSES_TO_ENABLE_BULK_ACTION;
+            return getSelectedExpensesForBulkAction().length >= APP_CONFIG.MIN_EXPENSES_TO_ENABLE_BULK_ACTION;
         };
 
         /**
@@ -262,8 +257,6 @@ angular
 
         /**
          * Removes given expense from the list.
-         * @param expenseList
-         * @param expenseToBeRemoved
          */
         function removeExpenseFrom(expenseList, expenseToBeRemoved) {
             return _.remove(expenseList, function (expenseFromArray) {
@@ -279,8 +272,6 @@ angular
 
         /**
          * Remove a list of expenses from given existing list.
-         * @param expenseList
-         * @param expensesToBeRemoved
          */
         function removeAllExpenseFrom(expenseList, expensesToBeRemoved) {
             _.each(expensesToBeRemoved, function (expenseToBeRemoved) {

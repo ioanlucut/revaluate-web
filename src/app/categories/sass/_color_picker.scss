@@ -1,12 +1,14 @@
 .color-picker-box {
   position: absolute;
-  top: -52px;
-  left: 0;
-  width: 175px;
-  height: 100%;
+  top: 42px;
+  left: 5px;
+  width: 202px;
+  height: 122px;
   z-index: 1200;
   font-size: 15px;
   background-color: rgba(255, 255, 255, 0.97);
+  @include box-shadow(0px 5px 12px rgba(175, 179, 182, 1));
+  @include border-radius($base-border-radius);
   display: none;
 }
 
@@ -25,7 +27,7 @@
 }
 
 .color-picker__popover {
-  width: 175px;
+  width: 202px;
 }
 
 .color-picker__popover__colors {
@@ -34,19 +36,22 @@
 
   .color-picker__popover__colors__color {
     float: left;
+    margin: 1px;
+    border: 3px solid transparent;
 
     &:hover {
       position: relative;
       z-index: 2;
-      outline: 2px solid $white;
+      border: 3px solid rgba(0, 0, 0, 0.6);
     }
   }
 
   .color-picker__popover__colors__color__name {
     @include user-select(none);
+    //@include border-radius($base-border-radius);
     cursor: pointer;
-    height: 25px;
-    width: 25px;
+    height: 32px;
+    width: 32px;
 
     &.color-picker__popover__colors__color__name--unselected {
       background-color: $white !important;

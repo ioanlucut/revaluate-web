@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.expensesImport")
-    .controller("ExpensesImportController", function ($q, $scope, $rootScope, $timeout, IMPORT_PARSE_ANALYSE_URLS, importType, FileUploader, ImportService, ExpensesImport, StatesHandler, SessionService, AUTH_EVENTS, flash, categories, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+    .controller("ExpensesImportController", function ($q, $scope, $rootScope, $timeout, IMPORT_PARSE_ANALYSE_URLS, importType, FileUploader, ImportService, ExpensesImport, StatesHandler, SessionService, AUTH_EVENTS, flash, categories, ALERTS_CONSTANTS, MIXPANEL_EVENTS, APP_CONFIG) {
 
         // ---
         // Configure uploader.
@@ -13,6 +13,11 @@ angular
         var QUEUE_LIMIT = 1;
         var AUTO_UPLOAD = true;
         var IS_EMPTY_AFTER_SELECTION = true;
+
+        // ---
+        // Timeout.
+        // ---
+        var TIMEOUT_PENDING = 1000;
 
         // ---
         // Server status error.
@@ -113,6 +118,7 @@ angular
             // ---
             $scope.expensesImportAnswer = ExpensesImport.build(response);
             $scope.isUploadSuccessful = true;
+            mixpanel.track(MIXPANEL_EVENTS.settingsImportUploadSuccess);
         };
 
         // ---
@@ -125,6 +131,8 @@ angular
             else {
                 if ( status === SERVER_ERROR ) {
                     flash.to($scope.alertIdentifierId).error = 'Something went wrong. Can you please try one more time?'
+
+                    mixpanel.track(MIXPANEL_EVENTS.settingsImportServerError);
                 }
             }
 
@@ -159,11 +167,6 @@ angular
             $scope.showHowToContent = !$scope.showHowToContent;
         };
 
-        /**
-         * Minimum categories to select
-         */
-        var MIN_CATEGORIES_TO_SELECT = 1;
-
         function getSelectedMatchingCategories() {
             return _.filter($scope.expensesImportAnswer.model.expenseCategoryMatchingProfileDTOs, 'selected', true);
         }
@@ -175,7 +178,7 @@ angular
             if ( !$scope.isUploadSuccessful ) {
                 return false;
             }
-            return getSelectedMatchingCategories().length >= MIN_CATEGORIES_TO_SELECT;
+            return getSelectedMatchingCategories().length >= APP_CONFIG.IMPORT_MIN_CATEGORIES_TO_SELECT;
         };
 
         /**
@@ -223,6 +226,14 @@ angular
                         // ---
                         $scope.isImporting = false;
                         $scope.importFinished = true;
+                        mixpanel.track(MIXPANEL_EVENTS.settingsImportSuccess);
+
+                        // ---
+                        // Go to expenses after 1,5 sec.
+                        // ---
+                        $timeout(function () {
+                            StatesHandler.goHome();
+                        }, TIMEOUT_PENDING);
                     })
                     .catch(function () {
                         /* If bad feedback from server */

@@ -2,6 +2,7 @@
     "ENV": {
         "name": "production",
         "apiEndpoint": "http://api.revaluate",
-        "mixPanelId": "1e6d81ba283c1393b2dee527e165013f"
+        "mixPanelId": "1e6d81ba283c1393b2dee527e165013f",
+        "isProduction": true
     }
 }
