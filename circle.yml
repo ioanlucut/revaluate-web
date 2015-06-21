@@ -18,3 +18,11 @@ deployment:
     - npm run-script build:dev
     - npm install -g divshot-cli
     - divshot push staging --token "${DIVSHOT_TOKEN}"
+  production:
+    branch: production
+    commands:
+    - ruby -v
+    - gem install sass
+    - npm run-script build:prod
+    - npm install -g divshot-cli
+    - divshot push production --token "${DIVSHOT_TOKEN}"
