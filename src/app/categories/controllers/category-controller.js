@@ -97,7 +97,9 @@ angular
                         vm.isSaving = false;
                         vm.badPostSubmitResponse = true;
 
-                        $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, {});
+                        $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, {
+                            errorMessage: "We've encountered an error while trying to save this category."
+                        });
                     });
             }
         };
@@ -105,11 +107,6 @@ angular
         // ---
         // EVENT LISTENERS (listen for events from e.g. entries list).
         // ---
-
-        $scope.$on(CATEGORY_EVENTS.isErrorOccurred, function () {
-
-            flash.to(vm.alertIdentifierId).error = "This category could not be deleted.";
-        });
 
         /**
          * On category created, display a success message, and add category to the list.
@@ -143,6 +140,11 @@ angular
             removeCategoryFrom(vm.categories, args.category);
 
             flash.to(vm.alertIdentifierId).success = "Category successfully deleted!";
+        });
+
+        $scope.$on(CATEGORY_EVENTS.isErrorOccurred, function (event, args) {
+
+            flash.to(vm.alertIdentifierId).error = args.errorMessage;
         });
 
         /**
