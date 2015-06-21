@@ -44,7 +44,9 @@ angular
                         // Error
                         vm.isUpdating = false;
                         vm.badPostSubmitResponse = true;
-                        $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, {});
+                        $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, {
+                            errorMessage: "We've encountered an error while trying to update this category."
+                        });
                     });
             }
         };
@@ -64,8 +66,9 @@ angular
             category
                 .destroy()
                 .then(function () {
-                    mixpanel.track(MIXPANEL_EVENTS.categoryDeleted);
+                    vm.isSuccessfullyDeleted = true;
 
+                    mixpanel.track(MIXPANEL_EVENTS.categoryDeleted);
                     $rootScope.$broadcast(CATEGORY_EVENTS.isDeleted, {
                         category: category
                     });
@@ -74,7 +77,9 @@ angular
 
                     // Error
                     vm.isDeleting = false;
-                    $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, {});
+                    $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, {
+                        errorMessage: "We've encountered an error while trying to delete this category."
+                    });
                 });
         };
 

@@ -12,7 +12,7 @@ angular
             },
             controller: 'CategoryEntryController',
             controllerAs: 'vm',
-            templateUrl: "/app/categories/partials/edit-remove-category-directive-template.html",
+            templateUrl: "/app/categories/partials/category-entry-directive-template.html",
             link: function (scope, el, attrs) {
 
                 /**
