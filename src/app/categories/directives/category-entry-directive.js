@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.categories")
-    .directive("editRemoveCategory", function ($rootScope, CATEGORY_EVENTS) {
+    .directive("categoryEntry", function ($rootScope, CATEGORY_EVENTS) {
         return {
             restrict: "A",
             scope: {
@@ -10,7 +10,7 @@ angular
                 colors: "=",
                 isMinimumNumberOfAllowedCategoriesExceeded: "&"
             },
-            controller: 'CategoryEditRemoveController',
+            controller: 'CategoryEntryController',
             controllerAs: 'vm',
             templateUrl: "/app/categories/partials/edit-remove-category-directive-template.html",
             link: function (scope, el, attrs) {

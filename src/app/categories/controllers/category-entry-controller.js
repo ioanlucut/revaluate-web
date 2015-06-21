@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.categories")
-    .controller("CategoryEditRemoveController", function ($scope, $rootScope, Category, $timeout, CATEGORY_EVENTS, APP_CONFIG, MIXPANEL_EVENTS) {
+    .controller("CategoryEntryController", function ($scope, $rootScope, Category, $timeout, CATEGORY_EVENTS, APP_CONFIG, MIXPANEL_EVENTS) {
 
         /* jshint validthis: true */
         var vm = this;
