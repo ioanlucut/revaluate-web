@@ -11,8 +11,6 @@
 1. `git pull`
 2. `git checkout master`
 3. `git merge develop --no-ff`
-4. `gulp build`
-6. `git add src/app/app.env.config.js --force`
 7. `git commit -m "2.1.0-RC1 - from DEV"`
 8. `git push`
 
@@ -21,8 +19,6 @@
 1. `git pull`
 2. `git checkout production`
 3. `git merge master --no-ff`
-4. `grunt build-prod`
-6. `git add src/app/app.env.config.js --force`
 7. `git commit -m "2.1.0 - LIVE"`
 8. `git push`
 
