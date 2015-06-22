@@ -14,15 +14,18 @@
 }
 
 .home__section__start__btn {
-  @include btn-big($white);
-  color: $brand-primary;
+  @include btn-big($brand-secondary);
+  font-weight: $font-weight-bold;
   margin-right: 20px;
 }
 
 .home__section__learn__btn {
-  @include btn-big($white);
-  @include btn-translucent($brand-primary);
+  @include btn-translucent($white);
   text-align: center;
+
+  &:hover {
+    color: $brand-primary;
+  }
 }
 
 .home__section__start__btn,
@@ -32,6 +35,18 @@
   font-size: $font-size-large;
 }
 
+
+.home__section__more-arrow {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  padding-bottom: 50px;
+  text-align: center;
+  font-size: 60px;
+  color: $white;
+
+  @include fadeInDown();
+}
 
 // Features
 // ----------------------------
@@ -49,14 +64,6 @@
 .site__container__section__feature__img {
   @include span-columns(6);
 }
-
-
-
-
-
-
-
-
 
 
 // Call to action button
