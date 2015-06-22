@@ -45,12 +45,7 @@
   margin-top: 0;
 }
 
-.flag-coming-soon {
-  @include border-radius($base-border-radius);
-  background-color: $brand-success-light;
-  text-transform: uppercase;
-  color: $brand-success;
-  padding: 2px 5px;
-  font-size: $font-size-small;
-  font-weight: $font-weight-light;
+.site__container--faq {
+  padding-bottom: $footer__home-height;
+  background-color: $gray-light-2;
 }
