@@ -7,18 +7,44 @@
     margin: 0;
   }
 }
-
-.site__container--gradient1 {
-  color: $white;
-  background: #22a7f0;
+.site__container--fullheight {
+  @include calc("height", 100vh - #{$header-height});
+  //background-color: $white;
+  //opacity: 0.8;
 }
 
-.site__container--dark {
-  background-color: $gray-dark-2;
+.site__container--homemain {
+  position: relative;
+  background: rgba(30,143,199,1);
+  background: -moz-linear-gradient(-45deg, rgba(30,143,199,1) 0%, rgba(141,36,240,1) 100%);
+  background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(30,143,199,1)), color-stop(100%, rgba(141,36,240,1)));
+  background: -webkit-linear-gradient(-45deg, rgba(30,143,199,1) 0%, rgba(141,36,240,1) 100%);
+  background: -o-linear-gradient(-45deg, rgba(30,143,199,1) 0%, rgba(141,36,240,1) 100%);
+  background: -ms-linear-gradient(-45deg, rgba(30,143,199,1) 0%, rgba(141,36,240,1) 100%);
+  background: linear-gradient(135deg, rgba(30,143,199,1) 0%, rgba(141,36,240,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e8fc7', endColorstr='#8d24f0', GradientType=1 );
+}
+
+.site__container--darkgray {
+  background-color: $gray-dark-3;
   color: $white;
+}
+
+.site__container--lightgray {
+  background-color: $gray-light-3;
 }
 
 .site__container__section {
   @include outer-container;
   margin-top: 0;
+}
+
+.flag-coming-soon {
+  @include border-radius($base-border-radius);
+  background-color: $brand-success-light;
+  text-transform: uppercase;
+  color: $brand-success;
+  padding: 2px 5px;
+  font-size: $font-size-small;
+  font-weight: $font-weight-light;
 }
