@@ -3,14 +3,16 @@
   padding: 30px 0;
   background-color: $white;
 
+  &:last-of-type {
+    padding-bottom: $footer__home-height;
+  }
+
   h1 {
     margin: 0;
   }
 }
 .site__container--fullheight {
   @include calc("height", 100vh - #{$header-height});
-  //background-color: $white;
-  //opacity: 0.8;
 }
 
 .site__container--homemain {
@@ -23,6 +25,10 @@
   background: -ms-linear-gradient(-45deg, rgba(30,143,199,1) 0%, rgba(141,36,240,1) 100%);
   background: linear-gradient(135deg, rgba(30,143,199,1) 0%, rgba(141,36,240,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e8fc7', endColorstr='#8d24f0', GradientType=1 );
+
+  h1, h2, h3 {
+    color: $white;
+  }
 }
 
 .site__container--darkgray {
