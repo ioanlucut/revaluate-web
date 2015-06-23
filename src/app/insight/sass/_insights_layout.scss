@@ -55,7 +55,8 @@
       line-height: 28px;
       padding: 3px 10px;
       text-align: center;
-      border: solid 2px $gray-light-2;
+      background-color: $gray-light-3;
+      color: $gray-dark-1;
       @include border-radius(5px);
 
       &:last-child {
@@ -67,6 +68,11 @@
       }
     }
   }
+}
+
+.insights__chart--active {
+  color: $gray-dark-3;
+  background-color: $gray-light-1;
 }
 
 .insights__summary {
