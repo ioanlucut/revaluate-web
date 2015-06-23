@@ -15,19 +15,19 @@
     </div>
 
     <div class="site__container__section home__section__more-arrow">
-        <span class="icon-chevron-down-circled"></span>
+        <span class="icon-chevron-down-circled" du-smooth-scroll="site__container--scroll-target"></span>
     </div>
 
 </div>
 
-
 <!--Feature: Save expenses-->
-<div class="site__container">
+<div id="site__container--scroll-target" class="site__container">
 
     <div class="site__container__section">
 
         <div class="site__container__section__feature__text">
             <h2>Easily save your expenses</h2>
+
             <div>You can very easily save your expenses.</div>
         </div>
 
@@ -39,7 +39,6 @@
 
 </div>
 
-
 <!--Feature: Import expenses-->
 <div class="site__container site__container--lightgray">
 
@@ -47,6 +46,7 @@
 
         <div class="site__container__section__feature__text">
             <h2>Import your expenses</h2>
+
             <div>You've been already tracking your expenses? No worries, just import them into Revaluate.</div>
         </div>
 
@@ -58,7 +58,6 @@
 
 </div>
 
-
 <!--Feature: Insights-->
 <div class="site__container">
 
@@ -66,6 +65,7 @@
 
         <div class="site__container__section__feature__text">
             <h2>Get meaningfull insights</h2>
+
             <div>You've been already tracking your expenses? No worries, just import them into Revaluate.</div>
         </div>
 
@@ -77,7 +77,6 @@
 
 </div>
 
-
 <!--Feature: Goals-->
 <div class="site__container site__container--lightgray">
 
@@ -85,13 +84,13 @@
 
         <div class="site__container__section__feature__text">
             <h2>Set achivable goals <span class="label-coming-soon">coming soon</span></h2>
+
             <div>You've been already tracking your expenses? No worries, just import them into Revaluate.</div>
         </div>
 
     </div>
 
 </div>
-
 
 <div class="site__container site__container--darkgray">
 
@@ -128,7 +127,9 @@
                     <div class="form-group-input__message" ng-class="{'has-error': signUpForm.email.$invalid && signUpForm.$submitted}" ng-messages="signUpForm.email.$error" ng-if="signUpForm.$submitted">
                         <div ng-message="required">Please add your email address.</div>
                         <div ng-message="validEmail">Missed a letter? It looks like an invalid email address.</div>
-                        <div ng-message="uniqueEmail">This email address is already used. <a href="javascript:void(0)" account-modal-toggle="forgotPassword">Forgot your password?</a></div>
+                        <div ng-message="uniqueEmail">This email address is already used.
+                            <a href="javascript:void(0)" account-modal-toggle="forgotPassword">Forgot your password?</a>
+                        </div>
                     </div>
                     <input class="form-group-input__input" type="email" name="email" placeholder="Email" ng-model="signUpData.email" required valid-email unique-email />
                 </div>
@@ -150,7 +151,6 @@
     </div>
 
 </div>
-
 
 <div footer-home class="view-container__footer"></div>
 
