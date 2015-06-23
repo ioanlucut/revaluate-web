@@ -9,6 +9,7 @@ angular
         "braintree-angular",
         "angular-cache",
         "angularFileUpload",
+        "angular-loading-bar",
         "ngAnimate",
         "ngMessages",
         "ngStorage",
