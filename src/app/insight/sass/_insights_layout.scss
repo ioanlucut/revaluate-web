@@ -71,8 +71,8 @@
 }
 
 .insights__chart--active {
-  color: $gray-dark-3;
-  background-color: $gray-light-1;
+  color: $gray-dark-3 !important;
+  background-color: $gray-light-1 !important;
 }
 
 .insights__summary {
