@@ -23,7 +23,7 @@
                     </ui-select>
 
                     <!-- Error messages -->
-                    <div class="form-group-input__message form-group-input__message--currency" ng-class="{'has-error': vm.setUpForm.category.$invalid && vm.setUpForm.$submitted}" ng-messages="vm.setUpForm.category.$error" ng-if="vm.setUpForm.$submitted">
+                    <div class="form-group-input__message form-group-input__message--currency" ng-class="{'has-error': vm.setUpForm.currency.$invalid}" ng-messages="vm.setUpForm.currency.$error" ng-if="vm.setUpForm.$submitted">
                         <div ng-message="required">Please add a currency.</div>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                     <div ng-class="{'has-error': categoryOnTheFlyForm.$submitted && categoryOnTheFlyForm.name.$invalid}">
 
                         <!-- Error messages -->
-                        <div class="form-group-input__message" ng-class="{'has-error': categoryOnTheFlyForm.name.$invalid}" ng-messages="categoryOnTheFlyForm.name.$error" ng-if="categoryOnTheFlyForm.$submitted">
+                        <div class="form-group-input__message form-group-input__message--setup" ng-class="{'has-error': categoryOnTheFlyForm.name.$invalid}" ng-messages="categoryOnTheFlyForm.name.$error" ng-if="categoryOnTheFlyForm.$submitted">
                             <div ng-message="required">Name is mandatory.</div>
                             <div ng-message="validCategoryName">Name is not valid.</div>
                         </div>
@@ -70,7 +70,6 @@
                                maxlength="15"
                                ng-model="vm.categoryOnTheFly"
                                ng-enter="vm.triggerSubmit()"
-                               ng-blur="vm.cancelAddCategoryOnTheFly()"
                                auto-focus required valid-category-name/>
 
                     </div>
