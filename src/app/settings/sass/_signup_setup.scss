@@ -78,14 +78,14 @@
 
         span {
             position: absolute;
-            top: 4px;
+            top: 3px;
             left: 5px;
             font-size: 18px;
         }
 
         &.category-name--unselected {
             background: transparent !important;
-            border: solid 2px $gray-light-1;
+            border: solid 1px $gray-light-1;
             text-shadow: none;
             color: $gray-dark-2;
 
