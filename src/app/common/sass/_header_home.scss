@@ -29,7 +29,11 @@
   @include brand-inline();
   padding: 3px 0 0 55px;
   font-size: $font-size-largest;
-  font-weight: $font-weight-light;
+  font-weight: $font-weight-regular;
+
+  &:hover {
+    color: $black;
+  }
 }
 
 .header-home__navigation {
@@ -39,8 +43,15 @@
 
   li {
     display: inline-block;
-
     text-transform: uppercase;
+
+    a {
+      color: $gray-dark-1;
+
+      &:hover {
+        color: $gray-light-1;
+      }
+    }
   }
 }
 
