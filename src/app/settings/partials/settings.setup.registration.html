@@ -70,6 +70,7 @@
                                maxlength="15"
                                ng-model="vm.categoryOnTheFly"
                                ng-enter="vm.triggerSubmit()"
+                               ng-blur="vm.cancelAddCategoryOnTheFly()"
                                auto-focus required valid-category-name/>
 
                     </div>
