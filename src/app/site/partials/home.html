@@ -1,6 +1,6 @@
 <div header-home></div>
 
-<div class="site__container site__container--gradient1">
+<div class="site__container site__container--homemain site__container--fullheight">
 
     <div class="site__container__section">
 
@@ -10,20 +10,24 @@
     </div>
 
     <div class="site__container__section">
-        <button class="home__section__start__btn" type="submit">Get started for FREE!</button>
-        <button class="home__section__learn__btn" type="submit">Learn more</button>
+        <button class="home__section__start__btn" type="button" account-modal-toggle="requestSignUpRegistration">Get started for FREE!</button>
+        <button class="home__section__learn__btn" type="button" du-smooth-scroll="site__container--scroll-target">Learn more</button>
+    </div>
+
+    <div class="site__container__section home__section__tour-arrow">
+        <span class="icon-chevron-down-circled" du-smooth-scroll="site__container--scroll-target"></span>
     </div>
 
 </div>
 
-
 <!--Feature: Save expenses-->
-<div class="site__container">
+<div id="site__container--scroll-target" class="site__container">
 
     <div class="site__container__section">
 
         <div class="site__container__section__feature__text">
             <h2>Easily save your expenses</h2>
+
             <div>You can very easily save your expenses.</div>
         </div>
 
@@ -35,50 +39,72 @@
 
 </div>
 
-
 <!--Feature: Import expenses-->
-<div class="site__container">
+<div class="site__container site__container--lightgray">
 
     <div class="site__container__section">
 
-        <h2>Import your expenses</h2>
+        <div class="site__container__section__feature__text">
+            <h2>Import your expenses</h2>
+
+            <div>You've been already tracking your expenses? No worries, just import them into Revaluate.</div>
+        </div>
+
+        <div class="site__container__section__feature__img">
+            <img src="assets/img/home/import.png">
+        </div>
 
     </div>
 
 </div>
-
 
 <!--Feature: Insights-->
 <div class="site__container">
 
     <div class="site__container__section">
-        <h2>Get meaningful insights</h2>
+
+        <div class="site__container__section__feature__text">
+            <h2>Get meaningfull insights</h2>
+
+            <div>You've been already tracking your expenses? No worries, just import them into Revaluate.</div>
+        </div>
+
+        <div class="site__container__section__feature__img">
+            <img src="assets/img/home/insights.png">
+        </div>
+
     </div>
 
 </div>
-
 
 <!--Feature: Goals-->
-<div class="site__container">
+<div class="site__container site__container--lightgray">
 
     <div class="site__container__section">
-        <h2>Set achivable goals</h2>
+
+        <div class="site__container__section__feature__text">
+            <h2>Set achivable goals <span class="label-coming-soon">coming soon</span></h2>
+
+            <div>You've been already tracking your expenses? No worries, just import them into Revaluate.</div>
+        </div>
+
     </div>
 
 </div>
 
-
-<div class="site__container site__container--dark">
+<div class="site__container site__container--darkgray">
 
     <div class="site__container__section">
+
+        <div class="site__container__section__feature__text">
+            <!-- Title -->
+            <h1 class="">Sign Up</h1>
+        </div>
 
         <div class="home__section__signup" ng-controller="SignUpController">
 
             <!-- Sign-up form -->
             <form name="signUpForm" ng-submit="signUp(signUpData)" novalidate focus-first-error>
-
-                <!-- Title -->
-                <h1 class="account__title">Sign Up</h1>
 
                 <!-- Flash messages. -->
                 <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
@@ -101,7 +127,9 @@
                     <div class="form-group-input__message" ng-class="{'has-error': signUpForm.email.$invalid && signUpForm.$submitted}" ng-messages="signUpForm.email.$error" ng-if="signUpForm.$submitted">
                         <div ng-message="required">Please add your email address.</div>
                         <div ng-message="validEmail">Missed a letter? It looks like an invalid email address.</div>
-                        <div ng-message="uniqueEmail">This email address is already used. <a href="javascript:void(0)" account-modal-toggle="forgotPassword">Forgot your password?</a></div>
+                        <div ng-message="uniqueEmail">This email address is already used.
+                            <a href="javascript:void(0)" account-modal-toggle="forgotPassword">Forgot your password?</a>
+                        </div>
                     </div>
                     <input class="form-group-input__input" type="email" name="email" placeholder="Email" ng-model="signUpData.email" required valid-email unique-email />
                 </div>
@@ -117,13 +145,12 @@
                 </div>
 
                 <!-- Button container -->
-                <button class="home__section__signup__btn" type="submit">{{isRequestPending ? 'Signing up..' : 'Start my 15 day free trial'}}</button>
+                <button class="home__section__signup__btn" type="submit">{{isRequestPending ? 'Signing up..' : 'Get started for FREE!'}}</button>
             </form>
         </div>
     </div>
 
 </div>
-
 
 <div footer-home class="view-container__footer"></div>
 

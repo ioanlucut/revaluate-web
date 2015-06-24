@@ -9,6 +9,7 @@ angular
         "braintree-angular",
         "angular-cache",
         "angularFileUpload",
+        "angular-loading-bar",
         "ngAnimate",
         "ngMessages",
         "ngStorage",
@@ -27,6 +28,7 @@ angular
         "ui.gravatar",
         "angularPayments",
         "pascalprecht.translate",
+        "duScroll",
         "ui.select"
     ])
     .config(function ($locationProvider, $translateProvider, ChartJsProvider, CacheFactoryProvider, gravatarServiceProvider, APP_CONFIG) {
