@@ -36,17 +36,23 @@
   font-size: $font-size-large;
 }
 
-
-.home__section__tour-arrow {
+.home__section__tour-arrow,
+.home__section__tour-screenmain {
   width: 100%;
   position: absolute;
   bottom: 0;
-  padding-bottom: 50px;
   text-align: center;
   font-size: 60px;
-  color: $white;
+}
 
-  @include fadeInDown();
+.home__section__tour-arrow {
+  padding-bottom: 50px;
+  color: $brand-secondary;
+}
+
+.home__section__tour-screenmain {
+  height: 55vh;
+  @include fadeInUp();
 }
 
 // Features
