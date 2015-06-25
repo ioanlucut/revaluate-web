@@ -2,6 +2,7 @@
 
 var gulp = require('gulp');
 var browserSync = require('browser-sync');
+var modRewrite  = require('connect-modrewrite');
 var browserSyncSpa = require('browser-sync-spa');
 
 var util = require('util');
@@ -33,7 +34,12 @@ module.exports = function (options) {
             startPath: '/',
             server: server,
             browser: browser,
-            open: false
+            open: false,
+            middleware: [
+                modRewrite([
+                    '!\\.\\w+$ /index.html [L]'
+                ])
+            ]
         });
     }
 
