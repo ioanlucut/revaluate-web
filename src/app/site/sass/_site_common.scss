@@ -2,6 +2,7 @@
   text-align: center;
   padding: 30px 0;
   background-color: $white;
+  height: 100vh;
 
   &:last-of-type {
     padding-bottom: $footer__home-height;
@@ -11,15 +12,13 @@
     margin: 0;
   }
 }
-.site__container--fullheight {
-  @include calc("height", 100vh - #{$header-height});
-}
 
 .site__container--homemain {
   position: relative;
   background: $landing-page;
+  padding-top: 10px;
 
-  h1, h2, h3 {
+  h1, h2 {
     color: $white;
   }
 }
