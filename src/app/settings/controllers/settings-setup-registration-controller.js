@@ -192,7 +192,7 @@ angular
                 .bulkCreate(selectedCategoriesToBeSaved)
                 .then(function () {
                     vm.user
-                        .save(userProfileToBeUpdated)
+                        .updateInitiatedStatus(userProfileToBeUpdated)
                         .then(function (response) {
                             deferred.resolve(response);
                         })
