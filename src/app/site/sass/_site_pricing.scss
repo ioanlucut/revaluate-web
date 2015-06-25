@@ -15,10 +15,9 @@
 
 .pricing__box__amount {
   padding-bottom: 30px;
-
-  span {
-    font-size: 40px;
-  }
+  color: $brand-primary;
+  font-size: $font-size-larger;
+  font-weight: $font-weight-bold;
 }
 
 .pricing__box__btn {
