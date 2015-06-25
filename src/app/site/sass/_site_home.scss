@@ -7,7 +7,7 @@
 
 .home__description {
   padding: 5px 10px 20px 10px;
-  color: lighten($brand-primary, 30%);
+  color: lighten($landing-page, 20%);
   font-size: 22px;
   font-weight: $font-weight-light;
   font-family: $base-font-family;
@@ -51,7 +51,7 @@
 }
 
 .home__section__tour-screenmain {
-  height: 55vh;
+  max-height: 55vh;
   @include fadeInUp();
 }
 
