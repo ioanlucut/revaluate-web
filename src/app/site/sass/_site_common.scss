@@ -2,7 +2,6 @@
   text-align: center;
   padding: 30px 0;
   background-color: $white;
-  height: 100vh;
 
   &:last-of-type {
     padding-bottom: $footer__home-height;
@@ -11,6 +10,10 @@
   h1 {
     margin: 0;
   }
+}
+
+.site__container--fullheight {
+  height: 100vh;
 }
 
 .site__container--homemain {
