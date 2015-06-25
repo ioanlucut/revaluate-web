@@ -52,7 +52,12 @@
 
 .home__section__tour-screenmain {
   max-height: 55vh;
+  padding: 0;
   @include fadeInUp();
+
+  img {
+    max-height: 55vh;
+  }
 }
 
 // Features
