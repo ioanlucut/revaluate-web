@@ -61,8 +61,8 @@ angular
         // ---
         $translateProvider.translations('en', ({
             'HOME': {
-                'TITLE_TEXT': 'Start spending your money better!',
-                'DESCRIPTION_TEXT': 'Personal finance simplified.'
+                'TITLE_TEXT': 'Personal finance simplified',
+                'DESCRIPTION_TEXT': 'Start spending your money better!'
             }
         }));
 
