@@ -10,7 +10,6 @@
     @include clearfix();
 
     .insights__controls__form {
-        //width: 100%;
         height: 50px;
         float: left;
 
@@ -67,12 +66,12 @@
                 border-color: $gray-medium;
             }
         }
-    }
-}
 
-.insights__chart--active {
-    color: $gray-dark-3 !important;
-    background-color: $gray-light-1 !important;
+        .insights__controls__chart-toggle__entry--active {
+            color: $gray-dark-3 !important;
+            background-color: $gray-light-1 !important;
+        }
+    }
 }
 
 .insights__summary {
@@ -87,24 +86,6 @@
     span {
         color: $gray-darker;
         font-weight: $font-weight-bold;
-    }
-}
-
-.insights__chart__bar,
-.insights__chart__doughnut {
-    width: 90%;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.insights__chart__doughnut {
-
-    .chart-container {
-
-        canvas.chart-doughnut {
-            margin: 0;
-            padding: 0;
-        }
     }
 }
 
@@ -134,11 +115,6 @@
     .insights__table__amount {
         text-align: right;
         width: 30%;
-
-        span {
-            //padding-left: 10px;
-            //color: $gray-light-1;
-        }
 
         .currency__symbol {
             padding: 0 2px;

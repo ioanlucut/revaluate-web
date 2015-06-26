@@ -1,24 +1,17 @@
-.doughnut__chart {
-    width: 200px;
-    padding: 0;
+.insights__chart__bar,
+.insights__chart__doughnut {
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
 }
 
-.doughnut__chart__legend {
-    @include clearfix();
+.insights__chart__doughnut {
 
-    .doughnut__chart__legend__color {
-        display: block;
-        float: left;
-        margin: 3px 3px 0 0;
-        width: 25px;
-        height: 25px;
-        @include border-radius(50%);
-    }
+    .chart-container {
 
-    .doughnut__chart__legend__label {
-        display: block;
-        float: left;
-        line-height: 33px;
-        text-transform: uppercase;
+        canvas.chart-doughnut {
+            margin: 0;
+            padding: 0;
+        }
     }
 }

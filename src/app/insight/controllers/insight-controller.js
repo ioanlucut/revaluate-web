@@ -85,7 +85,7 @@ angular
             .donutChartOptions = angular.extend({}, $scope.defaultChartOptions);
         $scope
             .donutChartOptions
-            .legendTemplate = "<ul class=\"doughnut__chart\"><% for (var i=0; i<segments.length; i++){%><li class=\"doughnut__chart__legend\"><span class=\"doughnut__chart__legend__color\" style=\"background-color:<%=segments[i].fillColor%>\"></span><span class=\"doughnut__chart__legend__label\"><%if(segments[i].label){%><%=segments[i].label%><%}%></span></li><%}%></ul>";
+            .legendTemplate = "<ul class=\"doughnut__chart__legend\"><% for (var i=0; i<segments.length; i++){%><li class=\"doughnut__chart__legend__box\"><span class=\"doughnut__chart__legend__box__color\" style=\"background-color:<%=segments[i].fillColor%>\"></span><span class=\"doughnut__chart__legend__box__label\"><%if(segments[i].label){%><%=segments[i].label%><%}%></span></li><%}%></ul>";
 
         /**
          * Open date picker
