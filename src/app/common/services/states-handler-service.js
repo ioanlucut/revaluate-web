@@ -32,8 +32,12 @@ angular
             $state.go(state);
         };
 
-        this.goToExpenses = function () {
+        this.goToExpenses = function (callback) {
             this.go(STATES.expenses);
+
+            if ( callback && typeof(callback) === "function" ) {
+                callback();
+            }
         };
 
         this.refreshCurrentState = function () {
