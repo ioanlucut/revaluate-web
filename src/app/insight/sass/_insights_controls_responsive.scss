@@ -1,0 +1,51 @@
+@media (max-width: 700px) {
+
+    .insights__controls {
+
+        .insights__controls__form {
+            clear: both;
+            width: 100%;
+            text-align: center;
+        }
+
+        .insights__controls__chart-toggle {
+            clear: both;
+            width: 100%;
+            margin-top: 20px;
+
+            .insights__controls__chart-toggle__entry {
+                width: 50%;
+                margin-right: 0 !important;
+            }
+        }
+    }
+}
+
+@media (max-width: $screen-phone) {
+
+    .insights__controls {
+        padding: 10px 0;
+
+        .insights__controls__form {
+
+            .insights__controls__form__month {
+                width: 60%;
+            }
+        }
+
+        .insights__controls__chart-toggle {
+            clear: both;
+            width: 100%;
+            margin-top: 20px;
+
+            .insights__controls__chart-toggle__entry {
+                width: 100%;
+                margin-top: 10px;
+
+                &:last-child {
+                    margin-right: 0 !important;
+                }
+            }
+        }
+    }
+}

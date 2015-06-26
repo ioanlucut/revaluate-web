@@ -7,7 +7,8 @@
     <div class="import__upload__area" over-class="import__upload__area--over" nv-file-drop="" nv-file-over="" uploader="uploader" filters="queueLimit, csvFilter">
         <div class="import__upload__btn">
             <div class="section-text">Drop the CSV file exported from
-                <strong>{{importDescription}}</strong> here, or <span class="text-underlined">browse</span> to select it.
+                <strong>{{importDescription}}</strong> here, or
+                <span class="text-underlined">browse</span> to select it.
             </div>
             <input class="import__upload__btn__input" type="file" nv-file-select="" uploader="uploader" />
         </div>
@@ -80,4 +81,6 @@
 </form>
 
 <!--After import-->
-<a ng-if="importFinished" ui-sref="settings.import.import({type: importType})" ui-sref-opts="{reload:true}">Preparing expenses..</a>
+<div class="expenses-import--success" ng-if="importFinished">
+    <a ui-sref="settings.import.import({type: importType})" ui-sref-opts="{reload:true}">Preparing expenses..</a>
+</div>

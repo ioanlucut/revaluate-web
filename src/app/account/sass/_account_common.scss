@@ -1,63 +1,27 @@
-.account {
-  @include outer-container();
-  text-align: center;
-  padding-top: 50px;
-}
-
-.account__section {
-  @include span-columns(6);
-  @include shift(3);
-  @include border-radius($base-border-radius);
-  border: solid 1px $gray-light-1;
-  padding: 40px;
-  position: relative;
-  background-color: $white;
-}
-
 .account_trial_period_section {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
+
 .account_send_email_section {
 
-  .account_send_email_section__alert {
-    margin-bottom: 0;
+    .account_send_email_section__alert {
+        margin-bottom: 0;
 
-    & > button {
-      @include btn($brand-info);
-      @include border-radius(0);
-      height: 18px;
-      line-height: 15px;
-      padding: 2px;
-      margin-left: 10px;
-      background-color: transparent;
-      color: $brand-info-dark;
-      border-bottom: solid 1px darken($brand-info-light, 10%);
+        & > button {
+            @include btn($brand-info);
+            @include border-radius(0);
+            height: 18px;
+            line-height: 15px;
+            padding: 2px;
+            margin-left: 10px;
+            background-color: transparent;
+            color: $brand-info-dark;
+            border-bottom: solid 1px darken($brand-info-light, 10%);
 
-      &:hover {
-        background-color: transparent;
-        border-bottom: solid 1px $brand-info;
-      }
+            &:hover {
+                background-color: transparent;
+                border-bottom: solid 1px $brand-info;
+            }
+        }
     }
-  }
-}
-
-.account__title {
-  padding: 10px;
-  font-size: $font-size-h2;
-  font-weight: $font-weight-bold;
-  text-align: center;
-  color: $base-font-color;
-}
-
-.account__explain {
-  padding-top: 20px;
-  font-size: $font-size-base;
-  text-align: center;
-}
-
-.account__description {
-  padding: 10px 10px 40px 10px;
-  color: $gray-medium;
-  font-size: 22px;
-  font-weight: $font-weight-light;
 }

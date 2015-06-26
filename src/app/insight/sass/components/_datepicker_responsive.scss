@@ -1,0 +1,13 @@
+@media (max-width: $screen-phone) {
+
+    .insight__form__date__input {
+
+        .dropdown-menu {
+            width: 120%;
+            left: 0;
+            right: 0;
+            margin-left: -20px;
+            margin-right: 20px;
+        }
+    }
+}

@@ -1,11 +1,11 @@
 .insights__empty-state {
-  @include section-center(100%);
-  min-height: 200px;
-  padding: 40px 100px;
-  color: $gray-medium;
+    @include section-center(100%);
+    min-height: 200px;
+    padding: 40px 100px;
+    color: $gray-medium;
 
-  .insights__empty-state__icon {
-    @include cssSprite($icon-chart-gray);
-    margin: 0 auto;
-  }
+    .insights__empty-state__icon {
+        @include cssSprite($icon-chart-gray);
+        margin: 0 auto;
+    }
 }

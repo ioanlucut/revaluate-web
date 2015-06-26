@@ -2,13 +2,10 @@
 // http://bitters.bourbon.io
 // Copyright 2013-2015 thoughtbot, inc.
 // MIT License
-
 @import "variables";
 @import "mixins";
-
 // Neat Settings -- uncomment if using Neat -- must be imported before Neat
 @import "grid-settings";
-
 @import "buttons";
 @import "forms";
 @import "lists";
@@ -19,7 +16,6 @@
 @import "alerts";
 @import "close";
 @import "labels";
-
 @import "mixins/brand";
 @import "mixins/categories";
 @import "mixins/layout";

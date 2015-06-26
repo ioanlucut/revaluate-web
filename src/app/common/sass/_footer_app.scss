@@ -1,26 +1,26 @@
 .footer {
-  width: 100%;
-  height: $footer-height;
-  padding: 10px 5px 30px 5px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  color: $gray-medium;
+    width: 100%;
+    height: $footer-height;
+    padding: 10px 5px 30px 5px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: $gray-medium;
 }
 
 .footer__wrapper {
-  @include outer-container();
+    @include outer-container();
 }
 
 .footer__logo {
-  @include span-columns(4);
+    @include span-columns(4);
 }
 
 .footer__links {
-  @include span-columns(8);
-  text-align: right;
+    @include span-columns(8);
+    text-align: right;
 
-  li {
-    display: inline-block;
-  }
+    li {
+        display: inline-block;
+    }
 }

@@ -1,66 +1,66 @@
 .header-home__wrapper {
-  background-color: $landing-page;
+    background-color: $landing-page;
 }
 
 .header-home {
-  @include outer-container;
-  @include clearfix;
-  height: 60px;
-  line-height: 55px;
+    @include outer-container;
+    @include clearfix;
+    height: 60px;
+    line-height: 55px;
 }
 
 .header-home__brand {
-  float: left;
-  height: 60px;
-  position: relative;
+    float: left;
+    height: 60px;
+    position: relative;
 }
 
 .header-home__brand--logo {
-  @include size(40px 40px);
-  background: url("../assets/img/logo.svg") no-repeat top left;
-  background-size: contain;
-  position: absolute;
-  display: block;
-  left: 5px;
-  top: 10px;
+    @include size(40px 40px);
+    background: url("../assets/img/logo.svg") no-repeat top left;
+    background-size: contain;
+    position: absolute;
+    display: block;
+    left: 5px;
+    top: 10px;
 }
 
 .header-home__brand--name {
-  @include brand-inline();
-  padding: 3px 0 0 55px;
-  font-size: $font-size-largest;
-  font-weight: $font-weight-regular;
-  color: $white;
-
-  &:hover {
+    @include brand-inline();
+    padding: 3px 0 0 55px;
+    font-size: $font-size-largest;
+    font-weight: $font-weight-regular;
     color: $white;
-  }
+
+    &:hover {
+        color: $white;
+    }
 }
 
 .header-home__navigation {
-  float: right;
-  padding-left: 5px;
-  height: 60px;
+    float: right;
+    padding-left: 5px;
+    height: 60px;
 
-  li {
-    display: inline-block;
-    text-transform: uppercase;
+    li {
+        display: inline-block;
+        text-transform: uppercase;
 
-    a {
-      color: $gray-medium;
+        a {
+            color: $gray-medium;
 
-      &:hover {
-        color: $gray-light-1;
-      }
+            &:hover {
+                color: $gray-light-1;
+            }
+        }
     }
-  }
 }
 
 .header-home__navigation--loginbtn {
-  @include btn-small(lighten($landing-page,5%));
-  color: $gray-medium;
+    @include btn-small(lighten($landing-page, 5%));
+    color: $gray-medium;
 }
 
 .header-home__navigation--signupbtn {
-  @include btn-small($brand-secondary);
+    @include btn-small($brand-secondary);
 }

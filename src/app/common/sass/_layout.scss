@@ -1,15 +1,15 @@
 .view-container__header {
-  background-color: $white;
+    background-color: $white;
 }
 
 .view-container__content {
-  @include outer-container();
-  @include border-radius(3px);
-  min-height: 500px;
-  position: relative;
-  background-color: $white;
-  margin-top: 20px;
-  padding: 20px;
+    @include outer-container();
+    @include border-radius(3px);
+    min-height: 500px;
+    position: relative;
+    background-color: $white;
+    margin-top: 20px;
+    padding: 20px;
 }
 
 .view-container__footer {

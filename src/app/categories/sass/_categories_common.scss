@@ -1,58 +1,58 @@
 .angucomplete-image-holder {
-  position: relative;
+    position: relative;
 }
 
 .categories__form__input-group {
-  vertical-align: middle;
-  position: relative;
-  float: left;
+    vertical-align: middle;
+    position: relative;
+    float: left;
 
-  .categories__form__color__preview {
-    @include border-radius(50%);
-    @include size(22px 22px);
-    position: absolute;
-    margin: 10px;
-    left: 0;
-    top: 0;
-    cursor: pointer;
-  }
+    .categories__form__color__preview {
+        @include border-radius(50%);
+        @include size(22px 22px);
+        position: absolute;
+        margin: 10px;
+        left: 0;
+        top: 0;
+        cursor: pointer;
+    }
 
-  .categories__form__input-group__name,
-  .categories__form__input-group__color {
-    display: inline-block;
-  }
+    .categories__form__input-group__name,
+    .categories__form__input-group__color {
+        display: inline-block;
+    }
 
-  .categories__form__input-group__name {
-    height: $add-category-form-height;
-    padding: 1px 0 0 40px;
-    text-transform: uppercase;
-    width: 250px;
-  }
+    .categories__form__input-group__name {
+        height: $add-category-form-height;
+        padding: 1px 0 0 40px;
+        text-transform: uppercase;
+        width: 250px;
+    }
 
-  .categories__form__input-group__count {
-    position: absolute;
-    right: -17px;
-    top: 0;
-    text-align: right;
-    font-size: $font-size-small;
-    color: $gray-medium;
-  }
+    .categories__form__input-group__count {
+        position: absolute;
+        right: -17px;
+        top: 0;
+        text-align: right;
+        font-size: $font-size-small;
+        color: $gray-medium;
+    }
 }
 
 .has-error {
 
-  .categories__form__input-group__name,
-  .categories__form__input-group__color {
-    border-color: $brand-danger;
-  }
+    .categories__form__input-group__name,
+    .categories__form__input-group__color {
+        border-color: $brand-danger;
+    }
 }
 
 .categories__cancel__btn {
-  @include btn-big($brand-danger);
-  font-size: 16px;
-  display: inline-block;
-  min-width: 40px;
-  vertical-align: middle;
-  position: relative;
-  width: 45%;
+    @include btn-big($brand-danger);
+    font-size: 16px;
+    display: inline-block;
+    min-width: 40px;
+    vertical-align: middle;
+    position: relative;
+    width: 45%;
 }

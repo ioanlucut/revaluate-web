@@ -1,18 +1,18 @@
 .settings__profile__avatar {
-  text-align: center;
-  padding-top: 50px;
+    text-align: center;
+    padding-top: 50px;
 }
 
 .settings__profile__avatar--picture {
-  @include border-radius(50%);
-  @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.6));
+    @include border-radius(50%);
+    @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.6));
 }
 
 .settings__profile__avatar--src {
-  color: $gray-medium;
-  font-size: $font-size-small;
+    color: $gray-medium;
+    font-size: $font-size-small;
 }
 
 .settings__cancel__btn {
-  @include btn-link($brand-danger);
+    @include btn-link($brand-danger);
 }
