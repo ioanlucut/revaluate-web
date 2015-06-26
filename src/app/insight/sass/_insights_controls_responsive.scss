@@ -24,6 +24,14 @@
 @media (max-width: $screen-phone) {
 
     .insights__controls {
+        padding: 10px 0;
+
+        .insights__controls__form {
+
+            .insights__controls__form__month {
+                width: 60%;
+            }
+        }
 
         .insights__controls__chart-toggle {
             clear: both;
@@ -37,20 +45,6 @@
                 &:last-child {
                     margin-right: 0 !important;
                 }
-            }
-        }
-    }
-}
-
-@media (max-width: 400px) {
-
-    .insights__controls {
-        padding: 10px 0;
-
-        .insights__controls__form {
-
-            .insights__controls__form__month {
-                width: 60%;
             }
         }
     }
