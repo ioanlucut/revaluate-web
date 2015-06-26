@@ -75,9 +75,9 @@ angular
          * Bulk create action of a list of categories.
          * @returns {*}
          */
-        this.bulkCreate = function (categories) {
+        this.setupBulkCreateCategories = function (categories) {
             return $http
-                .post(URLTo.api(CATEGORY_URLS.bulkCreate), CategoryTransformerService.toCategoryDTOs(categories))
+                .post(URLTo.api(CATEGORY_URLS.setupBulkCreateCategories), CategoryTransformerService.toCategoryDTOs(categories))
                 .then(function (response) {
 
                     return CategoryTransformerService.toCategories(response.data);
@@ -108,9 +108,9 @@ angular
 
             $http
                 .get(URLTo.api(CATEGORY_URLS.isUnique), { params: { name: name } })
-                .then(_.bind(function () {
+                .then(_.bind(function (response) {
                     deferred.resolve({
-                        isUnique: true,
+                        isUnique: response.data.isUniqueCategory,
                         name: name
                     });
                 }, this))
