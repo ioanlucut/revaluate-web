@@ -16,6 +16,7 @@ angular
         "ngSanitize",
         "revaluate.site",
         "revaluate.feedback",
+        "revaluate.contact",
         "revaluate.common",
         "revaluate.categories",
         "revaluate.expensesImport",
