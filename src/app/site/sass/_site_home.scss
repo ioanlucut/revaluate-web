@@ -15,7 +15,6 @@
 
 .home__section__start__btn {
   @include btn-big($brand-secondary);
-  @include btn-cta-hover();
   font-weight: $font-weight-bold;
   margin-right: 20px;
 }
@@ -23,10 +22,6 @@
 .home__section__learn__btn {
   @include btn-translucent($white);
   text-align: center;
-
-  &:hover {
-    color: $brand-primary;
-  }
 }
 
 .home__section__start__btn,
@@ -79,7 +74,6 @@
 
 .site__container__section__feature__img {
   @include span-columns(6);
-  @include fadeInLeftBig();
 }
 
 .site__container__section__nextfeatures {

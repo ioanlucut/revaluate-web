@@ -1,6 +1,4 @@
 .home__section__signup {
-    @include span-columns(5);
-    @include shift(7);
     @include border-radius($base-border-radius);
     padding: 10px 40px 40px 40px;
     background-color: $white;
