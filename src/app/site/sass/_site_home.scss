@@ -88,12 +88,12 @@
 
   li {
     margin: 0;
-    padding: 10px;
-    @include span-columns(4);
-    @include omega(3n);
+    padding: 20px 10px;
+    @include span-columns(6);
+    @include omega(2n);
 
     h3 {
-      font-size: $font-size-large;
+      font-size: $font-size-largest;
       font-weight: $font-weight-regular;
     }
 
@@ -106,7 +106,13 @@
 
     div:last-child {
       color: $gray-medium;
+      font-size: $font-size-large;
     }
+  }
+
+  .icon__goals {
+    background: url("../assets/img/home/goals.svg") no-repeat top left;
+    background-size: contain;
   }
 
   .icon__calendar {
