@@ -1,123 +1,128 @@
 .home__title {
-    padding: 40px 10px 5px 10px;
-    font-size: 60px;
-    font-weight: $font-weight-bold;
-    color: $white;
+  padding: 40px 10px 5px 10px;
+  font-size: 60px;
+  font-weight: $font-weight-bold;
+  color: $white;
 }
 
 .home__description {
-    padding: 5px 10px 20px 10px;
-    color: lighten($landing-page, 20%);
-    font-size: 22px;
-    font-weight: $font-weight-light;
-    font-family: $base-font-family;
+  padding: 5px 10px 20px 10px;
+  color: lighten($landing-page, 20%);
+  font-size: 22px;
+  font-weight: $font-weight-light;
+  font-family: $base-font-family;
 }
 
 .home__section__start__btn {
-    @include btn-big($brand-secondary);
-    @include btn-cta-hover();
-    font-weight: $font-weight-bold;
-    margin-right: 20px;
+  @include btn-big($brand-secondary);
+  @include btn-cta-hover();
+  font-weight: $font-weight-bold;
+  margin-right: 20px;
 }
 
 .home__section__learn__btn {
-    @include btn-translucent($white);
-    text-align: center;
+  @include btn-translucent($white);
+  text-align: center;
 
-    &:hover {
-        color: $brand-primary;
-    }
+  &:hover {
+    color: $brand-primary;
+  }
 }
 
 .home__section__start__btn,
 .home__section__learn__btn {
-    width: 250px;
-    height: 60px;
-    font-size: $font-size-large;
+  width: 250px;
+  height: 60px;
+  font-size: $font-size-large;
 }
 
 .home__section__tour-arrow,
 .home__section__tour-screenmain {
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    text-align: center;
-    font-size: 60px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  font-size: 60px;
 }
 
 .home__section__tour-arrow {
-    padding-bottom: 50px;
-    color: $brand-secondary;
+  padding-bottom: 50px;
+  color: $brand-secondary;
 }
 
 .home__section__tour-screenmain {
-    max-height: 55vh;
-    padding: 0;
-    @include fadeInUp();
+  max-height: 55vh;
+  padding: 0;
+  @include fadeInUp();
 
-    img {
-        max-height: 55vh;
-    }
+  img {
+    max-height: 55vh;
+  }
 }
 
 // Features
 // ----------------------------
 
 .site__container__section__feature__text {
-    @include span-columns(6);
-    text-align: left;
+  @include span-columns(6);
+  @include fadeInRight();
+  text-align: left;
+  font-size: 25px;
+  font-weight: $font-weight-light;
 
-    h2 {
-        font-size: $font-size-h2;
-        font-family: $base-font-family;
-    }
+  h2 {
+    font-size: 50px;
+    font-family: $base-font-family;
+    margin-bottom: 100px;
+  }
 }
 
 .site__container__section__feature__img {
-    @include span-columns(6);
+  @include span-columns(6);
+  @include fadeInLeftBig();
 }
 
 .site__container__section__nextfeatures {
-    @include clearfix();
-    padding: 0;
+  @include clearfix();
+  padding: 0;
 
-    li {
-        margin: 0;
-        padding: 10px;
-        @include span-columns(4);
-        @include omega(3n);
+  li {
+    margin: 0;
+    padding: 10px;
+    @include span-columns(4);
+    @include omega(3n);
 
-        h3 {
-            font-size: $font-size-large;
-            font-weight: $font-weight-regular;
-        }
-
-        div:first-child {
-            @include border-radius(50%);
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 10px auto;
-        }
-
-        div:last-child {
-            color: $gray-medium;
-        }
+    h3 {
+      font-size: $font-size-large;
+      font-weight: $font-weight-regular;
     }
 
-    .icon__calendar {
-        background: url("../assets/img/home/calendar.svg") no-repeat top left;
-        background-size: contain;
+    div:first-child {
+      @include border-radius(50%);
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 10px auto;
     }
 
-    .icon__debts {
-        background: url("../assets/img/home/debts.svg") no-repeat top left;
-        background-size: contain;
+    div:last-child {
+      color: $gray-medium;
     }
+  }
 
-    .icon__split {
-        background: url("../assets/img/home/split.svg") no-repeat top left;
-        background-size: contain;
-    }
+  .icon__calendar {
+    background: url("../assets/img/home/calendar.svg") no-repeat top left;
+    background-size: contain;
+  }
+
+  .icon__debts {
+    background: url("../assets/img/home/debts.svg") no-repeat top left;
+    background-size: contain;
+  }
+
+  .icon__split {
+    background: url("../assets/img/home/split.svg") no-repeat top left;
+    background-size: contain;
+  }
 
 }
 
@@ -125,26 +130,26 @@
 // -------------------------
 
 .home__action-btn {
-    @include btn($brand-primary);
-    @include size(320px 70px);
-    box-shadow: 0 3px 0 darken($brand-primary, 15%);
-    line-height: 1.2;
-    @include transition-property(all);
-    @include transition-duration(.2s);
+  @include btn($brand-primary);
+  @include size(320px 70px);
+  box-shadow: 0 3px 0 darken($brand-primary, 15%);
+  line-height: 1.2;
+  @include transition-property(all);
+  @include transition-duration(.2s);
 }
 
 .home__action-btn--label {
-    font-size: 24px;
-    text-transform: uppercase;
+  font-size: 24px;
+  text-transform: uppercase;
 }
 
 .home__action-btn--pricing {
-    font-size: 14px;
-    font-weight: $font-weight-light;
+  font-size: 14px;
+  font-weight: $font-weight-light;
 }
 
 .home__action-btn--info {
-    padding: 3px 10px;
-    font-size: 12px;
-    color: $gray-medium;
+  padding: 3px 10px;
+  font-size: 12px;
+  color: $gray-medium;
 }
