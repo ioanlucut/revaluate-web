@@ -112,17 +112,6 @@ angular
                     },
 
                     /**
-                     * Updates a user account.
-                     * @returns {*}
-                     */
-                    save: function (fromData) {
-                        var toBeSaved = {};
-                        TransformerUtils.copyKeysFromTo(fromData, toBeSaved);
-
-                        return this.updateAccount(toBeSaved);
-                    },
-
-                    /**
                      * Creates a user account with given fromData.
                      * @param fromData
                      * @returns {*}
@@ -132,14 +121,6 @@ angular
                         TransformerUtils.copyKeysFromTo(fromData, toBeCreated);
 
                         return this.createAccount(toBeCreated);
-                    },
-
-                    /**
-                     * Retrieves details about the current account.
-                     * @returns {*}
-                     */
-                    retrieveDetails: function () {
-                        return $http.get(URLTo.api(AUTH_URLS.details));
                     },
 
                     /**
@@ -156,13 +137,25 @@ angular
                     },
 
                     /**
-                     * Updates given account.
-                     * @param account
-                     * @returns {*}
+                     * Updates account details of this user.
                      */
-                    updateAccount: function (account) {
+                    updateAccountDetails: function (fromData) {
+                        var toBeSaved = {};
+                        TransformerUtils.copyKeysFromTo(fromData, toBeSaved);
+
                         return $http
-                            .put(URLTo.api(AUTH_URLS.update), account);
+                            .put(URLTo.api(AUTH_URLS.updateAccountDetails), toBeSaved);
+                    },
+
+                    /**
+                     * Updates initiated status of this user.
+                     */
+                    updateInitiatedStatus: function (fromData) {
+                        var toBeSaved = {};
+                        TransformerUtils.copyKeysFromTo(fromData, toBeSaved);
+
+                        return $http
+                            .put(URLTo.api(AUTH_URLS.updateInitiatedStatus), toBeSaved);
                     },
 
                     /**

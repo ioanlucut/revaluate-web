@@ -28,9 +28,10 @@ angular
         currentUser: "account/user",
         auth: "account",
         create: "account",
-        update: "account",
         details: "account",
         cancel: "account",
+        updateInitiatedStatus: "account/updateInitiatedStatus",
+        updateAccountDetails: "account/updateAccountDetails",
         updateCurrency: "account/updateCurrency",
         requestPasswordReset: "account/requestResetPassword/:email",
         resetPasswordWithToken: "account/resetPassword/:email/:token",
@@ -46,10 +47,7 @@ angular
         updateCustomer: "payment/updateCustomer",
         updatePaymentMethod: "payment/updatePaymentMethod",
         removePaymentMethod: "payment/removePaymentMethod",
-        isPaymentStatusDefined: "payment/isPaymentStatusDefined",
-        //Below - deprecated
-        refreshToken: "auth/refresh_token",
-        requestSignUpRegistration: "account/send_email_verification_token"
+        isPaymentStatusDefined: "payment/isPaymentStatusDefined"
     })
     .constant("ACCOUNT_FORM_STATE", {
         login: "login",

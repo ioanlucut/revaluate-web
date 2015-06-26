@@ -74,11 +74,17 @@
     margin-right: 15px;
 
     span {
-      padding-left: 5px;
+
+    }
+
+    .currency__symbol {
+      padding-right: 5px;
       color: $gray-medium;
       font-weight: $font-weight-light;
     }
   }
+
+
 
   .expenses__list__entry__category {
     @include category-label($brand-primary);

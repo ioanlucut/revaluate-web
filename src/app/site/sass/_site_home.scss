@@ -1,13 +1,13 @@
 .home__title {
   padding: 40px 10px 5px 10px;
-  font-size: 50px;
+  font-size: 60px;
   font-weight: $font-weight-bold;
   color: $white;
 }
 
 .home__description {
   padding: 5px 10px 20px 10px;
-  color: lighten($brand-primary, 30%);
+  color: lighten($landing-page, 20%);
   font-size: 22px;
   font-weight: $font-weight-light;
   font-family: $base-font-family;
@@ -36,17 +36,28 @@
   font-size: $font-size-large;
 }
 
-
-.home__section__tour-arrow {
+.home__section__tour-arrow,
+.home__section__tour-screenmain {
   width: 100%;
   position: absolute;
   bottom: 0;
-  padding-bottom: 50px;
   text-align: center;
   font-size: 60px;
-  color: $white;
+}
 
-  @include fadeInDown();
+.home__section__tour-arrow {
+  padding-bottom: 50px;
+  color: $brand-secondary;
+}
+
+.home__section__tour-screenmain {
+  max-height: 55vh;
+  padding: 0;
+  @include fadeInUp();
+
+  img {
+    max-height: 55vh;
+  }
 }
 
 // Features
@@ -64,6 +75,36 @@
 
 .site__container__section__feature__img {
   @include span-columns(6);
+}
+
+.site__container__section__nextfeatures {
+  @include clearfix();
+  padding: 0;
+
+  li {
+    margin: 0;
+    padding: 10px;
+    @include span-columns(4);
+    @include omega(3n);
+
+    h3 {
+      font-size: $font-size-large;
+      font-weight: $font-weight-regular;
+    }
+
+    div:first-child {
+      border: solid 2px blue;
+      @include border-radius(50%);
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 10px auto;
+    }
+
+    div:last-child {
+      color: $gray-medium;
+    }
+  }
+
 }
 
 

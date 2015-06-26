@@ -1,30 +1,30 @@
 'use strict';
 
 angular
-    .module("revaluate.feedback")
-    .controller("FeedbackModalController", function ($scope, FeedbackModalService, Feedback, $timeout) {
+    .module("revaluate.contact")
+    .controller("ContactModalController", function ($scope, ContactModalService, Contact, $timeout) {
 
         var TIMEOUT = 2500;
 
         /**
-         * Feedback.
+         * Contact.
          */
-        $scope.feedback = new Feedback();
+        $scope.contact = new Contact();
 
         /**
-         * Flags during the lifetime of the feedback.
+         * Flags during the lifetime of the contact.
          * @type {boolean}
          */
         $scope.isSending = false;
         $scope.isSent = false;
 
-        $scope.openFeedbackModal = function () {
-            FeedbackModalService.open();
+        $scope.openContactModal = function () {
+            ContactModalService.open();
 
             /**
-             * If send feedback modal is opened
+             * If send contact modal is opened
              */
-            FeedbackModalService
+            ContactModalService
                 .modalInstance
                 .opened
                 .then(function () {
@@ -36,8 +36,8 @@ angular
         /**
          * Dismiss the create/update modal.
          */
-        $scope.dismissFeedbackModal = function () {
-            FeedbackModalService
+        $scope.dismissContactModal = function () {
+            ContactModalService
                 .modalInstance
                 .dismiss("cancel");
 
@@ -45,24 +45,24 @@ angular
         };
 
         /**
-         * Sends the feedback.
-         * @param feedbackForm
+         * Sends the contact.
+         * @param contactForm
          */
-        $scope.sendFeedbackAndClose = function (feedbackForm) {
-            if ( feedbackForm.$valid && !$scope.isSending ) {
+        $scope.sendContactAndClose = function (contactForm) {
+            if ( contactForm.$valid && !$scope.isSending ) {
 
-                // Is sending feedback
+                // Is sending contact
                 $scope.isSending = true;
 
                 $scope
-                    .feedback
+                    .contact
                     .send()
                     .then(function () {
                         $scope.isSent = true;
 
                         $timeout(function () {
                             $scope.isSending = false;
-                            FeedbackModalService
+                            ContactModalService
                                 .modalInstance
                                 .close();
                         }, TIMEOUT);

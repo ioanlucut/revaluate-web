@@ -42,7 +42,11 @@ angular
                     .then(function () {
 
                         $scope.isWaitingForCloseEvent = true;
-                        StatesHandler.goToExpenses();
+                        StatesHandler.goToExpenses(function () {
+                            $timeout(function () {
+                                $scope.isWaitingForCloseEvent = false;
+                            }, 1000);
+                        });
                     })
                     .catch(function () {
                         /* If bad feedback from server */

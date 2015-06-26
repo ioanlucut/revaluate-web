@@ -154,19 +154,6 @@ angular
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
 
-        /**
-         * Show how to block content
-         * @type {boolean}
-         */
-        $scope.showHowToContent = false;
-
-        /**
-         * Toggle how to content
-         */
-        $scope.toggleHowToContent = function () {
-            $scope.showHowToContent = !$scope.showHowToContent;
-        };
-
         function getSelectedMatchingCategories() {
             return _.filter($scope.expensesImportAnswer.model.expenseCategoryMatchingProfileDTOs, 'selected', true);
         }

@@ -2,6 +2,7 @@
   "name": "revaluate",
   "version": "1.0.0",
   "dependencies": {
+    "connect-modrewrite": "^0.8.1",
     "gulp-ng-constant": "^0.3.0",
     "yargs": "^3.10.0"
   },
@@ -14,7 +15,7 @@
     "build:prod": "gulp build:prod"
   },
   "devDependencies": {
-    "browser-sync": "~2.1.4",
+    "browser-sync": "~2.7.12",
     "browser-sync-spa": "~1.0.2",
     "chalk": "~0.5.1",
     "concat-stream": "~1.4.7",

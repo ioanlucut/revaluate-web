@@ -3,42 +3,47 @@
   padding: 30px 0;
   background-color: $white;
 
-  &:last-of-type {
-    padding-bottom: $footer__home-height;
-  }
+    &:last-of-type {
+        padding-bottom: $footer__home-height;
+    }
 
-  h1 {
-    margin: 0;
-  }
-}
-.site__container--fullheight {
-  @include calc("height", 100vh - #{$header-height});
+    h1 {
+        margin: 0;
+    }
 }
 
 .site__container--homemain {
-  position: relative;
-  background: $landing-page;
+    position: relative;
+    background: $landing-page;
+    padding-top: 10px;
 
-  h1, h2, h3 {
-    color: $white;
-  }
+    h1, h2 {
+        color: $white;
+    }
+}
+
+#section__0 {
+
+    .fp-tableCell {
+        display: block;
+    }
 }
 
 .site__container--darkgray {
-  background-color: $gray-dark-3;
-  color: $white;
+    background-color: $gray-dark-3;
+    color: $white;
 }
 
 .site__container--lightgray {
-  background-color: $gray-light-3;
+    background-color: $gray-light-2;
 }
 
 .site__container__section {
-  @include outer-container;
-  margin-top: 0;
+    @include outer-container;
+    margin-top: 0;
 }
 
 .site__container--faq {
-  padding-bottom: $footer__home-height;
-  background-color: $gray-light-2;
+    padding-bottom: $footer__home-height;
+    background-color: $gray-light-2;
 }

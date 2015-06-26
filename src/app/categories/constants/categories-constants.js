@@ -12,6 +12,7 @@ angular
         delete: "categories/:id",
         bulkDelete: "categories/bulkDelete",
         bulkCreate: "categories/bulkCreate",
+        setupBulkCreateCategories: "categories/setupBulkCreateCategories",
         allCategories: "categories/retrieve"
     })
     .constant("CATEGORY_EVENTS", {
