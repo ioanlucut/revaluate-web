@@ -6,18 +6,18 @@
 // --------------------------------------------------
 
 .close {
-  float: right;
-  font-size: ($font-size-base * 1.5);
-  font-weight: $close-font-weight;
-  line-height: 18px;
-  color: $close-color;
-  text-shadow: $close-text-shadow;
-  @include opacity(.4);
+    float: right;
+    font-size: ($font-size-base * 1.5);
+    font-weight: $close-font-weight;
+    line-height: 18px;
+    color: $close-color;
+    text-shadow: $close-text-shadow;
+    @include opacity(.4);
 
-  &:hover,
-  &:focus {
-    text-decoration: none;
-    cursor: pointer;
-    @include opacity(.8);
-  }
+    &:hover,
+    &:focus {
+        text-decoration: none;
+        cursor: pointer;
+        @include opacity(.8);
+    }
 }

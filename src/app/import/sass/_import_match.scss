@@ -1,108 +1,108 @@
 .import__edit {
-  @include span-columns(10);
-  @include shift(1);
-  @include border-radius($base-border-radius);
+    @include span-columns(10);
+    @include shift(1);
+    @include border-radius($base-border-radius);
 }
 
 .import__edit__categories__header {
-  @include clearfix();
-  height: 35px;
-  background-color: #f3f3f3;
-  border-bottom: solid 1px $gray-light-1;
-  margin: 30px 0 20px 0;
-  padding: 0 15px;
-  line-height: 34px;
+    @include clearfix();
+    height: 35px;
+    background-color: #f3f3f3;
+    border-bottom: solid 1px $gray-light-1;
+    margin: 30px 0 20px 0;
+    padding: 0 15px;
+    line-height: 34px;
 
-  .import__edit__categories__header__src {
-    width: 250px;
-    float: left;
-  }
+    .import__edit__categories__header__src {
+        width: 250px;
+        float: left;
+    }
 
-  .import__edit__categories__header__dest {
-    float: right;
-    text-align: right;
-    width: 200px;
-  }
+    .import__edit__categories__header__dest {
+        float: right;
+        text-align: right;
+        width: 200px;
+    }
 }
 
 .import__edit__categories {
-  @include span-columns(12);
-  @include clearfix();
-  @include border-radius($base-border-radius);
-  padding: 0;
-  margin: 0 0 15px 0;
-  @include no-user-select();
+    @include span-columns(12);
+    @include clearfix();
+    @include border-radius($base-border-radius);
+    padding: 0;
+    margin: 0 0 15px 0;
+    @include no-user-select();
 
-  &:first-child {
-    border-bottom: solid 1px $gray-light-1;
-  }
+    &:first-child {
+        border-bottom: solid 1px $gray-light-1;
+    }
 }
 
 .import__edit__categories__src {
-  @include clearfix();
-  float: left;
-  height: 35px;
-  line-height: 32px;
-
-  .import__edit__categories__src__toggle {
-    @include user-select(none);
+    @include clearfix();
     float: left;
-    margin-right: 10px;
+    height: 35px;
     line-height: 32px;
-    padding-top: 6px;
-  }
 
-  .import__edit__categories__src__name {
-    @include user-select(none);
-    @include category-label($brand-default);
-    height: 27px;
-    float: left;
-    padding: 5px 10px;
-    margin-top: 3px;
-    color: $gray-dark-1;
-    text-shadow: none;
-  }
+    .import__edit__categories__src__toggle {
+        @include user-select(none);
+        float: left;
+        margin-right: 10px;
+        line-height: 32px;
+        padding-top: 6px;
+    }
+
+    .import__edit__categories__src__name {
+        @include user-select(none);
+        @include category-label($brand-default);
+        height: 27px;
+        float: left;
+        padding: 5px 10px;
+        margin-top: 3px;
+        color: $gray-dark-1;
+        text-shadow: none;
+    }
 }
 
 .import__edit__categories__dest {
-  @include clearfix();
-  float: right;
-  width: $category-select-width;
+    @include clearfix();
+    float: right;
+    width: $category-select-width;
 
-  .import__edit__categories__dest__category {
-    padding: 0;
-    position: relative;
-    width: 100%;
-    float: none;
+    .import__edit__categories__dest__category {
+        padding: 0;
+        position: relative;
+        width: 100%;
+        float: none;
 
-    &.has-error input {
-      border-color: $brand-danger;
+        &.has-error input {
+            border-color: $brand-danger;
+        }
     }
-  }
 }
 
 .import__edit__categories__ignored {
-  float: right;
-  width: $category-select-width;
-  font-size: 11px;
-  height: 35px;
-  line-height: 35px;
-  columns: $gray-light-1;
-  color: $brand-danger;
+    float: right;
+    width: $category-select-width;
+    font-size: 11px;
+    height: 35px;
+    line-height: 35px;
+    columns: $gray-light-1;
+    color: $brand-danger;
 }
 
 .import__edit__categories__arrow {
-  margin: 0 auto;
-  width: 40px;
-  text-align: center;
-  font-size: $font-size-larger;
-  color: $gray-light-1;
+    margin: 0 auto;
+    width: 40px;
+    text-align: center;
+    font-size: $font-size-larger;
+    color: $gray-light-1;
 }
 
 .import__save__btn {
-  @include btn-big($brand-primary);
-  width: 240px;
-  display: block;
-  margin: 0 auto;
-  text-transform: uppercase;
+    @include btn-big($brand-primary);
+    width: 240px;
+    display: block;
+    margin: 0 auto;
+    text-transform: uppercase;
 }

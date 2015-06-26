@@ -1,98 +1,98 @@
 .view-container__content--settings {
-  background-color: $gray-light-2;
-  padding: 0;
-  @include clearfix();
+    background-color: $gray-light-2;
+    padding: 0;
+    @include clearfix();
 }
 
 .view-container__content__admin__aside {
-  float: left;
-  width: $settings-aside-width;
+    float: left;
+    width: $settings-aside-width;
 
-  li {
-    padding: 0;
-    margin: 0;
+    li {
+        padding: 0;
+        margin: 0;
 
-    a {
-      display: block;
-      padding: 10px;
-      color: $gray-medium;
+        a {
+            display: block;
+            padding: 10px;
+            color: $gray-medium;
 
-      &:hover {
-        color: $gray-dark-2;
-      }
+            &:hover {
+                color: $gray-dark-2;
+            }
 
-      &:focus {
-        outline: none;
-      }
+            &:focus {
+                outline: none;
+            }
+        }
     }
-  }
 
-  .tab__active {
-    @include border-radius($base-border-radius);
-    background: $white;
-    border-left: solid 4px $brand-primary;
+    .tab__active {
+        @include border-radius($base-border-radius);
+        background: $white;
+        border-left: solid 4px $brand-primary;
 
-    a {
-      color: $black;
+        a {
+            color: $black;
+        }
     }
-  }
 }
 
 .view-container__content__admin__section {
-  float: right;
-  min-height: 500px;
-  @include calc(width, "100% - #{$settings-aside-width}");
-  @include clearfix();
-  @include border-radius($border-radius-base);
-  background-color: $white;
+    float: right;
+    min-height: 500px;
+    @include calc(width, "100% - #{$settings-aside-width}");
+    @include clearfix();
+    @include border-radius($border-radius-base);
+    background-color: $white;
 }
 
 .settings__title {
-  text-align: left;
-  font-size: 20px;
-  font-weight: $font-weight-regular;
-  //border: solid 1px red;
-  width: 100%;
+    text-align: left;
+    font-size: 20px;
+    font-weight: $font-weight-regular;
+    //border: solid 1px red;
+    width: 100%;
 }
 
 .settings__title__h2 {
-  margin-top: 40px;
-  font-size: $font-size-larger;
-  font-weight: $font-weight-light;
+    margin-top: 40px;
+    font-size: $font-size-larger;
+    font-weight: $font-weight-light;
 }
 
 .settings__box {
-  @include clearfix();
-  @include section(100%);
-  border-bottom: solid 1px $gray-light-2;
-  //border: solid 1px red;
+    @include clearfix();
+    @include section(100%);
+    border-bottom: solid 1px $gray-light-2;
+    //border: solid 1px red;
 
-  &:last-child {
-    margin-bottom: 0;
-    border-color: transparent;
-  }
+    &:last-child {
+        margin-bottom: 0;
+        border-color: transparent;
+    }
 }
 
 .settings__box__section--100,
 .settings__box__section--75,
 .settings__box__section--50 {
-  float: left;
-  padding: 10px;
+    float: left;
+    padding: 10px;
 }
 
 .settings__box__section--100 {
-  width: 100%;
+    width: 100%;
 }
 
 .settings__box__section--75 {
-  width: 75%;
+    width: 75%;
 }
 
 .settings__box__section--50 {
-  width: 50%;
+    width: 50%;
 }
 
 .settings__btn__save {
-  @include btn-big($brand-primary);
-  margin-top: 10px;
+    @include btn-big($brand-primary);
+    margin-top: 10px;
 }

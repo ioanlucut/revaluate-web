@@ -1,18 +1,18 @@
 .insight__form__date__input {
-  position: relative;
+    position: relative;
 
-  .insight__form__date__input__btn {
-    width: 250px;
+    .insight__form__date__input__btn {
+        width: 250px;
 
-    &:hover,
-    &:active {
-      background-color: $brand-primary-light;
+        &:hover,
+        &:active {
+            background-color: $brand-primary-light;
+        }
     }
-  }
 
-  .dropdown-menu {
-    width: 250px;
-    left: 0 !important;
-    top: 40px !important;
-  }
+    .dropdown-menu {
+        width: 250px;
+        left: 0 !important;
+        top: 40px !important;
+    }
 }
