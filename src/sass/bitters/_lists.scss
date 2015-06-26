@@ -1,36 +1,36 @@
 ul,
 ol {
-  list-style-type: none;
-  margin: 0;
-  padding: 0 5px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0 5px;
 
-  &%default-ul {
-    list-style-type: disc;
-    margin-bottom: $small-spacing;
-    padding-left: $base-spacing;
-  }
+    &%default-ul {
+        list-style-type: disc;
+        margin-bottom: $small-spacing;
+        padding-left: $base-spacing;
+    }
 
-  &%default-ol {
-    list-style-type: decimal;
-    margin-bottom: $small-spacing;
-    padding-left: $base-spacing;
-  }
+    &%default-ol {
+        list-style-type: decimal;
+        margin-bottom: $small-spacing;
+        padding-left: $base-spacing;
+    }
 }
 
 li {
-  margin: 0 5px;
-  padding: 0 5px;
+    margin: 0 5px;
+    padding: 0 5px;
 }
 
 dl {
-  margin-bottom: $small-spacing;
+    margin-bottom: $small-spacing;
 
-  dt {
-    font-weight: bold;
-    margin-top: $small-spacing;
-  }
+    dt {
+        font-weight: bold;
+        margin-top: $small-spacing;
+    }
 
-  dd {
-    margin: 0;
-  }
+    dd {
+        margin: 0;
+    }
 }

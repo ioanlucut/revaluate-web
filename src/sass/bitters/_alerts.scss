@@ -1,67 +1,66 @@
 @import "variables";
 
 @mixin flash($color, $bg-color) {
-  display: block;
-  width: 100%;
-  margin-bottom: $base-spacing / 2;
-  padding: $base-spacing / 2;
-  @include border-radius($base-border-radius);
-  text-align: center;
-  background-color: $bg-color;
-  color: $color;
-
-  a {
+    display: block;
+    width: 100%;
+    margin-bottom: $base-spacing / 2;
+    padding: $base-spacing / 2;
+    @include border-radius($base-border-radius);
+    text-align: center;
+    background-color: $bg-color;
     color: $color;
-    text-decoration: underline;
 
-    &:focus,
-    &:hover {
-      color: darken($color, 10%);
+    a {
+        color: $color;
+        text-decoration: underline;
+
+        &:focus,
+        &:hover {
+            color: darken($color, 10%);
+        }
     }
-  }
 }
 
 .alert-info {
-  @include flash($brand-info-dark, $brand-info-light);
+    @include flash($brand-info-dark, $brand-info-light);
 
-  .close {
-    color: $brand-info;
-  }
+    .close {
+        color: $brand-info;
+    }
 }
 
 .alert-success {
-  @include flash($brand-success, $brand-success-light);
+    @include flash($brand-success, $brand-success-light);
 
-  .close {
-    color: $brand-success;
-  }
+    .close {
+        color: $brand-success;
+    }
 }
 
 .alert-warning {
-  @include flash($brand-warning-dark, $brand-warning-light);
+    @include flash($brand-warning-dark, $brand-warning-light);
 
-  .close {
-    color: $brand-warning;
-  }
+    .close {
+        color: $brand-warning;
+    }
 }
 
 .alert-error {
-  @include flash($brand-danger, $brand-danger-light);
+    @include flash($brand-danger, $brand-danger-light);
 
-  .close {
-    color: $brand-danger;
-  }
+    .close {
+        color: $brand-danger;
+    }
 }
 
-
 .alert--center {
-  width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  display: none;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    display: none;
 }
 
 .alert {
-  display: block;
-  margin: 10px 0;
+    display: block;
+    margin: 10px 0;
 }
