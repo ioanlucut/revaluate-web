@@ -7,10 +7,6 @@ angular
             restrict: "A",
             controller: function () {
 
-                this.scrollDown = function () {
-                    $.fn.fullpage.moveSectionDown();
-                };
-
                 this.scrollDownTo = function (slideNumber) {
                     $.fn.fullpage.moveTo(slideNumber);
                 }
