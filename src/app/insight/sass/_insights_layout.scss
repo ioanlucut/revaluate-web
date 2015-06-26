@@ -3,21 +3,6 @@
     font-size: $font-size-large;
 }
 
-.insights__summary {
-    width: 70%;
-    margin: 0 auto;
-    font-size: $font-size-largest;
-    font-weight: $font-weight-light;
-    color: $gray-medium;
-    text-align: center;
-    padding: 40px 0;
-
-    span {
-        color: $gray-darker;
-        font-weight: $font-weight-bold;
-    }
-}
-
 .insights__table {
     display: block;
     margin: 0 auto;
