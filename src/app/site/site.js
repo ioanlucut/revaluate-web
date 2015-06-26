@@ -19,14 +19,14 @@ angular
             .state("home", {
                 url: "/",
                 templateUrl: "/app/site/partials/home.html",
-                title: "Change the way you spend your money",
+                title: "Personal finance simplified - Revaluate",
                 mixpanelId: MIXPANEL_EVENTS.homePage,
                 isPublicPage: true
             })
             .state("pricing", {
                 url: "/pricing",
                 templateUrl: "/app/site/partials/pricing.html",
-                title: "Change the way you spend your money",
+                title: "Personal finance simplified - Revaluate",
                 mixpanelId: MIXPANEL_EVENTS.pricingPage,
                 isPublicPage: true
             })
