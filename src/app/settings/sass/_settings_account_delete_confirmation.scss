@@ -1,43 +1,43 @@
 .account__delete__confirmation {
-  @include border-radius($border-radius-base);
-  border: solid 2px $brand-danger;
-  clear: left;
-  position: relative;
-  padding: 15px 40px;
-  text-align: center;
-
-  .account__delete__confirmation__check {
-    @include clearfix();
-    @include user-select(none);
+    @include border-radius($border-radius-base);
+    border: solid 2px $brand-danger;
+    clear: left;
     position: relative;
-    margin: 20px auto;
-    min-width: 350px;
+    padding: 15px 40px;
+    text-align: center;
 
-    input,
-    label {
-      float: left;
-      display: inline-block;
-      font-size: $font-size-large;
+    .account__delete__confirmation__check {
+        @include clearfix();
+        @include user-select(none);
+        position: relative;
+        margin: 20px auto;
+        min-width: 350px;
+
+        input,
+        label {
+            float: left;
+            display: inline-block;
+            font-size: $font-size-large;
+        }
+
+        input {
+            width: 22px;
+            height: 22px;
+        }
+
+        label {
+            @include calc(width, "100% - 25px");
+            margin: 0;
+            text-align: left;
+        }
     }
 
-    input {
-      width: 22px;
-      height: 22px;
+    button:first-of-type {
+        @include btn-small($brand-primary);
+        margin-right: 10px;
     }
 
-    label {
-      @include calc(width, "100% - 25px");
-      margin: 0;
-      text-align: left;
+    button:last-child {
+        @include btn-small($brand-danger);
     }
-  }
-
-  button:first-of-type {
-    @include btn-small($brand-primary);
-    margin-right: 10px;
-  }
-
-  button:last-child {
-    @include btn-small($brand-danger);
-  }
 }

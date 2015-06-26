@@ -1,153 +1,153 @@
 .expense__form__date__input,
 .insight__form__date__input {
 
-  .dropdown-menu {
-    padding: 0;
-    font-size: $font-size-base;
-    text-align: center;
-
-    li:first-child {
-      padding: 0 !important;
-      margin: 0 !important;
-
-      div table {
+    .dropdown-menu {
         padding: 0;
-        margin: 0;
+        font-size: $font-size-base;
+        text-align: center;
 
-        &:focus {
-          outline: none;
-        }
-
-        thead {
-          background-color: $brand-primary;
-          color: $white;
-          padding: 3px;
-
-          tr th {
+        li:first-child {
             padding: 0 !important;
-            border-bottom: solid 1px darken($brand-primary, 7%);
+            margin: 0 !important;
 
-            .btn {
-              background-color: $brand-primary;
-              color: $white;
-
-              &:hover {
-                background-color: darken($brand-primary, 10%);
-              }
-            }
-          }
-
-          tr:first-child > th:last-child {
-            text-align: right;
-          }
-        }
-
-        tbody {
-          padding: 2px;
-          border: solid 2px transparent;
-
-          tr {
-            border-width: 0;
-
-            td {
-              border-width: 0;
-              padding: 0 !important;
-              margin: 1px;
-
-              .btn {
+            div table {
                 padding: 0;
-              }
+                margin: 0;
+
+                &:focus {
+                    outline: none;
+                }
+
+                thead {
+                    background-color: $brand-primary;
+                    color: $white;
+                    padding: 3px;
+
+                    tr th {
+                        padding: 0 !important;
+                        border-bottom: solid 1px darken($brand-primary, 7%);
+
+                        .btn {
+                            background-color: $brand-primary;
+                            color: $white;
+
+                            &:hover {
+                                background-color: darken($brand-primary, 10%);
+                            }
+                        }
+                    }
+
+                    tr:first-child > th:last-child {
+                        text-align: right;
+                    }
+                }
+
+                tbody {
+                    padding: 2px;
+                    border: solid 2px transparent;
+
+                    tr {
+                        border-width: 0;
+
+                        td {
+                            border-width: 0;
+                            padding: 0 !important;
+                            margin: 1px;
+
+                            .btn {
+                                padding: 0;
+                            }
+                        }
+                    }
+                }
             }
-          }
         }
-      }
-    }
 
-    li:last-child {
-      padding: 2px 0 0 0 !important;
-      margin: 0 !important;
-      text-align: center;
+        li:last-child {
+            padding: 2px 0 0 0 !important;
+            margin: 0 !important;
+            text-align: center;
 
-      .btn-group button {
-        &:first-child {
-          width: 100%; /* Make the "Today button wide */
-          @include btn($brand-default);
-          color: $gray-dark-1;
-          @include border-radius(0);
+            .btn-group button {
+                &:first-child {
+                    width: 100%; /* Make the "Today button wide */
+                    @include btn($brand-default);
+                    color: $gray-dark-1;
+                    @include border-radius(0);
+                }
+                &:last-child {
+                    display: none; /* Hide the "Clear" button */
+                }
+            }
+
+            & > button {
+                display: none; /* Hide the "Done" button */
+            }
         }
-        &:last-child {
-          display: none; /* Hide the "Clear" button */
+    }
+
+    // Buttons
+    // -------
+
+    .btn {
+        padding-top: 0;
+        padding-bottom: 0;
+        height: 35px;
+    }
+
+    .btn-default {
+        background-color: $white;
+
+        &:hover {
+            background-color: $gray-light-2;
         }
-      }
-
-      & > button {
-        display: none; /* Hide the "Done" button */
-      }
     }
-  }
 
-  // Buttons
-  // -------
+    @mixin btn-color($color, $color-hover: darken($color, 10%)) {
+        background-color: $color;
+        color: $white;
 
-  .btn {
-    padding-top: 0;
-    padding-bottom: 0;
-    height: 35px;
-  }
-
-  .btn-default {
-    background-color: $white;
-
-    &:hover {
-      background-color: $gray-light-2;
+        &:hover {
+            background-color: $color-hover;
+        }
     }
-  }
 
-  @mixin btn-color($color, $color-hover: darken($color, 10%)) {
-    background-color: $color;
-    color: $white;
-
-    &:hover {
-      background-color: $color-hover;
+    .btn-success {
+        @include btn-color($brand-success, $brand-success-dark);
     }
-  }
 
-  .btn-success {
-    @include btn-color($brand-success, $brand-success-dark);
-  }
-
-  .btn-danger {
-    @include btn-color($brand-danger, $brand-danger-dark);
-  }
-
-  .btn-info {
-    @include btn-color($brand-primary);
-  }
-
-  .text-center {
-    text-align: center;
-  }
-
-  // The arrow icons
-  // ---------------
-  .glyphicon {
-    position: relative;
-    top: 1px;
-    display: inline-block;
-    font-style: normal;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  .glyphicon-chevron-left {
-    &:before {
-      content: "\276e";
+    .btn-danger {
+        @include btn-color($brand-danger, $brand-danger-dark);
     }
-  }
-  .glyphicon-chevron-right {
-    &:before {
-      content: "\276f";
+
+    .btn-info {
+        @include btn-color($brand-primary);
     }
-  }
+
+    .text-center {
+        text-align: center;
+    }
+
+    // The arrow icons
+    // ---------------
+    .glyphicon {
+        position: relative;
+        top: 1px;
+        display: inline-block;
+        font-style: normal;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .glyphicon-chevron-left {
+        &:before {
+            content: "\276e";
+        }
+    }
+    .glyphicon-chevron-right {
+        &:before {
+            content: "\276f";
+        }
+    }
 }

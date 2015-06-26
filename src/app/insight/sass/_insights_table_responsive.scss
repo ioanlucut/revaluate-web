@@ -1,0 +1,30 @@
+@media (max-width: $screen-phone) {
+
+    .insights__table {
+        width: 100%;
+        padding: 0;
+
+        .insights__table__category {
+            width: 70%;
+
+            .insights__table__category__color {
+                @include border-radius(50%);
+                @include size(22px 22px);
+                display: inline-block;
+                background-color: $brand-primary;
+                margin-right: 5px;
+                text-indent: -9999px;
+            }
+        }
+
+        .insights__table__amount {
+            text-align: right;
+            width: 30%;
+
+            .currency__symbol {
+                padding: 0 2px;
+            }
+        }
+    }
+
+}

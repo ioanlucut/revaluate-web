@@ -1,25 +1,24 @@
 .import__edit__categories__input {
-  height: 35px;
-  width: 100%;
-  padding: 0 10px;
-  border: solid 1px $gray-lighter;
-  @include border-radius($base-border-radius);
-  color: $white;
-  font-weight: $font-weight-regular;
-  text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
+    height: 35px;
+    width: 100%;
+    padding: 0 10px;
+    border: solid 1px $gray-lighter;
+    @include border-radius($base-border-radius);
+    color: $white;
+    font-weight: $font-weight-regular;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
 
-  &:focus {
-    outline: none;
-  }
+    &:focus {
+        outline: none;
+    }
 }
-
 
 .import__edit__categories__dest__category {
 
-  .angucomplete-holder {
+    .angucomplete-holder {
 
-    .angucomplete-dropdown {
-      top: 36px;
+        .angucomplete-dropdown {
+            top: 36px;
+        }
     }
-  }
 }

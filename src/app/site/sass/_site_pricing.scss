@@ -1,64 +1,64 @@
 .pricing__box {
-  margin: 20px auto 10px auto;
-  width: 100%;
-  max-width: 300px;
-  padding: 40px;
-  background-color: $white;
-  border: solid 2px rgba(255, 255, 255, 0.1);
-  @include border-radius(5px);
+    margin: 20px auto 10px auto;
+    width: 100%;
+    max-width: 300px;
+    padding: 40px;
+    background-color: $white;
+    border: solid 2px rgba(255, 255, 255, 0.1);
+    @include border-radius(5px);
 
-  ul {
-    font-size: $font-size-large;
-    opacity: 0.7;
-  }
+    ul {
+        font-size: $font-size-large;
+        opacity: 0.7;
+    }
 }
 
 .pricing__box__amount {
-  padding-bottom: 30px;
-  color: $brand-primary;
-  font-size: $font-size-larger;
-  font-weight: $font-weight-bold;
+    padding-bottom: 30px;
+    color: $brand-primary;
+    font-size: $font-size-larger;
+    font-weight: $font-weight-bold;
 }
 
 .pricing__box__btn {
-  @include btn-block($brand-secondary);
-  @include btn-cta-hover();
-  margin-top: 25px;
+    @include btn-block($brand-secondary);
+    @include btn-cta-hover();
+    margin-top: 25px;
 }
 
 .pricing__box__info {
-  font-size: $font-size-small;
-  opacity: 0.5;
+    font-size: $font-size-small;
+    opacity: 0.5;
 }
 
 // FAQ section
 // -----------------------------
 
 .site__container__section__faq {
-  padding: 0;
-  @include outer-container();
+    padding: 0;
+    @include outer-container();
 
-  li {
-    @include border-radius($base-border-radius);
-    @include span-columns(6);
-    @include omega(2n);
-    height: 110px;
-    padding: 10px;
-    margin: 0 21px 21px 0;
-    text-align: left;
+    li {
+        @include border-radius($base-border-radius);
+        @include span-columns(6);
+        @include omega(2n);
+        height: 110px;
+        padding: 10px;
+        margin: 0 21px 21px 0;
+        text-align: left;
 
-    &:nth-child(2) {
-      margin-right: 0px;
+        &:nth-child(2) {
+            margin-right: 0px;
+        }
     }
-  }
 }
 
 .site__container__section__faq__contact {
-  @include border-radius($base-border-radius);
-  background-color: $white;
-  margin-top: 20px;
-  padding: 10px;
-  font-size: $font-size-large;
+    @include border-radius($base-border-radius);
+    background-color: $white;
+    margin-top: 20px;
+    padding: 10px;
+    font-size: $font-size-large;
 }
 
 

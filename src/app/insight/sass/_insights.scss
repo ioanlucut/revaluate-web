@@ -1,7 +1,15 @@
 /* Import sub-modules */
-
 @import "components/datepicker";
-
+@import "components/datepicker_responsive";
 @import "insights_layout";
+@import "insights_table";
+@import "insights_table_responsive";
+@import "insights_controls";
+@import "insights_controls_responsive";
 @import "insights_empty";
+@import "insights_empty_responsive";
 @import "insights_charts";
+@import "insights_charts_responsive";
+@import "insights_charts_legend";
+@import "insights_summary";
+@import "insights_summary_responsive";
