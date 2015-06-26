@@ -1,11 +1,11 @@
 .account__btn {
-  @include btn-block($brand-primary);
-  margin-top: 25px;
-  font-size: 16px;
+    @include btn-block($brand-primary);
+    margin-top: 25px;
+    font-size: 16px;
 }
 
 .account-cancel__btn {
-  @include btn-block($brand-danger);
-  margin-top: 25px;
-  font-size: 16px;
+    @include btn-block($brand-danger);
+    margin-top: 25px;
+    font-size: 16px;
 }

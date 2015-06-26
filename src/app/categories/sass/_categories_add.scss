@@ -1,44 +1,44 @@
 .categories__add {
-  @include span-columns(10);
-  @include shift(1);
-  @include border-radius($base-border-radius);
-  margin-bottom: 40px;
+    @include span-columns(10);
+    @include shift(1);
+    @include border-radius($base-border-radius);
+    margin-bottom: 40px;
 }
 
 .categories__add__form {
-  text-align: left;
-  @include clearfix();
+    text-align: left;
+    @include clearfix();
 }
 
 .categories__add__form__content__left {
-  float: left;
-  @include clearfix();
+    float: left;
+    @include clearfix();
 }
 
 .categories__add__form__content__right {
-  float: right;
-
-  .categories__add__form__content__right__add {
-    @include btn-big($brand-primary);
-  }
-  .categories__add__form__content__right__cancel {
-    @include btn-big($brand-default);
-    color: $gray-dark-1;
-  }
-
-  .categories__add__form__content__right__add,
-  .categories__add__form__content__right__cancel {
     float: right;
-    margin-left: 10px;
-  }
+
+    .categories__add__form__content__right__add {
+        @include btn-big($brand-primary);
+    }
+    .categories__add__form__content__right__cancel {
+        @include btn-big($brand-default);
+        color: $gray-dark-1;
+    }
+
+    .categories__add__form__content__right__add,
+    .categories__add__form__content__right__cancel {
+        float: right;
+        margin-left: 10px;
+    }
 }
 
 .categories__add__controls {
 
-  .categories__add__controls__btn {
-    @include btn-big($brand-primary);
-    display: block;
-    float: right;
-    width: 140px;
-  }
+    .categories__add__controls__btn {
+        @include btn-big($brand-primary);
+        display: block;
+        float: right;
+        width: 140px;
+    }
 }

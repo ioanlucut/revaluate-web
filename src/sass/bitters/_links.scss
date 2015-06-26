@@ -1,12 +1,12 @@
 .link-navigation {
-  display: block;
-  margin-top: 20px;
+    display: block;
+    margin-top: 20px;
 }
 
 .text-underlined {
-  border-bottom: solid 1px $gray-light-1;
+    border-bottom: solid 1px $gray-light-1;
 
-  &:hover {
-    border-color: $gray-medium;
-  }
+    &:hover {
+        border-color: $gray-medium;
+    }
 }
