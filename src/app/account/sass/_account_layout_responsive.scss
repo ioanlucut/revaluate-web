@@ -1,0 +1,15 @@
+@media (max-width: $screen-sm-min) {
+
+    .account__section {
+        @include span-columns(8);
+        @include shift(2);
+    }
+}
+
+@media (max-width: $screen-xs-min) {
+
+    .account__section {
+        @include span-columns(10);
+        @include shift(1);
+    }
+}
