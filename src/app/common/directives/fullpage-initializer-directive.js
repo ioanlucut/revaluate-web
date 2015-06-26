@@ -19,10 +19,9 @@ angular
             controllerAs: "fullpageCtrl",
             link: function (scope, el, attrs) {
                 $(el).fullpage({
-                    sectionsColor: ['#363b48', '#fff', '#e8e8e8', '#fff', '#e8e8e8', '#333'],
+                    sectionsColor: ['#363b48', '#fff', '#e8e8e8', '#fff', '#e8e8e8', '#fff', '#333'],
                     navigation: true,
                     navigationPosition: 'right',
-                    navigationTooltips: ['Main screen', 'Second page', 'Third and last page', 'F page', 'V page', 'G and last page'],
                     responsiveWidth: 900
                 });
             }
