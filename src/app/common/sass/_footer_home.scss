@@ -15,14 +15,14 @@
 
 .footer__home__logo {
   @include span-columns(4);
+  color: $black;
 }
 
 .footer__home__links {
   @include span-columns(3);
   @include shift(5);
-  //text-align: right;
 
   li {
-    //display: inline-block;
+
   }
 }

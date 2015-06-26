@@ -9,12 +9,14 @@ angular
         "braintree-angular",
         "angular-cache",
         "angularFileUpload",
+        "angular-loading-bar",
         "ngAnimate",
         "ngMessages",
         "ngStorage",
         "ngSanitize",
         "revaluate.site",
         "revaluate.feedback",
+        "revaluate.contact",
         "revaluate.common",
         "revaluate.categories",
         "revaluate.expensesImport",
@@ -27,6 +29,7 @@ angular
         "ui.gravatar",
         "angularPayments",
         "pascalprecht.translate",
+        "duScroll",
         "ui.select"
     ])
     .config(function ($locationProvider, $translateProvider, ChartJsProvider, CacheFactoryProvider, gravatarServiceProvider, APP_CONFIG) {
@@ -59,8 +62,8 @@ angular
         // ---
         $translateProvider.translations('en', ({
             'HOME': {
-                'TITLE_TEXT': 'Start spending your money better!',
-                'DESCRIPTION_TEXT': 'Personal finance simplified.'
+                'TITLE_TEXT': 'Personal finance simplified',
+                'DESCRIPTION_TEXT': 'Start spending your money better!'
             }
         }));
 

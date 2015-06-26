@@ -6,7 +6,9 @@
     <div class="expenses__list__entry__select icon-checkbox-square-1" ng-if="expense.marked" ng-click="toggleMark();$event.stopPropagation();"></div>
     <div class="expenses__list__entry__edit" ng-click="toggleContent();">Edit</div>
 
-    <div class="expenses__list__entry__price"> {{expense.model.value | currency:user.model.currency.symbol:user.model.currency.fractionSize}}</div>
+    <div class="expenses__list__entry__price">
+        <span ng-bind-html="expense.model.value | currencys:user.model.currency.symbol:user.model.currency.fractionSize"></span>
+    </div>
 
     <!--Expense category-->
     <div class="expenses__list__entry__category" ng-style="{'background':expense.model.category.color.color}" ng-bind-html="expense.model.category.name"></div>
@@ -25,7 +27,7 @@
 
         <!-- Form groups -->
         <div class="expense__form__price" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.value.$invalid || badPostSubmitResponse)}">
-            <input class="expense__form__price__input" type="text" name="value" placeholder="The value" maxlength="14" ng-model="shownExpense.model.value" format-price format="number" caret-price-position required valid-price />
+            <input class="expense__form__price__input" type="text" name="value" placeholder="The value" maxlength="18" ng-model="shownExpense.model.value" format-price format="number" caret-price-position required valid-price />
             <span class="expense__form__price__currency">{{user.model.currency.symbol}}</span>
 
             <!-- Error messages -->
