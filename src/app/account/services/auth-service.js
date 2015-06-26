@@ -55,16 +55,6 @@ angular
                 .post(URLTo.api(AUTH_URLS.requestPasswordReset, { ":email": email }));
         };
 
-        /**
-         * Request registration functionality
-         */
-        this.requestSignUpRegistration = function (email) {
-            return $http
-                .post(URLTo.api(AUTH_URLS.requestSignUpRegistration), {
-                    email: email
-                });
-        };
-
         this.requestConfirmationEmail = function (email) {
             return $http
                 .post(URLTo.api(AUTH_URLS.requestConfirmationEmail, { ":email": email }))
