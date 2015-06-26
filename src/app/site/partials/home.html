@@ -1,6 +1,6 @@
-<div id="fullpage" fullpage-initializer>
+<div fullpage-initializer>
 
-    <div id="section0" class="section active site__container site__container--homemain">
+    <div id="section__0" class="section active site__container site__container--homemain">
 
         <div header-home></div>
 
@@ -13,7 +13,7 @@
 
         <div class="site__container__section">
             <button class="home__section__start__btn" type="button" account-modal-toggle="requestSignUpRegistration">Get started for FREE!</button>
-            <button class="home__section__learn__btn" type="button" du-smooth-scroll="site__container--scroll-target">Learn more</button>
+            <button class="home__section__learn__btn" type="button" ng-click="fullpageCtrl.scrollDownTo(2)">Learn more</button>
         </div>
 
         <div class="site__container__section home__section__tour-screenmain">
@@ -21,13 +21,13 @@
         </div>
 
         <div class="site__container__section home__section__tour-arrow">
-            <span class="icon-chevron-down-circled" du-smooth-scroll="site__container--scroll-target"></span>
+            <span class="icon-chevron-down-circled" ng-click="fullpageCtrl.scrollDownTo(2)"></span>
         </div>
 
     </div>
 
     <!--Feature: Save expenses-->
-    <div id="section1" class="section site__container">
+    <div id="section__1" class="section site__container">
 
         <div class="site__container__section">
 
@@ -46,7 +46,7 @@
     </div>
 
     <!--Feature: Insights-->
-    <div id="section2" class="section site__container site__container--lightgray">
+    <div id="section__2" class="section site__container site__container--lightgray">
 
         <div class="site__container__section">
 
@@ -65,7 +65,7 @@
     </div>
 
     <!--Feature: Import expenses-->
-    <div id="section3" class="section section site__container">
+    <div id="section__3" class="section section site__container">
 
         <div class="site__container__section">
 
@@ -84,7 +84,7 @@
     </div>
 
     <!--Feature: Goals-->
-    <div id="section4" class="section site__container site__container--lightgray">
+    <div id="section__4" class="section site__container site__container--lightgray">
 
         <div class="site__container__section">
 
@@ -98,7 +98,7 @@
 
     </div>
 
-    <div id="section5" class="section site__container site__container--darkgray">
+    <div id="section__5" class="section site__container site__container--darkgray">
 
         <div class="site__container__section">
 
