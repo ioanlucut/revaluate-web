@@ -1,192 +1,163 @@
-<div class="site__container site__container--fullheight site__container--homemain">
+<div fullpage-initializer>
 
-    <div header-home></div>
+    <div id="section__0" class="section active site__container site__container--homemain">
 
-    <div class="site__container__section">
+        <div header-home></div>
 
-        <h1 class="home__title" translate="HOME.TITLE_TEXT"></h1>
+        <div class="site__container__section">
 
-        <h3 class="home__description" translate="HOME.DESCRIPTION_TEXT"></h3>
-    </div>
+            <h1 class="home__title" translate="HOME.TITLE_TEXT"></h1>
 
-    <div class="site__container__section">
-        <button class="home__section__start__btn" type="button" account-modal-toggle="requestSignUpRegistration">Get started for FREE!</button>
-        <button class="home__section__learn__btn" type="button" du-smooth-scroll="site__container--scroll-target">Learn more</button>
-    </div>
-
-    <div class="site__container__section home__section__tour-screenmain">
-        <img src="assets/img/home/screen_main.png">
-    </div>
-
-    <div class="site__container__section home__section__tour-arrow">
-        <span class="icon-chevron-down-circled" du-smooth-scroll="site__container--scroll-target"></span>
-    </div>
-
-</div>
-
-<!--Feature: Save expenses-->
-<div id="site__container--scroll-target" class="site__container">
-
-    <div class="site__container__section">
-
-        <div class="site__container__section__feature__text">
-            <h2>Easily save your expenses</h2>
-
-            <div>You can very easily save your expenses.</div>
+            <h3 class="home__description" translate="HOME.DESCRIPTION_TEXT"></h3>
         </div>
 
-        <div class="site__container__section__feature__img">
-            <img src="assets/img/home/wallet.png">
+        <div class="site__container__section">
+            <button class="home__section__start__btn" type="button" account-modal-toggle="requestSignUpRegistration">Get started for FREE!</button>
+            <button class="home__section__learn__btn" type="button" ng-click="fullpageCtrl.scrollDownTo(2)">Learn more</button>
+        </div>
+
+        <div class="site__container__section home__section__tour-screenmain">
+            <img src="assets/img/home/screen_main.png">
+        </div>
+
+        <div class="site__container__section home__section__tour-arrow">
+            <span class="icon-chevron-down-circled" ng-click="fullpageCtrl.scrollDownTo(2)"></span>
         </div>
 
     </div>
 
-</div>
+    <!--Feature: Save expenses-->
+    <div id="section__1" class="section site__container">
 
-<!--Feature: Insights-->
-<div class="site__container site__container--lightgray">
+        <div class="site__container__section">
 
-    <div class="site__container__section">
+            <div class="site__container__section__feature__text">
+                <h2>Easily save your expenses</h2>
 
-        <div class="site__container__section__feature__text">
-            <h2>Get meaningfull insights</h2>
+                <div>You can very easily save your expenses.</div>
+            </div>
 
-            <div>You've been already tracking your expenses? No worries, just import them into Revaluate.</div>
-        </div>
+            <div class="site__container__section__feature__img">
+                <img src="assets/img/home/wallet.png">
+            </div>
 
-        <div class="site__container__section__feature__img">
-            <img src="assets/img/home/insights.png">
-        </div>
-
-    </div>
-
-</div>
-
-
-<!--Feature: Import expenses-->
-<div class="site__container">
-
-    <div class="site__container__section">
-
-        <div class="site__container__section__feature__text">
-            <h2>Import your expenses</h2>
-
-            <div>You've been already tracking your expenses? No worries, just import them into Revaluate.</div>
-        </div>
-
-        <div class="site__container__section__feature__img">
-            <img src="assets/img/home/import.png">
         </div>
 
     </div>
 
-</div>
+    <!--Feature: Insights-->
+    <div id="section__2" class="section site__container site__container--lightgray">
 
-<!--Feature: Goals-->
-<div class="site__container site__container--lightgray">
+        <div class="site__container__section">
 
-    <div class="site__container__section">
+            <div class="site__container__section__feature__text">
+                <h2>Get meaningfull insights</h2>
 
-        <div class="site__container__section__feature__text">
-            <h2>Set achivable goals <span class="label-coming-soon">coming soon</span></h2>
+                <div>You've been already tracking your expenses? No worries, just import them into Revaluate.</div>
+            </div>
 
-            <div>You've been already tracking your expenses? No worries, just import them into Revaluate.</div>
+            <div class="site__container__section__feature__img">
+                <img src="assets/img/home/insights.png">
+            </div>
+
         </div>
 
     </div>
 
-</div>
+    <!--Feature: Import expenses-->
+    <div id="section__3" class="section section site__container">
 
-<!--Coming soon features-->
-<div class="site__container">
+        <div class="site__container__section">
 
-    <div class="site__container__section">
+            <div class="site__container__section__feature__text">
+                <h2>Import your expenses</h2>
 
-        <h2>And more to come<span class="label-coming-soon">in progress</span></h2>
+                <div>You've been already tracking your expenses? No worries, just import them into Revaluate.</div>
+            </div>
 
-        <ul class="site__container__section__nextfeatures">
-            <li>
-                <div>icon</div>
-                <h3>Plan your expenses ahead</h3>
-                <div>You'll be able to plan your expenses ahead so you'll know what to expect each month.</div>
-            </li>
-            <li>
-                <div>icon</div>
-                <h3>Track your debts and lendings</h3>
-                <div>Track how you stand with your debts and the money you lent.</div>
-            </li>
-            <li>
-                <div>icon</div>
-                <h3>Split bills with friends</h3>
-                <div>Easily split those expenses from multiple bills and multiple people.</div>
-            </li>
-        </ul>
+            <div class="site__container__section__feature__img">
+                <img src="assets/img/home/import.png">
+            </div>
+
+        </div>
 
     </div>
 
-</div>
+    <!--Feature: Goals-->
+    <div id="section__4" class="section site__container site__container--lightgray">
 
+        <div class="site__container__section">
 
-<!--Sign up -->
-<div class="site__container site__container--darkgray">
+            <div class="site__container__section__feature__text">
+                <h2>Set achivable goals <span class="label-coming-soon">coming soon</span></h2>
 
-    <div class="site__container__section">
+                <div>You've been already tracking your expenses? No worries, just import them into Revaluate.</div>
+            </div>
 
-        <div class="site__container__section__feature__text">
-            <!-- Title -->
-            <h1 class="">Sign Up</h1>
         </div>
 
-        <div class="home__section__signup" ng-controller="SignUpController">
+    </div>
 
-            <!-- Sign-up form -->
-            <form name="signUpForm" ng-submit="signUp(signUpData)" novalidate focus-first-error>
+    <div id="section__5" class="section site__container site__container--darkgray">
 
-                <!-- Flash messages. -->
-                <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+        <div class="site__container__section">
 
-                <!-- Form groups -->
-                <div class="form-group-input" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.firstName.$invalid || badPostSubmitResponse)}">
-                    <div class="form-group-input__message" ng-if="signUpForm.firstName.$invalid && signUpForm.$submitted">Please tell us your First Name.</div>
-                    <input class="form-group-input__input" type="text" name="firstName" placeholder="First Name" ng-model="signUpData.firstName" required />
-                </div>
+            <div class="site__container__section__feature__text">
+                <!-- Title -->
+                <h1 class="">Sign Up</h1>
+            </div>
 
-                <!-- Form group -->
-                <div class="form-group-input" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.lastName.$invalid || badPostSubmitResponse)}">
-                    <div class="form-group-input__message" ng-if="signUpForm.lastName.$invalid && signUpForm.$submitted">Please tell us your Last Name.</div>
-                    <input class="form-group-input__input" type="text" name="lastName" placeholder="Last Name" ng-model="signUpData.lastName" required />
-                </div>
+            <div class="home__section__signup" ng-controller="SignUpController">
 
-                <!-- Email input -->
-                <div class="form-group-input" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.email.$invalid || badPostSubmitResponse)}">
-                    <!-- Error messages -->
-                    <div class="form-group-input__message" ng-class="{'has-error': signUpForm.email.$invalid && signUpForm.$submitted}" ng-messages="signUpForm.email.$error" ng-if="signUpForm.$submitted">
-                        <div ng-message="required">Please add your email address.</div>
-                        <div ng-message="validEmail">Missed a letter? It looks like an invalid email address.</div>
-                        <div ng-message="uniqueEmail">This email address is already used.
-                            <a href="javascript:void(0)" account-modal-toggle="forgotPassword">Forgot your password?</a>
+                <!-- Sign-up form -->
+                <form name="signUpForm" ng-submit="signUp(signUpData)" novalidate focus-first-error>
+
+                    <!-- Flash messages. -->
+                    <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
+                    <!-- Form groups -->
+                    <div class="form-group-input" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.firstName.$invalid || badPostSubmitResponse)}">
+                        <div class="form-group-input__message" ng-if="signUpForm.firstName.$invalid && signUpForm.$submitted">Please tell us your First Name.</div>
+                        <input class="form-group-input__input" type="text" name="firstName" placeholder="First Name" ng-model="signUpData.firstName" required />
+                    </div>
+
+                    <!-- Form group -->
+                    <div class="form-group-input" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.lastName.$invalid || badPostSubmitResponse)}">
+                        <div class="form-group-input__message" ng-if="signUpForm.lastName.$invalid && signUpForm.$submitted">Please tell us your Last Name.</div>
+                        <input class="form-group-input__input" type="text" name="lastName" placeholder="Last Name" ng-model="signUpData.lastName" required />
+                    </div>
+
+                    <!-- Email input -->
+                    <div class="form-group-input" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.email.$invalid || badPostSubmitResponse)}">
+                        <!-- Error messages -->
+                        <div class="form-group-input__message" ng-class="{'has-error': signUpForm.email.$invalid && signUpForm.$submitted}" ng-messages="signUpForm.email.$error" ng-if="signUpForm.$submitted">
+                            <div ng-message="required">Please add your email address.</div>
+                            <div ng-message="validEmail">Missed a letter? It looks like an invalid email address.</div>
+                            <div ng-message="uniqueEmail">This email address is already used.
+                                <a href="javascript:void(0)" account-modal-toggle="forgotPassword">Forgot your password?</a>
+                            </div>
                         </div>
+                        <input class="form-group-input__input" type="email" name="email" placeholder="Email" ng-model="signUpData.email" required valid-email unique-email />
                     </div>
-                    <input class="form-group-input__input" type="email" name="email" placeholder="Email" ng-model="signUpData.email" required valid-email unique-email />
-                </div>
 
-                <!-- Form groups -->
-                <div class="form-group-input" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.password.$invalid || badPostSubmitResponse)}">
-                    <!-- Error messages -->
-                    <div class="form-group-input__message" ng-class="{'has-error': signUpForm.$submitted && signUpForm.password.$invalid}" ng-messages="signUpForm.password.$error" ng-if="signUpForm.$submitted">
-                        <div ng-message="required">Please choose a password.</div>
-                        <div ng-message="strongPassword">Please choose a password with at least 7 characters.</div>
+                    <!-- Form groups -->
+                    <div class="form-group-input" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.password.$invalid || badPostSubmitResponse)}">
+                        <!-- Error messages -->
+                        <div class="form-group-input__message" ng-class="{'has-error': signUpForm.$submitted && signUpForm.password.$invalid}" ng-messages="signUpForm.password.$error" ng-if="signUpForm.$submitted">
+                            <div ng-message="required">Please choose a password.</div>
+                            <div ng-message="strongPassword">Please choose a password with at least 7 characters.</div>
+                        </div>
+                        <input class="form-group-input__input" type="password" name="password" placeholder="Password" ng-model="signUpData.password" required strong-password />
                     </div>
-                    <input class="form-group-input__input" type="password" name="password" placeholder="Password" ng-model="signUpData.password" required strong-password />
-                </div>
 
-                <!-- Button container -->
-                <button class="home__section__signup__btn" type="submit">{{isRequestPending ? 'Signing up..' : 'Get started for FREE!'}}</button>
-            </form>
+                    <!-- Button container -->
+                    <button class="home__section__signup__btn" type="submit">{{isRequestPending ? 'Signing up..' : 'Get started for FREE!'}}</button>
+                </form>
+            </div>
         </div>
+
     </div>
 
+    <div footer-home class="view-container__footer"></div>
+
 </div>
-
-<div footer-home class="view-container__footer"></div>
-
