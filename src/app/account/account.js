@@ -29,15 +29,9 @@ angular
             // Logout page
             .state("account:logout", {
                 url: "/account/logout",
-                controller: "LogoutController",
+                controller: "AutoLogoutController",
+                controllerAs: 'vm',
                 templateUrl: "/app/account/partials/logout.html",
-                resolve: {
-                    isSuccessfullyLoggedOut: function ($q, AuthService) {
-                        AuthService.logout();
-
-                        return true;
-                    }
-                },
                 title: "Logout - Revaluate",
                 mixpanelId: MIXPANEL_EVENTS.accountLogout,
                 isPublicPage: true

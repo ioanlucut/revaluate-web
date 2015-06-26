@@ -30,7 +30,9 @@
                 <li>
                     <a href="javascript:void(0)" id="feedback-trigger" ng-controller="FeedbackModalController" ng-click="openFeedbackModal()">Tell us anything</a>
                 </li>
-                <li><a href="javascript:void(0)" ui-sref="account:logout">Logout</a></li>
+                <li>
+                    <a href="javascript:void(0)" ng-controller="LogoutController as vm" ng-click="vm.logOut()">Logout</a>
+                </li>
             </ul>
         </div>
 
