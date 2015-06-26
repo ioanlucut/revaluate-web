@@ -29,6 +29,10 @@
 // ---
 @import "../../bower_components/neat/app/assets/stylesheets/neat";
 // ---
+// fullpage.js
+// ---
+@import "../../bower_components/fullpage.js/jquery.fullPage";
+// ---
 // Normalize/Reset.
 // ---
 @import "layouts/normalize";
@@ -50,10 +54,6 @@
 // Selectize
 // ---
 @import "vendor-modified/selectize.default";
-// ---
-// fullpage.js
-// ---
-@import "../../bower_components/fullpage.js/jquery.fullPage";
 // ---
 // Fonts.
 // ---
