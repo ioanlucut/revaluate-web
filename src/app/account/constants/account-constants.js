@@ -47,10 +47,7 @@ angular
         updateCustomer: "payment/updateCustomer",
         updatePaymentMethod: "payment/updatePaymentMethod",
         removePaymentMethod: "payment/removePaymentMethod",
-        isPaymentStatusDefined: "payment/isPaymentStatusDefined",
-        //Below - deprecated
-        refreshToken: "auth/refresh_token",
-        requestSignUpRegistration: "account/send_email_verification_token"
+        isPaymentStatusDefined: "payment/isPaymentStatusDefined"
     })
     .constant("ACCOUNT_FORM_STATE", {
         login: "login",
