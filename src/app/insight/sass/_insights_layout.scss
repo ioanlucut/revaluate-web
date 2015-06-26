@@ -136,8 +136,12 @@
     width: 30%;
 
     span {
-      padding-left: 10px;
-      color: $gray-light-1;
+      //padding-left: 10px;
+      //color: $gray-light-1;
+    }
+
+    .currency__symbol {
+      padding: 0 2px;
     }
   }
 }

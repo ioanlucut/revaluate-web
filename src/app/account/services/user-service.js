@@ -32,9 +32,9 @@ angular
                 $http
                     .get(URLTo.api(USER_URLS.userUnique), {params: {email: email}})
                     .then(_.bind(function (response) {
-                        this.uniqueEmailCache[email] = response.data.isUnique;
+                        this.uniqueEmailCache[email] = response.data.isUniqueEmail;
                         deferred.resolve({
-                            isUnique: true,
+                            isUnique: response.data.isUniqueEmail,
                             email: email
                         });
                     }, this))

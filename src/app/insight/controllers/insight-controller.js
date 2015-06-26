@@ -24,6 +24,12 @@ angular
         $scope.alertIdentifierId = ALERTS_CONSTANTS.insights;
 
         /**
+         * Current user.
+         * @type {$rootScope.currentUser|*}
+         */
+        $scope.user = $rootScope.currentUser;
+
+        /**
          * Default insights loaded.
          */
         $scope.insight = insight;
