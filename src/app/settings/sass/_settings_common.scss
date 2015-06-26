@@ -65,7 +65,7 @@
     @include clearfix();
     @include section(100%);
     border-bottom: solid 1px $gray-light-2;
-    //border: solid 1px red;
+    @include no-user-select();
 
     &:last-child {
         margin-bottom: 0;

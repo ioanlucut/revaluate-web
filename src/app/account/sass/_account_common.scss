@@ -12,6 +12,7 @@
     padding: 40px;
     position: relative;
     background-color: $white;
+    @include no-user-select();
 }
 
 .account_trial_period_section {

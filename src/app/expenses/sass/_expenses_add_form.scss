@@ -6,6 +6,7 @@
     color: $black;
     position: relative;
     font-weight: $font-weight-regular;
+    @include no-user-select();
 
     .expense__form__price__input,
     .expense__form__category__input,
