@@ -93,7 +93,6 @@
     }
 
     div:first-child {
-      border: solid 2px blue;
       @include border-radius(50%);
       width: 150px;
       height: 150px;
@@ -103,6 +102,21 @@
     div:last-child {
       color: $gray-medium;
     }
+  }
+
+  .icon__calendar {
+    background: url("../assets/img/home/calendar.svg") no-repeat top left;
+    background-size: contain;
+  }
+
+  .icon__debts {
+    background: url("../assets/img/home/debts.svg") no-repeat top left;
+    background-size: contain;
+  }
+
+  .icon__split {
+    background: url("../assets/img/home/split.svg") no-repeat top left;
+    background-size: contain;
   }
 
 }
