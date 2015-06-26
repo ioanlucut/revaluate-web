@@ -30,7 +30,7 @@
             <form name="insightForm" class="insights__controls__form" ng-submit="submitLoadInsight()" novalidate>
 
                 <!-- Select prev month -->
-                <button type="button" class="insights__controls__form__arrow icon-chevron-left" ng-disabled="isLoading || ! canLoadPrevMonth()" ng-click="prevMonth()"></button>
+                <button type="button" class="insights__controls__form__arrow insights__controls__form__arrow--left icon-chevron-left" ng-disabled="isLoading || ! canLoadPrevMonth()" ng-click="prevMonth()"></button>
 
                 <div class="insights__controls__form__month" ng-class="{'has-error': insightForm.spentDate.$invalid && insightForm.$submitted}">
 
@@ -64,13 +64,13 @@
                 </div>
 
                 <!-- Select next month -->
-                <button type="button" class="insights__controls__form__arrow icon-chevron-right" ng-disabled="isLoading || ! canLoadNextMonth()" ng-click="nextMonth()"></button>
+                <button type="button" class="insights__controls__form__arrow insights__controls__form__arrow--right icon-chevron-right" ng-disabled="isLoading || ! canLoadNextMonth()" ng-click="nextMonth()"></button>
 
             </form>
 
             <div class="insights__controls__chart-toggle">
-                <a ng-class="{'insights__controls__chart-toggle__entry--active': activeChart === INSIGHTS_CHARTS.BAR}" href="javascript:void(0)" ng-click="setActiveChart(INSIGHTS_CHARTS.BAR)">Bar</a>
-                <a ng-class="{'insights__controls__chart-toggle__entry--active': activeChart === INSIGHTS_CHARTS.DOUGHNUT}" href="javascript:void(0)" ng-click="setActiveChart(INSIGHTS_CHARTS.DOUGHNUT)">Pie</a>
+                <a class="insights__controls__chart-toggle__entry" ng-class="{'insights__controls__chart-toggle__entry--active': activeChart === INSIGHTS_CHARTS.BAR}" href="javascript:void(0)" ng-click="setActiveChart(INSIGHTS_CHARTS.BAR)">Bar</a>
+                <a class="insights__controls__chart-toggle__entry" ng-class="{'insights__controls__chart-toggle__entry--active': activeChart === INSIGHTS_CHARTS.DOUGHNUT}" href="javascript:void(0)" ng-click="setActiveChart(INSIGHTS_CHARTS.DOUGHNUT)">Pie</a>
             </div>
 
         </div>
