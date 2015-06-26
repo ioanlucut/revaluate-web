@@ -52,10 +52,10 @@
     }
 
     .settings__box__payment__method__removebtn {
-      @include btn-link($brand-danger);
-      position: absolute;
-      top: 5px;
-      right: 10px;
+        @include btn-link($brand-danger);
+        position: absolute;
+        top: 5px;
+        right: 10px;
     }
 }
 

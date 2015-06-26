@@ -1,123 +1,123 @@
 .header__wrapper {
-  background-color: $header-background-color;
+    background-color: $header-background-color;
 }
 
 .header {
-  @include outer-container();
-  @include clearfix();
-  height: $header-height;
-  line-height: $header-height;
-  padding: 0;
+    @include outer-container();
+    @include clearfix();
+    height: $header-height;
+    line-height: $header-height;
+    padding: 0;
 }
 
 .header__brand {
-  float: left;
-  height: 60px;
-  position: relative;
-  margin-right: 40px;
+    float: left;
+    height: 60px;
+    position: relative;
+    margin-right: 40px;
 }
 
 .header__brand--logo {
-  @include size(40px 40px);
-  background: url("../assets/img/logo.svg") no-repeat top left;
-  background-size: contain;
-  position: absolute;
-  display: block;
-  left: 5px;
-  top: 10px;
+    @include size(40px 40px);
+    background: url("../assets/img/logo.svg") no-repeat top left;
+    background-size: contain;
+    position: absolute;
+    display: block;
+    left: 5px;
+    top: 10px;
 }
 
 .header__brand--name {
-  @include brand-inline();
-  color: $white;
-  display: none;
+    @include brand-inline();
+    color: $white;
+    display: none;
 }
 
 .header__navigation {
-  float: left;
-  margin-left: 40px;
-  padding: 0;
-  height: 60px;
-
-  li {
-    display: inline-block;
-    width: 80px;
-    margin: 0;
+    float: left;
+    margin-left: 40px;
     padding: 0;
-    text-align: center;
-    position: relative;
+    height: 60px;
 
-    a {
-      padding: 10px 5px 5px 5px;
-      color: lighten($brand-primary, 15%);
+    li {
+        display: inline-block;
+        width: 80px;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        position: relative;
 
-      &:hover {
-        color: lighten($brand-primary, 10%);
-      }
+        a {
+            padding: 10px 5px 5px 5px;
+            color: lighten($brand-primary, 15%);
+
+            &:hover {
+                color: lighten($brand-primary, 10%);
+            }
+        }
+
+        span {
+            color: lighten($header-background-color, 20%);
+            position: absolute;
+            top: 15px;
+            left: 7px;
+            font-size: 10px;
+        }
     }
 
-    span {
-      color: lighten($header-background-color, 20%);
-      position: absolute;
-      top: 15px;
-      left: 7px;
-      font-size: 10px;
+    .header__navigation--active {
+        a {
+            border-bottom: solid 2px $brand-danger;
+            color: lighten($brand-primary, 25%);
+        }
     }
-  }
-
-  .header__navigation--active {
-    a {
-      border-bottom: solid 2px $brand-danger;
-      color: lighten($brand-primary, 25%);
-    }
-  }
 }
 
 .header__dropdown {
-  @include calc(height, "#{$header-height} - 2px");
-  float: right;
-  border: solid 0px $gray-medium;
-  position: relative;
-
-  .header__dropdown__toggle {
-    @include btn($white);
-    background-color: transparent;
-    border-width: 0;
-    height: 100%;
-    color: $gray-light-1;
+    @include calc(height, "#{$header-height} - 2px");
+    float: right;
+    border: solid 0px $gray-medium;
     position: relative;
-    padding-left: 50px;
 
-    &:hover,
-    &:focus {
-      color: $gray-light-3;
-      background-color: transparent;
+    .header__dropdown__toggle {
+        @include btn($white);
+        background-color: transparent;
+        border-width: 0;
+        height: 100%;
+        color: $gray-light-1;
+        position: relative;
+        padding-left: 50px;
+
+        &:hover,
+        &:focus {
+            color: $gray-light-3;
+            background-color: transparent;
+        }
     }
-  }
 
-  .header__dropdown__avatar {
-    position: absolute;
-    left: 0;
-    top: 10px;
-    width: 40px;
-    height: 40px;
-    @include border-radius(50%);
-  }
-
-  .header__dropdown__menu {
-    right: 10px;
-    top: 50px;
-    @include box-shadow(none);
-    @include border-radius($border-radius-base);
-    padding: 0;
-
-    li {
-      padding: 0;
-      margin: 0;
-
-      a {
-        padding: 10px 15px;
-      }
+    .header__dropdown__avatar {
+        position: absolute;
+        left: 0;
+        top: 10px;
+        width: 40px;
+        height: 40px;
+        @include border-radius(50%);
     }
-  }
+
+    .header__dropdown__menu {
+        right: 10px;
+        top: 50px;
+        @include box-shadow(none);
+        @include border-radius($border-radius-base);
+        padding: 0;
+
+        li {
+            padding: 0;
+            margin: 0;
+
+            a {
+                padding: 10px 15px;
+            }
+        }
+    }
 }

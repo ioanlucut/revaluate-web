@@ -1,31 +1,31 @@
 .import__upload {
-  padding: 30px;
-  text-align: center;
+    padding: 30px;
+    text-align: center;
 }
 
 .import__upload__area {
-  @include border-radius(5px);
-  border: dashed 2px $gray-light-1;
+    @include border-radius(5px);
+    border: dashed 2px $gray-light-1;
 }
 
 .import__upload__area--over {
-  @include border-radius(5px);
-  border: dashed 2px $brand-primary;
+    @include border-radius(5px);
+    border: dashed 2px $brand-primary;
 }
 
 .import__upload__btn {
-  position: relative;
-  overflow: hidden;
+    position: relative;
+    overflow: hidden;
 
-  input.import__upload__btn__input {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 0;
-    padding: 70px 0;
-    font-size: 20px;
-    cursor: pointer;
-    opacity: 0;
-    filter: alpha(opacity=0);
-  }
+    input.import__upload__btn__input {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 70px 0;
+        font-size: 20px;
+        cursor: pointer;
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
 }

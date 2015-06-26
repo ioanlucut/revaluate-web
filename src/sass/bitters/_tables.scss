@@ -1,27 +1,27 @@
 table {
-  @include font-feature-settings("kern", "liga", "tnum");
-  border-collapse: collapse;
-  margin: $small-spacing 0;
-  table-layout: fixed;
-  width: 100%;
+    @include font-feature-settings("kern", "liga", "tnum");
+    border-collapse: collapse;
+    margin: $small-spacing 0;
+    table-layout: fixed;
+    width: 100%;
 }
 
 th {
-  font-weight: $font-weight-regular;
-  padding: $small-spacing 0;
-  text-align: left;
+    font-weight: $font-weight-regular;
+    padding: $small-spacing 0;
+    text-align: left;
 }
 
 td {
-  padding: 7px 0;
+    padding: 7px 0;
 }
 
 tr,
 td,
 th {
-  vertical-align: middle;
+    vertical-align: middle;
 }
 
 tr {
-  border-bottom: solid 1px $gray-light-2;
+    border-bottom: solid 1px $gray-light-2;
 }

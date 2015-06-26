@@ -8,7 +8,6 @@
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/popovers";
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/dropdowns";
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_modals.scss";
-
 // ---
 // GOOGLE FONT.
 // ---
@@ -16,66 +15,54 @@
 //@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
 //@import url(http://fonts.googleapis.com/css?family=Indie+Flower);
 //@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
-
 // ---
 // BOURBON.
 // ---
 @import "../../bower_components/bourbon/app/assets/stylesheets/bourbon";
-
 // ---
 // BITTERS.
 // ---
 @import "bitters/base";
 @import "grid-settings";
-
 // ---
 // NEAT.
 // ---
 @import "../../bower_components/neat/app/assets/stylesheets/neat";
-
+// ---
+// fullpage.js
+// ---
+@import "../../bower_components/fullpage.js/jquery.fullPage";
 // ---
 // Normalize/Reset.
 // ---
 @import "layouts/normalize";
 @import "layouts/scafolding";
-
 // ---
 // Simptip.
 // ---
 @import "../../bower_components/simptip/simptip";
 @import "vendor-modified/simptip";
-
 // ---
 // Animate css.
 // ---
 @import "../../bower_components/animate.css-scss/animate";
-
 // ---
 // Loading bar.
 // ---
 @import "vendor-modified/loading_bar";
-
 // ---
 // Selectize
 // ---
 @import "vendor-modified/selectize.default";
-
-// ---
-// fullpage.js
-// ---
-@import "../../bower_components/fullpage.js/jquery.fullPage";
-
 // ---
 // Fonts.
 // ---
 @import "fonts/app-icons";
 @import "fonts/montserrat";
-
 // ---
 // Image sprites.
 // ---
 @import "img/_sprites.scss";
-
 // ---
 // Revaluate Components.
 // ---
@@ -84,7 +71,6 @@
 @import "components/dropdowns";
 @import "components/toggle";
 @import "components/selectize";
-
 // ---
 // Revaluate styles.
 // ---

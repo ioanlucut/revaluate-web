@@ -1,0 +1,37 @@
+.account {
+    @include outer-container();
+    text-align: center;
+    padding-top: 50px;
+}
+
+.account__section {
+    @include span-columns(6);
+    @include shift(3);
+    @include border-radius($base-border-radius);
+    border: solid 1px $gray-light-1;
+    padding: 40px;
+    position: relative;
+    background-color: $white;
+    @include no-user-select();
+}
+
+.account__title {
+    padding: 10px;
+    font-size: $font-size-h2;
+    font-weight: $font-weight-bold;
+    text-align: center;
+    color: $base-font-color;
+}
+
+.account__explain {
+    padding-top: 20px;
+    font-size: $font-size-base;
+    text-align: center;
+}
+
+.account__description {
+    padding: 10px 10px 40px 10px;
+    color: $gray-medium;
+    font-size: 22px;
+    font-weight: $font-weight-light;
+}
