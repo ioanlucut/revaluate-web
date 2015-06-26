@@ -1,8 +1,8 @@
 angular.module("config", [])
 
 .constant("ENV", {
-	"name": "development",
-	"apiEndpoint": "http://revaluate-api-dev.herokuapp.com",
+	"name": "localhost",
+	"apiEndpoint": "http://localhost:8080",
 	"mixPanelId": "216177bcdddef0cf2edd1650e63a3449",
 	"isProduction": false
 })
