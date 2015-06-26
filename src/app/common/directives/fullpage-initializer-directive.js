@@ -15,7 +15,7 @@ angular
             controllerAs: "fullpageCtrl",
             link: function (scope, el, attrs) {
                 $(el).fullpage({
-                    sectionsColor: ['#363b48', '#fff', '#e8e8e8', '#fff', '#e8e8e8', '#fff', '#333'],
+                    sectionsColor: ['#363b48', '#e8e8e8', '#fff', '#e8e8e8', '#fff', '#333'],
                     navigation: true,
                     navigationPosition: 'right',
                     responsiveWidth: 900
