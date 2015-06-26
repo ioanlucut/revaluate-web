@@ -26,20 +26,20 @@
     font-weight: $font-weight-light;
 }
 
-.settings__box__payment__subscription__btn {
-    @include btn($brand-primary);
-}
+//.settings__box__payment__subscription__btn {
+//  @include btn($brand-danger);
+//  font-size: $font-size-large;
+//}
 
 // Payment method
 // -------------------------
 
 .settings__box__payment__method {
-    border: solid 1px $gray-lighter;
+    border: solid 1px $gray-light-2;
     width: 100%;
-    max-width: 400px;
     margin-bottom: 20px;
     padding: 10px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+    //box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
     position: relative;
 
     .settings__box__payment__method__cardno {
@@ -51,10 +51,11 @@
         color: $gray-medium;
     }
 
-    img {
-        position: absolute;
-        top: 10px;
-        right: 10px;
+    .settings__box__payment__method__removebtn {
+      @include btn-link($brand-danger);
+      position: absolute;
+      top: 5px;
+      right: 10px;
     }
 }
 

@@ -22,7 +22,7 @@
                 </ui-select>
 
                 <!-- Error messages -->
-                <div class="form-group-input__message form-group-input__message--currency" ng-class="{'has-error': vm.preferencesForm.category.$invalid && expenseForm.$submitted}" ng-messages="vm.preferencesForm.$error" ng-if="vm.preferencesForm.$submitted">
+                <div class="form-group-input__message form-group-input__message--currency" ng-class="{'has-error': vm.preferencesForm.currency.$invalid}" ng-messages="vm.preferencesForm.currency.$error" ng-if="vm.preferencesForm.$submitted">
                     <div ng-message="required">Please add a currency.</div>
                 </div>
             </div>

@@ -28,9 +28,7 @@ angular
         function getInitialProfileData() {
             return {
                 firstName: vm.user.model.firstName,
-                lastName: vm.user.model.lastName,
-                initiated: vm.user.model.initiated,
-                currency: vm.user.model.currency
+                lastName: vm.user.model.lastName
             };
         }
 
@@ -51,7 +49,7 @@ angular
 
                 // Update the user
                 vm.user
-                    .save(vm.profileData)
+                    .updateAccountDetails(vm.profileData)
                     .then(function (response) {
                         // ---
                         // Reload data with given response.

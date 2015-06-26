@@ -4,6 +4,8 @@ angular
     .module("revaluate.feedback")
     .controller("FeedbackModalController", function ($scope, FeedbackModalService, Feedback, $timeout) {
 
+        var TIMEOUT = 2500;
+
         /**
          * Feedback.
          */
@@ -22,7 +24,8 @@ angular
             /**
              * If send feedback modal is opened
              */
-            FeedbackModalService.modalInstance
+            FeedbackModalService
+                .modalInstance
                 .opened
                 .then(function () {
                     $scope.isModalOpened = true;
@@ -34,7 +37,9 @@ angular
          * Dismiss the create/update modal.
          */
         $scope.dismissFeedbackModal = function () {
-            FeedbackModalService.modalInstance.dismiss("cancel");
+            FeedbackModalService
+                .modalInstance
+                .dismiss("cancel");
 
             $scope.isModalOpened = false;
         };
@@ -49,26 +54,25 @@ angular
                 // Is sending feedback
                 $scope.isSending = true;
 
-                $scope.feedback.send()
+                $scope
+                    .feedback
+                    .send()
                     .then(function () {
-
                         $scope.isSent = true;
 
                         $timeout(function () {
                             $scope.isSending = false;
-
-                            FeedbackModalService.modalInstance.close();
-                        }, 2500);
+                            FeedbackModalService
+                                .modalInstance
+                                .close();
+                        }, TIMEOUT);
 
                     })
                     .catch(function () {
-
-                        // Error
                         $scope.isSending = false;
                         alert("Something went wrong. Please try again.");
                     })
                     .finally(function () {
-
                         $scope.isModalOpened = false;
                         $scope.isSending = false;
                     });

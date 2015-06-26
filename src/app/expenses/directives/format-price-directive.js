@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.expenses")
-    .directive('formatPrice', ['$filter', function ($filter) {
+    .directive('formatPrice', function () {
         return {
             require: '?ngModel',
             link: function (scope, elem, attrs, ctrl) {
@@ -18,6 +18,7 @@ angular
                 ctrl.$formatters.unshift(function () {
                     elem[0].value = parseInt(ctrl.$modelValue, 10) * 100;
                     elem.priceFormat(options);
+
                     return elem[0].value;
                 });
 
@@ -29,4 +30,4 @@ angular
                 });
             }
         };
-    }]);
+    });

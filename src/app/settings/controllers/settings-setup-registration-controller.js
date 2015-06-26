@@ -115,7 +115,7 @@ angular
             }
 
             var result = _.some(vm.categories, function (category) {
-                return category.name === vm.categoryOnTheFly;
+                return category.name.toUpperCase() === vm.categoryOnTheFly.toUpperCase();
             });
 
             if ( result ) {
@@ -189,10 +189,10 @@ angular
             // Try to save them at once and if successfully, update the user.
             // ---
             CategoryService
-                .bulkCreate(selectedCategoriesToBeSaved)
+                .setupBulkCreateCategories(selectedCategoriesToBeSaved)
                 .then(function () {
                     vm.user
-                        .save(userProfileToBeUpdated)
+                        .updateInitiatedStatus(userProfileToBeUpdated)
                         .then(function (response) {
                             deferred.resolve(response);
                         })

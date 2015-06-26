@@ -19,7 +19,6 @@ angular
     ])
     .config(function ($httpProvider) {
         $httpProvider.interceptors.push("JWTInterceptor");
-        $httpProvider.interceptors.push("ActivityInterceptor");
         $httpProvider.interceptors.push("ErrorInterceptor");
     })
     .run(function () {

@@ -1,19 +1,20 @@
 'use strict';
 
 /**
- * Logout controller responsible for user logout actions.
+ * Logout controller responsible for user logout action.
  */
 angular
     .module("revaluate.account")
-    .controller("LogoutController", function ($scope, $timeout, StatesHandler, isSuccessfullyLoggedOut) {
+    .controller("LogoutController", function ($scope, $timeout, StatesHandler, AuthService) {
 
-        $scope.isSuccessfullyLoggedOut = isSuccessfullyLoggedOut;
+        /* jshint validthis: true */
+        var vm = this;
 
-        /**
-         * Redirect to home after 1,5 sec.
-         */
-        $timeout(function () {
-            StatesHandler.goHome();
-        }, 1500);
+        vm.logOut = function () {
+            $timeout(function () {
+                AuthService.logout();
+                StatesHandler.goHome();
+            });
+        };
 
     });

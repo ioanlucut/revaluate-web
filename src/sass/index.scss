@@ -51,14 +51,19 @@
 @import "../../bower_components/animate.css-scss/animate";
 
 // ---
-// Angucomplete.
+// Loading bar.
 // ---
-@import "vendor-modified/angucomplete";
+@import "vendor-modified/loading_bar";
 
 // ---
 // Selectize
 // ---
 @import "vendor-modified/selectize.default";
+
+// ---
+// fullpage.js
+// ---
+@import "../../bower_components/fullpage.js/jquery.fullPage";
 
 // ---
 // Fonts.
@@ -92,3 +97,4 @@
 @import "../app/settings/sass/settings";
 @import "../app/import/sass/import";
 @import "../app/feedback/sass/feedback";
+@import "../app/contact/sass/contact";

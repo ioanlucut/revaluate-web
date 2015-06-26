@@ -88,13 +88,6 @@ angular
         });
 
         /**
-         * Track activity - for animation loading bar
-         */
-        $rootScope.$on('$stateChangeStart', function () {
-            $rootScope.$broadcast(ACTIVITY_INTERCEPTOR.activityStart);
-        });
-
-        /**
          * Track mixpanel activity
          */
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
