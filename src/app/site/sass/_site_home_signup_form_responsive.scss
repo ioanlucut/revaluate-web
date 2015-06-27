@@ -1,0 +1,13 @@
+@media (max-width: $screen-sm-min) {
+
+    .home__section__signup {
+        @include span-columns(6);
+        @include shift(0);
+    }
+}
+
+@media (max-width: $screen-xs-min) {
+
+    .home__section__signup {
+    }
+}
