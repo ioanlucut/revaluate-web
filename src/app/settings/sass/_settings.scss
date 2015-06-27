@@ -1,8 +1,12 @@
 /* Import sub-modules */
 @import "settings_common";
+@import "settings_common_responsive";
 @import "settings_profile";
 @import "settings_account_delete_confirmation";
 @import "settings_preferences";
 @import "settings_payment";
 @import "settings_payment_add";
 @import "signup_setup";
+@import "signup_setup_responsive";
+@import "signup_setup_categories";
+@import "signup_setup_categories_responsive";

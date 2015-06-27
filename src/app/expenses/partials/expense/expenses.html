@@ -74,7 +74,7 @@
 
         <!-- Button container -->
         <div class="expense__form__submit__save">
-            <button class="expense__edit__form__savebtn" type="submit">Add</button>
+            <button class="expense__edit__form__savebtn" type="submit">{{isSaving ? 'Adding' : 'Add'}}</button>
         </div>
     </form>
 
@@ -85,12 +85,12 @@
 
     <div class="expenses__bulk-actions__buttons">
 
-        <div class="expenses__bulk-actions__delete">
-            <button class="expenses__bulk-actions__delete__btn-delete" ng-click="performBulkDelete()">{{isBulkDeleting ? 'Deleting...' : 'Delete'}}</button>
+        <div class="expenses__bulk-actions__buttons__delete">
+            <button class="expenses__bulk-actions__buttons__delete__btn-delete" ng-click="performBulkDelete()">{{isBulkDeleting ? 'Deleting...' : 'Delete'}}</button>
         </div>
 
-        <div class="expenses__bulk-actions__cancel">
-            <button class="expenses__bulk-actions__delete__btn-cancel" ng-click="cancelBulkAction()">Nevermind</button>
+        <div class="expenses__bulk-actions__buttons__cancel">
+            <button class="expenses__bulk-actions__buttons__delete__btn-cancel" ng-click="cancelBulkAction()">Nevermind</button>
         </div>
 
     </div>
@@ -102,7 +102,7 @@
     <div class="expenses__empty-state__icon"></div>
     <h1>No expenses yet.</h1>
 
-    <div>Here's where your expenses will show up.</div>
+    <div>It seems like you have no expenses yet. Start adding some or <a href="javascript:void(0)" ui-sref="settings.import.choose">import from csv</a>.</div>
 </div>
 
 

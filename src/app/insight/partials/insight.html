@@ -20,7 +20,9 @@
         <div class="insights__empty-state__icon"></div>
         <h1>No data yet.</h1>
 
-        <div>Add some expenses to get insights.</div>
+        <div>Add some expenses or <a href="javascript:void(0)" ui-sref="settings.import.choose">import from other
+            apps</a> using csv export.
+        </div>
     </div>
 
     <div ng-show="insight.model.totalNumberOfTransactions !== 0">
@@ -35,7 +37,7 @@
                 <div class="insights__controls__form__month" ng-class="{'has-error': insightForm.spentDate.$invalid && insightForm.$submitted}">
 
                     <!--Hidden input of the insight chosen date-->
-                    <input type="hidden" name="spentDate" ng-model="insightData.spentDate" required valid-date />
+                    <input type="hidden" name="spentDate" ng-model="insightData.spentDate" required valid-date/>
 
                     <!--insight date picker-->
                     <div class="insight__form__date__input">
@@ -150,8 +152,10 @@
                 </div>
                 <div>
                     The category with the most transactions is
-                    <span class="label-uppercase">{{insight.model.categoryWithTheMostTransactionsInsightsDTO.categoryDTO.name}}</span>, with
-                    <span>{{insight.model.categoryWithTheMostTransactionsInsightsDTO.numberOfTransactions}}</span> transactions.
+                    <span class="label-uppercase">{{insight.model.categoryWithTheMostTransactionsInsightsDTO.categoryDTO.name}}</span>,
+                    with
+                    <span>{{insight.model.categoryWithTheMostTransactionsInsightsDTO.numberOfTransactions}}</span>
+                    transactions.
 
                 </div>
             </div>

@@ -1,0 +1,48 @@
+@media (max-width: $screen-sm-min) {
+
+    .view-container__content--settings {
+    }
+
+    .view-container__content__admin__aside {
+
+        li {
+
+            a {
+
+                &:hover {
+                }
+
+                &:focus {
+                }
+            }
+        }
+
+        .tab__active {
+
+            a {
+            }
+        }
+    }
+
+    .view-container__content__admin__section {
+    }
+
+    .settings__title {
+    }
+
+    .settings__title__h2 {
+    }
+
+    .settings__box {
+    }
+
+    .settings__box__section--large,
+    .settings__box__section--medium,
+    .settings__box__section--small {
+        width: 100%
+    }
+
+    .settings__btn__save {
+    }
+
+}

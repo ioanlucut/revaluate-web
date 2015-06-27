@@ -1,28 +1,39 @@
 .footer__home {
-    width: 100%;
-    height: $footer__home-height;
-    padding: 10px 5px 30px 5px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    background-color: $white;
-    color: $gray-medium;
+  width: 100%;
+  height: $footer__home-height;
+  padding: 10px 5px 30px 5px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  background-color: $gray-dark-2;
+  color: $gray-medium;
 }
 
 .footer__home__wrapper {
-    @include outer-container();
+  @include outer-container();
 }
 
 .footer__home__logo {
-    @include span-columns(4);
-    color: $black;
+  @include span-columns(3);
+  color: $gray-light-1;
 }
 
 .footer__home__links {
-    @include span-columns(3);
-    @include shift(5);
+  @include span-columns(9);
 
-    li {
+  li {
+    color: $gray-dark-1;
+    display: inline-block;
+    padding: 5px 10px;
+    float: right;
 
+    a {
+      color: $gray-dark-1;
+
+      &:hover {
+        color: $gray-medium;
+      }
     }
+  }
 }
