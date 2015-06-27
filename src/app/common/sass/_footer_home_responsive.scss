@@ -1,0 +1,25 @@
+@media (max-width: 600px) {
+  .footer__home__logo {
+    @include span-columns(6);
+  }
+
+  .footer__home__links {
+    @include span-columns(6);
+    @include shift(6);
+  }
+}
+
+@media (max-width: 400px) {
+  .footer__home__logo {
+    @include span-columns(12);
+  }
+
+  .footer__home__links {
+    @include span-columns(12);
+    @include shift(0);
+
+    li {
+      padding: 5px 0;
+    }
+  }
+}
