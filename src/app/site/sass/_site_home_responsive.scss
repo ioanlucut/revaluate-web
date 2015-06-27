@@ -18,6 +18,21 @@
     height: 45px;
   }
 
+  .site__container__section__feature__text {
+    font-size: 20px;
+
+    h2 {
+      font-size: 40px;
+    }
+  }
+
+  .site__container__section__nextfeatures {
+
+    li {
+      @include span-columns(12);
+    }
+  }
+
 }
 
 @media (max-width: 500px) {
@@ -31,6 +46,12 @@
     margin: 5px;
   }
 
+  .site__container__section__feature__text {
+
+    h2 {
+      font-size: 30px;
+    }
+  }
 }
 
 @media (max-width: 400px) {
