@@ -1,0 +1,7 @@
+.site__container__section__feature--left {
+    @include fadeInLeft();
+}
+
+.site__container__section__feature--right {
+    @include fadeInRight();
+}

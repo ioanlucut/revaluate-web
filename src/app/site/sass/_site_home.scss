@@ -61,7 +61,6 @@
 
 .site__container__section__feature__text {
   @include span-columns(6);
-  @include fadeInRight();
   text-align: left;
   font-size: 25px;
   font-weight: $font-weight-light;
