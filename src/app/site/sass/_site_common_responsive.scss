@@ -1,21 +1,29 @@
 @media (max-width: 600px) {
 
-  .site__container__section {
+    .site__container__section {
 
-    h2 {
-      font-size: 40px;
+        h2 {
+            font-size: 40px;
+        }
     }
-  }
+
+    .site__container--homemain {
+
+        .site__container__section {
+            width: 100%;
+            max-width: 100%;
+        }
+    }
 
 }
 
 @media (max-width: 500px) {
 
-  .site__container__section {
+    .site__container__section {
 
-    h2 {
-      font-size: 30px;
+        h2 {
+            font-size: 30px;
+        }
     }
-  }
 
 }
