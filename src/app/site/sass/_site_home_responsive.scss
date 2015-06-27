@@ -4,6 +4,21 @@
     display: none;
   }
 
+  .site__container__section__feature__text {
+    @include span-columns(12);
+    text-align: center;
+    margin-bottom: 50px;
+
+    h2 {
+      font-size: 40px;
+      margin-bottom: 70px;
+    }
+  }
+
+  .site__container__section__feature__img {
+    @include span-columns(8);
+    @include shift(2);
+  }
 }
 
 @media (max-width: 600px) {
@@ -22,8 +37,14 @@
     font-size: 20px;
 
     h2 {
-      font-size: 40px;
+      font-size: 35px;
+      margin-bottom: 50px;
     }
+  }
+
+  .site__container__section__feature__img {
+    @include span-columns(10);
+    @include shift(1);
   }
 
   .site__container__section__nextfeatures {
@@ -47,9 +68,11 @@
   }
 
   .site__container__section__feature__text {
+    margin-bottom: 30px;
 
     h2 {
       font-size: 30px;
+      margin-bottom: 30px;
     }
   }
 }
