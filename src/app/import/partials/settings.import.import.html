@@ -44,6 +44,8 @@
                 <div class="import__edit__categories__src__name">{{categoryMatchCandidate.categoryCandidateName}}</div>
             </div>
 
+            <div class="import__edit__categories__arrow">&#8594;</div>
+
             <!--Category select-->
             <ng-form class="import__edit__categories__dest" name="expensesImportCategoryMatchEntryForm" ng-if="categoryMatchCandidate.selected">
 
@@ -69,8 +71,6 @@
             <div class="import__edit__categories__ignored" ng-if="! categoryMatchCandidate.selected">
                 Expenses in <strong>{{categoryMatchCandidate.categoryCandidateName}}</strong> will be ignored.
             </div>
-
-            <div class="import__edit__categories__arrow">&#8594;</div>
 
         </div>
 

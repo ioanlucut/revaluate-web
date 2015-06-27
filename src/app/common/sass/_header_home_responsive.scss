@@ -1,0 +1,23 @@
+@media (max-width: 600px) {
+
+  .header-home__navigation {
+
+    li:first-child {
+      display: none;
+    }
+  }
+
+  .header-home__navigation--signupbtn {
+    display: none;
+  }
+}
+
+@media (max-width: 400px) {
+
+  .header-home__navigation {
+
+    li:nth-child(2) {
+      display: none;
+    }
+  }
+}

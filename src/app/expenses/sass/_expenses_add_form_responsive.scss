@@ -1,0 +1,159 @@
+@media (max-width: $screen-sm-min) {
+
+    .expenses__form {
+        padding: 15px 20px;
+        margin: 5px auto 10px auto;
+
+        .expense__form__price__input,
+        .expense__form__category__input,
+        .expense__form__details__input,
+        .expense__form__date__input {
+            border-width: 2px 2px;
+            border-color: $add-expense-form-border-color;
+            border-radius: 0;
+        }
+    }
+
+    // Price input styling
+    // ----------------------
+
+    .expense__form__price {
+        width: 50%;
+
+        .expense__form__price__input {
+        }
+
+        .expense__form__price__currency {
+        }
+    }
+
+    // Category input styling
+    // ----------------------
+
+    .expense__form__category {
+        width: 50%;
+
+        .category-select__input {
+
+            .selectize-input {
+                border-width: 2px 2px !important;
+                min-width: 100%;
+            }
+        }
+    }
+
+    // Details input styling
+    // -------------------------
+    .expense__form__details {
+        width: 50%;
+        margin-top: 15px;
+
+        .expense__form__details__input {
+        }
+    }
+
+    // Date input styling
+    // -------------------------
+    .expense__form__date {
+        width: 50%;
+        margin-top: 15px;
+
+        .expense__form__date__input {
+
+            &:focus {
+                border: solid 2px $brand-primary;
+            }
+
+            & > button {
+            }
+        }
+
+        & > .form-group-input__message {
+        }
+    }
+
+    .expense__form__submit__save {
+        width: 100%;
+        margin-top: 15px;
+
+        .expense__edit__form__savebtn {
+        }
+    }
+
+    .expense__form__submit__cancel {
+        float: left;
+        width: 100%;
+
+        .expense__edit__form__cancelbtn {
+        }
+    }
+}
+
+@media (max-width: $screen-xs-min) {
+
+    // Price input styling
+    // ----------------------
+
+    .expense__form__price {
+        width: 100%;
+
+        .expense__form__price__input {
+        }
+
+        .expense__form__price__currency {
+        }
+    }
+
+    // Category input styling
+    // ----------------------
+
+    .expense__form__category {
+        width: 100%;
+        margin-top: 15px;
+
+        .category-select__input {
+
+            .selectize-input {
+            }
+        }
+    }
+
+    // Details input styling
+    // -------------------------
+    .expense__form__details {
+        width: 100%;
+
+        .expense__form__details__input {
+        }
+    }
+
+    // Date input styling
+    // -------------------------
+    .expense__form__date {
+        width: 100%;
+
+        .expense__form__date__input {
+
+            &:focus {
+            }
+
+            & > button {
+            }
+        }
+
+        & > .form-group-input__message {
+        }
+    }
+
+    .expense__form__submit__save {
+
+        .expense__edit__form__savebtn {
+        }
+    }
+
+    .expense__form__submit__cancel {
+
+        .expense__edit__form__cancelbtn {
+        }
+    }
+}

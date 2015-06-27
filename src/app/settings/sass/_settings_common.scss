@@ -51,7 +51,6 @@
     text-align: left;
     font-size: 20px;
     font-weight: $font-weight-regular;
-    //border: solid 1px red;
     width: 100%;
 }
 
@@ -73,22 +72,22 @@
     }
 }
 
-.settings__box__section--100,
-.settings__box__section--75,
-.settings__box__section--50 {
+.settings__box__section--large,
+.settings__box__section--medium,
+.settings__box__section--small {
     float: left;
     padding: 10px;
 }
 
-.settings__box__section--100 {
+.settings__box__section--large {
     width: 100%;
 }
 
-.settings__box__section--75 {
+.settings__box__section--medium {
     width: 75%;
 }
 
-.settings__box__section--50 {
+.settings__box__section--small {
     width: 50%;
 }
 

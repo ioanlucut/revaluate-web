@@ -29,11 +29,11 @@ $heading-line-height: 1.2;
 $header-height: 60px;
 $setup-currency-input-width: 320px;
 $footer-height: 50px;
-$footer__home-height: 100px;
+$footer__home-height: 150px;
 $settings-aside-width: 180px;
 $add-expense-form-height: 50px;
 $add-category-form-height: 40px;
-$category-select-width: 240px;
+$category-select-width: 100%;
 $category-select-height: 35px;
 $selectize-dropdown-height: 45px;
 
@@ -102,7 +102,7 @@ $action-color: $brand-primary;
 
 // Border
 $base-border-color: $gray-light-1;
-$base-border: 2px solid $base-border-color;
+$base-border: 1px solid $base-border-color;
 // DON'T EVEN THINK ABOUT TOUCHING THIS !!!
 
 // Forms

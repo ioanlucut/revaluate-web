@@ -1,15 +1,15 @@
 .site__container {
-  text-align: center;
-  padding: 30px 0;
-  background-color: $white;
+    text-align: center;
+    padding: 10px 0;
+    background-color: $white;
 
-  &:last-of-type {
-    padding-bottom: $footer__home-height;
-  }
+    &:last-of-type {
+        padding-bottom: $footer__home-height;
+    }
 
-  h1 {
-    margin: 0;
-  }
+    h1 {
+        margin: 0;
+    }
 }
 
 .site__container--homemain {
@@ -24,32 +24,41 @@
 
 #section__0 {
 
-  .fp-tableCell {
-    display: block;
-  }
+    .fp-tableCell {
+        display: block;
+    }
 }
 
 .site__container--darkgray {
-  background-color: $gray-dark-3;
-  color: $white;
+    background-color: $gray-dark-3;
+    color: $white;
 }
 
 .site__container--lightgray {
-  background-color: $gray-light-2;
+    background-color: $gray-light-2;
 }
 
 .site__container__section {
-  @include outer-container;
-  margin-top: 0;
-  padding: 0 20px;
+    @include clearfix();
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    padding: 0 20px;
 
-  h2 {
-    font-size: 50px;
-    margin-bottom: 50px;
+    h2 {
+        font-size: 50px;
+        margin-bottom: 50px;
+    }
+}
+
+.site__container--homemain {
+  .site__container__section {
+    max-width: 100%;
   }
 }
 
 .site__container--faq {
-  padding-bottom: $footer__home-height;
-  background-color: $gray-light-2;
+    padding-bottom: $footer__home-height;
+    background-color: $gray-light-2;
 }

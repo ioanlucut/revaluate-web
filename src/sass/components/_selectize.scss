@@ -31,7 +31,7 @@
     padding-top: 16px;
     text-align: left;
     position: relative;
-    width: $setup-currency-input-width;
+    max-width: $setup-currency-input-width;
     margin: 0 auto;
 
     &.has-error {
@@ -44,7 +44,8 @@
     .currency-select__input,
     .selectize-input,
     .selectize-dropdown {
-        width: $setup-currency-input-width;
+        max-width: $setup-currency-input-width;
+        width: 100%;
     }
 
     .currency-select__input {
