@@ -27,59 +27,56 @@
             opacity: 1;
         }
     }
-}
 
-.expenses__list__entry__section__select {
-    position: absolute;
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    margin-right: 15px;
-    padding: 2px !important;
-    font-size: 14px;
-    color: $gray-light-1;
-    opacity: 0;
+    .expenses__list__entry__section__select {
+        position: absolute;
+        top: 9px;
+        left: 30px;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        margin-right: 15px;
+        padding: 2px !important;
+        font-size: 14px;
+        color: $gray-light-1;
+        opacity: 0;
 
-    &:hover {
+        &:hover {
+            color: $gray-medium;
+        }
+
+        input {
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    .expenses__list__entry__section__price {
+        width: 175px;
+        text-align: right;
+        margin-right: 15px;
+
+        .currency__symbol {
+            padding-right: 5px;
+            color: $gray-medium;
+            font-weight: $font-weight-light;
+        }
+    }
+
+    .expenses__list__entry__section__category {
+        @include category-label($brand-primary);
+    }
+
+    .expenses__list__entry__section__details {
         color: $gray-medium;
+        @include word-wrap();
     }
 
-    input {
-        height: 100%;
-        width: 100%;
-    }
-}
-
-.expenses__list__entry__section__select {
-    top: 9px;
-    left: 30px;
-}
-
-.expenses__list__entry__section__price {
-    width: 175px;
-    text-align: right;
-    margin-right: 15px;
-
-    .currency__symbol {
-        padding-right: 5px;
+    .expenses__list__entry__section__date {
+        width: 140px;
+        float: right;
         color: $gray-medium;
-        font-weight: $font-weight-light;
+        text-align: right;
+        font-size: $font-size-small;
     }
-}
-
-.expenses__list__entry__section__category {
-    @include category-label($brand-primary);
-}
-
-.expenses__list__entry__section__details {
-    color: $gray-medium;
-    @include word-wrap();
-}
-
-.expenses__list__entry__section__date {
-    width: 140px;
-    float: right;
-    color: $gray-medium;
-    text-align: right;
-    font-size: $font-size-small;
 }

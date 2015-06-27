@@ -4,39 +4,14 @@
         margin: 0;
         padding: 0;
 
-        &:hover {
-            background-color: $gray-light-4;
-            cursor: pointer;
-
-            .expenses__list__entry__section__select {
-                opacity: 1;
-            }
-        }
-
         &.expenses__list__entry__section--bulk-marked {
-            background: $brand-warning-light !important;
 
             .expenses__list__entry__section__select {
-                opacity: 1;
             }
         }
     }
 
     .expenses__list__entry__section__select {
-
-        &:hover {
-            color: $gray-medium;
-        }
-
-        input {
-            height: 100%;
-            width: 100%;
-        }
-    }
-
-    .expenses__list__entry__section__select {
-        top: 9px;
-        left: 30px;
     }
 
     .expenses__list__entry__section__price {
