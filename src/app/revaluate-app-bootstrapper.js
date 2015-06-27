@@ -10,6 +10,7 @@
             "TRIAL_DAYS": -1,
             "PREDEFINED_CATEGORIES": [],
             "CURRENCIES": [],
+            "CURRENCIES_LOCALE_MAP": {},
             "ALL_COLORS": [],
             "SETUP_MIN_CATEGORIES_TO_SELECT": -1,
             "IMPORT_MIN_CATEGORIES_TO_SELECT": 0,

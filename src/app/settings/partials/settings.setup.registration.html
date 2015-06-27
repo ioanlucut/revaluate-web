@@ -1,6 +1,6 @@
-<div class="sign-up__setup">
+<div class="sign-up">
 
-    <div class="sign-up__setup__box">
+    <div class="sign-up__setup">
 
         <h2 class="sign-up__setup__title">Awesome! Let's set some basics!</h2>
 
@@ -33,8 +33,8 @@
                 Let's add some categories. <strong>Unselect or add another</strong>. You can change them later as well.
             </div>
 
-            <div class="sign-up__box__categories">
-                <div class="sign-up__box__categories__category" ng-repeat="category in vm.categories track by category.name">
+            <div class="sign-up__setup__categories">
+                <div class="sign-up__setup__categories__category" ng-repeat="category in vm.categories track by category.name">
                     <div class="category-name" ng-style="{'background':category.color.color}" ng-class="{ 'category-name--unselected': !category.selected }" ng-click="vm.toggleCategorySelection($index)">
                         <span class="icon-checkmark-light" ng-show="category.selected"></span>
                         <span class="icon-checkmark-light-unchecked" ng-show="!category.selected"></span>
@@ -43,15 +43,15 @@
                 </div>
             </div>
 
-            <div class="sign-up__box__categories">
+            <div class="sign-up__setup__categories">
 
                 <!--Toggle form-->
-                <button ng-if="! vm.showCategoryOnTheFlyInput" class="sign-up__box__categories__addbtn" ng-click="vm.toggleContent()">
+                <button ng-if="! vm.showCategoryOnTheFlyInput" class="sign-up__setup__categories__addbtn" ng-click="vm.toggleContent()">
                     + Add another
                 </button>
 
                 <!--Add category on the fly form-->
-                <ng-form class="sign-up__box__categories__category__form"
+                <ng-form class="sign-up__setup__categories__category__form"
                          name="categoryOnTheFlyForm"
                          submit-on="add-category-on-the-fly-event"
                          ng-submit="vm.onSubmitted($event)"
@@ -66,12 +66,12 @@
                         </div>
 
                         <!--The on the fly input category-->
-                        <input class="sign-up__box__categories__addinput" type="text" name="name"
+                        <input class="sign-up__setup__categories__addinput" type="text" name="name"
                                maxlength="15"
                                ng-model="vm.categoryOnTheFly"
                                ng-enter="vm.triggerSubmit()"
                                ng-blur="vm.cancelAddCategoryOnTheFly()"
-                               auto-focus required valid-category-name/>
+                               auto-focus required valid-category-name />
 
                     </div>
                 </ng-form>

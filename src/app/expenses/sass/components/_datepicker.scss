@@ -1,12 +1,11 @@
-.expense__form__date__input {
+.expense__form__date {
 
-    .expense__form__date__input__btn {
-        position: relative;
-        width: 300px;
+    .expense__form__date__input {
+
+        .dropdown-menu {
+            width: 300px;
+            left: -100px !important;
+        }
     }
 
-    .dropdown-menu {
-        width: 300px;
-        left: 500px !important;
-    }
 }

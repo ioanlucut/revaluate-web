@@ -1,0 +1,81 @@
+.sign-up {
+
+    .sign-up__setup {
+
+        .sign-up__setup__categories {
+            @include outer-container();
+            padding-top: 30px;
+
+            .sign-up__setup__categories__category {
+                @include span-columns(6);
+                @include omega(2n);
+                padding-bottom: 10px;
+                font-size: $font-size-small;
+            }
+
+            .sign-up__setup__categories__category__form {
+                @include span-columns(6);
+                @include omega(2n);
+            }
+
+            .category-name {
+                @include border-radius($base-border-radius);
+                @include user-select(none);
+                height: 30px;
+                line-height: 25px;
+                padding: 2px 2px;
+                border: solid 2px transparent;
+                cursor: pointer;
+                color: $white;
+                font-weight: bold;
+                text-transform: uppercase;
+                text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
+                position: relative;
+
+                &:hover {
+                    opacity: 0.8;
+                }
+
+                span {
+                    position: absolute;
+                    top: 3px;
+                    left: 5px;
+                    font-size: 18px;
+                }
+
+                &.category-name--unselected {
+                    background: transparent !important;
+                    border: solid 1px $gray-light-1;
+                    text-shadow: none;
+                    color: $gray-dark-2;
+
+                    &:hover {
+                        border-color: $gray-medium;
+                    }
+
+                    span {
+                        color: $gray-medium;
+                    }
+                }
+            }
+
+            .sign-up__setup__categories__addbtn {
+                @include span-columns(6);
+                @include omega(2n);
+                height: 30px;
+                padding: 0;
+                font-size: $font-size-small;
+                @include transition(none);
+            }
+
+            .sign-up__setup__categories__addinput {
+                height: 30px;
+                font-size: $font-size-small;
+                text-align: center;
+                text-transform: uppercase;
+            }
+        }
+
+    }
+
+}

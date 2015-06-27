@@ -93,13 +93,13 @@ angular
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
             if ( toState.mixpanelId ) {
                 mixpanel.track(toState.mixpanelId);
+            }
 
-                // ---
-                // Handle fullpage.
-                // ---
-                if ( $.fn.fullpage && $.fn.fullpage.destroy ) {
-                    $.fn.fullpage.destroy('all');
-                }
+            // ---
+            // Handle fullpage.
+            // ---
+            if ( $.fn.fullpage && $.fn.fullpage.destroy ) {
+                $.fn.fullpage.destroy('all');
             }
         });
 
