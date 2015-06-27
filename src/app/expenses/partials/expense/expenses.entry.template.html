@@ -2,21 +2,21 @@
 <div class="expenses__list__entry__section" ng-if="! showContent" ng-class="expense.marked ? 'expenses__list__entry__section--bulk-marked' : ''" ng-click="toggleContent();">
 
     <!--Actions on expense-->
-    <div class="expenses__list__entry__select icon-checkbox-square-unchecked-1" ng-if="! expense.marked" ng-click="toggleMark();$event.stopPropagation();"></div>
-    <div class="expenses__list__entry__select icon-checkbox-square-1" ng-if="expense.marked" ng-click="toggleMark();$event.stopPropagation();"></div>
+    <div class="expenses__list__entry__section__select icon-checkbox-square-unchecked-1" ng-if="! expense.marked" ng-click="toggleMark();$event.stopPropagation();"></div>
+    <div class="expenses__list__entry__section__select icon-checkbox-square-1" ng-if="expense.marked" ng-click="toggleMark();$event.stopPropagation();"></div>
 
-    <div class="expenses__list__entry__price">
+    <div class="expenses__list__entry__section__price">
         <span ng-bind-html="expense.model.value | currencys:user.model.currency.symbol:user.model.currency.fractionSize"></span>
     </div>
 
     <!--Expense category-->
-    <div class="expenses__list__entry__category" ng-style="{'background':expense.model.category.color.color}" ng-bind-html="expense.model.category.name"></div>
+    <div class="expenses__list__entry__section__category" ng-style="{'background':expense.model.category.color.color}" ng-bind-html="expense.model.category.name"></div>
 
     <!--Expense description-->
-    <div class="expenses__list__entry__details" ng-bind-html="expense.model.description | highlightSearch:searchByText"></div>
+    <div class="expenses__list__entry__section__details" ng-bind-html="expense.model.description | highlightSearch:searchByText"></div>
 
     <!--Expense date-->
-    <div class="expenses__list__entry__date">{{expense.model.spentDate | friendlyDate}}</div>
+    <div class="expenses__list__entry__section__date">{{expense.model.spentDate | friendlyDate}}</div>
 </div>
 
 <!-- Display expense in edit mode -->
