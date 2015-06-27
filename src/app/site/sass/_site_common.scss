@@ -13,13 +13,13 @@
 }
 
 .site__container--homemain {
-    position: relative;
-    background: $landing-page;
-    padding-top: 10px;
+  position: relative;
+  background: $landing-page;
+  padding-top: 10px;
 
-    h1, h2 {
-        color: $white;
-    }
+  h1, h2 {
+    color: $white;
+  }
 }
 
 #section__0 {
@@ -50,6 +50,12 @@
         font-size: 50px;
         margin-bottom: 50px;
     }
+}
+
+.site__container--homemain {
+  .site__container__section {
+    max-width: 100%;
+  }
 }
 
 .site__container--faq {
