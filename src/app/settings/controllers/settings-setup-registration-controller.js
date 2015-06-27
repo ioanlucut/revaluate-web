@@ -28,11 +28,23 @@ angular
          */
         vm.user = $rootScope.currentUser;
 
+        // ---
+        // Detected locale.
+        // ---
+        var detectedLocale = window.navigator.userLanguage || window.navigator.language;
+
         /**
          * Selected currency
          * @type {{}}
          */
         vm.currency = {};
+
+        // ---
+        // Try to auto detect currency.
+        // ---
+        vm.currency.selected = _.find(vm.currencies, function (currencyCandidate) {
+            return currencyCandidate.currencyCode === detectedLocale;
+        });
 
         /**
          * Existing predefined colors.
