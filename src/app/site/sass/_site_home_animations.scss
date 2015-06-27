@@ -1,7 +1,9 @@
 .site__container__section__feature--left {
-    @include fadeInLeft();
+    display: block;
+    @include fadeInLeft(0.5s);
 }
 
 .site__container__section__feature--right {
-    @include fadeInRight();
+    display: block;
+    @include fadeInRight(0.5s);
 }
