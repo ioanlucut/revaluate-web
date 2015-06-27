@@ -1,8 +1,11 @@
 .home__section__signup {
+    @include span-columns(4);
+    @include shift(1);
     @include border-radius($base-border-radius);
     padding: 10px 40px 40px 40px;
     background-color: $white;
     margin-bottom: 30px;
+    display: none;
 }
 
 .home__section__signup__btn {
