@@ -1,0 +1,75 @@
+@media (max-width: $screen-sm-min) {
+
+    .sign-up {
+
+        .sign-up__setup {
+            @include span-columns(8);
+            @include shift(2);
+
+            .sign-up__setup__title {
+            }
+
+            .sign-up__setup__section {
+
+                .currency-select {
+
+                    .currency-select__input {
+                    }
+                }
+            }
+
+            .sign-up__setup__tip {
+            }
+
+            .sign-up__setup__description {
+            }
+
+            .sign-up__setup__btn {
+            }
+
+            .form-group-input__message--setup {
+            }
+
+        }
+
+    }
+
+}
+
+@media (max-width: $screen-xs-min) {
+
+    .sign-up {
+
+        .sign-up__setup {
+            @include span-columns(10);
+            @include shift(1);
+
+            .sign-up__setup__title {
+            }
+
+            .sign-up__setup__section {
+
+                .currency-select {
+
+                    .currency-select__input {
+                    }
+                }
+            }
+
+            .sign-up__setup__tip {
+            }
+
+            .sign-up__setup__description {
+            }
+
+            .sign-up__setup__btn {
+            }
+
+            .form-group-input__message--setup {
+            }
+
+        }
+
+    }
+
+}

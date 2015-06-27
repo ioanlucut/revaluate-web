@@ -17,6 +17,7 @@
         border-width: 2px 0;
         border-color: $add-expense-form-border-color transparent;
         font-weight: $font-weight-regular;
+        margin: 0;
 
         &:hover {
             border-color: $add-expense-form-border-color;
@@ -124,10 +125,10 @@
 // -------------------------
 .expense__form__date {
     float: left;
-    overflow: auto;
     display: block;
     width: 18%;
     padding: 0;
+    position: relative;
 
     .expense__form__date__input {
         height: $add-expense-form-height;
@@ -137,9 +138,9 @@
             border: solid 2px $brand-primary;
         }
 
-        & > button {
-            height: 100%;
+        .expense__form__date__input__btn {
             width: 100%;
+            height: 100%;
             text-align: center;
             background-color: $gray-light-3;
         }
@@ -175,12 +176,4 @@
         color: $gray-dark-1;
         font-size: $font-size-small;
     }
-}
-
-.expense__found--highlight {
-    display: inline-block;
-    background: rgba(255, 230, 0, 0.5);
-    padding: 1px 4px;
-    border-radius: 3px;
-    line-height: 1;
 }

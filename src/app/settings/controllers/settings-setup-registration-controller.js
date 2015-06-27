@@ -28,11 +28,28 @@ angular
          */
         vm.user = $rootScope.currentUser;
 
+        // ---
+        // Detected locale.
+        // ---
+        var detectedLocale = window.navigator.userLanguage || window.navigator.language;
+        var detectedLocaleFormatted = detectedLocale.replace(new RegExp('-', 'g'), '_');
+        var detectedCodeKey = _.findKey(APP_CONFIG.CURRENCIES_LOCALE_MAP, function (currencyLocaleMap) {
+            return currencyLocaleMap.indexOf(detectedLocaleFormatted) > -1;
+        });
+
         /**
          * Selected currency
          * @type {{}}
          */
         vm.currency = {};
+
+        // ---
+        // Try to auto detect currency.
+        // ---
+        vm.currency.selected = _.find(vm.currencies, function (currencyCandidate) {
+
+            return currencyCandidate.currencyCode === detectedCodeKey;
+        });
 
         /**
          * Existing predefined colors.

@@ -1,0 +1,6 @@
+@media (max-width: 400px) {
+  .footer__home__logo,
+  .footer__home__links {
+    @include span-columns(12);
+  }
+}

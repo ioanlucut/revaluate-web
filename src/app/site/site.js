@@ -19,15 +19,17 @@ angular
             .state("home", {
                 url: "/",
                 templateUrl: "/app/site/partials/home.html",
-                title: "Change the way you spend your money",
+                title: "Personal finance simplified - Revaluate",
                 mixpanelId: MIXPANEL_EVENTS.homePage,
+                pageId: "home",
                 isPublicPage: true
             })
             .state("pricing", {
                 url: "/pricing",
                 templateUrl: "/app/site/partials/pricing.html",
-                title: "Change the way you spend your money",
+                title: "Personal finance simplified - Revaluate",
                 mixpanelId: MIXPANEL_EVENTS.pricingPage,
+                pageId: "pricing",
                 isPublicPage: true
             })
             .state("privacy", {
@@ -35,6 +37,14 @@ angular
                 templateUrl: "/app/site/partials/privacy.html",
                 title: "Privacy - Revaluate",
                 mixpanelId: MIXPANEL_EVENTS.privacyPage,
+                pageId: "privacy",
+                isPublicPage: true
+            })
+            .state("terms", {
+                url: "/terms",
+                templateUrl: "/app/site/partials/terms.html",
+                title: "Terms of Use - Revaluate",
+                pageId: "terms",
                 isPublicPage: true
             })
             .state("404", {
