@@ -1,0 +1,31 @@
+@media (max-width: 800px) {
+
+    .categories__add {
+        width: 100%;
+        margin: 0;
+    }
+
+    .categories__add__form {
+    }
+
+    .categories__add__form__content__left {
+        width: 100%;
+    }
+
+    .categories__add__form__content__right {
+        width: 100%;
+        margin-top: 5px;
+
+        .categories__add__form__content__right__add,
+        .categories__add__form__content__right__cancel {
+            width: 50%;
+            margin: 0;
+        }
+    }
+
+    .categories__add__controls {
+
+        .categories__add__controls__btn {
+        }
+    }
+}
