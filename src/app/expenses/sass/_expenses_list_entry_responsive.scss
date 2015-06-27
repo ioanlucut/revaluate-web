@@ -9,47 +9,58 @@
             .expenses__list__entry__section__select {
             }
         }
-    }
 
-    .expenses__list__entry__section__select {
-    }
-
-    .expenses__list__entry__section__price {
-        .currency__symbol {
+        .expenses__list__entry__section__select {
+            left: 5px;
+            width: 25px;
+            height: 25px;
+            font-size: 22px;
         }
-    }
 
-    .expenses__list__entry__section__category {
-    }
+        .expenses__list__entry__section__price {
+            margin: 0;
+            .currency__symbol {
+            }
+        }
 
-    .expenses__list__entry__section__details {
-        max-width: 250px;
-    }
+        .expenses__list__entry__section__category {
 
-    .expenses__list__entry__section__date {
+        }
+
+        .expenses__list__entry__section__details {
+            max-width: 250px;
+        }
+
+        .expenses__list__entry__section__date {
+        }
     }
 
 }
 
 @media (max-width: 600px) {
 
-    .expenses__list__entry__section__details {
-        display: none !important;
+    .expenses__list__entry__section {
+
+        .expenses__list__entry__section__details {
+            display: none !important;
+        }
     }
 
 }
 
 @media (max-width: $screen-xs) {
+    .expenses__list__entry__section {
 
-    .expenses__list__entry__section__price,
-    .expenses__list__entry__section__category {
-        width: 50%;
-        margin: 0;
-        float: left;
-    }
+        .expenses__list__entry__section__price,
+        .expenses__list__entry__section__category {
+            width: 50%;
+            margin: 0;
+            float: left;
+        }
 
-    .expenses__list__entry__section__date {
-        display: none !important;
+        .expenses__list__entry__section__date {
+            display: none !important;
+        }
     }
 
 }
