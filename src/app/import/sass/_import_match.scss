@@ -1,12 +1,13 @@
 .import__edit {
-    @include span-columns(10);
-    @include shift(1);
+    @include clearfix();
     @include border-radius($base-border-radius);
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .import__edit__categories__header {
     @include clearfix();
-    height: 35px;
+    min-height: 35px;
     background-color: #f3f3f3;
     border-bottom: solid 1px $gray-light-1;
     margin: 30px 0 20px 0;
@@ -14,14 +15,14 @@
     line-height: 34px;
 
     .import__edit__categories__header__src {
-        width: 250px;
+        width: 50%;
         float: left;
     }
 
     .import__edit__categories__header__dest {
         float: right;
         text-align: right;
-        width: 200px;
+        width: 50%;
     }
 }
 
@@ -43,6 +44,7 @@
     float: left;
     height: 35px;
     line-height: 32px;
+    width: 45%;
 
     .import__edit__categories__src__toggle {
         @include user-select(none);
@@ -67,7 +69,8 @@
 .import__edit__categories__dest {
     @include clearfix();
     float: right;
-    width: $category-select-width;
+    max-width: 320px;
+    width: 45%;
 
     .import__edit__categories__dest__category {
         padding: 0;
@@ -83,7 +86,7 @@
 
 .import__edit__categories__ignored {
     float: right;
-    width: $category-select-width;
+    width: 45%;
     font-size: 11px;
     height: 35px;
     line-height: 35px;
@@ -93,7 +96,8 @@
 
 .import__edit__categories__arrow {
     margin: 0 auto;
-    width: 40px;
+    width: 10%;
+    float: left;
     text-align: center;
     font-size: $font-size-larger;
     color: $gray-light-1;
@@ -101,6 +105,7 @@
 
 .import__save__btn {
     @include btn-big($brand-primary);
+    clear: both;
     width: 240px;
     display: block;
     margin: 0 auto;
