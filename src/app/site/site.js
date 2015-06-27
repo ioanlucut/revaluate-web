@@ -41,6 +41,7 @@ angular
                 url: "/terms",
                 templateUrl: "/app/site/partials/terms.html",
                 title: "Terms of Use - Revaluate",
+                pageId: "terms",
                 isPublicPage: true
             })
             .state("404", {
