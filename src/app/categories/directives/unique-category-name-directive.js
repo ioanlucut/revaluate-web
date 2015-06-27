@@ -18,7 +18,7 @@ angular
                 // Re-validate on change
                 scope.$watch("ngModel", function (value) {
 
-                    if ( isValidCategoryName(value) && ngModel.$viewValue !== scope.except ) {
+                    if ( value && isValidCategoryName(value) && ngModel.$viewValue !== scope.except ) {
 
                         // Set validity
                         CategoryService
