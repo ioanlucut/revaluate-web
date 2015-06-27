@@ -29,6 +29,7 @@ angular
                 templateUrl: "/app/site/partials/pricing.html",
                 title: "Personal finance simplified - Revaluate",
                 mixpanelId: MIXPANEL_EVENTS.pricingPage,
+                pageId: "pricing",
                 isPublicPage: true
             })
             .state("privacy", {
@@ -36,6 +37,7 @@ angular
                 templateUrl: "/app/site/partials/privacy.html",
                 title: "Privacy - Revaluate",
                 mixpanelId: MIXPANEL_EVENTS.privacyPage,
+                pageId: "privacy",
                 isPublicPage: true
             })
             .state("terms", {
