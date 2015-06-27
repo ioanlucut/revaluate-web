@@ -21,6 +21,7 @@ angular
                 templateUrl: "/app/site/partials/home.html",
                 title: "Personal finance simplified - Revaluate",
                 mixpanelId: MIXPANEL_EVENTS.homePage,
+                pageId: "home",
                 isPublicPage: true
             })
             .state("pricing", {
