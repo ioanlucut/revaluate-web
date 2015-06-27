@@ -6,7 +6,7 @@
   bottom: 0;
   left: 0;
 
-  background-color: $white;
+  background-color: $gray-dark-2;
   color: $gray-medium;
 }
 
@@ -14,12 +14,33 @@
   @include outer-container();
 }
 
-.footer__home__logo {
+
+.footer__home__logo,
+.footer__home__links__legal,
+.footer__home__links__social {
   @include span-columns(4);
-  color: $black;
+  @include omega(3n);
+
+  li {
+    padding: 5px 0;
+  }
 }
 
-.footer__home__links {
-  @include span-columns(4);
-  @include shift(4);
+.footer__home__logo {
+  color: $gray-light-1;
+}
+
+.footer__home__links__legal {
+
+  li a {
+    color: $gray-dark-1;
+  }
+
+}
+
+.footer__home__links__social {
+
+  li {
+    color: $gray-dark-1;
+  }
 }
