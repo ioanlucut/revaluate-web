@@ -1,6 +1,8 @@
 'use strict';
 
 var gulp = require('gulp');
+var imagemin = require('gulp-imagemin');
+var pngquant = require('imagemin-pngquant');
 
 var $ = require('gulp-load-plugins')({
     pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
@@ -77,6 +79,11 @@ module.exports = function (options) {
             options.src + '/**/*',
             '!' + options.src + '/**/*.{html,css,js,scss}'
         ])
+            .pipe(imagemin({
+                progressive: true,
+                svgoPlugins: [{ removeViewBox: false }],
+                use: [pngquant()]
+            }))
             .pipe(gulp.dest(options.dist + '/'));
     });
 
