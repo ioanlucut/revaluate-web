@@ -109,6 +109,15 @@ input {
     left: 0;
 }
 
+.form-group-input__info {
+  font-size: $font-size-small;
+  color: $gray-medium;
+
+  a {
+    color: $gray-dark-1;
+  }
+}
+
 .has-error {
 
     .form-group-input__input {
