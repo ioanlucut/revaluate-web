@@ -17,6 +17,7 @@
         border-width: 2px 0;
         border-color: $add-expense-form-border-color transparent;
         font-weight: $font-weight-regular;
+        margin: 0;
 
         &:hover {
             border-color: $add-expense-form-border-color;
