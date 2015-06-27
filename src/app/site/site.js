@@ -37,6 +37,12 @@ angular
                 mixpanelId: MIXPANEL_EVENTS.privacyPage,
                 isPublicPage: true
             })
+            .state("terms", {
+                url: "/terms",
+                templateUrl: "/app/site/partials/terms.html",
+                title: "Terms of Use - Revaluate",
+                isPublicPage: true
+            })
             .state("404", {
                 url: "/404",
                 templateUrl: "/app/site/partials/404.html",
