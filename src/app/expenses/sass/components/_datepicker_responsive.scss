@@ -1,0 +1,16 @@
+@media (max-width: $screen-xs-min) {
+
+    .expense__form__date {
+
+        .expense__form__date__input {
+
+            .dropdown-menu {
+                margin-left: auto;
+                margin-right: auto;
+                left: 0 !important;
+                right: 0;
+            }
+        }
+
+    }
+}

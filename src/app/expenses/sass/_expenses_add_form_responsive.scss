@@ -3,13 +3,6 @@
     .expenses__form {
         padding: 15px 20px;
         margin: 5px auto 10px auto;
-    }
-
-}
-
-@media (max-width: 580px) {
-
-    .expenses__form {
 
         .expense__form__price__input,
         .expense__form__category__input,
@@ -52,7 +45,7 @@
     // -------------------------
     .expense__form__details {
         width: 50%;
-        margin-top: 5px;
+        margin-top: 15px;
 
         .expense__form__details__input {
         }
@@ -62,7 +55,7 @@
     // -------------------------
     .expense__form__date {
         width: 50%;
-        margin-top: 5px;
+        margin-top: 15px;
 
         .expense__form__date__input {
 
@@ -80,7 +73,7 @@
 
     .expense__form__submit__save {
         width: 100%;
-        margin-top: 5px;
+        margin-top: 15px;
 
         .expense__edit__form__savebtn {
         }
@@ -115,6 +108,7 @@
 
     .expense__form__category {
         width: 100%;
+        margin-top: 15px;
 
         .category-select__input {
 

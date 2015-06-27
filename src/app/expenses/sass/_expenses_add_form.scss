@@ -124,10 +124,10 @@
 // -------------------------
 .expense__form__date {
     float: left;
-    overflow: auto;
     display: block;
     width: 18%;
     padding: 0;
+    position: relative;
 
     .expense__form__date__input {
         height: $add-expense-form-height;
@@ -137,9 +137,9 @@
             border: solid 2px $brand-primary;
         }
 
-        & > button {
-            height: 100%;
+        .expense__form__date__input__btn {
             width: 100%;
+            height: 100%;
             text-align: center;
             background-color: $gray-light-3;
         }
