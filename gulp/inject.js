@@ -14,6 +14,20 @@ module.exports = function (options) {
             '!' + options.tmp + '/serve/app/vendor.css'
         ], { read: false });
 
+        // ---
+        // This is the script transform which adds the async attribute to the script.
+        // ---
+        var scriptTransform = function (filepath, file, i, length) {
+            return '<script src="' + filepath + '" defer></script>';
+        };
+
+        // ---
+        // This is the styles transform which adds the async attribute to the script.
+        // ---
+        var styleTransform = function (filepath, file, i, length) {
+            return '<link rel="stylesheet" href="' + filepath + '" async></script>';
+        };
+
         var injectScripts = gulp.src([
             options.src + '/app/**/*.js',
             '!' + options.src + '/app/**/*.spec.js',
@@ -28,8 +42,8 @@ module.exports = function (options) {
         };
 
         return gulp.src(options.src + '/*.html')
-            .pipe($.inject(injectStyles, injectOptions))
-            .pipe($.inject(injectScripts, injectOptions))
+            .pipe($.inject(injectStyles, _.extend({ transform: styleTransform }, injectOptions)))
+            .pipe($.inject(injectScripts, _.extend({ transform: scriptTransform }, injectOptions)))
             .pipe(wiredep(_.extend({}, options.wiredep)))
             .pipe(gulp.dest(options.tmp + '/serve'));
 
