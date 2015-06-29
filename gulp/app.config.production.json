@@ -3,6 +3,7 @@
         "name": "production",
         "apiEndpoint": "http://revaluate-api-prod.herokuapp.com",
         "mixPanelId": "1e6d81ba283c1393b2dee527e165013f",
+        "intercomAppId": "qy0w35xm",
         "isProduction": true
     }
 }
