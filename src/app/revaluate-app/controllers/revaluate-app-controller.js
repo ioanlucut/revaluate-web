@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.account")
-    .controller("RevaluateAppController", function ($rootScope, $scope, $state, $timeout, $log, $intercom, flash, AuthService, AccountModal, User, StatesHandler, AUTH_EVENTS, ALERTS_CONSTANTS, ACTIVITY_INTERCEPTOR, AUTH_MODAL, ERROR_INTERCEPTOR, ENV, APP_CONFIG) {
+    .controller("RevaluateAppController", function ($rootScope, $scope, $state, $timeout, $log, flash, AuthService, AccountModal, IntercomUtilsService, User, StatesHandler, AUTH_EVENTS, ALERTS_CONSTANTS, ACTIVITY_INTERCEPTOR, AUTH_MODAL, ERROR_INTERCEPTOR, ENV, APP_CONFIG) {
 
         /**
          * Save the state on root scope
@@ -26,6 +26,14 @@ angular
          * On app load, retrieve user profile previously saved (if exists).
          */
         $rootScope.currentUser = User.$new().loadFromSession();
+
+        // ---
+        // Bootstrap intercom.
+        // ---
+        if ( AuthService.isAuthenticated() ) {
+            IntercomUtilsService.bootIntercom($rootScope.currentUser);
+        }
+
         if ( !ENV.isProduction ) {
             $log.log("Current user: ", $rootScope.currentUser.model);
         }
@@ -41,12 +49,7 @@ angular
             // ---
             // Bootstrap intercom.
             // ---
-            $intercom.boot({
-                email: $rootScope.currentUser.model.email,
-                name: $rootScope.currentUser.model.firstName + ' ' + $rootScope.currentUser.model.lastName,
-                created_at: moment($rootScope.currentUser.model.createdDate).unix(),
-                user_id: '\'' + $rootScope.currentUser.model.id + '\''
-            });
+            IntercomUtilsService.bootIntercom($rootScope.currentUser);
 
             if ( !ENV.isProduction ) {
                 $log.log("Logged in: ", $rootScope.currentUser.model);
@@ -58,6 +61,11 @@ angular
          */
         $scope.$on(AUTH_EVENTS.refreshUser, function () {
             $rootScope.currentUser = User.$new().loadFromSession();
+
+            // ---
+            // Refresh intercom user.
+            // ---
+            IntercomUtilsService.updateIntercom($rootScope.currentUser);
 
             if ( !ENV.isProduction ) {
                 $log.log("Refreshed user: ", $rootScope.currentUser.model);
