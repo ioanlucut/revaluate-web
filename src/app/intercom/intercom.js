@@ -9,5 +9,5 @@ angular
         $intercomProvider
             .appID(ENV.intercomAppId);
         $intercomProvider
-            .asyncLoading(true)
+            .asyncLoading(true);
     });
