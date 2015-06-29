@@ -7,7 +7,7 @@ angular
     ])
     .config(function ($intercomProvider, ENV) {
         $intercomProvider
-            .appID("c509geda");
+            .appID(ENV.intercomAppId);
         $intercomProvider
             .asyncLoading(true)
     });
