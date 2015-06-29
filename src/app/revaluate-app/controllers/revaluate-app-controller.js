@@ -45,7 +45,7 @@ angular
                 email: $rootScope.currentUser.model.email,
                 name: $rootScope.currentUser.model.firstName + ' ' + $rootScope.currentUser.model.lastName,
                 created_at: moment($rootScope.currentUser.model.createdDate).unix(),
-                user_id: $rootScope.currentUser.model.userId
+                user_id: $rootScope.currentUser.model.id
             });
 
             if ( !ENV.isProduction ) {

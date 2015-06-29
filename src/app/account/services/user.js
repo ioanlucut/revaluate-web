@@ -13,7 +13,7 @@ angular
                      * User model (DTO)
                      */
                     model: {
-                        userId: "",
+                        id: "",
                         firstName: "",
                         lastName: "",
                         email: "",
