@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.account")
-    .controller("RevaluateAppController", function ($rootScope, $scope, $state, $timeout, $log, flash, AuthService, AccountModal, User, StatesHandler, AUTH_EVENTS, ALERTS_CONSTANTS, ACTIVITY_INTERCEPTOR, AUTH_MODAL, ERROR_INTERCEPTOR, ENV, APP_CONFIG) {
+    .controller("RevaluateAppController", function ($rootScope, $scope, $state, $timeout, $log, $intercom, flash, AuthService, AccountModal, User, StatesHandler, AUTH_EVENTS, ALERTS_CONSTANTS, ACTIVITY_INTERCEPTOR, AUTH_MODAL, ERROR_INTERCEPTOR, ENV, APP_CONFIG) {
 
         /**
          * Save the state on root scope
@@ -37,6 +37,16 @@ angular
         $scope.$on(AUTH_EVENTS.loginSuccess, function () {
             $rootScope.currentUser = User.$new().loadFromSession();
             AuthService.redirectToAttemptedUrl();
+
+            // ---
+            // Bootstrap intercom.
+            // ---
+            $intercom.boot({
+                email: $rootScope.currentUser.model.email,
+                name: $rootScope.currentUser.model.firstName + ' ' + $rootScope.currentUser.model.lastName,
+                created_at: moment($rootScope.currentUser.model.createdDate).unix(),
+                user_id: $rootScope.currentUser.model.userId
+            });
 
             if ( !ENV.isProduction ) {
                 $log.log("Logged in: ", $rootScope.currentUser.model);

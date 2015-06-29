@@ -25,6 +25,8 @@ angular
         "revaluate.account",
         "revaluate.settings",
         "revaluate.insights",
+        "ngIntercom",
+        "revaluate.intercom",
         "angular.filter",
         "ui.gravatar",
         "angularPayments",
