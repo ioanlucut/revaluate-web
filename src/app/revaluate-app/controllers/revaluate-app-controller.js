@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.account")
-    .controller("RevaluateAppController", function ($rootScope, $scope, $state, $timeout, $log, flash, AuthService, AccountModal, User, StatesHandler, AUTH_EVENTS, ALERTS_CONSTANTS, ACTIVITY_INTERCEPTOR, AUTH_MODAL, ERROR_INTERCEPTOR, ENV, APP_CONFIG) {
+    .controller("RevaluateAppController", function ($rootScope, $scope, $state, $timeout, $log, flash, AuthService, AccountModal, IntercomUtilsService, User, StatesHandler, AUTH_EVENTS, ALERTS_CONSTANTS, ACTIVITY_INTERCEPTOR, AUTH_MODAL, ERROR_INTERCEPTOR, ENV, APP_CONFIG) {
 
         /**
          * Save the state on root scope
@@ -26,6 +26,14 @@ angular
          * On app load, retrieve user profile previously saved (if exists).
          */
         $rootScope.currentUser = User.$new().loadFromSession();
+
+        // ---
+        // Bootstrap intercom.
+        // ---
+        if ( AuthService.isAuthenticated() ) {
+            IntercomUtilsService.bootIntercom($rootScope.currentUser);
+        }
+
         if ( !ENV.isProduction ) {
             $log.log("Current user: ", $rootScope.currentUser.model);
         }
@@ -38,6 +46,11 @@ angular
             $rootScope.currentUser = User.$new().loadFromSession();
             AuthService.redirectToAttemptedUrl();
 
+            // ---
+            // Bootstrap intercom.
+            // ---
+            IntercomUtilsService.bootIntercom($rootScope.currentUser);
+
             if ( !ENV.isProduction ) {
                 $log.log("Logged in: ", $rootScope.currentUser.model);
             }
@@ -48,6 +61,11 @@ angular
          */
         $scope.$on(AUTH_EVENTS.refreshUser, function () {
             $rootScope.currentUser = User.$new().loadFromSession();
+
+            // ---
+            // Refresh intercom user.
+            // ---
+            IntercomUtilsService.updateIntercom($rootScope.currentUser);
 
             if ( !ENV.isProduction ) {
                 $log.log("Refreshed user: ", $rootScope.currentUser.model);
