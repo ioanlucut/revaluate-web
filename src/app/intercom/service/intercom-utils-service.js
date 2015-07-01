@@ -25,7 +25,8 @@ angular
                 email: user.model.email,
                 name: user.model.firstName + ' ' + user.model.lastName,
                 created_at: moment(user.model.createdDate).unix(),
-                user_id: '\'' + user.model.id + '\''
+                user_id: '' + user.model.id
             };
         };
-    });
+    })
+;
