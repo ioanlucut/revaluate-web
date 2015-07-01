@@ -4,7 +4,7 @@ angular
     .module("revaluate.feedback")
     .controller("FeedbackModalController", function ($scope, FeedbackModalService, Feedback, $timeout) {
 
-        var TIMEOUT = 2500;
+        var TIMEOUT = 1500;
 
         /**
          * Feedback.
