@@ -90,7 +90,7 @@
                 Hey, <span>{{currentUser.model.firstName}}</span>! In
                 <span>{{(insightData.spentDate | friendlyMonthDate)}}</span>
                 you've spent a total of
-                <span ng-bind-html="insight.model.totalAmountSpent | currencys:user.model.currency.symbol:user.model.currency.fractionSize"></span>.
+                <span class="label-info" ng-bind-html="insight.model.totalAmountSpent | currencys:user.model.currency.symbol:user.model.currency.fractionSize"></span>.
             </div>
 
             <div ng-if="activeChart === INSIGHTS_CHARTS.BAR" class="insights__chart__bar">
@@ -139,24 +139,23 @@
             </div>
 
             <div class="insights__summary">
-                <div>
-                    You had <span>{{insight.model.numberOfTransactions}} transactions</span>, in
-                    <span>{{insight.model.totalPerCategoryInsightDTOs.length}} categories</span>.
+                <div class="insights__summary__item">
+                    You had <span>{{insight.model.numberOfTransactions}} transactions</span>, in <span>{{insight.model.totalPerCategoryInsightDTOs.length}} categories</span>.
+                </div>
+                <div class="insights__summary__item">
                     Your biggest transaction was
-                    <span ng-bind-html="insight.model.biggestExpense.value | currencys:user.model.currency.symbol:user.model.currency.fractionSize"></span>,
-                    on <span class="label-uppercase">{{insight.model.biggestExpense.category.name}}</span>.
+                    <span class="label-info" ng-bind-html="insight.model.biggestExpense.value | currencys:user.model.currency.symbol:user.model.currency.fractionSize"></span>,
+                    on
+                    <span class="label-uppercase category__label" ng-style="{'background':insight.model.biggestExpense.category.color.color}">{{insight.model.biggestExpense.category.name}}</span>.
                 </div>
-                <div>
+                <div class="insights__summary__item">
                     You've spent the most on
-                    <span class="label-uppercase">{{insight.model.highestAmountCategory.name}}</span>.
+                    <span class="label-uppercase category__label" ng-style="{'background':insight.model.highestAmountCategory.color.color}">{{insight.model.highestAmountCategory.name}}</span>.
                 </div>
-                <div>
-                    The category with the most transactions is
-                    <span class="label-uppercase">{{insight.model.categoryWithTheMostTransactionsInsightsDTO.categoryDTO.name}}</span>,
-                    with
-                    <span>{{insight.model.categoryWithTheMostTransactionsInsightsDTO.numberOfTransactions}}</span>
-                    transactions.
-
+                <div class="insights__summary__item">
+                    The category with the most transactions (<span>{{insight.model.categoryWithTheMostTransactionsInsightsDTO.numberOfTransactions}}</span>)
+                    is
+                    <span class="label-uppercase category__label" ng-style="{'background':insight.model.categoryWithTheMostTransactionsInsightsDTO.categoryDTO.color.color}">{{insight.model.categoryWithTheMostTransactionsInsightsDTO.categoryDTO.name}}</span>.
                 </div>
             </div>
 
