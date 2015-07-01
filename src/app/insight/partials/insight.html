@@ -85,7 +85,7 @@
             <div>You'll get some insights here.</div>
         </div>
 
-        <div ng-show="insight.model.numberOfTransactions !== 0">
+        <div ng-if="insight.model.numberOfTransactions !== 0">
             <div class="insights__summary">
                 Hey, <span>{{currentUser.model.firstName}}</span>! In
                 <span>{{(insightData.spentDate | friendlyMonthDate)}}</span>
