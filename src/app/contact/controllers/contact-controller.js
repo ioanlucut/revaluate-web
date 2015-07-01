@@ -4,7 +4,7 @@ angular
     .module("revaluate.contact")
     .controller("ContactModalController", function ($scope, ContactModalService, Contact, $timeout) {
 
-        var TIMEOUT = 2500;
+        var TIMEOUT = 1500;
 
         /**
          * Contact.
