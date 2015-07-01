@@ -127,6 +127,7 @@ angular
                         $timeout(function () {
                             $scope.isSaving = false;
                             $scope.expenses.push(expenseToBePushed);
+                            $rootScope.$broadcast(EXPENSE_EVENTS.isCreated, {});
                         }, TIMEOUT_DURATION);
 
                         /**
@@ -200,6 +201,7 @@ angular
                     $timeout(function () {
                         removeAllExpenseFrom($scope.expenses, selectedExpenses);
                         $scope.isBulkDeleting = false;
+                        $rootScope.$broadcast(EXPENSE_EVENTS.isDeleted, {});
                     }, TIMEOUT_DURATION);
                 })
                 .catch(function () {
