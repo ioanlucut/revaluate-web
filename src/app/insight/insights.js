@@ -23,6 +23,10 @@ angular
                     statistics: function (StatisticService) {
                         return StatisticService
                             .fetchStatistics();
+                    },
+                    insightsMonthsPerYears: function (StatisticService) {
+                        return StatisticService
+                            .fetchInsightsMonthsPerYears();
                     }
                 },
                 title: "Insights - Revaluate",

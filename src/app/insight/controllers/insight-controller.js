@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.insights")
-    .controller("InsightController", function ($templateCache, $scope, $rootScope, $filter, $timeout, flash, insight, statistics, InsightService, MIXPANEL_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
+    .controller("InsightController", function ($templateCache, $scope, $rootScope, $filter, $timeout, flash, insight, statistics, insightsMonthsPerYears, InsightService, MIXPANEL_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
 
         /**
          * Updating/deleting timeout
@@ -50,6 +50,32 @@ angular
          * @type {statistics|*}
          */
         $scope.statistics = statistics;
+
+        /**
+         * Insights months per years.
+         */
+        $scope.insightsMonthsPerYears = insightsMonthsPerYears;
+
+        /**
+         * Checks if the date should be disabled.
+         */
+        $scope.shouldDateBeDisabled = function (date, mode) {
+            var givenDate = moment(date);
+            var givenDateYear = givenDate.year();
+            var givenDateMonth = givenDate.month() + 1;
+
+            var givenYearIsDefined = _.has($scope.insightsMonthsPerYears.insightsMonthsPerYears, givenDateYear);
+            if ( !givenYearIsDefined ) {
+
+                return true;
+            }
+
+            var givenMonthHasAMatch = _.some(_.result($scope.insightsMonthsPerYears.insightsMonthsPerYears, givenDateYear), function (entry) {
+                return entry === givenDateMonth;
+            });
+
+            return !givenMonthHasAMatch;
+        };
 
         // ---
         // Chart config options.
@@ -223,14 +249,35 @@ angular
             loadInsight();
         };
 
+        function expensesExistsInYear(givenDateYear) {
+            return _.has($scope.insightsMonthsPerYears.insightsMonthsPerYears, givenDateYear);
+        }
+
+        function isGivenMonthHasAMatchInYear(givenDateYear, givenDateMonth) {
+            return _.some(_.result($scope.insightsMonthsPerYears.insightsMonthsPerYears, givenDateYear), function (entry) {
+                return entry === givenDateMonth;
+            });
+        }
+
         /**
          * Only if -1 month is at most the first existing expenses date.
          * @returns {boolean}
          */
         $scope.canLoadPrevMonth = function () {
+            var givenDate = moment($scope.insightData.spentDate);
+            var givenDateYear = givenDate.year();
+            var givenDateMonth = givenDate.month() + 1;
 
-            // a - b < 0 or a - b > 0
-            return moment($scope.insightData.spentDate).diff($scope.statistics.model.firstExistingExpenseDate) >= 0;
+            var givenYearIsDefined = expensesExistsInYear(givenDateYear);
+            if ( !givenYearIsDefined ) {
+
+                return true;
+            }
+
+            // ---
+            // We check in the previous month.
+            // ---
+            return isGivenMonthHasAMatchInYear(givenDateYear, givenDateMonth - 1);
         };
 
         /**
@@ -247,8 +294,19 @@ angular
          * @returns {boolean}
          */
         $scope.canLoadNextMonth = function () {
+            var givenDate = moment($scope.insightData.spentDate);
+            var givenDateYear = givenDate.year();
+            var givenDateMonth = givenDate.month() + 1;
 
-            return moment($scope.insightData.spentDate).diff($scope.statistics.model.lastExistingExpenseDate) <= 0;
-        }
-    })
-;
+            var givenYearIsDefined = expensesExistsInYear(givenDateYear);
+            if ( !givenYearIsDefined ) {
+
+                return true;
+            }
+
+            // ---
+            // We check in the previous month.
+            // ---
+            return isGivenMonthHasAMatchInYear(givenDateYear, givenDateMonth + 1);
+        };
+    });

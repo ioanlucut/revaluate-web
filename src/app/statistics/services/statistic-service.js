@@ -22,4 +22,16 @@ angular
                     return $q.reject(response);
                 });
         };
+
+        this.fetchInsightsMonthsPerYears = function () {
+
+            return $http
+                .get(URLTo.api(STATISTIC_URLS.insightsMonthsPerYears))
+                .then(function (response) {
+
+                    return response.data;
+                }).catch(function (response) {
+                    return $q.reject(response);
+                });
+        };
     });

@@ -52,6 +52,7 @@
                                 min-date="datePickerMinDate"
                                 max-date="datePickerMaxDate"
                                 datepicker-mode="'month'" min-mode="month"
+                                date-disabled="shouldDateBeDisabled(date, mode)"
                                 show-button-bar="false"
                                 datepicker-options="{minMode: 'month',datepickerMode: 'month'}">{{isLoading ? 'Loading'
                             : (insightData.spentDate | friendlyMonthDate)}}
