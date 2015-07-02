@@ -12,6 +12,7 @@ angular
                 url: "/insights",
                 templateUrl: '/app/insight/partials/insight.html',
                 controller: "InsightController",
+                controllerAs: 'vm',
                 resolve: {
                     insight: function (InsightService) {
                         var from = moment().startOf('month');
