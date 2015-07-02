@@ -9,7 +9,7 @@ angular
         "revaluate.account",
         "revaluate.statistics"
     ])
-    .config(function ($stateProvider, MIXPANEL_EVENTS) {
+    .config(function ($stateProvider, USER_ACTIVITY_EVENTS) {
 
         $stateProvider
 
@@ -37,7 +37,7 @@ angular
                     }
                 },
                 title: "Expenses - Revaluate",
-                mixpanelId: MIXPANEL_EVENTS.expensesPage
+                stateEventName: USER_ACTIVITY_EVENTS.expensesPage
             })
 
     });

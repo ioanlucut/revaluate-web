@@ -4,7 +4,7 @@ angular
     .module("revaluate.categories", [
         "revaluate.common"
     ])
-    .config(function ($stateProvider, MIXPANEL_EVENTS) {
+    .config(function ($stateProvider, USER_ACTIVITY_EVENTS) {
 
         $stateProvider
 
@@ -24,7 +24,7 @@ angular
                     }
                 },
                 title: "Categories - Revaluate",
-                mixpanelId: MIXPANEL_EVENTS.categoriesPage
+                stateEventName: USER_ACTIVITY_EVENTS.categoriesPage
             });
 
     });

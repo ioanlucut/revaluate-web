@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.account")
-    .controller("SignUpController", function ($scope, $timeout, flash, ALERTS_CONSTANTS, StatesHandler, User, AuthService, MIXPANEL_EVENTS, APP_CONFIG) {
+    .controller("SignUpController", function ($rootScope, $scope, $timeout, flash, ALERTS_CONSTANTS, StatesHandler, User, AuthService, USER_ACTIVITY_EVENTS, APP_CONFIG) {
 
         /**
          * Alert identifier
@@ -39,7 +39,7 @@ angular
                 User.$new()
                     .create(signUpData)
                     .then(function () {
-                        mixpanel.track(MIXPANEL_EVENTS.signUpCompleted);
+                        $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.signUpCompleted);
 
                         AuthService
                             .login(signUpData.email, signUpData.password)

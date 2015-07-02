@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.settings")
-    .controller("SettingsProfileController", function ($q, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+    .controller("SettingsProfileController", function ($q, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, flash, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS) {
 
         /* jshint validthis: true */
         var vm = this;
