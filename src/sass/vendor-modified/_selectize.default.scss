@@ -45,9 +45,6 @@
         }
 
         .selectize-input {
-            border-color: $gray-light-1;
-            background-color: #f9f9f9;
-
             &.input-active,
             &.input-active input {
                 cursor: pointer;
@@ -89,8 +86,17 @@
     cursor: text;
     border: solid 2px $gray-light-2;
     height: $selectize-dropdown-height;
+    background-color: $white;
     line-height: 41px;
-    background-color: white;
+
+    .ui-select-match {
+        padding: 0 20px 0 10px;
+        width: 100%;
+    }
+
+    .ui-select-search {
+        padding: 0 20px 0 10px;
+    }
 
     &.disabled,
     &.disabled * {
