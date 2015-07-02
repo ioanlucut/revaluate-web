@@ -5,7 +5,7 @@ angular
         "revaluate.common",
         "revaluate.expenses"
     ])
-    .config(function ($stateProvider, MIXPANEL_EVENTS) {
+    .config(function ($stateProvider, USER_ACTIVITY_EVENTS) {
 
         $stateProvider
             .state("insights", {
@@ -27,7 +27,7 @@ angular
                     }
                 },
                 title: "Insights - Revaluate",
-                mixpanelId: MIXPANEL_EVENTS.insightsPage
+                stateEventName: USER_ACTIVITY_EVENTS.insightsPage
             })
 
     });

@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.categories")
-    .controller("CategoryEntryController", function ($scope, $rootScope, Category, $timeout, CATEGORY_EVENTS, APP_CONFIG, MIXPANEL_EVENTS) {
+    .controller("CategoryEntryController", function ($scope, $rootScope, Category, $timeout, CATEGORY_EVENTS, APP_CONFIG, USER_ACTIVITY_EVENTS) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -28,7 +28,7 @@ angular
                         /**
                          * Track event.
                          */
-                        mixpanel.track(MIXPANEL_EVENTS.categoryUpdated);
+                        $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.categoryUpdated);
 
                         $timeout(function () {
                             vm.isUpdating = false;
@@ -68,7 +68,7 @@ angular
                 .then(function () {
                     vm.isSuccessfullyDeleted = true;
 
-                    mixpanel.track(MIXPANEL_EVENTS.categoryDeleted);
+                    $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.categoryDeleted);
                     $rootScope.$broadcast(CATEGORY_EVENTS.isDeleted, {
                         category: category
                     });

@@ -4,7 +4,7 @@ angular
     .module("revaluate.expensesImport", [
         "revaluate.common"
     ])
-    .config(function ($stateProvider, MIXPANEL_EVENTS) {
+    .config(function ($stateProvider, USER_ACTIVITY_EVENTS) {
 
         $stateProvider
 
@@ -20,7 +20,7 @@ angular
                 url: "/choose",
                 templateUrl: "/app/import/partials/settings.import.choose.html",
                 isPaymentMissingUnrestrictedPage: true,
-                mixpanelId: MIXPANEL_EVENTS.settingsImportChoose,
+                stateEventName: USER_ACTIVITY_EVENTS.settingsImportChoose,
                 title: "Expenses import choose - Revaluate"
             })
 
@@ -47,7 +47,7 @@ angular
                         return deferred.promise;
                     }
                 },
-                mixpanelId: MIXPANEL_EVENTS.settingsImport,
+                stateEventName: USER_ACTIVITY_EVENTS.settingsImport,
                 title: "Expenses import - Revaluate"
             })
 

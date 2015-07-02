@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.insights")
-    .controller("InsightController", function ($templateCache, $rootScope, $filter, $timeout, flash, insight, insightsMonthsPerYears, InsightService, MIXPANEL_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
+    .controller("InsightController", function ($templateCache, $rootScope, $filter, $timeout, flash, insight, insightsMonthsPerYears, InsightService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -164,7 +164,7 @@ angular
                     /**
                      * Track event.
                      */
-                    mixpanel.track(MIXPANEL_EVENTS.insightsFetched);
+                    $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.insightsFetched);
 
                     $timeout(function () {
                         if ( receivedInsight.isEmpty() ) {
