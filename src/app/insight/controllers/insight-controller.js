@@ -64,17 +64,14 @@ angular
             var givenDateYear = givenDate.year();
             var givenDateMonth = givenDate.month() + 1;
 
-            var givenYearIsDefined = _.has($scope.insightsMonthsPerYears.insightsMonthsPerYears, givenDateYear);
-            if ( !givenYearIsDefined ) {
+            if ( !_.has($scope.insightsMonthsPerYears.insightsMonthsPerYears, givenDateYear) ) {
 
                 return true;
             }
 
-            var givenMonthHasAMatch = _.some(_.result($scope.insightsMonthsPerYears.insightsMonthsPerYears, givenDateYear), function (entry) {
+            return !_.some(_.result($scope.insightsMonthsPerYears.insightsMonthsPerYears, givenDateYear), function (entry) {
                 return entry === givenDateMonth;
             });
-
-            return !givenMonthHasAMatch;
         };
 
         // ---
@@ -124,17 +121,6 @@ angular
 
             $scope.datePickerOpened = true;
         };
-
-        /**
-         * Minimum date to fetch insights.
-         * @type {Date}
-         */
-        $scope.datePickerMinDate = $scope.statistics.model.firstExistingExpenseDate || moment().year(2000);
-
-        /**
-         * Maximum date to fetch insights.
-         */
-        $scope.datePickerMaxDate = $scope.statistics.model.lastExistingExpenseDate || moment().hours(0).minutes(0).seconds(0);
 
         /**
          * Exposed insight data (first define master copy).
