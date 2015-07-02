@@ -15,19 +15,12 @@
         width: 100%;
         height: $category-select-height;
         line-height: 35px !important;
-        background-color: transparent;
-        border: solid 1px $gray-light-3;
         color: white;
         font-weight: $font-weight-regular;
 
         &.selectize-focus {
             border-color: $brand-primary;
             background-color: lighten($brand-primary, 35%);
-        }
-
-        .ui-select-match {
-            padding: 0 20px 0 10px;
-            width: 100%;
         }
 
         .ui-select-search {
