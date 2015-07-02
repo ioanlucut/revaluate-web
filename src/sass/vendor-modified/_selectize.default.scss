@@ -45,9 +45,6 @@
         }
 
         .selectize-input {
-            border-color: $gray-light-1;
-            background-color: #f9f9f9;
-
             &.input-active,
             &.input-active input {
                 cursor: pointer;
@@ -87,11 +84,19 @@
     @include border-radius(3px);
     @include box-sizing(border-box);
     cursor: text;
-    border: solid 2px $gray-light-2 !important;
+    border: solid 2px $gray-light-2;
     height: $selectize-dropdown-height;
-    line-height: 41px !important;
-    padding: 0 20px 0 10px !important;
-    background-color: white !important; //$gray-light-2;
+    background-color: $white;
+    line-height: 41px;
+
+    .ui-select-match {
+        padding: 0 20px 0 10px;
+        width: 100%;
+    }
+
+    .ui-select-search {
+        padding: 0 20px 0 10px;
+    }
 
     &.disabled,
     &.disabled * {
@@ -129,20 +134,20 @@
     }
 
     & > input {
-        max-width: 100% !important;
-        max-height: none !important;
-        min-height: 0 !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        line-height: inherit !important;
-        text-indent: 0 !important;
-        background: none !important;
-        border: 0 none !important;
-        -webkit-user-select: auto !important;
-        height: 41px; //$selectize-dropdown-height - border-width;
+        max-width: 100%;
+        max-height: none;
+        min-height: 0;
+        padding: 0;
+        margin: 0;
+        line-height: inherit;
+        text-indent: 0;
+        background: none;
+        border: 0 none;
+        -webkit-user-select: auto;
+        height: 41px;
 
         &:focus {
-            outline: none !important;
+            outline: none;
         }
     }
 }
@@ -154,7 +159,7 @@
     position: absolute;
     z-index: 10;
     max-height: 400px;
-    overflow: scroll;
+    overflow-y: auto;
     margin: -6px 0 0 0;
     background: #ffffff;
     border: solid 1px $gray-light-2;

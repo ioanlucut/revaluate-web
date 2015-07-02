@@ -1,16 +1,16 @@
 .home__section__signup {
-    @include span-columns(4);
-    @include shift(1);
-    @include border-radius($base-border-radius);
-    padding: 10px 40px 40px 40px;
-    background-color: $white;
-    margin-bottom: 30px;
-    display: none;
+  @include border-radius($base-border-radius);
+  @include span-columns(5);
+  max-width: 400px;
+  padding: 10px 40px 40px 40px;
+  background-color: $white;
+  margin-bottom: 130px;
+  display: none;
 }
 
 .home__section__signup__btn {
-    @include btn-block($brand-primary);
-    margin-top: 25px;
-    font-size: 16px;
-    font-weight: $font-weight-bold;
+  @include btn-block($brand-primary);
+  margin-top: 25px;
+  font-size: 16px;
+  font-weight: $font-weight-bold;
 }

@@ -1,4 +1,4 @@
-@media (max-width: 850px) {
+@media (max-width: 900px) {
 
   .home__section__tour-screenmain {
     display: none;
@@ -16,12 +16,12 @@
   }
 
   .site__container__section__feature__img {
-    @include span-columns(8);
-    @include shift(2);
+    @include span-columns(10);
+    @include shift(1);
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
 
   .home__title {
     font-size: 50px;
@@ -43,8 +43,8 @@
   }
 
   .site__container__section__feature__img {
-    @include span-columns(10);
-    @include shift(1);
+    @include span-columns(12);
+    @include shift(0);
   }
 
   .site__container__section__nextfeatures {

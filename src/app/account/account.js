@@ -8,7 +8,7 @@ angular
         "revaluate.common",
         "revaluate.categories"
     ])
-    .config(function ($stateProvider, $httpProvider, MIXPANEL_EVENTS) {
+    .config(function ($stateProvider, $httpProvider, USER_ACTIVITY_EVENTS) {
 
         // Register AuthInterceptor
         $httpProvider.interceptors.push("AuthInterceptor");
@@ -22,7 +22,7 @@ angular
                 controller: "LoginController",
                 templateUrl: "/app/site/partials/home.html",
                 title: "Login - Revaluate",
-                mixpanelId: MIXPANEL_EVENTS.account,
+                stateEventName: USER_ACTIVITY_EVENTS.account,
                 isPublicPage: true
             })
 
@@ -33,7 +33,7 @@ angular
                 controllerAs: 'vm',
                 templateUrl: "/app/account/partials/logout.html",
                 title: "Logout - Revaluate",
-                mixpanelId: MIXPANEL_EVENTS.accountLogout,
+                stateEventName: USER_ACTIVITY_EVENTS.accountLogout,
                 isPublicPage: true
             })
 
@@ -74,7 +74,7 @@ angular
                     }
                 },
                 title: "Reset password - Revaluate",
-                mixpanelId: MIXPANEL_EVENTS.accountValidatePasswordResetTokenValid,
+                stateEventName: USER_ACTIVITY_EVENTS.accountValidatePasswordResetTokenValid,
                 isPublicPage: true
             })
             // Validate password reset token - invalid token
@@ -84,7 +84,7 @@ angular
                 templateUrl: "/app/account/partials/validate_password_reset_token_invalid.html",
                 controller: "ValidatePasswordResetTokenInvalidController",
                 title: "Reset password - Revaluate",
-                mixpanelId: MIXPANEL_EVENTS.accountValidatePasswordResetTokenInvalid,
+                stateEventName: USER_ACTIVITY_EVENTS.accountValidatePasswordResetTokenInvalid,
                 isPublicPage: true
             })
 
@@ -135,7 +135,7 @@ angular
                     }
                 },
                 title: "Confirm email - Revaluate",
-                mixpanelId: MIXPANEL_EVENTS.accountConfirmationEmailValid,
+                stateEventName: USER_ACTIVITY_EVENTS.accountConfirmationEmailValid,
                 isPublicPage: true
             })
             // Validate password reset token - invalid token
@@ -144,7 +144,7 @@ angular
                 url: "/invalid-token",
                 templateUrl: "/app/account/partials/email_confirmation_resend_invalid.html",
                 title: "Invalid confirmation email token - Revaluate",
-                mixpanelId: MIXPANEL_EVENTS.accountConfirmationEmailInvalid,
+                stateEventName: USER_ACTIVITY_EVENTS.accountConfirmationEmailInvalid,
                 isPublicPage: true
             })
     })

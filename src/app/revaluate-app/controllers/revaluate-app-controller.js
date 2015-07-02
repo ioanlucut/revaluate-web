@@ -106,11 +106,30 @@ angular
         });
 
         /**
-         * Track mixpanel activity
+         * Track event
+         */
+        $rootScope.trackEvents = function (event) {
+            mixpanel.track(event);
+
+            if ( !ENV.isProduction ) {
+                IntercomUtilsService.trackEvent(event);
+            }
+        };
+
+        /**
+         * Track events.
+         */
+        $rootScope.$on("trackEvent", function (event, args) {
+            mixpanel.track(args);
+            IntercomUtilsService.trackEvent(args);
+        });
+
+        /**
+         * Track activity
          */
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
-            if ( toState.mixpanelId ) {
-                mixpanel.track(toState.mixpanelId);
+            if ( toState.stateEventName ) {
+                $rootScope.$broadcast("trackEvent", toState.stateEventName);
             }
 
             // ---

@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.common")
-    .controller("Error500PageController", function ($scope, $controller, MIXPANEL_EVENTS) {
+    .controller("Error500PageController", function ($scope, $controller, USER_ACTIVITY_EVENTS) {
 
         /**
          * Inherit from this controller
@@ -15,5 +15,5 @@ angular
         /**
          * Track error event
          */
-        $scope.trackErrorEvent(MIXPANEL_EVENTS.error500);
+        $scope.trackErrorEvent(USER_ACTIVITY_EVENTS.error500);
     });

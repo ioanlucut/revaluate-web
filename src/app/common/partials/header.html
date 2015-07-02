@@ -2,13 +2,13 @@
     <header class="header">
 
         <div class="header__brand">
-            <div class="header__brand--logo"></div>
+            <div class="header__brand--logo" ui-sref="expenses.regular"></div>
             <a href="javascript:void(0)" class="header__brand--name">Revaluate</a>
         </div>
 
         <ul class="header__navigation">
             <li ui-sref-active="header__navigation--active">
-                <a href="javascript:void(0)" ui-sref="expenses.regular">Wallet</a>
+                <a href="javascript:void(0)" ui-sref="expenses.regular">Expenses</a>
             </li>
             <li ui-sref-active="header__navigation--active">
                 <a href="javascript:void(0)" ui-sref="insights">Insights</a>
@@ -22,11 +22,11 @@
         <div class="dropdown header__dropdown" dropdown is-open="status.isopen">
             <button class="dropdown-toggle header__dropdown__toggle" ng-show="currentUser.model.firstName + currentUser.model.lastName" dropdown-toggle data-toggle="dropdown" role="button" aria-expanded="false">
                 <img class="header__dropdown__avatar" gravatar-src="'{{currentUser.model.email}}'" />
-                {{currentUser.model.firstName + " " + currentUser.model.lastName}}
+                <span class="header__dropdown__username">{{currentUser.model.firstName + " " + currentUser.model.lastName}}</span>
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu header__dropdown__menu" role="menu">
-                <li><a href="javascript:void(0)" ui-sref="settings.profile">Preferences</a></li>
+                <li><a href="javascript:void(0)" ui-sref="settings.profile">Settings</a></li>
                 <li>
                     <a href="javascript:void(0)" id="feedback-trigger" ng-controller="FeedbackModalController" ng-click="openFeedbackModal()">Tell us anything</a>
                 </li>

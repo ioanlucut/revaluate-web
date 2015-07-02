@@ -15,6 +15,14 @@
     @include no-user-select();
 }
 
+.account__logo {
+  @include size(70px 70px);
+  background: url("../assets/img/logo.svg") no-repeat top left;
+  background-size: contain;
+  display: block;
+  margin: 0 auto;
+}
+
 .account__title {
     padding: 10px;
     font-size: $font-size-h2;

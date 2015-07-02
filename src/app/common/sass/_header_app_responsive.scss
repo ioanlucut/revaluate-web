@@ -1,0 +1,56 @@
+@media (max-width: 600px) {
+
+  .header__navigation {
+    margin-left: 20px;
+  }
+
+  .header__dropdown {
+
+    .header__dropdown__toggle {
+      .header__dropdown__username {
+        display: none;
+      }
+    }
+
+    .header__dropdown__menu {
+      li:first-child {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (max-width: 400px) {
+
+  .header__brand--logo {
+    @include size(30px 30px);
+    top: 15px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .header__navigation {
+    margin-left: 10px;
+
+    li {
+      padding: 0 5px;
+    }
+
+    li:nth-child(3) {
+      display: none;
+    }
+  }
+
+  .header__dropdown {
+    .header__dropdown__toggle {
+      padding-left: 35px;
+    }
+
+    .header__dropdown__avatar {
+      @include size(30px 30px);
+      top: 15px;
+    }
+  }
+}
