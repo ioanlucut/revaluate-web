@@ -110,7 +110,10 @@ angular
          */
         $rootScope.trackEvents = function (event) {
             mixpanel.track(event);
-            IntercomUtilsService.trackEvent(event);
+
+            if ( !ENV.isProduction ) {
+                IntercomUtilsService.trackEvent(event);
+            }
         };
 
         /**
