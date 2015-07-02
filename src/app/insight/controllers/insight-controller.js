@@ -34,20 +34,8 @@ angular
          */
         $scope.insight = insight;
 
-        $scope.insightLineData = [insight.model.insightData];
-        $scope.insightLineColors = [insight.model.insightColors];
-        $scope.insightLineSeries = ["Categories"];
-
-        $scope.INSIGHTS_CHARTS = INSIGHTS_CHARTS;
-        $scope.activeChart = $scope.INSIGHTS_CHARTS.DOUGHNUT;
-
-        $scope.setActiveChart = function (chartType) {
-            $scope.activeChart = chartType;
-        };
-
         /**
          * Expenses statistics
-         * @type {statistics|*}
          */
         $scope.statistics = statistics;
 
@@ -55,6 +43,27 @@ angular
          * Insights months per years.
          */
         $scope.insightsMonthsPerYears = insightsMonthsPerYears;
+
+        /**
+         * Fetch all types of insight charts
+         */
+        $scope.INSIGHTS_CHARTS = INSIGHTS_CHARTS;
+
+        // ---
+        // Computed information and methods.
+        // ---
+        $scope.insightLineData = [insight.model.insightData];
+        $scope.insightLineColors = [insight.model.insightColors];
+        $scope.insightLineSeries = ["Categories"];
+        $scope.activeChart = $scope.INSIGHTS_CHARTS.DOUGHNUT;
+
+        /**
+         * Sets te active chart displayed with the given chart type.
+         * @param chartType
+         */
+        $scope.setActiveChart = function (chartType) {
+            $scope.activeChart = chartType;
+        };
 
         /**
          * Checks if the date should be disabled.
@@ -77,43 +86,45 @@ angular
         // ---
         // Chart config options.
         // ---
-        $scope.defaultChartOptions = {
+        var defaultChartOptions = {
             scaleLabel: function (label) {
 
-                return formatValue(label);
+                return formatChartValue(label);
             },
             multiTooltipTemplate: function (label) {
 
-                return label.datasetLabel + ' ' + formatValue(label);
+                return label.datasetLabel + ' ' + formatChartValue(label);
             },
             tooltipTemplate: function (label) {
 
-                return label.label + ' ' + formatValue(label);
+                return label.label + ' ' + formatChartValue(label);
             }
         };
 
-        function formatValue(label) {
+        /**
+         * Formats chart value
+         */
+        function formatChartValue(price) {
 
-            return $filter('currency')(label.value.toString(), '', $scope.user.model.currency.fractionSize) + ' ' + $scope.user.model.currency.symbol
+            return $filter('currency')(price.value.toString(), '', $scope.user.model.currency.fractionSize) + ' ' + $scope.user.model.currency.symbol
         }
 
         // ---
         // Specific bar chart options.
         // ---
-        $scope.barOptions = angular.extend({}, $scope.defaultChartOptions);
+        $scope.barOptions = angular.extend({}, defaultChartOptions);
 
         // ---
         // Specific donut chart options.
         // ---
         $scope
-            .donutChartOptions = angular.extend({}, $scope.defaultChartOptions);
+            .donutChartOptions = angular.extend({}, defaultChartOptions);
         $scope
             .donutChartOptions
             .legendTemplate = "<ul class=\"doughnut__chart__legend\"><% for (var i=0; i<segments.length; i++){%><li class=\"doughnut__chart__legend__box\"><span class=\"doughnut__chart__legend__box__color\" style=\"background-color:<%=segments[i].fillColor%>\"></span><span class=\"doughnut__chart__legend__box__label\"><%if(segments[i].label){%><%=segments[i].label%><%}%></span></li><%}%></ul>";
 
         /**
          * Open date picker
-         * @param $event
          */
         $scope.openDatePicker = function ($event) {
             $event.preventDefault();
@@ -124,7 +135,6 @@ angular
 
         /**
          * Exposed insight data (first define master copy).
-         * @type {{spentDate: *}}
          */
         $scope.masterInsightData = {
             spentDate: moment().toDate()
@@ -132,7 +142,6 @@ angular
 
         /**
          * Exposed insight data.
-         * @type {{spentDate: *}}
          */
         $scope.insightData = angular.copy($scope.masterInsightData);
 
