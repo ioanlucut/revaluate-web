@@ -21,13 +21,9 @@ angular
                         return InsightService
                             .fetchInsightsFromTo(from, to);
                     },
-                    statistics: function (StatisticService) {
-                        return StatisticService
-                            .fetchStatistics();
-                    },
                     insightsMonthsPerYears: function (StatisticService) {
                         return StatisticService
-                            .fetchInsightsMonthsPerYears();
+                            .fetchStatistics();
                     }
                 },
                 title: "Insights - Revaluate",

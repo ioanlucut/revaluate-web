@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.insights")
-    .controller("InsightController", function ($templateCache, $rootScope, $filter, $timeout, flash, insight, statistics, insightsMonthsPerYears, InsightService, MIXPANEL_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
+    .controller("InsightController", function ($templateCache, $rootScope, $filter, $timeout, flash, insight, insightsMonthsPerYears, InsightService, MIXPANEL_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -36,11 +36,6 @@ angular
          * Default insights loaded.
          */
         vm.insight = insight;
-
-        /**
-         * Expenses statistics
-         */
-        vm.statistics = statistics;
 
         /**
          * Insights months per years.
