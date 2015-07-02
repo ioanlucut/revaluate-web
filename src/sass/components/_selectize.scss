@@ -4,18 +4,29 @@
     height: $category-select-height;
     @include border-radius($border-radius-base);
 
+    &.open {
+
+        .selectize-input {
+
+        }
+    }
+
     .selectize-input {
         width: 100%;
         height: $category-select-height;
         line-height: 35px !important;
-        background-color: transparent !important; // $gray-light-2;
-        border: solid 1px $gray-light-3 !important;
         color: white;
         font-weight: $font-weight-regular;
 
-        & > input {
+        &.selectize-focus {
+            border-color: $brand-primary;
+            background-color: lighten($brand-primary, 35%);
+        }
+
+        .ui-select-search {
             height: $category-select-height;
             text-transform: uppercase;
+            padding: 0 20px 0 10px;
         }
     }
 

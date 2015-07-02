@@ -11,7 +11,7 @@ angular
          * Track event.
          */
         $scope.trackErrorEvent = function (event) {
-            mixpanel.track(event);
+            $scope.$broadcast("trackEvent", event)
         };
 
         /**

@@ -26,8 +26,8 @@
             <input class="form-group-input__input" type="email" name="email" placeholder="Email" ng-model="contact.model.email" required valid-email />
         </div>
 
-        <div class="form-group-input" ng-class="{'has-error': contactForm.$submitted && contactForm.name.$invalid}">
-            <div class="form-group-input__message" ng-if="contactForm.message.$invalid && contactForm.$submitted">Please tell us your name.</div>
+        <div class="form-group-input" ng-class="{'has-error': contactForm.$submitted && contactForm.message.$invalid}">
+            <div class="form-group-input__message" ng-if="contactForm.message.$invalid && contactForm.$submitted">Please add a message.</div>
             <textarea class="form-group-input__input" rows="6" name="message" ng-model="contact.model.message" placeholder="Your message" required></textarea>
         </div>
 

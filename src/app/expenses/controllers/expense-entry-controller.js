@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.expenses")
-    .controller("ExpenseEntryController", function ($scope, $rootScope, Expense, $timeout, EXPENSE_EVENTS, MIXPANEL_EVENTS) {
+    .controller("ExpenseEntryController", function ($scope, $rootScope, Expense, $timeout, EXPENSE_EVENTS, USER_ACTIVITY_EVENTS) {
 
         /**
          * Edit/update timeout
@@ -40,7 +40,7 @@ angular
                 expense
                     .save()
                     .then(function () {
-                        mixpanel.track(MIXPANEL_EVENTS.expenseUpdated);
+                        $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.expenseUpdated);
 
                         $timeout(function () {
                             $scope.isUpdating = false;

@@ -9,12 +9,18 @@
     </div>
 
     <div class="modal-body" ng-if="! isSending && ! isSent">
-        <div class="form-group form-group-input" ng-class="{'has-error': feedbackForm.subject.$invalid && feedbackForm.$submitted}">
-            <input class="form-control" type="text" name="subject" ng-model="feedback.model.subject" placeholder="Subject" required />
+
+        <!-- Form group -->
+        <div class="form-group-input" ng-class="{'has-error': feedbackForm.$submitted && feedbackForm.subject.$invalid}">
+            <div class="form-group-input__message" ng-if="feedbackForm.subject.$invalid && feedbackForm.$submitted">Please provide a subject.</div>
+            <input class="form-group-input__input" type="text" name="subject" placeholder="Subject" ng-model="feedback.model.subject" required />
         </div>
-        <div class="form-group" ng-class="{'has-error': feedbackForm.message.$invalid && feedbackForm.$submitted}">
-            <textarea class="form-control" rows="6" name="message" ng-model="feedback.model.message" placeholder="Your message" required></textarea>
+
+        <div class="form-group-input" ng-class="{'has-error': feedbackForm.$submitted && feedbackForm.message.$invalid}">
+            <div class="form-group-input__message" ng-if="feedbackForm.message.$invalid && feedbackForm.$submitted">Please add a message.</div>
+            <textarea class="form-group-input__input" rows="6" name="message" ng-model="feedback.model.message" placeholder="Your message" required></textarea>
         </div>
+
     </div>
 
     <div class="modal-body" ng-if="isSending">

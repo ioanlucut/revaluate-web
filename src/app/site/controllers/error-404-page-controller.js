@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.common")
-    .controller("Error404PageController", function ($scope, $controller, MIXPANEL_EVENTS) {
+    .controller("Error404PageController", function ($scope, $controller, USER_ACTIVITY_EVENTS) {
 
         /**
          * Inherit from this controller
@@ -15,5 +15,5 @@ angular
         /**
          * Track error event
          */
-        $scope.trackErrorEvent(MIXPANEL_EVENTS.error404);
+        $scope.trackErrorEvent(USER_ACTIVITY_EVENTS.error404);
     });

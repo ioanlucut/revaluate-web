@@ -1,15 +1,38 @@
-@media (max-width: $screen-md-min) {
+@media (max-width: 900px) {
 
-    .home__section__signup {
-        @include span-columns(6);
-        @include shift(0);
-    }
+  .home__section__signup {
+    @include span-columns(6);
+    @include shift(3);
+  }
 }
 
-@media (max-width: 850px) {
+@media (max-width: 800px) {
 
-    .home__section__signup {
-        width: 100%;
-        margin: 0 auto;
-    }
+  .home__section__signup {
+    @include span-columns(8);
+    @include shift(2);
+  }
+}
+
+@media (max-width: 600px) {
+
+  .home__section__signup {
+    padding: 30px;
+  }
+}
+
+@media (max-width: 500px) {
+
+  .home__section__signup {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 450px) {
+
+  .home__section__signup {
+    @include span-columns(12);
+    @include shift(0);
+    padding: 10px;
+  }
 }

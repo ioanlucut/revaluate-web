@@ -25,8 +25,10 @@
         text-align: right;
         width: 30%;
 
-        .currency__symbol {
-            padding: 0 2px;
-        }
+      .currency__symbol {
+        padding-left: 5px;
+        font-weight: $font-weight-light;
+        color: $gray-medium;
+      }
     }
 }

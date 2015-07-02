@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.expensesImport")
-    .controller("ExpensesImportController", function ($q, $scope, $rootScope, $timeout, IMPORT_PARSE_ANALYSE_URLS, importType, FileUploader, ImportService, ExpensesImport, StatesHandler, SessionService, AUTH_EVENTS, flash, categories, ALERTS_CONSTANTS, MIXPANEL_EVENTS, APP_CONFIG) {
+    .controller("ExpensesImportController", function ($q, $scope, $rootScope, $timeout, IMPORT_PARSE_ANALYSE_URLS, importType, FileUploader, ImportService, ExpensesImport, StatesHandler, SessionService, AUTH_EVENTS, flash, categories, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, APP_CONFIG) {
 
         // ---
         // Configure uploader.
@@ -118,7 +118,7 @@ angular
             // ---
             $scope.expensesImportAnswer = ExpensesImport.build(response);
             $scope.isUploadSuccessful = true;
-            mixpanel.track(MIXPANEL_EVENTS.settingsImportUploadSuccess);
+            $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.settingsImportUploadSuccess);
         };
 
         // ---
@@ -130,9 +130,9 @@ angular
             }
             else {
                 if ( status === SERVER_ERROR ) {
-                    flash.to($scope.alertIdentifierId).error = 'Something went wrong. Can you please try one more time?'
+                    flash.to($scope.alertIdentifierId).error = 'Something went wrong. Can you please try one more time?';
 
-                    mixpanel.track(MIXPANEL_EVENTS.settingsImportServerError);
+                    $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.settingsImportServerError);
                 }
             }
 
@@ -213,7 +213,7 @@ angular
                         // ---
                         $scope.isImporting = false;
                         $scope.importFinished = true;
-                        mixpanel.track(MIXPANEL_EVENTS.settingsImportSuccess);
+                        $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.settingsImportSuccess);
 
                         // ---
                         // Go to expenses after 1,5 sec.

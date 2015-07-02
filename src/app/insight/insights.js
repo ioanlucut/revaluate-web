@@ -5,13 +5,14 @@ angular
         "revaluate.common",
         "revaluate.expenses"
     ])
-    .config(function ($stateProvider, MIXPANEL_EVENTS) {
+    .config(function ($stateProvider, USER_ACTIVITY_EVENTS) {
 
         $stateProvider
             .state("insights", {
                 url: "/insights",
                 templateUrl: '/app/insight/partials/insight.html',
                 controller: "InsightController",
+                controllerAs: 'vm',
                 resolve: {
                     insight: function (InsightService) {
                         var from = moment().startOf('month');
@@ -20,13 +21,13 @@ angular
                         return InsightService
                             .fetchInsightsFromTo(from, to);
                     },
-                    statistics: function (StatisticService) {
+                    insightsMonthsPerYears: function (StatisticService) {
                         return StatisticService
                             .fetchStatistics();
                     }
                 },
                 title: "Insights - Revaluate",
-                mixpanelId: MIXPANEL_EVENTS.insightsPage
+                stateEventName: USER_ACTIVITY_EVENTS.insightsPage
             })
 
     });

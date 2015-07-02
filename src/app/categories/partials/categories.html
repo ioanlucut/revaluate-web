@@ -10,7 +10,7 @@
     <!--List all categories-->
     <div class="categories__edit">
 
-        <div class="categories__edit__category" ng-repeat="category in vm.categories | orderObjectBy : 'model.id' : true track by category.model.id">
+        <div class="categories__edit__category" ng-repeat="category in vm.categories | orderObjectBy : 'model.name' : false track by category.model.id">
 
             <!--Edit/remove category-->
             <div category-entry colors="vm.colors" category="category" is-minimum-number-of-allowed-categories-exceeded="vm.isMinimumNumberOfAllowedCategoriesExceeded()" ></div>
