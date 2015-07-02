@@ -5,25 +5,13 @@
  */
 angular
     .module("revaluate.statistics")
-    .service("StatisticService", function (STATISTIC_URLS, $q, $http, $injector, StatisticTransformerService) {
+    .service("StatisticService", function (STATISTIC_URLS, $q, $http) {
 
         /**
-         * Get all statistics of current user
+         * Get all expense statistics of current user. They represents a map of expenses per years/months.
          * @returns {*}
          */
         this.fetchStatistics = function () {
-
-            return $http
-                .get(URLTo.api(STATISTIC_URLS.fetchStatistic))
-                .then(function (response) {
-
-                    return StatisticTransformerService.toStatistic(response.data, $injector.get('Statistic').build());
-                }).catch(function (response) {
-                    return $q.reject(response);
-                });
-        };
-
-        this.fetchInsightsMonthsPerYears = function () {
 
             return $http
                 .get(URLTo.api(STATISTIC_URLS.insightsMonthsPerYears))
