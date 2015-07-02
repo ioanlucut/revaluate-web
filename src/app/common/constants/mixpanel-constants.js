@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.common")
-    .constant("MIXPANEL_EVENTS", {
+    .constant("USER_ACTIVITY_EVENTS", {
         homePage: "Home page",
         pricingPage: "Pricing page",
         privacyPage: "Privacy page",

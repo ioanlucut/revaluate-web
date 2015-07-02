@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.categories")
-    .controller("CategoryController", function ($rootScope, $scope, flash, Category, CategoryColorService, CATEGORY_EVENTS, $timeout, categories, MIXPANEL_EVENTS, APP_CONFIG, ALERTS_CONSTANTS) {
+    .controller("CategoryController", function ($rootScope, $scope, flash, Category, CategoryColorService, CATEGORY_EVENTS, $timeout, categories, USER_ACTIVITY_EVENTS, APP_CONFIG, ALERTS_CONSTANTS) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -76,7 +76,7 @@ angular
                     .category
                     .save()
                     .then(function () {
-                        mixpanel.track(MIXPANEL_EVENTS.categoryCreated);
+                        $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.categoryCreated);
 
                         $timeout(function () {
                             vm.isSaving = false;
