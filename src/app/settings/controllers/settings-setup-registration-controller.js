@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.settings")
-    .controller("SettingsSetUpRegistrationController", function ($q, $scope, $rootScope, $timeout, flash, AuthService, CategoryService, AUTH_EVENTS, ALERTS_CONSTANTS, MIXPANEL_EVENTS, CategoryColorService, SessionService, StatesHandler, Category, APP_CONFIG) {
+    .controller("SettingsSetUpRegistrationController", function ($q, $scope, $rootScope, $timeout, flash, AuthService, CategoryService, AUTH_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, CategoryColorService, SessionService, StatesHandler, Category, APP_CONFIG) {
         /**
          * Saving timeout
          */
@@ -234,7 +234,7 @@ angular
                         SessionService.setData(response.data);
                         $rootScope.$broadcast(AUTH_EVENTS.refreshUser, response);
 
-                        mixpanel.track(MIXPANEL_EVENTS.accountSetupFinished);
+                        $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.accountSetupFinished);
 
                         // ---
                         // Show some feedback.

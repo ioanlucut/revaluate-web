@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.settings")
-    .controller("SettingsEditPaymentMethodController", function ($q, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentInsights, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+    .controller("SettingsEditPaymentMethodController", function ($q, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentInsights, flash, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS) {
 
         /* jshint validthis: true */
         var vm = this;

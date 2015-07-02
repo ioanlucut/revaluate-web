@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.expenses")
-    .controller("ExpenseController", function ($scope, $rootScope, $stateParams, Expense, expenses, ExpenseService, categories, $window, DatesUtils, $timeout, StatesHandler, EXPENSE_EVENTS, flash, MIXPANEL_EVENTS, ALERTS_CONSTANTS, APP_CONFIG) {
+    .controller("ExpenseController", function ($scope, $rootScope, $stateParams, Expense, expenses, ExpenseService, categories, $window, DatesUtils, $timeout, StatesHandler, EXPENSE_EVENTS, flash, USER_ACTIVITY_EVENTS, ALERTS_CONSTANTS, APP_CONFIG) {
 
         /**
          * Updating/deleting timeout
@@ -121,12 +121,13 @@ angular
                 $scope.masterExpense
                     .save()
                     .then(function () {
-                        mixpanel.track(MIXPANEL_EVENTS.expenseCreated);
+                        $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.expenseCreated);
 
                         var expenseToBePushed = angular.copy($scope.masterExpense);
                         $timeout(function () {
                             $scope.isSaving = false;
                             $scope.expenses.push(expenseToBePushed);
+                            $rootScope.$broadcast(EXPENSE_EVENTS.isCreated, {});
                         }, TIMEOUT_DURATION);
 
                         /**
@@ -195,11 +196,12 @@ angular
                     /**
                      * Track event.
                      */
-                    mixpanel.track(MIXPANEL_EVENTS.expenseDeleted);
+                    $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.expenseDeleted);
 
                     $timeout(function () {
                         removeAllExpenseFrom($scope.expenses, selectedExpenses);
                         $scope.isBulkDeleting = false;
+                        $rootScope.$broadcast(EXPENSE_EVENTS.isDeleted, {});
                     }, TIMEOUT_DURATION);
                 })
                 .catch(function () {

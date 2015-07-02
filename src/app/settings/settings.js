@@ -7,7 +7,7 @@ angular
     .module("revaluate.settings", [
         "revaluate.account"
     ])
-    .config(function ($stateProvider, MIXPANEL_EVENTS) {
+    .config(function ($stateProvider, USER_ACTIVITY_EVENTS) {
 
         $stateProvider
 
@@ -32,7 +32,7 @@ angular
                 controllerAs: 'vm',
                 isPaymentMissingUnrestrictedPage: true,
                 title: "Profile - Revaluate",
-                mixpanelId: MIXPANEL_EVENTS.settingsProfile
+                stateEventName: USER_ACTIVITY_EVENTS.settingsProfile
             })
 
             // ---
@@ -56,7 +56,7 @@ angular
                         controllerAs: 'vm'
                     }
                 },
-                mixpanelId: MIXPANEL_EVENTS.settingsAccount,
+                stateEventName: USER_ACTIVITY_EVENTS.settingsAccount,
                 title: "Admin - Revaluate"
             })
 
@@ -76,7 +76,7 @@ angular
                         controllerAs: 'vm'
                     }
                 },
-                mixpanelId: MIXPANEL_EVENTS.settingsPreferences,
+                stateEventName: USER_ACTIVITY_EVENTS.settingsPreferences,
                 title: "Preferences - Revaluate"
             })
 
@@ -89,6 +89,6 @@ angular
                 controller: "SettingsSetUpRegistrationController",
                 controllerAs: 'vm',
                 title: "Settings setup - revaluate",
-                mixpanelId: MIXPANEL_EVENTS.accountSetup
+                stateEventName: USER_ACTIVITY_EVENTS.accountSetup
             });
     });
