@@ -213,31 +213,30 @@ angular
         }
 
         /**
-         * Submitted from inside the form.
-         */
-        $scope.submitLoadInsight = function () {
-            if ( !$scope.insightForm.$valid ) {
-                return;
-            }
-
-            var isDateInFuture = moment().diff($scope.insightData.spentDate || $scope.insightForm.spentDate) <= 0;
-            if ( isDateInFuture ) {
-                $scope.insightForm.spentDate.$setValidity('validDate', false);
-
-                return;
-            }
-
-            // ---
-            // Now load the insights.
-            // ---
-            loadInsight();
-        };
-
-        /**
          * On date change do load insight
          */
         $scope.onChange = function () {
             loadInsight();
+        };
+
+        /**
+         * Only if -1 month is at most the first existing expenses date.
+         * @returns {boolean}
+         */
+        $scope.canLoadPrevMonth = function () {
+            var currentSelectedDate = moment($scope.insightData.spentDate);
+            var currentSelectedDateYear = currentSelectedDate.year();
+            var currentSelectedDateMonth = currentSelectedDate.month() + 1;
+
+            if ( !expensesExistsInYear(currentSelectedDateYear) ) {
+
+                return true;
+            }
+
+            // ---
+            // We check in the previous month.
+            // ---
+            return expensesExistsInMonthWithYear(currentSelectedDateYear, currentSelectedDateMonth - 1);
         };
 
         /**
@@ -249,27 +248,15 @@ angular
             loadInsight();
         };
 
-        function expensesExistsInYear(givenDateYear) {
-            return _.has($scope.insightsMonthsPerYears.insightsMonthsPerYears, givenDateYear);
-        }
-
-        function isGivenMonthHasAMatchInYear(givenDateYear, givenDateMonth) {
-            return _.some(_.result($scope.insightsMonthsPerYears.insightsMonthsPerYears, givenDateYear), function (entry) {
-                return entry === givenDateMonth;
-            });
-        }
-
         /**
-         * Only if -1 month is at most the first existing expenses date.
-         * @returns {boolean}
+         * Only if +1 month is at most the last existing expenses date.
          */
-        $scope.canLoadPrevMonth = function () {
-            var givenDate = moment($scope.insightData.spentDate);
-            var givenDateYear = givenDate.year();
-            var givenDateMonth = givenDate.month() + 1;
+        $scope.canLoadNextMonth = function () {
+            var currentSelectedDate = moment($scope.insightData.spentDate);
+            var currentSelectedDateYear = currentSelectedDate.year();
+            var currentSelectedDateMonth = currentSelectedDate.month() + 1;
 
-            var givenYearIsDefined = expensesExistsInYear(givenDateYear);
-            if ( !givenYearIsDefined ) {
+            if ( !expensesExistsInYear(currentSelectedDateYear) ) {
 
                 return true;
             }
@@ -277,7 +264,7 @@ angular
             // ---
             // We check in the previous month.
             // ---
-            return isGivenMonthHasAMatchInYear(givenDateYear, givenDateMonth - 1);
+            return expensesExistsInMonthWithYear(currentSelectedDateYear, currentSelectedDateMonth + 1);
         };
 
         /**
@@ -290,23 +277,18 @@ angular
         };
 
         /**
-         * Only if +1 month is at most the last existing expenses date.
-         * @returns {boolean}
+         * Checks if in the given year are expenses defined.
          */
-        $scope.canLoadNextMonth = function () {
-            var givenDate = moment($scope.insightData.spentDate);
-            var givenDateYear = givenDate.year();
-            var givenDateMonth = givenDate.month() + 1;
+        function expensesExistsInYear(dateYear) {
+            return _.has($scope.insightsMonthsPerYears.insightsMonthsPerYears, dateYear);
+        }
 
-            var givenYearIsDefined = expensesExistsInYear(givenDateYear);
-            if ( !givenYearIsDefined ) {
-
-                return true;
-            }
-
-            // ---
-            // We check in the previous month.
-            // ---
-            return isGivenMonthHasAMatchInYear(givenDateYear, givenDateMonth + 1);
-        };
+        /**
+         * Checks if in the given year and month are expenses defined.
+         */
+        function expensesExistsInMonthWithYear(givenDateYear, givenDateMonth) {
+            return _.some(_.result($scope.insightsMonthsPerYears.insightsMonthsPerYears, givenDateYear), function (entry) {
+                return entry === givenDateMonth;
+            });
+        }
     });
