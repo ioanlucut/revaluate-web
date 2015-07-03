@@ -41,15 +41,15 @@ angular
         settingsImportUploadSuccess: "Settings import upload success",
         settingsImportSuccess: "Settings import success",
 
-        account: "Settings import",
-        accountLogout: "Settings import",
-        accountValidatePasswordResetTokenValid: "Settings import",
-        accountValidatePasswordResetTokenInvalid: "Settings import",
-        accountConfirmationEmailValid: "Settings import",
-        accountConfirmationEmailInvalid: "Settings import",
-        accountSetup: "Settings import",
+        account: "Account",
+        accountLogout: "Account logout",
+        accountValidatePasswordResetTokenValid: "Account validate password reset token valid",
+        accountValidatePasswordResetTokenInvalid: "Account validate password reset token invalid",
+        accountConfirmationEmailValid: "Account confirmation email valid",
+        accountConfirmationEmailInvalid: "Account confirmation email invalid",
+        accountSetup: "Account setup page",
 
-        accountSetupFinished: "Settings import",
+        accountSetupFinished: "Account setup finished",
 
         error404: "error-404",
         error500: "error-500"
