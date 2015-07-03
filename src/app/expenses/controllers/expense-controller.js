@@ -238,7 +238,7 @@ angular
                 $scope.expenses.push(args.expense);
             }
 
-            /*flash.to($scope.alertIdentifierId).success = "Expense successfully updated!";*/
+            flash.to($scope.alertIdentifierId).success = "Expense successfully updated!";
         });
 
         /**
