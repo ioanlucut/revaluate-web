@@ -126,8 +126,7 @@ angular
                         var expenseToBePushed = angular.copy($scope.masterExpense);
                         $timeout(function () {
                             $scope.isSaving = false;
-                            $scope.expenses.push(expenseToBePushed);
-                            $rootScope.$broadcast(EXPENSE_EVENTS.isCreated, {});
+                            $rootScope.$broadcast(EXPENSE_EVENTS.isCreated, { expense: expenseToBePushed });
                         }, TIMEOUT_DURATION);
 
                         /**
@@ -230,8 +229,8 @@ angular
          * On expense updated.
          */
         $scope.$on(EXPENSE_EVENTS.isUpdated, function (event, args) {
-            var result = _.some($scope.expenses, function (topic) {
-                return topic.model.id === args.expense.model.id;
+            var result = _.some($scope.expenses, function (expense) {
+                return expense.model.id === args.expense.model.id;
             });
 
             if ( result ) {
@@ -239,7 +238,7 @@ angular
                 $scope.expenses.push(args.expense);
             }
 
-            flash.to($scope.alertIdentifierId).success = "Expense successfully updated!";
+            /*flash.to($scope.alertIdentifierId).success = "Expense successfully updated!";*/
         });
 
         /**
