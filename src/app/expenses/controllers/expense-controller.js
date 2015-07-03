@@ -245,7 +245,9 @@ angular
          * On expense deleted, display a success message, and remove the expense from the list.
          */
         $scope.$on(EXPENSE_EVENTS.isDeleted, function (event, args) {
-            removeExpenseFrom($scope.expenses, args.expense);
+            if ( args.expense ) {
+                removeExpenseFrom($scope.expenses, args.expense);
+            }
 
             flash.to($scope.alertIdentifierId).success = "Expense successfully deleted!";
         });
