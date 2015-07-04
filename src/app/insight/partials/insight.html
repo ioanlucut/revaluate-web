@@ -138,25 +138,28 @@
             </div>
 
             <div class="insights__summary">
+
                 <div class="insights__summary__item">
-                    You had <span>{{vm.insight.model.numberOfTransactions}} transactions</span>, in
-                    <span>{{vm.insight.model.totalPerCategoryInsightDTOs.length}} categories</span>.
+                    You had <span>{{vm.insight.model.numberOfTransactions}} {{vm.insight.model.numberOfTransactions | pluralisationFilter:'transaction':'transactions'}}</span>,
+                    in <span>{{vm.insight.model.totalPerCategoryInsightDTOs.length}} {{vm.insight.model.totalPerCategoryInsightDTOs.length | pluralisationFilter:'category':'categories'}}</span>.
                 </div>
-                <div class="insights__summary__item">
-                    Your biggest transaction was
-                    <span class="label-info" ng-bind-html="vm.insight.model.biggestExpense.value | currencys:user.model.currency.symbol:user.model.currency.fractionSize"></span>,
-                    on
-                    <span class="label-uppercase category__label" ng-style="{'background':vm.insight.model.biggestExpense.category.color.color}">{{vm.insight.model.biggestExpense.category.name}}</span>.
+
+                <div ng-if="vm.insight.model.numberOfTransactions > 1">
+                    <div class="insights__summary__item">
+                        Your biggest transaction was <span class="label-info" ng-bind-html="vm.insight.model.biggestExpense.value | currencys:user.model.currency.symbol:user.model.currency.fractionSize"></span>,
+                        on <span class="label-uppercase category__label" ng-style="{'background':vm.insight.model.biggestExpense.category.color.color}">{{vm.insight.model.biggestExpense.category.name}}</span>.
+                    </div>
+
+                    <div class="insights__summary__item">
+                        You've spent the most on <span class="label-uppercase category__label" ng-style="{'background':vm.insight.model.highestAmountCategory.color.color}">{{vm.insight.model.highestAmountCategory.name}}</span>.
+                    </div>
+
+                    <div ng-if="vm.insight.model.categoryWithTheMostTransactionsInsightsDTO.numberOfTransactions > 1" class="insights__summary__item">
+                        The category with the most transactions (<span>{{vm.insight.model.categoryWithTheMostTransactionsInsightsDTO.numberOfTransactions}}</span>)
+                        is <span class="label-uppercase category__label" ng-style="{'background':vm.insight.model.categoryWithTheMostTransactionsInsightsDTO.categoryDTO.color.color}">{{vm.insight.model.categoryWithTheMostTransactionsInsightsDTO.categoryDTO.name}}</span>.
+                    </div>
                 </div>
-                <div class="insights__summary__item">
-                    You've spent the most on
-                    <span class="label-uppercase category__label" ng-style="{'background':vm.insight.model.highestAmountCategory.color.color}">{{vm.insight.model.highestAmountCategory.name}}</span>.
-                </div>
-                <div class="insights__summary__item">
-                    The category with the most transactions (<span>{{vm.insight.model.categoryWithTheMostTransactionsInsightsDTO.numberOfTransactions}}</span>)
-                    is
-                    <span class="label-uppercase category__label" ng-style="{'background':vm.insight.model.categoryWithTheMostTransactionsInsightsDTO.categoryDTO.color.color}">{{vm.insight.model.categoryWithTheMostTransactionsInsightsDTO.categoryDTO.name}}</span>.
-                </div>
+
             </div>
 
         </div>
