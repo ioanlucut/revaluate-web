@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.account")
-    .controller("LoginController", function ($scope, flash, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountModal, StatesHandler, $timeout) {
+    .controller("LoginController", function ($scope, ALERTS_EVENTS, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountModal, StatesHandler, $timeout) {
 
         /**
          * Alert identifier
@@ -52,7 +52,7 @@ angular
                         /* If bad feedback from server */
                         $scope.badPostSubmitResponse = true;
 
-                        flash.to($scope.alertIdentifierId).error = "Your email or password are wrong. Please try again.";
+                        $scope.$emit(ALERTS_EVENTS.DANGER, "Your email or password are wrong. Please try again.");
                     })
                     .finally(function () {
                         $scope.isRequestPending = false;

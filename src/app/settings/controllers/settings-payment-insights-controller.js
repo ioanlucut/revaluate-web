@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.settings")
-    .controller("SettingsPaymentInsightsController", function ($q, $state, $rootScope, $timeout, $http, paymentInsights, flash, AUTH_URLS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, AUTH_EVENTS, USER_SUBSCRIPTION_STATUS) {
+    .controller("SettingsPaymentInsightsController", function ($q, $scope, $state, $rootScope, $timeout, $http, paymentInsights, ALERTS_EVENTS, AUTH_URLS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, AUTH_EVENTS, USER_SUBSCRIPTION_STATUS) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -51,7 +51,7 @@ angular
                         $rootScope
                             .$broadcast(AUTH_EVENTS.refreshUser, {});
 
-                        flash.to(vm.alertIdentifierId).success = 'You\'ve successfully removed payment method!';
+                        $scope.$emit(ALERTS_EVENTS.SUCCESS, 'You\'ve successfully removed payment method!');
                         $timeout(function () {
                             vm.isRequestPending = false;
 
@@ -71,10 +71,10 @@ angular
                         // ---
                         var errors = response.data;
                         if ( _.isArray(errors) ) {
-                            flash.to(vm.alertIdentifierId).error = errors.join("\n");
+                            $scope.$emit(ALERTS_EVENTS.DANGER, errors.join("\n"));
                         }
                         else {
-                            flash.to(vm.alertIdentifierId).error = 'We\'ve encountered an error while trying to remove payment method';
+                            $scope.$emit(ALERTS_EVENTS.DANGER, 'We\'ve encountered an error while trying to remove payment method');
                         }
                     });
 

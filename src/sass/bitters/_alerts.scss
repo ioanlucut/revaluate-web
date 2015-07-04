@@ -45,7 +45,7 @@
     }
 }
 
-.alert-error {
+.alert-error, .alert-danger {
     @include flash($brand-danger, $brand-danger-light);
 
     .close {

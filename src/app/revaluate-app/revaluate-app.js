@@ -32,10 +32,18 @@ angular
         "angularPayments",
         "pascalprecht.translate",
         "duScroll",
+        "ngToast",
         "ui.select"
     ])
-    .config(function ($locationProvider, $translateProvider, ChartJsProvider, CacheFactoryProvider, gravatarServiceProvider, APP_CONFIG) {
+    .config(function ($locationProvider, $translateProvider, ChartJsProvider, CacheFactoryProvider, gravatarServiceProvider, ngToastProvider) {
         angular.extend(CacheFactoryProvider.defaults, { maxAge: 15 * 60 * 1000 });
+
+        // ---
+        // Configure ng toast provider.
+        // ---
+        ngToastProvider.configure({
+            additionalClasses: 'alert-animation'
+        });
 
         // Enable html5 mode
         $locationProvider.html5Mode({

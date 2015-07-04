@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.settings")
-    .controller("SettingsSetUpRegistrationController", function ($q, $scope, $rootScope, $timeout, flash, AuthService, CategoryService, AUTH_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, CategoryColorService, SessionService, StatesHandler, Category, APP_CONFIG) {
+    .controller("SettingsSetUpRegistrationController", function ($q, $scope, $rootScope, $timeout, ALERTS_EVENTS, AuthService, CategoryService, AUTH_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, CategoryColorService, SessionService, StatesHandler, Category, APP_CONFIG) {
         /**
          * Saving timeout
          */
@@ -117,7 +117,7 @@ angular
             // ---
             // If there was a previously error, just clear it.
             // ---
-            flash.to(vm.alertIdentifierId).error = '';
+            /*$scope.$emit(ALERTS_EVENTS.DANGER,  = '';*/
         }
 
         /**
@@ -136,7 +136,7 @@ angular
             });
 
             if ( result ) {
-                flash.to(vm.alertIdentifierId).error = "Category is not unique";
+                $scope.$emit(ALERTS_EVENTS.DANGER, "Category is not unique");
             }
             else {
                 vm.categories.push({
@@ -240,7 +240,7 @@ angular
                         // Show some feedback.
                         // ---
                         vm.isSaving = false;
-                        flash.to(vm.alertIdentifierId).success = "Set up successfully! Preparing expenses..";
+                        $scope.$emit(ALERTS_EVENTS.SUCCESS, "Set up successfully! Preparing expenses..");
 
                         /**
                          * Finally, go to expenses.
@@ -252,7 +252,7 @@ angular
 
                     // Error
                     vm.isSaving = false;
-                    flash.to(vm.alertIdentifierId).error = "Set up could not have been performed.";
+                    $scope.$emit(ALERTS_EVENTS.DANGER, "Set up could not have been performed.");
                     vm.badPostSubmitResponse = true;
                 });
         };

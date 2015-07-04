@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.settings")
-    .controller("SettingsCancelAccountController", function ($q, $rootScope, $timeout, StatesHandler, AuthService, flash, ALERTS_CONSTANTS) {
+    .controller("SettingsCancelAccountController", function ($q, $scope, $rootScope, $timeout, StatesHandler, AuthService, ALERTS_EVENTS, ALERTS_CONSTANTS) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -29,7 +29,7 @@ angular
                 .cancelAccount()
                 .then(function () {
 
-                    flash.to(vm.alertIdentifierId).success = 'We\'ve successfully deleted your account!';
+                    $scope.$emit(ALERTS_EVENTS.SUCCESS, 'We\'ve successfully deleted your account!');
                     vm.isDeleting = false;
 
                     $timeout(function () {
@@ -49,7 +49,7 @@ angular
                     vm.badPostSubmitResponse = true;
                     vm.isDeleting = false;
 
-                    flash.to(vm.alertIdentifierId).error = 'We\'ve encountered an error while trying to remove your account.';
+                    $scope.$emit(ALERTS_EVENTS.DANGER, 'We\'ve encountered an error while trying to remove your account.');
                 });
         };
     });

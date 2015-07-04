@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.account")
-    .controller("SignUpController", function ($rootScope, $scope, $timeout, flash, ALERTS_CONSTANTS, StatesHandler, User, AuthService, USER_ACTIVITY_EVENTS, APP_CONFIG) {
+    .controller("SignUpController", function ($rootScope, $scope, $timeout, ALERTS_EVENTS, ALERTS_CONSTANTS, StatesHandler, User, AuthService, USER_ACTIVITY_EVENTS, APP_CONFIG) {
 
         /**
          * Alert identifier
@@ -54,7 +54,7 @@ angular
                         $scope.badPostSubmitResponse = true;
                         $scope.isRequestPending = false;
 
-                        flash.to($scope.alertIdentifierId).error = "Sorry, something went wrong.";
+                        $scope.$emit(ALERTS_EVENTS.DANGER, "Sorry, something went wrong.");
                     });
             }
         };

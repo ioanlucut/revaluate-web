@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.account")
-    .controller("ValidatePasswordResetTokenController", function ($scope, $timeout, flash, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult, ALERTS_CONSTANTS) {
+    .controller("ValidatePasswordResetTokenController", function ($scope, $timeout, ALERTS_EVENTS, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult, ALERTS_CONSTANTS) {
 
         /**
          * Alert identifier
@@ -46,7 +46,7 @@ angular
                         /* If bad feedback from server */
                         $scope.badPostSubmitResponse = true;
 
-                        flash.to($scope.alertIdentifierId).error = "Sorry, something went wrong.";
+                        $scope.$emit(ALERTS_EVENTS.DANGER, "Sorry, something went wrong.");
                     });
             }
         };

@@ -24,4 +24,10 @@ angular
         cancelAccount: "cancelAccount",
         preferences: "preferences",
         import: "import"
+    })
+    .constant("ALERTS_EVENTS", {
+        INFO: "INFO",
+        SUCCESS: "SUCCESS",
+        WARNING: "WARNING",
+        DANGER: "DANGER"
     });

@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.settings")
-    .controller("SettingsPaymentMethodAddController", function ($q, $state, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentStatus, flash, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, AUTH_EVENTS, USER_SUBSCRIPTION_STATUS) {
+    .controller("SettingsPaymentMethodAddController", function ($q, $scope, $state, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentStatus, ALERTS_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, AUTH_EVENTS, USER_SUBSCRIPTION_STATUS) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -91,10 +91,10 @@ angular
                     }, function (err, nonce) {
 
                         if ( err ) {
-                            flash.to(vm.alertIdentifierId).error = err;
+                            $scope.$emit(ALERTS_EVENTS.DANGER, err);
                         }
                         else {
-                            flash.to(vm.alertIdentifierId).error = '';
+                            /*$scope.$emit(ALERTS_EVENTS.DANGER, = '';*/
 
                             // ---
                             // Update details with the received nonce.
@@ -131,7 +131,7 @@ angular
 
                                     $timeout(function () {
                                         vm.isRequestPending = false;
-                                        flash.to(vm.alertIdentifierId).success = 'We\'ve successfully saved your payment method!';
+                                        $scope.$emit(ALERTS_EVENTS.SUCCESS, 'We\'ve successfully saved your payment method!');
 
                                         // ---
                                         // If successful, go to insights.
@@ -149,10 +149,10 @@ angular
                                     // ---
                                     var errors = response.data;
                                     if ( _.isArray(errors) ) {
-                                        flash.to(vm.alertIdentifierId).error = errors.join("\n");
+                                        $scope.$emit(ALERTS_EVENTS.DANGER, errors.join("\n"));
                                     }
                                     else {
-                                        flash.to(vm.alertIdentifierId).error = 'We\'ve encountered an error while trying to save your payment method.';
+                                        $scope.$emit(ALERTS_EVENTS.DANGER, 'We\'ve encountered an error while trying to save your payment method.');
                                     }
                                 });
                         }
