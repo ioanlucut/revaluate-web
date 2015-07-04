@@ -7,7 +7,7 @@ var testUtils = require("helpers/tests");
 
 describe('app/account/account', function () {
 
-    var $rootScope, $state, $injector, state = 'account';
+    var $rootScope, $state, $injector, USER_ACTIVITY_EVENTS, state = 'account';
 
     beforeEach(function () {
 
@@ -24,13 +24,13 @@ describe('app/account/account', function () {
         // ---
         // Just inject the angular.mock.module and define dependencies.
         // ---
-        angular.mock.module('revaluate', function () {
-        });
+        angular.mock.module('revaluate');
 
-        inject(function (_$rootScope_, _$state_, _$injector_, $templateCache) {
+        inject(function (_$rootScope_, _$state_, _$injector_, $templateCache, _USER_ACTIVITY_EVENTS_) {
             $rootScope = _$rootScope_;
             $state = _$state_;
             $injector = _$injector_;
+            USER_ACTIVITY_EVENTS = _USER_ACTIVITY_EVENTS_;
 
             // We need add the template entry into the templateCache if we ever specify a templateUrl
             $templateCache.put('template.html', '');
@@ -51,6 +51,7 @@ describe('app/account/account', function () {
         expect($state.current.templateUrl).toBe("/app/site/partials/home.html");
         expect($state.current.title).toBe("Login - Revaluate");
         expect($state.current.isPublicPage).toBeTruthy();
+        expect($state.current.stateEventName).toBe(USER_ACTIVITY_EVENTS.account);
     });
 
 });
