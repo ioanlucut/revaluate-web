@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.account")
-    .service("AuthFilter", function (AuthService, StatesHandler, User, STATES, ALERTS_EVENTS, ALERTS_CONSTANTS) {
+    .service("AuthFilter", function (AuthService, StatesHandler, User, STATES, flash, ALERTS_EVENTS, ALERTS_CONSTANTS) {
 
         return function (event, toState) {
             if (
