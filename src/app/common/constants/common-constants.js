@@ -14,6 +14,7 @@ angular
         profile: "profile",
         expenses: "expenses.regular",
         setUp: "setup",
+        pricing: "pricing",
         addPayment: "settings.payment.add",
         insightsPayment: "settings.payment.insights",
         account: "account"
