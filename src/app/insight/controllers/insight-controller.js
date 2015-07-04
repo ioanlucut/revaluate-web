@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.insights")
-    .controller("InsightController", function ($templateCache, $rootScope, $filter, $timeout, flash, insight, insightsMonthsPerYears, InsightService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
+    .controller("InsightController", function ($templateCache, $scope, $rootScope, $filter, $timeout, ALERTS_EVENTS, insight, insightsMonthsPerYears, InsightService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -172,13 +172,13 @@ angular
                             // Reset the insight data.
                             // ---
                             vm.insightData = angular.copy(vm.masterInsightData);
-                            flash.to(vm.alertIdentifierId).info = "There are no expenses defined for selected period."
+                            $scope.$emit(ALERTS_EVENTS.INFO, "There are no expenses defined for selected period.");
                         }
                         else {
                             // ---
                             // If there was a previously error, just clear it.
                             // ---
-                            flash.to(vm.alertIdentifierId).error = '';
+                            /*$scope.$emit(ALERTS_EVENTS.DANGER, = '';*/
 
                             // ---
                             // Update everything.
@@ -199,7 +199,7 @@ angular
                     // Reset the insight data.
                     // ---
                     vm.insightData = angular.copy(vm.masterInsightData);
-                    flash.to(vm.alertIdentifierId).error = "Could not fetch insights.";
+                    $scope.$emit(ALERTS_EVENTS.DANGER, "Could not fetch insights.");
                     vm.badPostSubmitResponse = true;
                     vm.isLoading = false;
                 });

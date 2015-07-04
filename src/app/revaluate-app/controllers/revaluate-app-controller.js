@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.account")
-    .controller("RevaluateAppController", function ($rootScope, $scope, $state, $timeout, $log, flash, AuthService, AccountModal, IntercomUtilsService, User, StatesHandler, AUTH_EVENTS, ALERTS_CONSTANTS, ACTIVITY_INTERCEPTOR, AUTH_MODAL, ERROR_INTERCEPTOR, ENV, APP_CONFIG) {
+    .controller("RevaluateAppController", function (AlertService, $rootScope, $scope, $state, $timeout, $log, ALERTS_EVENTS, AuthService, AccountModal, IntercomUtilsService, User, StatesHandler, AUTH_EVENTS, ALERTS_CONSTANTS, ACTIVITY_INTERCEPTOR, AUTH_MODAL, ERROR_INTERCEPTOR, ENV, APP_CONFIG) {
 
         /**
          * Save the state on root scope
@@ -163,5 +163,21 @@ angular
         $scope.$on(ERROR_INTERCEPTOR.status402, function () {
 
             flash.to(ALERTS_CONSTANTS.generalError).error = "Payment method is required in order to use Revaluate.";
+        });
+
+        // ---
+        // Alerts.
+        // ---
+        $scope.$on(ALERTS_EVENTS.INFO, function (event, args) {
+            AlertService.addInfo(args);
+        });
+        $scope.$on(ALERTS_EVENTS.DANGER, function (event, args) {
+            AlertService.addDanger(args);
+        });
+        $scope.$on(ALERTS_EVENTS.WARNING, function (event, args) {
+            AlertService.addWarning(args);
+        });
+        $scope.$on(ALERTS_EVENTS.SUCCESS, function (event, args) {
+            AlertService.addSuccess(args);
         });
     });

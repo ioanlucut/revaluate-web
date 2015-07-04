@@ -53,9 +53,7 @@ angular
                     .catch(function () {
                         $scope.badPostSubmitResponse = true;
                         $scope.isUpdating = false;
-                        $rootScope.$broadcast(EXPENSE_EVENTS.isErrorOccurred, {
-                            errorMessage: "We've encountered an error while trying to update this expense."
-                        });
+                        $rootScope.$broadcast(EXPENSE_EVENTS.isErrorOccurred, "We've encountered an error while trying to update this expense.");
                     });
             }
         };

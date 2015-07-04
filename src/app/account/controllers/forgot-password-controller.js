@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.account")
-    .controller("ForgotPasswordController", function ($state, $scope, flash, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountModal) {
+    .controller("ForgotPasswordController", function ($state, $scope, ALERTS_EVENTS, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountModal) {
 
         /**
          * Alert identifier
@@ -33,7 +33,7 @@ angular
                         /* If bad feedback from server */
                         $scope.badPostSubmitResponse = true;
 
-                        flash.to($scope.alertIdentifierId).error = 'This email does not exist in our database.';
+                        $scope.$emit(ALERTS_EVENTS.DANGER, 'This email does not exist in our database.');
                     });
             }
         };
