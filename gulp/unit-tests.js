@@ -3,6 +3,7 @@
 var gulp = require('gulp');
 
 var $ = require('gulp-load-plugins')();
+var gutil = require('gulp-util');
 
 var wiredep = require('wiredep');
 var karma = require('karma');
@@ -49,8 +50,10 @@ module.exports = function (options) {
                 files: files,
                 singleRun: singleRun,
                 autoWatch: !singleRun
-            }, function () {
+            }, function (exitCode) {
                 done();
+                gutil.log(gutil.colors.green('Karma has exited with [' + exitCode + ']'));
+                process.exit(exitCode);
             });
         });
     }
