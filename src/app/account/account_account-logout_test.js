@@ -93,19 +93,10 @@ describe('app/account/logout', function () {
 
         expect($state.current.url).toBe("/account/logout");
         expect($state.current.name).toBe("account:logout");
-        expect($state.current.controller).toBe("LogoutController");
+        expect($state.current.controller).toBe("AutoLogoutController");
         expect($state.current.templateUrl).toBe("/app/account/partials/logout.html");
         expect($state.current.title).toBe("Logout - Revaluate");
         expect($state.current.isPublicPage).toBeTruthy();
-    });
-
-    it('should resolve data', function () {
-        $state.go(state);
-        $rootScope.$digest();
-        expect($state.current.name).toBe(state);
-
-        // Call invoke to inject dependencies and run function
-        expect($injector.invoke($state.current.resolve.isSuccessfullyLoggedOut)).toBe(true);
     });
 
 });
