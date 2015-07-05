@@ -2,7 +2,7 @@
     @include clearfix();
     width: 100%;
     padding: 15px 50px;
-    margin: 10px auto 30px auto;
+    margin: 10px auto 1px auto;
     color: $black;
     position: relative;
     font-weight: $font-weight-regular;
@@ -55,6 +55,7 @@
     .expense__form__price__input {
         @include border-left-radius($border-radius-base);
         border-left: solid 2px $add-expense-form-border-color;
+        border-right: solid 0 $gray-light-2;
         float: left;
         height: $add-expense-form-height;
         line-height: $add-expense-form-height;
@@ -63,13 +64,16 @@
     }
 
     .expense__form__price__currency {
+        @include calc("height", #{$add-expense-form-height} - 4px);
+        @include calc("line-height", #{$add-expense-form-height} - 4px);
         float: left;
         margin-left: -40px;
-        height: $add-expense-form-height;
-        line-height: $add-expense-form-height;
+        margin-top: 2px;
+        padding-right: 18px;
         color: $gray-light-1;
         font-weight: $font-weight-regular;
         z-index: -999;
+        border-right: solid 1px $gray-light-3;
     }
 }
 
@@ -92,10 +96,12 @@
             border-width: 2px 0 !important;
             border-color: $add-expense-form-border-color !important;
             height: $add-expense-form-height;
-            line-height: 46px !important;
+            line-height: 56px !important;
 
             & > input {
-                height: 46px;
+                height: 56px;
+                border-right: solid 1px $gray-light-3;
+                @include border-radius(0);
             }
         }
     }
@@ -142,10 +148,11 @@
             width: 100%;
             height: 100%;
             text-align: center;
-            background-color: $gray-light-3;
+            background-color: $white;
+            border-left: solid 1px $gray-light-3;
+            @include border-radius(0);
 
             &:focus {
-                border-color: $brand-primary;
                 background-color: lighten($brand-primary, 35%);
             }
         }
