@@ -8,13 +8,14 @@
 
         <!-- Form groups -->
         <div class="expense__form__price" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.value.$invalid || badPostSubmitResponse)}">
-            <input class="expense__form__price__input" type="text" name="value" placeholder="The value" maxlength="18" ng-model="expense.model.value" format-price format="number" caret-price-position required valid-price auto-focus post-add-expense-focus />
+            <input class="expense__form__price__input" type="text" name="value" placeholder="The value" required ng-model="expense.model.value" ui-money-mask="2" min="0.01" max="99999999999999999.99" auto-focus post-add-expense-focus />
             <span class="expense__form__price__currency">{{user.model.currency.symbol}}</span>
 
             <!-- Error messages -->
             <div class="form-group-input__message" ng-class="{'has-error': expenseForm.value.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.value.$error" ng-if="expenseForm.$submitted">
-                <div ng-message="required">Don't forget the price.</div>
-                <div ng-message="validPrice">Oops, you  missed the price.</div>
+                <div ng-message="required">Oops, you  missed the price.</div>
+                <div ng-message="max">Oh, poor you. Do you really have such expenses?</div>
+                <div ng-message="min">Oops, you  missed the price.</div>
             </div>
         </div>
 

@@ -114,7 +114,7 @@ angular
         $scope.$on(CATEGORY_EVENTS.isCreated, function (event, args) {
             vm.categories.push(args.category);
 
-            $scope.$emit(ALERTS_EVENTS.SUCCESS, "Category successfully saved!");
+            $scope.$emit(ALERTS_EVENTS.SUCCESS, "saved");
         });
 
         /**
@@ -130,7 +130,7 @@ angular
                 vm.categories.push(args.category);
             }
 
-            $scope.$emit(ALERTS_EVENTS.SUCCESS, "Category successfully updated!");
+            $scope.$emit(ALERTS_EVENTS.SUCCESS, "updated");
         });
 
         /**
@@ -139,7 +139,7 @@ angular
         $scope.$on(CATEGORY_EVENTS.isDeleted, function (event, args) {
             removeCategoryFrom(vm.categories, args.category);
 
-            $scope.$emit(ALERTS_EVENTS.SUCCESS, "Category successfully deleted!");
+            $scope.$emit(ALERTS_EVENTS.SUCCESS, "deleted");
         });
 
         $scope.$on(CATEGORY_EVENTS.isErrorOccurred, function (event, args) {
