@@ -1,3 +1,12 @@
+`develop`: 
+[![Circle CI](https://circleci.com/gh/sorinpantis/revaluate-web/tree/develop.svg?style=svg&circle-token=8c01bbe3030627e311149593f10daf9155b422d9)](https://circleci.com/gh/sorinpantis/revaluate-web/tree/develop)
+
+`staging`: 
+[![Circle CI](https://circleci.com/gh/sorinpantis/revaluate-web/tree/master.svg?style=svg&circle-token=8c01bbe3030627e311149593f10daf9155b422d9)](https://circleci.com/gh/sorinpantis/revaluate-web/tree/master)
+
+`production`: 
+[![Circle CI](https://circleci.com/gh/sorinpantis/revaluate-web/tree/production.svg?style=svg&circle-token=8c01bbe3030627e311149593f10daf9155b422d9)](https://circleci.com/gh/sorinpantis/revaluate-web/tree/production)
+
 #Start
 0. Call `sudo npm install`
 1. Call `gulp serve`
