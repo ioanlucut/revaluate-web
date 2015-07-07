@@ -39,7 +39,7 @@ angular
                 User.$new()
                     .create(signUpData)
                     .then(function () {
-                        $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.signUpCompleted);
+                        $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.signUpCompleted);
 
                         AuthService
                             .login(signUpData.email, signUpData.password)

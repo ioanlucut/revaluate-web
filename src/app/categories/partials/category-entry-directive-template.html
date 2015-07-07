@@ -1,7 +1,7 @@
 <!--Category group-->
 <div class="categories__edit__category__name" ng-if="! showContent">
-    <span class="categories__edit__category__color" ng-style="{'background':categoryEntry.model.color.color}">C</span>
-    <span class="categories__edit__category__label">{{categoryEntry.model.name}}</span>
+    <span class="categories__edit__category__color" ng-style="{'background':vm.categoryEntry.model.color.color}">C</span>
+    <span class="categories__edit__category__label">{{vm.categoryEntry.model.name}}</span>
 </div>
 
 <!--Show content-->
@@ -14,7 +14,7 @@
 </div>
 
 <!-- Update category form -->
-<form name="vm.categoryForm" class="categories__edit__form" ng-if="showContent" ng-submit="vm.updateCategory(vm.categoryForm, categoryEntry)" novalidate focus-first-error>
+<form name="vm.categoryForm" class="categories__edit__form" ng-if="showContent" ng-submit="vm.updateCategory(vm.categoryForm, vm.categoryEntry)" novalidate focus-first-error>
 
     <!--Content left-->
     <div class="categories__edit__form__content__left">
@@ -22,7 +22,7 @@
         <!-- Category color form group -->
         <div class="categories__form__input-group" ng-class="{'has-error': vm.categoryForm.$submitted && (vm.categoryForm.color.$invalid || vm.badPostSubmitResponse)}">
 
-            <input ng-disabled="vm.isUpdating" class="categories__form__input-group__color" type="hidden" placeholder="Category color" name="color" ng-model="categoryEntry.model.color.color" required valid-category-color />
+            <input ng-disabled="vm.isUpdating" class="categories__form__input-group__color" type="hidden" placeholder="Category color" name="color" ng-model="vm.categoryEntry.model.color.color" required valid-category-color />
 
             <!-- Error messages -->
             <div class="form-group-input__message" ng-class="{'has-error': vm.categoryForm.color.$invalid && vm.categoryForm.$submitted}" ng-messages="vm.categoryForm.color.$error" ng-if="vm.categoryForm.$submitted">
@@ -35,7 +35,7 @@
         <div class="categories__form__input-group" ng-class="{'has-error': vm.categoryForm.$submitted && (vm.categoryForm.name.$invalid || vm.badPostSubmitResponse)}">
 
             <!--Color preview-->
-            <label class="categories__form__color__preview" ng-style="{'background':categoryEntry.model.color.color}"></label>
+            <label class="categories__form__color__preview" ng-style="{'background':vm.categoryEntry.model.color.color}"></label>
             <input ng-disabled="vm.isUpdating"
                    class="categories__form__input-group__name"
                    type="text"
@@ -43,14 +43,14 @@
                    maxlength="20"
                    placeholder="Category name"
                    name="name"
-                   ng-model="categoryEntry.model.name"
+                   ng-model="vm.categoryEntry.model.name"
                    auto-focus
                    required
                    valid-category-name
                    unique-category-name
                    except="category.model.name" />
 
-            <div ng-show="! vm.isUpdating" class="categories__form__input-group__count">{{20 - categoryEntry.model.name.length}}</div>
+            <div ng-show="! vm.isUpdating" class="categories__form__input-group__count">{{20 - vm.categoryEntry.model.name.length}}</div>
 
             <!-- Error messages -->
             <div class="form-group-input__message" ng-class="{'has-error': vm.categoryForm.name.$invalid && vm.categoryForm.$submitted}" ng-messages="vm.categoryForm.name.$error" ng-if="vm.categoryForm.$submitted">
@@ -59,7 +59,7 @@
                 <div ng-message="uniqueCategoryName">Name is already used.</div>
             </div>
 
-            <div color-picker colors="colors" category-color="categoryEntry.model.color"></div>
+            <div color-picker colors="colors" category-color="vm.categoryEntry.model.color"></div>
         </div>
 
     </div>

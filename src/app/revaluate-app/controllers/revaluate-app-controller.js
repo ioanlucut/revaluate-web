@@ -106,17 +106,6 @@ angular
         });
 
         /**
-         * Track event
-         */
-        $rootScope.trackEvents = function (event) {
-            mixpanel.track(event);
-
-            if ( !ENV.isProduction ) {
-                IntercomUtilsService.trackEvent(event);
-            }
-        };
-
-        /**
          * Track events.
          */
         $rootScope.$on("trackEvent", function (event, args) {
@@ -129,7 +118,7 @@ angular
          */
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
             if ( toState.stateEventName ) {
-                $rootScope.$broadcast("trackEvent", toState.stateEventName);
+                $scope.$emit("trackEvent", toState.stateEventName);
             }
 
             // ---

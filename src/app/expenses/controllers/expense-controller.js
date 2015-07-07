@@ -121,7 +121,7 @@ angular
                 $scope.masterExpense
                     .save()
                     .then(function () {
-                        $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.expenseCreated);
+                        $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.expenseCreated);
 
                         var expenseToBePushed = angular.copy($scope.masterExpense);
                         $timeout(function () {
@@ -193,7 +193,7 @@ angular
                     /**
                      * Track event.
                      */
-                    $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.expenseDeleted);
+                    $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.expenseDeleted);
 
                     $timeout(function () {
                         removeAllExpenseFrom($scope.expenses, selectedExpenses);

@@ -40,7 +40,7 @@ angular
                 expense
                     .save()
                     .then(function () {
-                        $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.expenseUpdated);
+                        $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.expenseUpdated);
 
                         $timeout(function () {
                             $scope.isUpdating = false;
