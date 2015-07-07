@@ -27,6 +27,10 @@
             border-color: $brand-primary;
             background-color: lighten($brand-primary, 35%);
         }
+
+        &[disabled] {
+            cursor: not-allowed;
+        }
     }
 }
 
