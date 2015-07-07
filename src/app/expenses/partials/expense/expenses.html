@@ -8,7 +8,7 @@
 
         <!-- Form groups -->
         <div class="expense__form__price" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.value.$invalid || badPostSubmitResponse)}">
-            <input class="expense__form__price__input" type="text" name="value" placeholder="The value" maxlength="18" ng-model="expense.model.value" format-price format="number" caret-price-position required valid-price auto-focus post-add-expense-focus />
+            <input class="expense__form__price__input" ng-disabled="isSaving" type="text" name="value" placeholder="The value" maxlength="18" ng-model="expense.model.value" format-price format="number" caret-price-position required valid-price auto-focus post-add-expense-focus />
             <span class="expense__form__price__currency">{{user.model.currency.symbol}}</span>
 
             <!-- Error messages -->
@@ -21,7 +21,7 @@
         <!-- Form group -->
         <div class="expense__form__category" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.category.$invalid || badPostSubmitResponse)}">
 
-            <ui-select name="category" class="category-select__input" ng-style="{'background':$select.selected.model.color.color}" required ng-model="category.selected" theme="selectize">
+            <ui-select ng-disabled="isSaving" name="category" class="category-select__input" ng-style="{'background':$select.selected.model.color.color}" required ng-model="category.selected" theme="selectize">
                 <ui-select-match ng-style="{'background':$select.selected.model.color.color}" placeholder="Select a category">{{$select.selected.model.name}}</ui-select-match>
                 <ui-select-choices repeat="categoryEntry in categories | orderObjectBy : 'model.name' : false | filter:{model:{name:$select.search}} track by categoryEntry.model.id">
                     <span class="category__color__preview" ng-style="{'background':categoryEntry.model.color.color}">C</span>
@@ -37,7 +37,7 @@
 
         <!-- Description input -->
         <div class="expense__form__details" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.description.$invalid || badPostSubmitResponse)}">
-            <input class="expense__form__details__input" type="text" name="description" ng-maxlength="30" maxlength="30" placeholder="Add details (optional)" ng-model="expense.model.description" escape-html />
+            <input class="expense__form__details__input" ng-disabled="isSaving" type="text" name="description" ng-maxlength="30" maxlength="30" placeholder="Add details (optional)" ng-model="expense.model.description" escape-html />
 
             <!-- Error messages -->
             <div class="form-group-input__message" ng-class="{'has-error': expenseForm.description.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.description.$error" ng-if="expenseForm.$submitted">
@@ -57,6 +57,7 @@
                         class="expense__form__date__input__btn"
                         ng-click="openDatePicker($event)"
                         ng-model="expense.model.spentDate"
+                        ng-disabled="isSaving"
                         datepicker-popup
                         is-open="datePickerOpened"
                         min-date="datePickerMinDate"
@@ -75,7 +76,7 @@
 
         <!-- Button container -->
         <div class="expense__form__submit__save">
-            <button class="expense__edit__form__savebtn" type="submit">{{isSaving ? 'Adding' : 'Add'}}</button>
+            <button ng-disabled="isSaving" class="expense__edit__form__savebtn" type="submit">{{isSaving ? 'Adding' : 'Add'}}</button>
         </div>
     </form>
 
