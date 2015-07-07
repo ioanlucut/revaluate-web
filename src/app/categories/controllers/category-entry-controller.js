@@ -33,9 +33,7 @@ angular
                         $timeout(function () {
                             vm.isUpdating = false;
 
-                            $rootScope.$broadcast(CATEGORY_EVENTS.isUpdated, {
-                                category: category
-                            });
+                            $rootScope.$broadcast(CATEGORY_EVENTS.isUpdated, { category: category });
 
                         }, TIMEOUT_DURATION);
                     })
@@ -44,9 +42,7 @@ angular
                         // Error
                         vm.isUpdating = false;
                         vm.badPostSubmitResponse = true;
-                        $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, {
-                            errorMessage: "We've encountered an error while trying to update this category."
-                        });
+                        $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: "error" });
                     });
             }
         };
@@ -69,17 +65,13 @@ angular
                     vm.isSuccessfullyDeleted = true;
 
                     $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.categoryDeleted);
-                    $rootScope.$broadcast(CATEGORY_EVENTS.isDeleted, {
-                        category: category
-                    });
+                    $rootScope.$broadcast(CATEGORY_EVENTS.isDeleted, { category: category });
                 })
                 .catch(function () {
 
                     // Error
                     vm.isDeleting = false;
-                    $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, {
-                        errorMessage: "We've encountered an error while trying to delete this category."
-                    });
+                    $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: "error" });
                 });
         };
 

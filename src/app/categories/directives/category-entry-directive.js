@@ -16,9 +16,9 @@ angular
             link: function (scope, el, attrs) {
 
                 /**
-                 * Keep the master backup
+                 * Work with a copy - keep the master backup
                  */
-                scope.masterCategory = angular.copy(scope.category);
+                scope.categoryEntry = angular.copy(scope.category);
 
                 /**
                  * Show block content
@@ -39,7 +39,7 @@ angular
                 scope.cancel = function () {
                     scope.toggleContent();
 
-                    scope.category = angular.copy(scope.masterCategory);
+                    scope.categoryEntry = angular.copy(scope.category);
                 };
 
                 /**
@@ -52,7 +52,8 @@ angular
                         // ---
                         // Update the master category.
                         // ---
-                        scope.masterCategory = angular.copy(scope.category);
+                        scope.category = angular.copy(scope.categoryEntry);
+                        scope.categoryEntry = angular.copy(scope.category);
                     }
                 });
                 scope.$on(CATEGORY_EVENTS.isDeleted, function (event, args) {
