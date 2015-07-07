@@ -118,11 +118,6 @@ angular
                                     }
 
                                     // ---
-                                    // Clean previously errors.
-                                    // ---
-                                    flash.to(ALERTS_CONSTANTS.generalError).error = '';
-
-                                    // ---
                                     // Reset the payment data with empty new data.
                                     // ---
                                     vm.paymentData = angular.copy(getInitialPaymentData());

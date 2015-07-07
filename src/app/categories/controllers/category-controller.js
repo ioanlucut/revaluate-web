@@ -81,9 +81,7 @@ angular
                         $timeout(function () {
                             vm.isSaving = false;
 
-                            $rootScope.$broadcast(CATEGORY_EVENTS.isCreated, {
-                                category: vm.category
-                            });
+                            $rootScope.$broadcast(CATEGORY_EVENTS.isCreated, { category: vm.category });
 
                             /**
                              * Finally, reset the form.
@@ -97,9 +95,7 @@ angular
                         vm.isSaving = false;
                         vm.badPostSubmitResponse = true;
 
-                        $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, {
-                            errorMessage: "We've encountered an error while trying to save this category."
-                        });
+                        $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: "error" });
                     });
             }
         };

@@ -51,7 +51,7 @@ angular
                 // ---
                 // Show error.
                 // ---
-                flash.to(ALERTS_CONSTANTS.generalError).error = "You must define a payment method and subscribe to revaluate plan before further using revaluate.";
+                flash.to(ALERTS_CONSTANTS.generalError).error = "You must define a payment method.";
                 StatesHandler.goToAddPayment();
             }
 

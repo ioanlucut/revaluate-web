@@ -162,7 +162,7 @@ angular
          */
         $scope.$on(ERROR_INTERCEPTOR.status402, function () {
 
-            flash.to(ALERTS_CONSTANTS.generalError).error = "Payment method is required in order to use Revaluate.";
+            flash.to(ALERTS_CONSTANTS.generalError).error = "Payment method required.";
         });
 
         // ---
