@@ -33,7 +33,6 @@ angular
         "pascalprecht.translate",
         "duScroll",
         "ngToast",
-        "ui.utils.masks",
         "ui.select"
     ])
     .config(function ($locationProvider, $translateProvider, ChartJsProvider, CacheFactoryProvider, gravatarServiceProvider, ngToastProvider) {
