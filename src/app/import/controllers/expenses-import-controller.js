@@ -118,7 +118,7 @@ angular
             // ---
             $scope.expensesImportAnswer = ExpensesImport.build(response);
             $scope.isUploadSuccessful = true;
-            $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.settingsImportUploadSuccess);
+            $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.settingsImportUploadSuccess);
         };
 
         // ---
@@ -132,7 +132,7 @@ angular
                 if ( status === SERVER_ERROR ) {
                     $scope.$emit(ALERTS_EVENTS.DANGER, 'Something went wrong. Can you please try one more time?');
 
-                    $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.settingsImportServerError);
+                    $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.settingsImportServerError);
                 }
             }
 
@@ -213,7 +213,7 @@ angular
                         // ---
                         $scope.isImporting = false;
                         $scope.importFinished = true;
-                        $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.settingsImportSuccess);
+                        $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.settingsImportSuccess);
 
                         // ---
                         // Go to expenses after 1,5 sec.

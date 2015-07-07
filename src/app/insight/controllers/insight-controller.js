@@ -164,7 +164,7 @@ angular
                     /**
                      * Track event.
                      */
-                    $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.insightsFetched);
+                    $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.insightsFetched);
 
                     $timeout(function () {
                         if ( receivedInsight.isEmpty() ) {

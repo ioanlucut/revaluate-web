@@ -234,7 +234,7 @@ angular
                         SessionService.setData(response.data);
                         $rootScope.$broadcast(AUTH_EVENTS.refreshUser, response);
 
-                        $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.accountSetupFinished);
+                        $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.accountSetupFinished);
 
                         // ---
                         // Show some feedback.

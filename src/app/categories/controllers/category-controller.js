@@ -76,8 +76,6 @@ angular
                     .category
                     .save()
                     .then(function () {
-                        $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.categoryCreated);
-
                         $timeout(function () {
                             vm.isSaving = false;
 
@@ -111,6 +109,7 @@ angular
             vm.categories.push(args.category);
 
             $scope.$emit(ALERTS_EVENTS.SUCCESS, "saved");
+            $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.categoryCreated);
         });
 
         /**
@@ -127,6 +126,7 @@ angular
             }
 
             $scope.$emit(ALERTS_EVENTS.SUCCESS, "updated");
+            $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.categoryUpdated)
         });
 
         /**
@@ -136,6 +136,7 @@ angular
             removeCategoryFrom(vm.categories, args.category);
 
             $scope.$emit(ALERTS_EVENTS.SUCCESS, "deleted");
+            $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.categoryDeleted);
         });
 
         $scope.$on(CATEGORY_EVENTS.isErrorOccurred, function (event, args) {
