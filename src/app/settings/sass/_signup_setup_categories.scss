@@ -2,9 +2,18 @@
 
     .sign-up__setup {
 
+        .sign-up__setup__controls {
+            margin-top: 10px;
+            text-align: left;
+
+            a {
+                margin-right: 15px;
+            }
+        }
+
         .sign-up__setup__categories {
             @include outer-container();
-            padding-top: 30px;
+            padding-top: 10px;
 
             .sign-up__setup__categories__category {
                 @include span-columns(6);
@@ -21,15 +30,16 @@
             .category-name {
                 @include border-radius($base-border-radius);
                 @include user-select(none);
-                height: 30px;
-                line-height: 25px;
+                height: 35px;
+                line-height: 28px;
                 padding: 2px 2px;
-                border: solid 2px transparent;
+                border: solid 1px $brand-success;
                 cursor: pointer;
-                color: $white;
-                font-weight: bold;
+                background-color: $brand-success-light;
+                color: $brand-success;
+                font-weight: $font-weight-regular;
                 text-transform: uppercase;
-                text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
+                text-shadow: 0 0 rgba(0, 0, 0, 0.2);
                 position: relative;
 
                 &:hover {
@@ -38,7 +48,7 @@
 
                 span {
                     position: absolute;
-                    top: 3px;
+                    top: 5px;
                     left: 5px;
                     font-size: 18px;
                 }
@@ -62,18 +72,28 @@
             .sign-up__setup__categories__addbtn {
                 @include span-columns(6);
                 @include omega(2n);
-                height: 30px;
+                height: 35px;
                 padding: 0;
                 font-size: $font-size-small;
                 @include transition(none);
+                background-color: $brand-success;
+                color: $white;
+
+                &:hover {
+                    background-color: lighten($brand-success, 15%);
+                }
             }
 
             .sign-up__setup__categories__addinput {
-                height: 30px;
+                height: 35px;
                 font-size: $font-size-small;
                 text-align: center;
                 text-transform: uppercase;
             }
+        }
+
+        .sign-up__setup__categories--add{
+            padding-top: 30px;
         }
 
     }

@@ -67,7 +67,7 @@ angular
         vm.categories = _.map(vm.categories, function (category) {
             return {
                 name: category,
-                selected: true,
+                selected: false,
                 color: vm.colors[vm.categories.indexOf(category)]
             };
         });
