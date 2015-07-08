@@ -89,7 +89,7 @@
                 Hey, <span>{{currentUser.model.firstName}}</span>! In
                 <span>{{(vm.insightData.spentDate | friendlyMonthDate)}}</span>
                 you've spent a total of
-                <span class="label-info" ng-bind-html="vm.insight.model.totalAmountSpent | currencys:user.model.currency.symbol:user.model.currency.fractionSize"></span>.
+                <span class="label-info" ng-bind-html="vm.insight.model.totalAmountSpent | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>.
             </div>
 
             <div ng-if="vm.activeChart === vm.INSIGHTS_CHARTS.BAR" class="insights__chart__bar">
@@ -119,7 +119,7 @@
                     <tr>
                         <td>TOTAL</td>
                         <td class="insights__table__amount">
-                            <span ng-bind-html="vm.insight.model.totalAmountSpent | currencys:user.model.currency.symbol:user.model.currency.fractionSize"></span>
+                            <span ng-bind-html="vm.insight.model.totalAmountSpent | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
                         </td>
                     </tr>
                     </thead>
@@ -130,7 +130,7 @@
                             {{totalPerCategory.categoryDTO.name}}
                         </td>
                         <td class="insights__table__amount">
-                            <span ng-bind-html="totalPerCategory.totalAmount | currencys:user.model.currency.symbol:user.model.currency.fractionSize"></span>
+                            <span ng-bind-html="totalPerCategory.totalAmount | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
                         </td>
                     </tr>
                     </tbody>
@@ -146,7 +146,7 @@
 
                 <div ng-if="vm.insight.model.numberOfTransactions > 1">
                     <div class="insights__summary__item">
-                        Your biggest transaction was <span class="label-info" ng-bind-html="vm.insight.model.biggestExpense.value | currencys:user.model.currency.symbol:user.model.currency.fractionSize"></span>,
+                        Your biggest transaction was <span class="label-info" ng-bind-html="vm.insight.model.biggestExpense.value | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>,
                         on <span class="label-uppercase category__label" ng-style="{'background':vm.insight.model.biggestExpense.category.color.color}">{{vm.insight.model.biggestExpense.category.name}}</span>.
                     </div>
 
