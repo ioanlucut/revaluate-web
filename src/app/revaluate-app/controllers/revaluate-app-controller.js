@@ -34,6 +34,9 @@ angular
             IntercomUtilsService.bootIntercom($rootScope.currentUser);
             MixpanelUtilsService.bootMixpanel($rootScope.currentUser);
         }
+        else {
+            MixpanelUtilsService.initMixpanel();
+        }
 
         if ( !ENV.isProduction ) {
             $log.log("Current user: ", $rootScope.currentUser.model);
