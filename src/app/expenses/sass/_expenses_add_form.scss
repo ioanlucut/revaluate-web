@@ -155,6 +155,7 @@
             background-color: $white;
             border-left: solid 1px $gray-light-3;
             @include border-radius(0);
+            @include transition(none);
 
             &:focus {
                 background-color: lighten($brand-primary, 35%);
