@@ -24,7 +24,7 @@ angular
         /**
          * Alert identifier
          */
-        vm.alertIdentifierId = ALERTS_CONSTANTS.insights;
+        vm.alertId = ALERTS_CONSTANTS.insights;
 
         /**
          * Current user.
@@ -176,11 +176,6 @@ angular
                         }
                         else {
                             // ---
-                            // If there was a previously error, just clear it.
-                            // ---
-                            /*$scope.$emit(ALERTS_EVENTS.DANGER, = '';*/
-
-                            // ---
                             // Update everything.
                             // ---
                             vm.masterInsightData = angular.copy(vm.insightData);
@@ -194,14 +189,17 @@ angular
                     }, TIMEOUT_DURATION);
                 })
                 .catch(function () {
+                    vm.badPostSubmitResponse = true;
+                    vm.isLoading = false;
 
                     // ---
                     // Reset the insight data.
                     // ---
                     vm.insightData = angular.copy(vm.masterInsightData);
-                    $scope.$emit(ALERTS_EVENTS.DANGER, "Could not fetch insights.");
-                    vm.badPostSubmitResponse = true;
-                    vm.isLoading = false;
+                    $scope.$emit(ALERTS_EVENTS.DANGER, {
+                        message: "Could not fetch insights.",
+                        alertId: vm.alertId
+                    });
                 });
         }
 

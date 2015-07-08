@@ -161,7 +161,11 @@ angular
             AlertService.addInfo(args);
         });
         $scope.$on(ALERTS_EVENTS.DANGER, function (event, args) {
-            AlertService.addDanger(args);
+            if ( args.alertId ) {
+                flash.to(args.alertId).error = args.message;
+            } else {
+                AlertService.addDanger(args.message);
+            }
         });
         $scope.$on(ALERTS_EVENTS.WARNING, function (event, args) {
             AlertService.addWarning(args);

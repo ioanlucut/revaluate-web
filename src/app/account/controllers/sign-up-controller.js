@@ -7,7 +7,7 @@ angular
         /**
          * Alert identifier
          */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.signUpConfirm;
+        $scope.alertId = ALERTS_CONSTANTS.signUpConfirm;
 
         /**
          * Sign up user information.
@@ -54,7 +54,10 @@ angular
                         $scope.badPostSubmitResponse = true;
                         $scope.isRequestPending = false;
 
-                        $scope.$emit(ALERTS_EVENTS.DANGER, "Sorry, something went wrong.");
+                        $scope.$emit(ALERTS_EVENTS.DANGER, {
+                            message: "Sorry, something went wrong.",
+                            alertId: $scope.alertId
+                        });
                     });
             }
         };

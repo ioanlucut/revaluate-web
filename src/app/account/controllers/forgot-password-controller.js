@@ -10,7 +10,7 @@ angular
         /**
          * Alert identifier
          */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.forgotPassword;
+        $scope.alertId = ALERTS_CONSTANTS.forgotPassword;
 
         /**
          * Request password reset up user information.
@@ -33,7 +33,10 @@ angular
                         /* If bad feedback from server */
                         $scope.badPostSubmitResponse = true;
 
-                        $scope.$emit(ALERTS_EVENTS.DANGER, 'This email does not exist in our database.');
+                        $scope.$emit(ALERTS_EVENTS.DANGER, {
+                            message: "This email does not exist in our database.",
+                            alertId: $scope.alertId
+                        });
                     });
             }
         };

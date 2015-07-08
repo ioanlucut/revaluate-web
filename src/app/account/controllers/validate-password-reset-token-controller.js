@@ -7,7 +7,7 @@ angular
         /**
          * Alert identifier
          */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.validatePassword;
+        $scope.alertId = ALERTS_CONSTANTS.validatePassword;
 
         /**
          * Reset password data (used if
@@ -46,7 +46,10 @@ angular
                         /* If bad feedback from server */
                         $scope.badPostSubmitResponse = true;
 
-                        $scope.$emit(ALERTS_EVENTS.DANGER, "Sorry, something went wrong.");
+                        $scope.$emit(ALERTS_EVENTS.DANGER, {
+                            message: "Sorry, something went wrong.",
+                            alertId: $scope.alertId
+                        });
                     });
             }
         };

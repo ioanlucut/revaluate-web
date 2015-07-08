@@ -24,7 +24,7 @@ angular
         /**
          * Alert identifier
          */
-        vm.alertIdentifierId = ALERTS_CONSTANTS.preferences;
+        vm.alertId = ALERTS_CONSTANTS.preferences;
 
         /**
          * Current user.
@@ -100,7 +100,10 @@ angular
                         vm.badPostSubmitResponse = true;
                         vm.isSaving = false;
 
-                        $scope.$emit(ALERTS_EVENTS.DANGER, 'We\'ve encountered an error while trying to update your preferences.');
+                        $scope.$emit(ALERTS_EVENTS.DANGER, {
+                            message: "We\'ve encountered an error.",
+                            alertId: vm.alertId
+                        });
                     });
             }
         };

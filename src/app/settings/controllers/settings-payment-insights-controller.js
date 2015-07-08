@@ -12,7 +12,7 @@ angular
         /**
          * Alert identifier
          */
-        vm.alertIdentifierId = ALERTS_CONSTANTS.paymentProfile;
+        vm.alertId = ALERTS_CONSTANTS.paymentProfile;
 
         /**
          * Current user.
@@ -71,10 +71,16 @@ angular
                         // ---
                         var errors = response.data;
                         if ( _.isArray(errors) ) {
-                            $scope.$emit(ALERTS_EVENTS.DANGER, errors.join("\n"));
+                            $scope.$emit(ALERTS_EVENTS.DANGER, {
+                                message: errors.join("\n"),
+                                alertId: vm.alertId
+                            });
                         }
                         else {
-                            $scope.$emit(ALERTS_EVENTS.DANGER, 'We\'ve encountered an error while trying to remove payment method');
+                            $scope.$emit(ALERTS_EVENTS.DANGER, {
+                                message: "We\'ve encountered an error.",
+                                alertId: vm.alertId
+                            });
                         }
                     });
 

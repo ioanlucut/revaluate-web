@@ -20,7 +20,7 @@ angular
         /**
          * Alert identifier
          */
-        vm.alertIdentifierId = ALERTS_CONSTANTS.signUpSetUp;
+        vm.alertId = ALERTS_CONSTANTS.signUpSetUp;
 
         /**
          * Current user.
@@ -113,11 +113,6 @@ angular
             vm.categoryOnTheFly = "";
             vm.setUpForm.categoryOnTheFlyForm.$setPristine();
             vm.badPostSubmitResponse = false;
-
-            // ---
-            // If there was a previously error, just clear it.
-            // ---
-            /*$scope.$emit(ALERTS_EVENTS.DANGER,  = '';*/
         }
 
         /**
@@ -136,7 +131,10 @@ angular
             });
 
             if ( result ) {
-                $scope.$emit(ALERTS_EVENTS.DANGER, "Category is not unique");
+                $scope.$emit(ALERTS_EVENTS.DANGER, {
+                    message: "Category is not unique",
+                    alertId: vm.alertId
+                });
             }
             else {
                 vm.categories.push({
@@ -271,11 +269,13 @@ angular
                     }, TIMEOUT_DURATION);
                 })
                 .catch(function () {
-
-                    // Error
-                    vm.isSaving = false;
-                    $scope.$emit(ALERTS_EVENTS.DANGER, "Set up could not have been performed.");
                     vm.badPostSubmitResponse = true;
+                    vm.isSaving = false;
+
+                    $scope.$emit(ALERTS_EVENTS.DANGER, {
+                        message: "We\'ve encountered an error.",
+                        alertId: vm.alertId
+                    });
                 });
         };
 
