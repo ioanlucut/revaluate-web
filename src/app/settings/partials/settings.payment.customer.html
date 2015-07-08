@@ -11,7 +11,7 @@
         <form name="updateCustomerForm" ng-submit="updateCustomer()" novalidate focus-first-error>
 
             <!-- Flash messages. -->
-            <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+            <div flash-messages flash="flash" identifier-id="{{alertId}}"></div>
 
             <!-- Form group -->
             <div class="form-group-input" ng-class="{'has-error': updateCustomerForm.$submitted && (updateCustomerForm.firstName.$invalid || badPostSubmitResponse)}">

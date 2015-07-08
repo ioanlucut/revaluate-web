@@ -18,7 +18,7 @@ angular
         /**
          * Alert identifier
          */
-        vm.alertIdentifierId = ALERTS_CONSTANTS.createUpdateCategory;
+        vm.alertId = ALERTS_CONSTANTS.createUpdateCategory;
 
         /**
          * The current user
@@ -141,13 +141,14 @@ angular
 
         $scope.$on(CATEGORY_EVENTS.isErrorOccurred, function (event, args) {
 
-            $scope.$emit(ALERTS_EVENTS.DANGER, args.errorMessage);
+            $scope.$emit(ALERTS_EVENTS.DANGER, {
+                message: args.errorMessage,
+                alertId: $scope.alertId
+            });
         });
 
         /**
          * Removes given category from the list.
-         * @param categoryList
-         * @param categoryToBeRemoved
          */
         function removeCategoryFrom(categoryList, categoryToBeRemoved) {
             return _.remove(categoryList, function (categoryFromArray) {

@@ -12,7 +12,7 @@ angular
         /**
          * Alert identifier
          */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.expenseList;
+        $scope.alertId = ALERTS_CONSTANTS.expenseList;
 
         /**
          * Search by text
@@ -253,7 +253,11 @@ angular
          */
         $scope.$on(EXPENSE_EVENTS.isErrorOccurred, function (event, args) {
 
-            $scope.$emit(ALERTS_EVENTS.DANGER, args);
+            $scope.$emit(ALERTS_EVENTS.DANGER, {
+                message: args.errorMessage,
+                alertId: $scope.alertId
+            });
+
         });
 
         /**

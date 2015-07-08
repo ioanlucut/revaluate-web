@@ -11,7 +11,7 @@
         <form name="vm.updatePaymentMethodForm" ng-submit="vm.updatePaymentMethod()" novalidate focus-first-error>
 
             <!-- Flash messages. -->
-            <div flash-messages flash="flash" identifier-id="{{vm.alertIdentifierId}}"></div>
+            <div flash-messages flash="flash" identifier-id="{{vm.alertId}}"></div>
 
             <!-- Form group -->
             <div class="form-group-input" ng-class="{'has-error': vm.updatePaymentMethodForm.$submitted && (vm.updatePaymentMethodForm.cardNumber.$invalid || vm.badPostSubmitResponse)}">

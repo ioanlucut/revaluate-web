@@ -4,7 +4,7 @@
     <form name="expenseForm" ng-submit="saveExpense()" novalidate focus-first-error>
 
         <!-- Flash messages. -->
-        <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+        <div flash-messages flash="flash" identifier-id="{{alertId}}"></div>
 
         <!-- Form groups -->
         <div class="expense__form__price" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.value.$invalid || badPostSubmitResponse)}">

@@ -44,7 +44,7 @@ angular
         /**
          * Alert identifier
          */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.import;
+        $scope.alertId = ALERTS_CONSTANTS.import;
 
         /**
          * Current user.
@@ -101,18 +101,16 @@ angular
         // ---
         uploader.onWhenAddingFileFailed = function (item, filter, options) {
 
-            $scope.$emit(ALERTS_EVENTS.DANGER, 'Hmm.. are you trying to upload anything but a CSV file?');
+            $scope.$emit(ALERTS_EVENTS.DANGER, {
+                message: "Hmm.. are you trying to upload anything but a CSV file?",
+                alertId: $scope.alertId
+            });
         };
 
         // ---
         // If successful, take the answer.
         // ---
         uploader.onSuccessItem = function (fileItem, response, status, headers) {
-            // ---
-            // If there was a previously error, just clear it.
-            // ---
-            /*$scope.$emit(ALERTS_EVENTS.DANGER, '';*/
-
             // ---
             // Build the import answer, and toggle view.
             // ---
@@ -126,11 +124,17 @@ angular
         // ---
         uploader.onErrorItem = function (fileItem, response, status, headers) {
             if ( status === BAD_RESPONSE ) {
-                $scope.$emit(ALERTS_EVENTS.DANGER, 'Hmmm... Are you sure the CSV export is from selected app?');
+                $scope.$emit(ALERTS_EVENTS.DANGER, {
+                    message: "Hmmm... Are you sure the CSV export is from selected app?",
+                    alertId: $scope.alertId
+                });
             }
             else {
                 if ( status === SERVER_ERROR ) {
-                    $scope.$emit(ALERTS_EVENTS.DANGER, 'Something went wrong. Can you please try one more time?');
+                    $scope.$emit(ALERTS_EVENTS.DANGER, {
+                        message: "Something went wrong. Can you please try one more time?",
+                        alertId: $scope.alertId
+                    });
 
                     $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.settingsImportServerError);
                 }
@@ -227,7 +231,10 @@ angular
                         $scope.badPostSubmitResponse = true;
                         $scope.isImporting = false;
 
-                        $scope.$emit(ALERTS_EVENTS.DANGER, 'We\'ve encountered an error while trying to import your expenses.');
+                        $scope.$emit(ALERTS_EVENTS.DANGER, {
+                            message: "We\'ve encountered an error while trying to import your expenses.",
+                            alertId: $scope.alertId
+                        });
                     });
             }
         };

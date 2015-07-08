@@ -10,7 +10,7 @@ angular
         /**
          * Alert identifier
          */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.login;
+        $scope.alertId = ALERTS_CONSTANTS.login;
 
         /**
          * If not opened, open it.
@@ -52,7 +52,10 @@ angular
                         /* If bad feedback from server */
                         $scope.badPostSubmitResponse = true;
 
-                        $scope.$emit(ALERTS_EVENTS.DANGER, "Your email or password are wrong. Please try again.");
+                        $scope.$emit(ALERTS_EVENTS.DANGER, {
+                            message: "Your email or password are wrong. Please try again.",
+                            alertId: $scope.alertId
+                        });
                     })
                     .finally(function () {
                         $scope.isRequestPending = false;

@@ -12,7 +12,7 @@ angular
         /**
          * Alert identifier
          */
-        vm.alertIdentifierId = ALERTS_CONSTANTS.cancelAccount;
+        vm.alertId = ALERTS_CONSTANTS.cancelAccount;
 
         /**
          * Cancel account functionality.
@@ -49,7 +49,10 @@ angular
                     vm.badPostSubmitResponse = true;
                     vm.isDeleting = false;
 
-                    $scope.$emit(ALERTS_EVENTS.DANGER, 'We\'ve encountered an error while trying to remove your account.');
+                    $scope.$emit(ALERTS_EVENTS.DANGER, {
+                        message: "We\'ve encountered an error.",
+                        alertId: vm.alertId
+                    });
                 });
         };
     });

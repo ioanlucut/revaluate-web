@@ -15,7 +15,7 @@ angular
         /**
          * Alert identifier
          */
-        vm.alertIdentifierId = ALERTS_CONSTANTS.updateProfile;
+        vm.alertId = ALERTS_CONSTANTS.updateProfile;
 
         /**
          * Current user.
@@ -80,7 +80,10 @@ angular
                         vm.badPostSubmitResponse = true;
                         vm.isRequestPending = false;
 
-                        $scope.$emit(ALERTS_EVENTS.DANGER, 'We\'ve encountered an error while trying to update your account.');
+                        $scope.$emit(ALERTS_EVENTS.DANGER, {
+                            message: "We\'ve encountered an error.",
+                            alertId: vm.alertId
+                        });
                     });
             }
         };

@@ -15,7 +15,7 @@ angular
         /**
          * Alert identifier
          */
-        vm.alertIdentifierId = ALERTS_CONSTANTS.updatePassword;
+        vm.alertId = ALERTS_CONSTANTS.updatePassword;
 
         /**
          * Initial update password data.
@@ -41,7 +41,10 @@ angular
             }
 
             if ( vm.updatePasswordData.newPassword !== vm.updatePasswordData.newPasswordConfirmation ) {
-                $scope.$emit(ALERTS_EVENTS.DANGER, 'Your new password should match the new confirmation password!');
+                $scope.$emit(ALERTS_EVENTS.DANGER, {
+                    message: "Your new password should match the new confirmation password!",
+                    alertId: vm.alertId
+                });
 
                 return;
             }
@@ -62,7 +65,10 @@ angular
                     vm.badPostSubmitResponse = true;
                     vm.isRequestPending = false;
 
-                    $scope.$emit(ALERTS_EVENTS.DANGER, 'We\'re not able to update your account. Please try again.');
+                    $scope.$emit(ALERTS_EVENTS.DANGER, {
+                        message: "We\'re not able to update your account. Please try again.",
+                        alertId: vm.alertId
+                    });
                 })
                 .finally(function () {
                     vm.updatePasswordForm.$setPristine();
