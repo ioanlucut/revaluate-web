@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.account")
-    .controller("RevaluateAppController", function (flash, AlertService, $rootScope, $scope, $state, $timeout, $log, ALERTS_EVENTS, AuthService, AccountModal, IntercomUtilsService, MixpanelUtilsService, User, StatesHandler, AUTH_EVENTS, ALERTS_CONSTANTS, ACTIVITY_INTERCEPTOR, AUTH_MODAL, ERROR_INTERCEPTOR, ENV, APP_CONFIG) {
+    .controller("RevaluateAppController", function (flash, GreeterService, AlertService, $rootScope, $scope, $state, $timeout, $log, ALERTS_EVENTS, AuthService, AccountModal, IntercomUtilsService, MixpanelUtilsService, User, StatesHandler, AUTH_EVENTS, ALERTS_CONSTANTS, ACTIVITY_INTERCEPTOR, AUTH_MODAL, ERROR_INTERCEPTOR, ENV, APP_CONFIG) {
 
         /**
          * Save the state on root scope
@@ -134,6 +134,11 @@ angular
             if ( toState.stateEventName ) {
                 $scope.$emit("trackEvent", toState.stateEventName);
             }
+
+            // ---
+            // Say HI.
+            // ---
+            $rootScope.greet = GreeterService.greet();
 
             // ---
             // Handle fullpage.
