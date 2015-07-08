@@ -38,15 +38,14 @@
             </div>
 
             <div class="sign-up__setup__controls">
-                <a href="javascript:void(0)">Select all</a>
-                <a href="javascript:void(0)">Clear all</a>
+                <a href="javascript:void(0)" ng-click="vm.selectAll()">Select all</a>
+                <a href="javascript:void(0)" ng-click="vm.clearAll()">Clear all</a>
             </div>
 
             <div class="sign-up__setup__categories">
                 <div class="sign-up__setup__categories__category" ng-repeat="category in vm.categories track by category.name">
-                    <div class="category-name" ng-class="{ 'category-name--unselected': !category.selected }" ng-click="vm.toggleCategorySelection($index)">
+                    <div class="category-name"  ng-class="{ 'category-name--unselected': !category.selected }" ng-click="vm.toggleCategorySelection($index)">
                         <span class="icon-checkmark-light" ng-show="category.selected"></span>
-                        <span class="icon-checkmark-light-unchecked" ng-show="!category.selected"></span>
                         {{category.name}}
                     </div>
                 </div>

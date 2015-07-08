@@ -163,6 +163,28 @@ angular
             return _.filter(vm.categories, 'selected', true);
         }
 
+        vm.selectAll = function () {
+
+            if ( getSelectedCategories().length < vm.categories.length ) {
+
+                setAllCategoriesWithSelectedStatusOf(true);
+            }
+        };
+
+        vm.clearAll = function () {
+
+            if ( getSelectedCategories().length > 0 ) {
+
+                setAllCategoriesWithSelectedStatusOf(false);
+            }
+        };
+
+        function setAllCategoriesWithSelectedStatusOf(status) {
+            _.each(vm.categories, function (category) {
+                category.selected = status;
+            })
+        }
+
         /**
          * Is enough selected categories
          */
