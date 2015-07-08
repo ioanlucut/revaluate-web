@@ -60,23 +60,23 @@
         @include border-left-radius($border-radius-base);
         border-left: solid 2px $add-expense-form-border-color;
         border-right: solid 0 $gray-light-2;
-        float: left;
         height: $add-expense-form-height;
         line-height: $add-expense-form-height;
         text-align: right;
         padding-right: 50px;
+        position: relative;
     }
 
     .expense__form__price__currency {
         @include calc("height", #{$add-expense-form-height} - 4px);
         @include calc("line-height", #{$add-expense-form-height} - 4px);
-        float: left;
-        margin-left: -40px;
-        margin-top: 2px;
-        padding-right: 18px;
+        position: absolute;
+        right: 0;
+        top: 2px;
+        padding: 0 10px;
         color: $gray-light-1;
         font-weight: $font-weight-regular;
-        z-index: -999;
+        z-index: 999;
         border-right: solid 1px $gray-light-3;
     }
 }
