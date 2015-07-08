@@ -2,13 +2,17 @@
 
     <div class="sign-up__setup">
 
-        <h2 class="sign-up__setup__title">Awesome! Let's set some basics!</h2>
+        <h2 class="sign-up__setup__title">Awesome! Let's set the basics!</h2>
 
         <!-- Set up form -->
         <form name="vm.setUpForm" ng-submit="vm.setUp()" novalidate>
 
             <div class="sign-up__setup__section">
-                Please choose your currency:
+
+                <div class="sign-up__setup__tip">
+                    1. Choose your currency:
+                </div>
+
                 <div class="currency-select" ng-class="{'has-error': vm.setUpForm.$submitted && (vm.setUpForm.currency.$invalid || vm.badPostSubmitResponse)}">
 
                     <ui-select name="currency" class="currency-select__input" required ng-model="vm.currency.selected" theme="selectize">
@@ -30,12 +34,17 @@
             </div>
 
             <div class="sign-up__setup__tip">
-                Let's add some categories. <strong>Unselect or add another</strong>. You can change them later as well.
+                2. Select or Add <strong>at least 3</strong> categories.
+            </div>
+
+            <div class="sign-up__setup__controls">
+                <a href="javascript:void(0)">Select all</a>
+                <a href="javascript:void(0)">Clear all</a>
             </div>
 
             <div class="sign-up__setup__categories">
                 <div class="sign-up__setup__categories__category" ng-repeat="category in vm.categories track by category.name">
-                    <div class="category-name" ng-style="{'background':category.color.color}" ng-class="{ 'category-name--unselected': !category.selected }" ng-click="vm.toggleCategorySelection($index)">
+                    <div class="category-name" ng-class="{ 'category-name--unselected': !category.selected }" ng-click="vm.toggleCategorySelection($index)">
                         <span class="icon-checkmark-light" ng-show="category.selected"></span>
                         <span class="icon-checkmark-light-unchecked" ng-show="!category.selected"></span>
                         {{category.name}}
@@ -43,7 +52,7 @@
                 </div>
             </div>
 
-            <div class="sign-up__setup__categories">
+            <div class="sign-up__setup__categories sign-up__setup__categories--add">
 
                 <!--Toggle form-->
                 <button ng-if="! vm.showCategoryOnTheFlyInput" class="sign-up__setup__categories__addbtn" ng-click="vm.toggleContent()">
@@ -67,11 +76,11 @@
 
                         <!--The on the fly input category-->
                         <input class="sign-up__setup__categories__addinput" type="text" name="name"
-                               maxlength="15"
+                               maxlength="20"
                                ng-model="vm.categoryOnTheFly"
                                ng-enter="vm.triggerSubmit()"
                                ng-blur="vm.cancelAddCategoryOnTheFly()"
-                               auto-focus required valid-category-name />
+                               auto-focus required valid-category-name/>
 
                     </div>
                 </ng-form>
