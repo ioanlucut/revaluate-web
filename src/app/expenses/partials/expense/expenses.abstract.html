@@ -18,6 +18,11 @@
     <!-- Flash messages. -->
     <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
+    <!--Small hook-->
+    <div>
+        <div ng-include src="'/app/expenses/partials/expense/expenses.greeting.html'"></div>
+    </div>
+
     <div ui-view="expenses"></div>
 
 </div>
