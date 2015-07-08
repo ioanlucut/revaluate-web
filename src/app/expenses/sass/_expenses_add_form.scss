@@ -68,8 +68,8 @@
     }
 
     .expense__form__price__currency {
-        @include calc("height", #{$add-expense-form-height} - 4px);
-        @include calc("line-height", #{$add-expense-form-height} - 4px);
+        height: $add-expense-form-height - 4px;
+        line-height: $add-expense-form-height - 4px;
         position: absolute;
         right: 0;
         top: 2px;
