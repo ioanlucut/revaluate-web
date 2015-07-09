@@ -9,7 +9,7 @@
     @include no-user-select();
 
     .expense__form__price__input,
-    .expense__form__category__input,
+    .expense__form__category .category-select__input .selectize-input,
     .expense__form__details__input,
     .expense__form__date__input {
         @include border-radius(0);
@@ -18,10 +18,6 @@
         border-color: $add-expense-form-border-color transparent;
         font-weight: $font-weight-regular;
         margin: 0;
-
-        &:hover {
-            border-color: $add-expense-form-border-color;
-        }
 
         &:focus {
             border-color: $brand-primary;
@@ -97,8 +93,8 @@
 
         .selectize-input {
             @include border-radius(0);
-            border-width: 2px 0 !important;
-            border-color: $add-expense-form-border-color !important;
+            border-width: 2px 0;
+            border-color: $add-expense-form-border-color;
             height: $add-expense-form-height;
             line-height: 56px !important;
 
