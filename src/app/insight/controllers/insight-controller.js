@@ -176,6 +176,13 @@ angular
                         }
                         else {
                             // ---
+                            // If there was a previously error, just clear it.
+                            // ---
+                            $scope.$emit(ALERTS_EVENTS.CLEAR, {
+                                alertId: vm.alertId
+                            });
+
+                            // ---
                             // Update everything.
                             // ---
                             vm.masterInsightData = angular.copy(vm.insightData);

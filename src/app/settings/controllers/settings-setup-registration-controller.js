@@ -113,6 +113,13 @@ angular
             vm.categoryOnTheFly = "";
             vm.setUpForm.categoryOnTheFlyForm.$setPristine();
             vm.badPostSubmitResponse = false;
+
+            // ---
+            // If there was a previously error, just clear it.
+            // ---
+            $scope.$emit(ALERTS_EVENTS.CLEAR, {
+                alertId: vm.alertId
+            });
         }
 
         /**
