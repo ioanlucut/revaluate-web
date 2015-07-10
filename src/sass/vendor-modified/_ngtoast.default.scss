@@ -47,8 +47,8 @@
 
 .ng-toast.ng-toast--right .ng-toast__list {
     left: auto;
-    right: 0;
-    margin-right: 180px;
+    right: auto;
+    //margin-right: 180px;
 }
 
 .ng-toast.ng-toast--right .ng-toast__message {
@@ -57,8 +57,7 @@
 
 .ng-toast.ng-toast--left .ng-toast__list {
     right: auto;
-    left: 0;
-    margin-left: 20px;
+    left: auto;
 }
 
 .ng-toast.ng-toast--left .ng-toast__message {
@@ -68,17 +67,19 @@
 .ng-toast .ng-toast__list {
     display: inline-block;
     position: absolute;
-    right: 0;
-    left: 0;
+    right: auto;
+    left: auto;
     margin: 0 auto;
     padding: 0;
     list-style: none;
 }
 
 .ng-toast .ng-toast__message {
-    display: block;
-    width: 100%;
+    display: inline-block;
+    width: auto;
+    max-width: 400px;
     text-align: center;
+    margin: 0 auto;
 }
 
 .ng-toast .ng-toast__message .alert {
