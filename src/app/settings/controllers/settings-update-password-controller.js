@@ -57,7 +57,7 @@ angular
 
                     $timeout(function () {
                         vm.isRequestPending = false;
-                        $scope.$emit(ALERTS_EVENTS.SUCCESS, 'We\'ve successfully updated your account!');
+                        $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Account updated.');
                     }, TIMEOUT_PENDING);
                 })
                 .catch(function () {
@@ -66,7 +66,7 @@ angular
                     vm.isRequestPending = false;
 
                     $scope.$emit(ALERTS_EVENTS.DANGER, {
-                        message: "We\'re not able to update your account. Please try again.",
+                        message: "Error. Please try again.",
                         alertId: vm.alertId
                     });
                 })

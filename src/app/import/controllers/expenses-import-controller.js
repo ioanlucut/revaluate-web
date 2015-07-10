@@ -112,6 +112,13 @@ angular
         // ---
         uploader.onSuccessItem = function (fileItem, response, status, headers) {
             // ---
+            // If there was a previously error, just clear it.
+            // ---
+            $scope.$emit(ALERTS_EVENTS.CLEAR, {
+                alertId: $scope.alertId
+            });
+
+            // ---
             // Build the import answer, and toggle view.
             // ---
             $scope.expensesImportAnswer = ExpensesImport.build(response);
