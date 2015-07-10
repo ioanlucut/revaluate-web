@@ -31,7 +31,7 @@ angular
                     .then(function () {
                         $timeout(function () {
                             $scope.isRequestPending = false;
-                            $scope.$emit(ALERTS_EVENTS.SUCCESS, 'We\'ve successfully sent the confirmation email!');
+                            $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Confirmation email sent.');
                         }, TIMEOUT_PENDING);
                     })
                     .catch(function () {
