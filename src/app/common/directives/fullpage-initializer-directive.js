@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.common")
-    .directive("fullpageInitializer", function () {
+    .directive("fullpageInitializer", function ($rootScope) {
         return {
             restrict: "A",
             controller: function () {
@@ -13,7 +13,7 @@ angular
 
             },
             controllerAs: "fullpageCtrl",
-            link: function (scope, el, attrs) {
+            link: function (scope, el, attrs, ctrl) {
                 // ---
                 // Markers on homepage.
                 // ---
@@ -44,6 +44,15 @@ angular
                     onLeave: function (index, nextIndex, direction) {
                         $(LEFT_TEXT).removeClass(LEFT_ANIMATE_CLASS);
                         $(RIGHT_IMG).removeClass(RIGHT_ANIMATE_CLASS);
+                    }
+                });
+
+                /**
+                 * Listen to scroll to event
+                 */
+                $rootScope.$on("fullpage-scroll-to", function (event, args) {
+                    if ( args.slideNumber ) {
+                        ctrl.scrollDownTo(args.slideNumber);
                     }
                 });
             }
