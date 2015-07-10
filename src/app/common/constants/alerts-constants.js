@@ -29,5 +29,6 @@ angular
         INFO: "INFO",
         SUCCESS: "SUCCESS",
         WARNING: "WARNING",
-        DANGER: "DANGER"
+        DANGER: "DANGER",
+        CLEAR: "CLEAR"
     });
