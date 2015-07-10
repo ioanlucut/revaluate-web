@@ -3,11 +3,42 @@
     .expenses__bulk-actions {
 
         .expenses__bulk-actions__buttons {
+            left: 0;
 
             .expenses__bulk-actions__buttons__delete {
 
                 .expenses__bulk-actions__buttons__delete__btn-delete {
+
+                }
+            }
+
+            .expenses__bulk-actions__buttons__cancel {
+
+                .expenses__bulk-actions__buttons__delete__btn-cancel {
+
+                }
+            }
+
+            .expenses__bulk-actions__buttons__delete .expenses__bulk-actions__buttons__delete__btn-delete,
+            .expenses__bulk-actions__buttons__cancel .expenses__bulk-actions__buttons__delete__btn-cancel {
+                width: 150px;
+                height: 38px;
+            }
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .expenses__bulk-actions {
+
+        .expenses__bulk-actions__buttons {
+
+            .expenses__bulk-actions__buttons__delete {
+                padding-right: 5px;
+
+                .expenses__bulk-actions__buttons__delete__btn-delete {
                     width: 100%;
+                    padding-right: 5px;
                 }
             }
 
@@ -38,6 +69,10 @@
             .expenses__bulk-actions__buttons__cancel {
                 width: 100%;
                 float: left;
+            }
+
+            .expenses__bulk-actions__buttons__delete {
+                padding-right: 0;
             }
 
             .expenses__bulk-actions__buttons__cancel {
