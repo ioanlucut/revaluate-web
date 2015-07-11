@@ -1,0 +1,5 @@
+<!--Show confirmation content-->
+<a ng-if="isUserAuthenticated" class="body__feedback-section icon-feedback" href="javascript:void(0)" ng-controller="FeedbackModalController" ng-click="openFeedbackModal()"></a>
+
+<!--Show confirmation content-->
+<a ng-if="! isUserAuthenticated" class="body__feedback-section icon-feedback" href="javascript:void(0)" ng-controller="ContactModalController" ng-click="openContactModal()"></a>
