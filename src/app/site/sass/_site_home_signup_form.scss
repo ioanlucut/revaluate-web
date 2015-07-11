@@ -1,16 +1,34 @@
 .home__section__signup {
-  @include border-radius($base-border-radius);
-  @include span-columns(5);
-  max-width: 400px;
-  padding: 10px 40px 40px 40px;
-  background-color: $white;
-  margin-bottom: 130px;
-  display: none;
+    margin-bottom: $footer__home-height + 20px;
+}
+
+.home__section__signup__text {
+    float: left;
+    width: 50%;
+    text-align: left;
+    font-size: 25px;
+    font-weight: $font-weight-light;
+
+    h2 {
+        font-size: 50px;
+        font-family: $base-font-family;
+        margin-bottom: 100px;
+    }
+}
+
+.home__section__signup__form {
+    @include border-radius($base-border-radius);
+    float: right;
+    width: 50%;
+    max-width: 400px;
+    padding: 10px 40px 40px 40px;
+    background-color: $white;
+    margin-bottom: 40px;
 }
 
 .home__section__signup__btn {
-  @include btn-block($brand-primary);
-  margin-top: 25px;
-  font-size: 16px;
-  font-weight: $font-weight-bold;
+    @include btn-block($brand-primary);
+    margin-top: 25px;
+    font-size: 16px;
+    font-weight: $font-weight-bold;
 }
