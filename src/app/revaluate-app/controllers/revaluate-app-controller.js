@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.account")
-    .controller("RevaluateAppController", function (flash, GreeterService, AlertService, $rootScope, $scope, $state, $timeout, $log, ALERTS_EVENTS, AuthService, AccountModal, IntercomUtilsService, MixpanelUtilsService, User, StatesHandler, AUTH_EVENTS, ALERTS_CONSTANTS, ACTIVITY_INTERCEPTOR, AUTH_MODAL, ERROR_INTERCEPTOR, ENV, APP_CONFIG) {
+    .controller("RevaluateAppController", function (flash, GreeterService, AlertService, $rootScope, $scope, $state, $timeout, $log, ALERTS_EVENTS, AuthService, AccountModal, IntercomUtilsService, MixpanelUtilsService, User, StatesHandler, AUTH_EVENTS, ALERTS_CONSTANTS, AUTH_MODAL, ERROR_INTERCEPTOR, ENV, APP_CONFIG) {
 
         /**
          * Save the state on root scope
@@ -155,7 +155,6 @@ angular
             if ( AccountModal.isOpen ) {
                 $rootScope.$broadcast(AUTH_MODAL.close, {})
             }
-            $rootScope.$broadcast(ACTIVITY_INTERCEPTOR.activityEnd);
         });
 
         /**

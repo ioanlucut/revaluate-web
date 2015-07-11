@@ -162,7 +162,8 @@
     display: none;
 }
 
-.body__feedback {
+.body__feedback-section {
+    @include fadeInDown(1s);
     @include border-radius(50%);
     background-color: $white;
     box-shadow: 0 0 15px rgba(10, 10, 10, 0.5);
