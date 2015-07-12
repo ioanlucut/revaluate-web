@@ -10,8 +10,9 @@ angular
             link: function (scope, el, attrs) {
                 if ( !attrs.autoFocus ) {
 
-                    // No model to watch, focus the element
-                    el.focus();
+                    $timeout(function () {
+                        el.focus();
+                    });
                 }
                 else {
 
