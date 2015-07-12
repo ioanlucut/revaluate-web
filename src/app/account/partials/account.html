@@ -20,24 +20,28 @@
             <div flash-messages flash="flash" identifier-id="{{alertId}}"></div>
 
             <div class="form-group-input" ng-class="{'has-error': loginForm.$submitted && (loginForm.email.$invalid || badPostSubmitResponse)}">
-                <input class="form-group-input__input" type="email" placeholder="email" name="email" ng-model="loginData.email" auto-focus required />
+                <input class="form-group-input__input" type="email" placeholder="email" name="email" ng-model="loginData.email" auto-focus required/>
                 <span class="form-group-input__message" ng-if="loginForm.email.$invalid && loginForm.$submitted">Please enter your email address.</span>
             </div>
 
             <!-- Form group -->
             <div class="form-group-input" ng-class="{'has-error': loginForm.$submitted && (loginForm.password.$invalid || badPostSubmitResponse)}">
-                <input class="form-group-input__input" type="password" placeholder="password" name="password" ng-model="loginData.password" required />
+                <input class="form-group-input__input" type="password" placeholder="password" name="password" ng-model="loginData.password" required/>
                 <span class="form-group-input__message" ng-if="loginForm.password.$invalid && loginForm.$submitted">Please enter your password.</span>
             </div>
 
             <!-- Reset password -->
-            <a class="link-navigation" href="javascript:void(0)" ng-click="AccountModal.setState(ACCOUNT_FORM_STATE.forgotPassword)">Forgot login details?</a>
+            <a class="link-navigation" href="javascript:void(0)" ng-click="AccountModal.setState(ACCOUNT_FORM_STATE.forgotPassword)">Forgot
+                login details?</a>
 
             <!-- Button container -->
-            <button class="account__btn" type="submit">{{isRequestPending ? 'Logging in..' : isWaitingForCloseEvent ? 'Loading..' : 'Log in'}}</button>
+            <button class="account__btn" type="submit">{{isRequestPending ? 'Logging in...' : isWaitingForCloseEvent ?
+                'Loading...' : 'Log in'}}
+            </button>
         </form>
 
-        <a class="link-navigation" href="javascript:void(0)" ng-click="AccountModal.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration)">Don't have an account yet? Sign up!</a>
+        <a class="link-navigation" href="javascript:void(0)" ng-click="AccountModal.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration)">Don't
+            have an account yet? Sign up!</a>
 
     </div>
 
@@ -58,14 +62,18 @@
 
             <!-- Form groups -->
             <div class="form-group-input" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.firstName.$invalid || badPostSubmitResponse)}">
-                <div class="form-group-input__message" ng-if="signUpForm.firstName.$invalid && signUpForm.$submitted">Please tell us your First Name.</div>
-                <input class="form-group-input__input" type="text" name="firstName" placeholder="First Name" ng-model="signUpData.firstName" required auto-focus />
+                <div class="form-group-input__message" ng-if="signUpForm.firstName.$invalid && signUpForm.$submitted">
+                    Please tell us your First Name.
+                </div>
+                <input class="form-group-input__input" type="text" name="firstName" placeholder="First Name" ng-model="signUpData.firstName" required/>
             </div>
 
             <!-- Form group -->
             <div class="form-group-input" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.lastName.$invalid || badPostSubmitResponse)}">
-                <div class="form-group-input__message" ng-if="signUpForm.lastName.$invalid && signUpForm.$submitted">Please tell us your Last Name.</div>
-                <input class="form-group-input__input" type="text" name="lastName" placeholder="Last Name" ng-model="signUpData.lastName" required />
+                <div class="form-group-input__message" ng-if="signUpForm.lastName.$invalid && signUpForm.$submitted">
+                    Please tell us your Last Name.
+                </div>
+                <input class="form-group-input__input" type="text" name="lastName" placeholder="Last Name" ng-model="signUpData.lastName" required/>
             </div>
 
             <!-- Email input -->
@@ -75,10 +83,10 @@
                     <div ng-message="required">Please add your email address.</div>
                     <div ng-message="validEmail">Missed a letter? It looks like an invalid email address.</div>
                     <div ng-message="uniqueEmail">This email address is already used.
-                        <a href="javascript:void(0)" ng-click="AccountModal.setState(ACCOUNT_FORM_STATE.forgotPassword)">Forgot your password?</a>
-                    </div>
+                        <a href="javascript:void(0)" ng-click="AccountModal.setState(ACCOUNT_FORM_STATE.forgotPassword)">Forgot
+                            your password?</a></div>
                 </div>
-                <input class="form-group-input__input" type="email" name="email" placeholder="Email" ng-model="signUpData.email" required valid-email unique-email />
+                <input class="form-group-input__input" type="email" name="email" placeholder="Email" ng-model="signUpData.email" required valid-email unique-email/>
             </div>
 
             <!-- Form groups -->
@@ -88,17 +96,18 @@
                     <div ng-message="required">Please choose a password.</div>
                     <div ng-message="strongPassword">Your password needs to be at least 7 characters long.</div>
                 </div>
-                <input class="form-group-input__input" type="password" name="password" placeholder="Password" ng-model="signUpData.password" required strong-password />
+                <input class="form-group-input__input" type="password" name="password" placeholder="Password" ng-model="signUpData.password" required strong-password/>
             </div>
 
             <!-- Button container -->
             <button class="home__section__signup__btn" type="submit">Get started right now!</button>
         </form>
 
-        <div class="form-group-input__info">By singing up you agree to Revaluate
-            <a ui-sref="terms" target="_blank">Terms</a> and <a ui-sref="privacy" target="_blank">Privacy policy</a>.
+        <div class="form-group-input__info">By singing up you agree to Revaluate <a ui-sref="terms" target="_blank">Terms</a>
+            and <a ui-sref="privacy" target="_blank">Privacy policy</a>.
         </div>
-        <a class="link-navigation" href="javascript:void(0)" ng-click="AccountModal.setState(ACCOUNT_FORM_STATE.login)">Already have an account? Sign in here!</a>
+        <a class="link-navigation" href="javascript:void(0)" ng-click="AccountModal.setState(ACCOUNT_FORM_STATE.login)">Already
+            have an account? Sign in here!</a>
 
     </div>
 
@@ -124,7 +133,7 @@
 
             <!-- Form group -->
             <div class="form-group-input" ng-class="{'has-error': forgotPasswordForm.$submitted && (forgotPasswordForm.email.$invalid || badPostSubmitResponse)}">
-                <input class="form-group-input__input" type="email" placeholder="Your email address" name="email" ng-model="forgotPasswordData.email" auto-focus required valid-email />
+                <input class="form-group-input__input" type="email" placeholder="Your email address" name="email" ng-model="forgotPasswordData.email" auto-focus required valid-email/>
 
                 <div class="form-group-input__message" ng-messages="forgotPasswordForm.email.$error" ng-if="forgotPasswordForm.$submitted">
                     <div ng-message="required">Please enter your email address.</div>
@@ -136,7 +145,8 @@
             <button class="account__btn" type="submit">Reset password</button>
         </form>
 
-        <a href="javascript:void(0)" class="link-navigation" ng-click="AccountModal.setState(ACCOUNT_FORM_STATE.login)">Nevermind, let me log in!</a>
+        <a href="javascript:void(0)" class="link-navigation" ng-click="AccountModal.setState(ACCOUNT_FORM_STATE.login)">Nevermind,
+            let me log in!</a>
     </div>
 
     <!-- Password recovery email sent section -->
@@ -152,7 +162,8 @@
         <span class="account__explain">Please check your email. We've sent you a link to reset your password.</span>
 
         <!-- Button container -->
-        <a href="javascript:void(0)" class="link-navigation" ng-click="AccountModal.setState(ACCOUNT_FORM_STATE.login)">Actually I remember the password</a>
+        <a href="javascript:void(0)" class="link-navigation" ng-click="AccountModal.setState(ACCOUNT_FORM_STATE.login)">Actually
+            I remember the password</a>
     </div>
 
 </div>

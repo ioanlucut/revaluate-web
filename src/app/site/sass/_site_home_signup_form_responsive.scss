@@ -1,38 +1,44 @@
 @media (max-width: 900px) {
 
-  .home__section__signup {
-    @include span-columns(6);
-    @include shift(3);
-  }
+    .home__section__signup__text {
+        width: 100%;
+        font-size: 22px;
+        text-align: center;
+        float: none;
+
+        h2 {
+            font-size: 30px;
+            margin-bottom: 30px;
+        }
+    }
+
+    .home__section__signup__form {
+        float: none;
+        width: 100%;
+        margin: 40px auto;
+    }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 700px) {
 
-  .home__section__signup {
-    @include span-columns(8);
-    @include shift(2);
-  }
-}
-
-@media (max-width: 600px) {
-
-  .home__section__signup {
-    padding: 30px;
-  }
+    .home__section__signup__form {
+        margin-bottom: 20px;
+    }
 }
 
 @media (max-width: 500px) {
 
-  .home__section__signup {
-    padding: 20px;
-  }
+    .home__section__signup__form {
+        width: 96%;
+        padding: 30px;
+        margin-bottom: 10px;
+    }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 400px) {
 
-  .home__section__signup {
-    @include span-columns(12);
-    @include shift(0);
-    padding: 10px;
-  }
+    .home__section__signup__form {
+        padding: 15px;
+        margin-bottom: 0;
+    }
 }

@@ -1,6 +1,11 @@
-@media (max-width: 400px) {
-  .footer__home__logo,
-  .footer__home__links {
-    @include span-columns(12);
-  }
+@media (max-width: 450px) {
+    .footer__home__logo,
+    .footer__home__links {
+        @include span-columns(12);
+    }
+
+    .footer__home__links li {
+        @include span-columns(6);
+        margin: 0;
+    }
 }
