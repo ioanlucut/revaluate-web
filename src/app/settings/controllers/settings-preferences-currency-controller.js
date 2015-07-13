@@ -91,7 +91,7 @@ angular
 
                         $timeout(function () {
                             vm.isSaving = false;
-                            $scope.$emit(ALERTS_EVENTS.SUCCESS, 'We\'ve successfully updated your preferences!');
+                            $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated');
                         }, TIMEOUT_PENDING);
 
                     })

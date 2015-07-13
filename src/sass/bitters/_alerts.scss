@@ -30,7 +30,9 @@
 }
 
 .alert-success {
-    @include flash($brand-success, $brand-success-light);
+    @include flash($brand-success, $header-background-color);
+    min-width: 150px;
+    font-weight: bold;
 
     .close {
         color: $brand-success;

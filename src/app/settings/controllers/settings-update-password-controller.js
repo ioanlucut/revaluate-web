@@ -57,7 +57,7 @@ angular
 
                     $timeout(function () {
                         vm.isRequestPending = false;
-                        $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Account updated.');
+                        $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated');
                     }, TIMEOUT_PENDING);
                 })
                 .catch(function () {

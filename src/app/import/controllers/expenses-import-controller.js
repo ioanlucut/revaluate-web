@@ -217,7 +217,7 @@ angular
                     .then(function () {
                         expensesImportForm.$setPristine();
 
-                        $scope.$emit(ALERTS_EVENTS.SUCCESS, 'We\'ve successfully imported your expenses!');
+                        $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Expenses imported');
 
                         // ---
                         // Import is finished.
