@@ -62,7 +62,7 @@ angular
 
                         $timeout(function () {
                             $scope.isRequestPending = false;
-                            $scope.$emit(ALERTS_EVENTS.SUCCESS, 'We\'ve successfully updated your customer information!');
+                            $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated');
                         }, TIMEOUT_PENDING);
                     })
                     .catch(function (response) {

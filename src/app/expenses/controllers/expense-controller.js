@@ -218,7 +218,7 @@ angular
         $scope.$on(EXPENSE_EVENTS.isCreated, function (event, args) {
             $scope.expenses.push(args.expense);
 
-            $scope.$emit(ALERTS_EVENTS.SUCCESS, "Saved.");
+            $scope.$emit(ALERTS_EVENTS.SUCCESS, "Saved");
         });
 
         /**
@@ -234,7 +234,7 @@ angular
                 $scope.expenses.push(args.expense);
             }
 
-            $scope.$emit(ALERTS_EVENTS.SUCCESS, "updated");
+            $scope.$emit(ALERTS_EVENTS.SUCCESS, "Updated");
         });
 
         /**
@@ -245,7 +245,7 @@ angular
                 removeExpenseFrom($scope.expenses, args.expense);
             }
 
-            $scope.$emit(ALERTS_EVENTS.SUCCESS, "Deleted.");
+            $scope.$emit(ALERTS_EVENTS.SUCCESS, "Deleted");
         });
 
         /**

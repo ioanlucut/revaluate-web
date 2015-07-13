@@ -108,7 +108,7 @@ angular
         $scope.$on(CATEGORY_EVENTS.isCreated, function (event, args) {
             vm.categories.push(args.category);
 
-            $scope.$emit(ALERTS_EVENTS.SUCCESS, "Saved.");
+            $scope.$emit(ALERTS_EVENTS.SUCCESS, "Saved");
             $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.categoryCreated);
         });
 
@@ -125,7 +125,7 @@ angular
                 vm.categories.push(args.category);
             }
 
-            $scope.$emit(ALERTS_EVENTS.SUCCESS, "updated");
+            $scope.$emit(ALERTS_EVENTS.SUCCESS, "Updated");
             $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.categoryUpdated)
         });
 
@@ -135,7 +135,7 @@ angular
         $scope.$on(CATEGORY_EVENTS.isDeleted, function (event, args) {
             removeCategoryFrom(vm.categories, args.category);
 
-            $scope.$emit(ALERTS_EVENTS.SUCCESS, "Deleted.");
+            $scope.$emit(ALERTS_EVENTS.SUCCESS, "Deleted");
             $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.categoryDeleted);
         });
 
