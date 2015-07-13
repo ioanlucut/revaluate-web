@@ -13,7 +13,7 @@
         <!-- Form group -->
         <div class="form-group-input" ng-class="{'has-error': feedbackForm.$submitted && feedbackForm.subject.$invalid}">
             <div class="form-group-input__message" ng-if="feedbackForm.subject.$invalid && feedbackForm.$submitted">Please provide a subject.</div>
-            <input class="form-group-input__input" type="text" name="subject" placeholder="Subject" ng-model="feedback.model.subject" required />
+            <input class="form-group-input__input" type="text" name="subject" placeholder="Subject" ng-model="feedback.model.subject" auto-focus required />
         </div>
 
         <div class="form-group-input" ng-class="{'has-error': feedbackForm.$submitted && feedbackForm.message.$invalid}">
