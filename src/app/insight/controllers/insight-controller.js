@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.insights")
-    .controller("InsightController", function ($templateCache, $rootScope, $filter, $timeout, flash, insight, insightsMonthsPerYears, InsightService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
+    .controller("InsightController", function ($templateCache, $scope, $rootScope, $filter, $timeout, ALERTS_EVENTS, insight, insightsMonthsPerYears, InsightService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -24,7 +24,7 @@ angular
         /**
          * Alert identifier
          */
-        vm.alertIdentifierId = ALERTS_CONSTANTS.insights;
+        vm.alertId = ALERTS_CONSTANTS.insights;
 
         /**
          * Current user.
@@ -164,7 +164,7 @@ angular
                     /**
                      * Track event.
                      */
-                    $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.insightsFetched);
+                    $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.insightsFetched);
 
                     $timeout(function () {
                         if ( receivedInsight.isEmpty() ) {
@@ -172,13 +172,15 @@ angular
                             // Reset the insight data.
                             // ---
                             vm.insightData = angular.copy(vm.masterInsightData);
-                            flash.to(vm.alertIdentifierId).info = "There are no expenses defined for selected period."
+                            $scope.$emit(ALERTS_EVENTS.INFO, "There are no expenses defined for selected period.");
                         }
                         else {
                             // ---
                             // If there was a previously error, just clear it.
                             // ---
-                            flash.to(vm.alertIdentifierId).error = '';
+                            $scope.$emit(ALERTS_EVENTS.CLEAR, {
+                                alertId: vm.alertId
+                            });
 
                             // ---
                             // Update everything.
@@ -194,14 +196,17 @@ angular
                     }, TIMEOUT_DURATION);
                 })
                 .catch(function () {
+                    vm.badPostSubmitResponse = true;
+                    vm.isLoading = false;
 
                     // ---
                     // Reset the insight data.
                     // ---
                     vm.insightData = angular.copy(vm.masterInsightData);
-                    flash.to(vm.alertIdentifierId).error = "Could not fetch insights.";
-                    vm.badPostSubmitResponse = true;
-                    vm.isLoading = false;
+                    $scope.$emit(ALERTS_EVENTS.DANGER, {
+                        message: "Could not fetch insights.",
+                        alertId: vm.alertId
+                    });
                 });
         }
 

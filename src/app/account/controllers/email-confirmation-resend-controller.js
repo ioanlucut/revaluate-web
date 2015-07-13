@@ -2,14 +2,14 @@
 
 angular
     .module("revaluate.account")
-    .controller("EmailConfirmationResendController", function ($scope, $rootScope, $timeout, flash, AuthService, StatesHandler, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {
+    .controller("EmailConfirmationResendController", function ($scope, $rootScope, $timeout, ALERTS_EVENTS, AuthService, StatesHandler, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {
 
         var TIMEOUT_PENDING = 300;
 
         /**
          * Alert identifier
          */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.validatePassword;
+        $scope.alertId = ALERTS_CONSTANTS.validatePassword;
 
         /**
          * Current user.
@@ -31,7 +31,7 @@ angular
                     .then(function () {
                         $timeout(function () {
                             $scope.isRequestPending = false;
-                            flash.to($scope.alertIdentifierId).success = 'We\'ve successfully sent the confirmation email!';
+                            $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Sent');
                         }, TIMEOUT_PENDING);
                     })
                     .catch(function () {
@@ -39,7 +39,10 @@ angular
                         $scope.badPostSubmitResponse = true;
                         $scope.isRequestPending = false;
 
-                        flash.to($scope.alertIdentifierId).error = "Sorry, something went wrong.";
+                        $scope.$emit(ALERTS_EVENTS.DANGER, {
+                            message: "Sorry, something went wrong.",
+                            alertId: $scope.alertId
+                        });
                     });
             }
         };

@@ -84,10 +84,10 @@
     @include border-radius(3px);
     @include box-sizing(border-box);
     cursor: text;
-    border: solid 2px $gray-light-2;
+    border: solid 1px $gray-light-2;
     height: $selectize-dropdown-height;
     background-color: $white;
-    line-height: 41px;
+    line-height: 42px;
 
     .ui-select-match {
         padding: 0 20px 0 10px;
@@ -177,9 +177,10 @@
     }
 
     [data-selectable] {
-        padding: 5px 8px;
+        padding: 8px 8px;
         overflow: hidden;
         cursor: pointer;
+        border-bottom: 1px solid $gray-light-3;
 
         .highlight {
             background: rgba(125, 168, 208, 0.2);

@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.settings")
-    .controller("SettingsUpdatePasswordController", function (flash, $timeout, AuthService, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {
+    .controller("SettingsUpdatePasswordController", function ($scope, ALERTS_EVENTS, $timeout, AuthService, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -15,7 +15,7 @@ angular
         /**
          * Alert identifier
          */
-        vm.alertIdentifierId = ALERTS_CONSTANTS.updatePassword;
+        vm.alertId = ALERTS_CONSTANTS.updatePassword;
 
         /**
          * Initial update password data.
@@ -41,7 +41,10 @@ angular
             }
 
             if ( vm.updatePasswordData.newPassword !== vm.updatePasswordData.newPasswordConfirmation ) {
-                flash.to(vm.alertIdentifierId).error = 'Your new password should match the new confirmation password!';
+                $scope.$emit(ALERTS_EVENTS.DANGER, {
+                    message: "Your new password should match the new confirmation password!",
+                    alertId: vm.alertId
+                });
 
                 return;
             }
@@ -54,7 +57,7 @@ angular
 
                     $timeout(function () {
                         vm.isRequestPending = false;
-                        flash.to(vm.alertIdentifierId).success = 'We\'ve successfully updated your account!';
+                        $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated');
                     }, TIMEOUT_PENDING);
                 })
                 .catch(function () {
@@ -62,7 +65,10 @@ angular
                     vm.badPostSubmitResponse = true;
                     vm.isRequestPending = false;
 
-                    flash.to(vm.alertIdentifierId).error = 'We\'re not able to update your account. Please try again.';
+                    $scope.$emit(ALERTS_EVENTS.DANGER, {
+                        message: "Error. Please try again.",
+                        alertId: vm.alertId
+                    });
                 })
                 .finally(function () {
                     vm.updatePasswordForm.$setPristine();

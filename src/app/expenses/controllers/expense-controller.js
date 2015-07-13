@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.expenses")
-    .controller("ExpenseController", function ($scope, $rootScope, $stateParams, Expense, expenses, ExpenseService, categories, $window, DatesUtils, $timeout, StatesHandler, EXPENSE_EVENTS, flash, USER_ACTIVITY_EVENTS, ALERTS_CONSTANTS, APP_CONFIG) {
+    .controller("ExpenseController", function (AlertService, $scope, $rootScope, $stateParams, Expense, expenses, ExpenseService, categories, $window, DatesUtils, $timeout, StatesHandler, EXPENSE_EVENTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, ALERTS_CONSTANTS, APP_CONFIG) {
 
         /**
          * Updating/deleting timeout
@@ -12,7 +12,7 @@ angular
         /**
          * Alert identifier
          */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.expenseList;
+        $scope.alertId = ALERTS_CONSTANTS.expenseList;
 
         /**
          * Search by text
@@ -121,7 +121,7 @@ angular
                 $scope.masterExpense
                     .save()
                     .then(function () {
-                        $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.expenseCreated);
+                        $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.expenseCreated);
 
                         var expenseToBePushed = angular.copy($scope.masterExpense);
                         $timeout(function () {
@@ -137,9 +137,7 @@ angular
                     .catch(function () {
                         $scope.badPostSubmitResponse = true;
                         $scope.isSaving = false;
-                        $rootScope.$broadcast(EXPENSE_EVENTS.isErrorOccurred, {
-                            errorMessage: "We've encountered an error while trying to add this expense."
-                        });
+                        $rootScope.$broadcast(EXPENSE_EVENTS.isErrorOccurred, "We've encountered an error while trying to add this expense.");
                     });
             }
         };
@@ -195,7 +193,7 @@ angular
                     /**
                      * Track event.
                      */
-                    $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.expenseDeleted);
+                    $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.expenseDeleted);
 
                     $timeout(function () {
                         removeAllExpenseFrom($scope.expenses, selectedExpenses);
@@ -206,9 +204,7 @@ angular
                 .catch(function () {
                     $scope.isBulkDeleting = false;
                     $scope.cancelBulkAction();
-                    $rootScope.$broadcast(EXPENSE_EVENTS.isErrorOccurred, {
-                        errorMessage: "We've encountered an error while trying to perform bulk action."
-                    });
+                    $rootScope.$broadcast(EXPENSE_EVENTS.isErrorOccurred, "We've encountered an error while trying to perform bulk action.");
                 });
         };
 
@@ -222,7 +218,7 @@ angular
         $scope.$on(EXPENSE_EVENTS.isCreated, function (event, args) {
             $scope.expenses.push(args.expense);
 
-            flash.to($scope.alertIdentifierId).success = "Expense successfully saved!";
+            $scope.$emit(ALERTS_EVENTS.SUCCESS, "Saved");
         });
 
         /**
@@ -238,7 +234,7 @@ angular
                 $scope.expenses.push(args.expense);
             }
 
-            /*flash.to($scope.alertIdentifierId).success = "Expense successfully updated!";*/
+            $scope.$emit(ALERTS_EVENTS.SUCCESS, "Updated");
         });
 
         /**
@@ -249,7 +245,7 @@ angular
                 removeExpenseFrom($scope.expenses, args.expense);
             }
 
-            flash.to($scope.alertIdentifierId).success = "Expense successfully deleted!";
+            $scope.$emit(ALERTS_EVENTS.SUCCESS, "Deleted");
         });
 
         /**
@@ -257,7 +253,11 @@ angular
          */
         $scope.$on(EXPENSE_EVENTS.isErrorOccurred, function (event, args) {
 
-            flash.to($scope.alertIdentifierId).error = args.errorMessage;
+            $scope.$emit(ALERTS_EVENTS.DANGER, {
+                message: args.errorMessage,
+                alertId: $scope.alertId
+            });
+
         });
 
         /**

@@ -18,6 +18,7 @@ var options = {
     },
     wiredep: {
         directory: 'bower_components',
+        exclude: ['bower_components/bootstrap-sass/assets/javascripts/bootstrap.js'],
         fileTypes: {
             html: {
                 replace: {

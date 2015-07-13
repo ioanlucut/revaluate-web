@@ -1,9 +1,21 @@
-@media (max-width: 500px) {
+@media (min-width: 900px) {
 
-    .site__container__section__feature--left {
+    .site__container__section__feature--left-in {
+        @include fadeInLeft(1.2s);
     }
 
-    .site__container__section__feature--right {
+    .site__container__section__feature--right-in {
+        @include fadeInRight(1.2s);
+    }
+}
+
+@media (min-width: 900px) {
+
+    .site__container__section__feature--left-out {
+        @include fadeOutLeft(1s);
     }
 
+    .site__container__section__feature--right-out {
+        @include fadeOutRight(1s);
+    }
 }

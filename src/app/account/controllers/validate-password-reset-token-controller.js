@@ -2,12 +2,12 @@
 
 angular
     .module("revaluate.account")
-    .controller("ValidatePasswordResetTokenController", function ($scope, $timeout, flash, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult, ALERTS_CONSTANTS) {
+    .controller("ValidatePasswordResetTokenController", function ($scope, $timeout, ALERTS_EVENTS, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult, ALERTS_CONSTANTS) {
 
         /**
          * Alert identifier
          */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.validatePassword;
+        $scope.alertId = ALERTS_CONSTANTS.validatePassword;
 
         /**
          * Reset password data (used if
@@ -46,7 +46,10 @@ angular
                         /* If bad feedback from server */
                         $scope.badPostSubmitResponse = true;
 
-                        flash.to($scope.alertIdentifierId).error = "Sorry, something went wrong.";
+                        $scope.$emit(ALERTS_EVENTS.DANGER, {
+                            message: "Sorry, something went wrong.",
+                            alertId: $scope.alertId
+                        });
                     });
             }
         };

@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.settings")
-    .controller("SettingsPaymentMethodAddController", function ($q, $state, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentStatus, flash, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, AUTH_EVENTS, USER_SUBSCRIPTION_STATUS) {
+    .controller("SettingsPaymentMethodAddController", function ($q, $scope, $state, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentStatus, ALERTS_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, AUTH_EVENTS, USER_SUBSCRIPTION_STATUS) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -12,7 +12,7 @@ angular
         /**
          * Alert identifier
          */
-        vm.alertIdentifierId = ALERTS_CONSTANTS.paymentProfile;
+        vm.alertId = ALERTS_CONSTANTS.paymentProfile;
 
         /**
          * Current user.
@@ -91,11 +91,12 @@ angular
                     }, function (err, nonce) {
 
                         if ( err ) {
-                            flash.to(vm.alertIdentifierId).error = err;
+                            $scope.$emit(ALERTS_EVENTS.DANGER, {
+                                message: err,
+                                alertId: vm.alertId
+                            });
                         }
                         else {
-                            flash.to(vm.alertIdentifierId).error = '';
-
                             // ---
                             // Update details with the received nonce.
                             // ---
@@ -118,11 +119,6 @@ angular
                                     }
 
                                     // ---
-                                    // Clean previously errors.
-                                    // ---
-                                    flash.to(ALERTS_CONSTANTS.generalError).error = '';
-
-                                    // ---
                                     // Reset the payment data with empty new data.
                                     // ---
                                     vm.paymentData = angular.copy(getInitialPaymentData());
@@ -131,7 +127,7 @@ angular
 
                                     $timeout(function () {
                                         vm.isRequestPending = false;
-                                        flash.to(vm.alertIdentifierId).success = 'We\'ve successfully saved your payment method!';
+                                        $scope.$emit(ALERTS_EVENTS.SUCCESS, 'We\'ve successfully saved your payment method!');
 
                                         // ---
                                         // If successful, go to insights.
@@ -149,10 +145,16 @@ angular
                                     // ---
                                     var errors = response.data;
                                     if ( _.isArray(errors) ) {
-                                        flash.to(vm.alertIdentifierId).error = errors.join("\n");
+                                        $scope.$emit(ALERTS_EVENTS.DANGER, {
+                                            message: errors.join("\n"),
+                                            alertId: vm.alertId
+                                        });
                                     }
                                     else {
-                                        flash.to(vm.alertIdentifierId).error = 'We\'ve encountered an error while trying to save your payment method.';
+                                        $scope.$emit(ALERTS_EVENTS.DANGER, {
+                                            message: "We\'ve encountered an error.",
+                                            alertId: vm.alertId
+                                        });
                                     }
                                 });
                         }

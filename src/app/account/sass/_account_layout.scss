@@ -5,8 +5,9 @@
 }
 
 .account__section {
-    @include span-columns(6);
-    @include shift(3);
+    width: 98%;
+    max-width: 400px;
+    margin: 0 auto;
     @include border-radius($base-border-radius);
     border: solid 1px $gray-light-1;
     padding: 40px;
@@ -16,11 +17,11 @@
 }
 
 .account__logo {
-  @include size(70px 70px);
-  background: url("../assets/img/logo.svg") no-repeat top left;
-  background-size: contain;
-  display: block;
-  margin: 0 auto;
+    @include size(70px 70px);
+    background: url("../assets/img/logo.svg") no-repeat top left;
+    background-size: contain;
+    display: block;
+    margin: 0 auto;
 }
 
 .account__title {
