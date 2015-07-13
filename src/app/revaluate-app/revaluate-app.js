@@ -27,11 +27,9 @@ angular
         "revaluate.insights",
         "ngIntercom",
         "revaluate.intercom",
-        "angular.filter",
         "ui.gravatar",
         "angularPayments",
         "pascalprecht.translate",
-        "duScroll",
         "ngToast",
         "ui.select"
     ])
