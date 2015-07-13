@@ -2,7 +2,7 @@
 
 <div class="site__container site__container--homemain">
 
-    <div class="site__container__section">
+    <div class="site__container__section site__container__section--pricing">
 
         <h1>Simple pricing</h1>
 
@@ -12,19 +12,50 @@
 
         <div class="pricing__box">
 
+            <h1>Start</h1>
+
             <div class="pricing__box__amount">
-                FREE while in beta
+                0<span>$/month</span>
             </div>
 
             <ul>
-                <li>Everything included</li>
-                <li>No hidden fees, no catch</li>
-                <li></li>
+                <li>Save your expenses</li>
+                <li>Get basic monthly insights</li>
+                <li>Create up to 10 categories</li>
+                <li>Set 2 monthly goals <span>soon</span></li>
             </ul>
 
             <button class="pricing__box__btn" account-modal-toggle="requestSignUpRegistration">Start now for FREE!</button>
 
             <div class="pricing__box__info">No credit card required</div>
+
+        </div>
+
+        <div class="pricing__box pricing__box--premium">
+
+            <div class="pricing__box--premium__badge">Everything included</div>
+
+            <h1>Awesome</h1>
+
+            <div class="pricing__box__amount pricing__box__amount--premium">
+                5<span>$/month</span>
+                <span>FREE while in beta</span>
+                <span class="pricing__box__amount--premium__strike"></span>
+            </div>
+
+            <ul>
+                <li>Save your expenses</li>
+                <li>Get advanced insights</li>
+                <li>Create up to 25 categories</li>
+                <li>Set as many goals as you want <span>soon</span></li>
+                <li>Plan your expenses <span>soon</span></li>
+                <li>Track your debts <span>soon</span></li>
+                <li>Track the money others owe you <span>soon</span></li>
+            </ul>
+
+            <button class="pricing__box__btn pricing__box__btn--premium" account-modal-toggle="requestSignUpRegistration">Start now for FREE!</button>
+
+            <div class="pricing__box__info">30 day free trial included</div>
 
         </div>
 
@@ -37,13 +68,12 @@
 
     <div class="site__container__section">
 
-        <!-- Disabled while in beta
         <h1>FAQ</h1>
 
         <ul class="site__container__section__faq">
             <li>
                 <div><strong>Are payments secure?</strong></div>
-                <div>100%! We don't store any billing information. All that is handled by Braintree, a PayPal Company.</div>
+                <div>We don't store any billing information. All that is handled by Braintree, a PayPal Company. So we'd say they are secure.</div>
             </li>
             <li>
                 <div><strong>Can I cancel at any time?</strong></div>
@@ -51,14 +81,14 @@
             </li>
             <li>
                 <div><strong>Do you offer refunds?</strong></div>
-                <div>Absolutely! Just let us know what went wrong so we can improve.</div>
+                <div>Absolutely! Just let us know what went wrong so we can make sure it doesn't happen again.</div>
             </li>
             <li>
                 <div><strong>Does Revaluate have a smartphone app?</strong></div>
                 <div>Not yet, but we want to build those as fast as possible.</div>
             </li>
         </ul>
-        -->
+
 
         <div class="site__container__section__faq__contact">Want to ask us something?
             <a href="javascript:void(0)" id="feedback-trigger" ng-controller="ContactModalController" ng-click="openContactModal()">Reach us here.</a>
@@ -69,4 +99,3 @@
 </div>
 
 <div footer-home class="view-container__footer"></div>
-

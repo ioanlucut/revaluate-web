@@ -16,7 +16,12 @@
     <div flash-messages flash="flash" identifier-id="generalError"></div>
 
     <!-- Flash messages. -->
-    <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+    <div flash-messages flash="flash" identifier-id="{{alertId}}"></div>
+
+    <!--Small hook-->
+    <div>
+        <div ng-include src="'/app/expenses/partials/expense/expenses.greeting.html'"></div>
+    </div>
 
     <div ui-view="expenses"></div>
 

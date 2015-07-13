@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.account")
-    .service("AuthFilter", function (AuthService, StatesHandler, User, STATES, flash, ALERTS_CONSTANTS) {
+    .service("AuthFilter", function (AuthService, StatesHandler, User, STATES, flash, ALERTS_EVENTS, ALERTS_CONSTANTS) {
 
         return function (event, toState) {
             if (
@@ -51,10 +51,9 @@ angular
                 // ---
                 // Show error.
                 // ---
-                flash.to(ALERTS_CONSTANTS.generalError).error = "You must define a payment method and subscribe to revaluate plan before further using revaluate.";
+                flash.to(ALERTS_CONSTANTS.generalError).error = "You must define a payment method.";
                 StatesHandler.goToAddPayment();
             }
-
         };
 
     });

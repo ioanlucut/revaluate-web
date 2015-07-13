@@ -4,9 +4,11 @@ angular
     .module("revaluate.common")
     .service("StatesHandler", function ($state, $stateParams, STATES) {
 
-        this.goHome = function () {
-            this.go(STATES.home);
-        };
+        function call(callback) {
+            if ( callback && typeof(callback) === "function" ) {
+                callback();
+            }
+        }
 
         this.goToProfile = function () {
             this.go(STATES.profile);
@@ -35,9 +37,13 @@ angular
         this.goToExpenses = function (callback) {
             this.go(STATES.expenses);
 
-            if ( callback && typeof(callback) === "function" ) {
-                callback();
-            }
+            call(callback)
+        };
+
+        this.goHome = function (callback) {
+            this.go(STATES.home);
+
+            call(callback);
         };
 
         this.refreshCurrentState = function () {

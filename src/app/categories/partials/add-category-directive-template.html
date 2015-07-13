@@ -12,7 +12,7 @@
         <!-- Form group -->
         <div class="categories__form__input-group" ng-class="{'has-error': vm.categoryForm.$submitted && (vm.categoryForm.color.$invalid || vm.badPostSubmitResponse)}">
 
-            <input class="categories__form__input-group__color" type="hidden" placeholder="Category color" name="color" ng-model="vm.category.model.color.color" required valid-category-color />
+            <input ng-disabled="vm.isSaving" class="categories__form__input-group__color" type="hidden" placeholder="Category color" name="color" ng-model="vm.category.model.color.color" required valid-category-color />
 
             <!-- Error messages -->
             <div class="form-group-input__message" ng-class="{'has-error': vm.categoryForm.color.$invalid && vm.categoryForm.$submitted}" ng-messages="vm.categoryForm.color.$error" ng-if="vm.categoryForm.$submitted">
@@ -32,7 +32,8 @@
             <!--Color preview-->
             <label class="categories__form__color__preview" ng-style="{'background':vm.category.model.color.color}"></label>
 
-            <input type="text"
+            <input ng-disabled="vm.isSaving"
+                   type="text"
                    name="name"
                    class="categories__form__input-group__name"
                    placeholder="Category name"
@@ -41,7 +42,7 @@
                    ng-model="vm.category.model.name"
                    auto-focus required valid-category-name unique-category-name />
 
-            <div class="categories__form__input-group__count">{{20 - vm.category.model.name.length}}</div>
+            <div ng-show="! vm.isSaving" class="categories__form__input-group__count">{{20 - vm.category.model.name.length}}</div>
 
             <div color-picker colors="vm.colors" category-color="vm.category.model.color"></div>
         </div>
@@ -51,8 +52,8 @@
     <!--Content right-->
     <div class="categories__add__form__content__right">
         <!--Reset-->
-        <button type="button" class="categories__add__form__content__right__cancel" ng-click="toggleContent();initOrReset(vm.categoryForm)">Nevermind</button>
+        <button ng-disabled="vm.isSaving" type="button" class="categories__add__form__content__right__cancel" ng-click="toggleContent();initOrReset(vm.categoryForm)">Nevermind</button>
         <!-- Submit button container -->
-        <button class="categories__add__form__content__right__add" type="submit">{{vm.isSaving ? 'Saving...' : 'Save category'}}</button>
+        <button ng-disabled="vm.isSaving" class="categories__add__form__content__right__add" type="submit">{{vm.isSaving ? 'Saving...' : 'Save category'}}</button>
     </div>
 </form>
