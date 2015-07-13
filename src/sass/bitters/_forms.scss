@@ -72,6 +72,17 @@ input[type="file"] {
     width: 100%;
 }
 
+input[type="checkbox"]:-webkit-autofill,
+input[type="email"]:-webkit-autofill,
+input[type="password"]:-webkit-autofill,
+input[type="radio"]:-webkit-autofill,
+input[type="search"]:-webkit-autofill,
+input[type="text"]:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #F4FAFF inset !important;
+}
+
 select {
     margin-bottom: $base-spacing;
     max-width: 100%;
@@ -110,12 +121,12 @@ input {
 }
 
 .form-group-input__info {
-  font-size: $font-size-small;
-  color: $gray-medium;
+    font-size: $font-size-small;
+    color: $gray-medium;
 
-  a {
-    color: $gray-dark-1;
-  }
+    a {
+        color: $gray-dark-1;
+    }
 }
 
 .has-error {

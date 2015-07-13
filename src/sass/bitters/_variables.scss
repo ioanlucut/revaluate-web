@@ -31,7 +31,7 @@ $setup-currency-input-width: 320px;
 $footer-height: 50px;
 $footer__home-height: 150px;
 $settings-aside-width: 180px;
-$add-expense-form-height: 50px;
+$add-expense-form-height: 60px;
 $add-category-form-height: 40px;
 $category-select-width: 100%;
 $category-select-height: 35px;
@@ -57,11 +57,12 @@ $gray-light-3: #f9f9f9;
 $gray-light-4: #fcfcfc;
 
 $brand-primary: #22A7F0;
-//#4183D7;
 $brand-primary-light: lighten($brand-primary, 40%);
+$brand-primary-dark: darken($brand-primary, 25%);
 
 $brand-secondary: #ED4B4C;
 $brand-secondary-light: lighten($brand-secondary, 10%);
+$brand-secondary-dark: darken($brand-secondary, 25%);
 
 $brand-default: #E7E7E7;
 $brand-default-dark: #D6D6D6;

@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.settings")
-    .controller("SettingsPreferencesCurrencyController", function ($q, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, flash, ALERTS_CONSTANTS, APP_CONFIG) {
+    .controller("SettingsPreferencesCurrencyController", function ($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, ALERTS_EVENTS, ALERTS_CONSTANTS, APP_CONFIG) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -24,7 +24,7 @@ angular
         /**
          * Alert identifier
          */
-        vm.alertIdentifierId = ALERTS_CONSTANTS.preferences;
+        vm.alertId = ALERTS_CONSTANTS.preferences;
 
         /**
          * Current user.
@@ -91,7 +91,7 @@ angular
 
                         $timeout(function () {
                             vm.isSaving = false;
-                            flash.to(vm.alertIdentifierId).success = 'We\'ve successfully updated your preferences!';
+                            $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated');
                         }, TIMEOUT_PENDING);
 
                     })
@@ -100,7 +100,10 @@ angular
                         vm.badPostSubmitResponse = true;
                         vm.isSaving = false;
 
-                        flash.to(vm.alertIdentifierId).error = 'We\'ve encountered an error while trying to update your preferences.';
+                        $scope.$emit(ALERTS_EVENTS.DANGER, {
+                            message: "We\'ve encountered an error.",
+                            alertId: vm.alertId
+                        });
                     });
             }
         };

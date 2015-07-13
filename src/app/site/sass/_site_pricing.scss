@@ -1,28 +1,79 @@
+// Basic plan box
+// ------------------------
+
 .pricing__box {
-    margin: 20px auto 10px auto;
-    width: 100%;
-    max-width: 300px;
-    padding: 40px;
+    margin: 60px 10px 0 0;
+    width: 98%;
+    max-width: 360px;
+    padding: 70px 30px 20px 30px;
     background-color: $white;
-    border: solid 2px rgba(255, 255, 255, 0.1);
+    float: left;
+    position: relative;
     @include border-radius(5px);
+    @include border-top-radius(30px);
+
+    &:first-child {
+        margin-left: 115px;
+    }
+
+    h1 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 70px;
+        color: $white;
+        background-color: $gray-medium;
+        padding-top: 20px;
+        font-weight: $font-weight-regular;
+        @include border-top-radius($border-radius-base);
+    }
 
     ul {
-        font-size: $font-size-large;
-        opacity: 0.7;
+        font-weight: $font-weight-light;
+        text-align: left;
+        padding: 0 0 10px 0;
+        color: $gray-dark-2;
+
+        li {
+            padding: 8px;
+            margin: 0;
+            border-bottom: solid 1px $gray-light-1;
+
+            &:first-child {
+                border-top: solid 1px $gray-light-1;
+            }
+
+            span {
+                background-color: lighten($brand-info, 20%);
+                color: $brand-info-dark;
+                padding: 1px 5px 2px 5px;
+                text-transform: uppercase;
+                font-size: $font-size-small;
+                @include border-radius(3px);
+            }
+        }
     }
 }
 
 .pricing__box__amount {
     padding-bottom: 30px;
-    color: $brand-primary;
-    font-size: $font-size-larger;
-    font-weight: $font-weight-bold;
+    margin-top: 15px;
+    color: $gray-light-1;
+    font-size: 50px;
+
+    span {
+        font-size: $font-size-large;
+    }
+
+    div {
+        font-size: $font-size-large;
+    }
 }
 
 .pricing__box__btn {
-    @include btn-block($brand-secondary);
-    @include btn-cta-hover();
+    @include btn-block($gray-light-1);
+    color: $gray-dark-1;
     margin-top: 25px;
 }
 
@@ -31,23 +82,82 @@
     opacity: 0.5;
 }
 
+// Premium plan box
+// ------------------------
+
+.pricing__box--premium {
+    margin: 20px 0 0 0;
+    padding-top: 110px;
+    position: relative;
+
+    .pricing__box--premium__badge {
+        position: absolute;
+        top: 30px;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        text-align: center;
+        text-transform: uppercase;
+        color: $brand-primary-dark;
+    }
+
+    h1 {
+        height: 110px;
+        padding-top: 60px;
+        background-color: $brand-primary;
+        color: $white;
+    }
+}
+
+.pricing__box__amount--premium {
+    color: $gray-light-1;
+    position: relative;
+
+    .pricing__box__amount--premium__strike {
+        position: absolute;
+        top: 40px;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        border-top: solid 2px $gray-light-1;
+        width: 125px;
+        height: 10px;
+        @include transform(rotate(20deg));
+    }
+
+    // Free while in beta text - remove after beta exit
+    span:nth-child(2) {
+        display: block;
+        color: $brand-primary;
+        font-weight: $font-weight-bold;
+    }
+}
+
+.pricing__box__btn--premium {
+    @include btn-block($brand-success);
+    margin-top: 25px;
+}
+
 // FAQ section
 // -----------------------------
 
 .site__container__section__faq {
-    padding: 0;
+    padding: 30px 0 0 0;
     @include outer-container();
 
     li {
         @include border-radius($base-border-radius);
         @include span-columns(6);
         @include omega(2n);
-        height: 110px;
+        min-height: 110px;
         padding: 10px;
-        margin: 0 21px 21px 0;
+        margin: 0 17px 17px 0;
         text-align: left;
+        font-size: $font-size-large;
+        background-color: $white;
 
-        &:nth-child(2) {
+        &:nth-child(even) {
             margin-right: 0px;
         }
     }
@@ -60,7 +170,3 @@
     padding: 10px;
     font-size: $font-size-large;
 }
-
-
-
-

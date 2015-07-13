@@ -1,9 +1,15 @@
-.site__container__section__feature--left {
+.site__container__section__feature--left-in {
     display: block;
-    @include fadeInLeft(0.5s);
 }
 
-.site__container__section__feature--right {
+.site__container__section__feature--right-in {
     display: block;
-    @include fadeInRight(0.5s);
+}
+
+.site__container__section__feature--left-out {
+    display: block;
+}
+
+.site__container__section__feature--right-out {
+    display: block;
 }

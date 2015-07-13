@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.categories")
-    .controller("CategoryController", function ($rootScope, $scope, flash, Category, CategoryColorService, CATEGORY_EVENTS, $timeout, categories, USER_ACTIVITY_EVENTS, APP_CONFIG, ALERTS_CONSTANTS) {
+    .controller("CategoryController", function ($rootScope, $scope, ALERTS_EVENTS, Category, CategoryColorService, CATEGORY_EVENTS, $timeout, categories, USER_ACTIVITY_EVENTS, APP_CONFIG, ALERTS_CONSTANTS) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -18,7 +18,7 @@ angular
         /**
          * Alert identifier
          */
-        vm.alertIdentifierId = ALERTS_CONSTANTS.createUpdateCategory;
+        vm.alertId = ALERTS_CONSTANTS.createUpdateCategory;
 
         /**
          * The current user
@@ -76,14 +76,10 @@ angular
                     .category
                     .save()
                     .then(function () {
-                        $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.categoryCreated);
-
                         $timeout(function () {
                             vm.isSaving = false;
 
-                            $rootScope.$broadcast(CATEGORY_EVENTS.isCreated, {
-                                category: vm.category
-                            });
+                            $rootScope.$broadcast(CATEGORY_EVENTS.isCreated, { category: vm.category });
 
                             /**
                              * Finally, reset the form.
@@ -97,9 +93,7 @@ angular
                         vm.isSaving = false;
                         vm.badPostSubmitResponse = true;
 
-                        $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, {
-                            errorMessage: "We've encountered an error while trying to save this category."
-                        });
+                        $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: "error" });
                     });
             }
         };
@@ -114,7 +108,8 @@ angular
         $scope.$on(CATEGORY_EVENTS.isCreated, function (event, args) {
             vm.categories.push(args.category);
 
-            flash.to(vm.alertIdentifierId).success = "Category successfully saved!";
+            $scope.$emit(ALERTS_EVENTS.SUCCESS, "Saved");
+            $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.categoryCreated);
         });
 
         /**
@@ -130,7 +125,8 @@ angular
                 vm.categories.push(args.category);
             }
 
-            flash.to(vm.alertIdentifierId).success = "Category successfully updated!";
+            $scope.$emit(ALERTS_EVENTS.SUCCESS, "Updated");
+            $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.categoryUpdated)
         });
 
         /**
@@ -139,18 +135,20 @@ angular
         $scope.$on(CATEGORY_EVENTS.isDeleted, function (event, args) {
             removeCategoryFrom(vm.categories, args.category);
 
-            flash.to(vm.alertIdentifierId).success = "Category successfully deleted!";
+            $scope.$emit(ALERTS_EVENTS.SUCCESS, "Deleted");
+            $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.categoryDeleted);
         });
 
         $scope.$on(CATEGORY_EVENTS.isErrorOccurred, function (event, args) {
 
-            flash.to(vm.alertIdentifierId).error = args.errorMessage;
+            $scope.$emit(ALERTS_EVENTS.DANGER, {
+                message: args.errorMessage,
+                alertId: $scope.alertId
+            });
         });
 
         /**
          * Removes given category from the list.
-         * @param categoryList
-         * @param categoryToBeRemoved
          */
         function removeCategoryFrom(categoryList, categoryToBeRemoved) {
             return _.remove(categoryList, function (categoryFromArray) {

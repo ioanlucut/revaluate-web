@@ -1,15 +1,18 @@
-@media (max-width: $screen-sm-min) {
+@media (max-width: 500px) {
+
+    .account {
+        padding-top: 0;
+    }
 
     .account__section {
-        @include span-columns(8);
-        @include shift(2);
+        padding: 20px;
+        @include border-radius(0);
     }
 }
 
-@media (max-width: $screen-xs-min) {
+@media (max-width: 400px) {
 
     .account__section {
-        @include span-columns(10);
-        @include shift(1);
+        padding: 10px;
     }
 }

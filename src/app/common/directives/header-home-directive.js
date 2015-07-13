@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.common")
-    .directive("headerHome", function ($rootScope) {
+    .directive("headerHome", function ($rootScope, StatesHandler, $timeout) {
         return {
             restrict: "A",
             templateUrl: "/app/common/partials/header-home.html",
@@ -13,9 +13,21 @@ angular
 
                 /**
                  * Reference to the current user.
-                 * @type {$rootScope.currentUser|*}
                  */
                 scope.currentUser = $rootScope.currentUser;
+
+                /**
+                 * Handles tour page link
+                 */
+                scope.goToTourPage = function () {
+
+                    StatesHandler.goHome(function () {
+                        $timeout(function () {
+                            $rootScope.$broadcast("fullpage-scroll-to", { slideNumber: 2 });
+                        })
+                    });
+                }
+
             }
         };
     });
