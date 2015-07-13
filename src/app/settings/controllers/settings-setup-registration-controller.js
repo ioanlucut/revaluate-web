@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.settings")
-    .controller("SettingsSetUpRegistrationController", function ($q, $scope, $rootScope, $timeout, flash, AuthService, CategoryService, AUTH_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, CategoryColorService, SessionService, StatesHandler, Category, APP_CONFIG) {
+    .controller("SettingsSetUpRegistrationController", function ($q, $scope, $rootScope, $timeout, ALERTS_EVENTS, AuthService, CategoryService, AUTH_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, CategoryColorService, SessionService, StatesHandler, Category, APP_CONFIG) {
         /**
          * Saving timeout
          */
@@ -20,7 +20,7 @@ angular
         /**
          * Alert identifier
          */
-        vm.alertIdentifierId = ALERTS_CONSTANTS.signUpSetUp;
+        vm.alertId = ALERTS_CONSTANTS.signUpSetUp;
 
         /**
          * Current user.
@@ -67,7 +67,7 @@ angular
         vm.categories = _.map(vm.categories, function (category) {
             return {
                 name: category,
-                selected: true,
+                selected: false,
                 color: vm.colors[vm.categories.indexOf(category)]
             };
         });
@@ -117,7 +117,9 @@ angular
             // ---
             // If there was a previously error, just clear it.
             // ---
-            flash.to(vm.alertIdentifierId).error = '';
+            $scope.$emit(ALERTS_EVENTS.CLEAR, {
+                alertId: vm.alertId
+            });
         }
 
         /**
@@ -136,7 +138,10 @@ angular
             });
 
             if ( result ) {
-                flash.to(vm.alertIdentifierId).error = "Category is not unique";
+                $scope.$emit(ALERTS_EVENTS.DANGER, {
+                    message: "Category is not unique",
+                    alertId: vm.alertId
+                });
             }
             else {
                 vm.categories.push({
@@ -161,6 +166,28 @@ angular
 
         function getSelectedCategories() {
             return _.filter(vm.categories, 'selected', true);
+        }
+
+        vm.selectAll = function () {
+
+            if ( getSelectedCategories().length < vm.categories.length ) {
+
+                setAllCategoriesWithSelectedStatusOf(true);
+            }
+        };
+
+        vm.clearAll = function () {
+
+            if ( getSelectedCategories().length > 0 ) {
+
+                setAllCategoriesWithSelectedStatusOf(false);
+            }
+        };
+
+        function setAllCategoriesWithSelectedStatusOf(status) {
+            _.each(vm.categories, function (category) {
+                category.selected = status;
+            })
         }
 
         /**
@@ -234,13 +261,13 @@ angular
                         SessionService.setData(response.data);
                         $rootScope.$broadcast(AUTH_EVENTS.refreshUser, response);
 
-                        $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.accountSetupFinished);
+                        $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.accountSetupFinished);
 
                         // ---
                         // Show some feedback.
                         // ---
                         vm.isSaving = false;
-                        flash.to(vm.alertIdentifierId).success = "Set up successfully! Preparing expenses..";
+                        $scope.$emit(ALERTS_EVENTS.SUCCESS, "Set up successfully! Preparing expenses..");
 
                         /**
                          * Finally, go to expenses.
@@ -249,11 +276,13 @@ angular
                     }, TIMEOUT_DURATION);
                 })
                 .catch(function () {
-
-                    // Error
-                    vm.isSaving = false;
-                    flash.to(vm.alertIdentifierId).error = "Set up could not have been performed.";
                     vm.badPostSubmitResponse = true;
+                    vm.isSaving = false;
+
+                    $scope.$emit(ALERTS_EVENTS.DANGER, {
+                        message: "We\'ve encountered an error.",
+                        alertId: vm.alertId
+                    });
                 });
         };
 

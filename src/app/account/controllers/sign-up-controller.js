@@ -2,12 +2,12 @@
 
 angular
     .module("revaluate.account")
-    .controller("SignUpController", function ($rootScope, $scope, $timeout, flash, ALERTS_CONSTANTS, StatesHandler, User, AuthService, USER_ACTIVITY_EVENTS, APP_CONFIG) {
+    .controller("SignUpController", function ($rootScope, $scope, $timeout, ALERTS_EVENTS, ALERTS_CONSTANTS, StatesHandler, User, AuthService, USER_ACTIVITY_EVENTS, APP_CONFIG) {
 
         /**
          * Alert identifier
          */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.signUpConfirm;
+        $scope.alertId = ALERTS_CONSTANTS.signUpConfirm;
 
         /**
          * Sign up user information.
@@ -39,7 +39,7 @@ angular
                 User.$new()
                     .create(signUpData)
                     .then(function () {
-                        $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.signUpCompleted);
+                        $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.signUpCompleted);
 
                         AuthService
                             .login(signUpData.email, signUpData.password)
@@ -54,7 +54,10 @@ angular
                         $scope.badPostSubmitResponse = true;
                         $scope.isRequestPending = false;
 
-                        flash.to($scope.alertIdentifierId).error = "Sorry, something went wrong.";
+                        $scope.$emit(ALERTS_EVENTS.DANGER, {
+                            message: "Sorry, something went wrong.",
+                            alertId: $scope.alertId
+                        });
                     });
             }
         };

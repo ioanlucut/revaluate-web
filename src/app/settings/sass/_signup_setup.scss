@@ -4,8 +4,8 @@
     margin-top: 50px;
 
     .sign-up__setup {
-        @include span-columns(6);
-        @include shift(3);
+        @include span-columns(8);
+        @include shift(2);
         @include border-radius($base-border-radius);
         background-color: $white;
         padding: 40px;
@@ -32,6 +32,7 @@
         .sign-up__setup__tip {
             padding-top: 40px;
             font-size: $font-size-larger;
+            text-align: left;
         }
 
         .sign-up__setup__description {
@@ -43,7 +44,7 @@
 
         .sign-up__setup__btn {
             @include btn-big($brand-primary);
-            margin-top: 25px;
+            margin-top: 55px;
             font-size: $font-size-base;
         }
 

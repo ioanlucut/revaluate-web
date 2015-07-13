@@ -13,7 +13,7 @@
         <!-- Form group -->
         <div class="form-group-input" ng-class="{'has-error': contactForm.$submitted && contactForm.name.$invalid}">
             <div class="form-group-input__message" ng-if="contactForm.name.$invalid && contactForm.$submitted">Please tell us your name.</div>
-            <input class="form-group-input__input" type="text" name="name" placeholder="Name" ng-model="contact.model.name" required />
+            <input class="form-group-input__input" type="text" name="name" placeholder="Name" ng-model="contact.model.name" auto-focus required/>
         </div>
 
         <!-- Email input -->

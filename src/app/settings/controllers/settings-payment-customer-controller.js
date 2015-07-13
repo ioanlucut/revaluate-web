@@ -2,14 +2,14 @@
 
 angular
     .module("revaluate.settings")
-    .controller("SettingsPaymentCustomerController", function ($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, paymentInsights, flash, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS) {
+    .controller("SettingsPaymentCustomerController", function ($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, paymentInsights, ALERTS_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS) {
 
         var TIMEOUT_PENDING = 300;
 
         /**
          * Alert identifier
          */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.paymentProfile;
+        $scope.alertId = ALERTS_CONSTANTS.paymentProfile;
 
         /**
          * Current user.
@@ -62,7 +62,7 @@ angular
 
                         $timeout(function () {
                             $scope.isRequestPending = false;
-                            flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your customer information!';
+                            $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated');
                         }, TIMEOUT_PENDING);
                     })
                     .catch(function (response) {
@@ -75,10 +75,16 @@ angular
                         // ---
                         var errors = response.data;
                         if ( _.isArray(errors) ) {
-                            flash.to($scope.alertIdentifierId).error = errors.join("\n");
+                            $scope.$emit(ALERTS_EVENTS.DANGER, {
+                                message: errors.join("\n"),
+                                alertId: vm.alertId
+                            });
                         }
                         else {
-                            flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to update your customer information.';
+                            $scope.$emit(ALERTS_EVENTS.DANGER, {
+                                message: "We\'ve encountered an error.",
+                                alertId: vm.alertId
+                            });
                         }
                     });
             }

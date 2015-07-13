@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.expensesImport")
-    .controller("ExpensesImportController", function ($q, $scope, $rootScope, $timeout, IMPORT_PARSE_ANALYSE_URLS, importType, FileUploader, ImportService, ExpensesImport, StatesHandler, SessionService, AUTH_EVENTS, flash, categories, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, APP_CONFIG) {
+    .controller("ExpensesImportController", function ($q, $scope, $rootScope, $timeout, IMPORT_PARSE_ANALYSE_URLS, importType, FileUploader, ImportService, ExpensesImport, StatesHandler, SessionService, AUTH_EVENTS, ALERTS_EVENTS, categories, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, APP_CONFIG) {
 
         // ---
         // Configure uploader.
@@ -44,7 +44,7 @@ angular
         /**
          * Alert identifier
          */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.import;
+        $scope.alertId = ALERTS_CONSTANTS.import;
 
         /**
          * Current user.
@@ -101,7 +101,10 @@ angular
         // ---
         uploader.onWhenAddingFileFailed = function (item, filter, options) {
 
-            flash.to($scope.alertIdentifierId).error = 'Hmm.. are you trying to upload anything but a CSV file?'
+            $scope.$emit(ALERTS_EVENTS.DANGER, {
+                message: "Hmm.. are you trying to upload anything but a CSV file?",
+                alertId: $scope.alertId
+            });
         };
 
         // ---
@@ -111,14 +114,16 @@ angular
             // ---
             // If there was a previously error, just clear it.
             // ---
-            flash.to($scope.alertIdentifierId).error = '';
+            $scope.$emit(ALERTS_EVENTS.CLEAR, {
+                alertId: $scope.alertId
+            });
 
             // ---
             // Build the import answer, and toggle view.
             // ---
             $scope.expensesImportAnswer = ExpensesImport.build(response);
             $scope.isUploadSuccessful = true;
-            $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.settingsImportUploadSuccess);
+            $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.settingsImportUploadSuccess);
         };
 
         // ---
@@ -126,13 +131,19 @@ angular
         // ---
         uploader.onErrorItem = function (fileItem, response, status, headers) {
             if ( status === BAD_RESPONSE ) {
-                flash.to($scope.alertIdentifierId).error = 'Hmmm... Are you sure the CSV export is from selected app?';
+                $scope.$emit(ALERTS_EVENTS.DANGER, {
+                    message: "Hmmm... Are you sure the CSV export is from selected app?",
+                    alertId: $scope.alertId
+                });
             }
             else {
                 if ( status === SERVER_ERROR ) {
-                    flash.to($scope.alertIdentifierId).error = 'Something went wrong. Can you please try one more time?';
+                    $scope.$emit(ALERTS_EVENTS.DANGER, {
+                        message: "Something went wrong. Can you please try one more time?",
+                        alertId: $scope.alertId
+                    });
 
-                    $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.settingsImportServerError);
+                    $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.settingsImportServerError);
                 }
             }
 
@@ -206,14 +217,14 @@ angular
                     .then(function () {
                         expensesImportForm.$setPristine();
 
-                        flash.to($scope.alertIdentifierId).success = 'We\'ve successfully imported your expenses!';
+                        $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Expenses imported');
 
                         // ---
                         // Import is finished.
                         // ---
                         $scope.isImporting = false;
                         $scope.importFinished = true;
-                        $rootScope.$broadcast("trackEvent", USER_ACTIVITY_EVENTS.settingsImportSuccess);
+                        $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.settingsImportSuccess);
 
                         // ---
                         // Go to expenses after 1,5 sec.
@@ -227,7 +238,10 @@ angular
                         $scope.badPostSubmitResponse = true;
                         $scope.isImporting = false;
 
-                        flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to import your expenses.';
+                        $scope.$emit(ALERTS_EVENTS.DANGER, {
+                            message: "We\'ve encountered an error while trying to import your expenses.",
+                            alertId: $scope.alertId
+                        });
                     });
             }
         };

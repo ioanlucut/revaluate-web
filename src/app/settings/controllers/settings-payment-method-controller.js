@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.settings")
-    .controller("SettingsEditPaymentMethodController", function ($q, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentInsights, flash, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS) {
+    .controller("SettingsEditPaymentMethodController", function ($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentInsights, ALERTS_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -12,7 +12,7 @@ angular
         /**
          * Alert identifier
          */
-        vm.alertIdentifierId = ALERTS_CONSTANTS.paymentProfile;
+        vm.alertId = ALERTS_CONSTANTS.paymentProfile;
 
         /**
          * Current user.
@@ -84,11 +84,12 @@ angular
                     }, function (err, nonce) {
 
                         if ( err ) {
-                            flash.to(vm.alertIdentifierId).error = err;
+                            $scope.$emit(ALERTS_EVENTS.DANGER, {
+                                message: err,
+                                alertId: vm.alertId
+                            });
                         }
                         else {
-                            flash.to(vm.alertIdentifierId).error = '';
-
                             // ---
                             // Update details with the received nonce.
                             // ---
@@ -108,7 +109,7 @@ angular
 
                                     $timeout(function () {
                                         vm.isRequestPending = false;
-                                        flash.to(vm.alertIdentifierId).success = 'We\'ve successfully updated your payment method!';
+                                        $scope.$emit(ALERTS_EVENTS.SUCCESS, 'We\'ve successfully updated your payment method!');
                                     }, TIMEOUT_PENDING);
                                 })
                                 .catch(function (response) {
@@ -121,10 +122,16 @@ angular
                                     // ---
                                     var errors = response.data;
                                     if ( _.isArray(errors) ) {
-                                        flash.to(vm.alertIdentifierId).error = errors.join("\n");
+                                        $scope.$emit(ALERTS_EVENTS.DANGER, {
+                                            message: errors.join("\n"),
+                                            alertId: vm.alertId
+                                        });
                                     }
                                     else {
-                                        flash.to(vm.alertIdentifierId).error = 'We\'ve encountered an error while trying to update your payment method.';
+                                        $scope.$emit(ALERTS_EVENTS.DANGER, {
+                                            message: "We\'ve encountered an error.",
+                                            alertId: vm.alertId
+                                        });
                                     }
                                 });
                         }

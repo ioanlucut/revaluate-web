@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.account")
-    .controller("RevaluateAppController", function ($rootScope, $scope, $state, $timeout, $log, flash, AuthService, AccountModal, IntercomUtilsService, User, StatesHandler, AUTH_EVENTS, ALERTS_CONSTANTS, ACTIVITY_INTERCEPTOR, AUTH_MODAL, ERROR_INTERCEPTOR, ENV, APP_CONFIG) {
+    .controller("RevaluateAppController", function (flash, GreeterService, AlertService, $rootScope, $scope, $state, $timeout, $log, ALERTS_EVENTS, AuthService, AccountModal, IntercomUtilsService, MixpanelUtilsService, User, StatesHandler, AUTH_EVENTS, ALERTS_CONSTANTS, AUTH_MODAL, ERROR_INTERCEPTOR, ENV, APP_CONFIG) {
 
         /**
          * Save the state on root scope
@@ -28,10 +28,14 @@ angular
         $rootScope.currentUser = User.$new().loadFromSession();
 
         // ---
-        // Bootstrap intercom.
+        // Bootstrap intercom & mixpanel.
         // ---
         if ( AuthService.isAuthenticated() ) {
             IntercomUtilsService.bootIntercom($rootScope.currentUser);
+            MixpanelUtilsService.bootMixpanel($rootScope.currentUser);
+        }
+        else {
+            MixpanelUtilsService.initMixpanel();
         }
 
         if ( !ENV.isProduction ) {
@@ -51,6 +55,11 @@ angular
             // ---
             IntercomUtilsService.bootIntercom($rootScope.currentUser);
 
+            // ---
+            // Bootstrap mixpanel people.
+            // ---
+            MixpanelUtilsService.bootMixpanel($rootScope.currentUser);
+
             if ( !ENV.isProduction ) {
                 $log.log("Logged in: ", $rootScope.currentUser.model);
             }
@@ -66,6 +75,11 @@ angular
             // Refresh intercom user.
             // ---
             IntercomUtilsService.updateIntercom($rootScope.currentUser);
+
+            // ---
+            // Refresh intercom user.
+            // ---
+            MixpanelUtilsService.updateMixpanel($rootScope.currentUser);
 
             if ( !ENV.isProduction ) {
                 $log.log("Refreshed user: ", $rootScope.currentUser.model);
@@ -106,17 +120,6 @@ angular
         });
 
         /**
-         * Track event
-         */
-        $rootScope.trackEvents = function (event) {
-            mixpanel.track(event);
-
-            if ( !ENV.isProduction ) {
-                IntercomUtilsService.trackEvent(event);
-            }
-        };
-
-        /**
          * Track events.
          */
         $rootScope.$on("trackEvent", function (event, args) {
@@ -129,8 +132,13 @@ angular
          */
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
             if ( toState.stateEventName ) {
-                $rootScope.$broadcast("trackEvent", toState.stateEventName);
+                $scope.$emit("trackEvent", toState.stateEventName);
             }
+
+            // ---
+            // Say HI.
+            // ---
+            $rootScope.greet = GreeterService.greet();
 
             // ---
             // Handle fullpage.
@@ -147,7 +155,6 @@ angular
             if ( AccountModal.isOpen ) {
                 $rootScope.$broadcast(AUTH_MODAL.close, {})
             }
-            $rootScope.$broadcast(ACTIVITY_INTERCEPTOR.activityEnd);
         });
 
         /**
@@ -162,6 +169,31 @@ angular
          */
         $scope.$on(ERROR_INTERCEPTOR.status402, function () {
 
-            flash.to(ALERTS_CONSTANTS.generalError).error = "Payment method is required in order to use Revaluate.";
+            flash.to(ALERTS_CONSTANTS.generalError).error = "Payment method required.";
+        });
+
+        // ---
+        // Alerts.
+        // ---
+        $scope.$on(ALERTS_EVENTS.INFO, function (event, args) {
+            AlertService.addInfo(args);
+        });
+        $scope.$on(ALERTS_EVENTS.DANGER, function (event, args) {
+            if ( args.alertId ) {
+                flash.to(args.alertId).error = args.message;
+            } else {
+                AlertService.addDanger(args.message);
+            }
+        });
+        $scope.$on(ALERTS_EVENTS.CLEAR, function (event, args) {
+            if ( args.alertId ) {
+                flash.to(args.alertId).error = '';
+            }
+        });
+        $scope.$on(ALERTS_EVENTS.WARNING, function (event, args) {
+            AlertService.addWarning(args);
+        });
+        $scope.$on(ALERTS_EVENTS.SUCCESS, function (event, args) {
+            AlertService.addSuccess(args);
         });
     });

@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.settings")
-    .controller("SettingsProfileController", function ($q, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, flash, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS) {
+    .controller("SettingsProfileController", function ($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, ALERTS_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -15,7 +15,7 @@ angular
         /**
          * Alert identifier
          */
-        vm.alertIdentifierId = ALERTS_CONSTANTS.updateProfile;
+        vm.alertId = ALERTS_CONSTANTS.updateProfile;
 
         /**
          * Current user.
@@ -72,7 +72,7 @@ angular
 
                         $timeout(function () {
                             vm.isRequestPending = false;
-                            flash.to(vm.alertIdentifierId).success = 'We\'ve successfully updated your account!';
+                            $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated');
                         }, TIMEOUT_PENDING);
                     })
                     .catch(function () {
@@ -80,7 +80,10 @@ angular
                         vm.badPostSubmitResponse = true;
                         vm.isRequestPending = false;
 
-                        flash.to(vm.alertIdentifierId).error = 'We\'ve encountered an error while trying to update your account.';
+                        $scope.$emit(ALERTS_EVENTS.DANGER, {
+                            message: "We\'ve encountered an error.",
+                            alertId: vm.alertId
+                        });
                     });
             }
         };

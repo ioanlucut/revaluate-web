@@ -1,54 +1,35 @@
 'use strict';
 
+// ---
+// Utilities.
+// ---
+var testUtils = require("helpers/tests");
+
 describe('app/AuthFilter', function () {
 
-    var $rootScope, $location, $state, $injector, $httpBackend, $q, ENV, AccountModal, EXPENSE_URLS, CATEGORY_URLS, STATES, AuthServiceMock, UserMock;
+    var $rootScope, $location, $state, $injector, $httpBackend, $q, ENV, AUTH_URLS, AccountModal, EXPENSE_URLS, CATEGORY_URLS, STATES, AuthServiceMock, UserMock;
 
     beforeEach(function () {
 
         // ---
         // Load templates.
         // ---
-        module("gulpAngular");
+        angular.mock.module("gulpAngular");
 
         // ---
         // Provide APP_CONFIG.
         // ---
-        module(function ($provide) {
-            $provide.constant('APP_CONFIG', {
-                "SETUP_MIN_CATEGORIES_TO_SELECT": 3,
-                "PREDEFINED_CATEGORIES": ["Bills", "Food"],
-                "CURRENCIES": [{
-                    "currencyCode": "AED",
-                    "displayName": "United Arab Emirates Dirham",
-                    "symbol": "د.إ.‏",
-                    "numericCode": 784,
-                    "fractionSize": 2
-                }],
-                "VERSION": "1.0.0",
-                "MAX_ALLOWED_CATEGORIES": 20,
-                "IMPORT_MIN_CATEGORIES_TO_SELECT": 1,
-                "TRIAL_DAYS": 15,
-                "MIN_ALLOWED_CATEGORIES": 3,
-                "MIN_EXPENSES_TO_ENABLE_BULK_ACTION": 1,
-                "ALL_COLORS": [{ "id": 1, "color": "#DD5440", "colorName": "red", "priority": 1 }, {
-                    "id": 2,
-                    "color": "#E29C45",
-                    "colorName": "orange",
-                    "priority": 2
-                }]
-            });
-        });
+        angular.mock.module(testUtils.mockAppConfig);
 
         // ---
-        // Just inject the module and define dependencies.
+        // Just inject the angular.mock.module and define dependencies.
         // ---
-        module("revaluate", function ($provide) {
+        angular.mock.module("revaluate", function ($provide) {
             $provide.value('AuthService', AuthServiceMock = {});
             $provide.value('User', UserMock = {});
         });
 
-        inject(function (_$rootScope_, _$state_, _$location_, _$injector_, _$httpBackend_, _$q_, _ENV_, _AccountModal_, _EXPENSE_URLS_, _CATEGORY_URLS_, _STATES_, $templateCache) {
+        inject(function (_$rootScope_, _$state_, _$location_, _$injector_, _$httpBackend_, _$q_, _ENV_, _AccountModal_, _EXPENSE_URLS_, _CATEGORY_URLS_, _STATES_, _AUTH_URLS_, $templateCache) {
             $rootScope = _$rootScope_;
             $state = _$state_;
             $location = _$location_;
@@ -60,6 +41,7 @@ describe('app/AuthFilter', function () {
             EXPENSE_URLS = _EXPENSE_URLS_;
             CATEGORY_URLS = _CATEGORY_URLS_;
             STATES = _STATES_;
+            AUTH_URLS = _AUTH_URLS_;
             URLTo.apiBase(ENV.apiEndpoint);
 
             // We need add the template entry into the templateCache if we ever specify a templateUrl
@@ -91,11 +73,12 @@ describe('app/AuthFilter', function () {
 
         $state.go(STATES.home);
         $rootScope.$digest();
-        expect($state.current.abstract).toBe(true);
+        $httpBackend.flush();
+        expect($state.current.name).toBe("expenses.regular");
 
         $state.go(STATES.account);
         $rootScope.$digest();
-        expect($state.current.abstract).toBe(true);
+        expect($state.current.name).toBe("expenses.regular");
     });
 
     it('should redirect to non public page to account page', function () {
@@ -152,29 +135,94 @@ describe('app/AuthFilter', function () {
         // ---
         $state.go("setup");
         $rootScope.$digest();
-        expect($state.current.abstract).toBe(true);
+        $httpBackend.flush();
+
+        expect($state.current.name).toBe("expenses.regular");
     });
 
-    /*it('should not let user on other pages than setup and public pages if is NOT initiated', function () {
-     AuthServiceMock.isAuthenticated = jasmine.createSpy('isAuthenticated').and.returnValue(true);
+    it('should not let user on other pages than setup and public pages if is NOT initiated', function () {
+        AuthServiceMock.isAuthenticated = jasmine.createSpy('isAuthenticated').and.returnValue(true);
 
-     UserMock.$new = jasmine.createSpy('$new').and.returnValue({
-     loadFromSession: function () {
-     return {
-     isInitiated: function () {
-     return false;
-     },
-     isTrialPeriodExpired: function () {
-     return false;
-     }
-     };
-     }
-     });
+        UserMock.$new = jasmine.createSpy('$new').and.returnValue({
+            loadFromSession: function () {
+                return {
+                    isInitiated: function () {
+                        return false;
+                    },
+                    isTrialPeriodExpired: function () {
+                        return false;
+                    }
+                };
+            }
+        });
 
-     $state.go(STATES.expenses);
-     $rootScope.$digest();
-     expect($state.current.name).toBe("");
-     })*/
-    ;
+        $state.go(STATES.expenses);
+        $rootScope.$digest();
+        expect($state.current.name).toBe("setup");
+    });
+
+    it('should not let user on other pages than settings.payment.add (if payment is not defined) / payment unrestricted pages if is NOT public page, and not isPaymentMissingUnrestrictedPage, and trial is expired', function () {
+        AuthServiceMock.isAuthenticated = jasmine.createSpy('isAuthenticated').and.returnValue(true);
+        $httpBackend.whenPOST(URLTo.api(AUTH_URLS.fetchPaymentToken)).respond(200, []);
+        $httpBackend.whenGET(URLTo.api(AUTH_URLS.isPaymentStatusDefined)).respond(200, { paymentStatusDefined: false });
+
+        UserMock.$new = jasmine.createSpy('$new').and.returnValue({
+            loadFromSession: function () {
+                return {
+                    isInitiated: function () {
+                        return true;
+                    },
+                    isTrialPeriodExpired: function () {
+                        return true;
+                    }
+                };
+            }
+        });
+
+        $httpBackend.flush();
+
+        // ---
+        // Try to go to non public page.
+        // ---
+        $state.go(STATES.expenses);
+        $rootScope.$digest();
+        expect($state.current.name).toBe("settings.payment.add");
+
+        // ---
+        // Try to go to a public page.
+        // ---
+        $state.go(STATES.pricing);
+        $rootScope.$digest();
+        expect($state.current.name).toBe(STATES.pricing);
+    });
+
+    it('should not let user on other pages than settings.payment.add (if payment is not defined) / payment unrestricted pages if is NOT public page, and not isPaymentMissingUnrestrictedPage, and trial is expired', function () {
+        AuthServiceMock.isAuthenticated = jasmine.createSpy('isAuthenticated').and.returnValue(true);
+        $httpBackend.whenPOST(URLTo.api(AUTH_URLS.fetchPaymentToken)).respond(200, []);
+        $httpBackend.whenGET(URLTo.api(AUTH_URLS.isPaymentStatusDefined)).respond(200, { paymentStatusDefined: true });
+        $httpBackend.whenGET(URLTo.api(AUTH_URLS.fetchPaymentInsights)).respond(200, {});
+
+        UserMock.$new = jasmine.createSpy('$new').and.returnValue({
+            loadFromSession: function () {
+                return {
+                    isInitiated: function () {
+                        return true;
+                    },
+                    isTrialPeriodExpired: function () {
+                        return true;
+                    }
+                };
+            }
+        });
+
+        $httpBackend.flush();
+
+        // ---
+        // Try to go to non public page.
+        // ---
+        $state.go(STATES.expenses);
+        $rootScope.$digest();
+        expect($state.current.name).toBe("settings.payment.insights");
+    });
 
 });
