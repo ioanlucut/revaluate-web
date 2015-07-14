@@ -15,7 +15,7 @@ angular
                 "You look great today, {0}!",
                 "Hey {0}! You look great today!",
                 "Hey {0}, you must have had a really good sleep last night, 'cause you look stunning!",
-                "We like you.",
+                "We like you, {0}",
                 "Even the darkest night will end and the sun will rise.",
                 "I am feeling healthy and strong today.",
                 "I have all that I need to make this a great day of my life.",
@@ -36,8 +36,9 @@ angular
         },
         EVENING: {
             greets: [
-                "Hey, {0}. You look tired.. go get some sleep.",
-                "{0}, isn't too hot in there? We are burning here."
+                "Hey, {0}. You look tired, go get some sleep.",
+                "You made it through this though day, {0}.",
+                "Enough work for today! Input those expenses then go hang out with some friends."
             ]
         }
     });
