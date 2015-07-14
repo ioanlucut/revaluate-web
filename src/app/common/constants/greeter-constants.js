@@ -26,7 +26,7 @@ angular
         },
         DAY: {
             greets: [
-                "Hey {0}! Seems to be a though day, huh ?!",
+                "Hey {0}! Seems to be a tough day, huh ?!",
                 "Hey {0}! Perfect timing to track some expenses. We've been thinking about you.",
                 "Hey {0}! Thanks for stopping by.",
                 "Hey {0}, I feel so nervous with you around.",
@@ -37,7 +37,7 @@ angular
         EVENING: {
             greets: [
                 "Hey, {0}. You look tired, go get some sleep.",
-                "You made it through this though day, {0}.",
+                "You made it through this tough day, {0}.",
                 "Enough work for today! Input those expenses then go hang out with some friends."
             ]
         }
