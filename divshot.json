@@ -1,9 +1,14 @@
 {
-  "name": "revaluate",
-  "root": "./dist",
-  "clean_urls": true,
-  "cache_control": {},
-  "routes": {
-    "**": "index.html"
-  }
+    "name": "revaluate",
+    "root": "./dist",
+    "clean_urls": true,
+    "cache_control": {
+        "/assets/**": 31536000,
+        "/styles/**": 31536000,
+        "/scripts/**": 31536000,
+        "/": false
+    },
+    "routes": {
+        "**": "index.html"
+    }
 }
