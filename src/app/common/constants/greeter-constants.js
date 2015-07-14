@@ -39,7 +39,7 @@ angular
                 "Hey, {0}. You look tired, go get some sleep.",
                 "{0}, isn't too hot in there? We are burning here.",
                 "You made it through this though day, {0}.",
-                "Enough work for today! Input those expenses than go hang out with some friends."
+                "Enough work for today! Input those expenses then go hang out with some friends."
             ]
         }
     });
