@@ -24,6 +24,10 @@
             border-width: 2px 2px 1px 0;
             border-left-color: $gray-light-2;
             border-bottom-color: $gray-light-2;
+
+            & > * {
+                height: 100%;
+            }
         }
 
         .expense__form__details__input,
