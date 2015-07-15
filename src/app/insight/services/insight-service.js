@@ -7,19 +7,29 @@ angular
     .module("revaluate.insights")
     .service("InsightService", function (INSIGHTS_URLS, $q, $http, $injector, InsightTransformerService) {
 
-        /**
-         * Get all insights of current user
-         * @returns {*}
-         */
-        this.fetchInsightsFromTo = function (from, to) {
-            var fromFormatted = moment(from).format('YYYY-MM-DDTHH:mm:ss') + 'Z';
-            var toFormatted = moment(to).format('YYYY-MM-DDTHH:mm:ss') + 'Z';
+        this.fetchMonthlyInsightsFromTo = function (from, to) {
+            var fromFormatted = InsightTransformerService.formatDate(from);
+            var toFormatted = InsightTransformerService.formatDate(to);
 
             return $http
                 .get(URLTo.api(INSIGHTS_URLS.fetchInsights, { ":from": fromFormatted, ":to": toFormatted }))
                 .then(function (response) {
 
-                    return InsightTransformerService.toInsight(response.data, $injector.get('Insight').build());
+                    return InsightTransformerService.toInsight(response.data);
+                }).catch(function (response) {
+                    return $q.reject(response);
+                });
+        };
+
+        this.fetchOverviewInsightsFromTo = function (from, to) {
+            var fromFormatted = InsightTransformerService.formatDate(from);
+            var toFormatted = InsightTransformerService.formatDate(to);
+
+            return $http
+                .get(URLTo.api(INSIGHTS_URLS.fetchOverviewInsights, { ":from": fromFormatted, ":to": toFormatted }))
+                .then(function (response) {
+
+                    return InsightTransformerService.toInsightOverview(response.data);
                 }).catch(function (response) {
                     return $q.reject(response);
                 });

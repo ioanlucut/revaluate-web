@@ -10,5 +10,6 @@ angular
         DOUGHNUT: "DOUGHNUT"
     })
     .constant("INSIGHTS_URLS", {
-        fetchInsights: "insights/retrieve_from_to?from=:from&to=:to"
+        fetchInsights: "insights/retrieve_from_to?from=:from&to=:to",
+        fetchOverviewInsights: "insights/insights_overview_retrieve_from_to?from=:from&to=:to"
     });

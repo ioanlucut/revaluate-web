@@ -8,31 +8,7 @@ angular
     .service("InsightTransformerService", function ($injector, TransformerUtils) {
 
         /**
-         * Converts a insight business object model to a insightDto object.
-         * @param insight
-         * @param skipKeys
-         * @returns {{}}
-         */
-        this.toInsightDto = function (insight, skipKeys) {
-            var insightDto = {};
-
-            TransformerUtils.copyKeysFromTo(insight.model, insightDto, skipKeys);
-            if ( insightDto.from ) {
-                insightDto.from = moment(insightDto.from).format("YYYY-MM-DDTHH:mm:ss.hhh");
-            }
-            if ( insightDto.to ) {
-                insightDto.to = moment(insightDto.to).format("YYYY-MM-DDTHH:mm:ss.hhh");
-            }
-
-            return insightDto;
-        };
-
-        /**
          * Converts a insightDto object to a insight business object model.
-         * @param insightDto
-         * @param insight
-         * @param skipKeys
-         * @returns {*}
          */
         this.toInsight = function (insightDto, insight, skipKeys) {
             insight = insight || $injector.get('Insight').build();
@@ -48,14 +24,6 @@ angular
                 insight.model.to = moment(insight.model.to).toDate();
             }
 
-            if ( insight.model.firstExistingExpenseDate ) {
-                insight.model.firstExistingExpenseDate = moment(insight.model.firstExistingExpenseDate).toDate();
-            }
-
-            if ( insight.model.lastExistingExpenseDate ) {
-                insight.model.lastExistingExpenseDate = moment(insight.model.lastExistingExpenseDate).toDate();
-            }
-
             insight.model.insightData = _.map(insight.model.totalPerCategoryInsightDTOs, function (totalPerCategoryInsightDTO) {
                 return totalPerCategoryInsightDTO.totalAmount;
             });
@@ -69,33 +37,25 @@ angular
             return insight;
         };
 
-        /**
-         * Transform a list of insights as JSON to a list of insights as business object.
-         * @param insightDtos
-         * @returns {Array}
-         */
-        this.toInsights = function (insightDtos) {
-            var insights = [];
+        this.toInsightOverview = function (insightDto, insightOverview, skipKeys) {
+            insightOverview = insightOverview || $injector.get('InsightOverview').build();
+            TransformerUtils.copyKeysFromTo(insightDto, insightOverview.model, skipKeys);
 
-            _.each(insightDtos, _.bind(function (insightDto) {
-                insights.push(this.toInsight(insightDto));
-            }, this));
+            insightOverview.model.insightsOverview = insightOverview.model.insightsOverview.sort(function (a, b) {
+                return new Date(a.monthYearFormattedDate) - new Date(b.monthYearFormattedDate);
+            });
 
-            return insights;
+            insightOverview.model.insightData = _.map(insightOverview.model.insightsOverview, function (insightOverviewEntry) {
+                return insightOverviewEntry.totalAmount;
+            });
+            insightOverview.model.insightLabels = _.map(insightOverview.model.insightsOverview, function (insightOverviewEntry) {
+                return moment(new Date(insightOverviewEntry.monthYearFormattedDate)).calendar();
+            });
+
+            return insightOverview;
         };
 
-        /**
-         * Transform a list of insights as business objects to a list of DTOs.
-         * @param insights
-         * @returns {Array}
-         */
-        this.toInsightDTOs = function (insights) {
-            var insightDTOs = [];
-
-            _.each(insights, _.bind(function (insight) {
-                insightDTOs.push(this.toInsightDto(insight));
-            }, this));
-
-            return insightDTOs;
-        };
+        this.formatDate = function (givenDate) {
+            return moment(givenDate).format('YYYY-MM-DDTHH:mm:ss') + 'Z';
+        }
     });
