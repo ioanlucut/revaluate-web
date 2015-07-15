@@ -18,12 +18,14 @@
         .expense__form__price__input:focus {
             border-right: solid 1px $gray-light-2;
             border-bottom: solid 1px $gray-light-2;
+            border-top-left-radius: $border-radius-base;
         }
 
         .expense__form__category .category-select__input .selectize-input {
             border-width: 2px 2px 1px 0;
             border-left-color: $gray-light-2;
             border-bottom-color: $gray-light-2;
+            border-top-right-radius: $base-border-radius;
 
             & > * {
                 height: 100%;
@@ -34,11 +36,13 @@
         .expense__form__details__input:focus {
             border-right: solid 1px $gray-light-2;
             border-top: solid 0 $gray-light-2;
+            border-bottom-left-radius: $base-border-radius;
         }
 
         .expense__form__date__input {
             border-left: solid 0 $gray-light-2;
             border-top: solid 0 $gray-light-2;
+            border-bottom-right-radius: $base-border-radius;
         }
     }
 
@@ -97,9 +101,10 @@
 
     .expense__form__submit__save {
         width: 100%;
-        margin-top: 15px;
+        margin-top: 2px;
 
         .expense__edit__form__savebtn {
+            @include border-radius($base-border-radius);
         }
     }
 
@@ -132,6 +137,7 @@
         .expense__form__price__input:focus {
             border-right: solid 2px $add-expense-form-border-color;
             border-bottom: solid 1px $gray-light-2;
+            @include border-top-radius($base-border-radius);
         }
 
         .expense__form__category .category-select__input .selectize-input {
@@ -148,6 +154,7 @@
 
         .expense__form__date__input {
             border-top: solid 0 $gray-light-2;
+            @include border-bottom-radius($base-border-radius);
         }
     }
 
