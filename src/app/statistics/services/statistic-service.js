@@ -9,12 +9,11 @@ angular
 
         /**
          * Get all expense statistics of current user. They represents a map of expenses per years/months.
-         * @returns {*}
          */
-        this.fetchStatistics = function () {
+        this.fetchInsightsMonthsPerYearStatistics = function () {
 
             return $http
-                .get(URLTo.api(STATISTIC_URLS.insightsMonthsPerYears))
+                .get(URLTo.api(STATISTIC_URLS.insightsMonthsPerYearsStatistics))
                 .then(function (response) {
 
                     return response.data;
