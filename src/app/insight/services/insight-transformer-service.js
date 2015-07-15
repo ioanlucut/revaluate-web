@@ -48,8 +48,12 @@ angular
             insightOverview.model.insightData = _.map(insightOverview.model.insightsOverview, function (insightOverviewEntry) {
                 return insightOverviewEntry.totalAmount;
             });
+
             insightOverview.model.insightLabels = _.map(insightOverview.model.insightsOverview, function (insightOverviewEntry) {
-                return moment(new Date(insightOverviewEntry.monthYearFormattedDate)).calendar();
+                var dateToFormat = moment(new Date(insightOverviewEntry.monthYearFormattedDate));
+                var isSameYear = moment(moment().year()).isSame(dateToFormat.year());
+
+                return dateToFormat.format(isSameYear ? 'MMMM' : 'MMMM YYYY');
             });
 
             return insightOverview;
