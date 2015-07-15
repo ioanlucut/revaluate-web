@@ -1,8 +1,5 @@
 'use strict';
 
-/**
- * expenses controller.
- */
 angular
     .module("revaluate.insights")
     .controller("InsightController", function ($templateCache, $scope, $rootScope, $filter, $timeout, ALERTS_EVENTS, insight, insightsMonthsPerYearsStatistics, InsightService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {

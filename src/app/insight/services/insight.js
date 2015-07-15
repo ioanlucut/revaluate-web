@@ -53,23 +53,7 @@ angular
                 /**
                  * Total per categories
                  */
-                totalPerCategoryInsightDTOs: [],
-
-                /**
-                 * Summary insights data
-                 */
-                summaryInsightsDTO: {
-
-                    /**
-                     * First existing expense date
-                     */
-                    firstExistingExpenseDate: "",
-
-                    /**
-                     * Last existing expense date
-                     */
-                    lastExistingExpenseDate: ""
-                }
+                totalPerCategoryInsightDTOs: []
             };
 
             /**

@@ -34,7 +34,7 @@ angular
                         var to = moment().endOf('month');
 
                         return InsightService
-                            .fetchInsightsFromTo(from, to);
+                            .fetchMonthlyInsightsFromTo(from, to);
                     },
                     insightsMonthsPerYearsStatistics: function (StatisticService) {
                         return StatisticService
@@ -52,6 +52,21 @@ angular
                 name: "insights.overview",
                 url: "/overview",
                 templateUrl: "/app/insight/partials/insight.overview.html",
+                controller: "InsightOverviewController",
+                controllerAs: 'vm',
+                resolve: {
+                    insightsOverview: function (InsightService) {
+                        var from = moment().startOf('month').subtract(3, 'months');
+                        var to = moment().endOf('month');
+
+                        return InsightService
+                            .fetchOverviewInsightsFromTo(from, to);
+                    },
+                    insightsMonthsPerYearsStatistics: function (StatisticService) {
+                        return StatisticService
+                            .fetchInsightsMonthsPerYearStatistics();
+                    }
+                },
                 title: "Insights overview - Revaluate",
                 stateEventName: USER_ACTIVITY_EVENTS.insightsPage
             })
