@@ -155,7 +155,7 @@ angular
             var from = moment(computedInsightsData.spentDate).startOf(MONTH);
             var to = moment(computedInsightsData.spentDate).endOf(MONTH);
             InsightService
-                .fetchInsightsFromTo(from, to)
+                .fetchMonthlyInsightsFromTo(from, to)
                 .then(function (receivedInsight) {
 
                     /**
