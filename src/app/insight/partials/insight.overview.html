@@ -6,13 +6,26 @@
         options="vm.barOptions"
         labels="vm.insightsOverview.model.insightLabels">
 </canvas>
+<!--Empty state if no expenses overall-->
+<div class="insights__empty-state" ng-if="vm.insight.model.totalNumberOfTransactions === 0">
+    <div class="insights__empty-state__icon"></div>
+    <h1>No data yet.</h1>
+
+    <div>Add some expenses or
+        <a href="javascript:void(0)" ui-sref="settings.import.choose">import from other apps</a> using csv export.
+    </div>
+</div>
+
+
+<div ng-show="vm.insight.model.totalNumberOfTransactions !== 0">
+
     <div class="insights__controls">
         <div class="insights__controls__chart-toggle">
             <a class="insights__controls__chart-toggle__entry" href="javascript:void(0)">12M</a>
             <a class="insights__controls__chart-toggle__entry" href="javascript:void(0)">6M</a>
             <a class="insights__controls__chart-toggle__entry insights__controls__chart-toggle__entry--active" href="javascript:void(0)">3M</a>
         </div>
-    </div>    <div class="insights__table">
+    </div>
         <table>
             <thead class="insights__table__header">
             <tr>
