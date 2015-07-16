@@ -15,7 +15,7 @@ angular
             .state({
                 name: "insights",
                 url: "/insights",
-                templateUrl: "/app/insight/partials/insight.abstract.html",
+                templateUrl: "/app/insights/partials/insights.abstract.html",
                 abstract: true
             })
 
@@ -25,15 +25,15 @@ angular
             .state({
                 name: "insights.monthly",
                 url: "/monthly",
-                templateUrl: "/app/insight/partials/insight.monthly.html",
-                controller: "InsightController",
+                templateUrl: "/app/insights/partials/insights.monthly.html",
+                controller: "InsightsMonthlyController",
                 controllerAs: 'vm',
                 resolve: {
-                    insight: function (InsightService) {
+                    insights: function (InsightsService) {
                         var from = moment().startOf('month');
                         var to = moment().endOf('month');
 
-                        return InsightService
+                        return InsightsService
                             .fetchMonthlyInsightsFromTo(from, to);
                     },
                     monthsPerYearsStatistics: function (StatisticService) {
@@ -51,15 +51,15 @@ angular
             .state({
                 name: "insights.overview",
                 url: "/overview",
-                templateUrl: "/app/insight/partials/insight.overview.html",
-                controller: "InsightOverviewController",
+                templateUrl: "/app/insights/partials/insights.overview.html",
+                controller: "InsightsOverviewController",
                 controllerAs: 'vm',
                 resolve: {
-                    insightsOverview: function (InsightService, INSIGHTS_INTERVAL) {
+                    insightsOverview: function (InsightsService, INSIGHTS_INTERVAL) {
                         var from = moment().startOf('month').subtract(INSIGHTS_INTERVAL.QUARTER_YEAR - 1, "M");
                         var to = moment().endOf('month');
 
-                        return InsightService
+                        return InsightsService
                             .fetchOverviewInsightsFromTo(from, to);
                     },
                     monthsPerYearsStatistics: function (StatisticService) {
@@ -77,7 +77,7 @@ angular
             .state({
                 name: "insights.progress",
                 url: "/progress",
-                templateUrl: "/app/insight/partials/insight.progress.html",
+                templateUrl: "/app/insights/partials/insights.progress.html",
                 title: "Insights progress - Revaluate",
                 stateEventName: USER_ACTIVITY_EVENTS.insightsPage
             });

@@ -9,7 +9,7 @@ angular
             scope: {
                 showEmptyState: "="
             },
-            templateUrl: "/app/insight/partials/insights.empty.state.toggle.tpl.html",
+            templateUrl: "/app/insights/partials/insights.empty.state.toggle.tpl.html",
             link: function (scope, el, attrs) {
             }
         }

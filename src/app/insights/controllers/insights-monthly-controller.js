@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.insights")
-    .controller("InsightController", function ($templateCache, $scope, $rootScope, $filter, $timeout, ALERTS_EVENTS, insight, monthsPerYearsStatistics, InsightService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
+    .controller("InsightsMonthlyController", function ($templateCache, $scope, $rootScope, $filter, $timeout, ALERTS_EVENTS, insights, monthsPerYearsStatistics, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -32,7 +32,7 @@ angular
         /**
          * Default insights loaded.
          */
-        vm.insight = insight;
+        vm.insights = insights;
 
         /**
          * Insights months per years.
@@ -40,15 +40,15 @@ angular
         vm.monthsPerYearsStatistics = monthsPerYearsStatistics;
 
         /**
-         * Fetch all types of insight charts
+         * Fetch all types of insights charts
          */
         vm.INSIGHTS_CHARTS = INSIGHTS_CHARTS;
 
         // ---
         // Computed information and methods.
         // ---
-        vm.insightLineData = [insight.model.insightData];
-        vm.insightLineColors = [insight.model.insightColors];
+        vm.insightLineData = [insights.model.insightData];
+        vm.insightLineColors = [insights.model.insightColors];
         vm.insightLineSeries = ["Categories"];
         vm.activeChart = vm.INSIGHTS_CHARTS.DOUGHNUT;
 
@@ -129,14 +129,14 @@ angular
         };
 
         /**
-         * Exposed insight data (first define master copy).
+         * Exposed insights data (first define master copy).
          */
         vm.masterInsightData = {
             spentDate: moment().toDate()
         };
 
         /**
-         * Exposed insight data.
+         * Exposed insights data.
          */
         vm.insightData = angular.copy(vm.masterInsightData);
 
@@ -154,7 +154,7 @@ angular
             var computedInsightsData = angular.copy(vm.insightData);
             var from = moment(computedInsightsData.spentDate).startOf(MONTH);
             var to = moment(computedInsightsData.spentDate).endOf(MONTH);
-            InsightService
+            InsightsService
                 .fetchMonthlyInsightsFromTo(from, to)
                 .then(function (receivedInsight) {
 
@@ -166,7 +166,7 @@ angular
                     $timeout(function () {
                         if ( receivedInsight.isEmpty() ) {
                             // ---
-                            // Reset the insight data.
+                            // Reset the insights data.
                             // ---
                             vm.insightData = angular.copy(vm.masterInsightData);
                             $scope.$emit(ALERTS_EVENTS.INFO, "There are no expenses defined for selected period.");
@@ -183,8 +183,8 @@ angular
                             // Update everything.
                             // ---
                             vm.masterInsightData = angular.copy(vm.insightData);
-                            vm.insight = receivedInsight;
-                            vm.insightLineData = [vm.insight.model.insightData];
+                            vm.insights = receivedInsight;
+                            vm.insightLineData = [vm.insights.model.insightData];
                             vm.insightLineSeries = ["Categories"];
                         }
 
@@ -197,7 +197,7 @@ angular
                     vm.isLoading = false;
 
                     // ---
-                    // Reset the insight data.
+                    // Reset the insights data.
                     // ---
                     vm.insightData = angular.copy(vm.masterInsightData);
                     $scope.$emit(ALERTS_EVENTS.DANGER, {
@@ -208,7 +208,7 @@ angular
         }
 
         /**
-         * On date change do load insight
+         * On date change do load insights
          */
         vm.onChange = function () {
             loadInsight();

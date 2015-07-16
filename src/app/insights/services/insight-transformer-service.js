@@ -1,40 +1,40 @@
 'use strict';
 
 /**
- * Insight transformer service which transforms a insight DTO model object to a insight business object.
+ * Insights transformer service which transforms a insights DTO model object to a insights business object.
  */
 angular
     .module("revaluate.insights")
     .service("InsightTransformerService", function ($injector, TransformerUtils) {
 
         /**
-         * Converts a insightDto object to a insight business object model.
+         * Converts a insightDto object to a insights business object model.
          */
-        this.toInsight = function (insightDto, insight, skipKeys) {
-            insight = insight || $injector.get('Insight').build();
+        this.toInsight = function (insightDto, insights, skipKeys) {
+            insights = insights || $injector.get('Insights').build();
 
-            TransformerUtils.copyKeysFromTo(insightDto, insight.model, skipKeys);
+            TransformerUtils.copyKeysFromTo(insightDto, insights.model, skipKeys);
 
             // handle date conversion
-            if ( insight.model.from ) {
-                insight.model.from = moment(insight.model.from).toDate();
+            if ( insights.model.from ) {
+                insights.model.from = moment(insights.model.from).toDate();
             }
 
-            if ( insight.model.to ) {
-                insight.model.to = moment(insight.model.to).toDate();
+            if ( insights.model.to ) {
+                insights.model.to = moment(insights.model.to).toDate();
             }
 
-            insight.model.insightData = _.map(insight.model.totalPerCategoryInsightDTOs, function (totalPerCategoryInsightDTO) {
+            insights.model.insightData = _.map(insights.model.totalPerCategoryInsightDTOs, function (totalPerCategoryInsightDTO) {
                 return totalPerCategoryInsightDTO.totalAmount;
             });
-            insight.model.insightColors = _.map(insight.model.totalPerCategoryInsightDTOs, function (totalPerCategoryInsightDTO) {
+            insights.model.insightColors = _.map(insights.model.totalPerCategoryInsightDTOs, function (totalPerCategoryInsightDTO) {
                 return totalPerCategoryInsightDTO.categoryDTO.color.color;
             });
-            insight.model.insightLabels = _.map(insight.model.totalPerCategoryInsightDTOs, function (totalPerCategoryInsightDTO) {
+            insights.model.insightLabels = _.map(insights.model.totalPerCategoryInsightDTOs, function (totalPerCategoryInsightDTO) {
                 return totalPerCategoryInsightDTO.categoryDTO.name;
             });
 
-            return insight;
+            return insights;
         };
 
         this.toInsightOverview = function (insightDto, insightOverview, skipKeys) {
