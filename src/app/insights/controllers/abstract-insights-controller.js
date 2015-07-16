@@ -11,7 +11,7 @@ angular
          * Month constant
          * @type {string}
          */
-        var MONTH = 'month';
+        vm.MONTH = 'month';
 
         /**
          * Current user.
