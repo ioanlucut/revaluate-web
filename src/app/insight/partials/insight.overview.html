@@ -1,11 +1,3 @@
-<canvas id="bar"
-        class="chart chart-bar"
-        data="vm.insightLineData"
-        series="vm.insightLineSeries"
-        legend="false"
-        options="vm.barOptions"
-        labels="vm.insightsOverview.model.insightLabels">
-</canvas>
 <!--Empty state if no expenses overall-->
 <div class="insights__empty-state" ng-if="vm.insight.model.totalNumberOfTransactions === 0">
     <div class="insights__empty-state__icon"></div>
@@ -26,6 +18,21 @@
             <a class="insights__controls__chart-toggle__entry insights__controls__chart-toggle__entry--active" href="javascript:void(0)">3M</a>
         </div>
     </div>
+
+
+    <div class="insights__chart__bar">
+        <canvas id="bar"
+                class="chart chart-bar"
+                data="vm.insightLineData"
+                series="vm.insightLineSeries"
+                legend="false"
+                options="vm.barOptions"
+                labels="vm.insightsOverview.model.insightLabels">
+        </canvas>
+    </div>
+
+
+    <div class="insights__table">
         <table>
             <thead class="insights__table__header">
             <tr>
@@ -47,3 +54,5 @@
             </tbody>
         </table>
     </div>
+
+</div>
