@@ -12,4 +12,25 @@
             <a class="insights__controls__chart-toggle__entry" href="javascript:void(0)">6M</a>
             <a class="insights__controls__chart-toggle__entry insights__controls__chart-toggle__entry--active" href="javascript:void(0)">3M</a>
         </div>
+    </div>    <div class="insights__table">
+        <table>
+            <thead class="insights__table__header">
+            <tr>
+                <td>TOTAL</td>
+                <td class="insights__table__amount">
+                    <!--<span ng-bind-html="vm.insight.model.totalAmountSpent | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>-->
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="totalPerMonth in vm.insightsOverview.model.insightsOverview">
+                <td class="insights__table__category label-uppercase">
+                    {{vm.insightsOverview.model.insightLabels[$index]}}
+                </td>
+                <td class="insights__table__amount">
+                    <span ng-bind-html="totalPerMonth.totalAmount | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
