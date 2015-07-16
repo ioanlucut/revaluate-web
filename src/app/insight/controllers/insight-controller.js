@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.insights")
-    .controller("InsightController", function ($templateCache, $scope, $rootScope, $filter, $timeout, ALERTS_EVENTS, insight, insightsMonthsPerYearsStatistics, InsightService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
+    .controller("InsightController", function ($templateCache, $scope, $rootScope, $filter, $timeout, ALERTS_EVENTS, insight, monthsPerYearsStatistics, InsightService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -37,7 +37,7 @@ angular
         /**
          * Insights months per years.
          */
-        vm.insightsMonthsPerYearsStatistics = insightsMonthsPerYearsStatistics;
+        vm.monthsPerYearsStatistics = monthsPerYearsStatistics;
 
         /**
          * Fetch all types of insight charts
@@ -68,12 +68,12 @@ angular
             var givenDateYear = givenDate.year();
             var givenDateMonth = givenDate.month() + 1;
 
-            if ( !_.has(vm.insightsMonthsPerYearsStatistics.insightsMonthsPerYears, givenDateYear) ) {
+            if ( !_.has(vm.monthsPerYearsStatistics.model.insightsMonthsPerYears, givenDateYear) ) {
 
                 return true;
             }
 
-            return !_.some(_.result(vm.insightsMonthsPerYearsStatistics.insightsMonthsPerYears, givenDateYear), function (entry) {
+            return !_.some(_.result(vm.monthsPerYearsStatistics.model.insightsMonthsPerYears, givenDateYear), function (entry) {
                 return entry === givenDateMonth;
             });
         };
@@ -275,14 +275,14 @@ angular
          * Checks if in the given year are expenses defined.
          */
         function expensesExistsInYear(dateYear) {
-            return _.has(vm.insightsMonthsPerYearsStatistics.insightsMonthsPerYears, dateYear);
+            return _.has(vm.monthsPerYearsStatistics.model.insightsMonthsPerYears, dateYear);
         }
 
         /**
          * Checks if in the given year and month are expenses defined.
          */
         function expensesExistsInMonthWithYear(givenDateYear, givenDateMonth) {
-            return _.some(_.result(vm.insightsMonthsPerYearsStatistics.insightsMonthsPerYears, givenDateYear), function (entry) {
+            return _.some(_.result(vm.monthsPerYearsStatistics.model.insightsMonthsPerYears, givenDateYear), function (entry) {
                 return entry === givenDateMonth;
             });
         }

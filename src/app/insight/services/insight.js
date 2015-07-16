@@ -46,9 +46,14 @@ angular
                 totalAmountSpent: 0,
 
                 /**
-                 * Number of transactions
+                 * Number of transactions for selected period.
                  */
                 numberOfTransactions: 0,
+
+                /**
+                 * Total number of transactions overall.
+                 */
+                totalNumberOfTransactions: 0,
 
                 /**
                  * Total per categories
@@ -63,6 +68,15 @@ angular
             this.isEmpty = function () {
                 return this.model.insightData.length === 0;
             };
+
+            this.isTransactionsEmpty = function () {
+                return this.model.numberOfTransactions === 0;
+            };
+
+            this.isManyTransactions = function () {
+                return this.model.numberOfTransactions > 1;
+            };
+
         }
 
         /**

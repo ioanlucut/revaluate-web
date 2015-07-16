@@ -25,6 +25,7 @@ angular
 
         insightsPage: "Insights page",
         insightsFetched: "Insights fetched",
+        insightsOverviewFetched: "Insights overview fetched",
 
         settings: "Settings",
         settingsProfile: "Settings profile",

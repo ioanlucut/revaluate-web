@@ -1,24 +1,14 @@
-<!--Empty state if no expenses overall-->
-<div class="insights__empty-state" ng-if="vm.insight.model.totalNumberOfTransactions === 0">
-    <div class="insights__empty-state__icon"></div>
-    <h1>No data yet.</h1>
-
-    <div>Add some expenses or
-        <a href="javascript:void(0)" ui-sref="settings.import.choose">import from other apps</a> using csv export.
-    </div>
-</div>
-
-
-<div ng-show="vm.insight.model.totalNumberOfTransactions !== 0">
+<div insights-empty-state-toggle show-empty-state="vm.monthsPerYearsStatistics.isOverallTransactionsEmpty()">
 
     <div class="insights__controls">
         <div class="insights__controls__chart-toggle">
-            <a class="insights__controls__chart-toggle__entry" href="javascript:void(0)">12M</a>
-            <a class="insights__controls__chart-toggle__entry" href="javascript:void(0)">6M</a>
-            <a class="insights__controls__chart-toggle__entry insights__controls__chart-toggle__entry--active" href="javascript:void(0)">3M</a>
+            <a class="insights__controls__chart-toggle__entry" ng-class="{'insights__controls__chart-toggle__entry--active': vm.activeInterval === vm.INSIGHTS_INTERVAL.YEAR}" ng-click="vm.loadInsights(vm.INSIGHTS_INTERVAL.YEAR)" href="javascript:void(0)">12M</a>
+            <a class="insights__controls__chart-toggle__entry" ng-class="{'insights__controls__chart-toggle__entry--active': vm.activeInterval === vm.INSIGHTS_INTERVAL.HALF_YEAR}" ng-click="vm.loadInsights(vm.INSIGHTS_INTERVAL.HALF_YEAR)" href="javascript:void(0)">6M</a>
+            <a class="insights__controls__chart-toggle__entry" ng-class="{'insights__controls__chart-toggle__entry--active': vm.activeInterval === vm.INSIGHTS_INTERVAL.QUARTER_YEAR}" ng-click="vm.loadInsights(vm.INSIGHTS_INTERVAL.QUARTER_YEAR)" href="javascript:void(0)">3M</a>
         </div>
     </div>
 
+    {{vm.isLoading ? 'Loading - soso please, stilizeaza-ma' : ''}}
 
     <div class="insights__chart__bar">
         <canvas id="bar"
@@ -31,14 +21,13 @@
         </canvas>
     </div>
 
-
     <div class="insights__table">
         <table>
             <thead class="insights__table__header">
             <tr>
                 <td>TOTAL</td>
                 <td class="insights__table__amount">
-                    <!--<span ng-bind-html="vm.insight.model.totalAmountSpent | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>-->
+                    <span ng-bind-html="vm.insightsOverview.model.totalAmountSpent | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
                 </td>
             </tr>
             </thead>

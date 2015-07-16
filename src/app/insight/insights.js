@@ -36,7 +36,7 @@ angular
                         return InsightService
                             .fetchMonthlyInsightsFromTo(from, to);
                     },
-                    insightsMonthsPerYearsStatistics: function (StatisticService) {
+                    monthsPerYearsStatistics: function (StatisticService) {
                         return StatisticService
                             .fetchInsightsMonthsPerYearStatistics();
                     }
@@ -55,14 +55,14 @@ angular
                 controller: "InsightOverviewController",
                 controllerAs: 'vm',
                 resolve: {
-                    insightsOverview: function (InsightService) {
-                        var from = moment().startOf('month').subtract(3, 'months');
+                    insightsOverview: function (InsightService, INSIGHTS_INTERVAL) {
+                        var from = moment().startOf('month').subtract(INSIGHTS_INTERVAL.QUARTER_YEAR - 1, "M");
                         var to = moment().endOf('month');
 
                         return InsightService
                             .fetchOverviewInsightsFromTo(from, to);
                     },
-                    insightsMonthsPerYearsStatistics: function (StatisticService) {
+                    monthsPerYearsStatistics: function (StatisticService) {
                         return StatisticService
                             .fetchInsightsMonthsPerYearStatistics();
                     }
