@@ -10,7 +10,7 @@
             <li ui-sref-active="header__navigation--active">
                 <a href="javascript:void(0)" ui-sref="expenses.regular">Expenses</a>
             </li>
-            <li ui-sref-active="header__navigation--active">
+            <li ng-class="{'header__navigation--active': $state.includes('insights')}">
                 <a href="javascript:void(0)" ui-sref="insights.monthly">Insights</a>
             </li>
             <li ui-sref-active="header__navigation--active">
@@ -28,7 +28,7 @@
             <ul class="dropdown-menu header__dropdown__menu" role="menu">
                 <li><a href="javascript:void(0)" ui-sref="settings.profile">Settings</a></li>
                 <!--<li>-->
-                    <!--<a href="javascript:void(0)" id="feedback-trigger" ng-controller="FeedbackModalController" ng-click="openFeedbackModal()">Tell us anything</a>-->
+                <!--<a href="javascript:void(0)" id="feedback-trigger" ng-controller="FeedbackModalController" ng-click="openFeedbackModal()">Tell us anything</a>-->
                 <!--</li>-->
                 <li>
                     <a href="javascript:void(0)" ng-controller="LogoutController as vm" ng-click="vm.logOut()">Logout</a>
