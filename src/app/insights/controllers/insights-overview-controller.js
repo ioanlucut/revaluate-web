@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.insights")
-    .controller("InsightOverviewController", function ($controller, $templateCache, $scope, $rootScope, $filter, $timeout, ALERTS_EVENTS, INSIGHTS_INTERVAL, insightsOverview, monthsPerYearsStatistics, InsightService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
+    .controller("InsightsOverviewController", function ($controller, $templateCache, $scope, $rootScope, $filter, $timeout, ALERTS_EVENTS, INSIGHTS_INTERVAL, insightsOverview, monthsPerYearsStatistics, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
 
         var TIMEOUT_DURATION = 150;
         var MONTHS = "Months";
@@ -54,7 +54,7 @@ angular
             var from = moment().startOf('month').subtract(insightsIntervalMonths - 1, "M");
             var to = moment().endOf('month');
 
-            InsightService
+            InsightsService
                 .fetchOverviewInsightsFromTo(from, to)
                 .then(function (receivedInsight) {
                     vm.activeInterval = insightsIntervalMonths;

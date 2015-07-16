@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.insights")
-    .service("InsightService", function (INSIGHTS_URLS, $q, $http, $injector, InsightTransformerService) {
+    .service("InsightsService", function (INSIGHTS_URLS, $q, $http, $injector, InsightTransformerService) {
 
         this.fetchMonthlyInsightsFromTo = function (from, to) {
             var fromFormatted = InsightTransformerService.formatDate(from);

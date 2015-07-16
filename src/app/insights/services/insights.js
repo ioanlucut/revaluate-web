@@ -2,41 +2,41 @@
 
 angular
     .module("revaluate.insights")
-    .factory("Insight", function ($q, $http, InsightService, InsightTransformerService) {
+    .factory("Insights", function ($q, $http, InsightsService, InsightTransformerService) {
 
         /**
-         * Insight class.
+         * Insights class.
          * @constructor
          */
-        function Insight() {
+        function Insights() {
 
             /**
-             * Represents the DTO model of the insight.
+             * Represents the DTO model of the insights.
              */
             this.model = {
 
                 /**
-                 * The insight data.
+                 * The insights data.
                  */
                 insightData: [],
 
                 /**
-                 * The insight colors
+                 * The insights colors
                  */
                 insightColors: [],
 
                 /**
-                 * The insight labels
+                 * The insights labels
                  */
                 insightLabels: [],
 
                 /**
-                 * From date period of the insight.
+                 * From date period of the insights.
                  */
                 from: "",
 
                 /**
-                 * To date period of the insight.
+                 * To date period of the insights.
                  */
                 to: "",
 
@@ -62,7 +62,7 @@ angular
             };
 
             /**
-             * Is insight empty.
+             * Is insights empty.
              * @returns {boolean}
              */
             this.isEmpty = function () {
@@ -80,15 +80,15 @@ angular
         }
 
         /**
-         * Builds a insight with given data.
+         * Builds a insights with given data.
          */
-        Insight.build = function (data) {
+        Insights.build = function (data) {
             if ( _.isEmpty(data) ) {
-                return new Insight();
+                return new Insights();
             }
 
-            return InsightTransformerService.toInsight(data, new Insight());
+            return InsightTransformerService.toInsight(data, new Insights());
         };
 
-        return Insight;
+        return Insights;
     });
