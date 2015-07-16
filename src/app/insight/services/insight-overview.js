@@ -16,6 +16,11 @@ angular
             this.model = {
 
                 /**
+                 * Total amount spent
+                 */
+                totalAmountSpent: 0,
+
+                /**
                  * The insight data.
                  */
                 insightData: [],

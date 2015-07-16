@@ -2,7 +2,10 @@
 
 angular
     .module("revaluate.insights")
-    .controller("InsightOverviewController", function ($templateCache, $scope, $rootScope, $filter, $timeout, ALERTS_EVENTS, insightsOverview, insightsMonthsPerYearsStatistics, InsightService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
+    .controller("InsightOverviewController", function ($controller, $templateCache, $scope, $rootScope, $filter, $timeout, ALERTS_EVENTS, INSIGHTS_INTERVAL, insightsOverview, monthsPerYearsStatistics, InsightService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
+
+        var TIMEOUT_DURATION = 150;
+        var MONTHS = "Months";
 
         /* jshint validthis: true */
         var vm = this;
@@ -13,55 +16,73 @@ angular
         vm.alertId = ALERTS_CONSTANTS.insights;
 
         /**
-         * Current user.
-         * @type {$rootScope.currentUser|*}
+         * Insights interval
          */
-        vm.user = $rootScope.currentUser;
+        vm.INSIGHTS_INTERVAL = INSIGHTS_INTERVAL;
+
+        // ---
+        // Inherit from parent controller.
+        // ---
+        angular.extend(this, $controller('AbstractInsightsController', {
+            $scope: $scope,
+            $rootScope: $rootScope,
+            $filter: $filter,
+            monthsPerYearsStatistics: monthsPerYearsStatistics
+        }));
 
         /**
          * Default insights overview.
          */
         vm.insightsOverview = insightsOverview;
 
-        /**
-         * Insights months per years.
-         */
-        vm.insightsMonthsPerYearsStatistics = insightsMonthsPerYearsStatistics;
-
         // ---
         // Computed information and methods.
         // ---
         vm.insightLineData = [vm.insightsOverview.model.insightData];
-        vm.insightLineSeries = ["Months"];
-
-        // ---
-        // Chart config options.
-        // ---
-        var defaultChartOptions = {
-            scaleLabel: function (label) {
-
-                return formatChartValue(label);
-            },
-            multiTooltipTemplate: function (label) {
-
-                return label.datasetLabel + ' ' + formatChartValue(label);
-            },
-            tooltipTemplate: function (label) {
-
-                return label.label + ' ' + formatChartValue(label);
-            }
-        };
+        vm.insightLineSeries = [MONTHS];
+        vm.activeInterval = vm.INSIGHTS_INTERVAL.QUARTER_YEAR;
 
         /**
-         * Formats chart value
+         * Load insights
          */
-        function formatChartValue(price) {
+        vm.loadInsights = function (insightsIntervalMonths) {
+            if ( vm.isLoading ) {
 
-            return $filter('currency')(price.value.toString(), '', vm.user.model.currency.fractionSize) + ' ' + vm.user.model.currency.symbol
+                return;
+            }
+            vm.isLoading = true;
+            var from = moment().startOf('month').subtract(insightsIntervalMonths - 1, "M");
+            var to = moment().endOf('month');
+
+            InsightService
+                .fetchOverviewInsightsFromTo(from, to)
+                .then(function (receivedInsight) {
+                    vm.activeInterval = insightsIntervalMonths;
+
+                    /**
+                     * Track event.
+                     */
+                    $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.insightsOverviewFetched);
+
+                    $timeout(function () {
+                        // ---
+                        // Update everything.
+                        // ---
+                        vm.insightsOverview = receivedInsight;
+                        vm.insightLineData = [vm.insightsOverview.model.insightData];
+
+                        vm.isLoading = false;
+                    }, TIMEOUT_DURATION);
+                })
+                .catch(function () {
+                    vm.badPostSubmitResponse = true;
+                    vm.isLoading = false;
+
+                    $scope.$emit(ALERTS_EVENTS.DANGER, {
+                        message: "Could not fetch insights.",
+                        alertId: vm.alertId
+                    });
+                });
         }
 
-        // ---
-        // Specific bar chart options.
-        // ---
-        vm.barOptions = angular.extend({}, defaultChartOptions);
     });
