@@ -1,14 +1,15 @@
 .view-container__content__nav {
     @include outer-container();
-    padding: 15px 0;
+    padding: 15px 0 0 0;
 
     li {
         display: inline-block;
         width: 110px;
         height: 32px;
-        @include border-radius(50px);
+        @include border-top-radius($base-border-radius);
         text-align: center;
         margin: 0;
+        background-color: $gray-light-1;
 
         a {
             display: block;
@@ -24,7 +25,6 @@
     }
 
     .tab__active {
-        border: solid 1px $gray-medium;
         background-color: $white;
 
         a {
@@ -35,6 +35,7 @@
 
 .view-container__content--insights {
     margin-top: 0;
+    border-top-left-radius: 0;
 }
 
 .insights__section {
