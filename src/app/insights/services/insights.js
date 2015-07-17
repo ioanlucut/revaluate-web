@@ -51,14 +51,9 @@ angular
                 numberOfTransactions: 0,
 
                 /**
-                 * Total number of transactions overall.
-                 */
-                totalNumberOfTransactions: 0,
-
-                /**
                  * Total per categories
                  */
-                totalPerCategoryInsightDTOs: []
+                totalPerCategoryInsightsDTOs: []
             };
 
             /**

@@ -66,7 +66,7 @@
             <span class="label-info" ng-bind-html="vm.insights.model.totalAmountSpent | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>.
         </div>
 
-        <div ng-if="vm.activeChart === vm.INSIGHTS_CHARTS.BAR" class="insights__chart__bar">
+        <div ng-if="vm.activeChart === vm.INSIGHTS_CHARTS.BAR" class="insights__chart__bar" fade-out-in fade-when="vm.isLoading">
             <canvas id="bar"
                     class="chart chart-bar"
                     data="vm.insightLineData"
@@ -77,7 +77,7 @@
             </canvas>
         </div>
 
-        <div ng-if="vm.activeChart === vm.INSIGHTS_CHARTS.DOUGHNUT" class="insights__chart__doughnut">
+        <div ng-if="vm.activeChart === vm.INSIGHTS_CHARTS.DOUGHNUT" class="insights__chart__doughnut" fade-out-in fade-when="vm.isLoading">
             <canvas class="chart chart-doughnut"
                     data="vm.insights.model.insightData"
                     labels="vm.insights.model.insightLabels"
@@ -98,7 +98,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="totalPerCategory in vm.insights.model.totalPerCategoryInsightDTOs">
+                <tr ng-repeat="totalPerCategory in vm.insights.model.totalPerCategoryInsightsDTOs">
                     <td class="insights__table__category label-uppercase">
                         <span class="insights__table__category__color" ng-style="{'background':totalPerCategory.categoryDTO.color.color}">C</span>
                         {{totalPerCategory.categoryDTO.name}}
@@ -117,7 +117,7 @@
                 You had
                 <span>{{vm.insights.model.numberOfTransactions}} {{vm.insights.model.numberOfTransactions | pluralisationFilter:'transaction':'transactions'}}</span>,
                 in
-                <span>{{vm.insights.model.totalPerCategoryInsightDTOs.length}} {{vm.insights.model.totalPerCategoryInsightDTOs.length | pluralisationFilter:'category':'categories'}}</span>.
+                <span>{{vm.insights.model.totalPerCategoryInsightsDTOs.length}} {{vm.insights.model.totalPerCategoryInsightsDTOs.length | pluralisationFilter:'category':'categories'}}</span>.
             </div>
 
             <div ng-if="vm.insights.isManyTransactions()">
