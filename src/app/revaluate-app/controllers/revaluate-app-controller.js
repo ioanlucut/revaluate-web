@@ -30,12 +30,14 @@ angular
         // ---
         // Bootstrap intercom & mixpanel.
         // ---
-        if ( AuthService.isAuthenticated() ) {
-            IntercomUtilsService.bootIntercom($rootScope.currentUser);
-            MixpanelUtilsService.bootMixpanel($rootScope.currentUser);
-        }
-        else {
-            MixpanelUtilsService.initMixpanel();
+        if ( ENV.isProduction ) {
+            if ( AuthService.isAuthenticated() ) {
+                IntercomUtilsService.bootIntercom($rootScope.currentUser);
+                MixpanelUtilsService.bootMixpanel($rootScope.currentUser);
+            }
+            else {
+                MixpanelUtilsService.initMixpanel();
+            }
         }
 
         if ( !ENV.isProduction ) {
@@ -50,16 +52,18 @@ angular
             $rootScope.currentUser = User.$new().loadFromSession();
             AuthService.redirectToAttemptedUrl();
 
-            // ---
-            // Bootstrap intercom.
-            // ---
-            IntercomUtilsService.bootIntercom($rootScope.currentUser);
+            if ( ENV.isProduction ) {
 
-            // ---
-            // Bootstrap mixpanel people.
-            // ---
-            MixpanelUtilsService.bootMixpanel($rootScope.currentUser);
+                // ---
+                // Bootstrap intercom.
+                // ---
+                IntercomUtilsService.bootIntercom($rootScope.currentUser);
 
+                // ---
+                // Bootstrap mixpanel people.
+                // ---
+                MixpanelUtilsService.bootMixpanel($rootScope.currentUser);
+            }
             if ( !ENV.isProduction ) {
                 $log.log("Logged in: ", $rootScope.currentUser.model);
             }
@@ -71,15 +75,17 @@ angular
         $scope.$on(AUTH_EVENTS.refreshUser, function () {
             $rootScope.currentUser = User.$new().loadFromSession();
 
-            // ---
-            // Refresh intercom user.
-            // ---
-            IntercomUtilsService.updateIntercom($rootScope.currentUser);
+            if ( ENV.isProduction ) {
+                // ---
+                // Refresh intercom user.
+                // ---
+                IntercomUtilsService.updateIntercom($rootScope.currentUser);
 
-            // ---
-            // Refresh intercom user.
-            // ---
-            MixpanelUtilsService.updateMixpanel($rootScope.currentUser);
+                // ---
+                // Refresh intercom user.
+                // ---
+                MixpanelUtilsService.updateMixpanel($rootScope.currentUser);
+            }
 
             if ( !ENV.isProduction ) {
                 $log.log("Refreshed user: ", $rootScope.currentUser.model);
@@ -123,6 +129,9 @@ angular
          * Track events.
          */
         $rootScope.$on("trackEvent", function (event, args) {
+            if ( !ENV.isProduction ) {
+                return;
+            }
             mixpanel.track(args);
             IntercomUtilsService.trackEvent(args);
         });
