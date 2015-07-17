@@ -24,13 +24,13 @@ angular
                 insights.model.to = moment(insights.model.to).toDate();
             }
 
-            insights.model.insightData = _.map(insights.model.totalPerCategoryInsightDTOs, function (totalPerCategoryInsightDTO) {
+            insights.model.insightData = _.map(insights.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
                 return totalPerCategoryInsightDTO.totalAmount;
             });
-            insights.model.insightColors = _.map(insights.model.totalPerCategoryInsightDTOs, function (totalPerCategoryInsightDTO) {
+            insights.model.insightColors = _.map(insights.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
                 return totalPerCategoryInsightDTO.categoryDTO.color.color;
             });
-            insights.model.insightLabels = _.map(insights.model.totalPerCategoryInsightDTOs, function (totalPerCategoryInsightDTO) {
+            insights.model.insightLabels = _.map(insights.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
                 return totalPerCategoryInsightDTO.categoryDTO.name;
             });
 
