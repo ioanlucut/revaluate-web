@@ -8,9 +8,13 @@
         </div>
     </div>
 
-    {{vm.isLoading ? 'Loading - soso please, stilizeaza-ma' : ''}}
-
     <div class="insights__chart__bar">
+
+        <div class="spinner insights__loading" ng-if="vm.isLoading">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+
         <canvas id="bar"
                 class="chart chart-bar"
                 data="vm.insightLineData"
