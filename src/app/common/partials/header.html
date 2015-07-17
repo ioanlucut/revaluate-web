@@ -7,28 +7,30 @@
         </div>
 
         <ul class="header__navigation">
-            <li ui-sref-active="header__navigation--active">
-                <a href="javascript:void(0)" ui-sref="expenses.regular">Expenses</a>
+            <li ui-sref-active="header__navigation--active" ui-sref="expenses.regular">
+                <span class="icon-nav-expenses header__navigation__icon"></span>
+                Expenses
+            </li>
+            <li ui-sref-active="header__navigation--active" ui-sref="insights">
+                <span class="icon-nav-insights header__navigation__icon"></span>
+                Insights
             </li>
             <li ui-sref-active="header__navigation--active">
-                <a href="javascript:void(0)" ui-sref="insights">Insights</a>
-            </li>
-            <li ui-sref-active="header__navigation--active">
-                <a href="javascript:void(0)">Goals</a>
-                <span>Coming soon!</span>
+                <span class="icon-nav-goals header__navigation__icon"></span>
+                Goals
             </li>
         </ul>
 
         <div class="dropdown header__dropdown" dropdown is-open="status.isopen">
             <button class="dropdown-toggle header__dropdown__toggle" ng-show="currentUser.model.firstName + currentUser.model.lastName" dropdown-toggle data-toggle="dropdown" role="button" aria-expanded="false">
-                <img class="header__dropdown__avatar" gravatar-src="'{{currentUser.model.email}}'" />
+                <img class="header__dropdown__avatar" gravatar-src="'{{currentUser.model.email}}'"/>
                 <span class="header__dropdown__username">{{currentUser.model.firstName + " " + currentUser.model.lastName}}</span>
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu header__dropdown__menu" role="menu">
                 <li><a href="javascript:void(0)" ui-sref="settings.profile">Settings</a></li>
                 <!--<li>-->
-                    <!--<a href="javascript:void(0)" id="feedback-trigger" ng-controller="FeedbackModalController" ng-click="openFeedbackModal()">Tell us anything</a>-->
+                <!--<a href="javascript:void(0)" id="feedback-trigger" ng-controller="FeedbackModalController" ng-click="openFeedbackModal()">Tell us anything</a>-->
                 <!--</li>-->
                 <li>
                     <a href="javascript:void(0)" ng-controller="LogoutController as vm" ng-click="vm.logOut()">Logout</a>
