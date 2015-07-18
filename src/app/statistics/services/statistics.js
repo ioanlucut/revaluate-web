@@ -16,11 +16,14 @@ angular
                  */
                 insightsMonthsPerYears: {},
 
+                /**
+                 * Is overall transasctions empty ?
+                 */
                 overallTransactionsEmpty: false
             };
 
             this.isOverallTransactionsEmpty = function () {
-                return this.overallTransactionsEmpty;
+                return this.model.overallTransactionsEmpty;
             };
 
         }
