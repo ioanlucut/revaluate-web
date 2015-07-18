@@ -1,1 +1,53 @@
-Progress page. Hi!
+<div insights-empty-state-toggle show-empty-state="vm.monthsPerYearsStatistics.isOverallTransactionsEmpty()">
+
+    <div class="insights__controls">
+        <div class="insights__controls__chart-toggle">
+            <a class="insights__controls__chart-toggle__entry" ng-class="{'insights__controls__chart-toggle__entry--active': vm.activeInterval === vm.INSIGHTS_INTERVAL.YEAR}" ng-click="vm.loadInsights(vm.INSIGHTS_INTERVAL.YEAR)" href="javascript:void(0)">12M</a>
+            <a class="insights__controls__chart-toggle__entry" ng-class="{'insights__controls__chart-toggle__entry--active': vm.activeInterval === vm.INSIGHTS_INTERVAL.HALF_YEAR}" ng-click="vm.loadInsights(vm.INSIGHTS_INTERVAL.HALF_YEAR)" href="javascript:void(0)">6M</a>
+            <a class="insights__controls__chart-toggle__entry" ng-class="{'insights__controls__chart-toggle__entry--active': vm.activeInterval === vm.INSIGHTS_INTERVAL.QUARTER_YEAR}" ng-click="vm.loadInsights(vm.INSIGHTS_INTERVAL.QUARTER_YEAR)" href="javascript:void(0)">3M</a>
+        </div>
+    </div>
+
+    <div class="insights__chart__bar" fade-out-in fade-when="vm.isLoading">
+
+        <div class="spinner insights__loading" ng-if="vm.isLoading">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+
+        <canvas id="line"
+                class="chart chart-line"
+                data="vm.insightLineData"
+                series="vm.insightLineSeries"
+                legend="false"
+                options="vm.barOptions"
+                labels="vm.insightLabels">
+        </canvas>
+
+    </div>
+
+    <div class="insights__table insights__table--progress">
+        <table>
+            <thead class="insights__table__header">
+            <tr>
+                <th>TOTAL</th>
+                <td class="insights__table__amount" ng-repeat="availableYearMonthsFormattedEntry in vm.availableYearMonthsFormatted">
+                    <span ng-bind-html="availableYearMonthsFormattedEntry | friendlyMonthDate"></span>
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="category in vm.masterCategories | orderBy : 'model.name' : true">
+                <th class="insights__table__category label-uppercase">
+                    <span class="insights__table__category__color" ng-style="{'background':category.model.color.color}">C</span>
+                    {{category.model.name}}
+                </th>
+                <td class="insights__table__amount" ng-repeat="availableYearMonthsFormattedEntry in vm.availableYearMonthsFormatted">
+                    <span ng-bind-html="category.model.yearMonth[availableYearMonthsFormattedEntry] | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

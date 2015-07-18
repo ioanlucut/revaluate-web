@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.insights")
-    .service("InsightTransformerService", function ($injector, TransformerUtils) {
+    .service("InsightTransformerService", function ($filter, $injector, TransformerUtils) {
 
         /**
          * Converts a insightDto object to a insights business object model.
@@ -41,22 +41,23 @@ angular
             insightOverview = insightOverview || $injector.get('InsightOverview').build();
             TransformerUtils.copyKeysFromTo(insightDto, insightOverview.model, skipKeys);
 
-            insightOverview.model.insightsOverview = insightOverview.model.insightsOverview.sort(function (a, b) {
-                return new Date(a.monthYearFormattedDate) - new Date(b.monthYearFormattedDate);
-            });
-
             insightOverview.model.insightData = _.map(insightOverview.model.insightsOverview, function (insightOverviewEntry) {
                 return insightOverviewEntry.totalAmount;
             });
 
             insightOverview.model.insightLabels = _.map(insightOverview.model.insightsOverview, function (insightOverviewEntry) {
-                var dateToFormat = moment(new Date(insightOverviewEntry.monthYearFormattedDate));
-                var isSameYear = moment(moment().year()).isSame(dateToFormat.year());
 
-                return dateToFormat.format(isSameYear ? 'MMMM' : 'MMMM YYYY');
+                return $filter('friendlyMonthDate')(insightOverviewEntry.yearMonth);
             });
 
             return insightOverview;
+        };
+
+        this.toInsightsProgress = function (insightDto, insightsProgress, skipKeys) {
+            insightsProgress = insightsProgress || $injector.get('InsightsProgress').build();
+            TransformerUtils.copyKeysFromTo(insightDto, insightsProgress.model, skipKeys);
+
+            return insightsProgress;
         };
 
         this.formatDate = function (givenDate) {

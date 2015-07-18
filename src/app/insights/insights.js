@@ -3,6 +3,7 @@
 angular
     .module("revaluate.insights", [
         "revaluate.common",
+        "revaluate.categories",
         "revaluate.expenses"
     ])
     .config(function ($stateProvider, USER_ACTIVITY_EVENTS) {
@@ -78,8 +79,26 @@ angular
                 name: "insights.progress",
                 url: "/progress",
                 templateUrl: "/app/insights/partials/insights.progress.html",
+                controller: "InsightsProgressController",
+                controllerAs: 'vm',
+                resolve: {
+                    insightsProgress: function (InsightsService, INSIGHTS_INTERVAL) {
+                        var from = moment().startOf('month').subtract(INSIGHTS_INTERVAL.QUARTER_YEAR - 1, "M");
+                        var to = moment().endOf('month');
+
+                        return InsightsService
+                            .fetchProgressInsightsFromTo(from, to);
+                    },
+                    monthsPerYearsStatistics: function (StatisticService) {
+                        return StatisticService
+                            .fetchInsightsMonthsPerYearStatistics();
+                    },
+                    categories: function (CategoryService) {
+                        return CategoryService.getAllCategories();
+                    }
+                },
                 title: "Insights progress - Revaluate",
                 stateEventName: USER_ACTIVITY_EVENTS.insightsPage
-            });
+            })
 
     });

@@ -34,4 +34,18 @@ angular
                     return $q.reject(response);
                 });
         };
+
+        this.fetchProgressInsightsFromTo = function (from, to) {
+            var fromFormatted = InsightTransformerService.formatDate(from);
+            var toFormatted = InsightTransformerService.formatDate(to);
+
+            return $http
+                .get(URLTo.api(INSIGHTS_URLS.fetchProgressInsights, { ":from": fromFormatted, ":to": toFormatted }))
+                .then(function (response) {
+
+                    return InsightTransformerService.toInsightsProgress(response.data);
+                }).catch(function (response) {
+                    return $q.reject(response);
+                });
+        };
     });
