@@ -25,7 +25,7 @@
         </canvas>
     </div>
 
-    <div class="insights__table">
+    <div class="insights__table insights__table--overview">
         <table>
             <thead class="insights__table__header">
             <tr>
@@ -36,12 +36,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="totalPerMonth in vm.insightsOverview.model.insightsOverview">
+            <tr ng-repeat="insightsOverviewEntry in vm.insightsOverview.model.insightsOverview | orderBy : 'yearMonth' : true">
                 <td class="insights__table__category label-uppercase">
-                    {{vm.insightsOverview.model.insightLabels[$index]}}
+                    {{insightsOverviewEntry.yearMonth | friendlyMonthDate}}
                 </td>
                 <td class="insights__table__amount">
-                    <span ng-bind-html="totalPerMonth.totalAmount | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
+                    <span ng-bind-html="insightsOverviewEntry.totalAmount | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
                 </td>
             </tr>
             </tbody>
