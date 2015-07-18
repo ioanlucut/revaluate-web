@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.statistics")
-    .service("StatisticService", function (STATISTIC_URLS, $q, $http) {
+    .service("StatisticService", function (STATISTIC_URLS, $q, $http, StatisticsTransformerService) {
 
         /**
          * Get all expense statistics of current user. They represents a map of expenses per years/months.
@@ -16,7 +16,7 @@ angular
                 .get(URLTo.api(STATISTIC_URLS.insightsMonthsPerYearsStatistics))
                 .then(function (response) {
 
-                    return response.data;
+                    return StatisticsTransformerService.toStatistics(response.data);
                 }).catch(function (response) {
                     return $q.reject(response);
                 });
