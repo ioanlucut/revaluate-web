@@ -1,0 +1,65 @@
+.insights__table {
+    display: block;
+    margin: 0 auto;
+    padding: 5px 15px 5px 30px;
+
+    table {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .insights__table__header {
+        font-weight: $font-weight-bold;
+    }
+
+    .insights__table__category {
+        position: relative;
+
+        .insights__table__category__color {
+            @include border-radius(50%);
+            @include size(22px 22px);
+            display: inline-block;
+            background-color: $brand-primary;
+            margin-right: 5px;
+            text-indent: -9999px;
+            left: -30px;
+            position: absolute;
+        }
+    }
+
+    .insights__table__amount {
+        text-align: right;
+
+        .currency__symbol {
+            padding-left: 5px;
+            font-weight: $font-weight-light;
+            color: $gray-medium;
+        }
+    }
+}
+
+.insights__table--monthly {
+    width: 65%;
+
+    .insights__table__category {
+        width: 70%;
+    }
+
+    .insights__table__amount {
+        width: 30%;
+    }
+}
+
+.insights__table--overview {
+    width: 65%;
+}
+
+.insights__table--progress {
+    width: 90%;
+
+    .insights__table__amount {
+    }
+}
+
+
+
