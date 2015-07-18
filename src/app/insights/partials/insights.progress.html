@@ -30,9 +30,15 @@
         <table>
             <thead class="insights__table__header">
             <tr>
-                <th>TOTAL</th>
+                <th></th>
                 <td class="insights__table__amount" ng-repeat="availableYearMonthsFormattedEntry in vm.availableYearMonthsFormatted">
                     <span ng-bind-html="availableYearMonthsFormattedEntry | friendlyMonthDate"></span>
+                </td>
+            </tr>
+            <tr>
+                <th>TOTAL</th>
+                <td class="insights__table__amount" ng-repeat="availableYearMonthsFormattedEntry in vm.availableYearMonthsFormatted">
+                    <span> 00 </span>
                 </td>
             </tr>
             </thead>
