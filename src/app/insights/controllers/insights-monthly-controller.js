@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.insights")
-    .controller("InsightsMonthlyController", function ($controller, $scope, $rootScope, $filter, $timeout, ALERTS_EVENTS, insights, monthsPerYearsStatistics, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
+    .controller("InsightsMonthlyController", function ($controller, $scope, DatesUtils, $rootScope, $filter, $timeout, ALERTS_EVENTS, insights, monthsPerYearsStatistics, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -122,10 +122,11 @@ angular
 
             vm.isLoading = true;
             var computedInsightsData = angular.copy(vm.insightData);
-            var from = moment(computedInsightsData.spentDate).startOf(MONTH);
-            var to = moment(computedInsightsData.spentDate).endOf(MONTH);
+            var period = DatesUtils
+                .getFromToOfMonthYear(computedInsightsData.spentDate);
+
             InsightsService
-                .fetchMonthlyInsightsFromTo(from, to)
+                .fetchMonthlyInsightsFromTo(period.from, period.to)
                 .then(function (receivedInsight) {
 
                     /**
