@@ -30,6 +30,11 @@ angular
         vm.user = $rootScope.currentUser;
 
         /**
+         * Fetch all types of insights charts
+         */
+        vm.INSIGHTS_CHARTS = INSIGHTS_CHARTS;
+
+        /**
          * Default insights loaded.
          */
         vm.insights = insights;
@@ -38,11 +43,6 @@ angular
          * Insights months per years.
          */
         vm.monthsPerYearsStatistics = monthsPerYearsStatistics;
-
-        /**
-         * Fetch all types of insights charts
-         */
-        vm.INSIGHTS_CHARTS = INSIGHTS_CHARTS;
 
         // ---
         // Inherit from parent controller.
@@ -54,13 +54,31 @@ angular
             monthsPerYearsStatistics: monthsPerYearsStatistics
         }));
 
-        // ---
-        // Computed information and methods.
-        // ---
-        vm.insightLineData = [insights.model.insightData];
-        vm.insightLineColors = [insights.model.insightColors];
-        vm.insightLineSeries = ["Categories"];
+        /**
+         * Default active chart
+         */
         vm.activeChart = vm.INSIGHTS_CHARTS.DOUGHNUT;
+
+        /**
+         * Series (static)
+         */
+        vm.insightLineSeries = ["Categories"];
+
+        /**
+         * Prepares data for chart
+         */
+        function prepareDataForChart() {
+            // ---
+            // Computed information and methods.
+            // ---
+            vm.insightLineData = [insights.model.insightData];
+            vm.insightLineColors = [insights.model.insightColors];
+
+            // ---
+            // Updates the bar width.
+            // ---
+            vm.updateBarWidthWith(vm.insights.model.insightData.length);
+        }
 
         /**
          * Sets te active chart displayed with the given chart type.
@@ -155,8 +173,8 @@ angular
                             // ---
                             vm.masterInsightData = angular.copy(vm.insightData);
                             vm.insights = receivedInsight;
-                            vm.insightLineData = [vm.insights.model.insightData];
-                            vm.insightLineSeries = ["Categories"];
+
+                            prepareDataForChart();
                         }
 
                         vm.isLoading = false;

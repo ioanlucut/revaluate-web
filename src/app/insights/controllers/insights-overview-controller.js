@@ -35,12 +35,32 @@ angular
          */
         vm.insightsOverview = insightsOverview;
 
+        /**
+         * Prepares data for chart
+         */
+        function prepareDataForChart() {
+            vm.insightLineData = [vm.insightsOverview.model.insightData];
+
+            // ---
+            // Updates the bar width.
+            // ---
+            vm.updateBarWidthWith(vm.insightsOverview.model.insightData.length);
+        }
+
+        /**
+         * Default interval
+         */
+        vm.activeInterval = vm.INSIGHTS_INTERVAL.QUARTER_YEAR;
+
+        /**
+         * Series (static)
+         */
+        vm.insightLineSeries = [MONTHS];
+
         // ---
         // Computed information and methods.
         // ---
-        vm.insightLineData = [vm.insightsOverview.model.insightData];
-        vm.insightLineSeries = [MONTHS];
-        vm.activeInterval = vm.INSIGHTS_INTERVAL.QUARTER_YEAR;
+        prepareDataForChart();
 
         /**
          * Load insights
@@ -69,8 +89,8 @@ angular
                         // Update everything.
                         // ---
                         vm.insightsOverview = receivedInsight;
-                        vm.insightLineData = [vm.insightsOverview.model.insightData];
 
+                        prepareDataForChart();
                         vm.isLoading = false;
                     }, TIMEOUT_DURATION);
                 })
