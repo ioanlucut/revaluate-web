@@ -17,4 +17,14 @@ angular
             }
         };
 
+        this.getFromToOfMonthYear = function (monthDate) {
+            var from = moment(monthDate).startOf('month');
+            var to = moment(monthDate).add(1, 'month').startOf('month');
+
+            return {
+                from: from,
+                to: to
+            }
+        };
+
     });
