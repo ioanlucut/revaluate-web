@@ -71,8 +71,8 @@ angular
             // ---
             // Computed information and methods.
             // ---
-            vm.insightLineData = [insights.model.insightData];
-            vm.insightLineColors = [insights.model.insightColors];
+            vm.insightLineData = [vm.insights.model.insightData];
+            vm.insightLineColors = [vm.insights.model.insightColors];
 
             // ---
             // Updates the bar width.
@@ -87,6 +87,11 @@ angular
         vm.setActiveChart = function (chartType) {
             vm.activeChart = chartType;
         };
+
+        // ---
+        // Computed information and methods.
+        // ---
+        prepareDataForChart();
 
         /**
          * Checks if the date should be disabled.
