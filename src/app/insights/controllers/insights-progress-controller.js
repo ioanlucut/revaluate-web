@@ -29,7 +29,8 @@ angular
             vm.insightLabels = insightsPrepared.insightLabels;
             vm.insightLineSeries = insightsPrepared.insightLineSeries;
 
-            vm.availableYearMonthsFormatted = insightsPrepared.availableYearMonthsFormatted;
+            vm.availableYearMonths = insightsPrepared.availableYearMonths;
+            vm.totalAmountPerMonths = insightsPrepared.totalAmountPerMonths;
         }
 
         // ---
