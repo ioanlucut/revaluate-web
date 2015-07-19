@@ -82,8 +82,9 @@
         .insights__controls__chart-toggle__entry--active,
         .insights__controls__chart-toggle__entry--active:hover {
             color: $gray-dark-3;
-            background-color: $gray-light-2;
+            background-color: $white;
             font-weight: $font-weight-bold;
+            cursor: default;
         }
     }
 }
