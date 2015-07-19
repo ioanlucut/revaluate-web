@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.insights")
-    .controller("InsightsMonthlyController", function ($controller, $scope, DatesUtils, $rootScope, $filter, $timeout, ALERTS_EVENTS, insights, monthsPerYearsStatistics, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
+    .controller("InsightsMonthlyController", function ($controller, $scope, DatesUtils, $rootScope, $filter, $timeout, InsightsGenerator, ALERTS_EVENTS, insightsMonthly, monthsPerYearsStatistics, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -21,7 +21,7 @@ angular
         /**
          * Alert identifier
          */
-        vm.alertId = ALERTS_CONSTANTS.insights;
+        vm.alertId = ALERTS_CONSTANTS.insightsMonthly;
 
         /**
          * Current user.
@@ -37,7 +37,7 @@ angular
         /**
          * Default insights loaded.
          */
-        vm.insights = insights;
+        vm.insightsMonthly = insightsMonthly;
 
         /**
          * Insights months per years.
@@ -57,12 +57,7 @@ angular
         /**
          * Default active chart
          */
-        vm.activeChart = vm.INSIGHTS_CHARTS.DOUGHNUT;
-
-        /**
-         * Series (static)
-         */
-        vm.insightLineSeries = ["Categories"];
+        vm.activeChart = vm.INSIGHTS_CHARTS.BAR;
 
         /**
          * Prepares data for chart
@@ -71,13 +66,17 @@ angular
             // ---
             // Computed information and methods.
             // ---
-            vm.insightLineData = [vm.insights.model.insightData];
-            vm.insightLineColors = [vm.insights.model.insightColors];
+            vm.barInsightsPrepared = InsightsGenerator
+                .generateMonthlyBar(vm.insightsMonthly);
+
+            vm.donutInsightsPrepared = InsightsGenerator
+                .generateMonthlyDonut(vm.insightsMonthly);
 
             // ---
-            // Updates the bar width.
+            // Updates the bar options.
             // ---
-            vm.updateBarWidthWith(vm.insights.model.insightData.length);
+            vm.updateBarWidthWith(vm.barInsightsPrepared.insightsBarData.length);
+            vm.updateBarDataSetSpacingWidthWith(vm.barInsightsPrepared.insightsBarData.length);
         }
 
         /**
@@ -177,7 +176,7 @@ angular
                             // Update everything.
                             // ---
                             vm.masterInsightData = angular.copy(vm.insightData);
-                            vm.insights = receivedInsight;
+                            vm.insightsMonthly = receivedInsight;
 
                             prepareDataForChart();
                         }
