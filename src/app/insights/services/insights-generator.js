@@ -66,9 +66,13 @@ angular
             var insightLineSeries = angular.copy(_.map(progressLineData, function (progressLineDataEntry) {
                 return progressLineDataEntry.categoryEntry.model.name;
             }));
+            var insightLineColors = angular.copy(_.map(progressLineData, function (progressLineDataEntry) {
+                return progressLineDataEntry.categoryEntry.model.color.color;
+            }));
 
             return {
                 insightLineData: insightLineData,
+                insightLineColors: insightLineColors,
                 insightLabels: insightLabels,
                 insightLineSeries: insightLineSeries,
                 availableYearMonths: angular.copy(availableYearMonths),

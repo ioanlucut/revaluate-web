@@ -28,6 +28,7 @@ angular
             vm.insightLineData = insightsPrepared.insightLineData;
             vm.insightLabels = insightsPrepared.insightLabels;
             vm.insightLineSeries = insightsPrepared.insightLineSeries;
+            vm.insightLineColors = insightsPrepared.insightLineColors;
 
             vm.availableYearMonths = insightsPrepared.availableYearMonths;
             vm.totalAmountPerMonths = insightsPrepared.totalAmountPerMonths;
