@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.insights")
-    .controller("InsightsProgressController", function ($controller, $templateCache, $scope, $rootScope, $filter, $timeout, InsightsGenerator, ALERTS_EVENTS, INSIGHTS_INTERVAL, insightsProgress, monthsPerYearsStatistics, categories, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
+    .controller("InsightsProgressController", function (DatesUtils, $controller, $templateCache, $scope, $rootScope, $filter, $timeout, InsightsGenerator, ALERTS_EVENTS, INSIGHTS_INTERVAL, insightsProgress, monthsPerYearsStatistics, categories, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
 
         var TIMEOUT_DURATION = 150;
         var MONTHS = "Months";
@@ -77,11 +77,11 @@ angular
                 return;
             }
             vm.isLoading = true;
-            var from = moment().startOf('month').subtract(insightsIntervalMonths - 1, "M");
-            var to = moment().endOf('month');
+            var period = DatesUtils
+                .fromLastMonthsToNow(insightsIntervalMonths);
 
             InsightsService
-                .fetchProgressInsightsFromTo(from, to)
+                .fetchProgressInsightsFromTo(period.from, period.to)
                 .then(function (receivedInsight) {
                     vm.activeInterval = insightsIntervalMonths;
 

@@ -30,12 +30,11 @@ angular
                 controller: "InsightsMonthlyController",
                 controllerAs: 'vm',
                 resolve: {
-                    insights: function (InsightsService) {
-                        var from = moment().startOf('month');
-                        var to = moment().endOf('month');
+                    insights: function (DatesUtils, InsightsService) {
+                        var period = DatesUtils.fromLastMonthsToNow(1);
 
                         return InsightsService
-                            .fetchMonthlyInsightsFromTo(from, to);
+                            .fetchMonthlyInsightsFromTo(period.from, period.to);
                     },
                     monthsPerYearsStatistics: function (StatisticService) {
                         return StatisticService
@@ -56,12 +55,11 @@ angular
                 controller: "InsightsOverviewController",
                 controllerAs: 'vm',
                 resolve: {
-                    insightsOverview: function (InsightsService, INSIGHTS_INTERVAL) {
-                        var from = moment().startOf('month').subtract(INSIGHTS_INTERVAL.QUARTER_YEAR - 1, "M");
-                        var to = moment().endOf('month');
+                    insightsOverview: function (DatesUtils, InsightsService, INSIGHTS_INTERVAL) {
+                        var period = DatesUtils.fromLastMonthsToNow(INSIGHTS_INTERVAL.QUARTER_YEAR);
 
                         return InsightsService
-                            .fetchOverviewInsightsFromTo(from, to);
+                            .fetchOverviewInsightsFromTo(period.from, period.to);
                     },
                     monthsPerYearsStatistics: function (StatisticService) {
                         return StatisticService
@@ -82,12 +80,11 @@ angular
                 controller: "InsightsProgressController",
                 controllerAs: 'vm',
                 resolve: {
-                    insightsProgress: function (InsightsService, INSIGHTS_INTERVAL) {
-                        var from = moment().startOf('month').subtract(INSIGHTS_INTERVAL.QUARTER_YEAR - 1, "M");
-                        var to = moment().endOf('month');
+                    insightsProgress: function (DatesUtils, InsightsService, INSIGHTS_INTERVAL) {
+                        var period = DatesUtils.fromLastMonthsToNow(INSIGHTS_INTERVAL.QUARTER_YEAR);
 
                         return InsightsService
-                            .fetchProgressInsightsFromTo(from, to);
+                            .fetchProgressInsightsFromTo(period.from, period.to);
                     },
                     monthsPerYearsStatistics: function (StatisticService) {
                         return StatisticService
