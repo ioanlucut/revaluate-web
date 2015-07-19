@@ -51,63 +51,60 @@
     </div>
 
     <!--Empty state if no expenses for current month-->
-    <div class="insights__empty-state" ng-if="vm.insights.isTransactionsEmpty()">
+    <div class="insights__empty-state" ng-if="vm.insightsMonthly.isTransactionsEmpty()">
         <div class="insights__empty-state__icon"></div>
         <h1>No expenses on this month yet.</h1>
 
         <div>You'll get some insights here.</div>
     </div>
 
-    <div ng-if="! vm.insights.isTransactionsEmpty()">
+    <div ng-if="! vm.insightsMonthly.isTransactionsEmpty()">
         <div class="insights__summary">
             Hey, <span>{{currentUser.model.firstName}}</span>! In
             <span>{{(vm.insightData.spentDate | friendlyMonthDate)}}</span>
             you've spent a total of
-            <span class="label-info" ng-bind-html="vm.insights.model.totalAmountSpent | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>.
+            <span class="label-info" ng-bind-html="vm.insightsMonthly.model.totalAmountSpent | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>.
         </div>
 
         <div ng-if="vm.activeChart === vm.INSIGHTS_CHARTS.BAR" class="insights__chart__bar" fade-out-in fade-when="vm.isLoading">
             <canvas id="bar"
                     class="chart chart-bar"
-                    data="vm.insightLineData"
-                    series="vm.insightLineSeries"
+                    data="vm.barInsightsPrepared.insightsBarData"
+                    series="vm.barInsightsPrepared.insightsBarSeries"
                     legend="false"
                     options="vm.barOptions"
-                    labels="vm.insights.model.insightLabels">
+                    labels="vm.barInsightsPrepared.insightsBarLabels"
+                    colours="vm.barInsightsPrepared.insightsBarColors">
             </canvas>
         </div>
 
         <div ng-if="vm.activeChart === vm.INSIGHTS_CHARTS.DOUGHNUT" class="insights__chart__doughnut" fade-out-in fade-when="vm.isLoading">
             <canvas class="chart chart-doughnut"
-                    data="vm.insights.model.insightData"
-                    labels="vm.insights.model.insightLabels"
+                    data="vm.donutInsightsPrepared.insightsDonutData"
+                    labels="vm.donutInsightsPrepared.insightsDonutLabels"
                     legend="false"
                     options="vm.donutChartOptions"
-                    colours="vm.insights.model.insightColors">
+                    colours="vm.donutInsightsPrepared.insightsDonutColors">
             </canvas>
         </div>
 
         <div class="insights__table insights__table--monthly">
             <table>
-                <thead class="insights__table__header">
-                <tr>
-                    <td>TOTAL</td>
-                    <td class="insights__table__amount">
-                        <span ng-bind-html="vm.insights.model.totalAmountSpent | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
+                <tr class="insights__table__total">
+                    <th>TOTAL</th>
+                    <td class="insights__table__total__amount">
+                        <span ng-bind-html="vm.insightsMonthly.model.totalAmountSpent | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
                     </td>
                 </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="totalPerCategory in vm.insights.model.totalPerCategoryInsightsDTOs">
-                    <td class="insights__table__category label-uppercase">
+                <tr ng-repeat="totalPerCategory in vm.insightsMonthly.model.totalPerCategoryInsightsDTOs">
+                    <th class="insights__table__category label-uppercase">
                         <span class="insights__table__category__color" ng-style="{'background':totalPerCategory.categoryDTO.color.color}">C</span>
                         {{totalPerCategory.categoryDTO.name}}
-                    </td>
-                    <td class="insights__table__amount">
+                    </th>
+                    <td class="insights__table__entry__amount">
                         <span ng-bind-html="totalPerCategory.totalAmount | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
                     </td>
                 </tr>
-                </tbody>
             </table>
         </div>
 
@@ -115,28 +112,28 @@
 
             <div class="insights__summary__item">
                 You had
-                <span>{{vm.insights.model.numberOfTransactions}} {{vm.insights.model.numberOfTransactions | pluralisationFilter:'transaction':'transactions'}}</span>,
+                <span>{{vm.insightsMonthly.model.numberOfTransactions}} {{vm.insightsMonthly.model.numberOfTransactions | pluralisationFilter:'transaction':'transactions'}}</span>,
                 in
-                <span>{{vm.insights.model.totalPerCategoryInsightsDTOs.length}} {{vm.insights.model.totalPerCategoryInsightsDTOs.length | pluralisationFilter:'category':'categories'}}</span>.
+                <span>{{vm.insightsMonthly.model.totalPerCategoryInsightsDTOs.length}} {{vm.insightsMonthly.model.totalPerCategoryInsightsDTOs.length | pluralisationFilter:'category':'categories'}}</span>.
             </div>
 
-            <div ng-if="vm.insights.isManyTransactions()">
+            <div ng-if="vm.insightsMonthly.isManyTransactions()">
                 <div class="insights__summary__item">
                     Your biggest transaction was
-                    <span class="label-info" ng-bind-html="vm.insights.model.biggestExpense.value | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>,
+                    <span class="label-info" ng-bind-html="vm.insightsMonthly.model.biggestExpense.value | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>,
                     on
-                    <span class="label-uppercase category__label" ng-style="{'background':vm.insights.model.biggestExpense.category.color.color}">{{vm.insights.model.biggestExpense.category.name}}</span>.
+                    <span class="label-uppercase category__label" ng-style="{'background':vm.insightsMonthly.model.biggestExpense.category.color.color}">{{vm.insightsMonthly.model.biggestExpense.category.name}}</span>.
                 </div>
 
                 <div class="insights__summary__item">
                     You've spent the most on
-                    <span class="label-uppercase category__label" ng-style="{'background':vm.insights.model.highestAmountCategory.color.color}">{{vm.insights.model.highestAmountCategory.name}}</span>.
+                    <span class="label-uppercase category__label" ng-style="{'background':vm.insightsMonthly.model.highestAmountCategory.color.color}">{{vm.insightsMonthly.model.highestAmountCategory.name}}</span>.
                 </div>
 
-                <div ng-if="vm.insights.model.categoryWithTheMostTransactionsInsightsDTO.numberOfTransactions > 1" class="insights__summary__item">
-                    The category with the most transactions (<span>{{vm.insights.model.categoryWithTheMostTransactionsInsightsDTO.numberOfTransactions}}</span>)
+                <div ng-if="vm.insightsMonthly.model.categoryWithTheMostTransactionsInsightsDTO.numberOfTransactions > 1" class="insights__summary__item">
+                    The category with the most transactions (<span>{{vm.insightsMonthly.model.categoryWithTheMostTransactionsInsightsDTO.numberOfTransactions}}</span>)
                     is
-                    <span class="label-uppercase category__label" ng-style="{'background':vm.insights.model.categoryWithTheMostTransactionsInsightsDTO.categoryDTO.color.color}">{{vm.insights.model.categoryWithTheMostTransactionsInsightsDTO.categoryDTO.name}}</span>.
+                    <span class="label-uppercase category__label" ng-style="{'background':vm.insightsMonthly.model.categoryWithTheMostTransactionsInsightsDTO.categoryDTO.color.color}">{{vm.insightsMonthly.model.categoryWithTheMostTransactionsInsightsDTO.categoryDTO.name}}</span>.
                 </div>
             </div>
 

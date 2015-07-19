@@ -61,18 +61,62 @@ angular
             var insightLineData = angular.copy(_.map(progressLineData, 'totalCategoryExpensesPerYearMonth'));
             var insightLabels = angular.copy(_.map(availableYearMonths, function (availableYearMonthsEntry) {
 
-                return $filter('friendlyMonthDate')(availableYearMonthsEntry);
+                return $filter('friendlyMonthDateNoYear')(availableYearMonthsEntry);
             }));
             var insightLineSeries = angular.copy(_.map(progressLineData, function (progressLineDataEntry) {
                 return progressLineDataEntry.categoryEntry.model.name;
             }));
+            var insightLineColors = angular.copy(_.map(progressLineData, function (progressLineDataEntry) {
+                return progressLineDataEntry.categoryEntry.model.color.color;
+            }));
 
             return {
                 insightLineData: insightLineData,
+                insightLineColors: insightLineColors,
                 insightLabels: insightLabels,
                 insightLineSeries: insightLineSeries,
                 availableYearMonths: angular.copy(availableYearMonths),
                 totalAmountPerMonths: angular.copy(totalAmountPerMonths)
+            }
+        };
+
+        this.generateMonthlyBar = function (insightsMonthly) {
+
+            var insightsBarData = _.map(insightsMonthly.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
+                return [totalPerCategoryInsightDTO.totalAmount];
+            });
+            var insightsBarColors = _.map(insightsMonthly.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
+                return totalPerCategoryInsightDTO.categoryDTO.color.color;
+            });
+            var insightLineSeries = _.map(insightsMonthly.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
+                return totalPerCategoryInsightDTO.categoryDTO.name;
+            });
+
+            return {
+                insightsBarData: insightsBarData,
+                insightsBarSeries: insightLineSeries,
+                insightsBarColors: insightsBarColors,
+                insightsBarLabels: ["Categories"]
+            }
+        };
+
+        this.generateMonthlyDonut = function (insightsMonthly) {
+
+            var insightsDonutData = _.map(insightsMonthly.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
+                return totalPerCategoryInsightDTO.totalAmount;
+            });
+            var insightsDonutColors = _.map(insightsMonthly.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
+                return totalPerCategoryInsightDTO.categoryDTO.color.color;
+            });
+            var insightsDonutLabels = _.map(insightsMonthly.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
+                return totalPerCategoryInsightDTO.categoryDTO.name;
+            });
+
+            return {
+                insightsDonutData: insightsDonutData,
+                insightsDonutSeries: ["Categories"],
+                insightsDonutColors: insightsDonutColors,
+                insightsDonutLabels: insightsDonutLabels
             }
         };
     });

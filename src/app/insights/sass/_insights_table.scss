@@ -1,19 +1,36 @@
 .insights__table {
     display: block;
     margin: 0 auto;
-    padding: 5px 15px 5px 30px;
+    padding: 5px 0;
 
     table {
         width: 100%;
         max-width: 100%;
+
+        th {
+            padding-left: 5px;
+        }
+
+        tr td:last-of-type {
+            padding-right: 5px;
+        }
     }
 
     .insights__table__header {
         font-weight: $font-weight-bold;
     }
 
+    .insights__table__header__month {
+        font-weight: $font-weight-bold;
+        font-size: $font-size-small;
+        text-transform: uppercase;
+        text-align: right;
+        color: $gray-medium;
+    }
+
     .insights__table__category {
         position: relative;
+        padding-left: 35px;
 
         .insights__table__category__color {
             @include border-radius(50%);
@@ -22,18 +39,33 @@
             background-color: $brand-primary;
             margin-right: 5px;
             text-indent: -9999px;
-            left: -30px;
+            left: 5px;
             position: absolute;
         }
     }
 
-    .insights__table__amount {
+    .insights__table__entry__month {
+        padding-left: 10px;
+    }
+
+    .insights__table__total__amount,
+    .insights__table__entry__amount {
         text-align: right;
 
         .currency__symbol {
             padding-left: 5px;
             font-weight: $font-weight-light;
             color: $gray-medium;
+        }
+    }
+
+    .insights__table__total {
+        background-color: $gray-light-3;
+        border-top: solid 1px $gray-light-1;
+        border-bottom: solid 1px $gray-light-1;
+
+        th, td {
+            font-weight: $font-weight-bold;
         }
     }
 }
@@ -55,7 +87,7 @@
 }
 
 .insights__table--progress {
-    width: 90%;
+    width: 100%;
 
     .insights__table__amount {
         font-size: $font-size-small;
