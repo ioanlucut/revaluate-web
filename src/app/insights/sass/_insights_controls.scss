@@ -59,24 +59,32 @@
             height: 30px;
             line-height: 24px;
             padding: 3px 10px;
-            margin-right: 10px;
+            margin: 0;
             text-align: center;
             background-color: $gray-light-3;
-            color: $gray-dark-1;
-            @include border-radius(50px);
+            color: $gray-medium;
+            border: solid 1px $gray-light-1;
 
             &:first-child {
-                margin-right: 2px;
+                @include border-right-radius(50px);
+                border-left-width: 0;
+            }
+
+            &:last-child {
+                @include border-left-radius(50px);
+                border-right-width: 0;
             }
 
             &:hover {
-                border-color: $gray-medium;
+                color: $gray-dark-1;
             }
         }
 
-        .insights__controls__chart-toggle__entry--active {
+        .insights__controls__chart-toggle__entry--active,
+        .insights__controls__chart-toggle__entry--active:hover {
             color: $gray-dark-3;
-            background-color: $gray-light-1;
+            background-color: $gray-light-2;
+            font-weight: $font-weight-bold;
         }
     }
 }
