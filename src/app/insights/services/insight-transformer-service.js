@@ -10,31 +10,21 @@ angular
         /**
          * Converts a insightDto object to a insights business object model.
          */
-        this.toInsight = function (insightDto, insights, skipKeys) {
-            insights = insights || $injector.get('Insights').build();
+        this.toInsight = function (insightDto, insightsMonthly, skipKeys) {
+            insightsMonthly = insightsMonthly || $injector.get('Insights').build();
 
-            TransformerUtils.copyKeysFromTo(insightDto, insights.model, skipKeys);
+            TransformerUtils.copyKeysFromTo(insightDto, insightsMonthly.model, skipKeys);
 
             // handle date conversion
-            if ( insights.model.from ) {
-                insights.model.from = moment(insights.model.from).toDate();
+            if ( insightsMonthly.model.from ) {
+                insightsMonthly.model.from = moment(insightsMonthly.model.from).toDate();
             }
 
-            if ( insights.model.to ) {
-                insights.model.to = moment(insights.model.to).toDate();
+            if ( insightsMonthly.model.to ) {
+                insightsMonthly.model.to = moment(insightsMonthly.model.to).toDate();
             }
 
-            insights.model.insightData = _.map(insights.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
-                return totalPerCategoryInsightDTO.totalAmount;
-            });
-            insights.model.insightColors = _.map(insights.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
-                return totalPerCategoryInsightDTO.categoryDTO.color.color;
-            });
-            insights.model.insightLabels = _.map(insights.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
-                return totalPerCategoryInsightDTO.categoryDTO.name;
-            });
-
-            return insights;
+            return insightsMonthly;
         };
 
         this.toInsightOverview = function (insightDto, insightOverview, skipKeys) {
