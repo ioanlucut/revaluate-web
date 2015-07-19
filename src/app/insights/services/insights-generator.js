@@ -33,6 +33,14 @@ angular
             });
 
             // ---
+            // Total amount of categories per month.
+            // ---
+            var totalAmountPerMonths = _.reduce(insightsProgress.model.insightsMonthlyDTO, function (result, insightsMonthlyDTOEntry, key) {
+                result[insightsMonthlyDTOEntry.yearMonth] = insightsMonthlyDTOEntry.totalAmountSpent;
+                return result;
+            }, {});
+
+            // ---
             // Represents the computed line data categorised.
             // ---
             var progressLineData = _.map(masterCategories, function (categoryEntry) {
@@ -63,7 +71,8 @@ angular
                 insightLineData: insightLineData,
                 insightLabels: insightLabels,
                 insightLineSeries: insightLineSeries,
-                availableYearMonthsFormatted: angular.copy(availableYearMonths)
+                availableYearMonths: angular.copy(availableYearMonths),
+                totalAmountPerMonths: angular.copy(totalAmountPerMonths)
             }
         };
     });
