@@ -31,14 +31,14 @@
             <thead class="insights__table__header">
             <tr>
                 <th></th>
-                <td class="insights__table__amount" ng-repeat="availableYearMonthsFormattedEntry in vm.availableYearMonthsFormatted">
-                    <span ng-bind-html="availableYearMonthsFormattedEntry | friendlyMonthDate"></span>
+                <td class="insights__table__amount" ng-repeat="availableYearMonthsEntry in vm.availableYearMonths">
+                    <span ng-bind-html="availableYearMonthsEntry | friendlyMonthDate"></span>
                 </td>
             </tr>
             <tr>
                 <th>TOTAL</th>
-                <td class="insights__table__amount" ng-repeat="availableYearMonthsFormattedEntry in vm.availableYearMonthsFormatted">
-                    <span> 00 </span>
+                <td class="insights__table__amount" ng-repeat="availableYearMonthsEntry in vm.availableYearMonths">
+                    <span ng-bind-html="vm.totalAmountPerMonths[availableYearMonthsEntry] | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
                 </td>
             </tr>
             </thead>
@@ -48,8 +48,8 @@
                     <span class="insights__table__category__color" ng-style="{'background':category.model.color.color}">C</span>
                     {{category.model.name}}
                 </th>
-                <td class="insights__table__amount" ng-repeat="availableYearMonthsFormattedEntry in vm.availableYearMonthsFormatted">
-                    <span ng-bind-html="category.model.yearMonth[availableYearMonthsFormattedEntry] | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
+                <td class="insights__table__amount" ng-repeat="availableYearMonthsEntry in vm.availableYearMonths">
+                    <span ng-bind-html="category.model.yearMonth[availableYearMonthsEntry] | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
                 </td>
             </tr>
             </tbody>
