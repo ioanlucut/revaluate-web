@@ -89,25 +89,21 @@
 
         <div class="insights__table insights__table--monthly">
             <table>
-                <thead class="insights__table__header">
-                <tr>
-                    <td>TOTAL</td>
-                    <td class="insights__table__amount">
+                <tr class="insights__table__total">
+                    <th>TOTAL</th>
+                    <td class="insights__table__total__amount">
                         <span ng-bind-html="vm.insights.model.totalAmountSpent | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
                     </td>
                 </tr>
-                </thead>
-                <tbody>
                 <tr ng-repeat="totalPerCategory in vm.insights.model.totalPerCategoryInsightsDTOs">
-                    <td class="insights__table__category label-uppercase">
+                    <th class="insights__table__category label-uppercase">
                         <span class="insights__table__category__color" ng-style="{'background':totalPerCategory.categoryDTO.color.color}">C</span>
                         {{totalPerCategory.categoryDTO.name}}
-                    </td>
-                    <td class="insights__table__amount">
+                    </th>
+                    <td class="insights__table__entry__amount">
                         <span ng-bind-html="totalPerCategory.totalAmount | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
                     </td>
                 </tr>
-                </tbody>
             </table>
         </div>
 
