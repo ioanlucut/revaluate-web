@@ -36,7 +36,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="insightsOverviewEntry in vm.insightsOverview.model.insightsOverview | orderBy : 'yearMonth' : true">
+            <tr ng-repeat="insightsOverviewEntry in vm.insightsOverview.model.insightsOverview | orderBy : 'yearMonth' : reverse">
                 <td class="insights__table__category">
                     {{insightsOverviewEntry.yearMonth | friendlyMonthDate}}
                 </td>
