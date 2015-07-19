@@ -37,7 +37,7 @@
             <tr class="insights__table__total">
                 <th>TOTAL</th>
                 <td class="insights__table__entry__amount" ng-repeat="availableYearMonthsEntry in vm.availableYearMonths">
-                    <span ng-bind-html="vm.totalAmountPerMonths[availableYearMonthsEntry] | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
+                    <span ng-bind-html="vm.totalAmountPerMonths[availableYearMonthsEntry] | currencysNoSymbol:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
                 </td>
             </tr>
             <tr ng-repeat="category in vm.masterCategories | orderBy : 'model.name' : true">
@@ -46,7 +46,7 @@
                     {{category.model.name}}
                 </th>
                 <td class="insights__table__entry__amount" ng-repeat="availableYearMonthsEntry in vm.availableYearMonths">
-                    <span ng-bind-html="category.model.yearMonth[availableYearMonthsEntry] | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
+                    <span ng-bind-html="category.model.yearMonth[availableYearMonthsEntry] | currencysNoSymbol:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
                 </td>
             </tr>
         </table>
