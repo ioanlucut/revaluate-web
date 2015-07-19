@@ -30,7 +30,7 @@ angular
                 controller: "InsightsMonthlyController",
                 controllerAs: 'vm',
                 resolve: {
-                    insights: function (DatesUtils, InsightsService) {
+                    insightsMonthly: function (DatesUtils, InsightsService) {
                         var period = DatesUtils.fromLastMonthsToNow(1);
 
                         return InsightsService

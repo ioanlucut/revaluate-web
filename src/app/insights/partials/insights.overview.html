@@ -2,7 +2,7 @@
 
     <div class="insights__controls">
         <div class="insights__controls__chart-toggle">
-            <a class="insights__controls__chart-toggle__entry" ng-class="{'insights__controls__chart-toggle__entry--active': vm.activeInterval === vm.INSIGHTS_INTERVAL.YEAR}" ng-click="vm.loadInsights(vm.INSIGHTS_INTERVAL.YEAR)" href="javascript:void(0)">12M</a>
+            <a class="insights__controls__chart-toggle__entry" ng-class="{'insights__controls__chart-toggle__entry--active': vm.activeInterval === vm.INSIGHTS_INTERVAL.YEAR}" ng-click="vm.loadInsights(vm.INSIGHTS_INTERVAL.YEAR)" href="javascript:void(0)">1Y</a>
             <a class="insights__controls__chart-toggle__entry" ng-class="{'insights__controls__chart-toggle__entry--active': vm.activeInterval === vm.INSIGHTS_INTERVAL.HALF_YEAR}" ng-click="vm.loadInsights(vm.INSIGHTS_INTERVAL.HALF_YEAR)" href="javascript:void(0)">6M</a>
             <a class="insights__controls__chart-toggle__entry" ng-class="{'insights__controls__chart-toggle__entry--active': vm.activeInterval === vm.INSIGHTS_INTERVAL.QUARTER_YEAR}" ng-click="vm.loadInsights(vm.INSIGHTS_INTERVAL.QUARTER_YEAR)" href="javascript:void(0)">3M</a>
         </div>
@@ -27,24 +27,20 @@
 
     <div class="insights__table insights__table--overview">
         <table>
-            <thead class="insights__table__header">
-            <tr>
-                <td>TOTAL</td>
-                <td class="insights__table__amount">
+            <tr class="insights__table__total">
+                <th>TOTAL</th>
+                <td class="insights__table__total__amount">
                     <span ng-bind-html="vm.insightsOverview.model.totalAmountSpent | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
                 </td>
             </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="insightsOverviewEntry in vm.insightsOverview.model.insightsOverview | orderBy : 'yearMonth' : true">
-                <td class="insights__table__category">
+            <tr class="insights__table__entry" ng-repeat="insightsOverviewEntry in vm.insightsOverview.model.insightsOverview | orderBy : 'yearMonth' : reverse">
+                <th class="insights__table__entry__month">
                     {{insightsOverviewEntry.yearMonth | friendlyMonthDate}}
-                </td>
-                <td class="insights__table__amount">
+                </th>
+                <td class="insights__table__entry__amount">
                     <span ng-bind-html="insightsOverviewEntry.totalAmount | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
                 </td>
             </tr>
-            </tbody>
         </table>
     </div>
 

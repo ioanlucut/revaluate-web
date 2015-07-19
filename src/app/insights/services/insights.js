@@ -16,21 +16,6 @@ angular
             this.model = {
 
                 /**
-                 * The insights data.
-                 */
-                insightData: [],
-
-                /**
-                 * The insights colors
-                 */
-                insightColors: [],
-
-                /**
-                 * The insights labels
-                 */
-                insightLabels: [],
-
-                /**
                  * From date period of the insights.
                  */
                 from: "",
@@ -61,7 +46,7 @@ angular
              * @returns {boolean}
              */
             this.isEmpty = function () {
-                return this.model.insightData.length === 0;
+                return this.model.totalPerCategoryInsightsDTOs.length === 0;
             };
 
             this.isTransactionsEmpty = function () {
