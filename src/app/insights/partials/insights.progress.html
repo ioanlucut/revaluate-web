@@ -32,7 +32,7 @@
             <tr class="insights__table__header">
                 <th></th>
                 <td class="insights__table__header__month" ng-repeat="availableYearMonthsEntry in vm.availableYearMonths">
-                    <span ng-bind-html="availableYearMonthsEntry | friendlyMonthDate"></span>
+                    <span ng-bind-html="availableYearMonthsEntry | friendlyMonthShortDateNoYear"></span>
                 </td>
             </tr>
             <tr class="insights__table__total">
