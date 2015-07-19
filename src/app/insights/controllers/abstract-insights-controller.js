@@ -55,6 +55,17 @@ angular
         // ---
         vm.barOptions = angular.extend({}, defaultChartOptions);
 
+        /**
+         * Updates bar value spacing options (we do not want to have too fat bars - if there is only one column)
+         */
+        vm.updateBarWidthWith = function (numberOfColumns) {
+            var computed = 100 / numberOfColumns;
+            if ( numberOfColumns === 1 ) {
+                computed = 200;
+            }
+            vm.barOptions = angular.extend(vm.barOptions, { barValueSpacing: computed });
+        };
+
         // ---
         // Specific donut chart options.
         // ---
