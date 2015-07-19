@@ -35,7 +35,7 @@
             </tr>
             <tr class="insights__table__entry" ng-repeat="insightsOverviewEntry in vm.insightsOverview.model.insightsOverview | orderBy : 'yearMonth' : reverse">
                 <th class="insights__table__entry__month">
-                    {{insightsOverviewEntry.yearMonth | friendlyMonthDate}}
+                    {{insightsOverviewEntry.yearMonth | friendlyMonthDateNoYear}}
                 </th>
                 <td class="insights__table__entry__amount">
                     <span ng-bind-html="insightsOverviewEntry.totalAmount | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
