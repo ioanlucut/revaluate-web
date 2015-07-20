@@ -47,7 +47,7 @@
                     {{category.model.name}}
                 </th>
                 <td class="insights__table__entry__amount" ng-repeat="availableYearMonthsEntry in vm.availableYearMonths">
-                    <span ng-bind-html="category.model.yearMonth[availableYearMonthsEntry] | currencysNoSymbol:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
+                    <span ng-bind-html="category.model.yearMonth[availableYearMonthsEntry] | currencysNoSymbol:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize" ng-class="{ insights__table__zero : category.model.yearMonth[availableYearMonthsEntry] === 0}"></span>
                 </td>
             </tr>
         </table>
