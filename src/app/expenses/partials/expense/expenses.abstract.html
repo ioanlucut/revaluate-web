@@ -19,9 +19,7 @@
     <div flash-messages flash="flash" identifier-id="{{alertId}}"></div>
 
     <!--Small hook-->
-    <div>
-        <div ng-include src="'/app/expenses/partials/expense/expenses.greeting.html'"></div>
-    </div>
+    <greeter greet="greet"></greeter>
 
     <div ui-view="expenses"></div>
 
