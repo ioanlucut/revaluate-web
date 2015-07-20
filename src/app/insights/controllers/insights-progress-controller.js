@@ -5,7 +5,6 @@ angular
     .controller("InsightsProgressController", function (DatesUtils, $controller, $templateCache, $scope, $rootScope, $filter, $timeout, InsightsGenerator, ALERTS_EVENTS, INSIGHTS_INTERVAL, insightsProgress, monthsPerYearsStatistics, categories, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
 
         var TIMEOUT_DURATION = 150;
-        var MONTHS = "Months";
 
         /* jshint validthis: true */
         var vm = this;
@@ -115,6 +114,6 @@ angular
                         alertId: vm.alertId
                     });
                 });
-        }
+        };
 
     });

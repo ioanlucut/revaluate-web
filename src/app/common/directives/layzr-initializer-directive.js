@@ -5,7 +5,7 @@ angular
     .directive("layzrInitializer", function () {
         return {
             restrict: "A",
-            link: function (scope, el, attrs) {
+            link: function () {
 
                 new Layzr();
             }

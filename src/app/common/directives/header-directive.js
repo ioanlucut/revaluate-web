@@ -9,7 +9,7 @@ angular
         return {
             restrict: "A",
             templateUrl: "/app/common/partials/header.html",
-            link: function (scope, el) {
+            link: function (scope) {
                 scope.$state = $state;
             }
         };

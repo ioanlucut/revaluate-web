@@ -5,7 +5,7 @@ angular
     .directive("postAddExpenseFocus", function ($timeout, EXPENSE_EVENTS) {
         return {
             restrict: "A",
-            link: function (scope, el, attrs) {
+            link: function (scope, el) {
 
                 function focus() {
                     $timeout(function () {

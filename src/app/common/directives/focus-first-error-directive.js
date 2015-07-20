@@ -4,7 +4,7 @@
 
 angular
     .module("revaluate.common")
-    .directive("focusFirstError", [function () {
+    .directive("focusFirstError", function () {
         return {
             restrict: "A",
             link: function (scope, el, attrs) {
@@ -15,5 +15,5 @@ angular
                     el.find(errorSelector).first().focus();
                 });
             }
-        }
-    }]);
+        };
+    });

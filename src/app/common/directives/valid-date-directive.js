@@ -12,7 +12,6 @@ angular
 
                 function isValidDate(date) {
                     return !(date === "" || _.isUndefined(date));
-
                 }
 
                 ngModel.$validators.validDate = function (date) {
