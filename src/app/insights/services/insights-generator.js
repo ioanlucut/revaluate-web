@@ -61,7 +61,7 @@ angular
             var insightLineData = angular.copy(_.map(progressLineData, 'totalCategoryExpensesPerYearMonth'));
             var insightLabels = angular.copy(_.map(availableYearMonths, function (availableYearMonthsEntry) {
 
-                return $filter('friendlyMonthDateNoYear')(availableYearMonthsEntry);
+                return $filter('friendlyMonthShortDateNoYear')(availableYearMonthsEntry);
             }));
             var insightLineSeries = angular.copy(_.map(progressLineData, function (progressLineDataEntry) {
                 return progressLineDataEntry.categoryEntry.model.name;
