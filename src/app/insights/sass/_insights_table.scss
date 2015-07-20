@@ -6,9 +6,15 @@
     table {
         width: 100%;
         max-width: 100%;
+        table-layout: auto;
 
         th {
             padding-left: 5px;
+        }
+
+        tr td {
+            max-width: 70px;
+            min-width: 60px;
         }
 
         tr td:last-of-type {
@@ -51,6 +57,7 @@
     .insights__table__total__amount,
     .insights__table__entry__amount {
         text-align: right;
+        font-size: $font-size-small;
 
         .currency__symbol {
             padding-left: 5px;
@@ -68,6 +75,10 @@
             font-weight: $font-weight-bold;
         }
     }
+}
+
+.insights__table__zero {
+    color: $gray-light-1;
 }
 
 .insights__table--monthly {
