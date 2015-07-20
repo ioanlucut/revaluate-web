@@ -2,13 +2,13 @@
 
 angular
     .module("revaluate.insights")
-    .factory("Insights", function ($q, $http, InsightsService, InsightTransformerService) {
+    .factory("InsightsMonthly", function ($q, $http, InsightsService, InsightsTransformerService) {
 
         /**
-         * Insights class.
+         * InsightsMonthly class.
          * @constructor
          */
-        function Insights() {
+        function InsightsMonthly() {
 
             /**
              * Represents the DTO model of the insights.
@@ -62,13 +62,13 @@ angular
         /**
          * Builds a insights with given data.
          */
-        Insights.build = function (data) {
+        InsightsMonthly.build = function (data) {
             if ( _.isEmpty(data) ) {
-                return new Insights();
+                return new InsightsMonthly();
             }
 
-            return InsightTransformerService.toInsight(data, new Insights());
+            return InsightsTransformerService.toInsight(data, new InsightsMonthly());
         };
 
-        return Insights;
+        return InsightsMonthly;
     });
