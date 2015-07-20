@@ -119,4 +119,24 @@ angular
                 insightsDonutLabels: insightsDonutLabels
             }
         };
+
+        this.generateOverviewBar = function (insightsOverview) {
+
+            var insightsBarData = _.map(insightsOverview.model.insightsOverview, function (insightOverviewEntry) {
+                return insightOverviewEntry.totalAmount;
+            });
+            var insightsBarLabels = _.map(insightsOverview.model.insightsOverview, function (insightOverviewEntry) {
+                return $filter('friendlyMonthDate')(insightOverviewEntry.yearMonth);
+            });
+            var insightLineSeries = _.map(insightsOverview.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
+                return totalPerCategoryInsightDTO.categoryDTO.name;
+            });
+
+            return {
+                insightsBarData: [insightsBarData],
+                insightsBarSeries: insightLineSeries,
+                insightsBarLabels: insightsBarLabels
+            }
+        };
+
     });

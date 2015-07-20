@@ -1,17 +1,17 @@
 'use strict';
 
 /**
- * Insights transformer service which transforms a insights DTO model object to a insights business object.
+ * InsightsMonthly transformer service which transforms a insights DTO model object to a insights business object.
  */
 angular
     .module("revaluate.insights")
-    .service("InsightTransformerService", function ($filter, $injector, TransformerUtils) {
+    .service("InsightsTransformerService", function ($filter, $injector, TransformerUtils) {
 
         /**
          * Converts a insightDto object to a insights business object model.
          */
         this.toInsight = function (insightDto, insightsMonthly, skipKeys) {
-            insightsMonthly = insightsMonthly || $injector.get('Insights').build();
+            insightsMonthly = insightsMonthly || $injector.get('InsightsMonthly').build();
 
             TransformerUtils.copyKeysFromTo(insightDto, insightsMonthly.model, skipKeys);
 
@@ -27,20 +27,11 @@ angular
             return insightsMonthly;
         };
 
-        this.toInsightOverview = function (insightDto, insightOverview, skipKeys) {
-            insightOverview = insightOverview || $injector.get('InsightOverview').build();
-            TransformerUtils.copyKeysFromTo(insightDto, insightOverview.model, skipKeys);
+        this.toInsightOverview = function (insightDto, insightsOverview, skipKeys) {
+            insightsOverview = insightsOverview || $injector.get('InsightsOverview').build();
+            TransformerUtils.copyKeysFromTo(insightDto, insightsOverview.model, skipKeys);
 
-            insightOverview.model.insightData = _.map(insightOverview.model.insightsOverview, function (insightOverviewEntry) {
-                return insightOverviewEntry.totalAmount;
-            });
-
-            insightOverview.model.insightLabels = _.map(insightOverview.model.insightsOverview, function (insightOverviewEntry) {
-
-                return $filter('friendlyMonthDate')(insightOverviewEntry.yearMonth);
-            });
-
-            return insightOverview;
+            return insightsOverview;
         };
 
         this.toInsightsProgress = function (insightDto, insightsProgress, skipKeys) {

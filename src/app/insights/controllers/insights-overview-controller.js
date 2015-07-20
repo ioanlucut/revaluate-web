@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.insights")
-    .controller("InsightsOverviewController", function ($controller, $templateCache, $scope, $rootScope, $filter, $timeout, DatesUtils, ALERTS_EVENTS, INSIGHTS_INTERVAL, insightsOverview, monthsPerYearsStatistics, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
+    .controller("InsightsOverviewController", function ($controller, $templateCache, $scope, $rootScope, $filter, $timeout, InsightsGenerator, DatesUtils, ALERTS_EVENTS, INSIGHTS_INTERVAL, insightsOverview, monthsPerYearsStatistics, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
 
         var TIMEOUT_DURATION = 150;
         var MONTHS = "Months";
@@ -39,12 +39,16 @@ angular
          * Prepares data for chart
          */
         function prepareDataForChart() {
-            vm.insightLineData = [vm.insightsOverview.model.insightData];
+            // ---
+            // Computed information and methods.
+            // ---
+            vm.barInsightsPrepared = InsightsGenerator
+                .generateOverviewBar(vm.insightsOverview);
 
             // ---
-            // Updates the bar width.
+            // Updates the bar options.
             // ---
-            vm.updateBarWidthWith(vm.insightsOverview.model.insightData.length);
+            vm.updateBarWidthWith(vm.barInsightsPrepared.insightsBarData[0].length);
         }
 
         /**
