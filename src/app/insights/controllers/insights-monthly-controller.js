@@ -95,7 +95,7 @@ angular
         /**
          * Checks if the date should be disabled.
          */
-        vm.shouldDateBeDisabled = function (date, mode) {
+        vm.shouldDateBeDisabled = function (date) {
             var givenDate = moment(date);
             var givenDateYear = givenDate.year();
             var givenDateMonth = givenDate.month() + 1;

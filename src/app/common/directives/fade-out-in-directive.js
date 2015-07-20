@@ -8,7 +8,7 @@ angular
             scope: {
                 fadeWhen: "="
             },
-            link: function (scope, el, attrs) {
+            link: function (scope, el) {
                 var FADE_DURATION = 500;
                 var FADE_IN_OPACITY_VALUE = 1;
                 var FADE_OUT_OPACITY_VALUE = 0.5;
@@ -25,5 +25,5 @@ angular
                     }
                 });
             }
-        }
+        };
     });

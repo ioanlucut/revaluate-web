@@ -9,7 +9,7 @@ angular
                 greet: "="
             },
             templateUrl: "/app/common/partials/greeter.html",
-            link: function (scope, el, attrs) {
+            link: function (scope, el) {
                 var TIMEOUT = 1000;
 
                 scope.user = $rootScope.currentUser;

@@ -35,7 +35,7 @@ angular
             // ---
             // Total amount of categories per month.
             // ---
-            var totalAmountPerMonths = _.reduce(insightsProgress.model.insightsMonthlyDTO, function (result, insightsMonthlyDTOEntry, key) {
+            var totalAmountPerMonths = _.reduce(insightsProgress.model.insightsMonthlyDTO, function (result, insightsMonthlyDTOEntry) {
                 result[insightsMonthlyDTOEntry.yearMonth] = insightsMonthlyDTOEntry.totalAmountSpent;
                 return result;
             }, {});

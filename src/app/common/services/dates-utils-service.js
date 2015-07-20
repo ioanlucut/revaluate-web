@@ -14,7 +14,7 @@ angular
             return {
                 from: from,
                 to: to
-            }
+            };
         };
 
         this.getFromToOfMonthYear = function (monthDate) {
@@ -24,7 +24,7 @@ angular
             return {
                 from: from,
                 to: to
-            }
+            };
         };
 
     });
