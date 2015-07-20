@@ -90,32 +90,51 @@
         background-color: transparent;
         border-width: 0;
         height: 100%;
-        color: $gray-light-1;
+        min-width: 120px;
+        color: lighten($header-background-color, 20%);
         position: relative;
-        padding-left: 50px;
+        padding: 10px;
+        text-align: center;
 
         &:hover,
         &:focus {
-            color: $gray-light-3;
+            color: lighten($header-background-color, 40%);
             background-color: transparent;
         }
     }
 
+    .header__dropdown__avatar,
+    .header__dropdown__username {
+        display: block;
+    }
+
     .header__dropdown__avatar {
-        position: absolute;
-        left: 0;
-        top: 10px;
-        width: 40px;
-        height: 40px;
+        height: 50px;
+        margin: 0 auto;
         @include border-radius(50%);
     }
 
+    .header__dropdown__username {
+        padding: 0 15px;
+        text-align: center;
+    }
+
+    .caret {
+        position: absolute;
+        right: 5px;
+        top: ($header-height/2);
+        border-width: 5px 6px 0 6px;
+    }
+
     .header__dropdown__menu {
-        right: 10px;
-        top: 50px;
+        padding: 0;
+        left: auto;
+        right: 1px;
+        top: 90px;
         @include box-shadow(none);
         @include border-radius($border-radius-base);
-        padding: 0;
+        box-shadow: 0 0 15px rgba(150, 150, 150, 0.5);
+        @include fadeInDown(0.2s);
 
         li {
             padding: 0;
