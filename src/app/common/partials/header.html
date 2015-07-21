@@ -21,6 +21,8 @@
             </li>
         </ul>
 
+        <button snap-toggle="" class="header__navigation__toggle">Menu</button>
+
         <div class="dropdown header__dropdown" dropdown is-open="status.isopen">
             <button class="dropdown-toggle header__dropdown__toggle" ng-show="currentUser.model.firstName + currentUser.model.lastName" dropdown-toggle data-toggle="dropdown" role="button" aria-expanded="false">
                 <img class="header__dropdown__avatar" gravatar-src="'{{currentUser.model.email}}'"/>

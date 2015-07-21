@@ -48,8 +48,14 @@
         <script async src="//use.typekit.net/tnp6cqt.js"></script>
         <script async>try {Typekit.load();} catch (e) {}</script>
 
+        <snap-drawer>
+            <div ng-include src="'/app/common/partials/navigation-side.html'"></div>
+        </snap-drawer>
+
         <!-- View container -->
-        <div class="view-container" ui-view autoscroll="true"></div>
+        <snap-content>
+            <div class="view-container" ui-view autoscroll="true"></div>
+        </snap-content>
 
         <!-- Account modal -->
         <div class="account-modal" account-modal></div>

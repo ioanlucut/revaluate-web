@@ -78,6 +78,15 @@
     }
 }
 
+.header__navigation__toggle {
+    @include btn-big($brand-primary);
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    text-transform: uppercase;
+    display: none;
+}
+
 .header__dropdown {
     @include calc(height, "#{$header-height} - 2px");
     float: right;
