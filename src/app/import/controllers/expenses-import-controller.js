@@ -36,6 +36,10 @@ angular
         // ---
         $scope.importType = importType;
 
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
         // ---
         // The import description.
         // ---
@@ -160,10 +164,6 @@ angular
 
             $scope.isUploadFinished = true;
         };
-
-        function capitalizeFirstLetter(string) {
-            return string.charAt(0).toUpperCase() + string.slice(1);
-        }
 
         function getSelectedMatchingCategories() {
             return _.filter($scope.expensesImportAnswer.model.expenseCategoryMatchingProfileDTOs, 'selected', true);

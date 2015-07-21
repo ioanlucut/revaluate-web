@@ -16,6 +16,7 @@ angular
         sendConfirmationEmail: "sendConfirmationEmail",
         createUpdateExpense: "createUpdateExpense",
         expenseList: "expenseList",
+        insightsMonthly: "insights",
         insights: "insights",
         categoryList: "categoryList",
         createUpdateCategory: "createUpdateCategory",

@@ -1,11 +1,8 @@
 'use strict';
 
-/**
- * expenses controller.
- */
 angular
     .module("revaluate.insights")
-    .controller("InsightController", function ($templateCache, $scope, $rootScope, $filter, $timeout, ALERTS_EVENTS, insight, insightsMonthsPerYearsStatistics, InsightService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
+    .controller("InsightsMonthlyController", function ($controller, $scope, DatesUtils, $rootScope, $filter, $timeout, InsightsGenerator, ALERTS_EVENTS, insightsMonthly, monthsPerYearsStatistics, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -24,7 +21,7 @@ angular
         /**
          * Alert identifier
          */
-        vm.alertId = ALERTS_CONSTANTS.insights;
+        vm.alertId = ALERTS_CONSTANTS.insightsMonthly;
 
         /**
          * Current user.
@@ -33,27 +30,54 @@ angular
         vm.user = $rootScope.currentUser;
 
         /**
+         * Fetch all types of insights charts
+         */
+        vm.INSIGHTS_CHARTS = INSIGHTS_CHARTS;
+
+        /**
          * Default insights loaded.
          */
-        vm.insight = insight;
+        vm.insightsMonthly = insightsMonthly;
 
         /**
          * Insights months per years.
          */
-        vm.insightsMonthsPerYearsStatistics = insightsMonthsPerYearsStatistics;
+        vm.monthsPerYearsStatistics = monthsPerYearsStatistics;
+
+        // ---
+        // Inherit from parent controller.
+        // ---
+        angular.extend(this, $controller('AbstractInsightsController', {
+            $scope: $scope,
+            $rootScope: $rootScope,
+            $filter: $filter,
+            monthsPerYearsStatistics: monthsPerYearsStatistics
+        }));
 
         /**
-         * Fetch all types of insight charts
+         * Default active chart
          */
-        vm.INSIGHTS_CHARTS = INSIGHTS_CHARTS;
+        vm.activeChart = vm.INSIGHTS_CHARTS.BAR;
 
-        // ---
-        // Computed information and methods.
-        // ---
-        vm.insightLineData = [insight.model.insightData];
-        vm.insightLineColors = [insight.model.insightColors];
-        vm.insightLineSeries = ["Categories"];
-        vm.activeChart = vm.INSIGHTS_CHARTS.DOUGHNUT;
+        /**
+         * Prepares data for chart
+         */
+        function prepareDataForChart() {
+            // ---
+            // Computed information and methods.
+            // ---
+            vm.barInsightsPrepared = InsightsGenerator
+                .generateMonthlyBar(vm.insightsMonthly);
+
+            vm.donutInsightsPrepared = InsightsGenerator
+                .generateMonthlyDonut(vm.insightsMonthly);
+
+            // ---
+            // Updates the bar options.
+            // ---
+            vm.updateBarWidthWith(vm.barInsightsPrepared.insightsBarData.length);
+            vm.updateBarDataSetSpacingWidthWith(vm.barInsightsPrepared.insightsBarData.length);
+        }
 
         /**
          * Sets te active chart displayed with the given chart type.
@@ -63,63 +87,28 @@ angular
             vm.activeChart = chartType;
         };
 
+        // ---
+        // Computed information and methods.
+        // ---
+        prepareDataForChart();
+
         /**
          * Checks if the date should be disabled.
          */
-        vm.shouldDateBeDisabled = function (date, mode) {
+        vm.shouldDateBeDisabled = function (date) {
             var givenDate = moment(date);
             var givenDateYear = givenDate.year();
             var givenDateMonth = givenDate.month() + 1;
 
-            if ( !_.has(vm.insightsMonthsPerYearsStatistics.insightsMonthsPerYears, givenDateYear) ) {
+            if ( !_.has(vm.monthsPerYearsStatistics.model.insightsMonthsPerYears, givenDateYear) ) {
 
                 return true;
             }
 
-            return !_.some(_.result(vm.insightsMonthsPerYearsStatistics.insightsMonthsPerYears, givenDateYear), function (entry) {
+            return !_.some(_.result(vm.monthsPerYearsStatistics.model.insightsMonthsPerYears, givenDateYear), function (entry) {
                 return entry === givenDateMonth;
             });
         };
-
-        // ---
-        // Chart config options.
-        // ---
-        var defaultChartOptions = {
-            scaleLabel: function (label) {
-
-                return formatChartValue(label);
-            },
-            multiTooltipTemplate: function (label) {
-
-                return label.datasetLabel + ' ' + formatChartValue(label);
-            },
-            tooltipTemplate: function (label) {
-
-                return label.label + ' ' + formatChartValue(label);
-            }
-        };
-
-        /**
-         * Formats chart value
-         */
-        function formatChartValue(price) {
-
-            return $filter('currency')(price.value.toString(), '', vm.user.model.currency.fractionSize) + ' ' + vm.user.model.currency.symbol
-        }
-
-        // ---
-        // Specific bar chart options.
-        // ---
-        vm.barOptions = angular.extend({}, defaultChartOptions);
-
-        // ---
-        // Specific donut chart options.
-        // ---
-        vm
-            .donutChartOptions = angular.extend({}, defaultChartOptions);
-        vm
-            .donutChartOptions
-            .legendTemplate = "<ul class=\"doughnut__chart__legend\"><% for (var i=0; i<segments.length; i++){%><li class=\"doughnut__chart__legend__box\"><span class=\"doughnut__chart__legend__box__color\" style=\"background-color:<%=segments[i].fillColor%>\"></span><span class=\"doughnut__chart__legend__box__label\"><%if(segments[i].label){%><%=segments[i].label%><%}%></span></li><%}%></ul>";
 
         /**
          * Open date picker
@@ -132,14 +121,14 @@ angular
         };
 
         /**
-         * Exposed insight data (first define master copy).
+         * Exposed insights data (first define master copy).
          */
         vm.masterInsightData = {
             spentDate: moment().toDate()
         };
 
         /**
-         * Exposed insight data.
+         * Exposed insights data.
          */
         vm.insightData = angular.copy(vm.masterInsightData);
 
@@ -155,10 +144,11 @@ angular
 
             vm.isLoading = true;
             var computedInsightsData = angular.copy(vm.insightData);
-            var from = moment(computedInsightsData.spentDate).startOf(MONTH);
-            var to = moment(computedInsightsData.spentDate).endOf(MONTH);
-            InsightService
-                .fetchInsightsFromTo(from, to)
+            var period = DatesUtils
+                .getFromToOfMonthYear(computedInsightsData.spentDate);
+
+            InsightsService
+                .fetchMonthlyInsightsFromTo(period.from, period.to)
                 .then(function (receivedInsight) {
 
                     /**
@@ -169,7 +159,7 @@ angular
                     $timeout(function () {
                         if ( receivedInsight.isEmpty() ) {
                             // ---
-                            // Reset the insight data.
+                            // Reset the insights data.
                             // ---
                             vm.insightData = angular.copy(vm.masterInsightData);
                             $scope.$emit(ALERTS_EVENTS.INFO, "There are no expenses defined for selected period.");
@@ -186,9 +176,9 @@ angular
                             // Update everything.
                             // ---
                             vm.masterInsightData = angular.copy(vm.insightData);
-                            vm.insight = receivedInsight;
-                            vm.insightLineData = [vm.insight.model.insightData];
-                            vm.insightLineSeries = ["Categories"];
+                            vm.insightsMonthly = receivedInsight;
+
+                            prepareDataForChart();
                         }
 
                         vm.isLoading = false;
@@ -200,7 +190,7 @@ angular
                     vm.isLoading = false;
 
                     // ---
-                    // Reset the insight data.
+                    // Reset the insights data.
                     // ---
                     vm.insightData = angular.copy(vm.masterInsightData);
                     $scope.$emit(ALERTS_EVENTS.DANGER, {
@@ -211,7 +201,7 @@ angular
         }
 
         /**
-         * On date change do load insight
+         * On date change do load insights
          */
         vm.onChange = function () {
             loadInsight();
@@ -278,14 +268,14 @@ angular
          * Checks if in the given year are expenses defined.
          */
         function expensesExistsInYear(dateYear) {
-            return _.has(vm.insightsMonthsPerYearsStatistics.insightsMonthsPerYears, dateYear);
+            return _.has(vm.monthsPerYearsStatistics.model.insightsMonthsPerYears, dateYear);
         }
 
         /**
          * Checks if in the given year and month are expenses defined.
          */
         function expensesExistsInMonthWithYear(givenDateYear, givenDateMonth) {
-            return _.some(_.result(vm.insightsMonthsPerYearsStatistics.insightsMonthsPerYears, givenDateYear), function (entry) {
+            return _.some(_.result(vm.monthsPerYearsStatistics.model.insightsMonthsPerYears, givenDateYear), function (entry) {
                 return entry === givenDateMonth;
             });
         }

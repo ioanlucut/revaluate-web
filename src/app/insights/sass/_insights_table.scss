@@ -1,0 +1,130 @@
+.insights__table {
+    display: block;
+    margin: 0 auto;
+    padding: 5px 0;
+    @include fadeInUp(1s);
+
+    table {
+        width: 100%;
+        max-width: 100%;
+        table-layout: auto;
+
+        th {
+            padding-left: 5px;
+        }
+
+        tr td {
+            max-width: 70px;
+            min-width: 60px;
+        }
+
+        tr td:last-of-type {
+            padding-right: 5px;
+        }
+    }
+
+    .insights__table__header {
+        font-weight: $font-weight-bold;
+    }
+
+    .insights__table__header__month {
+        font-weight: $font-weight-bold;
+        font-size: $font-size-small;
+        text-transform: uppercase;
+        text-align: right;
+        color: $gray-medium;
+    }
+
+    .insights__table__category {
+        position: relative;
+        padding-left: 35px;
+
+        .insights__table__category__color {
+            @include border-radius(50%);
+            @include size(22px 22px);
+            display: inline-block;
+            background-color: $brand-primary;
+            margin-right: 5px;
+            text-indent: -9999px;
+            left: 5px;
+            position: absolute;
+        }
+    }
+
+    .insights__table__entry__month {
+        padding-left: 10px;
+    }
+
+    .insights__table__total__amount,
+    .insights__table__entry__amount {
+        text-align: right;
+        font-size: $font-size-small;
+
+        .currency__symbol {
+            padding-left: 5px;
+            font-weight: $font-weight-light;
+            color: $gray-medium;
+        }
+
+        .insights__table__entry__amount__th {
+            display: none;
+        }
+
+        .insights__table__entry__amount__value {
+        }
+
+    }
+
+    .insights__table__total {
+        background-color: $gray-light-3;
+        border-top: solid 1px $gray-light-1;
+        border-bottom: solid 1px $gray-light-1;
+
+        th, td {
+            font-weight: $font-weight-bold;
+        }
+    }
+}
+
+.insights__table__zero {
+    color: $gray-light-1;
+}
+
+.insights__table--monthly {
+    width: 65%;
+
+    .insights__table__category {
+        width: 70%;
+    }
+
+    .insights__table__amount {
+        width: 30%;
+    }
+}
+
+.insights__table--overview {
+    width: 65%;
+}
+
+.insights__table--progress {
+    width: 100%;
+
+    .insights__table__amount {
+        font-size: $font-size-small;
+    }
+}
+
+.insights__table--3m,
+.insights__table--6m {
+    margin: 0 auto;
+    max-width: 100%;
+    @include transition(all .1s ease-in-out)
+}
+
+.insights__table--3m {
+    width: 80%;
+}
+
+.insights__table--6m {
+    width: 90%;
+}
