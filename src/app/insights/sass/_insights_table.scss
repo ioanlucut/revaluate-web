@@ -2,6 +2,7 @@
     display: block;
     margin: 0 auto;
     padding: 5px 0;
+    @include fadeInUp(1s);
 
     table {
         width: 100%;
@@ -64,6 +65,14 @@
             font-weight: $font-weight-light;
             color: $gray-medium;
         }
+
+        .insights__table__entry__amount__th {
+            display: none;
+        }
+
+        .insights__table__entry__amount__value {
+        }
+
     }
 
     .insights__table__total {
@@ -105,5 +114,17 @@
     }
 }
 
+.insights__table--3m,
+.insights__table--6m {
+    margin: 0 auto;
+    max-width: 100%;
+    @include transition(all .1s ease-in-out)
+}
 
+.insights__table--3m {
+    width: 80%;
+}
 
+.insights__table--6m {
+    width: 90%;
+}

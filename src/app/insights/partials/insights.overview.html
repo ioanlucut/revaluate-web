@@ -26,7 +26,7 @@
     </div>
 
     <div class="insights__table insights__table--overview">
-        <table>
+        <table fade-out-in fade-when="vm.isLoading">
             <tr class="insights__table__total">
                 <th>TOTAL</th>
                 <td class="insights__table__total__amount">
@@ -38,7 +38,9 @@
                     {{insightsOverviewEntry.yearMonth | friendlyMonthDateNoYear}}
                 </th>
                 <td class="insights__table__entry__amount">
-                    <span ng-bind-html="insightsOverviewEntry.totalAmount | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
+                    <span class="insights__table__entry__amount__th" ng-bind-html="insightsOverviewEntry.yearMonth | friendlyMonthDateNoYear"></span>
+
+                    <span class="insights__table__entry__amount__value" ng-bind-html="insightsOverviewEntry.totalAmount | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
                 </td>
             </tr>
         </table>
