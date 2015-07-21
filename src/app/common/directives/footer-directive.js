@@ -9,8 +9,7 @@ angular
         return {
             restrict: "A",
             templateUrl: "/app/common/partials/footer.html",
-            link: function (scope, el) {
-
+            link: function () {
             }
         };
     });

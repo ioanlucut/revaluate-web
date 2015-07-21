@@ -6,7 +6,7 @@ angular
         return {
             restrict: "A",
             templateUrl: "/app/common/partials/feedback.html",
-            link: function (scope, el, attrs) {
+            link: function (scope, el) {
                 var TIMEOUT = 2000;
 
                 scope.isUserAuthenticated = AuthService.isAuthenticated();
@@ -27,7 +27,7 @@ angular
                     if ( !el.is(':visible') ) {
                         $timeout(function () {
                             el.show();
-                        }, TIMEOUT)
+                        }, TIMEOUT);
                     }
                 });
             }

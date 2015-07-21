@@ -8,12 +8,12 @@ angular
         return function (date) {
 
             if ( !_.isDate(date) ) {
-                date = moment(date);
+                date = moment(new Date(date));
             }
 
             var dateToFormat = moment(date);
             var isSameYear = moment(moment().year()).isSame(dateToFormat.year());
 
-            return dateToFormat.format(isSameYear ? 'MMMM' : 'MMMM YYYY');
+            return dateToFormat.format(isSameYear ? 'MMMM' : 'MMM YYYY');
         };
     });

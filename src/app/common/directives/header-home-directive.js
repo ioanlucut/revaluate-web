@@ -9,7 +9,7 @@ angular
         return {
             restrict: "A",
             templateUrl: "/app/common/partials/header-home.html",
-            link: function (scope, el) {
+            link: function (scope) {
 
                 /**
                  * Reference to the current user.

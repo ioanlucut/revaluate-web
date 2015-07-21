@@ -9,9 +9,7 @@ angular
 
         return function (event, toState) {
             if (
-                (toState.url === '/account'
-                || toState.name === "home")
-                && AuthService.isAuthenticated() ) {
+                (toState.url === "/account" || toState.name === "home") && AuthService.isAuthenticated() ) {
 
                 /*If user is authenticated, and tries to go to /account or home, just to expenses*/
                 event.preventDefault();
@@ -23,27 +21,19 @@ angular
                 AuthService.saveAttemptUrl();
                 StatesHandler.goToLogin();
             } else if (
-                toState.url.indexOf("/setup") > -1
-                && AuthService.isAuthenticated()
-                && User.$new().loadFromSession().isInitiated() ) {
+                toState.url.indexOf("/setup") > -1 && AuthService.isAuthenticated() && User.$new().loadFromSession().isInitiated() ) {
 
                 /*Once user is initiated, do not let user to setup page*/
                 event.preventDefault();
                 StatesHandler.goToExpenses();
             } else if (
-                !toState.isPublicPage
-                && toState.url.indexOf("/setup") === -1
-                && AuthService.isAuthenticated()
-                && !User.$new().loadFromSession().isInitiated() ) {
+                !toState.isPublicPage && toState.url.indexOf("/setup") === -1 && AuthService.isAuthenticated() && !User.$new().loadFromSession().isInitiated() ) {
 
                 /*If user is not initiated but authenticated, and tries to go to a non public page, go to setup page*/
                 event.preventDefault();
                 StatesHandler.goToSetUp();
             } else if (
-                !toState.isPublicPage
-                && !toState.isPaymentMissingUnrestrictedPage
-                && AuthService.isAuthenticated()
-                && User.$new().loadFromSession().isTrialPeriodExpired() ) {
+                !toState.isPublicPage && !toState.isPaymentMissingUnrestrictedPage && AuthService.isAuthenticated() && User.$new().loadFromSession().isTrialPeriodExpired() ) {
 
                 /*If user is with trial expired, authenticated and tries to go to a non public page, go to payment*/
                 event.preventDefault();

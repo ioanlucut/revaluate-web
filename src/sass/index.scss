@@ -64,6 +64,10 @@
 // ---
 @import "vendor-modified/selectize.default";
 // ---
+// Spinner
+// ---
+@import "vendor-modified/spinner";
+// ---
 // Fonts.
 // ---
 @import "fonts/app-icons";
@@ -88,7 +92,7 @@
 @import "../app/account/sass/account";
 @import "../app/expenses/sass/expenses";
 @import "../app/categories/sass/categories";
-@import "../app/insight/sass/insights";
+@import "../app/insights/sass/insights";
 @import "../app/settings/sass/settings";
 @import "../app/import/sass/import";
 @import "../app/feedback/sass/feedback";
