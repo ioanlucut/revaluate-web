@@ -1,0 +1,95 @@
+.side__menu {
+    display: none;
+}
+
+.side__menu__brand {
+    position: relative;
+    height: $header-height-responsive;
+    background-color: $white;
+    padding-left: 70px;
+    padding-top: 20px;
+
+    &:hover {
+        cursor: pointer;
+
+        .side__menu__brand--name {
+            color: $gray-dark-3;
+        }
+    }
+}
+
+.side__menu__brand--logo,
+.side__menu__brand--name {
+    display: inline-block;
+}
+
+.side__menu__brand--logo {
+    @include size(40px 40px);
+    background: url("../assets/img/logo.svg") no-repeat top left;
+    background-size: contain;
+    position: absolute;
+    left: 15px;
+    top: 15px;
+}
+
+.side__menu__brand--name {
+    @include brand-inline();
+    color: $gray-dark-3;
+    font-size: $font-size-larger;
+
+    &:hover {
+        color: $gray-dark-2;
+    }
+}
+
+.side__menu__list {
+    padding: 0;
+    margin-top: 25px;
+
+    li {
+        background-color: $white;
+        height: 50px;
+        line-height: 47px;
+        font-size: $font-size-larger;
+        cursor: pointer;
+        margin: 1px 0;
+        color: $gray-medium;
+        position: relative;
+        padding-left: 40px;
+
+        &:hover {
+            color: $gray-dark-1;
+        }
+    }
+
+    .side__menu--disabled,
+    .side__menu--disabled:hover {
+        color: $gray-light-2;
+        cursor: default;
+
+        .side__menu__icon {
+            color: $gray-light-2;
+        }
+    }
+
+    span.label-coming-soon {
+        display: inline;
+    }
+
+    .side__menu--active {
+        border-left: solid 10px $brand-secondary;
+        color: $black;
+
+        .side__menu__icon {
+            color: $gray-dark-2;
+        }
+    }
+
+    .side__menu__icon {
+        font-size: $font-size-larger;
+        color: $gray-light-1;
+        position: absolute;
+        top: 3px;
+        left: 12px;
+    }
+}
