@@ -11,11 +11,25 @@
         .insights__controls__chart-toggle {
             clear: both;
             width: 100%;
-            margin-top: 20px;
+            margin-top: 10px;
 
             .insights__controls__chart-toggle__entry {
-                width: 50%;
                 margin-right: 0 !important;
+            }
+        }
+
+        .insights__controls__chart-toggle {
+
+            &.insights__controls__chart-toggle--three {
+                .insights__controls__chart-toggle__entry {
+                    width: 33.3333%;
+                }
+            }
+
+            &.insights__controls__chart-toggle--two {
+                .insights__controls__chart-toggle__entry {
+                    width: 50%;
+                }
             }
         }
     }
@@ -36,7 +50,7 @@
         .insights__controls__chart-toggle {
             clear: both;
             width: 100%;
-            margin-top: 20px;
+            margin-top: 10px;
 
             .insights__controls__chart-toggle__entry {
                 width: 100%;
