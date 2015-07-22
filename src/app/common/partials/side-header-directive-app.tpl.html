@@ -1,0 +1,25 @@
+<div class="side__menu__brand">
+    <div class="side__menu__brand--logo"></div>
+    <a href="javascript:void(0)" ui-sref="expenses.regular" class="side__menu__brand--name">Revaluate</a>
+</div>
+
+<ul class="side__menu__list">
+    <li snap-close ui-sref-active="side__menu--active" ui-sref="expenses.regular">
+        <span class="icon-nav-expenses side__menu__icon"></span>
+        Expenses
+    </li>
+    <li snap-close ui-sref-active="side__menu--active" ui-sref="insights.monthly">
+        <span class="icon-nav-insights side__menu__icon"></span>
+        Insights
+    </li>
+    <li ui-sref-active="side__menu--active" class="side__menu--disabled">
+        <span class="icon-nav-goals side__menu__icon"></span>
+        Goals <span class="label-coming-soon">Coming soon</span>
+    </li>
+</ul>
+
+<ul class="side__menu__list">
+    <li snap-close>
+        <a href="javascript:void(0)" ng-controller="LogoutController as vm" ng-click="vm.logOut()">Logout</a>
+    </li>
+</ul>
