@@ -51,7 +51,8 @@ angular
             $scope: $scope,
             $rootScope: $rootScope,
             $filter: $filter,
-            monthsPerYearsStatistics: monthsPerYearsStatistics
+            monthsPerYearsStatistics: monthsPerYearsStatistics,
+            resizeCallback: updateSizeOnResize
         }));
 
         /**
@@ -72,11 +73,21 @@ angular
             vm.donutInsightsPrepared = InsightsGenerator
                 .generateMonthlyDonut(vm.insightsMonthly);
 
+            updateSizeOnResize();
+        }
+
+        /**
+         * Prepares data for chart
+         */
+        function updateSizeOnResize() {
+
             // ---
             // Updates the bar options.
             // ---
-            vm.updateBarWidthWith(vm.barInsightsPrepared.insightsBarData.length);
-            vm.updateBarDataSetSpacingWidthWith(vm.barInsightsPrepared.insightsBarData.length);
+            if ( vm.barInsightsPrepared ) {
+                vm.updateBarWidthWith(vm.barInsightsPrepared.insightsBarData.length);
+                vm.updateBarDataSetSpacingWidthWith(vm.barInsightsPrepared.insightsBarData.length);
+            }
         }
 
         /**
