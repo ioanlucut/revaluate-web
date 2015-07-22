@@ -53,6 +53,7 @@
         cursor: pointer;
         @include transition(all 0.3s);
         position: relative;
+        @include user-select(none);
 
         &:hover {
             color: lighten($header-background-color, 40%);
@@ -66,13 +67,18 @@
         }
 
         .nav-coming-soon {
-            color: red;
+            color: lighten($header-background-color, 10%);;
             position: absolute;
             left: 0;
             right: 0;
-            bottom: 0;
+            bottom: 5px;
             font-size: $font-size-small;
         }
+    }
+
+    .header__navigation--comingsoon:hover {
+        color: lighten($header-background-color, 20%);
+        cursor: default;
     }
 
     .header__navigation--active,
