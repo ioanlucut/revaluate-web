@@ -52,6 +52,7 @@
         color: lighten($header-background-color, 20%);
         cursor: pointer;
         @include transition(all 0.3s);
+        position: relative;
 
         &:hover {
             color: lighten($header-background-color, 40%);
@@ -62,6 +63,15 @@
             display: block;
             height: 58px;
             padding-top: 22px;
+        }
+
+        .nav-coming-soon {
+            color: red;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            font-size: $font-size-small;
         }
     }
 
