@@ -1,0 +1,5 @@
+<!--Show side header while user is authenticated-->
+<div ng-if="isUserAuthenticated" ng-include src="'/app/common/partials/side-header-directive-app.tpl.html'"></div>
+
+<!--Show side header while user is not authenticated-->
+<div ng-if="! isUserAuthenticated" ng-include src="'/app/common/partials/side-header-directive-public.tpl.html'"></div>
