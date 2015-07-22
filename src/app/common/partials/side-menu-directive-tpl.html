@@ -1,7 +1,9 @@
-<div>
+<!-- Side menu to be shown if user is authenticated -->
+<div ng-if="isUserAuthenticated">
+
     <div class="side__menu__brand">
-        <div class="side__menu__brand--logo" ui-sref="expenses.regular"></div>
-        <a href="javascript:void(0)" class="side__menu__brand--name">Revaluate</a>
+        <div class="side__menu__brand--logo"></div>
+        <a href="javascript:void(0)" ui-sref="expenses.regular" class="side__menu__brand--name">Revaluate</a>
     </div>
 
     <ul class="side__menu__list">
@@ -24,5 +26,10 @@
             <a href="javascript:void(0)" ng-controller="LogoutController as vm" ng-click="vm.logOut()">Logout</a>
         </li>
     </ul>
-    <!--<button snap-close class="close">X</button>-->
+</div>
+
+<!-- Side menu to be shown if user is not authenticated -->
+<div ng-if="! isUserAuthenticated">
+
+
 </div>
