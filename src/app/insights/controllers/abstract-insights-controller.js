@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.insights")
-    .controller("AbstractInsightsController", function ($scope, $rootScope, $filter, monthsPerYearsStatistics) {
+    .controller("AbstractInsightsController", function ($scope, $rootScope, $filter, monthsPerYearsStatistics, UNISON_BREAKPOINTS, UNISON_EVENTS, resizeCallback) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -12,6 +12,12 @@ angular
          * @type {string}
          */
         vm.MONTH = 'month';
+
+        /**
+         * Bar width
+         */
+        vm.MIN_BAR_WIDTH = 100;
+        vm.MAX_BAR_WIDTH_WHEN_ONLY_ONE = 200;
 
         /**
          * Current user.
@@ -59,23 +65,44 @@ angular
          * Updates bar value spacing options (we do not want to have too fat bars - if there is only one column)
          */
         vm.updateBarWidthWith = function (numberOfColumns) {
-            var computed = 100 / numberOfColumns;
-            if ( numberOfColumns === 1 ) {
-                computed = 200;
-            }
-            vm.barOptions = angular.extend(vm.barOptions, { barValueSpacing: computed });
+            vm.barOptions = angular.extend(vm.barOptions, { barValueSpacing: computeWidthFrom(numberOfColumns) });
         };
+
+        function computeWidthFrom(numberOfDataSets) {
+            var computedWidth = vm.MIN_BAR_WIDTH / numberOfDataSets;
+            if ( numberOfDataSets === 1 ) {
+                computedWidth = vm.MAX_BAR_WIDTH_WHEN_ONLY_ONE;
+            }
+            return computedWidth;
+        }
 
         /**
          * Updates bar value spacing options (we do not want to have too fat bars - if there is only one column)
          */
         vm.updateBarDataSetSpacingWidthWith = function (numberOfDataSets) {
-            var computed = 100 / numberOfDataSets;
-            if ( numberOfDataSets === 1 ) {
-                computed = 200;
-            }
-            vm.barOptions = angular.extend(vm.barOptions, { barDatasetSpacing: computed });
+            vm.barOptions = angular.extend(vm.barOptions, { barDatasetSpacing: computeWidthFrom(numberOfDataSets) });
         };
+
+        // ---
+        // Listen for the resize events.
+        // ---
+        $scope
+            .$on(UNISON_EVENTS.USN_FIRE, function (event, args) {
+                switch ( args ) {
+                    case UNISON_BREAKPOINTS.USN_SMALL:
+                        vm.MIN_BAR_WIDTH = 20;
+                        vm.MAX_BAR_WIDTH_WHEN_ONLY_ONE = 40;
+                        break;
+                    case UNISON_BREAKPOINTS.USN_MEDIUM:
+                        vm.MIN_BAR_WIDTH = 50;
+                        vm.MAX_BAR_WIDTH_WHEN_ONLY_ONE = 100;
+                        break;
+                    case UNISON_BREAKPOINTS.USN_LARGE:
+                        vm.MIN_BAR_WIDTH = 100;
+                        vm.MAX_BAR_WIDTH_WHEN_ONLY_ONE = 200;
+                        break;
+                }
+            });
 
         // ---
         // Specific donut chart options.
@@ -85,4 +112,6 @@ angular
         vm
             .donutChartOptions
             .legendTemplate = "<ul class=\"doughnut__chart__legend\"><% for (var i=0; i<segments.length; i++){%><li class=\"doughnut__chart__legend__box\"><span class=\"doughnut__chart__legend__box__color\" style=\"background-color:<%=segments[i].fillColor%>\"></span><span class=\"doughnut__chart__legend__box__label\"><%if(segments[i].label){%><%=segments[i].label%><%}%></span></li><%}%></ul>";
-    });
+    }
+)
+;
