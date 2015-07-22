@@ -6,6 +6,7 @@
             <a href="javascript:void(0)" class="header__brand--name">Revaluate</a>
         </div>
 
+        <!--Navigation list-->
         <ul class="header__navigation">
             <li ui-sref-active="header__navigation--active" ui-sref="expenses.regular">
                 <span class="icon-nav-expenses header__navigation__icon"></span>
@@ -22,14 +23,17 @@
             </li>
         </ul>
 
+        <!--Snap menu-->
         <button snap-toggle="" class="header__navigation__toggle">Menu</button>
 
+        <!--Dropdown-->
         <div class="dropdown header__dropdown" dropdown is-open="status.isopen">
             <button class="dropdown-toggle header__dropdown__toggle" ng-show="currentUser.model.firstName + currentUser.model.lastName" dropdown-toggle data-toggle="dropdown" role="button" aria-expanded="false">
-                <img class="header__dropdown__avatar" gravatar-src="'{{currentUser.model.email}}'"/>
+                <img class="header__dropdown__avatar" gravatar-src="'{{currentUser.model.email}}'" />
                 <span class="header__dropdown__username">{{currentUser.model.firstName + " " + currentUser.model.lastName}}</span>
                 <span class="caret"></span>
             </button>
+
             <ul class="dropdown-menu header__dropdown__menu" role="menu">
                 <li>
                     <a href="javascript:void(0)" ui-sref="settings.profile">Settings</a>
