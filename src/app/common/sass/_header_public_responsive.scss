@@ -1,0 +1,11 @@
+@media (max-width: 600px) {
+    .header-home__brand {
+        float: none;
+        display: inline-block;
+        margin: 0 auto;
+    }
+
+  .header-home__navigation{
+      display: none;
+  }
+}
