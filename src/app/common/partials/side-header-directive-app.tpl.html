@@ -8,7 +8,7 @@
         <span class="icon-nav-expenses side__menu__icon"></span>
         Expenses
     </li>
-    <li snap-close ui-sref-active="side__menu--active" ui-sref="insights.monthly">
+    <li snap-close ng-class="{'side__menu--active': $state.includes('insights')}">
         <span class="icon-nav-insights side__menu__icon"></span>
         Insights
     </li>
