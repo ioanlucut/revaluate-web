@@ -65,11 +65,11 @@
   }
 }
 
-.header-home__navigation--loginbtn {
+.header-home__navigation__loginbtn {
   @include btn-small(lighten($landing-page, 5%));
   color: $gray-medium;
 }
 
-.header-home__navigation--signupbtn {
+.header-home__navigation__signupbtn {
   @include btn-small($brand-secondary);
 }
