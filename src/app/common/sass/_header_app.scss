@@ -69,6 +69,7 @@
         .header__navigation__link,
         .header__navigation--comingsoon__label {
             display: block;
+            position: relative;
             padding-top: 58px;
             height: 100%;
             color: lighten($header-background-color, 20%);
