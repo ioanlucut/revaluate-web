@@ -50,7 +50,6 @@
         margin: 0;
         text-align: center;
         color: lighten($header-background-color, 20%);
-        cursor: pointer;
         @include transition(all 0.3s);
         position: relative;
         @include user-select(none);
@@ -60,10 +59,25 @@
         }
 
         .header__navigation__icon {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
             font-size: 28px;
+        }
+
+        .header__navigation__link,
+        .header__navigation--comingsoon__label {
             display: block;
-            height: 58px;
-            padding-top: 22px;
+            padding-top: 58px;
+            height: 100%;
+            color: lighten($header-background-color, 20%);
+        }
+
+        .header__navigation__link {
+            &:hover {
+                color: lighten($header-background-color, 40%);
+            }
         }
 
         .nav-coming-soon {

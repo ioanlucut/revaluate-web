@@ -10,15 +10,15 @@
         <ul class="header__navigation">
             <li ui-sref-active="header__navigation--active">
                 <span class="icon-nav-expenses header__navigation__icon"></span>
-                <a href="javascript:void(0)" ui-sref="expenses.regular">Expenses</a>
+                <a class="header__navigation__link" href="javascript:void(0)" ui-sref="expenses.regular">Expenses</a>
             </li>
             <li ng-class="{'header__navigation--active': $state.includes('insights')}">
                 <span class="icon-nav-insights header__navigation__icon"></span>
-                <a href="javascript:void(0)" ui-sref="insights.monthly">Insights</a>
+                <a class="header__navigation__link" href="javascript:void(0)" ui-sref="insights.monthly">Insights</a>
             </li>
-            <li class="header__navigation--comingsoon" ui-sref-active="header__navigation--active">
+            <li class="header__navigation--comingsoon">
                 <span class="icon-nav-goals header__navigation__icon"></span>
-                <span>Goals</span>
+                <span class="header__navigation--comingsoon__label">Goals</span>
                 <span class="nav-coming-soon">Coming soon</span>
             </li>
         </ul>
