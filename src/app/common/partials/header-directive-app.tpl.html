@@ -8,17 +8,17 @@
 
         <!--Navigation list-->
         <ul class="header__navigation">
-            <li ui-sref-active="header__navigation--active" ui-sref="expenses.regular">
+            <li ui-sref-active="header__navigation--active">
                 <span class="icon-nav-expenses header__navigation__icon"></span>
-                Expenses
+                <a href="javascript:void(0)" ui-sref="expenses.regular">Expenses</a>
             </li>
-            <li ui-sref-active="header__navigation--active" ui-sref="insights.monthly">
+            <li ng-class="{'header__navigation--active': $state.includes('insights')}">
                 <span class="icon-nav-insights header__navigation__icon"></span>
-                Insights
+                <a href="javascript:void(0)" ui-sref="insights.monthly">Insights</a>
             </li>
-            <li ui-sref-active="header__navigation--active" class="header__navigation--comingsoon">
+            <li class="header__navigation--comingsoon" ui-sref-active="header__navigation--active">
                 <span class="icon-nav-goals header__navigation__icon"></span>
-                Goals
+                <span>Goals</span>
                 <span class="nav-coming-soon">Coming soon</span>
             </li>
         </ul>
