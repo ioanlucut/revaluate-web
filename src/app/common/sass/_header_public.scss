@@ -1,21 +1,21 @@
-.header-home__wrapper {
+.header-public__wrapper {
     background-color: $landing-page;
 }
 
-.header-home {
+.header-public {
     @include outer-container;
     @include clearfix;
     height: 60px;
     line-height: 55px;
 }
 
-.header-home__brand {
+.header-public__brand {
     float: left;
     height: 60px;
     position: relative;
 }
 
-.header-home__brand__logo {
+.header-public__brand__logo {
     @include size(40px 40px);
     background: url("../assets/img/logo.svg") no-repeat top left;
     background-size: contain;
@@ -25,7 +25,7 @@
     top: 10px;
 }
 
-.header-home__brand__name {
+.header-public__brand__name {
     @include brand-inline();
     padding: 3px 0 0 55px;
     font-size: $font-size-largest;
@@ -37,7 +37,7 @@
         color: $white;
     }
 
-    .header-home__brand__name__beta {
+    .header-public__brand__name__beta {
         position: absolute;
         bottom: -17px;
         right: 0;
@@ -46,7 +46,7 @@
     }
 }
 
-.header-home__navigation {
+.header-public__navigation {
     float: right;
     padding-left: 5px;
     height: 60px;
@@ -65,11 +65,11 @@
     }
 }
 
-.header-home__navigation__loginbtn {
+.header-public__navigation__loginbtn {
     @include btn-small(lighten($landing-page, 5%));
     color: $gray-medium;
 }
 
-.header-home__navigation__signupbtn {
+.header-public__navigation__signupbtn {
     @include btn-small($brand-secondary);
 }
