@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.common")
-    .directive("sideHeader", function ($rootScope, StatesHandler, $state, $timeout) {
+    .directive("headerSide", function ($rootScope, StatesHandler, $state, $timeout) {
         return {
             restrict: "AE",
             templateUrl: "/app/common/partials/header-side-directive.tpl.html",
