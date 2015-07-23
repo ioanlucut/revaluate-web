@@ -51,15 +51,27 @@
         height: 50px;
         line-height: 47px;
         font-size: $font-size-larger;
-        cursor: pointer;
         margin: 1px 0;
         color: $gray-medium;
         position: relative;
-        padding-left: 40px;
+        padding: 0;
 
         &:hover {
             color: $gray-dark-1;
         }
+    }
+
+    .side__menu__icon {
+        font-size: $font-size-larger;
+        color: $gray-light-1;
+        position: absolute;
+        top: 3px;
+        left: 12px;
+    }
+
+    .side__menu__link {
+        display: block;
+        padding-left: 40px;
     }
 
     .side__menu--disabled,
@@ -69,6 +81,10 @@
 
         .side__menu__icon {
             color: $gray-light-2;
+        }
+
+        .side__menu--disabled__label {
+            padding-left: 40px;
         }
     }
 
@@ -83,13 +99,5 @@
         .side__menu__icon {
             color: $gray-dark-2;
         }
-    }
-
-    .side__menu__icon {
-        font-size: $font-size-larger;
-        color: $gray-light-1;
-        position: absolute;
-        top: 3px;
-        left: 12px;
     }
 }
