@@ -5,7 +5,7 @@ angular
     .directive("sideHeader", function ($rootScope, StatesHandler, $state, $timeout) {
         return {
             restrict: "AE",
-            templateUrl: "/app/common/partials/side-header-directive.tpl.html",
+            templateUrl: "/app/common/partials/header-side-directive.tpl.html",
             link: function (scope) {
 
                 /**
