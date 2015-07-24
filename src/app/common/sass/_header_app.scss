@@ -118,70 +118,31 @@
     display: none;
 }
 
-.header__dropdown {
-    @include calc(height, "#{$header-height} - 2px");
+.header__navigation--links {
+    height: $header-height;
     float: right;
-    border: solid 0px $gray-medium;
-    position: relative;
 
-    .header__dropdown__toggle {
-        @include btn($white);
-        background-color: transparent;
-        border-width: 0;
-        height: 100%;
-        min-width: 120px;
-        color: lighten($header-background-color, 20%);
-        position: relative;
-        padding: 10px;
-        text-align: center;
-
-        &:hover,
-        &:focus {
-            color: lighten($header-background-color, 40%);
-            background-color: transparent;
-        }
+    ul {
+        padding: 2px 0 0 0;
     }
+}
 
-    .header__dropdown__avatar,
-    .header__dropdown__username {
+.header__navigation--links__item {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    margin: 3px 0 0 0;
+    padding: 0;
+
+    a {
         display: block;
-    }
+        height: 100%;
+        padding: 3px 5px;
+        font-size: $font-size-largest;
+        color: lighten($header-background-color, 25%);
 
-    .header__dropdown__avatar {
-        height: 50px;
-        margin: 0 auto;
-        @include border-radius(50%);
-    }
-
-    .header__dropdown__username {
-        padding: 0 15px;
-        text-align: center;
-    }
-
-    .caret {
-        position: absolute;
-        right: 5px;
-        top: ($header-height/2);
-        border-width: 5px 6px 0 6px;
-    }
-
-    .header__dropdown__menu {
-        padding: 0;
-        left: auto;
-        right: 1px;
-        top: 90px;
-        @include box-shadow(none);
-        @include border-radius($border-radius-base);
-        box-shadow: 0 0 15px rgba(150, 150, 150, 0.5);
-        @include fadeInDown(0.2s);
-
-        li {
-            padding: 0;
-            margin: 0;
-
-            a {
-                padding: 10px 15px;
-            }
+        &:hover {
+            color: lighten($header-background-color, 45%);
         }
     }
 }

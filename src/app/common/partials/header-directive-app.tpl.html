@@ -26,20 +26,18 @@
         <!--Snap menu-->
         <button snap-toggle="" class="header__navigation__toggle">Menu</button>
 
-        <!--Dropdown-->
-        <div class="dropdown header__dropdown" dropdown is-open="status.isopen">
-            <button class="dropdown-toggle header__dropdown__toggle" ng-show="currentUser.model.firstName + currentUser.model.lastName" dropdown-toggle data-toggle="dropdown" role="button" aria-expanded="false">
-                <img class="header__dropdown__avatar" gravatar-src="'{{currentUser.model.email}}'" />
-                <span class="header__dropdown__username">{{currentUser.model.firstName + " " + currentUser.model.lastName}}</span>
-                <span class="caret"></span>
-            </button>
-
-            <ul class="dropdown-menu header__dropdown__menu" role="menu">
-                <li>
-                    <a href="javascript:void(0)" ui-sref="settings.profile">Settings</a>
+        <!--Header links-->
+        <div class="header__navigation--links">
+            <ul>
+                <li class="header__navigation--links__item simptip-position-bottom simptip-info simptip-smooth simptip-fade" data-tooltip="Settings">
+                    <a class="icon-settings" href="javascript:void(0)" ui-sref="settings.profile">
+                        <!--Settings-->
+                    </a>
                 </li>
-                <li>
-                    <a href="javascript:void(0)" ng-controller="LogoutController as vm" ng-click="vm.logOut()">Logout</a>
+                <li class="header__navigation--links__item simptip-position-bottom simptip-info simptip-smooth simptip-fade" data-tooltip="Logout">
+                    <a class="icon-logout" href="javascript:void(0)" ng-controller="LogoutController as vm" ng-click="vm.logOut()">
+                        <!--Logout-->
+                    </a>
                 </li>
             </ul>
         </div>
