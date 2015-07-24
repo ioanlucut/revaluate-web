@@ -1,15 +1,17 @@
 'use strict';
 
-/**
- * Header directive responsible for header common template.
- */
 angular
     .module("revaluate.common")
-    .directive("headerHome", function ($rootScope, StatesHandler, $timeout) {
+    .directive("headerSide", function ($rootScope, StatesHandler, $state, $timeout) {
         return {
-            restrict: "A",
-            templateUrl: "/app/common/partials/header-home.html",
+            restrict: "AE",
+            templateUrl: "/app/common/partials/header-side-directive.tpl.html",
             link: function (scope) {
+
+                /**
+                 * Save state to scope
+                 */
+                scope.$state = $state;
 
                 /**
                  * Reference to the current user.
@@ -31,3 +33,4 @@ angular
             }
         };
     });
+

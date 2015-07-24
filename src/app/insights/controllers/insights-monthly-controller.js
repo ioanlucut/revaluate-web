@@ -57,7 +57,7 @@ angular
         /**
          * Default active chart
          */
-        vm.activeChart = vm.INSIGHTS_CHARTS.BAR;
+        vm.activeChart = vm.INSIGHTS_CHARTS.DOUGHNUT;
 
         /**
          * Prepares data for chart
