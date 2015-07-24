@@ -1,0 +1,75 @@
+.header-public__wrapper {
+    background-color: $landing-page;
+}
+
+.header-public {
+    @include outer-container;
+    @include clearfix;
+    height: 60px;
+    line-height: 55px;
+}
+
+.header-public__brand {
+    float: left;
+    height: 60px;
+    position: relative;
+}
+
+.header-public__brand__logo {
+    @include size(40px 40px);
+    background: url("../assets/img/logo.svg") no-repeat top left;
+    background-size: contain;
+    position: absolute;
+    display: block;
+    left: 5px;
+    top: 10px;
+}
+
+.header-public__brand__name {
+    @include brand-inline();
+    padding: 3px 0 0 55px;
+    font-size: $font-size-largest;
+    font-weight: $font-weight-regular;
+    color: $white;
+    position: relative;
+
+    &:hover {
+        color: $white;
+    }
+
+    .header-public__brand__name__beta {
+        position: absolute;
+        bottom: -17px;
+        right: 0;
+        color: lighten($landing-page, 15%);
+        font-size: $font-size-small;
+    }
+}
+
+.header-public__navigation {
+    float: right;
+    padding-left: 5px;
+    height: 60px;
+
+    li {
+        display: inline-block;
+        text-transform: uppercase;
+
+        a {
+            color: $gray-medium;
+
+            &:hover {
+                color: $gray-light-1;
+            }
+        }
+    }
+}
+
+.header-public__navigation__loginbtn {
+    @include btn-small(lighten($landing-page, 5%));
+    color: $gray-medium;
+}
+
+.header-public__navigation__signupbtn {
+    @include btn-small($brand-secondary);
+}

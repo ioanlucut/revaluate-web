@@ -1,0 +1,26 @@
+<div class="side__menu__brand">
+    <div class="side__menu__brand--logo"></div>
+    <a href="javascript:void(0)" ui-sref="expenses.regular" class="side__menu__brand--name">Revaluate</a>
+</div>
+
+<ul class="side__menu__list">
+    <li snap-close ui-sref-active="side__menu--active">
+        <span class="icon-nav-expenses side__menu__icon"></span>
+        <a class="side__menu__link" href="javascript:void(0)" ui-sref="expenses.regular">Expenses</a>
+    </li>
+    <li snap-close ng-class="{'side__menu--active': $state.includes('insights')}">
+        <span class="icon-nav-insights side__menu__icon"></span>
+        <a class="side__menu__link" href="javascript:void(0)" ui-sref="insights.monthly">Insights</a>
+    </li>
+    <li ui-sref-active="side__menu--active" class="side__menu--disabled">
+        <span class="icon-nav-goals side__menu__icon"></span>
+        <span class="side__menu--disabled__label">Goals</span>
+        <span class="label-coming-soon">Coming soon</span>
+    </li>
+</ul>
+
+<ul class="side__menu__list">
+    <li snap-close class="side__menu__list__item">
+        <a class="side__menu__link" href="javascript:void(0)" ng-controller="LogoutController as vm" ng-click="vm.logOut()">Logout</a>
+    </li>
+</ul>
