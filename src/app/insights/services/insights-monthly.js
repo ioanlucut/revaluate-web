@@ -54,7 +54,7 @@ angular
             };
 
             this.isManyTransactions = function () {
-                return this.model.numberOfTransactions > 1;
+                return this.model.numberOfTransactions > 5;
             };
 
         }
