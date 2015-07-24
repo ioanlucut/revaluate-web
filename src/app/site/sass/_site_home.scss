@@ -165,7 +165,7 @@
 .body__feedback-section {
     @include fadeInDown(1s);
     @include border-radius(50%);
-    background-color: $brand-info-dark;
+    background-color: $gray-medium;
     box-shadow: 0 0 15px rgba(10, 10, 10, 0.5);
     position: fixed;
     bottom: 30px;
@@ -173,7 +173,7 @@
     width: 50px;
     height: 50px;
     padding-top: 2px;
-    font-size: 36px;
+    font-size: 29px;
     text-align: center;
     color: $black;
     z-index: 9999;
@@ -188,6 +188,7 @@
         height: 100%;
         color: $white;
         @include border-radius(50%);
+        padding-top: 5px;
     }
 }
 
