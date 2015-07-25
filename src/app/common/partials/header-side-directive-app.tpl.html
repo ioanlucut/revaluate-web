@@ -1,6 +1,7 @@
-<div class="side__menu__brand">
-    <div class="side__menu__brand--logo"></div>
-    <a href="javascript:void(0)" ui-sref="expenses.regular" class="side__menu__brand--name">Revaluate</a>
+<div class="side__menu__user">
+    <img class="side__menu__user__avatar" gravatar-src="'{{currentUser.model.email}}'" />
+    <div class="side__menu__user__name">{{currentUser.model.firstName}} {{currentUser.model.lastName}}</div>
+    <div class="side__menu__user__email">{{currentUser.model.email}}</div>
 </div>
 
 <ul class="side__menu__list">
