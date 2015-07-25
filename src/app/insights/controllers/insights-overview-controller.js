@@ -20,20 +20,24 @@ angular
          */
         vm.INSIGHTS_INTERVAL = INSIGHTS_INTERVAL;
 
-        // ---
-        // Inherit from parent controller.
-        // ---
-        angular.extend(this, $controller('AbstractInsightsController', {
-            $scope: $scope,
-            $rootScope: $rootScope,
-            $filter: $filter,
-            monthsPerYearsStatistics: monthsPerYearsStatistics
-        }));
-
         /**
          * Default insights overview.
          */
         vm.insightsOverview = insightsOverview;
+
+        // ---
+        // Inherit from parent controller.
+        // ---
+        angular.extend(this, $controller('InsightsAbstractController', {
+            $scope: $scope,
+            $rootScope: $rootScope,
+            $filter: $filter,
+            monthsPerYearsStatistics: monthsPerYearsStatistics,
+            resizeOnUpdate: true,
+            getChartSetSize: function getChartSetSize() {
+                return vm.barInsightsPrepared.insightsBarData[0].length;
+            }
+        }));
 
         /**
          * Prepares data for chart
@@ -45,10 +49,7 @@ angular
             vm.barInsightsPrepared = InsightsGenerator
                 .generateOverviewBar(vm.insightsOverview);
 
-            // ---
-            // Updates the bar options.
-            // ---
-            vm.updateBarWidthWith(vm.barInsightsPrepared.insightsBarData[0].length);
+            $scope.$emit("chartsLoaded", { size: vm.barInsightsPrepared.insightsBarData[0].length });
         }
 
         /**
