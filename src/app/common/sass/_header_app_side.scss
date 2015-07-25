@@ -61,6 +61,11 @@
         display: block;
         position: relative;
         padding-left: 40px;
+        color: $gray-medium;
+
+        &:hover {
+            color: $gray-light-1;
+        }
     }
 
     .side__menu--disabled,
@@ -82,11 +87,15 @@
     }
 
     .side__menu--active {
-        border-left: solid 10px $brand-secondary;
+        border-right: solid 5px $brand-primary;
         color: $black;
 
         .side__menu__icon {
             color: $gray-dark-2;
+        }
+
+        .side__menu__link {
+            color: $gray-dark-3;
         }
     }
 }
