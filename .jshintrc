@@ -20,6 +20,13 @@
     "validthis": true,
     "globals": {
         "angular": false,
+        "require": false,
+        "_": false,
+        "$": false,
+        "URLTo": false,
+        "jasmine": false,
+        "moment": false,
+        "window": false,
         "inject": false,
         "module": false,
         "describe": false,

@@ -14,7 +14,7 @@ angular
                 cancel: "&"
             },
             templateUrl: "/app/settings/partials/cancel_account_confirmation_template.html",
-            link: function (scope, el, attrs) {
+            link: function (scope) {
 
                 /**
                  * Show block content

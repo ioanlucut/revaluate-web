@@ -13,7 +13,7 @@ angular
             },
             restrict: "A",
             templateUrl: "/app/common/partials/flash-messages.html",
-            link: function (scope, el, attrs) {
+            link: function () {
             }
         };
     });

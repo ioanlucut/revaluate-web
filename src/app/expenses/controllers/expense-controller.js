@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.expenses")
-    .controller("ExpenseController", function (AlertService, $scope, $rootScope, $stateParams, Expense, expenses, ExpenseService, categories, $window, DatesUtils, $timeout, StatesHandler, EXPENSE_EVENTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, ALERTS_CONSTANTS, APP_CONFIG) {
+    .controller("ExpenseController", function (AlertService, $scope, $rootScope, $stateParams, Expense, expenses, ExpenseService, categories, $window, $timeout, StatesHandler, EXPENSE_EVENTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, ALERTS_CONSTANTS, APP_CONFIG) {
 
         /**
          * Updating/deleting timeout

@@ -48,6 +48,10 @@
 @import "vendor-modified/ngtoast.default";
 @import "vendor-modified/ngtoast.animations";
 // ---
+// Snap.js css.
+// ---
+@import "vendor-modified/angular-snap";
+// ---
 // Animate css.
 // ---
 @import "../../bower_components/animate.css-scss/animate";
@@ -59,6 +63,14 @@
 // Selectize
 // ---
 @import "vendor-modified/selectize.default";
+// ---
+// Spinner
+// ---
+@import "vendor-modified/spinner";
+
+// Unison
+// ---
+@import "unison/breakpoints";
 // ---
 // Fonts.
 // ---
@@ -84,7 +96,7 @@
 @import "../app/account/sass/account";
 @import "../app/expenses/sass/expenses";
 @import "../app/categories/sass/categories";
-@import "../app/insight/sass/insights";
+@import "../app/insights/sass/insights";
 @import "../app/settings/sass/settings";
 @import "../app/import/sass/import";
 @import "../app/feedback/sass/feedback";
