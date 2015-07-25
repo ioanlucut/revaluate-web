@@ -96,7 +96,8 @@ angular
                     })
                 });
 
-                console.log(currentBreakpoint + ' with size: ' + numberOfSets + ' and computed spacing: ' + spacing);
+                /*For future use.*/
+                /*console.log(currentBreakpoint + ' with size: ' + numberOfSets + ' and computed spacing: ' + spacing);*/
             }
 
         }
