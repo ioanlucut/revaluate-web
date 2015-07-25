@@ -31,7 +31,8 @@ angular
         "angularPayments",
         "pascalprecht.translate",
         "ngToast",
-        "ui.select"
+        "ui.select",
+        "snap"
     ])
     .config(function ($locationProvider, $translateProvider, ChartJsProvider, CacheFactoryProvider, gravatarServiceProvider, ngToastProvider) {
         angular.extend(CacheFactoryProvider.defaults, { maxAge: 15 * 60 * 1000 });

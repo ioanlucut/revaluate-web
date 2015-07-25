@@ -37,70 +37,72 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-checkmark:before {
-    content: "a";
-}
-
 .icon-pen:before {
     content: "b";
 }
-
 .icon-chevron-right:before {
     content: "c";
 }
-
 .icon-chevron-left:before {
     content: "d";
 }
-
-.icon-checkmark-strong:before {
+.icon-checkmark:before {
     content: "e";
 }
-
 .icon-checkmark-light-unchecked:before {
     content: "g";
 }
-
 .icon-checkmark-light:before {
     content: "h";
 }
-
-.icon-checkmark-strong-unchecked:before {
+.icon-checkmark-unchecked:before {
     content: "i";
 }
-
 .icon-credit-card:before {
     content: "f";
 }
-
 .icon-heart:before {
     content: "l";
 }
-
 .icon-pen2:before {
     content: "m";
 }
-
 .icon-checkbox-square-1:before {
     content: "n";
 }
-
 .icon-checkbox-square-unchecked-1:before {
     content: "o";
 }
-
 .icon-chevron-down:before {
     content: "j";
 }
-
 .icon-chevron-down-light:before {
     content: "k";
 }
-
 .icon-chevron-down-circled:before {
     content: "p";
 }
-
+.icon-nav-insights:before {
+    content: "u";
+}
+.icon-nav-goals:before {
+    content: "v";
+}
+.icon-nav-expenses:before {
+    content: "w";
+}
+.icon-params:before {
+    content: "r";
+}
+.icon-settings:before {
+    content: "s";
+}
+.icon-power:before {
+    content: "t";
+}
+.icon-logout:before {
+    content: "a";
+}
 .icon-feedback:before {
     content: "q";
 }

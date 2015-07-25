@@ -1,0 +1,36 @@
+.header__public__side__list {
+    padding: 0;
+
+    li {
+        padding: 0;
+        margin: 0;
+    }
+
+    .header__public__side__list__item {
+        background-color: $white;
+        height: 50px;
+        line-height: 47px;
+        font-size: $font-size-larger;
+        margin: 1px 0;
+        color: $gray-medium;
+        position: relative;
+
+        a {
+            display: block;
+            padding-left: 30px;
+        }
+    }
+
+    .header-public__navigation__loginbtn {
+        @include btn-block(lighten($landing-page, 5%));
+    }
+
+    .header-public__navigation__signupbtn {
+        @include btn-block($brand-secondary);
+    }
+
+    .header-public__navigation__loginbtn,
+    .header-public__navigation__signupbtn {
+        @include border-radius(0);
+    }
+}
