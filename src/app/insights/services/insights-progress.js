@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.insights")
-    .factory("InsightsProgress", function ($q, $http, InsightsService, InsightTransformerService) {
+    .factory("InsightsProgress", function ($q, $http, InsightsService, InsightsTransformerService) {
 
         /**
          * Insights class.
@@ -35,7 +35,7 @@ angular
                 return new InsightsProgress();
             }
 
-            return InsightTransformerService.toInsight(data, new InsightsProgress());
+            return InsightsTransformerService.toInsight(data, new InsightsProgress());
         };
 
         return InsightsProgress;

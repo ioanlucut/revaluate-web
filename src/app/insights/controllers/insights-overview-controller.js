@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.insights")
-    .controller("InsightsOverviewController", function ($controller, $templateCache, $scope, $rootScope, $filter, $timeout, DatesUtils, ALERTS_EVENTS, INSIGHTS_INTERVAL, insightsOverview, monthsPerYearsStatistics, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
+    .controller("InsightsOverviewController", function ($controller, $templateCache, $scope, $rootScope, $filter, $timeout, InsightsGenerator, DatesUtils, ALERTS_EVENTS, INSIGHTS_INTERVAL, insightsOverview, monthsPerYearsStatistics, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
 
         var TIMEOUT_DURATION = 150;
         var MONTHS = "Months";
@@ -20,27 +20,52 @@ angular
          */
         vm.INSIGHTS_INTERVAL = INSIGHTS_INTERVAL;
 
-        // ---
-        // Inherit from parent controller.
-        // ---
-        angular.extend(this, $controller('AbstractInsightsController', {
-            $scope: $scope,
-            $rootScope: $rootScope,
-            $filter: $filter,
-            monthsPerYearsStatistics: monthsPerYearsStatistics
-        }));
-
         /**
          * Default insights overview.
          */
         vm.insightsOverview = insightsOverview;
 
         // ---
+        // Inherit from parent controller.
+        // ---
+        angular.extend(this, $controller('InsightsAbstractController', {
+            $scope: $scope,
+            $rootScope: $rootScope,
+            $filter: $filter,
+            monthsPerYearsStatistics: monthsPerYearsStatistics,
+            resizeOnUpdate: true,
+            getChartSetSize: function getChartSetSize() {
+                return vm.barInsightsPrepared.insightsBarData[0].length;
+            }
+        }));
+
+        /**
+         * Prepares data for chart
+         */
+        function prepareDataForChart() {
+            // ---
+            // Computed information and methods.
+            // ---
+            vm.barInsightsPrepared = InsightsGenerator
+                .generateOverviewBar(vm.insightsOverview);
+
+            $scope.$emit("chartsLoaded", { size: vm.barInsightsPrepared.insightsBarData[0].length });
+        }
+
+        /**
+         * Default interval
+         */
+        vm.activeInterval = vm.INSIGHTS_INTERVAL.QUARTER_YEAR;
+
+        /**
+         * Series (static)
+         */
+        vm.insightLineSeries = [MONTHS];
+
+        // ---
         // Computed information and methods.
         // ---
-        vm.insightLineData = [vm.insightsOverview.model.insightData];
-        vm.insightLineSeries = [MONTHS];
-        vm.activeInterval = vm.INSIGHTS_INTERVAL.QUARTER_YEAR;
+        prepareDataForChart();
 
         /**
          * Load insights
@@ -69,8 +94,8 @@ angular
                         // Update everything.
                         // ---
                         vm.insightsOverview = receivedInsight;
-                        vm.insightLineData = [vm.insightsOverview.model.insightData];
 
+                        prepareDataForChart();
                         vm.isLoading = false;
                     }, TIMEOUT_DURATION);
                 })

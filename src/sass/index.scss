@@ -48,6 +48,10 @@
 @import "vendor-modified/ngtoast.default";
 @import "vendor-modified/ngtoast.animations";
 // ---
+// Snap.js css.
+// ---
+@import "vendor-modified/angular-snap";
+// ---
 // Animate css.
 // ---
 @import "../../bower_components/animate.css-scss/animate";
@@ -63,6 +67,10 @@
 // Spinner
 // ---
 @import "vendor-modified/spinner";
+
+// Unison
+// ---
+@import "unison/breakpoints";
 // ---
 // Fonts.
 // ---

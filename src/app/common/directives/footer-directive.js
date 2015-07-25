@@ -8,9 +8,8 @@ angular
     .directive("footer", function () {
         return {
             restrict: "A",
-            templateUrl: "/app/common/partials/footer.html",
-            link: function (scope, el) {
-
+            templateUrl: "/app/common/partials/footer.tpl.html",
+            link: function () {
             }
         };
     });

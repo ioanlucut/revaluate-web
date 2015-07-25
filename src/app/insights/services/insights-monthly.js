@@ -2,33 +2,18 @@
 
 angular
     .module("revaluate.insights")
-    .factory("Insights", function ($q, $http, InsightsService, InsightTransformerService) {
+    .factory("InsightsMonthly", function ($q, $http, InsightsService, InsightsTransformerService) {
 
         /**
-         * Insights class.
+         * InsightsMonthly class.
          * @constructor
          */
-        function Insights() {
+        function InsightsMonthly() {
 
             /**
              * Represents the DTO model of the insights.
              */
             this.model = {
-
-                /**
-                 * The insights data.
-                 */
-                insightData: [],
-
-                /**
-                 * The insights colors
-                 */
-                insightColors: [],
-
-                /**
-                 * The insights labels
-                 */
-                insightLabels: [],
 
                 /**
                  * From date period of the insights.
@@ -61,7 +46,7 @@ angular
              * @returns {boolean}
              */
             this.isEmpty = function () {
-                return this.model.insightData.length === 0;
+                return this.model.totalPerCategoryInsightsDTOs.length === 0;
             };
 
             this.isTransactionsEmpty = function () {
@@ -69,7 +54,7 @@ angular
             };
 
             this.isManyTransactions = function () {
-                return this.model.numberOfTransactions > 1;
+                return this.model.numberOfTransactions > 5;
             };
 
         }
@@ -77,13 +62,13 @@ angular
         /**
          * Builds a insights with given data.
          */
-        Insights.build = function (data) {
+        InsightsMonthly.build = function (data) {
             if ( _.isEmpty(data) ) {
-                return new Insights();
+                return new InsightsMonthly();
             }
 
-            return InsightTransformerService.toInsight(data, new Insights());
+            return InsightsTransformerService.toInsight(data, new InsightsMonthly());
         };
 
-        return Insights;
+        return InsightsMonthly;
     });
