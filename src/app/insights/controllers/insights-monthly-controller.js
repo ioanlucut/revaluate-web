@@ -47,18 +47,17 @@ angular
         // ---
         // Inherit from parent controller.
         // ---
-        angular.extend(this, $controller('AbstractInsightsController', {
+        angular.extend(this, $controller('InsightsAbstractController', {
             $scope: $scope,
+            $timeout: $timeout,
             $rootScope: $rootScope,
             $filter: $filter,
             monthsPerYearsStatistics: monthsPerYearsStatistics,
-            resizeCallback: updateSizeOnResize
+            resizeOnUpdate: true,
+            getChartSetSize: function getChartSetSize() {
+                return vm.barInsightsPrepared.insightsBarData.length;
+            }
         }));
-
-        /**
-         * Default active chart
-         */
-        vm.activeChart = vm.INSIGHTS_CHARTS.DOUGHNUT;
 
         /**
          * Prepares data for chart
@@ -73,35 +72,25 @@ angular
             vm.donutInsightsPrepared = InsightsGenerator
                 .generateMonthlyDonut(vm.insightsMonthly);
 
-            updateSizeOnResize();
+            $scope.$emit("chartsLoaded", { size: vm.barInsightsPrepared.insightsBarData.length });
         }
-
-        /**
-         * Prepares data for chart
-         */
-        function updateSizeOnResize() {
-
-            // ---
-            // Updates the bar options.
-            // ---
-            if ( vm.barInsightsPrepared ) {
-                vm.updateBarWidthWith(vm.barInsightsPrepared.insightsBarData.length);
-                vm.updateBarDataSetSpacingWidthWith(vm.barInsightsPrepared.insightsBarData.length);
-            }
-        }
-
-        /**
-         * Sets te active chart displayed with the given chart type.
-         * @param chartType
-         */
-        vm.setActiveChart = function (chartType) {
-            vm.activeChart = chartType;
-        };
 
         // ---
         // Computed information and methods.
         // ---
         prepareDataForChart();
+
+        /**
+         * Default active chart
+         */
+        vm.activeChart = vm.INSIGHTS_CHARTS.DOUGHNUT;
+
+        /**
+         * Sets te active chart displayed with the given chart type.
+         */
+        vm.setActiveChart = function (chartType) {
+            vm.activeChart = chartType;
+        };
 
         /**
          * Checks if the date should be disabled.
