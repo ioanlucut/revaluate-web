@@ -2,44 +2,29 @@
     display: none;
 }
 
-.side__menu__brand {
+.side__menu__user {
     position: relative;
-    height: $header-height-responsive;
+    height: 150px;
     background-color: $white;
-    padding-left: 70px;
-    padding-top: 20px;
+    padding: 30px 5px 5px 5px;
+    text-align: center;
 
-    &:hover {
-        cursor: pointer;
-
-        .side__menu__brand--name {
-            color: $gray-dark-3;
-        }
+    .side__menu__user__avatar {
+        display: block;
+        margin: 0 auto;
+        @include border-radius(50%);
+        @include size(60px 60px);
     }
 }
 
-.side__menu__brand--logo,
-.side__menu__brand--name {
-    display: inline-block;
-}
-
-.side__menu__brand--logo {
-    @include size(40px 40px);
-    background: url("../assets/img/logo.svg") no-repeat top left;
-    background-size: contain;
-    position: absolute;
-    left: 15px;
-    top: 15px;
-}
-
-.side__menu__brand--name {
-    @include brand-inline();
+.side__menu__user__name {
     color: $gray-dark-3;
     font-size: $font-size-larger;
+}
 
-    &:hover {
-        color: $gray-dark-2;
-    }
+.side__menu__user__email {
+    color: $gray-light-1;
+    font-weight: $font-weight-light;
 }
 
 .side__menu__list {
