@@ -1,0 +1,92 @@
+.insights__controls {
+    width: 100%;
+    min-height: 50px;
+    padding: 10px 40px;
+    @include clearfix();
+
+    .insights__controls__form {
+        height: 50px;
+        float: left;
+
+        .insights__controls__form__arrow {
+            @include border-radius(50%);
+            display: inline-block;
+            height: 40px;
+            width: 40px;
+            padding: 4px 0 0 0;
+            background-color: $white;
+            color: $gray-dark-1;
+            text-align: center;
+            font-size: 22px;
+            font-weight: $font-weight-bold;
+
+            &:hover {
+                background-color: $gray-light-3;
+            }
+
+            &.insights__controls__form__arrow--left {
+                float: left;
+            }
+            &.insights__controls__form__arrow--right {
+                float: right;
+            }
+        }
+
+        .insights__controls__form__month {
+            width: 250px;
+            display: inline-block;
+        }
+
+        .insight__form__date__input__btn {
+            @include btn-big($white);
+            width: 100%;
+            border-bottom: dashed 1px $gray-light-1;
+            color: $brand-primary;
+            font-size: $font-size-largest;
+            font-weight: $font-weight-bold;
+        }
+    }
+
+    .insights__controls__chart-toggle {
+        float: right;
+        min-height: 50px;
+        padding: 7px 0;
+
+        .insights__controls__chart-toggle__entry {
+            display: inline-block;
+            float: right;
+            height: 30px;
+            width: 55px;
+            line-height: 24px;
+            padding: 3px 15px;
+            margin: 0;
+            text-align: center;
+            background-color: $gray-light-3;
+            color: $gray-medium;
+            border: solid 1px $gray-light-1;
+            border-left-width: 0;
+
+            &:first-child {
+                @include border-right-radius(50px);
+                border-left-width: 0;
+            }
+
+            &:last-child {
+                @include border-left-radius(50px);
+                border-left-width: 1px;
+            }
+
+            &:hover {
+                color: $gray-dark-1;
+            }
+        }
+
+        .insights__controls__chart-toggle__entry--active,
+        .insights__controls__chart-toggle__entry--active:hover {
+            color: $gray-dark-3;
+            background-color: $white;
+            font-weight: $font-weight-bold;
+            cursor: default;
+        }
+    }
+}

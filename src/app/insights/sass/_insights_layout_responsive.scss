@@ -1,0 +1,13 @@
+@media (max-width: $screen-phone) {
+
+    .view-container__content__nav {
+        li {
+            width: 30%;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+
+}

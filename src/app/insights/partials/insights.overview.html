@@ -1,0 +1,49 @@
+<div insights-empty-state-toggle show-empty-state="vm.monthsPerYearsStatistics.isOverallTransactionsEmpty()">
+
+    <div class="insights__controls">
+        <div class="insights__controls__chart-toggle insights__controls__chart-toggle--three">
+            <a class="insights__controls__chart-toggle__entry" ng-class="{'insights__controls__chart-toggle__entry--active': vm.activeInterval === vm.INSIGHTS_INTERVAL.YEAR}" ng-click="vm.loadInsights(vm.INSIGHTS_INTERVAL.YEAR)" href="javascript:void(0)">1Y</a>
+            <a class="insights__controls__chart-toggle__entry" ng-class="{'insights__controls__chart-toggle__entry--active': vm.activeInterval === vm.INSIGHTS_INTERVAL.HALF_YEAR}" ng-click="vm.loadInsights(vm.INSIGHTS_INTERVAL.HALF_YEAR)" href="javascript:void(0)">6M</a>
+            <a class="insights__controls__chart-toggle__entry" ng-class="{'insights__controls__chart-toggle__entry--active': vm.activeInterval === vm.INSIGHTS_INTERVAL.QUARTER_YEAR}" ng-click="vm.loadInsights(vm.INSIGHTS_INTERVAL.QUARTER_YEAR)" href="javascript:void(0)">3M</a>
+        </div>
+    </div>
+
+    <div class="insights__chart__bar" fade-out-in fade-when="vm.isLoading">
+
+        <div class="spinner insights__loading" ng-if="vm.isLoading">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+
+        <canvas id="bar"
+                class="chart chart-bar"
+                data="vm.barInsightsPrepared.insightsBarData"
+                series="vm.barInsightsPrepared.insightsBarSeries"
+                legend="false"
+                options="vm.barOptions"
+                labels="vm.barInsightsPrepared.insightsBarLabels">
+        </canvas>
+    </div>
+
+    <div class="insights__table insights__table--overview">
+        <table fade-out-in fade-when="vm.isLoading">
+            <tr class="insights__table__total">
+                <th>TOTAL</th>
+                <td class="insights__table__total__amount">
+                    <span ng-bind-html="vm.insightsOverview.model.totalAmountSpent | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
+                </td>
+            </tr>
+            <tr class="insights__table__entry" ng-repeat="insightsOverviewEntry in vm.insightsOverview.model.insightsOverview | orderBy : 'yearMonth' : reverse">
+                <th class="insights__table__entry__month">
+                    {{insightsOverviewEntry.yearMonth | friendlyMonthDateNoYear}}
+                </th>
+                <td class="insights__table__entry__amount">
+                    <span class="insights__table__entry__amount__th" ng-bind-html="insightsOverviewEntry.yearMonth | friendlyMonthDateNoYear"></span>
+
+                    <span class="insights__table__entry__amount__value" ng-bind-html="insightsOverviewEntry.totalAmount | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>

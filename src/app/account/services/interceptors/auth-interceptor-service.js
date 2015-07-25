@@ -5,15 +5,12 @@
  */
 angular
     .module("revaluate.account")
-    .factory("AuthInterceptor", function ($rootScope, $q, SessionService, AUTH_EVENTS) {
+    .factory("AuthInterceptor", function ($rootScope, $q, AUTH_EVENTS) {
 
         return {
 
             /**
              * Response error interceptor.
-             *
-             * @param response
-             * @returns {*}
              */
             responseError: function (response) {
                 if ( response.status === 401 ) {
