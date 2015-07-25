@@ -20,30 +20,6 @@ angular
         vm.INSIGHTS_INTERVAL = INSIGHTS_INTERVAL;
 
         /**
-         * Prepares data for progress chart
-         */
-        function prepareDataForProgressChart() {
-            var insightsPrepared = InsightsGenerator.generate(vm.insightsProgress, vm.masterCategories);
-            vm.insightLineData = insightsPrepared.insightLineData;
-            vm.insightLabels = insightsPrepared.insightLabels;
-            vm.insightLineSeries = insightsPrepared.insightLineSeries;
-            vm.insightLineColors = insightsPrepared.insightLineColors;
-
-            vm.availableYearMonths = insightsPrepared.availableYearMonths;
-            vm.totalAmountPerMonths = insightsPrepared.totalAmountPerMonths;
-        }
-
-        // ---
-        // Inherit from parent controller.
-        // ---
-        angular.extend(this, $controller('AbstractInsightsController', {
-            $scope: $scope,
-            $rootScope: $rootScope,
-            $filter: $filter,
-            monthsPerYearsStatistics: monthsPerYearsStatistics
-        }));
-
-        /**
          * Existing categories.
          */
         vm.categories = categories;
@@ -63,6 +39,35 @@ angular
          * @type {number}
          */
         vm.activeInterval = vm.INSIGHTS_INTERVAL.QUARTER_YEAR;
+
+        // ---
+        // Inherit from parent controller.
+        // ---
+        angular.extend(this, $controller('InsightsAbstractController', {
+            $scope: $scope,
+            $rootScope: $rootScope,
+            $filter: $filter,
+            monthsPerYearsStatistics: monthsPerYearsStatistics,
+            resizeOnUpdate: false,
+            getChartSetSize: function () {
+            }
+        }));
+
+        /**
+         * Prepares data for progress chart
+         */
+        function prepareDataForProgressChart() {
+            var insightsPrepared = InsightsGenerator
+                .generate(vm.insightsProgress, vm.masterCategories);
+
+            vm.insightLineData = insightsPrepared.insightLineData;
+            vm.insightLabels = insightsPrepared.insightLabels;
+            vm.insightLineSeries = insightsPrepared.insightLineSeries;
+            vm.insightLineColors = insightsPrepared.insightLineColors;
+
+            vm.availableYearMonths = insightsPrepared.availableYearMonths;
+            vm.totalAmountPerMonths = insightsPrepared.totalAmountPerMonths;
+        }
 
         // ---
         // Computed information and methods.
