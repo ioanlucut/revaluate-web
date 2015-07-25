@@ -1,0 +1,36 @@
+<div class="header-public__wrapper">
+
+    <header class="header-public">
+
+        <div class="header-public__brand">
+            <div class="header-public__brand__logo"></div>
+
+            <a class="header-public__brand__name" href="javascript:void(0)" ui-sref="home" ui-sref-opts="{reload:true}">
+                Revaluate
+                <span class="header-public__brand__name__beta">beta</span>
+            </a>
+        </div>
+
+        <!--Snap menu-->
+        <button snap-toggle="" class="header__navigation__toggle">Menu</button>
+
+        <ul class="header-public__navigation">
+            <li>
+                <a href="javascript:void(0)" ng-click="goToTourPage();">Tour</a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" ui-sref="pricing" ui-sref-opts="{reload:true}">Pricing</a>
+            </li>
+            <li>
+                <button class="header-public__navigation__loginbtn" account-modal-toggle="login">Log in</button>
+            </li>
+            <li>
+                <button class="header-public__navigation__signupbtn" account-modal-toggle="requestSignUpRegistration">
+                    Get started now!
+                </button>
+            </li>
+        </ul>
+
+    </header>
+
+</div>

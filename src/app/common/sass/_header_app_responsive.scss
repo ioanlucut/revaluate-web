@@ -1,56 +1,31 @@
-@media (max-width: 600px) {
+@media (max-width: $header-responsive-breakpoint) {
+    .header {
+        height: $header-height-responsive;
+    }
 
-  .header__navigation {
-    margin-left: 20px;
-  }
+    .header__brand {
+        float: none;
+        height: 0;
+        margin: 0;
 
-  .header__dropdown {
+        .header__brand--logo {
+            position: relative;
+            display: block;
+            margin: 0 auto;
+            top: 15px;
+            left: auto;
+        }
+    }
 
-    .header__dropdown__toggle {
-      .header__dropdown__username {
+    .header__navigation {
         display: none;
-      }
     }
 
-    .header__dropdown__menu {
-      li:first-child {
+    .header__navigation__toggle {
+        display: block;
+    }
+
+    .header__navigation--links {
         display: none;
-      }
     }
-  }
-}
-
-@media (max-width: 400px) {
-
-  .header__brand--logo {
-    @include size(30px 30px);
-    top: 15px;
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
-
-  .header__navigation {
-    margin-left: 10px;
-
-    li {
-      padding: 0 5px;
-    }
-
-    li:nth-child(3) {
-      display: none;
-    }
-  }
-
-  .header__dropdown {
-    .header__dropdown__toggle {
-      padding-left: 35px;
-    }
-
-    .header__dropdown__avatar {
-      @include size(30px 30px);
-      top: 15px;
-    }
-  }
 }
