@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.insights")
-    .controller("InsightsMonthlyController", function ($controller, $scope, $rootScope, $filter, $timeout, ALERTS_EVENTS, insights, monthsPerYearsStatistics, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
+    .controller("InsightsMonthlyController", function ($controller, $scope, DatesUtils, $rootScope, $filter, $timeout, InsightsGenerator, ALERTS_EVENTS, insightsMonthly, monthsPerYearsStatistics, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -21,7 +21,7 @@ angular
         /**
          * Alert identifier
          */
-        vm.alertId = ALERTS_CONSTANTS.insights;
+        vm.alertId = ALERTS_CONSTANTS.insightsMonthly;
 
         /**
          * Current user.
@@ -30,41 +30,63 @@ angular
         vm.user = $rootScope.currentUser;
 
         /**
+         * Fetch all types of insights charts
+         */
+        vm.INSIGHTS_CHARTS = INSIGHTS_CHARTS;
+
+        /**
          * Default insights loaded.
          */
-        vm.insights = insights;
+        vm.insightsMonthly = insightsMonthly;
 
         /**
          * Insights months per years.
          */
         vm.monthsPerYearsStatistics = monthsPerYearsStatistics;
 
-        /**
-         * Fetch all types of insights charts
-         */
-        vm.INSIGHTS_CHARTS = INSIGHTS_CHARTS;
-
         // ---
         // Inherit from parent controller.
         // ---
-        angular.extend(this, $controller('AbstractInsightsController', {
+        angular.extend(this, $controller('InsightsAbstractController', {
             $scope: $scope,
+            $timeout: $timeout,
             $rootScope: $rootScope,
             $filter: $filter,
-            monthsPerYearsStatistics: monthsPerYearsStatistics
+            monthsPerYearsStatistics: monthsPerYearsStatistics,
+            resizeOnUpdate: true,
+            getChartSetSize: function getChartSetSize() {
+                return vm.barInsightsPrepared.insightsBarData.length;
+            }
         }));
+
+        /**
+         * Prepares data for chart
+         */
+        function prepareDataForChart() {
+            // ---
+            // Computed information and methods.
+            // ---
+            vm.barInsightsPrepared = InsightsGenerator
+                .generateMonthlyBar(vm.insightsMonthly);
+
+            vm.donutInsightsPrepared = InsightsGenerator
+                .generateMonthlyDonut(vm.insightsMonthly);
+
+            $scope.$emit("chartsLoaded", { size: vm.barInsightsPrepared.insightsBarData.length });
+        }
 
         // ---
         // Computed information and methods.
         // ---
-        vm.insightLineData = [insights.model.insightData];
-        vm.insightLineColors = [insights.model.insightColors];
-        vm.insightLineSeries = ["Categories"];
+        prepareDataForChart();
+
+        /**
+         * Default active chart
+         */
         vm.activeChart = vm.INSIGHTS_CHARTS.DOUGHNUT;
 
         /**
          * Sets te active chart displayed with the given chart type.
-         * @param chartType
          */
         vm.setActiveChart = function (chartType) {
             vm.activeChart = chartType;
@@ -73,7 +95,7 @@ angular
         /**
          * Checks if the date should be disabled.
          */
-        vm.shouldDateBeDisabled = function (date, mode) {
+        vm.shouldDateBeDisabled = function (date) {
             var givenDate = moment(date);
             var givenDateYear = givenDate.year();
             var givenDateMonth = givenDate.month() + 1;
@@ -122,10 +144,11 @@ angular
 
             vm.isLoading = true;
             var computedInsightsData = angular.copy(vm.insightData);
-            var from = moment(computedInsightsData.spentDate).startOf(MONTH);
-            var to = moment(computedInsightsData.spentDate).endOf(MONTH);
+            var period = DatesUtils
+                .getFromToOfMonthYear(computedInsightsData.spentDate);
+
             InsightsService
-                .fetchMonthlyInsightsFromTo(from, to)
+                .fetchMonthlyInsightsFromTo(period.from, period.to)
                 .then(function (receivedInsight) {
 
                     /**
@@ -153,9 +176,9 @@ angular
                             // Update everything.
                             // ---
                             vm.masterInsightData = angular.copy(vm.insightData);
-                            vm.insights = receivedInsight;
-                            vm.insightLineData = [vm.insights.model.insightData];
-                            vm.insightLineSeries = ["Categories"];
+                            vm.insightsMonthly = receivedInsight;
+
+                            prepareDataForChart();
                         }
 
                         vm.isLoading = false;

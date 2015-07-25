@@ -1,0 +1,25 @@
+<div class="side__menu__brand">
+    <div class="side__menu__brand--logo"></div>
+    <a href="javascript:void(0)" ui-sref="expenses.regular" class="side__menu__brand--name">Revaluate</a>
+</div>
+
+<ul class="header__public__side__list">
+    <li>
+        <button class="header-public__navigation__loginbtn" account-modal-toggle="login">Log in</button>
+    </li>
+    <li>
+        <button class="header-public__navigation__signupbtn" account-modal-toggle="requestSignUpRegistration">
+            Get started now!
+        </button>
+    </li>
+</ul>
+
+
+<ul class="header__public__side__list">
+    <li snap-close class="header__public__side__list__item">
+        <a href="javascript:void(0)" ng-click="goToTourPage();">Tour</a>
+    </li>
+    <li snap-close class="header__public__side__list__item">
+        <a href="javascript:void(0)" ui-sref="pricing" ui-sref-opts="{reload:true}">Pricing</a>
+    </li>
+</ul>

@@ -1,130 +1,148 @@
 .header__wrapper {
-  background-color: $header-background-color;
+    background-color: $header-background-color;
 }
 
 .header {
-  @include outer-container();
-  @include clearfix();
-  height: $header-height;
-  line-height: $header-height;
-  padding: 0;
+    @include outer-container();
+    @include clearfix();
+    height: $header-height;
+    padding: 0;
 }
 
 .header__brand {
-  float: left;
-  height: 60px;
-  position: relative;
-  margin-right: 40px;
+    float: left;
+    height: $header-height;
+    position: relative;
+    margin-right: 40px;
 }
 
 .header__brand--logo {
-  @include size(40px 40px);
-  background: url("../assets/img/logo.svg") no-repeat top left;
-  background-size: contain;
-  position: absolute;
-  display: block;
-  left: 5px;
-  top: 10px;
+    @include size($header-brand-logo-size $header-brand-logo-size);
+    background: url("../assets/img/logo.svg") no-repeat top left;
+    background-size: contain;
+    position: absolute;
+    display: block;
+    left: 15px;
+    top: ($header-height/2) - ($header-brand-logo-size/2);
 
-  &:hover {
-    cursor: pointer;
-  }
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .header__brand--name {
-  @include brand-inline();
-  color: $white;
-  display: none;
+    @include brand-inline();
+    color: $white;
+    display: none;
 }
 
 .header__navigation {
-  float: left;
-  margin-left: 40px;
-  padding: 0;
-  height: 60px;
-
-  li {
-    display: inline-block;
-    height: 100%;
-    min-width: 80px;
-    padding: 0 10px;
-    margin: 0;
-    text-align: center;
-    position: relative;
-
-    a {
-      display: block;
-      width: 100%;
-      height: 90%;
-      color: lighten($header-background-color, 20%);
-
-      &:hover {
-        color: lighten($brand-primary, 10%);
-      }
-    }
-
-    span {
-      color: lighten($header-background-color, 20%);
-      position: absolute;
-      top: 15px;
-      left: 7px;
-      font-size: 10px;
-    }
-  }
-
-  .header__navigation--active {
-    border-bottom: solid 5px $brand-danger;
-    a {
-      color: $brand-primary;
-    }
-  }
-}
-
-.header__dropdown {
-  @include calc(height, "#{$header-height} - 2px");
-  float: right;
-  border: solid 0px $gray-medium;
-  position: relative;
-
-  .header__dropdown__toggle {
-    @include btn($white);
-    background-color: transparent;
-    border-width: 0;
-    height: 100%;
-    color: $gray-light-1;
-    position: relative;
-    padding-left: 50px;
-
-    &:hover,
-    &:focus {
-      color: $gray-light-3;
-      background-color: transparent;
-    }
-  }
-
-  .header__dropdown__avatar {
-    position: absolute;
-    left: 0;
-    top: 10px;
-    width: 40px;
-    height: 40px;
-    @include border-radius(50%);
-  }
-
-  .header__dropdown__menu {
-    right: 10px;
-    top: 50px;
-    @include box-shadow(none);
-    @include border-radius($border-radius-base);
+    float: left;
+    margin-left: 40px;
     padding: 0;
+    height: $header-height;
 
     li {
-      padding: 0;
-      margin: 0;
+        display: inline-block;
+        height: 100%;
+        min-width: 120px;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+        color: lighten($header-background-color, 20%);
+        @include transition(all 0.3s);
+        position: relative;
+        @include user-select(none);
 
-      a {
-        padding: 10px 15px;
-      }
+        &:hover {
+            color: lighten($header-background-color, 40%);
+        }
+
+        .header__navigation__icon {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            font-size: 28px;
+        }
+
+        .header__navigation__link,
+        .header__navigation--comingsoon__label {
+            display: block;
+            position: relative;
+            padding-top: 58px;
+            height: 100%;
+            color: lighten($header-background-color, 20%);
+        }
+
+        .header__navigation__link {
+            &:hover {
+                color: lighten($header-background-color, 40%);
+            }
+        }
+
+        .nav-coming-soon {
+            color: lighten($header-background-color, 10%);;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 5px;
+            font-size: $font-size-small;
+        }
     }
-  }
+
+    .header__navigation--comingsoon:hover {
+        color: lighten($header-background-color, 20%);
+        cursor: default;
+    }
+
+    .header__navigation--active,
+    .header__navigation--active:hover {
+        color: $white;
+        background-color: darken($header-background-color, 4%);
+        border-bottom: solid 5px $brand-danger;
+        text-shadow: 1px 1px 1px darken($header-background-color, 20%);;
+
+        a {
+            color: $white;
+        }
+    }
+}
+
+.header__navigation__toggle {
+    @include btn-big($brand-primary);
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    text-transform: uppercase;
+    display: none;
+}
+
+.header__navigation--links {
+    height: $header-height;
+    float: right;
+
+    ul {
+        padding: 2px 0 0 0;
+    }
+}
+
+.header__navigation--links__item {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    margin: 3px 0 0 0;
+    padding: 0;
+
+    a {
+        display: block;
+        height: 100%;
+        padding: 3px 5px;
+        font-size: $font-size-largest;
+        color: lighten($header-background-color, 25%);
+
+        &:hover {
+            color: lighten($header-background-color, 45%);
+        }
+    }
 }

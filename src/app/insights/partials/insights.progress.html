@@ -1,8 +1,8 @@
 <div insights-empty-state-toggle show-empty-state="vm.monthsPerYearsStatistics.isOverallTransactionsEmpty()">
 
     <div class="insights__controls">
-        <div class="insights__controls__chart-toggle">
-            <a class="insights__controls__chart-toggle__entry" ng-class="{'insights__controls__chart-toggle__entry--active': vm.activeInterval === vm.INSIGHTS_INTERVAL.YEAR}" ng-click="vm.loadInsights(vm.INSIGHTS_INTERVAL.YEAR)" href="javascript:void(0)">12M</a>
+        <div class="insights__controls__chart-toggle insights__controls__chart-toggle--three">
+            <a class="insights__controls__chart-toggle__entry" ng-class="{'insights__controls__chart-toggle__entry--active': vm.activeInterval === vm.INSIGHTS_INTERVAL.YEAR}" ng-click="vm.loadInsights(vm.INSIGHTS_INTERVAL.YEAR)" href="javascript:void(0)">1Y</a>
             <a class="insights__controls__chart-toggle__entry" ng-class="{'insights__controls__chart-toggle__entry--active': vm.activeInterval === vm.INSIGHTS_INTERVAL.HALF_YEAR}" ng-click="vm.loadInsights(vm.INSIGHTS_INTERVAL.HALF_YEAR)" href="javascript:void(0)">6M</a>
             <a class="insights__controls__chart-toggle__entry" ng-class="{'insights__controls__chart-toggle__entry--active': vm.activeInterval === vm.INSIGHTS_INTERVAL.QUARTER_YEAR}" ng-click="vm.loadInsights(vm.INSIGHTS_INTERVAL.QUARTER_YEAR)" href="javascript:void(0)">3M</a>
         </div>
@@ -21,32 +21,40 @@
                 series="vm.insightLineSeries"
                 legend="false"
                 options="vm.barOptions"
+                colours="vm.insightLineColors"
                 labels="vm.insightLabels">
         </canvas>
 
     </div>
 
-    <div class="insights__table insights__table--progress">
-        <table>
-            <thead class="insights__table__header">
-            <tr>
-                <th>TOTAL</th>
-                <td class="insights__table__amount" ng-repeat="availableYearMonthsFormattedEntry in vm.availableYearMonthsFormatted">
-                    <span ng-bind-html="availableYearMonthsFormattedEntry | friendlyMonthDate"></span>
+    <div class="insights__table insights__table--progress"
+         ng-class="{'insights__table--6m': vm.activeInterval === vm.INSIGHTS_INTERVAL.HALF_YEAR, 'insights__table--3m': vm.activeInterval === vm.INSIGHTS_INTERVAL.QUARTER_YEAR}">
+        <table fade-out-in fade-when="vm.isLoading">
+            <tr class="insights__table__header">
+                <th></th>
+                <td class="insights__table__header__month" ng-repeat="availableYearMonthsEntry in vm.availableYearMonths">
+                    <span ng-bind-html="availableYearMonthsEntry | friendlyMonthShortDateNoYear"></span>
                 </td>
             </tr>
-            </thead>
-            <tbody>
+            <tr class="insights__table__total">
+                <th>TOTAL</th>
+                <td class="insights__table__entry__amount" ng-repeat="availableYearMonthsEntry in vm.availableYearMonths">
+                    <span class="insights__table__entry__amount__th" ng-bind-html="availableYearMonthsEntry | friendlyMonthShortDateNoYear"></span>
+
+                    <span class="insights__table__entry__amount__value" ng-bind-html="vm.totalAmountPerMonths[availableYearMonthsEntry] | currencysNoSymbol:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
+                </td>
+            </tr>
             <tr ng-repeat="category in vm.masterCategories | orderBy : 'model.name' : true">
                 <th class="insights__table__category label-uppercase">
                     <span class="insights__table__category__color" ng-style="{'background':category.model.color.color}">C</span>
                     {{category.model.name}}
                 </th>
-                <td class="insights__table__amount" ng-repeat="availableYearMonthsFormattedEntry in vm.availableYearMonthsFormatted">
-                    <span ng-bind-html="category.model.yearMonth[availableYearMonthsFormattedEntry] | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
+                <td class="insights__table__entry__amount" ng-repeat="availableYearMonthsEntry in vm.availableYearMonths">
+                    <span class="insights__table__entry__amount__th" ng-bind-html="availableYearMonthsEntry | friendlyMonthShortDateNoYear"></span>
+
+                    <span class="insights__table__entry__amount__value" ng-bind-html="category.model.yearMonth[availableYearMonthsEntry] | currencysNoSymbol:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize" ng-class="{ insights__table__zero : category.model.yearMonth[availableYearMonthsEntry] === 0}"></span>
                 </td>
             </tr>
-            </tbody>
         </table>
     </div>
 
