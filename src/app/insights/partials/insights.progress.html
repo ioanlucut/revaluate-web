@@ -1,5 +1,14 @@
 <div insights-empty-state-toggle show-empty-state="vm.monthsPerYearsStatistics.isOverallTransactionsEmpty()">
 
+    <div class="insights__categories">
+        <div class="insights__categories__category" ng-repeat="category in vm.masterCategories | orderObjectBy : 'model.name' : false track by category.model.id">
+            <div class="category-name" ng-style="{'background':category.model.color.color}" ng-class="{ 'category-name--unselected': !category.selected }" ng-click="vm.toggleAndReloadInsights(category)">
+                <span class="icon-checkmark-light" ng-show="category.selected"></span>
+                {{category.model.name}}
+            </div>
+        </div>
+    </div>
+
     <div class="insights__controls">
         <div class="insights__controls__chart-toggle insights__controls__chart-toggle--three">
             <a class="insights__controls__chart-toggle__entry" ng-class="{'insights__controls__chart-toggle__entry--active': vm.activeInterval === vm.INSIGHTS_INTERVAL.YEAR}" ng-click="vm.loadInsights(vm.INSIGHTS_INTERVAL.YEAR)" href="javascript:void(0)">1Y</a>
