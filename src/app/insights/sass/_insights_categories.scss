@@ -18,6 +18,7 @@
         @include border-radius($base-border-radius);
         @include user-select(none);
         height: 35px;
+        width: 100%;
         line-height: 28px;
         padding: 2px 30px;
         cursor: pointer;
@@ -51,42 +52,6 @@
             span {
                 color: $gray-medium;
             }
-        }
-    }
-
-    .insights__categories__addbtn {
-        @include span-columns(6);
-        @include omega(2n);
-        height: 35px;
-        padding: 0;
-        font-size: $font-size-small;
-        @include transition(none);
-        background-color: $brand-success;
-        color: $white;
-
-        &:hover {
-            background-color: lighten($brand-success, 15%);
-        }
-    }
-
-    .insights__categories__addinput {
-        height: 35px;
-        font-size: $font-size-small;
-        text-align: center;
-        text-transform: uppercase;
-        position: relative;
-    }
-
-    .insights__categories__addinput__tip {
-        position: relative;
-
-        div {
-            position: absolute;
-            bottom: -20px;
-            left: 0;
-            right: 0;
-            font-size: $font-size-small;
-            color: $gray-medium;
         }
     }
 }
