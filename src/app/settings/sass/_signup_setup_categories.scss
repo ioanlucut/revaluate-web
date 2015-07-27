@@ -89,6 +89,20 @@
                 font-size: $font-size-small;
                 text-align: center;
                 text-transform: uppercase;
+                position: relative;
+            }
+
+            .sign-up__setup__categories__addinput__tip {
+                position: relative;
+
+                div {
+                    position: absolute;
+                    bottom: -20px;
+                    left: 0;
+                    right: 0;
+                    font-size: $font-size-small;
+                    color: $gray-medium;
+                }
             }
         }
 

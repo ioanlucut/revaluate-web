@@ -44,7 +44,7 @@
 
             <div class="sign-up__setup__categories">
                 <div class="sign-up__setup__categories__category" ng-repeat="category in vm.categories track by category.name">
-                    <div class="category-name"  ng-class="{ 'category-name--unselected': !category.selected }" ng-click="vm.toggleCategorySelection($index)">
+                    <div class="category-name" ng-class="{ 'category-name--unselected': !category.selected }" ng-click="vm.toggleCategorySelection($index)">
                         <span class="icon-checkmark-light" ng-show="category.selected"></span>
                         {{category.name}}
                     </div>
@@ -81,6 +81,9 @@
                                ng-blur="vm.cancelAddCategoryOnTheFly()"
                                auto-focus required valid-category-name/>
 
+                        <div class="sign-up__setup__categories__addinput__tip">
+                            <div>Hit Enter to add category</div>
+                        </div>
                     </div>
                 </ng-form>
             </div>
