@@ -38,7 +38,7 @@ angular
             greets: [
                 "Hey, {0}. You look tired, go get some sleep.",
                 "You made it through this tough day, {0}.",
-                "Enough work for today! Input those expenses then go hang out with some friends."
+                "Enough work for today! Input those expenses then go hang out with your friends."
             ]
         }
     });
