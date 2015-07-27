@@ -23,3 +23,15 @@
     margin: 20px auto 40px auto;
     display: block;
 }
+
+.expense__list__sort {
+    @include clearfix();
+    padding: 3px 60px 3px 20px;
+    font-size: $font-size-small;
+    color: $gray-medium;
+    border-bottom: solid 1px $gray-light-3;
+
+    .expense__list__sort__date {
+        float: right;
+    }
+}
