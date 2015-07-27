@@ -1,0 +1,92 @@
+.insights__categories {
+    @include outer-container();
+    padding-top: 10px;
+
+    .insights__categories__category {
+        @include span-columns(2);
+        @include omega(6n);
+        padding-bottom: 10px;
+        font-size: $font-size-small;
+    }
+
+    .insights__categories__category__form {
+        @include span-columns(2);
+        @include omega(2n);
+    }
+
+    .category-name {
+        @include border-radius($base-border-radius);
+        @include user-select(none);
+        height: 35px;
+        line-height: 28px;
+        padding: 2px 30px;
+        cursor: pointer;
+        color: $white;
+        font-weight: $font-weight-regular;
+        text-transform: uppercase;
+        text-shadow: 0 0 rgba(0, 0, 0, 0.2);
+        position: relative;
+
+        &:hover {
+            opacity: 0.8;
+        }
+
+        span {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            font-size: 18px;
+        }
+
+        &.category-name--unselected {
+            opacity: 0.7;
+            border: solid 1px $gray-light-1;
+            text-shadow: none;
+            color: $white;
+
+            &:hover {
+                border-color: $gray-medium;
+            }
+
+            span {
+                color: $gray-medium;
+            }
+        }
+    }
+
+    .insights__categories__addbtn {
+        @include span-columns(6);
+        @include omega(2n);
+        height: 35px;
+        padding: 0;
+        font-size: $font-size-small;
+        @include transition(none);
+        background-color: $brand-success;
+        color: $white;
+
+        &:hover {
+            background-color: lighten($brand-success, 15%);
+        }
+    }
+
+    .insights__categories__addinput {
+        height: 35px;
+        font-size: $font-size-small;
+        text-align: center;
+        text-transform: uppercase;
+        position: relative;
+    }
+
+    .insights__categories__addinput__tip {
+        position: relative;
+
+        div {
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            right: 0;
+            font-size: $font-size-small;
+            color: $gray-medium;
+        }
+    }
+}

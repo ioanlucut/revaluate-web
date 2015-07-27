@@ -53,12 +53,32 @@ angular
             }
         }));
 
+        // ---
+        // Populate predefined categories with colors.
+        // ---
+        _.each(vm.masterCategories, function (category) {
+            category.selected = true;
+        });
+
+        function getSelectedCategories() {
+            return _.filter(vm.masterCategories, 'selected', true);
+        }
+
+        /**
+         * Toggle category selection
+         */
+        vm.toggleAndReloadInsights = function (category) {
+            category.selected = !category.selected;
+
+            prepareDataForProgressChart();
+        };
+
         /**
          * Prepares data for progress chart
          */
         function prepareDataForProgressChart() {
             var insightsPrepared = InsightsGenerator
-                .generate(vm.insightsProgress, vm.masterCategories);
+                .generate(vm.insightsProgress, getSelectedCategories());
 
             vm.insightLineData = insightsPrepared.insightLineData;
             vm.insightLabels = insightsPrepared.insightLabels;
