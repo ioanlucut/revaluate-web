@@ -14,10 +14,6 @@ select {
     font-weight: $font-weight-regular;
 }
 
-input {
-    @include size(100% 45px);
-}
-
 label {
     font-weight: 600;
     margin-bottom: $small-spacing / 2;
@@ -72,6 +68,7 @@ input[type="file"] {
     width: 100%;
 }
 
+//Change the input autofilled appearance
 input[type="checkbox"]:-webkit-autofill,
 input[type="email"]:-webkit-autofill,
 input[type="password"]:-webkit-autofill,
@@ -91,7 +88,6 @@ select {
 
 input {
     @include size(320px 45px);
-    //max-width: 320px;
     margin: 0 !important;
 }
 
