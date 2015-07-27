@@ -2,15 +2,17 @@
 
 angular
     .module("revaluate.account")
-    .service("OAuth2Service", function (OAUTH2_CLIENT_IDS, OAUTH2_URLS, OAUTH2_SCOPE, User, USER_ACTIVITY_EVENTS, ALERTS_EVENTS, AuthService, $q, StatesHandler) {
-
+    .service("OAuth2Service", function (ENV, OAUTH2_URLS, OAUTH2_SCOPE, $q) {
 
         // ---
         // Initialize HELLO.
         // ---
         hello
-            .init({ facebook: OAUTH2_CLIENT_IDS.FACEBOOK });
+            .init({ facebook: ENV.OAUTH2_CLIENT_IDS.FACEBOOK });
 
+        /**
+         * Connect with provided provider
+         */
         this.connect = function (provider) {
             var deferred = $q.defer();
 
