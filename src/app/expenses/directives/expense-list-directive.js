@@ -36,22 +36,10 @@ angular
                 scope.defaultExpensesLimit = DEFAULT_EXPENSES_LIMIT;
 
                 /**
-                 * Number of the filtered expenses
-                 */
-                scope.filteredExpenses = 0;
-
-                /**
-                 * Tells if the search by is activated;
-                 */
-                scope.isSearchByActivated = function () {
-                    return scope.searchByText !== "" && !_.isUndefined(scope.searchByText);
-                };
-
-                /**
                  * Is loading more expenses flag.
                  * @type {boolean}
                  */
-                scope.isLoadingMore = false;
+                scope.isUpdatingListLayout = false;
 
                 /**
                  * Past expenses limit - initially has the default value.
@@ -66,40 +54,31 @@ angular
                 scope.showExpensesContent = true;
 
                 /**
-                 * If empty expenses content message should be shown
-                 * @type {boolean}
+                 * Initial selected order by
                  */
-                scope.showEmptyExpensesContent = attrs.showEmptyContent === "true";
+                scope.selectedOrderBy = 'model.createdDate';
 
-                // ---
-                // Set up the toggle expenses content functionality.
-                // ---
+                /**
+                 * Sets the selected order by
+                 */
+                scope.setSelectedOrderBy = function (by) {
+                    scope.isUpdatingListLayout = !scope.isUpdatingListLayout;
 
-                if ( attrs.toggleContent === "true" ) {
-
-                    /**
-                     * Set expenses content settings
-                     * @type {boolean}
-                     */
-                    scope.showExpensesContent = false;
-
-                    /**
-                     * Toggle past expenses content.
-                     */
-                    scope.togglePastExpensesContent = function () {
-                        scope.showExpensesContent = !scope.showExpensesContent;
-                    };
-                }
+                    $timeout(function () {
+                        scope.selectedOrderBy = by;
+                        scope.isUpdatingListLayout = !scope.isUpdatingListLayout
+                    }, LOAD_MORE_TIMEOUT);
+                };
 
                 /**
                  * Load more expenses.
                  */
                 scope.loadMoreExpenses = function () {
-                    scope.isLoadingMore = !scope.isLoadingMore;
+                    scope.isUpdatingListLayout = !scope.isUpdatingListLayout;
 
                     $timeout(function () {
                         scope.expensesLimit = scope.expensesLimit + scope.defaultExpensesLimit;
-                        scope.isLoadingMore = !scope.isLoadingMore;
+                        scope.isUpdatingListLayout = !scope.isUpdatingListLayout;
                     }, LOAD_MORE_TIMEOUT);
                 };
 
