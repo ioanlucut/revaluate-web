@@ -2,10 +2,10 @@
 
     <div class="insights__categories">
         <div class="insights__categories__category" ng-repeat="category in vm.masterCategories | orderObjectBy : 'model.name' : false track by category.model.id">
-            <div class="category-name" ng-style="{'background':category.model.color.color}" ng-class="{ 'category-name--unselected': !category.selected }" ng-click="vm.toggleAndReloadInsights(category)">
+            <button class="category-name" ng-disabled="category.selected && vm.isMinimumNumberOfAllowedUnselectedCategoriesExceeded()" ng-style="{'background':category.model.color.color}" ng-class="{ 'category-name--unselected': ! category.selected }" ng-click="vm.toggleAndReloadInsights(category)">
                 <span class="icon-checkmark-light" ng-show="category.selected"></span>
                 {{category.model.name}}
-            </div>
+            </button>
         </div>
     </div>
 
@@ -29,7 +29,7 @@
                 data="vm.insightLineData"
                 series="vm.insightLineSeries"
                 legend="false"
-                options="vm.barOptions"
+                options="vm.lineOptions"
                 colours="vm.insightLineColors"
                 labels="vm.insightLabels">
         </canvas>

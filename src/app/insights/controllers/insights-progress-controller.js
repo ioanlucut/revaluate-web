@@ -54,7 +54,12 @@ angular
         }));
 
         // ---
-        // Populate predefined categories with colors.
+        // Update the options.
+        // ---
+        vm.lineOptions = _.extend(vm.barOptions, { datasetFill: false });
+
+        // ---
+        // Populate categories with selected status.
         // ---
         _.each(vm.masterCategories, function (category) {
             category.selected = true;
@@ -63,6 +68,13 @@ angular
         function getSelectedCategories() {
             return _.filter(vm.masterCategories, 'selected', true);
         }
+
+        /**
+         * At least one category should be selected
+         */
+        vm.isMinimumNumberOfAllowedUnselectedCategoriesExceeded = function () {
+            return getSelectedCategories().length === 1;
+        };
 
         /**
          * Toggle category selection
