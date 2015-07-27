@@ -36,9 +36,14 @@ angular
                 description: "",
 
                 /**
-                 * Create date of the expense.
+                 * Spent date of the expense.
                  */
-                spentDate: ""
+                spentDate: "",
+
+                /**
+                 * Created date of the expense.
+                 */
+                createdDate: ""
             };
 
             /**
