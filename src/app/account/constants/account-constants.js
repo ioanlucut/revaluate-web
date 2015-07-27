@@ -24,6 +24,7 @@ angular
     })
     .constant("AUTH_URLS", {
         login: "account/login",
+        connectViaOauth: "account/connectViaOauth/:email",
         logout: "account/logout",
         currentUser: "account/user",
         auth: "account",
