@@ -10,8 +10,8 @@
 
     <div class="insights__categories">
         <div class="insights__categories__category" ng-repeat="category in vm.masterCategories | orderObjectBy : 'model.name' : false track by category.model.id">
-            <button class="category-name" ng-disabled="category.selected && vm.isMinimumNumberOfAllowedUnselectedCategoriesExceeded()" ng-style="{'background': category.selected ? category.model.color.color : 'transparent'}" ng-class="{ 'category-name--unselected': ! category.selected }" ng-click="vm.toggleAndReloadInsights(category)">
-                <span class="icon-checkmark-light" ng-show="category.selected"></span>
+            <button class="category-name" ng-disabled="category.selected && vm.isMinimumNumberOfAllowedUnselectedCategoriesExceeded()" ng-class="{ 'category-name--unselected': ! category.selected }" ng-click="vm.toggleAndReloadInsights(category)">
+                <span class="icon-checkmark-filled" ng-style="{'color': category.selected ? category.model.color.color : 'transparent'}" ng-show="category.selected"></span>
                 <span class="icon-checkmark-light-unchecked" ng-show="!category.selected"></span>
                 {{category.model.name}}
             </button>
