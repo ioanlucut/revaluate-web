@@ -31,7 +31,7 @@ angular
                                 }
                             }))
                     })
-                    .then(function (response) {
+                    .then(function () {
                         vm.isRequestPending = false;
                         StatesHandler.goToExpenses();
                     })
