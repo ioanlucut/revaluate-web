@@ -11,8 +11,11 @@
             <h3 class="home__description" translate="HOME.DESCRIPTION_TEXT"></h3>
         </div>
 
-        <div class="home__section__signup__oauth2">
-            <a href="javascript:void(0)" oauth2-connector="facebook">Facebook</a>
+        <div class="home__section__signup__oauth2" ng-controller="OauthConnectController as vm">
+            <!-- Flash messages. -->
+            <div flash-messages flash="flash" identifier-id="{{vm.alertId}}"></div>
+
+            <a href="javascript:void(0)" ng-click="vm.connectWith('facebook')">Facebook</a>
         </div>
 
         <div class="site__container__section">

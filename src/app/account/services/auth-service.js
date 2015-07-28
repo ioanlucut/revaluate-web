@@ -22,7 +22,7 @@ angular
                     SessionService.create(response.data, response.headers()[AUTH_TOKEN_HEADER]);
                     $rootScope.$broadcast(AUTH_EVENTS.loginSuccess, response);
 
-                    return response;
+                    return $q.when(response);
                 })
                 .catch(function (response) {
 
