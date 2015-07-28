@@ -32,9 +32,9 @@
         overflow: hidden;
         text-overflow: ellipsis;
         position: relative;
-        border: solid 1px $gray-light-2;
+        border: solid 1px $gray-light-1;
         color: $gray-dark-2;
-        background-color: transparent;
+        background-color: $brand-warning-light;
 
         &:hover {
             border-color: $gray-medium;
@@ -49,6 +49,7 @@
 
         &.category-name--unselected {
             border-color: $gray-light-3;
+            background-color: transparent;
 
             &:hover {
 
