@@ -1,10 +1,14 @@
 .insights__categories {
     @include outer-container();
-    padding-top: 10px;
+    @include clearfix();
+    padding: 0 20px;
 
     .insights__categories__category {
-        @include span-columns(2);
-        @include omega(6n);
+        display: block;
+        float: left;
+        width: 15.5%;
+        min-width: 150px;
+        margin-right: 10px;
         padding-bottom: 10px;
         font-size: $font-size-small;
     }
@@ -19,14 +23,17 @@
         @include user-select(none);
         height: 35px;
         width: 100%;
-        line-height: 28px;
-        padding: 2px 30px;
+        line-height: 29px;
+        padding: 2px 10px 2px 27px;
         cursor: pointer;
         color: $white;
         font-weight: $font-weight-regular;
         text-transform: uppercase;
         text-shadow: 0 0 rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        text-overflow: ellipsis;
         position: relative;
+        border: solid 1px transparent;
 
         &:hover {
             opacity: 0.8;
@@ -34,16 +41,16 @@
 
         span {
             position: absolute;
-            top: 5px;
+            top: 4px;
             left: 5px;
-            font-size: 18px;
+            font-size: 19px;
         }
 
         &.category-name--unselected {
-            opacity: 0.7;
             border: solid 1px $gray-light-1;
             text-shadow: none;
-            color: $white;
+            color: $gray-dark-2;
+            background-color: transparent;
 
             &:hover {
                 border-color: $gray-medium;
