@@ -1,9 +1,9 @@
 .insights__categories-controls {
-    margin-top: 10px;
     text-align: left;
+    padding: 5px 20px;
 
     a {
-        margin-right: 15px;
+        margin-right: 20px;
     }
 }
 
@@ -57,7 +57,6 @@
         }
 
         &.category-name--unselected {
-            border-color: $gray-light-3;
             background-color: transparent;
 
             &:hover {
@@ -65,7 +64,7 @@
             }
 
             span {
-
+                color: $gray-light-2;
             }
         }
     }
