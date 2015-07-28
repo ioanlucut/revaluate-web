@@ -8,9 +8,14 @@
         </div>
     </div>
 
+    <div class="insights__categories-controls">
+        <a href="javascript:void(0)" ng-click="vm.selectAll()">Select all</a>
+        <a href="javascript:void(0)" ng-click="vm.clearAll()">Clear all</a>
+    </div>
+
     <div class="insights__categories">
         <div class="insights__categories__category" ng-repeat="category in vm.masterCategories | orderObjectBy : 'model.name' : false track by category.model.id">
-            <button class="category-name" ng-disabled="category.selected && vm.isMinimumNumberOfAllowedUnselectedCategoriesExceeded()" ng-class="{ 'category-name--unselected': ! category.selected }" ng-click="vm.toggleAndReloadInsights(category)">
+            <button class="category-name" ng-class="{ 'category-name--unselected': ! category.selected }" ng-click="vm.toggleAndReloadInsights(category)">
                 <span class="icon-checkmark-filled" ng-style="{'color': category.selected ? category.model.color.color : 'transparent'}" ng-show="category.selected"></span>
                 <span class="icon-checkmark-light-unchecked" ng-show="!category.selected"></span>
                 {{category.model.name}}
@@ -18,7 +23,7 @@
         </div>
     </div>
 
-    <div class="insights__chart__bar" fade-out-in fade-when="vm.isLoading">
+    <div class="insights__chart__bar" fade-out-in fade-when="vm.isLoading" ng-if="! vm.isMinimumNumberOfAllowedUnselectedCategoriesExceeded()">
 
         <div class="spinner insights__loading" ng-if="vm.isLoading">
             <div class="double-bounce1"></div>

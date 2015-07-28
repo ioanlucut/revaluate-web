@@ -58,24 +58,6 @@ angular
         // ---
         vm.lineOptions = _.extend(vm.barOptions, { datasetFill: false });
 
-        // ---
-        // Populate categories with selected status.
-        // ---
-        _.each(vm.masterCategories, function (category) {
-            category.selected = true;
-        });
-
-        function getSelectedCategories() {
-            return _.filter(vm.masterCategories, 'selected', true);
-        }
-
-        /**
-         * At least one category should be selected
-         */
-        vm.isMinimumNumberOfAllowedUnselectedCategoriesExceeded = function () {
-            return getSelectedCategories().length === 1;
-        };
-
         /**
          * Toggle category selection
          */
@@ -89,6 +71,10 @@ angular
          * Prepares data for progress chart
          */
         function prepareDataForProgressChart() {
+            if ( vm.isMinimumNumberOfAllowedUnselectedCategoriesExceeded() ) {
+                return;
+            }
+
             var insightsPrepared = InsightsGenerator
                 .generate(vm.insightsProgress, getSelectedCategories());
 
@@ -101,10 +87,46 @@ angular
             vm.totalAmountPerMonths = insightsPrepared.totalAmountPerMonths;
         }
 
+        function getSelectedCategories() {
+            return _.filter(vm.masterCategories, 'selected', true);
+        }
+
+        function reloadAllCategoriesWithSelectedAs(status) {
+            _.each(vm.masterCategories, function (category) {
+                category.selected = status;
+            });
+
+            // ---
+            // Computed information and methods.
+            // ---
+            prepareDataForProgressChart();
+        }
+
+        /**
+         * At least one category should be selected
+         */
+        vm.isMinimumNumberOfAllowedUnselectedCategoriesExceeded = function () {
+            return getSelectedCategories().length === 0;
+        };
+
+        vm.selectAll = function () {
+            if ( getSelectedCategories().length < vm.masterCategories.length ) {
+
+                reloadAllCategoriesWithSelectedAs(true);
+            }
+        };
+
+        vm.clearAll = function () {
+            if ( getSelectedCategories().length > 0 ) {
+
+                reloadAllCategoriesWithSelectedAs(false);
+            }
+        };
+
         // ---
-        // Computed information and methods.
+        // Populate categories with selected status.
         // ---
-        prepareDataForProgressChart();
+        reloadAllCategoriesWithSelectedAs(true);
 
         /**
          * Load insights
