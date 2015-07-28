@@ -13,6 +13,13 @@
         <!-- Title -->
         <h1 class="account__title">Welcome!</h1>
 
+        <div class="account__oauth" ng-controller="OauthConnectController as vm">
+            <!-- Flash messages. -->
+            <div flash-messages flash="flash" identifier-id="{{vm.alertId}}"></div>
+
+            <a class="account__oauth__facebook" href="javascript:void(0)" ng-click="vm.connectWith('facebook')">Log in with Facebook</a>
+        </div>
+
         <!-- Login form -->
         <form name="loginForm" ng-submit="login(loginData)" novalidate focus-first-error>
 
@@ -30,19 +37,19 @@
                 <span class="form-group-input__message" ng-if="loginForm.password.$invalid && loginForm.$submitted">Please enter your password.</span>
             </div>
 
-            <!-- Reset password -->
-            <a class="link-navigation" href="javascript:void(0)" ng-click="AccountModal.setState(ACCOUNT_FORM_STATE.forgotPassword)">Forgot
-                login details?</a>
-
             <!-- Button container -->
             <button class="account__btn" type="submit">{{isRequestPending ? 'Logging in...' : isWaitingForCloseEvent ?
                 'Loading...' : 'Log in'}}
             </button>
         </form>
 
+        <!-- Reset password -->
+        <a class="link-navigation" href="javascript:void(0)" ng-click="AccountModal.setState(ACCOUNT_FORM_STATE.forgotPassword)">Forgot
+            login details?</a>
+
+        <!--Signup link-->
         <a class="link-navigation" href="javascript:void(0)" ng-click="AccountModal.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration)">Don't
             have an account yet? Sign up!</a>
-
     </div>
 
     <!--Sign up-->

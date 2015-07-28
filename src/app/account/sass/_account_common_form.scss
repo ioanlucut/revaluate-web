@@ -1,6 +1,17 @@
+.account__oauth {
+    border-bottom: solid 1px $gray-light-2;
+    padding-bottom: 30px;
+
+    a {
+        @include btn-block($gray-light-2);
+        color: $gray-dark-1;
+    }
+}
+
 .account__btn {
     @include btn-block($brand-primary);
     margin-top: 25px;
+    margin-bottom: 20px;
     font-size: 16px;
 }
 
