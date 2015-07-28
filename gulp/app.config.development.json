@@ -6,8 +6,7 @@
         "intercomAppId": "z2mfyywv",
         "OAUTH2_CLIENT_IDS": {
             "FACEBOOK": "933591903328760",
-            "GOOGLE": "",
-            "TWITTER": ""
+            "GOOGLE": ""
         },
         "isProduction": false
     }
