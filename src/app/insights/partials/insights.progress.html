@@ -1,19 +1,20 @@
 <div insights-empty-state-toggle show-empty-state="vm.monthsPerYearsStatistics.isOverallTransactionsEmpty()">
 
-    <div class="insights__categories">
-        <div class="insights__categories__category" ng-repeat="category in vm.masterCategories | orderObjectBy : 'model.name' : false track by category.model.id">
-            <button class="category-name" ng-disabled="category.selected && vm.isMinimumNumberOfAllowedUnselectedCategoriesExceeded()" ng-style="{'background':category.model.color.color}" ng-class="{ 'category-name--unselected': ! category.selected }" ng-click="vm.toggleAndReloadInsights(category)">
-                <span class="icon-checkmark-light" ng-show="category.selected"></span>
-                {{category.model.name}}
-            </button>
-        </div>
-    </div>
-
     <div class="insights__controls">
         <div class="insights__controls__chart-toggle insights__controls__chart-toggle--three">
             <a class="insights__controls__chart-toggle__entry" ng-class="{'insights__controls__chart-toggle__entry--active': vm.activeInterval === vm.INSIGHTS_INTERVAL.YEAR}" ng-click="vm.loadInsights(vm.INSIGHTS_INTERVAL.YEAR)" href="javascript:void(0)">1Y</a>
             <a class="insights__controls__chart-toggle__entry" ng-class="{'insights__controls__chart-toggle__entry--active': vm.activeInterval === vm.INSIGHTS_INTERVAL.HALF_YEAR}" ng-click="vm.loadInsights(vm.INSIGHTS_INTERVAL.HALF_YEAR)" href="javascript:void(0)">6M</a>
             <a class="insights__controls__chart-toggle__entry" ng-class="{'insights__controls__chart-toggle__entry--active': vm.activeInterval === vm.INSIGHTS_INTERVAL.QUARTER_YEAR}" ng-click="vm.loadInsights(vm.INSIGHTS_INTERVAL.QUARTER_YEAR)" href="javascript:void(0)">3M</a>
+        </div>
+    </div>
+
+    <div class="insights__categories">
+        <div class="insights__categories__category" ng-repeat="category in vm.masterCategories | orderObjectBy : 'model.name' : false track by category.model.id">
+            <button class="category-name" ng-disabled="category.selected && vm.isMinimumNumberOfAllowedUnselectedCategoriesExceeded()" ng-style="{'background': category.selected ? category.model.color.color : 'transparent'}" ng-class="{ 'category-name--unselected': ! category.selected }" ng-click="vm.toggleAndReloadInsights(category)">
+                <span class="icon-checkmark-light" ng-show="category.selected"></span>
+                <span class="icon-checkmark-light-unchecked" ng-show="!category.selected"></span>
+                {{category.model.name}}
+            </button>
         </div>
     </div>
 
