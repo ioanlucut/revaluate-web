@@ -8,13 +8,25 @@
         @include btn-block($gray-light-2);
         color: $gray-dark-1;
         position: relative;
+        margin-bottom: 15px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
 
         span {
-            color: $social-facebook-color;
             font-size: 28px;
             position: absolute;
             left: 11px;
             top: 3px;
+
+            &.icon-facebook {
+                color: $social-facebook-color;
+            }
+
+            &.icon-google {
+                color: $social-google-color;
+            }
         }
     }
 
