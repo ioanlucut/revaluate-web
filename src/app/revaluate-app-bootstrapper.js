@@ -31,6 +31,7 @@
             "IMPORT_MIN_CATEGORIES_TO_SELECT": 0,
             "MAX_ALLOWED_CATEGORIES": -1,
             "MIN_ALLOWED_CATEGORIES": -1,
+            "USER_TYPES": [],
             "MIN_EXPENSES_TO_ENABLE_BULK_ACTION": -1
         };
 
