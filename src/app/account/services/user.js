@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.account")
-    .factory("User", function (SessionService, TransformerUtils, $q, $http, AUTH_URLS, USER_SUBSCRIPTION_STATUS) {
+    .factory("User", function (SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
         return {
 
             $new: function () {
@@ -24,6 +24,7 @@ angular
                         endTrialDate: "",
                         userSubscriptionStatus: "",
                         emailConfirmed: false,
+                        connectedViaOauth: false,
                         currency: {
                             symbol: ""
                         }
@@ -35,6 +36,10 @@ angular
                      */
                     isAuthenticated: function () {
                         return SessionService.sessionExists();
+                    },
+
+                    isConnectedViaOauth: function () {
+                        return this.model.connectedViaOauth;
                     },
 
                     /**
@@ -114,8 +119,6 @@ angular
 
                     /**
                      * Creates a user account with given fromData.
-                     * @param fromData
-                     * @returns {*}
                      */
                     create: function (fromData) {
                         var toBeCreated = {};
@@ -126,8 +129,6 @@ angular
 
                     /**
                      * Creates the account.
-                     * @param account
-                     * @returns {*}
                      */
                     createAccount: function (account) {
                         return $http

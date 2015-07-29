@@ -14,21 +14,15 @@ angular
             return SessionService.sessionExists();
         };
 
-        /**
-         * Login functionality
-         */
-        this.login = function (email, password) {
-
-            return $http.post(URLTo.api(AUTH_URLS.login), {
-                email: email,
-                password: password
-            })
+        function connectWith(url, payload) {
+            return $http
+                .post(url, payload)
                 .then(function (response) {
 
                     SessionService.create(response.data, response.headers()[AUTH_TOKEN_HEADER]);
                     $rootScope.$broadcast(AUTH_EVENTS.loginSuccess, response);
 
-                    return response;
+                    return $q.when(response);
                 })
                 .catch(function (response) {
 
@@ -37,6 +31,22 @@ angular
 
                     return $q.reject(response);
                 });
+        }
+
+        /**
+         * Login functionality
+         */
+        this.login = function (email, password) {
+
+            return connectWith(URLTo.api(AUTH_URLS.login), { email: email, password: password });
+        };
+
+        /**
+         * Connect via oauth
+         */
+        this.connectViaOauth = function (email, payload) {
+
+            return connectWith(URLTo.api(AUTH_URLS.connectViaOauth, { ":email": email }), payload);
         };
 
         /**

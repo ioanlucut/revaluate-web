@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.common")
-    .directive("header", function ($rootScope, StatesHandler, $state, $timeout) {
+    .directive("header", function ($rootScope, StatesHandler, AuthService, AUTH_EVENTS, $state, $timeout) {
         return {
             restrict: "A",
             templateUrl: "/app/common/partials/header-directive.tpl.html",
@@ -19,6 +19,11 @@ angular
                 scope.currentUser = $rootScope.currentUser;
 
                 /**
+                 * Is user authenticated ?
+                 */
+                scope.isUserAuthenticated = AuthService.isAuthenticated();
+
+                /**
                  * Handles tour page link
                  */
                 scope.goToTourPage = function () {
@@ -28,7 +33,15 @@ angular
                             $rootScope.$broadcast("fullpage-scroll-to", { slideNumber: 2 });
                         })
                     });
-                }
+                };
+
+                scope.$on(AUTH_EVENTS.loginSuccess, function () {
+                    scope.isUserAuthenticated = true;
+                });
+
+                scope.$on(AUTH_EVENTS.logoutSuccess, function () {
+                    scope.isUserAuthenticated = false;
+                });
 
             }
         };

@@ -2,38 +2,39 @@
 
 angular
     .module("revaluate.account")
-    .service("OAuth2Service", function (OAUTH2_CLIENT_IDS, OAUTH2_URLS, OAUTH2_SCOPE) {
-
+    .service("OAuth2Service", function (ENV, OAUTH2_URLS, OAUTH2_SCOPE, $q) {
 
         // ---
         // Initialize HELLO.
         // ---
         hello
-            .init({ facebook: OAUTH2_CLIENT_IDS.FACEBOOK });
+            .init({
+                facebook: ENV.OAUTH2_CLIENT_IDS.FACEBOOK,
+                google: ENV.OAUTH2_CLIENT_IDS.GOOGLE
+            });
 
+        /**
+         * Connect with provided provider
+         */
         this.connect = function (provider) {
+            var deferred = $q.defer();
 
             hello(provider)
                 .login({ scope: OAUTH2_SCOPE }, function () {
 
                     hello(provider)
-                        .api("/me?fields=id,first_name,last_name,email,locale,verified,picture", function (me) {
-
-                            var postData = {
-                                provider: provider,
+                        .api(provider === "google" ? "/me" : "/me?fields=id,first_name,last_name,email,locale,verified,picture")
+                        .then(function (me) {
+                            deferred.resolve({
                                 firstName: me.first_name,
                                 lastName: me.last_name,
-                                email: me.email,
-                                locale: me.locale,
-                                verified: me.verified,
-                                profileUrl: me.picture,
-                                id: me.id
-                            };
+                                email: me.email
+                            });
+                        }, function (response) {
+                            deferred.reject(response);
+                        });
+                });
 
-                            console.log(postData);
-                        })
-                })
-
+            return deferred.promise;
         };
-    })
-;
+    });

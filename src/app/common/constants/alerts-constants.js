@@ -6,6 +6,7 @@ angular
         login: "login",
         signUp: "signUp",
         signUpConfirm: "signUpConfirm",
+        oauthConnect: "oauthConnect",
         signUpSetUp: "signUpSetUp",
         generalError: "generalError",
         forgotPassword: "forgotPassword",
