@@ -1,5 +1,8 @@
 .account__oauth {
     padding-bottom: 30px;
+    position: relative;
+    border-bottom: solid 1px $gray-light-2;
+    margin-bottom: 30px;
 
     a {
         @include btn-block($gray-light-2);
@@ -14,16 +17,10 @@
             top: 3px;
         }
     }
-}
 
-.account__emailsignup {
-    position: relative;
-    border-top: solid 1px $gray-light-2;
-    padding-top: 10px;
-
-    .account__emailsignup__or {
+    .account__oauth__or {
         position: absolute;
-        top: -13px;
+        bottom: -38px;
         left: 0;
         right: 0;
         margin-left: auto;
@@ -33,6 +30,7 @@
         width: 50px;
         height: 50px;
         text-transform: uppercase;
+        color: $gray-medium;
     }
 }
 
