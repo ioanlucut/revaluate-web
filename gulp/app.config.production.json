@@ -4,10 +4,10 @@
         "apiEndpoint": "https://revaluate-api-prod.herokuapp.com",
         "mixPanelId": "1e6d81ba283c1393b2dee527e165013f",
         "intercomAppId": "qy0w35xm",
-        "isProduction": true,
         "OAUTH2_CLIENT_IDS": {
             "FACEBOOK": "933591903328760",
             "GOOGLE": "997617697610-sl7dselm1osn67p84ks5vvupbui2nhlb.apps.googleusercontent.com"
         },
+        "isProduction": true
     }
 }
