@@ -24,7 +24,9 @@ angular
                         return categoryEntry.model.id === totalPerCategoryInsightsEntry.categoryDTO.id;
                     });
 
-                    matchCategory.model.yearMonth[insightsMonthlyDTOEntry.yearMonth] = totalPerCategoryInsightsEntry.totalAmount;
+                    if ( matchCategory ) {
+                        matchCategory.model.yearMonth[insightsMonthlyDTOEntry.yearMonth] = totalPerCategoryInsightsEntry.totalAmount;
+                    }
                 });
             });
 
