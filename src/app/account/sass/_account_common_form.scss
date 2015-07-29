@@ -1,10 +1,38 @@
 .account__oauth {
-    border-bottom: solid 1px $gray-light-2;
     padding-bottom: 30px;
 
     a {
         @include btn-block($gray-light-2);
         color: $gray-dark-1;
+        position: relative;
+
+        span {
+            color: $social-facebook-color;
+            font-size: 28px;
+            position: absolute;
+            left: 11px;
+            top: 3px;
+        }
+    }
+}
+
+.account__emailsignup {
+    position: relative;
+    border-top: solid 1px $gray-light-2;
+    padding-top: 10px;
+
+    .account__emailsignup__or {
+        position: absolute;
+        top: -13px;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: $white;
+        @include border-radius(50%);
+        width: 50px;
+        height: 50px;
+        text-transform: uppercase;
     }
 }
 

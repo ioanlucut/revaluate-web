@@ -13,15 +13,12 @@
         <!-- Title -->
         <h1 class="account__title">Welcome!</h1>
 
-        <div class="account__oauth" ng-controller="OauthConnectController as vm">
-            <!-- Flash messages. -->
-            <div flash-messages flash="flash" identifier-id="{{vm.alertId}}"></div>
-
-            <a class="account__oauth__facebook" href="javascript:void(0)" ng-click="vm.connectWith('facebook')">Log in with Facebook</a>
-        </div>
+        <div ng-include src="'/app/account/partials/social_login_buttons.html'"></div>
 
         <!-- Login form -->
-        <form name="loginForm" ng-submit="login(loginData)" novalidate focus-first-error>
+        <form class="account__emailsignup" name="loginForm" ng-submit="login(loginData)" novalidate focus-first-error>
+
+            <span class="account__emailsignup__or">or</span>
 
             <!-- Flash messages. -->
             <div flash-messages flash="flash" identifier-id="{{alertId}}"></div>
