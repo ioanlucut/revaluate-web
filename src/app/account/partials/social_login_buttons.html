@@ -1,0 +1,9 @@
+<div class="account__oauth" ng-controller="OauthConnectController as vm">
+    <!-- Flash messages. -->
+    <div flash-messages flash="flash" identifier-id="{{vm.alertId}}"></div>
+
+    <a class="account__oauth__facebook" href="javascript:void(0)" ng-click="vm.connectWith('facebook')">
+        <span class="icon-facebook"></span>
+        Log in with Facebook
+    </a>
+</div>
