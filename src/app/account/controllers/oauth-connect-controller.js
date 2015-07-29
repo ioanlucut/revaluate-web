@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.account")
-    .controller("OauthConnectController", function ($rootScope, $scope, $q, $timeout, OAuth2Service, ALERTS_EVENTS, ALERTS_CONSTANTS, StatesHandler, User, AuthService) {
+    .controller("OauthConnectController", function ($rootScope, $scope, $q, $timeout, OAuth2Service, ALERTS_EVENTS, ALERTS_CONSTANTS, StatesHandler, User, APP_CONFIG, AuthService) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -26,6 +26,9 @@ angular
                         return AuthService
                             .connectViaOauth(response.email,
                             _.extend(response, {
+                                userType: _.find(APP_CONFIG.USER_TYPES, function (userTypeEntry) {
+                                    return userTypeEntry.indexOf(provider.toUpperCase()) > -1;
+                                }),
                                 currency: {
                                     "currencyCode": "EUR"
                                 }
@@ -33,6 +36,10 @@ angular
                     })
                     .then(function () {
                         vm.isRequestPending = false;
+                        $scope.$emit(ALERTS_EVENTS.CLEAR, {
+                            alertId: vm.alertId
+                        });
+
                         StatesHandler.goToExpenses();
                     })
                     .catch(function () {
