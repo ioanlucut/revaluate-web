@@ -9,7 +9,8 @@ angular
         // ---
         hello
             .init({
-                facebook: ENV.OAUTH2_CLIENT_IDS.FACEBOOK
+                facebook: ENV.OAUTH2_CLIENT_IDS.FACEBOOK,
+                google: ENV.OAUTH2_CLIENT_IDS.GOOGLE
             });
 
         /**
@@ -18,19 +19,20 @@ angular
         this.connect = function (provider) {
             var deferred = $q.defer();
 
-            var providerPromise = hello(provider);
+            hello(provider)
+                .login({ scope: OAUTH2_SCOPE }, function () {
 
-            providerPromise
-                .login()
-                .then(function () {
-                    return providerPromise.api("/me?fields=id,first_name,last_name,email,locale,verified,picture");
-                })
-                .then(function (me) {
-                    deferred.resolve({
-                        firstName: me.first_name,
-                        lastName: me.last_name,
-                        email: me.email
-                    });
+                    hello(provider)
+                        .api(provider === "google" ? "/me" : "/me?fields=id,first_name,last_name,email,locale,verified,picture")
+                        .then(function (me) {
+                            deferred.resolve({
+                                firstName: me.first_name,
+                                lastName: me.last_name,
+                                email: me.email
+                            });
+                        }, function (response) {
+                            deferred.reject(response);
+                        });
                 });
 
             return deferred.promise;
