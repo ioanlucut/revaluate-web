@@ -4,6 +4,17 @@
     margin: 0 auto;
     padding: 20px;
     position: relative;
+
+    .insights__chart__bar__nocategory {
+        border: solid 1px $gray-light-1;
+        background-color: $gray-light-3;
+        height: 350px;
+        margin: 10px 20px 10px 50px;
+        padding-top: 100px;
+        text-align: center;
+        color: $gray-light-1;
+        font-size: 22px;
+    }
 }
 
 .insights__chart__doughnut {
