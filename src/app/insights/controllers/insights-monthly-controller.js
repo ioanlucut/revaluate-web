@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.insights")
-    .controller("InsightsMonthlyController", function ($controller, $scope, DatesUtils, $rootScope, $filter, $timeout, InsightsGenerator, ALERTS_EVENTS, insightsMonthly, monthsPerYearsStatistics, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
+    .controller("InsightsMonthlyController", function ($controller, $scope, DatesUtils, $rootScope, $filter, $timeout, ExpenseService, InsightsGenerator, ALERTS_EVENTS, insightsMonthly, monthsPerYearsStatistics, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -118,6 +118,34 @@ angular
             $event.stopPropagation();
 
             vm.datePickerOpened = true;
+        };
+
+        /**
+         * Load expenses of category
+         */
+        vm.loadExpensesOfCategory = function (totalPerCategoryInsightsDTO) {
+            totalPerCategoryInsightsDTO
+                .isLoading = true;
+
+            var period = DatesUtils
+                .fromLastMonthsToNow(1);
+
+            ExpenseService
+                .getAllExpensesOfCategory(totalPerCategoryInsightsDTO.categoryDTO.id, period.from, period.to)
+                .then(function (expenses) {
+                    totalPerCategoryInsightsDTO
+                        .expenses = expenses;
+                })
+                .catch(function () {
+                    $scope.$emit(ALERTS_EVENTS.DANGER, {
+                        message: "Could not fetch expenses for " + totalPerCategoryInsightsDTO.categoryDTO.name,
+                        alertId: vm.alertId
+                    });
+                })
+                .finally(function () {
+                    totalPerCategoryInsightsDTO
+                        .isLoading = false;
+                })
         };
 
         /**

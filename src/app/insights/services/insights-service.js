@@ -5,11 +5,11 @@
  */
 angular
     .module("revaluate.insights")
-    .service("InsightsService", function (INSIGHTS_URLS, $q, $http, $injector, InsightsTransformerService) {
+    .service("InsightsService", function (INSIGHTS_URLS, $q, $http, $injector, InsightsTransformerService, DatesUtils) {
 
         this.fetchMonthlyInsightsFromTo = function (from, to) {
-            var fromFormatted = InsightsTransformerService.formatDate(from);
-            var toFormatted = InsightsTransformerService.formatDate(to);
+            var fromFormatted = DatesUtils.formatDate(from);
+            var toFormatted = DatesUtils.formatDate(to);
 
             return $http
                 .get(URLTo.api(INSIGHTS_URLS.fetchInsights, { ":from": fromFormatted, ":to": toFormatted }))
@@ -22,8 +22,8 @@ angular
         };
 
         this.fetchOverviewInsightsFromTo = function (from, to) {
-            var fromFormatted = InsightsTransformerService.formatDate(from);
-            var toFormatted = InsightsTransformerService.formatDate(to);
+            var fromFormatted = DatesUtils.formatDate(from);
+            var toFormatted = DatesUtils.formatDate(to);
 
             return $http
                 .get(URLTo.api(INSIGHTS_URLS.fetchOverviewInsights, { ":from": fromFormatted, ":to": toFormatted }))
@@ -36,8 +36,8 @@ angular
         };
 
         this.fetchProgressInsightsFromTo = function (from, to) {
-            var fromFormatted = InsightsTransformerService.formatDate(from);
-            var toFormatted = InsightsTransformerService.formatDate(to);
+            var fromFormatted = DatesUtils.formatDate(from);
+            var toFormatted = DatesUtils.formatDate(to);
 
             return $http
                 .get(URLTo.api(INSIGHTS_URLS.fetchProgressInsights, { ":from": fromFormatted, ":to": toFormatted }))
