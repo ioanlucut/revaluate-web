@@ -11,7 +11,8 @@ angular
         details: "expenses/:id",
         delete: "expenses/:id",
         bulkDelete: "expenses/bulkDelete",
-        allExpenses: "expenses/retrieve"
+        allExpenses: "expenses/retrieve",
+        allExpensesOfCategory: "expenses/retrieve_from_to_of_category/:categoryId?from=:from&to=:to"
     })
     .constant("EXPENSE_EVENTS", {
         isCreated: "expense-is-created",

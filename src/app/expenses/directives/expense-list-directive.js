@@ -4,7 +4,7 @@
 
 angular
     .module("revaluate.expenses")
-    .directive("expenseList", function ($rootScope, $timeout, EXPENSE_EVENTS) {
+    .directive("expenseList", function ($rootScope, $timeout) {
         return {
             restrict: "A",
             scope: {

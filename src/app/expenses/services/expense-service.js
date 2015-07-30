@@ -5,7 +5,7 @@
  */
 angular
     .module("revaluate.expenses")
-    .service("ExpenseService", function (EXPENSE_URLS, $q, $http, $injector, ExpenseTransformerService) {
+    .service("ExpenseService", function (EXPENSE_URLS, $q, $http, $injector, ExpenseTransformerService, DatesUtils) {
 
         /**
          * Update a expense.
@@ -70,6 +70,30 @@ angular
                     return $q.reject(response);
                 });
         };
+        /**
+         * Get all expenses of current user of a given category
+         * @param categoryId
+         * @param from
+         * @param to
+         * @returns {*}
+         */
+        this.getAllExpensesOfCategory = function (categoryId, from, to) {
+            var fromFormatted = DatesUtils.formatDate(from);
+            var toFormatted = DatesUtils.formatDate(to);
+
+            return $http
+                .get(URLTo.api(EXPENSE_URLS.allExpensesOfCategory, {
+                    ":categoryId": categoryId,
+                    ":from": fromFormatted,
+                    ":to": toFormatted
+                }))
+                .then(function (response) {
+
+                    return ExpenseTransformerService.toExpenses(response.data)
+                }).catch(function (response) {
+                    return $q.reject(response);
+                });
+        };
 
         /**
          * Get details of a expense.
@@ -96,4 +120,8 @@ angular
                     return response.data;
                 });
         };
+
+        this.formatDate = function (givenDate) {
+            return moment(givenDate).format('YYYY-MM-DDTHH:mm:ss') + 'Z';
+        }
     });
