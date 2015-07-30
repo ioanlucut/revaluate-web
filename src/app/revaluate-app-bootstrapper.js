@@ -46,7 +46,7 @@
             resolve: {
                 APP_CONFIG: ['ENV', '$http', 'CacheFactory', function (ENV, $http, CacheFactory) {
                     var APP_CACHE_FACTORY_NAME = 'appCache';
-                    var APP_CONFIG_RESOURCE_URL = "appconfig/fetchConfig" + '?' + ENV.name;
+                    var APP_CONFIG_RESOURCE_URL = "appconfig/fetchConfig" + '?' + ENV.name + '&' + ENV.cacheResetKey;
 
                     URLTo.apiBase(ENV.apiEndpoint);
 
