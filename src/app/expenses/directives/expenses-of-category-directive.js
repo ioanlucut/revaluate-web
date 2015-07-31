@@ -72,7 +72,7 @@ angular
 
                     $timeout(_.bind(function () {
                         this.expanded = !this.expanded
-                    }, this), this.LOAD_MORE_TIMEOUT);
+                    }, this));
                 };
 
                 /**

@@ -17,22 +17,30 @@
 }
 
 .expenses__list__expand {
-    padding: 3px 10px 3px 20px;
     font-size: $font-size-largest;
     color: $gray-medium;
     cursor: pointer;
-    float: right;
+    position: absolute;
+    height: 40px;
+    width: 10px;
+    right: -20px;
+    top: 50%;
+    margin-top: -30px;
+    font-weight: bold;
 }
 
 .expenses__list__category__loading {
+    display: block;
     position: absolute;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    top: -40px;
+    top: 50%;
+    left: 50%;
+    margin-left: -40px;
+    margin-top: -20px;
 }
 
 expenses-of-category {
+    @include clearfix();
     position: relative;
+    display: block;
+    width: 100%;
 }

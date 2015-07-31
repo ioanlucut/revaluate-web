@@ -8,10 +8,10 @@
             <!-- Select prev month -->
             <button type="button" class="insights__controls__form__arrow insights__controls__form__arrow--left icon-chevron-left" ng-disabled="vm.isLoading || ! vm.canLoadPrevMonth()" ng-click="vm.prevMonth()"></button>
 
-            <div class="insights__controls__form__month" ng-class="{'has-error': vm.insightForm.spentDate.$invalid && vm.insightForm.$submitted}">
+            <div class="insights__controls__form__month" ng-class="{'has-error': vm.insightForm.monthYearDate.$invalid && vm.insightForm.$submitted}">
 
                 <!--Hidden input of the insights chosen date-->
-                <input type="hidden" name="spentDate" ng-model="vm.insightData.monthYearDate" required valid-date />
+                <input type="hidden" name="monthYearDate" ng-model="vm.insightData.monthYearDate" required valid-date />
 
                 <!--insights date picker-->
                 <div class="insight__form__date__input">
@@ -32,7 +32,7 @@
                 </div>
 
                 <!--Error messages-->
-                <div class="form-group-input__message" ng-class="{'has-error': vm.insightForm.spentDate.$invalid && vm.insightForm.$submitted}" ng-messages="vm.insightForm.spentDate.$error" ng-if="vm.insightForm.$submitted">
+                <div class="form-group-input__message" ng-class="{'has-error': vm.insightForm.monthYearDate.$invalid && vm.insightForm.$submitted}" ng-messages="vm.insightForm.monthYearDate.$error" ng-if="vm.insightForm.$submitted">
                     <div ng-message="required">Please add a date.</div>
                     <div ng-message="validDate">Date should be in the past.</div>
                 </div>
