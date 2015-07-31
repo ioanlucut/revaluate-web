@@ -2,7 +2,7 @@
 
 angular
     .module("revaluate.insights")
-    .controller("InsightsMonthlyController", function ($controller, $scope, DatesUtils, $rootScope, $filter, $timeout, InsightsGenerator, ALERTS_EVENTS, insightsMonthly, monthsPerYearsStatistics, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
+    .controller("InsightsMonthlyController", function ($controller, $scope, DatesUtils, $rootScope, $filter, $timeout, ExpenseService, InsightsGenerator, ALERTS_EVENTS, insightsMonthly, monthsPerYearsStatistics, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -124,7 +124,7 @@ angular
          * Exposed insights data (first define master copy).
          */
         vm.masterInsightData = {
-            spentDate: moment().toDate()
+            yearMonthDate: moment().toDate()
         };
 
         /**
@@ -145,7 +145,7 @@ angular
             vm.isLoading = true;
             var computedInsightsData = angular.copy(vm.insightData);
             var period = DatesUtils
-                .getFromToOfMonthYear(computedInsightsData.spentDate);
+                .getFromToOfMonthYear(computedInsightsData.yearMonthDate);
 
             InsightsService
                 .fetchMonthlyInsightsFromTo(period.from, period.to)
@@ -212,7 +212,7 @@ angular
          * @returns {boolean}
          */
         vm.canLoadPrevMonth = function () {
-            var currentSelectedDate = moment(vm.insightData.spentDate);
+            var currentSelectedDate = moment(vm.insightData.yearMonthDate);
             var currentSelectedDateYear = currentSelectedDate.year();
             var currentSelectedDateMonth = currentSelectedDate.month() + 1;
 
@@ -231,7 +231,7 @@ angular
          * Go to previous month
          */
         vm.prevMonth = function () {
-            vm.insightData.spentDate = moment(vm.insightData.spentDate).subtract(1, MONTH).toDate();
+            vm.insightData.yearMonthDate = moment(vm.insightData.yearMonthDate).subtract(1, MONTH).toDate();
 
             loadInsight();
         };
@@ -240,7 +240,7 @@ angular
          * Only if +1 month is at most the last existing expenses date.
          */
         vm.canLoadNextMonth = function () {
-            var currentSelectedDate = moment(vm.insightData.spentDate);
+            var currentSelectedDate = moment(vm.insightData.yearMonthDate);
             var currentSelectedDateYear = currentSelectedDate.year();
             var currentSelectedDateMonth = currentSelectedDate.month() + 1;
 
@@ -259,7 +259,7 @@ angular
          * Go to next month
          */
         vm.nextMonth = function () {
-            vm.insightData.spentDate = moment(vm.insightData.spentDate).add(1, MONTH).toDate();
+            vm.insightData.yearMonthDate = moment(vm.insightData.yearMonthDate).add(1, MONTH).toDate();
 
             loadInsight();
         };
