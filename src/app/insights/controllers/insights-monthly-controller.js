@@ -143,8 +143,9 @@ angular
             }
 
             vm.isLoading = true;
+            var computedInsightsData = angular.copy(vm.insightData);
             var period = DatesUtils
-                .getFromToOfMonthYear(angular.copy(vm.insightData));
+                .getFromToOfMonthYear(computedInsightsData.yearMonthDate);
 
             InsightsService
                 .fetchMonthlyInsightsFromTo(period.from, period.to)
