@@ -56,7 +56,9 @@ angular
         // ---
         // Update the options.
         // ---
-        vm.lineOptions = _.extend(vm.barOptions, { datasetFill: false });
+        vm.lineOptions = _.extend(vm.barOptions, {
+            datasetFill: false, animation: false, animationSteps: 30
+        });
 
         /**
          * Toggle category selection

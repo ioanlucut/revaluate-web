@@ -10,7 +10,7 @@ angular
                 categories: "=",
                 expense: "="
             },
-            templateUrl: "/app/expenses/partials/expense/expenses.entry.template.html",
+            templateUrl: "/app/expenses/partials/expense/expenses-entry-directive.tpl.html",
             link: function (scope, el, attrs) {
 
                 var EXPENSE_INPUT_SELECTOR = '.expense__form__price__input';

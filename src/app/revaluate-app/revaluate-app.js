@@ -209,7 +209,7 @@ angular
         // Configure BAR chart settings.
         // ---
         ChartJsProvider.setOptions('Bar', {
-            colours: ['#22A7F0'],
+            colours: ['#FF0000'],
 
             //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
             scaleBeginAtZero: true,
@@ -230,7 +230,7 @@ angular
             scaleShowVerticalLines: false,
 
             //Boolean - If there is a stroke on each bar
-            barShowStroke: true,
+            barShowStroke: false,
 
             //Number - Pixel width of the bar stroke
             barStrokeWidth: 1,

@@ -11,7 +11,7 @@ angular
          * Is user already authenticated ?
          */
         this.isAuthenticated = function () {
-            return SessionService.sessionExists();
+            return !_.isUndefined(SessionService.sessionExists());
         };
 
         function connectWith(url, payload) {
