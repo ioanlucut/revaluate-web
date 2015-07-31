@@ -6,7 +6,8 @@ angular
         return {
             restrict: "E",
             scope: {
-                totalPerCategoryInsights: "="
+                totalPerCategoryInsights: "=",
+                monthDate: "="
             },
             controller: function ($scope, $rootScope, $timeout, DatesUtils, ExpenseService, ALERTS_EVENTS) {
 
@@ -25,6 +26,12 @@ angular
                  * Save it into this.
                  */
                 this.totalPerCategoryInsights = $scope.totalPerCategoryInsights;
+
+                /**
+                 * Month date saved
+                 * @type {string|*}
+                 */
+                this.monthDate = $scope.monthDate;
 
                 /**
                  * Is loading more expenses flag.
@@ -102,7 +109,7 @@ angular
                     this.isUpdatingListLayout = true;
 
                     var period = DatesUtils
-                        .fromLastMonthsToNow(1);
+                        .getFromToOfMonthYear(this.monthDate);
 
                     ExpenseService
                         .getAllExpensesOfCategory(vm.totalPerCategoryInsights.categoryDTO.id, period.from, period.to)
