@@ -121,34 +121,6 @@ angular
         };
 
         /**
-         * Load expenses of category
-         */
-        vm.loadExpensesOfCategory = function (totalPerCategoryInsightsDTO) {
-            totalPerCategoryInsightsDTO
-                .isLoading = true;
-
-            var period = DatesUtils
-                .fromLastMonthsToNow(1);
-
-            ExpenseService
-                .getAllExpensesOfCategory(totalPerCategoryInsightsDTO.categoryDTO.id, period.from, period.to)
-                .then(function (expenses) {
-                    totalPerCategoryInsightsDTO
-                        .expenses = expenses;
-                })
-                .catch(function () {
-                    $scope.$emit(ALERTS_EVENTS.DANGER, {
-                        message: "Could not fetch expenses for " + totalPerCategoryInsightsDTO.categoryDTO.name,
-                        alertId: vm.alertId
-                    });
-                })
-                .finally(function () {
-                    totalPerCategoryInsightsDTO
-                        .isLoading = false;
-                })
-        };
-
-        /**
          * Exposed insights data (first define master copy).
          */
         vm.masterInsightData = {

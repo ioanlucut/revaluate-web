@@ -1,0 +1,36 @@
+<!--Expand/collapse click-->
+<div ng-click="vm.toggleContent()">{{vm.expanded ? 'Collapse':'Expand'}}</div>
+
+<!--If is loading for the first time (until expenses are loaded)-->
+<div class="spinner insights__loading" ng-if="vm.isUpdatingListLayout && ! vm.isExpensesLoaded()">
+    <div class="double-bounce1"></div>
+    <div class="double-bounce2"></div>
+</div>
+
+<!--If is loading for the first time (until expenses are loaded)-->
+<div class="expenses__list" ng-if="vm.expanded" fade-out-in fade-when="vm.isUpdatingListLayout">
+
+    <div class="expense__list__sort">
+        <div class="expense__list__sort__date">
+            Order by
+            <a href="javascript:void(0)" ng-class="{'expense__list__sort__date__entry--active': vm.selectedOrderBy === 'model.spentDate'}" ng-click="vm.setSelectedOrderBy('model.spentDate')">Expense date</a> |
+            <a href="javascript:void(0)" ng-class="{'expense__list__sort__date__entry--active': vm.selectedOrderBy === 'model.createdDate'}" ng-click="vm.setSelectedOrderBy('model.createdDate')">Added date</a>
+        </div>
+    </div>
+
+    <div class="expenses__list__entry" ng-repeat="expense in vm.expensesOfThisCategory | orderObjectBy : vm.selectedOrderBy : false | limitTo: vm.expensesLimit track by expense.model.id">
+
+        <div class="expenses__list__entry__section">
+
+            <div class="expenses__list__entry__section__price">
+                <span ng-bind-html="expense.model.value | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
+            </div>
+
+            <!--Expense description-->
+            <div class="expenses__list__entry__section__details" ng-bind-html="expense.model.description"></div>
+
+            <!--Expense date-->
+            <div class="expenses__list__entry__section__date">{{expense.model.spentDate | friendlyDate}}</div>
+        </div>
+    </div>
+</div>
