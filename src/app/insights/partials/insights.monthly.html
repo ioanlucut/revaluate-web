@@ -2,23 +2,22 @@
 
     <!-- InsightsMonthly fetch form -->
     <div class="insights__controls">
-
         <form name="vm.insightForm" class="insights__controls__form" novalidate>
 
             <!-- Select prev month -->
             <button type="button" class="insights__controls__form__arrow insights__controls__form__arrow--left icon-chevron-left" ng-disabled="vm.isLoading || ! vm.canLoadPrevMonth()" ng-click="vm.prevMonth()"></button>
 
-            <div class="insights__controls__form__month" ng-class="{'has-error': vm.insightForm.monthYearDate.$invalid && vm.insightForm.$submitted}">
+            <div class="insights__controls__form__month" ng-class="{'has-error': vm.insightForm.yearMonthDate.$invalid && vm.insightForm.$submitted}">
 
                 <!--Hidden input of the insights chosen date-->
-                <input type="hidden" name="monthYearDate" ng-model="vm.insightData.monthYearDate" required valid-date />
+                <input type="hidden" name="yearMonthDate" ng-model="vm.insightData.yearMonthDate" required valid-date />
 
                 <!--insights date picker-->
                 <div class="insight__form__date__input">
                     <button type="button"
                             class="insight__form__date__input__btn"
                             ng-click="vm.openDatePicker($event)"
-                            ng-model="vm.insightData.monthYearDate"
+                            ng-model="vm.insightData.yearMonthDate"
                             datepicker-popup
                             is-open="vm.datePickerOpened"
                             ng-change="vm.onChange()"
@@ -27,12 +26,12 @@
                             date-disabled="vm.shouldDateBeDisabled(date, mode)"
                             show-button-bar="false"
                             datepicker-options="{minMode: 'month',datepickerMode: 'month'}">{{vm.isLoading ? 'Loading'
-                        : (vm.insightData.monthYearDate | friendlyMonthDate)}}
+                        : (vm.insightData.yearMonthDate | friendlyMonthDate)}}
                     </button>
                 </div>
 
                 <!--Error messages-->
-                <div class="form-group-input__message" ng-class="{'has-error': vm.insightForm.monthYearDate.$invalid && vm.insightForm.$submitted}" ng-messages="vm.insightForm.monthYearDate.$error" ng-if="vm.insightForm.$submitted">
+                <div class="form-group-input__message" ng-class="{'has-error': vm.insightForm.yearMonthDate.$invalid && vm.insightForm.$submitted}" ng-messages="vm.insightForm.yearMonthDate.$error" ng-if="vm.insightForm.$submitted">
                     <div ng-message="required">Please add a date.</div>
                     <div ng-message="validDate">Date should be in the past.</div>
                 </div>
@@ -61,7 +60,7 @@
     <div ng-if="! vm.insightsMonthly.isTransactionsEmpty()">
         <div class="insights__summary">
             Hey, <span>{{currentUser.model.firstName}}</span>! In
-            <span>{{(vm.insightData.monthYearDate | friendlyMonthDate)}}</span>
+            <span>{{(vm.insightData.yearMonthDate | friendlyMonthDate)}}</span>
             you've spent a total of
             <span class="label-info" ng-bind-html="vm.insightsMonthly.model.totalAmountSpent | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>.
         </div>
@@ -104,7 +103,7 @@
                     <td class="insights__table__entry__amount">
                         <span ng-bind-html="totalPerCategory.totalAmount | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
 
-                        <expenses-of-category total-per-category-insights="totalPerCategory" month-year-date="vm.insightData.monthYearDate"></expenses-of-category>
+                        <expenses-of-category total-per-category-insights="totalPerCategory" month-year-date="vm.insightData.yearMonthDate"></expenses-of-category>
                     </td>
                 </tr>
             </table>

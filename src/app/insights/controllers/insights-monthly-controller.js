@@ -212,7 +212,7 @@ angular
          * @returns {boolean}
          */
         vm.canLoadPrevMonth = function () {
-            var currentSelectedDate = moment(vm.insightData.monthYearDate);
+            var currentSelectedDate = moment(vm.insightData.yearMonthDate);
             var currentSelectedDateYear = currentSelectedDate.year();
             var currentSelectedDateMonth = currentSelectedDate.month() + 1;
 
@@ -231,7 +231,7 @@ angular
          * Go to previous month
          */
         vm.prevMonth = function () {
-            vm.insightData.monthYearDate = moment(vm.insightData.monthYearDate).subtract(1, MONTH).toDate();
+            vm.insightData.yearMonthDate = moment(vm.insightData.yearMonthDate).subtract(1, MONTH).toDate();
 
             loadInsight();
         };
@@ -240,7 +240,7 @@ angular
          * Only if +1 month is at most the last existing expenses date.
          */
         vm.canLoadNextMonth = function () {
-            var currentSelectedDate = moment(vm.insightData.monthYearDate);
+            var currentSelectedDate = moment(vm.insightData.yearMonthDate);
             var currentSelectedDateYear = currentSelectedDate.year();
             var currentSelectedDateMonth = currentSelectedDate.month() + 1;
 
@@ -259,7 +259,7 @@ angular
          * Go to next month
          */
         vm.nextMonth = function () {
-            vm.insightData.monthYearDate = moment(vm.insightData.monthYearDate).add(1, MONTH).toDate();
+            vm.insightData.yearMonthDate = moment(vm.insightData.yearMonthDate).add(1, MONTH).toDate();
 
             loadInsight();
         };
