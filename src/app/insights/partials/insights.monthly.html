@@ -78,7 +78,7 @@
         </div>
 
         <div ng-if="vm.activeChart === vm.INSIGHTS_CHARTS.DOUGHNUT" class="insights__chart__doughnut" fade-out-in fade-when="vm.isLoading">
-            <canvas class="pie chart-pie"
+            <canvas class="chart chart-doughnut"
                     data="vm.donutInsightsPrepared.insightsDonutData"
                     labels="vm.donutInsightsPrepared.insightsDonutLabels"
                     legend="false"
