@@ -59,7 +59,7 @@ angular
                  * Sets the selected order by
                  */
                 this.toggleContent = function () {
-                    if ( !this.expanded ) {
+                    if ( !this.expanded && !this.isEmptyTransactions() ) {
                         this.loadExpensesOfCategory();
                     }
 
@@ -85,6 +85,10 @@ angular
                  */
                 this.isExpensesLoaded = function () {
                     return this.expensesOfThisCategory.length > 0;
+                };
+
+                this.isEmptyTransactions = function () {
+                    return this.totalPerCategoryInsights.numberOfTransactions === 0;
                 };
 
                 /**

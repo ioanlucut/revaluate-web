@@ -1,0 +1,25 @@
+.expenses__list__category {
+    padding: 5px 0 5px 0;
+}
+
+.expenses__list__category__entry {
+    @include no-user-select();
+    padding: 5px 5px;
+    margin: 0 auto;
+    min-height: 45px;
+    height: 100%;
+    width: 100%;
+    position: relative;
+
+    &:first-child {
+        border-top: solid 1px $gray-light-3;
+    }
+}
+
+.expenses__list__expand {
+    padding: 3px 10px 3px 20px;
+    font-size: $font-size-largest;
+    color: $gray-medium;
+    cursor: pointer;
+    float: right;
+}

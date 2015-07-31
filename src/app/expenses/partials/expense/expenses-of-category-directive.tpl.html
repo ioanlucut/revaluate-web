@@ -1,5 +1,9 @@
 <!--Expand/collapse click-->
-<div ng-click="vm.toggleContent()">{{vm.expanded ? 'Collapse':'Expand'}}</div>
+<div ng-if="! vm.isEmptyTransactions()"
+     class="expenses__list__expand simptip-position-left simptip-info simptip-smooth simptip-fade"
+     data-tooltip="{{vm.expanded ? 'Collapse':'Expand'}}"
+     ng-click="vm.toggleContent()">{{vm.expanded ? '-':'+'}}
+</div>
 
 <!--If is loading for the first time (until expenses are loaded)-->
 <div class="spinner insights__loading" ng-if="vm.isUpdatingListLayout && ! vm.isExpensesLoaded()">
@@ -8,7 +12,7 @@
 </div>
 
 <!--If is loading for the first time (until expenses are loaded)-->
-<div class="expenses__list" ng-if="vm.isExpensesLoaded() && vm.expanded" fade-out-in fade-when="vm.isUpdatingListLayout">
+<div class="expenses__list__category" ng-if="vm.isExpensesLoaded() && vm.expanded" fade-out-in fade-when="vm.isUpdatingListLayout">
 
     <div class="expense__list__sort">
         <div class="expense__list__sort__date">
@@ -18,19 +22,19 @@
         </div>
     </div>
 
-    <div class="expenses__list__entry" ng-repeat="expense in vm.expensesOfThisCategory | orderObjectBy : vm.selectedOrderBy : false | limitTo: vm.expensesLimit track by expense.model.id">
+    <div class="expenses__list__category__entry" ng-repeat="expense in vm.expensesOfThisCategory | orderObjectBy : vm.selectedOrderBy : false | limitTo: vm.expensesLimit track by expense.model.id">
 
-        <div class="expenses__list__entry__section">
+        <div class="expenses__list__category__entry__section">
 
-            <div class="expenses__list__entry__section__price">
+            <div class="expenses__list__category__entry__section__price">
                 <span ng-bind-html="expense.model.value | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
             </div>
 
             <!--Expense description-->
-            <div class="expenses__list__entry__section__details" ng-bind-html="expense.model.description"></div>
+            <div class="expenses__list__category__entry__section__details" ng-bind-html="expense.model.description"></div>
 
             <!--Expense date-->
-            <div class="expenses__list__entry__section__date">{{expense.model.spentDate | friendlyDate}}</div>
+            <div class="expenses__list__category__entry__section__date">{{expense.model.spentDate | friendlyDate}}</div>
         </div>
     </div>
 </div>
