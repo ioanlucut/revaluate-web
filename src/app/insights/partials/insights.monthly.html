@@ -11,14 +11,14 @@
             <div class="insights__controls__form__month" ng-class="{'has-error': vm.insightForm.spentDate.$invalid && vm.insightForm.$submitted}">
 
                 <!--Hidden input of the insights chosen date-->
-                <input type="hidden" name="spentDate" ng-model="vm.insightData.spentDate" required valid-date />
+                <input type="hidden" name="spentDate" ng-model="vm.insightData.monthYearDate" required valid-date />
 
                 <!--insights date picker-->
                 <div class="insight__form__date__input">
                     <button type="button"
                             class="insight__form__date__input__btn"
                             ng-click="vm.openDatePicker($event)"
-                            ng-model="vm.insightData.spentDate"
+                            ng-model="vm.insightData.monthYearDate"
                             datepicker-popup
                             is-open="vm.datePickerOpened"
                             ng-change="vm.onChange()"
@@ -27,7 +27,7 @@
                             date-disabled="vm.shouldDateBeDisabled(date, mode)"
                             show-button-bar="false"
                             datepicker-options="{minMode: 'month',datepickerMode: 'month'}">{{vm.isLoading ? 'Loading'
-                        : (vm.insightData.spentDate | friendlyMonthDate)}}
+                        : (vm.insightData.monthYearDate | friendlyMonthDate)}}
                     </button>
                 </div>
 
@@ -61,7 +61,7 @@
     <div ng-if="! vm.insightsMonthly.isTransactionsEmpty()">
         <div class="insights__summary">
             Hey, <span>{{currentUser.model.firstName}}</span>! In
-            <span>{{(vm.insightData.spentDate | friendlyMonthDate)}}</span>
+            <span>{{(vm.insightData.monthYearDate | friendlyMonthDate)}}</span>
             you've spent a total of
             <span class="label-info" ng-bind-html="vm.insightsMonthly.model.totalAmountSpent | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>.
         </div>
@@ -104,7 +104,7 @@
                     <td class="insights__table__entry__amount">
                         <span ng-bind-html="totalPerCategory.totalAmount | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
 
-                        <expenses-of-category total-per-category-insights="totalPerCategory" month-date="vm.insightData.spentDate"></expenses-of-category>
+                        <expenses-of-category total-per-category-insights="totalPerCategory" month-year-date="vm.insightData.monthYearDate"></expenses-of-category>
                     </td>
                 </tr>
             </table>
