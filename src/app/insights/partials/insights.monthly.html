@@ -96,7 +96,7 @@
                         <span ng-bind-html="vm.insightsMonthly.model.totalAmountSpent | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
                     </td>
                 </tr>
-                <tr ng-repeat="totalPerCategory in vm.insightsMonthly.model.totalPerCategoryInsightsDTOs" ng-click="vm.loadExpensesOfCategory(totalPerCategory)">
+                <tr ng-repeat="totalPerCategory in vm.insightsMonthly.model.totalPerCategoryInsightsDTOs">
                     <th class="insights__table__category label-uppercase">
                         <span class="insights__table__category__color" ng-style="{'background':totalPerCategory.categoryDTO.color.color}">C</span>
                         {{totalPerCategory.categoryDTO.name}}
@@ -104,23 +104,7 @@
                     <td class="insights__table__entry__amount">
                         <span ng-bind-html="totalPerCategory.totalAmount | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
 
-                        <div class="expenses__list" fade-out-in fade-when="totalPerCategory.isLoading">
-                            <div class="expenses__list__entry" ng-repeat="expense in totalPerCategory.expenses | orderObjectBy : 'model.createdDate' : false | limitTo: 10 track by expense.model.id">
-                                <div class="expenses__list__entry__section">
-
-                                    <div class="expenses__list__entry__section__price">
-                                        <span ng-bind-html="expense.model.value | currencys:user.model.currency.symbol:user.model.currency.fractionSize"></span>
-                                    </div>
-
-                                    <!--Expense description-->
-                                    <div class="expenses__list__entry__section__details" ng-bind-html="expense.model.description"></div>
-
-                                    <!--Expense date-->
-                                    <div class="expenses__list__entry__section__date">{{expense.model.spentDate | friendlyDate}}</div>
-                                </div>
-
-                            </div>
-                        </div>
+                        <expenses-of-category total-per-category-insights="totalPerCategory"></expenses-of-category>
                     </td>
                 </tr>
             </table>

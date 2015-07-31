@@ -4,7 +4,7 @@
 
 angular
     .module("revaluate.expenses")
-    .directive("expenseList", function ($rootScope, $timeout) {
+    .directive("expensesList", function ($rootScope, $timeout) {
         return {
             restrict: "A",
             scope: {
@@ -12,7 +12,7 @@ angular
                 categories: "=",
                 searchByText: "="
             },
-            templateUrl: "/app/expenses/partials/expense/expenses.list.template.html",
+            templateUrl: "/app/expenses/partials/expense/expenses-list-directive.tpl.html",
             link: function (scope, el, attrs) {
 
                 var LOAD_MORE_TIMEOUT = 500;
