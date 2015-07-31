@@ -8,7 +8,7 @@
 </div>
 
 <!--If is loading for the first time (until expenses are loaded)-->
-<div class="expenses__list" ng-if="vm.expanded" fade-out-in fade-when="vm.isUpdatingListLayout">
+<div class="expenses__list" ng-if="vm.isExpensesLoaded() && vm.expanded" fade-out-in fade-when="vm.isUpdatingListLayout">
 
     <div class="expense__list__sort">
         <div class="expense__list__sort__date">
