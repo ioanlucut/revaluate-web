@@ -35,7 +35,8 @@ angular
                      * @returns {*}
                      */
                     isAuthenticated: function () {
-                        return SessionService.sessionExists();
+
+                        return !_.isUndefined(SessionService.sessionExists())
                     },
 
                     isConnectedViaOauth: function () {

@@ -1,7 +1,7 @@
 <div class="side__menu__user">
     <img class="side__menu__user__avatar" gravatar-src="'{{currentUser.model.email}}'" />
-    <div class="side__menu__user__name">{{currentUser.model.firstName}} {{currentUser.model.lastName}}</div>
-    <div class="side__menu__user__email">{{currentUser.model.email}}</div>
+    <div class="side__menu__user__name">{{vm.currentUser.model.firstName}} {{vm.currentUser.model.lastName}}</div>
+    <div class="side__menu__user__email">{{vm.currentUser.model.email}}</div>
 </div>
 
 <ul class="side__menu__list">
@@ -9,7 +9,7 @@
         <span class="icon-nav-expenses side__menu__icon"></span>
         <a class="side__menu__link" href="javascript:void(0)" ui-sref="expenses.regular">Expenses</a>
     </li>
-    <li snap-close ng-class="{'side__menu--active': $state.includes('insights')}">
+    <li snap-close ng-class="{'side__menu--active': vm.$state.includes('insights')}">
         <span class="icon-nav-insights side__menu__icon"></span>
         <a class="side__menu__link" href="javascript:void(0)" ui-sref="insights.monthly">Insights</a>
     </li>
