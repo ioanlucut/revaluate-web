@@ -2,6 +2,24 @@
     padding: 5px 0 5px 0;
 }
 
+/* starting animations */
+.expenses__list__category.ng-enter {
+    @include fadeInLeft(0.8s);
+}
+
+/* destination animations */
+.expenses__list__category.ng-enter.ng-enter-active {
+}
+
+/* starting animations */
+.expenses__list__category.ng-leave {
+    @include fadeOutRight(0.5s);
+}
+
+/* destination animations */
+.expenses__list__category.ng-leave.ng-enter-active {
+}
+
 .expenses__list__category__entry {
     @include no-user-select();
     padding: 5px 5px;
