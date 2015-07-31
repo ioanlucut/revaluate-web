@@ -83,38 +83,12 @@ angular
         };
 
         this.generateMonthlyBar = function (insightsMonthly) {
-
-            function getColour(colour) {
-                return {
-                    fillColor: rgba(colour, 0.7),
-                    strokeColor: rgba(colour, 1),
-                    pointColor: rgba(colour, 1),
-                    pointStrokeColor: '#fff',
-                    pointHighlightFill: '#fff',
-                    pointHighlightStroke: rgba(colour, 0.1)
-                }
-            }
-
-            function hexToRgb(hex) {
-                var bigint = parseInt(hex, 16),
-                    r = (bigint >> 16) & 255,
-                    g = (bigint >> 8) & 255,
-                    b = bigint & 255;
-
-                return [r, g, b];
-            }
-
-            function rgba(colour, alpha) {
-                return 'rgba(' + colour.concat(alpha).join(',') + ')';
-            }
-
             var insightsBarData = _.map(insightsMonthly.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
                 return [totalPerCategoryInsightDTO.totalAmount];
             });
-            var insightsBarColors = _.map(insightsMonthly.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
-                return getColour(hexToRgb(totalPerCategoryInsightDTO.categoryDTO.color.color.substr(1)));
-            });
-
+            var insightsBarColors = _.map(insightsMonthly.model.totalPerCategoryInsightsDTOs, _.bind(function (totalPerCategoryInsightDTO) {
+                return this.getColour(this.hexToRgb(totalPerCategoryInsightDTO.categoryDTO.color.color.substr(1)));
+            }, this));
             var insightLineSeries = _.map(insightsMonthly.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
                 return totalPerCategoryInsightDTO.categoryDTO.name;
             });
@@ -155,15 +129,37 @@ angular
             var insightsBarLabels = _.map(insightsOverview.model.insightsOverview, function (insightOverviewEntry) {
                 return $filter('friendlyMonthDate')(insightOverviewEntry.yearMonth);
             });
-            var insightLineSeries = _.map(insightsOverview.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
-                return totalPerCategoryInsightDTO.categoryDTO.name;
-            });
 
             return {
                 insightsBarData: [insightsBarData],
-                insightsBarSeries: insightLineSeries,
-                insightsBarLabels: insightsBarLabels
+                insightsBarSeries: "Categories",
+                insightsBarLabels: insightsBarLabels,
+                insightsBarColors: [this.getColour(this.hexToRgb("#22A7F0".substr(1)))]
             }
+        };
+
+        this.getColour = function (colour) {
+            return {
+                fillColor: this.rgba(colour, 0.7),
+                strokeColor: this.rgba(colour, 1),
+                pointColor: this.rgba(colour, 1),
+                pointStrokeColor: '#fff',
+                pointHighlightFill: '#fff',
+                pointHighlightStroke: this.rgba(colour, 0.1)
+            }
+        };
+
+        this.hexToRgb = function (hex) {
+            var bigint = parseInt(hex, 16),
+                r = (bigint >> 16) & 255,
+                g = (bigint >> 8) & 255,
+                b = bigint & 255;
+
+            return [r, g, b];
+        };
+
+        this.rgba = function (colour, alpha) {
+            return 'rgba(' + colour.concat(alpha).join(',') + ')';
         };
 
     });
