@@ -1,5 +1,5 @@
-(function (_) {
-    'use strict';
+(function () {
+    "use strict";
 
     angular
         .module("revaluate.statistics")
@@ -19,4 +19,4 @@
             };
 
         });
-})(window._);
+}());

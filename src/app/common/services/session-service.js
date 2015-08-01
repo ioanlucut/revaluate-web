@@ -1,4 +1,4 @@
-'use strict';
+(function () {     "use strict";
 
 /**
  * Session service which encapsulates the whole logic account related to the Local storage which contains currently logged in user.
@@ -71,3 +71,4 @@ angular
         };
 
     });
+}());

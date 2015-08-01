@@ -1,52 +1,54 @@
-'use strict';
+(function () {
+    "use strict";
 
-angular
-    .module("revaluate.insights")
-    .factory("InsightsOverview", function ($q, $http, InsightsService, InsightsTransformerService) {
-
-        /**
-         * Insights class.
-         * @constructor
-         */
-        function InsightsOverview() {
+    angular
+        .module("revaluate.insights")
+        .factory("InsightsOverview", function ($q, $http, InsightsService, InsightsTransformerService) {
 
             /**
-             * Represents the DTO model of the insights.
+             * Insights class.
+             * @constructor
              */
-            this.model = {
+            function InsightsOverview() {
 
                 /**
-                 * Total amount spent
+                 * Represents the DTO model of the insights.
                  */
-                totalAmountSpent: 0,
+                this.model = {
 
-                /**
-                 * The insights data.
-                 */
-                insightData: [],
+                    /**
+                     * Total amount spent
+                     */
+                    totalAmountSpent: 0,
 
-                /**
-                 * The insights labels
-                 */
-                insightLabels: [],
+                    /**
+                     * The insights data.
+                     */
+                    insightData: [],
 
-                /**
-                 * Insights overview
-                 */
-                insightsOverview: []
-            };
-        }
+                    /**
+                     * The insights labels
+                     */
+                    insightLabels: [],
 
-        /**
-         * Builds a insights with given data.
-         */
-        InsightsOverview.build = function (data) {
-            if ( _.isEmpty(data) ) {
-                return new InsightsOverview();
+                    /**
+                     * Insights overview
+                     */
+                    insightsOverview: []
+                };
             }
 
-            return InsightsTransformerService.toInsight(data, new InsightsOverview());
-        };
+            /**
+             * Builds a insights with given data.
+             */
+            InsightsOverview.build = function (data) {
+                if ( _.isEmpty(data) ) {
+                    return new InsightsOverview();
+                }
 
-        return InsightsOverview;
-    });
+                return InsightsTransformerService.toInsight(data, new InsightsOverview());
+            };
+
+            return InsightsOverview;
+        });
+}());

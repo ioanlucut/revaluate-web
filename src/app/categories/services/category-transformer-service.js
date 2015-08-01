@@ -1,67 +1,69 @@
-'use strict';
+(function () {
+    "use strict";
 
-/**
- * Category transformer service which transforms a category DTO model object to a category business object.
- */
-angular
-    .module("revaluate.categories")
-    .service("CategoryTransformerService", function ($injector, TransformerUtils) {
+    /**
+     * Category transformer service which transforms a category DTO model object to a category business object.
+     */
+    angular
+        .module("revaluate.categories")
+        .service("CategoryTransformerService", function ($injector, TransformerUtils) {
 
-        /**
-         * Converts a category business object model to a categoryDto object.
-         */
-        this.toCategoryDto = function (category, skipKeys) {
-            var categoryDto = {};
+            /**
+             * Converts a category business object model to a categoryDto object.
+             */
+            this.toCategoryDto = function (category, skipKeys) {
+                var categoryDto = {};
 
-            TransformerUtils.copyKeysFromTo(category.model, categoryDto, skipKeys);
+                TransformerUtils.copyKeysFromTo(category.model, categoryDto, skipKeys);
 
-            // ---
-            // Should be always upper case.
-            // ---
-            categoryDto.name = categoryDto.name.toUpperCase();
+                // ---
+                // Should be always upper case.
+                // ---
+                categoryDto.name = categoryDto.name.toUpperCase();
 
-            return categoryDto;
-        };
+                return categoryDto;
+            };
 
-        /**
-         * Converts a categoryDto object to a category business object model.
-         */
-        this.toCategory = function (categoryDto, category, skipKeys) {
-            category = category || $injector.get('Category').build();
+            /**
+             * Converts a categoryDto object to a category business object model.
+             */
+            this.toCategory = function (categoryDto, category, skipKeys) {
+                category = category || $injector.get('Category').build();
 
-            TransformerUtils.copyKeysFromTo(categoryDto, category.model, skipKeys);
+                TransformerUtils.copyKeysFromTo(categoryDto, category.model, skipKeys);
 
-            // ---
-            // Should be always upper case.
-            // ---
-            category.model.name = category.model.name.toUpperCase();
+                // ---
+                // Should be always upper case.
+                // ---
+                category.model.name = category.model.name.toUpperCase();
 
-            return category;
-        };
+                return category;
+            };
 
-        /**
-         * Transform a list of categories as JSON to a list of categories as business object.
-         */
-        this.toCategories = function (categoryDtos) {
-            var categories = [];
+            /**
+             * Transform a list of categories as JSON to a list of categories as business object.
+             */
+            this.toCategories = function (categoryDtos) {
+                var categories = [];
 
-            _.each(categoryDtos, _.bind(function (categoryDto) {
-                categories.push(this.toCategory(categoryDto));
-            }, this));
+                _.each(categoryDtos, _.bind(function (categoryDto) {
+                    categories.push(this.toCategory(categoryDto));
+                }, this));
 
-            return categories;
-        };
+                return categories;
+            };
 
-        /**
-         * Transform a list of categories as business objects to a list of DTOs.
-         */
-        this.toCategoryDTOs = function (categories) {
-            var categoryDTOs = [];
+            /**
+             * Transform a list of categories as business objects to a list of DTOs.
+             */
+            this.toCategoryDTOs = function (categories) {
+                var categoryDTOs = [];
 
-            _.each(categories, _.bind(function (category) {
-                categoryDTOs.push(this.toCategoryDto(category));
-            }, this));
+                _.each(categories, _.bind(function (category) {
+                    categoryDTOs.push(this.toCategoryDto(category));
+                }, this));
 
-            return categoryDTOs;
-        };
-    });
+                return categoryDTOs;
+            };
+        });
+}());

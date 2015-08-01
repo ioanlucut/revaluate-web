@@ -1,4 +1,4 @@
-'use strict';
+(function () {     "use strict";
 
 angular
     .module('revaluate.common')
@@ -69,3 +69,4 @@ angular
             return !(d.valueOf() > new Date().valueOf());
         };
     });
+}());

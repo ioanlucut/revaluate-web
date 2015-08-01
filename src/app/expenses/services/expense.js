@@ -1,100 +1,102 @@
-'use strict';
+(function () {
+    "use strict";
 
-angular
-    .module("revaluate.expenses")
-    .factory("Expense", function ($q, $http, ExpenseService, ExpenseTransformerService) {
-
-        /**
-         * Expense class.
-         * @constructor
-         */
-        function Expense() {
+    angular
+        .module("revaluate.expenses")
+        .factory("Expense", function ($q, $http, ExpenseService, ExpenseTransformerService) {
 
             /**
-             * Represents the DTO model of the expense.
+             * Expense class.
+             * @constructor
              */
-            this.model = {
+            function Expense() {
 
                 /**
-                 * The expense id.
+                 * Represents the DTO model of the expense.
                  */
-                id: "",
+                this.model = {
+
+                    /**
+                     * The expense id.
+                     */
+                    id: "",
+
+                    /**
+                     * The expense description.
+                     */
+                    category: {},
+
+                    /**
+                     * The expense value
+                     */
+                    value: 0,
+
+                    /**
+                     * The expense description.
+                     */
+                    description: "",
+
+                    /**
+                     * Spent date of the expense.
+                     */
+                    spentDate: "",
+
+                    /**
+                     * Created date of the expense.
+                     */
+                    createdDate: ""
+                };
 
                 /**
-                 * The expense description.
+                 * Shows if this expense is marked (can be used e.g. in a bulk list)
+                 * @type {boolean}
                  */
-                category: {},
+                this.marked = false;
 
                 /**
-                 * The expense value
+                 * Is expense new.
+                 * @returns {boolean}
                  */
-                value: 0,
+                this.isNew = function () {
+                    return this.model.id === "" || _.isUndefined(this.model.id);
+                };
 
                 /**
-                 * The expense description.
+                 * Saves a expense and update model with response.
+                 * @returns {*}
                  */
-                description: "",
+                this.save = function () {
+                    if ( this.isNew() ) {
+                        return ExpenseService.createExpense(this);
+                    }
+                    else {
+                        return ExpenseService.updateExpense(this);
+                    }
+                };
 
                 /**
-                 * Spent date of the expense.
+                 * Destroys (deletes) a expense.
+                 * @returns {*}
                  */
-                spentDate: "",
+                this.destroy = function () {
+                    return ExpenseService.deleteExpense(this);
+                };
 
-                /**
-                 * Created date of the expense.
-                 */
-                createdDate: ""
-            };
-
-            /**
-             * Shows if this expense is marked (can be used e.g. in a bulk list)
-             * @type {boolean}
-             */
-            this.marked = false;
-
-            /**
-             * Is expense new.
-             * @returns {boolean}
-             */
-            this.isNew = function () {
-                return this.model.id === "" || _.isUndefined(this.model.id);
-            };
-
-            /**
-             * Saves a expense and update model with response.
-             * @returns {*}
-             */
-            this.save = function () {
-                if ( this.isNew() ) {
-                    return ExpenseService.createExpense(this);
-                }
-                else {
-                    return ExpenseService.updateExpense(this);
-                }
-            };
-
-            /**
-             * Destroys (deletes) a expense.
-             * @returns {*}
-             */
-            this.destroy = function () {
-                return ExpenseService.deleteExpense(this);
-            };
-
-        }
-
-        /**
-         * Builds a expense with given data.
-         * @param data
-         * @returns {Expense}
-         */
-        Expense.build = function (data) {
-            if ( _.isEmpty(data) ) {
-                return new Expense();
             }
 
-            return ExpenseTransformerService.toExpense(data, new Expense());
-        };
+            /**
+             * Builds a expense with given data.
+             * @param data
+             * @returns {Expense}
+             */
+            Expense.build = function (data) {
+                if ( _.isEmpty(data) ) {
+                    return new Expense();
+                }
 
-        return Expense;
-    });
+                return ExpenseTransformerService.toExpense(data, new Expense());
+            };
+
+            return Expense;
+        });
+}());

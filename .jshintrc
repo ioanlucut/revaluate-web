@@ -19,6 +19,8 @@
     "white": true,
     "validthis": true,
     "globals": {
+        "deferredBootstrapper": false,
+        "document": false,
         "angular": false,
         "require": false,
         "_": false,

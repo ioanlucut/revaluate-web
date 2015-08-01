@@ -1,4 +1,4 @@
-'use strict';
+(function () {     "use strict";
 
 // or just use "success", "info", "warning" or "danger" shortcut methods:
 angular
@@ -49,3 +49,4 @@ angular
         };
 
     });
+}());
