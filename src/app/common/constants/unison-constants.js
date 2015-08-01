@@ -19,9 +19,17 @@ angular
             name: "usn-small-medium",
             chartBarWidth: 165
         },
+        USN_LARGE_MEDIUM: {
+            name: "usn-large-medium",
+            chartBarWidth: 175
+        },
         USN_LARGE: {
             name: "usn-large",
             chartBarWidth: 185
+        },
+        USN_X_LARGE: {
+            name: "usn-x-large",
+            chartBarWidth: 195
         }
     })
     .constant("UNISON_EVENTS", {
