@@ -1,12 +1,12 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /**
      * ExpensesImport service which encapsulates the whole logic related to expensesImport.
      */
     angular
-        .module("revaluate.expensesImport")
-        .service("ImportService", function (IMPORT_URLS, $http, ImportTransformerService) {
+        .module('revaluate.expensesImport')
+        .service('ImportService', function (IMPORT_URLS, $http, ImportTransformerService) {
 
             this.importExpenses = function (importType, expensesImport) {
                 return $http

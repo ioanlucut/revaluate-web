@@ -1,12 +1,12 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /**
      * Update password controller.
      */
     angular
-        .module("revaluate.settings")
-        .controller("SettingsUpdatePasswordController", function ($scope, ALERTS_EVENTS, $timeout, AuthService, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {
+        .module('revaluate.settings')
+        .controller('SettingsUpdatePasswordController', function ($scope, ALERTS_EVENTS, $timeout, AuthService, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {
 
             /* jshint validthis: true */
             var vm = this;
@@ -22,9 +22,9 @@
              * Initial update password data.
              */
             var initialUpdatePasswordData = {
-                oldPassword: "",
-                newPassword: "",
-                newPasswordConfirmation: ""
+                oldPassword: '',
+                newPassword: '',
+                newPasswordConfirmation: ''
             };
 
             /**
@@ -37,13 +37,13 @@
              * Update password data functionality.
              */
             vm.updatePassword = function () {
-                if ( !( vm.updatePasswordForm.$valid && !vm.isRequestPending ) ) {
+                if (!(vm.updatePasswordForm.$valid && !vm.isRequestPending)) {
                     return;
                 }
 
-                if ( vm.updatePasswordData.newPassword !== vm.updatePasswordData.newPasswordConfirmation ) {
+                if (vm.updatePasswordData.newPassword !== vm.updatePasswordData.newPasswordConfirmation) {
                     $scope.$emit(ALERTS_EVENTS.DANGER, {
-                        message: "Your new password should match the new confirmation password!",
+                        message: 'Your new password should match the new confirmation password!',
                         alertId: vm.alertId
                     });
 
@@ -67,7 +67,7 @@
                         vm.isRequestPending = false;
 
                         $scope.$emit(ALERTS_EVENTS.DANGER, {
-                            message: "Error. Please try again.",
+                            message: 'Error. Please try again.',
                             alertId: vm.alertId
                         });
                     })

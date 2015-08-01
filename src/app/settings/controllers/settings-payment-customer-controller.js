@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.settings")
-        .controller("SettingsPaymentCustomerController", function ($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, paymentInsights, ALERTS_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS) {
+        .module('revaluate.settings')
+        .controller('SettingsPaymentCustomerController', function ($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, paymentInsights, ALERTS_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS) {
 
             var TIMEOUT_PENDING = 300;
 
@@ -42,7 +42,7 @@
             // UPDATE CUSTOMER RELATED
             // ---
             $scope.updateCustomer = function () {
-                if ( $scope.updateCustomerForm.$valid && !$scope.isRequestPending ) {
+                if ($scope.updateCustomerForm.$valid && !$scope.isRequestPending) {
 
                     // Show the loading bar
                     $scope.isRequestPending = true;
@@ -75,15 +75,14 @@
                             // Show errors.
                             // ---
                             var errors = response.data;
-                            if ( _.isArray(errors) ) {
+                            if (_.isArray(errors)) {
                                 $scope.$emit(ALERTS_EVENTS.DANGER, {
-                                    message: errors.join("\n"),
+                                    message: errors.join('\n'),
                                     alertId: vm.alertId
                                 });
-                            }
-                            else {
+                            }                          else {
                                 $scope.$emit(ALERTS_EVENTS.DANGER, {
-                                    message: "We\'ve encountered an error.",
+                                    message: 'We\'ve encountered an error.',
                                     alertId: vm.alertId
                                 });
                             }

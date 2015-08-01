@@ -1,7 +1,7 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.settings")
-        .value('clientTokenPath', URLTo.api("payment/fetchToken"));
+        .module('revaluate.settings')
+        .value('clientTokenPath', URLTo.api('payment/fetchToken'));
 }());

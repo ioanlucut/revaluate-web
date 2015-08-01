@@ -1,12 +1,12 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /**
      * Expense transformer service which transforms a expense DTO model object to a expense business object.
      */
     angular
-        .module("revaluate.expenses")
-        .service("ExpenseTransformerService", function ($injector, TransformerUtils) {
+        .module('revaluate.expenses')
+        .service('ExpenseTransformerService', function ($injector, TransformerUtils) {
 
             /**
              * Converts a expense business object model to a expenseDto object.
@@ -18,8 +18,8 @@
                 var expenseDto = {};
 
                 TransformerUtils.copyKeysFromTo(expense.model, expenseDto, skipKeys);
-                if ( expenseDto.spentDate ) {
-                    expenseDto.spentDate = moment(expenseDto.spentDate).format("YYYY-MM-DDTHH:mm:ss.hhh");
+                if (expenseDto.spentDate) {
+                    expenseDto.spentDate = moment(expenseDto.spentDate).format('YYYY-MM-DDTHH:mm:ss.hhh');
                 }
 
                 return expenseDto;
@@ -38,7 +38,7 @@
                 TransformerUtils.copyKeysFromTo(expenseDto, expense.model, skipKeys);
 
                 // handle date conversion
-                if ( expense.model.spentDate ) {
+                if (expense.model.spentDate) {
                     expense.model.spentDate = moment(expense.model.spentDate).toDate();
                 }
 

@@ -1,11 +1,11 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.common")
-        .directive("layzrInitializer", function () {
+        .module('revaluate.common')
+        .directive('layzrInitializer', function () {
             return {
-                restrict: "A",
+                restrict: 'A',
                 link: function () {
 
                     new Layzr();

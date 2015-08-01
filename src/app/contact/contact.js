@@ -1,6 +1,6 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.contact", []);
+        .module('revaluate.contact', []);
 }());

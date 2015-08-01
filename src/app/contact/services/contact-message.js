@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.contact")
-        .factory("Contact", function (ContactService) {
+        .module('revaluate.contact')
+        .factory('Contact', function (ContactService) {
 
             /**
              * Contact class.
@@ -19,17 +19,17 @@
                     /**
                      * Name
                      */
-                    name: "",
+                    name: '',
 
                     /**
                      * Contact email
                      */
-                    email: "",
+                    email: '',
 
                     /**
                      * Contact message
                      */
-                    message: ""
+                    message: ''
                 };
 
                 /**

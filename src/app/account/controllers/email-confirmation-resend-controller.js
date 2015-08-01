@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.account")
-        .controller("EmailConfirmationResendController", function ($scope, $rootScope, $timeout, ALERTS_EVENTS, AuthService, StatesHandler, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {
+        .module('revaluate.account')
+        .controller('EmailConfirmationResendController', function ($scope, $rootScope, $timeout, ALERTS_EVENTS, AuthService, StatesHandler, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {
 
             var TIMEOUT_PENDING = 300;
 
@@ -22,7 +22,7 @@
             };
 
             $scope.sendConfirmationEmail = function (sendConfirmationEmailForm) {
-                if ( sendConfirmationEmailForm.$valid && !$scope.isRequestPending ) {
+                if (sendConfirmationEmailForm.$valid && !$scope.isRequestPending) {
 
                     // Show the loading bar
                     $scope.isRequestPending = true;
@@ -41,7 +41,7 @@
                             $scope.isRequestPending = false;
 
                             $scope.$emit(ALERTS_EVENTS.DANGER, {
-                                message: "Sorry, something went wrong.",
+                                message: 'Sorry, something went wrong.',
                                 alertId: $scope.alertId
                             });
                         });

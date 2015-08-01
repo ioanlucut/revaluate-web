@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.insights")
-        .controller("InsightsAbstractController", function ($scope, $timeout, $rootScope, $filter, monthsPerYearsStatistics, UNISON_BREAKPOINTS, UNISON_EVENTS, resizeOnUpdate, getChartSetSize) {
+        .module('revaluate.insights')
+        .controller('InsightsAbstractController', function ($scope, $timeout, $rootScope, $filter, monthsPerYearsStatistics, UNISON_BREAKPOINTS, UNISON_EVENTS, resizeOnUpdate, getChartSetSize) {
 
             /* jshint validthis: true */
             var vm = this;
@@ -32,10 +32,12 @@
 
                     return formatChartValue(label);
                 },
+
                 multiTooltipTemplate: function (label) {
 
                     return label.datasetLabel + ' ' + formatChartValue(label);
                 },
+
                 tooltipTemplate: function (label) {
 
                     return label.label + ' ' + formatChartValue(label);
@@ -62,7 +64,7 @@
                 .donutChartOptions = angular.extend({}, defaultChartOptions);
             vm
                 .donutChartOptions
-                .legendTemplate = "<ul class=\"doughnut__chart__legend\"><% for (var i=0; i<segments.length; i++){%><li class=\"doughnut__chart__legend__box\"><span class=\"doughnut__chart__legend__box__color\" style=\"background-color:<%=segments[i].fillColor%>\"></span><span class=\"doughnut__chart__legend__box__label\"><%if(segments[i].label){%><%=segments[i].label%><%}%></span></li><%}%></ul>";
+                .legendTemplate = '<ul class="doughnut__chart__legend"><% for (var i=0; i<segments.length; i++){%><li class="doughnut__chart__legend__box"><span class="doughnut__chart__legend__box__color" style="background-color:<%=segments[i].fillColor%>"></span><span class="doughnut__chart__legend__box__label"><%if(segments[i].label){%><%=segments[i].label%><%}%></span></li><%}%></ul>';
 
             // ---
             // RESPONSIVE RELATED.
@@ -72,7 +74,7 @@
             // Updates bar data sets spacing values options (we do not want to have too fat bars - e.g. if there is only one column)
             // ---
             function adjustResizeChartOptionsAndSpacing(currentBreakpoint, chartSetSize) {
-                if ( !resizeOnUpdate ) {
+                if (!resizeOnUpdate) {
                     return;
                 }
 
@@ -80,7 +82,7 @@
                     return breakPointEntry.name === currentBreakpoint;
                 });
 
-                if ( breakpoint ) {
+                if (breakpoint) {
                     var numberOfSets = chartSetSize || getChartSetSize();
                     var spacing =
                         numberOfSets === 1
@@ -115,7 +117,7 @@
             // Listen for the chart reloaded event.
             // ---
             $scope
-                .$on("chartsLoaded", function (event, args) {
+                .$on('chartsLoaded', function (event, args) {
                     adjustResizeChartOptionsAndSpacing(Unison.fetch.now().name, args.size);
                 });
         });

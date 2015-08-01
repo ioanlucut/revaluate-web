@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.expensesImport")
-        .factory("ExpensesImport", function ($q, $http, ImportService, ImportTransformerService) {
+        .module('revaluate.expensesImport')
+        .factory('ExpensesImport', function ($q, $http, ImportService, ImportTransformerService) {
 
             /**
              * ExpensesImport class.
@@ -42,7 +42,7 @@
              * @returns {ExpensesImport}
              */
             ExpensesImport.build = function (data) {
-                if ( _.isEmpty(data) ) {
+                if (_.isEmpty(data)) {
                     return new ExpensesImport();
                 }
 

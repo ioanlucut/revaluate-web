@@ -1,12 +1,12 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /**
      * Category transformer service which transforms a category DTO model object to a category business object.
      */
     angular
-        .module("revaluate.categories")
-        .service("CategoryTransformerService", function ($injector, TransformerUtils) {
+        .module('revaluate.categories')
+        .service('CategoryTransformerService', function ($injector, TransformerUtils) {
 
             /**
              * Converts a category business object model to a categoryDto object.

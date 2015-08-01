@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.contact")
-        .service("ContactService", function (CONTACT_URLS, $http) {
+        .module('revaluate.contact')
+        .service('ContactService', function (CONTACT_URLS, $http) {
 
             this.sendContact = function (contact) {
                 return $http

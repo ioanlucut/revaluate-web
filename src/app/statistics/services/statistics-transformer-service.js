@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.statistics")
-        .service("StatisticsTransformerService", function ($injector, TransformerUtils) {
+        .module('revaluate.statistics')
+        .service('StatisticsTransformerService', function ($injector, TransformerUtils) {
 
             this.toStatistics = function (statisticsDto, skipKeys) {
                 var statistics = $injector.get('Statistics').build();

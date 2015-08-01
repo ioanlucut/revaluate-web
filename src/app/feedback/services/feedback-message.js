@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.feedback")
-        .factory("Feedback", function (FeedbackService) {
+        .module('revaluate.feedback')
+        .factory('Feedback', function (FeedbackService) {
 
             /**
              * Feedback class.
@@ -19,12 +19,12 @@
                     /**
                      * Feedback subject
                      */
-                    subject: "",
+                    subject: '',
 
                     /**
                      * Feedback message
                      */
-                    message: ""
+                    message: ''
                 };
 
                 /**

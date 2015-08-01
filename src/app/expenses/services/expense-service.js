@@ -1,12 +1,12 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /**
      * Expenses service which encapsulates the whole logic related to expenses.
      */
     angular
-        .module("revaluate.expenses")
-        .service("ExpenseService", function (EXPENSE_URLS, $q, $http, $injector, ExpenseTransformerService, DatesUtils) {
+        .module('revaluate.expenses')
+        .service('ExpenseService', function (EXPENSE_URLS, $q, $http, $injector, ExpenseTransformerService, DatesUtils) {
 
             /**
              * Update a expense.
@@ -49,7 +49,7 @@
                 var expenseDto = ExpenseTransformerService.toExpenseDto(expense);
 
                 return $http
-                    .delete(URLTo.api(EXPENSE_URLS.delete, { ":id": expenseDto.id }), expenseDto)
+                    .delete(URLTo.api(EXPENSE_URLS.delete, { ':id': expenseDto.id }), expenseDto)
                     .then(function (response) {
                         ExpenseTransformerService.toExpense(response.data, expense);
 
@@ -84,9 +84,9 @@
 
                 return $http
                     .get(URLTo.api(EXPENSE_URLS.allExpensesOfCategory, {
-                        ":categoryId": categoryId,
-                        ":from": fromFormatted,
-                        ":to": toFormatted
+                        ':categoryId': categoryId,
+                        ':from': fromFormatted,
+                        ':to': toFormatted
                     }))
                     .then(function (response) {
 
@@ -103,7 +103,7 @@
              */
             this.getDetails = function (id) {
                 return $http
-                    .get(URLTo.api(EXPENSE_URLS.details, { ":id": id }))
+                    .get(URLTo.api(EXPENSE_URLS.details, { ':id': id }))
                     .then(function (response) {
                         return ExpenseTransformerService.toExpense(response.data, $injector.get('Expense').build());
                     });

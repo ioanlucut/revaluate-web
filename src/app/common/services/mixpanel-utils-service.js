@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.common")
-        .service("MixpanelUtilsService", function ($window, ENV) {
+        .module('revaluate.common')
+        .service('MixpanelUtilsService', function ($window, ENV) {
 
             this.bootMixpanel = function (user) {
                 this.initMixpanel();
@@ -29,10 +29,10 @@
 
             this.getMixpanelUser = function (user) {
                 return {
-                    "$email": user.model.email,
-                    "$last_name": user.model.lastName,
-                    "$first_name": user.model.firstName,
-                    "$created": moment(user.model.createdDate).format("YYYY-MM-DDTHH:mm:ss")
+                    '$email': user.model.email,
+                    '$last_name': user.model.lastName,
+                    '$first_name': user.model.firstName,
+                    '$created': moment(user.model.createdDate).format('YYYY-MM-DDTHH:mm:ss')
                 };
             };
         });

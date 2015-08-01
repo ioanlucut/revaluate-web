@@ -1,10 +1,10 @@
 (function () {
-    "use strict";
+    'use strict';
 
-// ---
-// Utilities.
-// ---
-    var testUtils = require("helpers/tests");
+    // ---
+    // Utilities.
+    // ---
+    var testUtils = require('helpers/tests');
 
     describe('app/account/logout', function () {
 
@@ -15,7 +15,7 @@
             // ---
             // Load templates.
             // ---
-            angular.mock.module("gulpAngular");
+            angular.mock.module('gulpAngular');
 
             // ---
             // Provide APP_CONFIG.
@@ -25,7 +25,7 @@
             // ---
             // Just inject the angular.mock.module and define dependencies.
             // ---
-            angular.mock.module("revaluate", function ($provide) {
+            angular.mock.module('revaluate', function ($provide) {
                 $provide.value('AuthService', AuthServiceMock = {});
                 $provide.value('User', UserMock = {});
             });
@@ -56,6 +56,7 @@
                             isInitiated: function () {
                                 return true;
                             },
+
                             isTrialPeriodExpired: function () {
                                 return false;
                             }
@@ -73,11 +74,11 @@
             $state.go(state);
             $rootScope.$digest();
 
-            expect($state.current.url).toBe("/account/logout");
-            expect($state.current.name).toBe("account:logout");
-            expect($state.current.controller).toBe("AutoLogoutController");
-            expect($state.current.templateUrl).toBe("/app/account/partials/logout.html");
-            expect($state.current.title).toBe("Logout - Revaluate");
+            expect($state.current.url).toBe('/account/logout');
+            expect($state.current.name).toBe('account:logout');
+            expect($state.current.controller).toBe('AutoLogoutController');
+            expect($state.current.templateUrl).toBe('/app/account/partials/logout.html');
+            expect($state.current.title).toBe('Logout - Revaluate');
             expect($state.current.isPublicPage).toBeTruthy();
         });
 

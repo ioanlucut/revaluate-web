@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.account")
-        .service("UserService", function ($http, $q, USER_URLS) {
+        .module('revaluate.account')
+        .service('UserService', function ($http, $q, USER_URLS) {
 
             /**
              * The list of already verified email addresses.
@@ -22,7 +22,7 @@
                 // Create deferred
                 var deferred = $q.defer();
 
-                if ( !_.isUndefined(this.uniqueEmailCache[email]) ) {
+                if (!_.isUndefined(this.uniqueEmailCache[email])) {
 
                     // Use the value from cache
                     deferred.resolve({

@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.settings")
-        .controller("SettingsCancelAccountController", function ($q, $scope, $rootScope, $timeout, StatesHandler, AuthService, ALERTS_EVENTS, ALERTS_CONSTANTS) {
+        .module('revaluate.settings')
+        .controller('SettingsCancelAccountController', function ($q, $scope, $rootScope, $timeout, StatesHandler, AuthService, ALERTS_EVENTS, ALERTS_CONSTANTS) {
 
             /* jshint validthis: true */
             var vm = this;
@@ -20,7 +20,7 @@
              */
             vm.cancelAccount = function () {
 
-                if ( vm.isDeleting ) {
+                if (vm.isDeleting) {
                     return;
                 }
 
@@ -51,7 +51,7 @@
                         vm.isDeleting = false;
 
                         $scope.$emit(ALERTS_EVENTS.DANGER, {
-                            message: "We\'ve encountered an error.",
+                            message: 'We\'ve encountered an error.',
                             alertId: vm.alertId
                         });
                     });

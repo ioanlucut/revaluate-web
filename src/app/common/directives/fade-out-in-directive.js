@@ -1,13 +1,13 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.common")
-        .directive("fadeOutIn", function () {
+        .module('revaluate.common')
+        .directive('fadeOutIn', function () {
             return {
-                restrict: "A",
+                restrict: 'A',
                 scope: {
-                    fadeWhen: "="
+                    fadeWhen: '='
                 },
                 link: function (scope, el) {
                     var FADE_DURATION = 500;
@@ -15,11 +15,11 @@
                     var FADE_OUT_OPACITY_VALUE = 0.5;
 
                     scope.$watch('fadeWhen', function (val, valOld) {
-                        if ( _.isUndefined(val) && _.isUndefined(valOld) ) {
+                        if (_.isUndefined(val) && _.isUndefined(valOld)) {
                             return;
                         }
 
-                        if ( val === true && valOld === false || _.isUndefined(valOld) ) {
+                        if (val === true && valOld === false || _.isUndefined(valOld)) {
                             el.fadeTo(FADE_DURATION, FADE_OUT_OPACITY_VALUE);
                         } else {
                             el.fadeTo(FADE_DURATION, FADE_IN_OPACITY_VALUE);

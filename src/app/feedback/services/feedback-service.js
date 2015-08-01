@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.feedback")
-        .service("FeedbackService", function (FEEDBACK_URLS, $http) {
+        .module('revaluate.feedback')
+        .service('FeedbackService', function (FEEDBACK_URLS, $http) {
 
             this.sendFeedback = function (feedback) {
                 return $http

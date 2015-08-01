@@ -1,16 +1,16 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.expenses")
-        .directive("insightsEmptyStateToggle", function () {
+        .module('revaluate.expenses')
+        .directive('insightsEmptyStateToggle', function () {
             return {
-                restrict: "EA",
+                restrict: 'EA',
                 transclude: true,
                 scope: {
-                    showEmptyState: "="
+                    showEmptyState: '='
                 },
-                templateUrl: "/app/insights/partials/insights-empty-state-toggle-directive.tpl.html",
+                templateUrl: '/app/insights/partials/insights-empty-state-toggle-directive.tpl.html',
                 link: function () {
                 }
             }

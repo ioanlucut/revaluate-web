@@ -1,11 +1,12 @@
-(function () {     "use strict";
+(function () {
+    'use strict';
 
-angular
-    .module("revaluate.common")
-    .service("StatesHandler", function ($state, $stateParams, STATES) {
+    angular
+        .module('revaluate.common')
+    .service('StatesHandler', function ($state, $stateParams, STATES) {
 
         function call(callback) {
-            if ( callback && typeof(callback) === "function" ) {
+            if (callback && typeof (callback) === 'function') {
                 callback();
             }
         }

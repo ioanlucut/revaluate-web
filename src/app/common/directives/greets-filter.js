@@ -1,8 +1,8 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.expenses")
+        .module('revaluate.expenses')
         .filter('greets', function () {
             return function (greets, userName) {
 

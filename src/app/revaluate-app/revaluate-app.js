@@ -1,39 +1,39 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /**
      * Main app module declaration.
      */
     angular
-        .module("revaluate", [
-            "config",
-            "braintree-angular",
-            "angular-cache",
-            "angularFileUpload",
-            "angular-loading-bar",
-            "ngAnimate",
-            "ngMessages",
-            "ngStorage",
-            "ngSanitize",
-            "revaluate.site",
-            "revaluate.feedback",
-            "revaluate.contact",
-            "revaluate.common",
-            "revaluate.categories",
-            "revaluate.expensesImport",
-            "revaluate.expenses",
-            "revaluate.statistics",
-            "revaluate.account",
-            "revaluate.settings",
-            "revaluate.insights",
-            "ngIntercom",
-            "revaluate.intercom",
-            "ui.gravatar",
-            "angularPayments",
-            "pascalprecht.translate",
-            "ngToast",
-            "ui.select",
-            "snap"
+        .module('revaluate', [
+            'config',
+            'braintree-angular',
+            'angular-cache',
+            'angularFileUpload',
+            'angular-loading-bar',
+            'ngAnimate',
+            'ngMessages',
+            'ngStorage',
+            'ngSanitize',
+            'revaluate.site',
+            'revaluate.feedback',
+            'revaluate.contact',
+            'revaluate.common',
+            'revaluate.categories',
+            'revaluate.expensesImport',
+            'revaluate.expenses',
+            'revaluate.statistics',
+            'revaluate.account',
+            'revaluate.settings',
+            'revaluate.insights',
+            'ngIntercom',
+            'revaluate.intercom',
+            'ui.gravatar',
+            'angularPayments',
+            'pascalprecht.translate',
+            'ngToast',
+            'ui.select',
+            'snap'
         ])
         .config(function ($locationProvider, $translateProvider, ChartJsProvider, CacheFactoryProvider, gravatarServiceProvider, ngToastProvider) {
             angular.extend(CacheFactoryProvider.defaults, { maxAge: 15 * 60 * 1000 });
@@ -56,7 +56,7 @@
             // ---
             gravatarServiceProvider.defaults = {
                 size: 100,
-                "default": 'mm'
+                'default': 'mm'
             };
 
             // Use https endpoint
@@ -82,7 +82,7 @@
             // ---
             // Configure general chart settings.
             // ---
-            var MAIN_FONT = "'Montserrat','Arial', sans-serif";
+            var MAIN_FONT = '\'Montserrat\',\'Arial\', sans-serif';
             var MAIN_FONT_SIZE = 12;
             ChartJsProvider.setOptions({
                 // Boolean - Whether to animate the chart
@@ -100,7 +100,7 @@
                 //  easeInSine, easeOutExpo, easeOutCirc, easeOutCubic, easeInQuint,
                 //  easeInElastic, easeInOutSine, easeInOutQuint, easeInBounce,
                 //  easeOutElastic, easeInCubic]
-                animationEasing: "easeOutQuart",
+                animationEasing: 'easeOutQuart',
 
                 // Boolean - If we should show the scale at all
                 showScale: true,
@@ -119,7 +119,7 @@
                 scaleStartValue: null,
 
                 // String - Colour of the scale line
-                scaleLineColor: "rgba(0,0,0,.1)",
+                scaleLineColor: 'rgba(0,0,0,.1)',
 
                 // Number - Pixel width of the scale line
                 scaleLineWidth: 1,
@@ -128,7 +128,7 @@
                 scaleShowLabels: true,
 
                 // Interpolated JS string - can access value
-                scaleLabel: "<%=value%>",
+                scaleLabel: '<%=value%>',
 
                 // Boolean - Whether the scale should stick to integers, not floats even if drawing space is there
                 scaleIntegersOnly: true,
@@ -143,10 +143,10 @@
                 scaleFontSize: MAIN_FONT_SIZE,
 
                 // String - Scale label font weight style
-                scaleFontStyle: "normal",
+                scaleFontStyle: 'normal',
 
                 // String - Scale label font colour
-                scaleFontColor: "#666",
+                scaleFontColor: '#666',
 
                 // Boolean - Determines whether to draw tooltips on the canvas or not
                 showTooltips: true,
@@ -155,10 +155,10 @@
                 customTooltips: false,
 
                 // Array - Array of string names to attach tooltip events
-                tooltipEvents: ["mousemove", "touchstart", "touchmove"],
+                tooltipEvents: ['mousemove', 'touchstart', 'touchmove'],
 
                 // String - Tooltip background colour
-                tooltipFillColor: "rgba(0,0,0,0.8)",
+                tooltipFillColor: 'rgba(0,0,0,0.8)',
 
                 // String - Tooltip label font declaration for the scale label
                 tooltipFontFamily: MAIN_FONT,
@@ -167,10 +167,10 @@
                 tooltipFontSize: 14,
 
                 // String - Tooltip font weight style
-                tooltipFontStyle: "normal",
+                tooltipFontStyle: 'normal',
 
                 // String - Tooltip label font colour
-                tooltipFontColor: "#fff",
+                tooltipFontColor: '#fff',
 
                 // String - Tooltip title font declaration for the scale label
                 tooltipTitleFontFamily: MAIN_FONT,
@@ -179,10 +179,10 @@
                 tooltipTitleFontSize: 14,
 
                 // String - Tooltip title font weight style
-                tooltipTitleFontStyle: "bold",
+                tooltipTitleFontStyle: 'bold',
 
                 // String - Tooltip title font colour
-                tooltipTitleFontColor: "#fff",
+                tooltipTitleFontColor: '#fff',
 
                 // Number - pixel width of padding around tooltip text
                 tooltipYPadding: 20,
@@ -200,10 +200,10 @@
                 tooltipXOffset: 10,
 
                 // String - Template string for single tooltips
-                tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
+                tooltipTemplate: '<%if (label){%><%=label%>: <%}%><%= value %>',
 
                 // String - Template string for multiple tooltips
-                multiTooltipTemplate: "<%= value %>"
+                multiTooltipTemplate: '<%= value %>'
             });
 
             // ---

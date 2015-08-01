@@ -1,12 +1,12 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.insights")
-        .controller("InsightsOverviewController", function ($controller, $templateCache, $scope, $rootScope, $filter, $timeout, InsightsGenerator, DatesUtils, ALERTS_EVENTS, INSIGHTS_INTERVAL, insightsOverview, monthsPerYearsStatistics, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
+        .module('revaluate.insights')
+        .controller('InsightsOverviewController', function ($controller, $templateCache, $scope, $rootScope, $filter, $timeout, InsightsGenerator, DatesUtils, ALERTS_EVENTS, INSIGHTS_INTERVAL, insightsOverview, monthsPerYearsStatistics, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
 
             var TIMEOUT_DURATION = 150;
-            var MONTHS = "Months";
+            var MONTHS = 'Months';
 
             /* jshint validthis: true */
             var vm = this;
@@ -50,7 +50,7 @@
                 vm.barInsightsPrepared = InsightsGenerator
                     .generateOverviewBar(vm.insightsOverview);
 
-                $scope.$emit("chartsLoaded", { size: vm.barInsightsPrepared.insightsBarData[0].length });
+                $scope.$emit('chartsLoaded', { size: vm.barInsightsPrepared.insightsBarData[0].length });
             }
 
             /**
@@ -72,10 +72,11 @@
              * Load insights
              */
             vm.loadInsights = function (insightsIntervalMonths) {
-                if ( vm.isLoading ) {
+                if (vm.isLoading) {
 
                     return;
                 }
+
                 vm.isLoading = true;
 
                 var period = DatesUtils
@@ -88,7 +89,7 @@
                         /**
                          * Track event.
                          */
-                        $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.insightsOverviewFetched);
+                        $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.insightsOverviewFetched);
 
                         $timeout(function () {
                             // ---
@@ -105,7 +106,7 @@
                         vm.isLoading = false;
 
                         $scope.$emit(ALERTS_EVENTS.DANGER, {
-                            message: "Could not fetch insights.",
+                            message: 'Could not fetch insights.',
                             alertId: vm.alertId
                         });
                     });

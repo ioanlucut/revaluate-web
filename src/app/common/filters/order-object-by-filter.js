@@ -1,7 +1,7 @@
 (function () {
-    "use strict";
+    'use strict';
 
-// See https://github.com/fmquaglia/ngOrderObjectB
+    // See https://github.com/fmquaglia/ngOrderObjectB
     angular
         .module('revaluate.common')
         .filter('orderObjectBy', function () {
@@ -10,6 +10,7 @@
                 angular.forEach(items, function (item) {
                     filtered.push(item);
                 });
+
                 function index(obj, i) {
                     return obj[i];
                 }
@@ -18,16 +19,19 @@
                     var comparator;
                     var reducedA = field.split('.').reduce(index, a);
                     var reducedB = field.split('.').reduce(index, b);
-                    if ( reducedA === reducedB ) {
+                    if (reducedA === reducedB) {
                         comparator = 0;
                     } else {
                         comparator = (reducedA > reducedB ? 1 : -1);
                     }
+
                     return comparator;
                 });
-                if ( reverse ) {
+
+                if (reverse) {
                     filtered.reverse();
                 }
+
                 return filtered;
             };
         });

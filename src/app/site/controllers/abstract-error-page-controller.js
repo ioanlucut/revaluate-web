@@ -1,18 +1,18 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /**
      * Abstract error page controller.
      */
     angular
-        .module("revaluate.common")
-        .controller("AbstractErrorPageController", function ($scope, StatesHandler) {
+        .module('revaluate.common')
+        .controller('AbstractErrorPageController', function ($scope, StatesHandler) {
 
             /**
              * Track event.
              */
             $scope.trackErrorEvent = function (event) {
-                $scope.$broadcast("trackEvent", event)
+                $scope.$broadcast('trackEvent', event)
             };
 
             /**

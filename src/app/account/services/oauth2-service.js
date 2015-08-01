@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.account")
-        .service("OAuth2Service", function (ENV, OAUTH2_URLS, OAUTH2_SCOPE, $q) {
+        .module('revaluate.account')
+        .service('OAuth2Service', function (ENV, OAUTH2_URLS, OAUTH2_SCOPE, $q) {
 
             // ---
             // Initialize HELLO.
@@ -24,7 +24,7 @@
                     .login({ scope: OAUTH2_SCOPE }, function () {
 
                         hello(provider)
-                            .api(provider === "google" ? "/me" : "/me?fields=id,first_name,last_name,email,locale,verified,picture")
+                            .api(provider === 'google' ? '/me' : '/me?fields=id,first_name,last_name,email,locale,verified,picture')
                             .then(function (me) {
                                 deferred.resolve({
                                     firstName: me.first_name,
@@ -32,6 +32,7 @@
                                     email: me.email
                                 });
                             }, function (response) {
+
                                 deferred.reject(response);
                             });
                     });

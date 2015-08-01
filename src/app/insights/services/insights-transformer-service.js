@@ -1,12 +1,12 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /**
      * InsightsMonthly transformer service which transforms a insights DTO model object to a insights business object.
      */
     angular
-        .module("revaluate.insights")
-        .service("InsightsTransformerService", function ($filter, $injector, TransformerUtils) {
+        .module('revaluate.insights')
+        .service('InsightsTransformerService', function ($filter, $injector, TransformerUtils) {
 
             /**
              * Converts a insightDto object to a insights business object model.
@@ -17,11 +17,11 @@
                 TransformerUtils.copyKeysFromTo(insightDto, insightsMonthly.model, skipKeys);
 
                 // handle date conversion
-                if ( insightsMonthly.model.from ) {
+                if (insightsMonthly.model.from) {
                     insightsMonthly.model.from = moment(insightsMonthly.model.from).toDate();
                 }
 
-                if ( insightsMonthly.model.to ) {
+                if (insightsMonthly.model.to) {
                     insightsMonthly.model.to = moment(insightsMonthly.model.to).toDate();
                 }
 

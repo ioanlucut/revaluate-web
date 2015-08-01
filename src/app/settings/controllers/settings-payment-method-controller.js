@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.settings")
-        .controller("SettingsEditPaymentMethodController", function ($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentInsights, ALERTS_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS) {
+        .module('revaluate.settings')
+        .controller('SettingsEditPaymentMethodController', function ($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentInsights, ALERTS_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS) {
 
             /* jshint validthis: true */
             var vm = this;
@@ -70,7 +70,7 @@
             // UPDATE PAYMENT METHOD RELATED
             // ---
             vm.updatePaymentMethod = function () {
-                if ( vm.updatePaymentMethodForm.$valid && !vm.isRequestPending ) {
+                if (vm.updatePaymentMethodForm.$valid && !vm.isRequestPending) {
 
                     // Show the loading bar
                     vm.isRequestPending = true;
@@ -84,13 +84,12 @@
                             expirationDate: vm.paymentData.cardExpirationDate
                         }, function (err, nonce) {
 
-                            if ( err ) {
+                            if (err) {
                                 $scope.$emit(ALERTS_EVENTS.DANGER, {
                                     message: err,
                                     alertId: vm.alertId
                                 });
-                            }
-                            else {
+                            }                          else {
                                 // ---
                                 // Update details with the received nonce.
                                 // ---
@@ -122,15 +121,14 @@
                                         // Show errors.
                                         // ---
                                         var errors = response.data;
-                                        if ( _.isArray(errors) ) {
+                                        if (_.isArray(errors)) {
                                             $scope.$emit(ALERTS_EVENTS.DANGER, {
-                                                message: errors.join("\n"),
+                                                message: errors.join('\n'),
                                                 alertId: vm.alertId
                                             });
-                                        }
-                                        else {
+                                        }                                      else {
                                             $scope.$emit(ALERTS_EVENTS.DANGER, {
-                                                message: "We\'ve encountered an error.",
+                                                message: 'We\'ve encountered an error.',
                                                 alertId: vm.alertId
                                             });
                                         }

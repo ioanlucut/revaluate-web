@@ -1,11 +1,11 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /* Contact modal */
 
     angular
-        .module("revaluate.contact")
-        .service("ContactModalService", function ($modal) {
+        .module('revaluate.contact')
+        .service('ContactModalService', function ($modal) {
 
             /**
              * Contact modal instance.
@@ -19,9 +19,9 @@
             this.open = function () {
 
                 this.modalInstance = $modal.open({
-                    templateUrl: "/app/contact/partials/contact-modal.html",
-                    controller: "ContactModalController",
-                    windowClass: "modal-contact"
+                    templateUrl: '/app/contact/partials/contact-modal.html',
+                    controller: 'ContactModalController',
+                    windowClass: 'modal-contact'
                 });
             };
 

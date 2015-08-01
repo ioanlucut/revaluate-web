@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.contact")
-        .constant("CONTACT_URLS", {
-            contact: "contact"
+        .module('revaluate.contact')
+        .constant('CONTACT_URLS', {
+            contact: 'contact'
         });
 }());

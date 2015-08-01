@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.feedback")
-        .controller("FeedbackModalController", function ($scope, FeedbackModalService, Feedback, $timeout) {
+        .module('revaluate.feedback')
+        .controller('FeedbackModalController', function ($scope, FeedbackModalService, Feedback, $timeout) {
 
             var TIMEOUT = 1500;
 
@@ -31,6 +31,7 @@
                     .then(function () {
                         $scope.isModalOpened = true;
                     }
+
                 );
             };
 
@@ -40,7 +41,7 @@
             $scope.dismissFeedbackModal = function () {
                 FeedbackModalService
                     .modalInstance
-                    .dismiss("cancel");
+                    .dismiss('cancel');
 
                 $scope.isModalOpened = false;
             };
@@ -50,7 +51,7 @@
              * @param feedbackForm
              */
             $scope.sendFeedbackAndClose = function (feedbackForm) {
-                if ( feedbackForm.$valid && !$scope.isSending ) {
+                if (feedbackForm.$valid && !$scope.isSending) {
 
                     // Is sending feedback
                     $scope.isSending = true;
@@ -71,7 +72,7 @@
                         })
                         .catch(function () {
                             $scope.isSending = false;
-                            alert("Something went wrong. Please try again.");
+                            alert('Something went wrong. Please try again.');
                         })
                         .finally(function () {
                             $scope.isModalOpened = false;

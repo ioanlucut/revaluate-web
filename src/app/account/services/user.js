@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.account")
-        .factory("User", function (SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
+        .module('revaluate.account')
+        .factory('User', function (SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
             return {
 
                 $new: function () {
@@ -14,20 +14,20 @@
                          * User model (DTO)
                          */
                         model: {
-                            id: "",
-                            firstName: "",
-                            lastName: "",
-                            email: "",
-                            password: "",
-                            timezone: "",
+                            id: '',
+                            firstName: '',
+                            lastName: '',
+                            email: '',
+                            password: '',
+                            timezone: '',
                             initiated: false,
-                            createdDate: "",
-                            endTrialDate: "",
-                            userSubscriptionStatus: "",
+                            createdDate: '',
+                            endTrialDate: '',
+                            userSubscriptionStatus: '',
                             emailConfirmed: false,
                             connectedViaOauth: false,
                             currency: {
-                                symbol: ""
+                                symbol: ''
                             }
                         },
 
@@ -54,10 +54,11 @@
 
                         getTrialRemainingDays: function () {
                             var difference = moment(this.model.endTrialDate).diff(moment(), 'days');
-                            if ( difference < 0 ) {
+                            if (difference < 0) {
 
                                 return 0;
                             }
+
                             return difference;
                         },
 
@@ -113,7 +114,7 @@
                          */
                         saveToSession: function () {
                             var sessionData = {};
-                            TransformerUtils.copyKeysFromTo(this.model, sessionData, ["password"]);
+                            TransformerUtils.copyKeysFromTo(this.model, sessionData, ['password']);
                             SessionService.setData(sessionData);
 
                             return this;

@@ -1,11 +1,11 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /* Feedback modal */
 
     angular
-        .module("revaluate.feedback")
-        .service("FeedbackModalService", function ($modal) {
+        .module('revaluate.feedback')
+        .service('FeedbackModalService', function ($modal) {
 
             /**
              * Feedback modal instance.
@@ -19,9 +19,9 @@
             this.open = function () {
 
                 this.modalInstance = $modal.open({
-                    templateUrl: "/app/feedback/partials/feedback-modal.html",
-                    controller: "FeedbackModalController",
-                    windowClass: "modal-feedback"
+                    templateUrl: '/app/feedback/partials/feedback-modal.html',
+                    controller: 'FeedbackModalController',
+                    windowClass: 'modal-feedback'
                 });
             };
 

@@ -1,15 +1,15 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /* Account modal toggle */
 
     angular
-        .module("revaluate.account")
-        .directive("accountModalToggle", function (AccountModal) {
+        .module('revaluate.account')
+        .directive('accountModalToggle', function (AccountModal) {
             return {
-                restrict: "A",
+                restrict: 'A',
                 link: function (scope, el, attrs) {
-                    el.on("click", function () {
+                    el.on('click', function () {
                         AccountModal.openWithState(attrs.accountModalToggle);
                     });
                 }

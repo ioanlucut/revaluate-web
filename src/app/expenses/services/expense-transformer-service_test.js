@@ -1,10 +1,10 @@
 (function () {
-    "use strict";
+    'use strict';
 
-// ---
-// Utilities.
-// ---
-    var testUtils = require("helpers/tests");
+    // ---
+    // Utilities.
+    // ---
+    var testUtils = require('helpers/tests');
 
     describe('ExpenseTransformerService', function () {
 
@@ -16,7 +16,7 @@
             // ---
             angular.mock.module(testUtils.mockAppConfig);
 
-            angular.mock.module("revaluate");
+            angular.mock.module('revaluate');
         });
 
         it('Should inject the service', inject(function (ExpenseTransformerService) {
@@ -25,8 +25,8 @@
 
         it('Should transform a expense DTO to expense business object', inject(function (ExpenseTransformerService) {
             var expenseDto = {
-                id: "1",
-                description: "ABC",
+                id: '1',
+                description: 'ABC',
                 spentDate: new Date()
             };
 
@@ -39,21 +39,21 @@
         it('Should transform a expense to a expense DTO and remove everything after @', inject(function (ExpenseTransformerService, Expense) {
 
             var expense = Expense.build({
-                id: "1",
-                description: "ABC @Today"
+                id: '1',
+                description: 'ABC @Today'
             });
 
             var actualExpenseDto = ExpenseTransformerService.toExpenseDto(expense);
             expect(actualExpenseDto).toBeTruthy();
             expect(actualExpenseDto.id).toEqual(expense.model.id);
-            expect(actualExpenseDto.description).toEqual("ABC @Today");
+            expect(actualExpenseDto.description).toEqual('ABC @Today');
         }));
 
         it('Should transform a expense to a expense DTO', inject(function (ExpenseTransformerService, Expense) {
 
             var expense = Expense.build({
-                id: "1",
-                description: "ABC"
+                id: '1',
+                description: 'ABC'
             });
 
             var actualExpenseDto = ExpenseTransformerService.toExpenseDto(expense);
@@ -76,8 +76,8 @@
 
         it('Should transform a expense list of DTOs to a list of expenses business object', inject(function (ExpenseTransformerService) {
             var expenseDto = {
-                id: "1",
-                description: "ABC",
+                id: '1',
+                description: 'ABC',
                 spentDate: new Date()
             };
 
@@ -99,14 +99,14 @@
         it('Should remove duplicate emails inside a expense recipients', inject(function (ExpenseTransformerService, Expense) {
 
             var expense = Expense.build({
-                id: "1",
-                description: "ABC @Today"
+                id: '1',
+                description: 'ABC @Today'
             });
 
             var actualExpenseDto = ExpenseTransformerService.toExpenseDto(expense);
             expect(actualExpenseDto).toBeTruthy();
             expect(actualExpenseDto.id).toEqual(expense.model.id);
-            expect(actualExpenseDto.description).toEqual("ABC @Today");
+            expect(actualExpenseDto.description).toEqual('ABC @Today');
         }));
 
     });

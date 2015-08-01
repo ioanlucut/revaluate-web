@@ -1,13 +1,13 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.account")
-        .directive("uniqueEmail", function ($q, $timeout, UserService) {
+        .module('revaluate.account')
+        .directive('uniqueEmail', function ($q, $timeout, UserService) {
             return {
-                require: "ngModel",
+                require: 'ngModel',
                 scope: {
-                    ngModel: "="
+                    ngModel: '='
                 },
                 link: function (scope, el, attr, ngModel) {
 
@@ -22,9 +22,9 @@
                     }
 
                     // Re-validate on change
-                    scope.$watch("ngModel", function (value) {
+                    scope.$watch('ngModel', function (value) {
 
-                        if ( isValidEmail(value) ) {
+                        if (isValidEmail(value)) {
 
                             // Set validity
                             UserService
@@ -32,7 +32,7 @@
                                 .then(function (data) {
 
                                     // Make sure we are validating the latest value of the model (asynchronous responses)
-                                    if ( data.email === ngModel.$viewValue ) {
+                                    if (data.email === ngModel.$viewValue) {
                                         ngModel.$setValidity('uniqueEmail', data.isUnique);
                                     }
                                 });

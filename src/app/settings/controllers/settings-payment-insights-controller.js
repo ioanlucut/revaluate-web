@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.settings")
-        .controller("SettingsPaymentInsightsController", function ($q, $scope, $state, $rootScope, $timeout, $http, paymentInsights, ALERTS_EVENTS, AUTH_URLS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, AUTH_EVENTS, USER_SUBSCRIPTION_STATUS) {
+        .module('revaluate.settings')
+        .controller('SettingsPaymentInsightsController', function ($q, $scope, $state, $rootScope, $timeout, $http, paymentInsights, ALERTS_EVENTS, AUTH_URLS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, AUTH_EVENTS, USER_SUBSCRIPTION_STATUS) {
 
             /* jshint validthis: true */
             var vm = this;
@@ -34,7 +34,7 @@
             // Remove payment method.
             // ---
             vm.performRemovePayment = function () {
-                if ( !vm.isRequestPending ) {
+                if (!vm.isRequestPending) {
 
                     // Show the loading bar
                     vm.isRequestPending = true;
@@ -59,7 +59,7 @@
                                 // ---
                                 // If successful, go to expenses.
                                 // ---
-                                $state.go("expenses.regular");
+                                $state.go('expenses.regular');
                             }, TIMEOUT_PENDING);
                         })
                         .catch(function (response) {
@@ -71,15 +71,14 @@
                             // Show errors.
                             // ---
                             var errors = response.data;
-                            if ( _.isArray(errors) ) {
+                            if (_.isArray(errors)) {
                                 $scope.$emit(ALERTS_EVENTS.DANGER, {
-                                    message: errors.join("\n"),
+                                    message: errors.join('\n'),
                                     alertId: vm.alertId
                                 });
-                            }
-                            else {
+                            }                          else {
                                 $scope.$emit(ALERTS_EVENTS.DANGER, {
-                                    message: "We\'ve encountered an error.",
+                                    message: 'We\'ve encountered an error.',
                                     alertId: vm.alertId
                                 });
                             }

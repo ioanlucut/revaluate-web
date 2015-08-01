@@ -1,10 +1,10 @@
 (function () {
-    "use strict";
+    'use strict';
 
-// ---
-// Utilities.
-// ---
-    var testUtils = require("helpers/tests");
+    // ---
+    // Utilities.
+    // ---
+    var testUtils = require('helpers/tests');
 
     describe('app/AuthInterceptor', function () {
 
@@ -14,7 +14,7 @@
             // ---
             // Load templates.
             // ---
-            angular.mock.module("gulpAngular");
+            angular.mock.module('gulpAngular');
 
             // ---
             // Provide APP_CONFIG.
@@ -24,7 +24,7 @@
             // ---
             // Just inject the angular.mock.module and define dependencies.
             // ---
-            angular.mock.module("revaluate", function ($provide) {
+            angular.mock.module('revaluate', function ($provide) {
             });
 
             inject(function (_$rootScope_, _$state_, _$location_, _$injector_, _$httpBackend_, _$q_, _ENV_, _AccountModal_, _AuthInterceptor_, _AUTH_EVENTS_) {
