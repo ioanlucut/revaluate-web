@@ -1,22 +1,22 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.common")
-        .directive("greeter", function ($rootScope, $timeout) {
+        .module('revaluate.common')
+        .directive('greeter', function ($rootScope, $timeout) {
             return {
-                restrict: "E",
+                restrict: 'E',
                 scope: {
-                    greet: "="
+                    greet: '='
                 },
-                templateUrl: "/app/common/partials/greeter-directive.tpl.html",
+                templateUrl: '/app/common/partials/greeter-directive.tpl.html',
                 link: function (scope, el) {
                     var TIMEOUT = 1000;
 
                     scope.user = $rootScope.currentUser;
 
                     scope.$on('$viewContentLoaded', function () {
-                        if ( !el.is(':visible') ) {
+                        if (!el.is(':visible')) {
                             $timeout(function () {
                                 el.show();
                             }, TIMEOUT);

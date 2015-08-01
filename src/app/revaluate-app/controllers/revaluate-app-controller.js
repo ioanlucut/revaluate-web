@@ -1,12 +1,12 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /**
      * Main app controller declaration.
      */
     angular
-        .module("revaluate.account")
-        .controller("RevaluateAppController", function (flash, GreeterService, AlertService, $rootScope, $scope, $state, $timeout, $log, ALERTS_EVENTS, AuthService, AccountModal, IntercomUtilsService, MixpanelUtilsService, User, StatesHandler, AUTH_EVENTS, ALERTS_CONSTANTS, AUTH_MODAL, ERROR_INTERCEPTOR, ENV, APP_CONFIG) {
+        .module('revaluate.account')
+        .controller('RevaluateAppController', function (flash, GreeterService, AlertService, $rootScope, $scope, $state, $timeout, $log, ALERTS_EVENTS, AuthService, AccountModal, IntercomUtilsService, MixpanelUtilsService, User, StatesHandler, AUTH_EVENTS, ALERTS_CONSTANTS, AUTH_MODAL, ERROR_INTERCEPTOR, ENV, APP_CONFIG) {
 
             /**
              * Save the state on root scope
@@ -31,18 +31,17 @@
             // ---
             // Bootstrap intercom & mixpanel.
             // ---
-            if ( ENV.isProduction ) {
-                if ( AuthService.isAuthenticated() ) {
+            if (ENV.isProduction) {
+                if (AuthService.isAuthenticated()) {
                     IntercomUtilsService.bootIntercom($rootScope.currentUser);
                     MixpanelUtilsService.bootMixpanel($rootScope.currentUser);
-                }
-                else {
+                }            else {
                     MixpanelUtilsService.initMixpanel();
                 }
             }
 
-            if ( !ENV.isProduction ) {
-                $log.log("Current user: ", $rootScope.currentUser.model);
+            if (!ENV.isProduction) {
+                $log.log('Current user: ', $rootScope.currentUser.model);
             }
 
             /**
@@ -53,7 +52,7 @@
                 $rootScope.currentUser = User.$new().loadFromSession();
                 AuthService.redirectToAttemptedUrl();
 
-                if ( ENV.isProduction ) {
+                if (ENV.isProduction) {
 
                     // ---
                     // Bootstrap intercom.
@@ -65,8 +64,9 @@
                     // ---
                     MixpanelUtilsService.bootMixpanel($rootScope.currentUser);
                 }
-                if ( !ENV.isProduction ) {
-                    $log.log("Logged in: ", $rootScope.currentUser.model);
+
+                if (!ENV.isProduction) {
+                    $log.log('Logged in: ', $rootScope.currentUser.model);
                 }
             });
 
@@ -76,7 +76,7 @@
             $scope.$on(AUTH_EVENTS.refreshUser, function () {
                 $rootScope.currentUser = User.$new().loadFromSession();
 
-                if ( ENV.isProduction ) {
+                if (ENV.isProduction) {
                     // ---
                     // Refresh intercom user.
                     // ---
@@ -88,8 +88,8 @@
                     MixpanelUtilsService.updateMixpanel($rootScope.currentUser);
                 }
 
-                if ( !ENV.isProduction ) {
-                    $log.log("Refreshed user: ", $rootScope.currentUser.model);
+                if (!ENV.isProduction) {
+                    $log.log('Refreshed user: ', $rootScope.currentUser.model);
                 }
             });
 
@@ -97,9 +97,10 @@
              * Listen to the session timeout event
              */
             $scope.$on(AUTH_EVENTS.sessionTimeout, function () {
-                if ( !ENV.isProduction ) {
-                    $log.log("Session timed out.");
+                if (!ENV.isProduction) {
+                    $log.log('Session timed out.');
                 }
+
                 AuthService.logout();
             });
 
@@ -107,8 +108,8 @@
              * Listen to the not authenticated event
              */
             $scope.$on(AUTH_EVENTS.notAuthenticated, function () {
-                if ( !ENV.isProduction ) {
-                    $log.log("Not authenticated.");
+                if (!ENV.isProduction) {
+                    $log.log('Not authenticated.');
                 }
 
                 AuthService.logout();
@@ -121,18 +122,19 @@
              */
             $scope.$on(AUTH_EVENTS.logoutSuccess, function () {
                 $rootScope.currentUser = User.$new();
-                if ( !ENV.isProduction ) {
-                    $log.log("Logged out.");
+                if (!ENV.isProduction) {
+                    $log.log('Logged out.');
                 }
             });
 
             /**
              * Track events.
              */
-            $rootScope.$on("trackEvent", function (event, args) {
-                if ( !ENV.isProduction ) {
+            $rootScope.$on('trackEvent', function (event, args) {
+                if (!ENV.isProduction) {
                     return;
                 }
+
                 mixpanel.track(args);
                 IntercomUtilsService.trackEvent(args);
             });
@@ -141,8 +143,8 @@
              * Track activity
              */
             $rootScope.$on('$stateChangeSuccess', function (event, toState) {
-                if ( toState.stateEventName ) {
-                    $scope.$emit("trackEvent", toState.stateEventName);
+                if (toState.stateEventName) {
+                    $scope.$emit('trackEvent', toState.stateEventName);
                 }
 
                 // ---
@@ -153,7 +155,7 @@
                 // ---
                 // Handle fullpage.
                 // ---
-                if ( $.fn.fullpage && $.fn.fullpage.destroy ) {
+                if ($.fn.fullpage && $.fn.fullpage.destroy) {
                     $.fn.fullpage.destroy('all');
                 }
             });
@@ -162,7 +164,7 @@
                 // ---
                 // Close login modal if everything is loaded.
                 // ---
-                if ( AccountModal.isOpen ) {
+                if (AccountModal.isOpen) {
                     $rootScope.$broadcast(AUTH_MODAL.close, {})
                 }
             });
@@ -179,7 +181,7 @@
              */
             $scope.$on(ERROR_INTERCEPTOR.status402, function () {
 
-                flash.to(ALERTS_CONSTANTS.generalError).error = "Payment method required.";
+                flash.to(ALERTS_CONSTANTS.generalError).error = 'Payment method required.';
             });
 
             // ---
@@ -188,21 +190,25 @@
             $scope.$on(ALERTS_EVENTS.INFO, function (event, args) {
                 AlertService.addInfo(args);
             });
+
             $scope.$on(ALERTS_EVENTS.DANGER, function (event, args) {
-                if ( args.alertId ) {
+                if (args.alertId) {
                     flash.to(args.alertId).error = args.message;
                 } else {
                     AlertService.addDanger(args.message);
                 }
             });
+
             $scope.$on(ALERTS_EVENTS.CLEAR, function (event, args) {
-                if ( args.alertId ) {
+                if (args.alertId) {
                     flash.to(args.alertId).error = '';
                 }
             });
+
             $scope.$on(ALERTS_EVENTS.WARNING, function (event, args) {
                 AlertService.addWarning(args);
             });
+
             $scope.$on(ALERTS_EVENTS.SUCCESS, function (event, args) {
                 AlertService.addSuccess(args);
             });

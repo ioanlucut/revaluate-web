@@ -1,14 +1,14 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /**
      * Directive responsible for checking of an email is valid.
      */
     angular
-        .module("revaluate.account")
-        .directive("validEmail", function () {
+        .module('revaluate.account')
+        .directive('validEmail', function () {
             return {
-                require: "ngModel",
+                require: 'ngModel',
                 link: function (scope, el, attr, ngModel) {
 
                     /**

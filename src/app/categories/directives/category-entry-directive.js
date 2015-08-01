@@ -1,17 +1,17 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.categories")
-        .directive("categoryEntry", function ($rootScope, CATEGORY_EVENTS) {
+        .module('revaluate.categories')
+        .directive('categoryEntry', function ($rootScope, CATEGORY_EVENTS) {
             return {
-                restrict: "A",
+                restrict: 'A',
                 scope: {
-                    category: "=",
-                    colors: "=",
-                    isMinimumNumberOfAllowedCategoriesExceeded: "&"
+                    category: '=',
+                    colors: '=',
+                    isMinimumNumberOfAllowedCategoriesExceeded: '&'
                 },
-                controller: function ($scope, $rootScope, $timeout, CATEGORY_EVENTS, USER_ACTIVITY_EVENTS) {
+                controller: function ($scope, $rootScope, $timeout, CATEGORY_EVENTS) {
 
                     /* jshint validthis: true */
                     var vm = this;
@@ -30,7 +30,7 @@
                      * Update the category.
                      */
                     vm.updateCategory = function (categoryForm) {
-                        if ( categoryForm.$valid && !vm.isUpdating ) {
+                        if (categoryForm.$valid && !vm.isUpdating) {
 
                             vm.isUpdating = true;
 
@@ -46,7 +46,7 @@
                                 .catch(function () {
                                     vm.isUpdating = false;
                                     vm.badPostSubmitResponse = true;
-                                    $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: "error" });
+                                    $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: 'error' });
                                 });
                         }
                     };
@@ -55,7 +55,7 @@
                      * Remove category;
                      */
                     vm.deleteCategory = function () {
-                        if ( vm.isDeleting ) {
+                        if (vm.isDeleting) {
                             return;
                         }
 
@@ -70,13 +70,14 @@
                             })
                             .catch(function () {
                                 vm.isDeleting = false;
-                                $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: "error" });
+                                $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: 'error' });
                             });
                     };
 
                 },
-                controllerAs: "vm",
-                templateUrl: "/app/categories/partials/category-entry-directive.tpl.html",
+
+                controllerAs: 'vm',
+                templateUrl: '/app/categories/partials/category-entry-directive.tpl.html',
                 link: function (scope, el, attrs, vm) {
 
                     /**
@@ -105,7 +106,7 @@
                      * On category updated/deleted
                      */
                     $rootScope.$on(CATEGORY_EVENTS.isUpdated, function (event, args) {
-                        if ( scope.category.model.id === args.category.model.id ) {
+                        if (scope.category.model.id === args.category.model.id) {
                             scope.toggleContent();
 
                             // ---
@@ -117,7 +118,7 @@
                     });
 
                     scope.$on(CATEGORY_EVENTS.isDeleted, function (event, args) {
-                        if ( scope.category.model.id === args.category.model.id ) {
+                        if (scope.category.model.id === args.category.model.id) {
                             scope.toggleContent();
                         }
                     });

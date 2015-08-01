@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.statistics")
-        .factory("Statistics", function () {
+        .module('revaluate.statistics')
+        .factory('Statistics', function () {
 
             function Statistics() {
 

@@ -1,12 +1,12 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /**
      * Forgot password controller responsible for user forgot password action.
      */
     angular
-        .module("revaluate.account")
-        .controller("ForgotPasswordController", function ($state, $scope, ALERTS_EVENTS, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountModal) {
+        .module('revaluate.account')
+        .controller('ForgotPasswordController', function ($state, $scope, ALERTS_EVENTS, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountModal) {
 
             /**
              * Alert identifier
@@ -17,14 +17,14 @@
              * Request password reset up user information.
              */
             $scope.forgotPasswordData = {
-                email: ""
+                email: ''
             };
 
             /**
              * Request password reset functionality.
              */
             $scope.requestPasswordReset = function () {
-                if ( $scope.forgotPasswordForm.$valid ) {
+                if ($scope.forgotPasswordForm.$valid) {
                     AuthService
                         .requestPasswordReset($scope.forgotPasswordData.email)
                         .then(function () {
@@ -35,7 +35,7 @@
                             $scope.badPostSubmitResponse = true;
 
                             $scope.$emit(ALERTS_EVENTS.DANGER, {
-                                message: "This email does not exist in our database.",
+                                message: 'This email does not exist in our database.',
                                 alertId: $scope.alertId
                             });
                         });

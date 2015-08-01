@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.expenses")
-        .factory("Expense", function ($q, $http, ExpenseService, ExpenseTransformerService) {
+        .module('revaluate.expenses')
+        .factory('Expense', function ($q, $http, ExpenseService, ExpenseTransformerService) {
 
             /**
              * Expense class.
@@ -19,7 +19,7 @@
                     /**
                      * The expense id.
                      */
-                    id: "",
+                    id: '',
 
                     /**
                      * The expense description.
@@ -34,17 +34,17 @@
                     /**
                      * The expense description.
                      */
-                    description: "",
+                    description: '',
 
                     /**
                      * Spent date of the expense.
                      */
-                    spentDate: "",
+                    spentDate: '',
 
                     /**
                      * Created date of the expense.
                      */
-                    createdDate: ""
+                    createdDate: ''
                 };
 
                 /**
@@ -58,7 +58,7 @@
                  * @returns {boolean}
                  */
                 this.isNew = function () {
-                    return this.model.id === "" || _.isUndefined(this.model.id);
+                    return this.model.id === '' || _.isUndefined(this.model.id);
                 };
 
                 /**
@@ -66,10 +66,9 @@
                  * @returns {*}
                  */
                 this.save = function () {
-                    if ( this.isNew() ) {
+                    if (this.isNew()) {
                         return ExpenseService.createExpense(this);
-                    }
-                    else {
+                    }              else {
                         return ExpenseService.updateExpense(this);
                     }
                 };
@@ -90,7 +89,7 @@
              * @returns {Expense}
              */
             Expense.build = function (data) {
-                if ( _.isEmpty(data) ) {
+                if (_.isEmpty(data)) {
                     return new Expense();
                 }
 

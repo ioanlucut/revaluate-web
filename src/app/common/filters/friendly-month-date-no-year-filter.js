@@ -1,12 +1,12 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.common")
+        .module('revaluate.common')
         .filter('friendlyMonthDateNoYear', function () {
             return function (date) {
 
-                if ( !_.isDate(date) ) {
+                if (!_.isDate(date)) {
                     date = moment(new Date(date));
                 }
 

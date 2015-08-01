@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.account")
-        .controller("OauthConnectController", function ($rootScope, $scope, $q, $timeout, OAuth2Service, ALERTS_EVENTS, ALERTS_CONSTANTS, StatesHandler, User, APP_CONFIG, AuthService) {
+        .module('revaluate.account')
+        .controller('OauthConnectController', function ($rootScope, $scope, $q, $timeout, OAuth2Service, ALERTS_EVENTS, ALERTS_CONSTANTS, StatesHandler, User, APP_CONFIG, AuthService) {
 
             /* jshint validthis: true */
             var vm = this;
@@ -17,7 +17,7 @@
              * Connect functionality.
              */
             vm.connectWith = function (provider) {
-                if ( !vm.isRequestPending ) {
+                if (!vm.isRequestPending) {
 
                     vm.isRequestPending = true;
 
@@ -30,8 +30,9 @@
                                     userType: _.find(APP_CONFIG.USER_TYPES, function (userTypeEntry) {
                                         return userTypeEntry.indexOf(provider.toUpperCase()) > -1;
                                     }),
+
                                     currency: {
-                                        "currencyCode": "EUR"
+                                        'currencyCode': 'EUR'
                                     }
                                 }))
                         })
@@ -50,8 +51,8 @@
 
                             $scope.$emit(ALERTS_EVENTS.DANGER, {
                                 message: response && response.status === 400
-                                    ? "You can't connect with this email. This email is already registered but with a different provider."
-                                    : "Sorry, something went wrong.",
+                                    ? 'You can\'t connect with this email. This email is already registered but with a different provider.'
+                                    : 'Sorry, something went wrong.',
                                 alertId: vm.alertId
                             });
                         });

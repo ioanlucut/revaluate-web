@@ -1,17 +1,17 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.categories")
-        .directive("colorPicker", function (CATEGORY_EVENTS, CategoryColorService, $timeout, $animate) {
+        .module('revaluate.categories')
+        .directive('colorPicker', function (CATEGORY_EVENTS, CategoryColorService, $timeout, $animate) {
             return {
-                restrict: "A",
+                restrict: 'A',
                 replace: true,
                 scope: {
-                    categoryColor: "=",
-                    colors: "="
+                    categoryColor: '=',
+                    colors: '='
                 },
-                templateUrl: "/app/categories/partials/color-picker-directive.tpl.html",
+                templateUrl: '/app/categories/partials/color-picker-directive.tpl.html',
                 link: function (scope, elm, attrs) {
 
                     // By default the popover is closed
@@ -27,20 +27,19 @@
                     // ---
                     var label = elm.prev().prev().prev('label');
 
-                    label.on("click", function () {
+                    label.on('click', function () {
                         scope.$apply(function () {
                             scope.isOpen = !scope.isOpen;
                         });
                     });
 
-                    var CLASS_OPEN = "color-picker-box--open";
+                    var CLASS_OPEN = 'color-picker-box--open';
 
                     // Open or close the modal
-                    scope.$watch("isOpen", function (isOpen, isOpenOld) {
-                        if ( isOpen === true ) {
+                    scope.$watch('isOpen', function (isOpen, isOpenOld) {
+                        if (isOpen === true) {
                             $animate.addClass(elm, CLASS_OPEN);
-                        }
-                        else if ( isOpen === false && isOpenOld === true ) {
+                        }                else if (isOpen === false && isOpenOld === true) {
                             $animate.removeClass(elm, CLASS_OPEN);
                         }
                     });

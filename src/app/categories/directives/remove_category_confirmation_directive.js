@@ -1,22 +1,22 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /* Auto focus */
 
     angular
-        .module("revaluate.categories")
-        .directive("removeCategoryConfirmation", function ($timeout) {
+        .module('revaluate.categories')
+        .directive('removeCategoryConfirmation', function ($timeout) {
             return {
-                restrict: "A",
+                restrict: 'A',
                 transclude: true,
                 scope: {
-                    category: "=",
-                    autoToggleWhen: "=",
-                    progress: "=",
-                    confirm: "&",
-                    cancel: "&"
+                    category: '=',
+                    autoToggleWhen: '=',
+                    progress: '=',
+                    confirm: '&',
+                    cancel: '&'
                 },
-                templateUrl: "/app/categories/partials/remove-category-confirmation-directive.tpl.html",
+                templateUrl: '/app/categories/partials/remove-category-confirmation-directive.tpl.html',
                 link: function (scope, el, attrs) {
 
                     /**
@@ -35,7 +35,7 @@
                      * Perform confirm.
                      */
                     scope.doConfirm = function () {
-                        if ( scope.messageAcknowledged ) {
+                        if (scope.messageAcknowledged) {
                             return;
                         }
 
@@ -61,7 +61,7 @@
                      * Auto toggle
                      */
                     scope.$watch('autoToggleWhen', function (val, valOld) {
-                        if ( val === true && valOld === false ) {
+                        if (val === true && valOld === false) {
                             $timeout(function () {
                                 scope.toggleConfirmationContent();
 

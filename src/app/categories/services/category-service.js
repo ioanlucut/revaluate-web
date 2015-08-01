@@ -1,12 +1,12 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /**
      * Categories service which encapsulates the whole logic related to categories.
      */
     angular
-        .module("revaluate.categories")
-        .service("CategoryService", function (CATEGORY_URLS, $q, $http, CategoryTransformerService) {
+        .module('revaluate.categories')
+        .service('CategoryService', function (CATEGORY_URLS, $q, $http, CategoryTransformerService) {
 
             /**
              * Update a category.
@@ -49,7 +49,7 @@
                 var categoryDto = CategoryTransformerService.toCategoryDto(category);
 
                 return $http
-                    .delete(URLTo.api(CATEGORY_URLS.delete, { ":id": categoryDto.id }), categoryDto)
+                    .delete(URLTo.api(CATEGORY_URLS.delete, { ':id': categoryDto.id }), categoryDto)
                     .then(function (response) {
                         CategoryTransformerService.toCategory(response.data, category);
 

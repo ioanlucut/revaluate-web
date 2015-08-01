@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.settings")
-        .controller("SettingsPaymentMethodAddController", function ($q, $scope, $state, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentStatus, ALERTS_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, AUTH_EVENTS, USER_SUBSCRIPTION_STATUS) {
+        .module('revaluate.settings')
+        .controller('SettingsPaymentMethodAddController', function ($q, $scope, $state, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentStatus, ALERTS_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, AUTH_EVENTS, USER_SUBSCRIPTION_STATUS) {
 
             /* jshint validthis: true */
             var vm = this;
@@ -77,7 +77,7 @@
             // On submit, add payment method.
             // ---
             vm.addPaymentMethod = function () {
-                if ( vm.addPaymentMethodForm.$valid && !vm.isRequestPending ) {
+                if (vm.addPaymentMethodForm.$valid && !vm.isRequestPending) {
 
                     // Show the loading bar
                     vm.isRequestPending = true;
@@ -91,13 +91,12 @@
                             expirationDate: vm.paymentData.cardExpirationDate
                         }, function (err, nonce) {
 
-                            if ( err ) {
+                            if (err) {
                                 $scope.$emit(ALERTS_EVENTS.DANGER, {
                                     message: err,
                                     alertId: vm.alertId
                                 });
-                            }
-                            else {
+                            }                          else {
                                 // ---
                                 // Update details with the received nonce.
                                 // ---
@@ -111,7 +110,7 @@
                                         // Update user with subscription status ACTIVE if subscription is also activated.
                                         // ---
                                         var paymentInsights = response.data;
-                                        if ( paymentInsights.subscriptionActive ) {
+                                        if (paymentInsights.subscriptionActive) {
                                             vm
                                                 .user
                                                 .setSubscriptionStatusAsAndReload(USER_SUBSCRIPTION_STATUS.ACTIVE);
@@ -133,7 +132,7 @@
                                             // ---
                                             // If successful, go to insights.
                                             // ---
-                                            $state.go("settings.payment.insights");
+                                            $state.go('settings.payment.insights');
                                         }, TIMEOUT_PENDING);
                                     })
                                     .catch(function (response) {
@@ -145,15 +144,14 @@
                                         // Show errors.
                                         // ---
                                         var errors = response.data;
-                                        if ( _.isArray(errors) ) {
+                                        if (_.isArray(errors)) {
                                             $scope.$emit(ALERTS_EVENTS.DANGER, {
-                                                message: errors.join("\n"),
+                                                message: errors.join('\n'),
                                                 alertId: vm.alertId
                                             });
-                                        }
-                                        else {
+                                        }                                      else {
                                             $scope.$emit(ALERTS_EVENTS.DANGER, {
-                                                message: "We\'ve encountered an error.",
+                                                message: 'We\'ve encountered an error.',
                                                 alertId: vm.alertId
                                             });
                                         }

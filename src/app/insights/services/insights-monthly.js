@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.insights")
-        .factory("InsightsMonthly", function ($q, $http, InsightsService, InsightsTransformerService) {
+        .module('revaluate.insights')
+        .factory('InsightsMonthly', function ($q, $http, InsightsService, InsightsTransformerService) {
 
             /**
              * InsightsMonthly class.
@@ -19,12 +19,12 @@
                     /**
                      * From date period of the insights.
                      */
-                    from: "",
+                    from: '',
 
                     /**
                      * To date period of the insights.
                      */
-                    to: "",
+                    to: '',
 
                     /**
                      * Total amount spent
@@ -64,7 +64,7 @@
              * Builds a insights with given data.
              */
             InsightsMonthly.build = function (data) {
-                if ( _.isEmpty(data) ) {
+                if (_.isEmpty(data)) {
                     return new InsightsMonthly();
                 }
 

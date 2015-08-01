@@ -1,10 +1,10 @@
 (function () {
-    "use strict";
+    'use strict';
 
-// ---
-// Utilities.
-// ---
-    var testUtils = require("helpers/tests");
+    // ---
+    // Utilities.
+    // ---
+    var testUtils = require('helpers/tests');
 
     describe('app/AuthFilter', function () {
 
@@ -15,7 +15,7 @@
             // ---
             // Load templates.
             // ---
-            angular.mock.module("gulpAngular");
+            angular.mock.module('gulpAngular');
 
             // ---
             // Provide APP_CONFIG.
@@ -25,7 +25,7 @@
             // ---
             // Just inject the angular.mock.module and define dependencies.
             // ---
-            angular.mock.module("revaluate", function ($provide) {
+            angular.mock.module('revaluate', function ($provide) {
                 $provide.value('AuthService', AuthServiceMock = {});
                 $provide.value('User', UserMock = {});
             });
@@ -65,6 +65,7 @@
                         isInitiated: function () {
                             return true;
                         },
+
                         isTrialPeriodExpired: function () {
                             return false;
                         }
@@ -75,11 +76,11 @@
             $state.go(STATES.home);
             $rootScope.$digest();
             $httpBackend.flush();
-            expect($state.current.name).toBe("expenses.regular");
+            expect($state.current.name).toBe('expenses.regular');
 
             $state.go(STATES.account);
             $rootScope.$digest();
-            expect($state.current.name).toBe("expenses.regular");
+            expect($state.current.name).toBe('expenses.regular');
         });
 
         it('should redirect to non public page to account page', function () {
@@ -91,6 +92,7 @@
                         isInitiated: function () {
                             return true;
                         },
+
                         isTrialPeriodExpired: function () {
                             return false;
                         }
@@ -124,6 +126,7 @@
                         isInitiated: function () {
                             return true;
                         },
+
                         isTrialPeriodExpired: function () {
                             return false;
                         }
@@ -134,11 +137,11 @@
             // ---
             // Non public redirected.
             // ---
-            $state.go("setup");
+            $state.go('setup');
             $rootScope.$digest();
             $httpBackend.flush();
 
-            expect($state.current.name).toBe("expenses.regular");
+            expect($state.current.name).toBe('expenses.regular');
         });
 
         it('should not let user on other pages than setup and public pages if is NOT initiated', function () {
@@ -150,6 +153,7 @@
                         isInitiated: function () {
                             return false;
                         },
+
                         isTrialPeriodExpired: function () {
                             return false;
                         }
@@ -159,7 +163,7 @@
 
             $state.go(STATES.expenses);
             $rootScope.$digest();
-            expect($state.current.name).toBe("setup");
+            expect($state.current.name).toBe('setup');
         });
 
         it('should not let user on other pages than settings.payment.add (if payment is not defined) / payment unrestricted pages if is NOT public page, and not isPaymentMissingUnrestrictedPage, and trial is expired', function () {
@@ -173,6 +177,7 @@
                         isInitiated: function () {
                             return true;
                         },
+
                         isTrialPeriodExpired: function () {
                             return true;
                         }
@@ -187,7 +192,7 @@
             // ---
             $state.go(STATES.expenses);
             $rootScope.$digest();
-            expect($state.current.name).toBe("settings.payment.add");
+            expect($state.current.name).toBe('settings.payment.add');
 
             // ---
             // Try to go to a public page.
@@ -209,6 +214,7 @@
                         isInitiated: function () {
                             return true;
                         },
+
                         isTrialPeriodExpired: function () {
                             return true;
                         }
@@ -223,7 +229,7 @@
             // ---
             $state.go(STATES.expenses);
             $rootScope.$digest();
-            expect($state.current.name).toBe("settings.payment.insights");
+            expect($state.current.name).toBe('settings.payment.insights');
         });
 
     });

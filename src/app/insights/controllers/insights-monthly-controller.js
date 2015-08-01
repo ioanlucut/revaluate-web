@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.insights")
-        .controller("InsightsMonthlyController", function ($controller, $scope, DatesUtils, $rootScope, $filter, $timeout, ExpenseService, InsightsGenerator, ALERTS_EVENTS, insightsMonthly, monthsPerYearsStatistics, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
+        .module('revaluate.insights')
+        .controller('InsightsMonthlyController', function ($controller, $scope, DatesUtils, $rootScope, $filter, $timeout, ExpenseService, InsightsGenerator, ALERTS_EVENTS, insightsMonthly, monthsPerYearsStatistics, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
 
             /* jshint validthis: true */
             var vm = this;
@@ -73,7 +73,7 @@
                 vm.donutInsightsPrepared = InsightsGenerator
                     .generateMonthlyDonut(vm.insightsMonthly);
 
-                $scope.$emit("chartsLoaded", { size: vm.barInsightsPrepared.insightsBarData.length });
+                $scope.$emit('chartsLoaded', { size: vm.barInsightsPrepared.insightsBarData.length });
             }
 
             // ---
@@ -101,7 +101,7 @@
                 var givenDateYear = givenDate.year();
                 var givenDateMonth = givenDate.month() + 1;
 
-                if ( !_.has(vm.monthsPerYearsStatistics.model.insightsMonthsPerYears, givenDateYear) ) {
+                if (!_.has(vm.monthsPerYearsStatistics.model.insightsMonthsPerYears, givenDateYear)) {
 
                     return true;
                 }
@@ -137,7 +137,7 @@
              * Load insights
              */
             function loadInsight() {
-                if ( vm.isLoading ) {
+                if (vm.isLoading) {
 
                     vm.insightData = angular.copy(vm.masterInsightData);
                     return;
@@ -155,17 +155,16 @@
                         /**
                          * Track event.
                          */
-                        $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.insightsFetched);
+                        $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.insightsFetched);
 
                         $timeout(function () {
-                            if ( receivedInsight.isEmpty() ) {
+                            if (receivedInsight.isEmpty()) {
                                 // ---
                                 // Reset the insights data.
                                 // ---
                                 vm.insightData = angular.copy(vm.masterInsightData);
-                                $scope.$emit(ALERTS_EVENTS.INFO, "There are no expenses defined for selected period.");
-                            }
-                            else {
+                                $scope.$emit(ALERTS_EVENTS.INFO, 'There are no expenses defined for selected period.');
+                            }                        else {
                                 // ---
                                 // If there was a previously error, just clear it.
                                 // ---
@@ -195,7 +194,7 @@
                         // ---
                         vm.insightData = angular.copy(vm.masterInsightData);
                         $scope.$emit(ALERTS_EVENTS.DANGER, {
-                            message: "Could not fetch insights.",
+                            message: 'Could not fetch insights.',
                             alertId: vm.alertId
                         });
                     });
@@ -217,7 +216,7 @@
                 var currentSelectedDateYear = currentSelectedDate.year();
                 var currentSelectedDateMonth = currentSelectedDate.month() + 1;
 
-                if ( !expensesExistsInYear(currentSelectedDateYear) ) {
+                if (!expensesExistsInYear(currentSelectedDateYear)) {
 
                     return true;
                 }
@@ -245,7 +244,7 @@
                 var currentSelectedDateYear = currentSelectedDate.year();
                 var currentSelectedDateMonth = currentSelectedDate.month() + 1;
 
-                if ( !expensesExistsInYear(currentSelectedDateYear) ) {
+                if (!expensesExistsInYear(currentSelectedDateYear)) {
 
                     return true;
                 }

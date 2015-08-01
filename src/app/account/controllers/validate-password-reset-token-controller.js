@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.account")
-        .controller("ValidatePasswordResetTokenController", function ($scope, $timeout, ALERTS_EVENTS, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult, ALERTS_CONSTANTS) {
+        .module('revaluate.account')
+        .controller('ValidatePasswordResetTokenController', function ($scope, $timeout, ALERTS_EVENTS, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult, ALERTS_CONSTANTS) {
 
             /**
              * Alert identifier
@@ -16,8 +16,8 @@
              */
             $scope.resetPasswordData = {
                 email: validateTokenResult.email,
-                password: "",
-                passwordConfirmation: "",
+                password: '',
+                passwordConfirmation: '',
                 token: validateTokenResult.token
             };
 
@@ -26,7 +26,7 @@
              * @param resetPasswordData
              */
             $scope.resetPassword = function (resetPasswordData) {
-                if ( $scope.resetPasswordForm.$valid ) {
+                if ($scope.resetPasswordForm.$valid) {
 
                     AuthService
                         .resetPasswordWithToken(resetPasswordData.email, resetPasswordData.password, resetPasswordData.passwordConfirmation, resetPasswordData.token)
@@ -48,7 +48,7 @@
                             $scope.badPostSubmitResponse = true;
 
                             $scope.$emit(ALERTS_EVENTS.DANGER, {
-                                message: "Sorry, something went wrong.",
+                                message: 'Sorry, something went wrong.',
                                 alertId: $scope.alertId
                             });
                         });

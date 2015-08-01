@@ -1,15 +1,15 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.expenses")
-        .controller("ExpenseEntryController", function ($scope, $rootScope, Expense, $timeout, EXPENSE_EVENTS, USER_ACTIVITY_EVENTS) {
+        .module('revaluate.expenses')
+        .controller('ExpenseEntryController', function ($scope, $rootScope, Expense, $timeout, EXPENSE_EVENTS, USER_ACTIVITY_EVENTS) {
 
             /**
              * Edit/update timeout
              */
-            var TIMEOUT_DURATION = 300;
-            var MIN_YEAR_TO_CREATE_EXPENSE = 1800;
+            var TIMEOUT_DURATION = 300,
+                MIN_YEAR_TO_CREATE_EXPENSE = 1800;
 
             /**
              * Minimum date to create expense.
@@ -21,10 +21,11 @@
              * Update the expense.
              */
             $scope.updateExpense = function (expenseForm, expense, category) {
-                if ( expenseForm.$valid && !$scope.isUpdating ) {
+                var isDateInFuture = moment().diff(expense.model.spentDate || expenseForm.spentDate) <= 0;
 
-                    var isDateInFuture = moment().diff(expense.model.spentDate || expenseForm.spentDate) <= 0;
-                    if ( isDateInFuture ) {
+                if (expenseForm.$valid && !$scope.isUpdating) {
+
+                    if (isDateInFuture) {
                         expenseForm.spentDate.$setValidity('validDate', false);
 
                         return;
@@ -34,14 +35,14 @@
                     $scope.isUpdating = true;
 
                     // Update the chosen category - if defined
-                    if ( category && category.selected ) {
+                    if (category && category.selected) {
                         expense.model.category = angular.copy(category.selected.model);
                     }
 
                     expense
                         .save()
                         .then(function () {
-                            $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.expenseUpdated);
+                            $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.expenseUpdated);
 
                             $timeout(function () {
                                 $scope.isUpdating = false;
@@ -54,7 +55,7 @@
                         .catch(function () {
                             $scope.badPostSubmitResponse = true;
                             $scope.isUpdating = false;
-                            $rootScope.$broadcast(EXPENSE_EVENTS.isErrorOccurred, "We've encountered an error while trying to update this expense.");
+                            $rootScope.$broadcast(EXPENSE_EVENTS.isErrorOccurred, 'We\'ve encountered an error while trying to update this expense.');
                         });
                 }
             };

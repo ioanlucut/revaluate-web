@@ -1,20 +1,20 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /* Auto focus */
 
     angular
-        .module("revaluate.settings")
-        .directive("cancelAccountConfirmation", function ($timeout) {
+        .module('revaluate.settings')
+        .directive('cancelAccountConfirmation', function ($timeout) {
             return {
-                restrict: "A",
+                restrict: 'A',
                 transclude: true,
                 scope: {
-                    autoToggleWhen: "=",
-                    confirm: "&",
-                    cancel: "&"
+                    autoToggleWhen: '=',
+                    confirm: '&',
+                    cancel: '&'
                 },
-                templateUrl: "/app/settings/partials/cancel-account-confirmation-directive.tpl.html",
+                templateUrl: '/app/settings/partials/cancel-account-confirmation-directive.tpl.html',
                 link: function (scope) {
 
                     /**
@@ -33,7 +33,7 @@
                      * Perform confirm.
                      */
                     scope.doConfirm = function () {
-                        if ( scope.messageAcknowledged ) {
+                        if (scope.messageAcknowledged) {
                             return;
                         }
 
@@ -51,7 +51,7 @@
                      * Auto toggle
                      */
                     scope.$watch('autoToggleWhen', function (val, valOld) {
-                        if ( val === true && valOld === false ) {
+                        if (val === true && valOld === false) {
                             $timeout(function () {
                                 scope.toggleContent();
                             });

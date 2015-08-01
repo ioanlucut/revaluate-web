@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.settings")
-        .controller("SettingsSetUpRegistrationController", function ($q, $scope, $rootScope, $timeout, ALERTS_EVENTS, AuthService, CategoryService, AUTH_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, CategoryColorService, SessionService, StatesHandler, Category, APP_CONFIG) {
+        .module('revaluate.settings')
+        .controller('SettingsSetUpRegistrationController', function ($q, $scope, $rootScope, $timeout, ALERTS_EVENTS, AuthService, CategoryService, AUTH_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, CategoryColorService, SessionService, StatesHandler, Category, APP_CONFIG) {
             /**
              * Saving timeout
              */
@@ -77,7 +77,7 @@
              * Category to be added on the fly
              * @type {string}
              */
-            vm.categoryOnTheFly = "";
+            vm.categoryOnTheFly = '';
 
             /**
              * Show block content
@@ -111,7 +111,7 @@
              */
             function resetCategoryOnTheFlyForm() {
                 vm.showCategoryOnTheFlyInput = false;
-                vm.categoryOnTheFly = "";
+                vm.categoryOnTheFly = '';
                 vm.setUpForm.categoryOnTheFlyForm.$setPristine();
                 vm.badPostSubmitResponse = false;
 
@@ -130,7 +130,7 @@
                 $event.stopPropagation();
 
                 vm.setUpForm.categoryOnTheFlyForm.$submitted = true;
-                if ( vm.setUpForm.categoryOnTheFlyForm.$invalid ) {
+                if (vm.setUpForm.categoryOnTheFlyForm.$invalid) {
                     return;
                 }
 
@@ -138,13 +138,12 @@
                     return category.name.toUpperCase() === vm.categoryOnTheFly.toUpperCase();
                 });
 
-                if ( result ) {
+                if (result) {
                     $scope.$emit(ALERTS_EVENTS.DANGER, {
-                        message: "Category is not unique",
+                        message: 'Category is not unique',
                         alertId: vm.alertId
                     });
-                }
-                else {
+                }            else {
                     vm.categories.push({
                         name: vm.categoryOnTheFly,
                         color: CategoryColorService.randomizedColor(vm.colors),
@@ -171,7 +170,7 @@
 
             vm.selectAll = function () {
 
-                if ( getSelectedCategories().length < vm.categories.length ) {
+                if (getSelectedCategories().length < vm.categories.length) {
 
                     setAllCategoriesWithSelectedStatusOf(true);
                 }
@@ -179,7 +178,7 @@
 
             vm.clearAll = function () {
 
-                if ( getSelectedCategories().length > 0 ) {
+                if (getSelectedCategories().length > 0) {
 
                     setAllCategoriesWithSelectedStatusOf(false);
                 }
@@ -202,7 +201,7 @@
              * Update profile functionality.
              */
             vm.setUp = function () {
-                if ( vm.setUpForm.$invalid || vm.isSaving ) {
+                if (vm.setUpForm.$invalid || vm.isSaving) {
 
                     return;
                 }
@@ -262,13 +261,13 @@
                             SessionService.setData(response.data);
                             $rootScope.$broadcast(AUTH_EVENTS.refreshUser, response);
 
-                            $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.accountSetupFinished);
+                            $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.accountSetupFinished);
 
                             // ---
                             // Show some feedback.
                             // ---
                             vm.isSaving = false;
-                            $scope.$emit(ALERTS_EVENTS.SUCCESS, "Set up successfully! Preparing expenses..");
+                            $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Set up successfully! Preparing expenses..');
 
                             /**
                              * Finally, go to expenses.
@@ -281,7 +280,7 @@
                         vm.isSaving = false;
 
                         $scope.$emit(ALERTS_EVENTS.DANGER, {
-                            message: "We\'ve encountered an error.",
+                            message: 'We\'ve encountered an error.',
                             alertId: vm.alertId
                         });
                     });

@@ -1,13 +1,13 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.categories")
-        .directive("addCategory", function ($rootScope, CATEGORY_EVENTS) {
+        .module('revaluate.categories')
+        .directive('addCategory', function ($rootScope, CATEGORY_EVENTS) {
             return {
-                restrict: "A",
-                templateUrl: "/app/categories/partials/add-category-directive.tpl.html",
-                link: function (scope, el, attrs) {
+                restrict: 'A',
+                templateUrl: '/app/categories/partials/add-category-directive.tpl.html',
+                link: function (scope) {
 
                     /**
                      * Show block content flag.

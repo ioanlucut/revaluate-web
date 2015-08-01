@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.contact")
-        .controller("ContactModalController", function ($scope, ContactModalService, Contact, $timeout) {
+        .module('revaluate.contact')
+        .controller('ContactModalController', function ($scope, ContactModalService, Contact, $timeout) {
 
             var TIMEOUT = 1500;
 
@@ -31,6 +31,7 @@
                     .then(function () {
                         $scope.isModalOpened = true;
                     }
+
                 );
             };
 
@@ -40,7 +41,7 @@
             $scope.dismissContactModal = function () {
                 ContactModalService
                     .modalInstance
-                    .dismiss("cancel");
+                    .dismiss('cancel');
 
                 $scope.isModalOpened = false;
             };
@@ -50,7 +51,7 @@
              * @param contactForm
              */
             $scope.sendContactAndClose = function (contactForm) {
-                if ( contactForm.$valid && !$scope.isSending ) {
+                if (contactForm.$valid && !$scope.isSending) {
 
                     // Is sending contact
                     $scope.isSending = true;
@@ -71,7 +72,7 @@
                         })
                         .catch(function () {
                             $scope.isSending = false;
-                            alert("Something went wrong. Please try again.");
+                            alert('Something went wrong. Please try again.');
                         })
                         .finally(function () {
                             $scope.isModalOpened = false;

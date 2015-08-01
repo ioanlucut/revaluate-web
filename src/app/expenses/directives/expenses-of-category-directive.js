@@ -1,22 +1,21 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.expenses")
-        .directive("expensesOfCategory", function () {
+        .module('revaluate.expenses')
+        .directive('expensesOfCategory', function () {
             return {
-                restrict: "E",
+                restrict: 'E',
                 scope: {
-                    totalPerCategoryInsights: "=",
-                    monthYearDate: "="
+                    totalPerCategoryInsights: '=',
+                    monthYearDate: '='
                 },
                 controller: function ($scope, $rootScope, $timeout, DatesUtils, ExpenseService, ALERTS_EVENTS) {
+                    /* jshint validthis: true */
+                    var vm = this;
 
                     this.LOAD_MORE_TIMEOUT = 500;
                     this.DEFAULT_EXPENSES_LIMIT = 20;
-
-                    /* jshint validthis: true */
-                    var vm = this;
 
                     /**
                      * Current user.
@@ -67,7 +66,7 @@
                      * Sets the selected order by
                      */
                     this.toggleContent = function () {
-                        if ( !this.expanded && !this.isEmptyTransactions() ) {
+                        if (!this.expanded && !this.isEmptyTransactions()) {
                             this.loadExpensesOfCategory();
                         }
 
@@ -103,7 +102,7 @@
                      * Load expenses of category
                      */
                     this.loadExpensesOfCategory = function () {
-                        if ( this.isExpensesLoaded() ) {
+                        if (this.isExpensesLoaded()) {
                             return;
                         }
 
@@ -119,7 +118,7 @@
                             })
                             .catch(function () {
                                 $scope.$emit(ALERTS_EVENTS.DANGER, {
-                                    message: "Could not fetch expenses for " + vm.totalPerCategoryInsights.categoryDTO.name,
+                                    message: 'Could not fetch expenses for ' + vm.totalPerCategoryInsights.categoryDTO.name,
                                     alertId: vm.alertId
                                 });
                             })
@@ -129,8 +128,9 @@
                     };
 
                 },
-                controllerAs: "vm",
-                templateUrl: "/app/expenses/partials/expense/expenses-of-category-directive.tpl.html",
+
+                controllerAs: 'vm',
+                templateUrl: '/app/expenses/partials/expense/expenses-of-category-directive.tpl.html',
                 link: function (scope, el, attrs) {
                 }
             }

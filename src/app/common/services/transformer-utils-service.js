@@ -1,11 +1,12 @@
-(function () {     "use strict";
+(function () {
+    'use strict';
 
-/**
- * Transformer utils service.
- */
-angular
-    .module("revaluate.common")
-    .service("TransformerUtils", function () {
+    /**
+     * Transformer utils service.
+     */
+    angular
+        .module('revaluate.common')
+    .service('TransformerUtils', function () {
 
         /**
          * Copies keys from a sourceObject to a targetObject, except given skipKeys.
@@ -15,7 +16,7 @@ angular
          */
         this.copyKeysFromTo = function (sourceObject, targetObject, skipKeys) {
             _.each(_.keys(sourceObject), function (key) {
-                if ( !(skipKeys && _.contains(skipKeys, key)) ) {
+                if (!(skipKeys && _.contains(skipKeys, key))) {
                     targetObject[key] = sourceObject[key];
                 }
             });

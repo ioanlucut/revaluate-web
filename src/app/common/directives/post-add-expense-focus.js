@@ -1,11 +1,11 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.common")
-        .directive("postAddExpenseFocus", function ($timeout, EXPENSE_EVENTS) {
+        .module('revaluate.common')
+        .directive('postAddExpenseFocus', function ($timeout, EXPENSE_EVENTS) {
             return {
-                restrict: "A",
+                restrict: 'A',
                 link: function (scope, el) {
 
                     function focus() {

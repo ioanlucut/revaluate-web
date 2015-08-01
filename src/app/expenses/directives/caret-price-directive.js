@@ -1,18 +1,18 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.expenses")
+        .module('revaluate.expenses')
         .directive('caretPricePosition', function ($timeout) {
             return {
                 link: function (scope, elem, attrs) {
 
-                    elem.on("focus, click", function () {
+                    elem.on('focus, click', function () {
                         var el = this;
 
                         $timeout(function () {
                             var strLength = el.value.length;
-                            if ( el.setSelectionRange !== undefined ) {
+                            if (el.setSelectionRange !== undefined) {
                                 el.setSelectionRange(strLength, strLength);
                             } else {
                                 $(el).val(el.value);

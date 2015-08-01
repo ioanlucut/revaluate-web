@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.intercom")
-        .service("IntercomUtilsService", function ($intercom, AuthService, $rootScope) {
+        .module('revaluate.intercom')
+        .service('IntercomUtilsService', function ($intercom, AuthService, $rootScope) {
 
             this.bootIntercom = function (user) {
 
@@ -22,15 +22,14 @@
             };
 
             this.trackEvent = function (eventName) {
-                if ( AuthService.isAuthenticated() ) {
+                if (AuthService.isAuthenticated()) {
 
                     $intercom.trackEvent(eventName, {
                         email: $rootScope.currentUser.model.email,
                         created_at: moment().unix(),
                         user_id: '' + $rootScope.currentUser.model.id
                     });
-                }
-                else {
+                }            else {
                     $intercom.trackEvent(eventName, {
                         created_at: moment().unix()
                     });

@@ -1,12 +1,12 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /**
      * Profile controller responsible for user update profile action.
      */
     angular
-        .module("revaluate.settings")
-        .controller("SettingsProfileController", function ($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, ALERTS_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS) {
+        .module('revaluate.settings')
+        .controller('SettingsProfileController', function ($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, ALERTS_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS) {
 
             /* jshint validthis: true */
             var vm = this;
@@ -43,7 +43,7 @@
              */
             vm.updateProfile = function () {
 
-                if ( vm.profileForm.$valid && !vm.isRequestPending ) {
+                if (vm.profileForm.$valid && !vm.isRequestPending) {
 
                     // Show the loading bar
                     vm.isRequestPending = true;
@@ -82,7 +82,7 @@
                             vm.isRequestPending = false;
 
                             $scope.$emit(ALERTS_EVENTS.DANGER, {
-                                message: "We\'ve encountered an error.",
+                                message: 'We\'ve encountered an error.',
                                 alertId: vm.alertId
                             });
                         });

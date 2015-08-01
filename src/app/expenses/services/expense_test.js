@@ -1,10 +1,10 @@
 (function () {
-    "use strict";
+    'use strict';
 
-// ---
-// Utilities.
-// ---
-    var testUtils = require("helpers/tests");
+    // ---
+    // Utilities.
+    // ---
+    var testUtils = require('helpers/tests');
 
     describe('Expense', function () {
 
@@ -16,7 +16,7 @@
             // ---
             angular.mock.module(testUtils.mockAppConfig);
 
-            angular.mock.module("revaluate");
+            angular.mock.module('revaluate');
         });
 
         it('Should inject the service', inject(function (Expense) {
@@ -25,18 +25,18 @@
 
         it('Should perform isCreatedBy method correctly', inject(function (Expense, ExpenseTransformerService) {
             var expenseDto = {
-                id: "1",
-                text: "ABC",
+                id: '1',
+                text: 'ABC',
                 dueOn: new Date(),
-                createdByUser: { email: "createdByEmail@email.email" },
-                recipients: [{ email: "xx@xx" }, { email: "yy@yy" }]
+                createdByUser: { email: 'createdByEmail@email.email' },
+                recipients: [{ email: 'xx@xx' }, { email: 'yy@yy' }]
             };
 
             var actual = ExpenseTransformerService.toExpense(expenseDto);
             expect(actual.model).toBeTruthy();
             expect(actual.model.id).toEqual(expenseDto.id);
             expect(actual.model.dueOn).toEqual(expenseDto.dueOn);
-            expect(actual.model.recipients).toEqual([{ email: "xx@xx" }, { email: "yy@yy" }]);
+            expect(actual.model.recipients).toEqual([{ email: 'xx@xx' }, { email: 'yy@yy' }]);
         }));
     });
 }());

@@ -1,12 +1,12 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /**
      * Authentication service which encapsulates the whole logic account related of a user.
      */
     angular
-        .module("revaluate.account")
-        .service("AuthService", function ($rootScope, $q, $http, $location, redirectToUrlAfterLogin, SessionService, AUTH_EVENTS, AUTH_URLS, AUTH_TOKEN_HEADER) {
+        .module('revaluate.account')
+        .service('AuthService', function ($rootScope, $q, $http, $location, redirectToUrlAfterLogin, SessionService, AUTH_EVENTS, AUTH_URLS, AUTH_TOKEN_HEADER) {
 
             /**
              * Is user already authenticated ?
@@ -47,7 +47,7 @@
              */
             this.connectViaOauth = function (email, payload) {
 
-                return connectWith(URLTo.api(AUTH_URLS.connectViaOauth, { ":email": email }), payload);
+                return connectWith(URLTo.api(AUTH_URLS.connectViaOauth, { ':email': email }), payload);
             };
 
             /**
@@ -63,12 +63,12 @@
              */
             this.requestPasswordReset = function (email) {
                 return $http
-                    .post(URLTo.api(AUTH_URLS.requestPasswordReset, { ":email": email }));
+                    .post(URLTo.api(AUTH_URLS.requestPasswordReset, { ':email': email }));
             };
 
             this.requestConfirmationEmail = function (email) {
                 return $http
-                    .post(URLTo.api(AUTH_URLS.requestConfirmationEmail, { ":email": email }))
+                    .post(URLTo.api(AUTH_URLS.requestConfirmationEmail, { ':email': email }))
                     .then(function (response) {
                         return response.data;
                     });
@@ -76,7 +76,7 @@
 
             this.validateConfirmationEmailToken = function (email, token) {
                 return $http
-                    .post(URLTo.api(AUTH_URLS.validateConfirmationEmailToken, { ":email": email, ":token": token }), {
+                    .post(URLTo.api(AUTH_URLS.validateConfirmationEmailToken, { ':email': email, ':token': token }), {
                         skipAuthorization: true
                     })
                     .then(function (response) {
@@ -89,7 +89,7 @@
              */
             this.resetPasswordWithToken = function (email, password, passwordConfirmation, token) {
                 return $http
-                    .post(URLTo.api(AUTH_URLS.resetPasswordWithToken, { ":email": email, ":token": token }),
+                    .post(URLTo.api(AUTH_URLS.resetPasswordWithToken, { ':email': email, ':token': token }),
                     {
                         password: password,
                         passwordConfirmation: passwordConfirmation
@@ -107,7 +107,7 @@
              */
             this.validatePasswordResetToken = function (email, token) {
                 return $http
-                    .post(URLTo.api(AUTH_URLS.validatePasswordResetToken, { ":email": email, ":token": token }),
+                    .post(URLTo.api(AUTH_URLS.validatePasswordResetToken, { ':email': email, ':token': token }),
                     {
                         skipAuthorization: true
                     }).then(function (response) {
@@ -143,13 +143,13 @@
             };
 
             this.saveAttemptUrl = function () {
-                if ( $location.path().toLowerCase() !== '/account' ) {
+                if ($location.path().toLowerCase() !== '/account') {
                     redirectToUrlAfterLogin.url = $location.path();
                 }
             };
 
             this.redirectToAttemptedUrl = function () {
-                if ( redirectToUrlAfterLogin.url ) {
+                if (redirectToUrlAfterLogin.url) {
                     $location.path(redirectToUrlAfterLogin.url);
 
                     redirectToUrlAfterLogin.url = undefined;

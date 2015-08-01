@@ -1,12 +1,12 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /**
      * Logout controller responsible for user logout action.
      */
     angular
-        .module("revaluate.account")
-        .controller("LogoutController", function ($scope, $timeout, StatesHandler, AuthService) {
+        .module('revaluate.account')
+        .controller('LogoutController', function ($scope, $timeout, StatesHandler, AuthService) {
 
             /* jshint validthis: true */
             var vm = this;

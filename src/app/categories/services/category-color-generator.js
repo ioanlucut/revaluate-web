@@ -1,8 +1,8 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.categories")
+        .module('revaluate.categories')
         .service('CategoryColorService', function () {
 
             return {

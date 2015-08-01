@@ -1,19 +1,19 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /* Email list */
 
     angular
-        .module("revaluate.expenses")
-        .directive("expensesList", function ($rootScope, $timeout) {
+        .module('revaluate.expenses')
+        .directive('expensesList', function ($rootScope, $timeout) {
             return {
-                restrict: "A",
+                restrict: 'A',
                 scope: {
-                    expenses: "=",
-                    categories: "=",
-                    searchByText: "="
+                    expenses: '=',
+                    categories: '=',
+                    searchByText: '='
                 },
-                templateUrl: "/app/expenses/partials/expense/expenses-list-directive.tpl.html",
+                templateUrl: '/app/expenses/partials/expense/expenses-list-directive.tpl.html',
                 link: function (scope, el, attrs) {
 
                     var LOAD_MORE_TIMEOUT = 500;
@@ -23,7 +23,7 @@
                      * The way of sort
                      * @type {boolean}
                      */
-                    scope.reverseOrder = attrs.sort === "desc";
+                    scope.reverseOrder = attrs.sort === 'desc';
 
                     /**
                      * Current user.

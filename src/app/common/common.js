@@ -1,26 +1,26 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /**
      * Main common module declaration including ui templates.
      */
     angular
-        .module("revaluate.common", [
-            "chart.js",
-            "ui.router",
-            "ngSanitize",
-            "ui.bootstrap.tpls",
-            "ui.bootstrap.transition",
-            "ui.bootstrap.datepicker",
-            "ui.bootstrap.dateparser",
-            "ui.bootstrap.dropdown",
-            "ui.bootstrap.modal",
-            "angular-flash.service",
-            "angular-flash.flash-alert-directive"
+        .module('revaluate.common', [
+            'chart.js',
+            'ui.router',
+            'ngSanitize',
+            'ui.bootstrap.tpls',
+            'ui.bootstrap.transition',
+            'ui.bootstrap.datepicker',
+            'ui.bootstrap.dateparser',
+            'ui.bootstrap.dropdown',
+            'ui.bootstrap.modal',
+            'angular-flash.service',
+            'angular-flash.flash-alert-directive'
         ])
         .config(function ($httpProvider) {
-            $httpProvider.interceptors.push("JWTInterceptor");
-            $httpProvider.interceptors.push("ErrorInterceptor");
+            $httpProvider.interceptors.push('JWTInterceptor');
+            $httpProvider.interceptors.push('ErrorInterceptor');
         })
         .run(function () {
 
@@ -31,15 +31,15 @@
             function callbackCalendarFormatter() {
                 var isSameYear = moment(moment().year()).isSame(this.year());
 
-                return isSameYear ? "ddd, MMM D" : "ddd, MMM D YYYY";
+                return isSameYear ? 'ddd, MMM D' : 'ddd, MMM D YYYY';
             }
 
             // Initialize moment configuration
-            moment.locale("en", {
+            moment.locale('en', {
                 calendar: {
-                    lastDay: "[Yesterday]",
-                    sameDay: "[Today]",
-                    nextDay: "[Tomorrow]",
+                    lastDay: '[Yesterday]',
+                    sameDay: '[Today]',
+                    nextDay: '[Tomorrow]',
                     lastWeek: callbackCalendarFormatter,
                     nextWeek: callbackCalendarFormatter,
                     sameElse: callbackCalendarFormatter

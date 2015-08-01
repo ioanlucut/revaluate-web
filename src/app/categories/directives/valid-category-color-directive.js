@@ -1,14 +1,14 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /**
      * Directive responsible for checking of a category color is valid hex value.
      */
     angular
-        .module("revaluate.categories")
-        .directive("validCategoryColor", function () {
+        .module('revaluate.categories')
+        .directive('validCategoryColor', function () {
             return {
-                require: "ngModel",
+                require: 'ngModel',
                 link: function (scope, el, attr, ngModel) {
 
                     function isValidCategoryColor(color) {

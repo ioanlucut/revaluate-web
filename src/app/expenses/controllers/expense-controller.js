@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.expenses")
-        .controller("ExpenseController", function (AlertService, $scope, $rootScope, $stateParams, Expense, expenses, ExpenseService, categories, $window, $timeout, StatesHandler, EXPENSE_EVENTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, ALERTS_CONSTANTS, APP_CONFIG) {
+        .module('revaluate.expenses')
+        .controller('ExpenseController', function (AlertService, $scope, $rootScope, $stateParams, Expense, expenses, ExpenseService, categories, $window, $timeout, StatesHandler, EXPENSE_EVENTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, ALERTS_CONSTANTS, APP_CONFIG) {
 
             /**
              * Updating/deleting timeout
@@ -19,7 +19,7 @@
              * Search by text
              * @type {string}
              */
-            $scope.searchByText = "";
+            $scope.searchByText = '';
 
             /**
              * The current user
@@ -61,7 +61,7 @@
                  */
                 $scope.category = {};
 
-                if ( expenseForm ) {
+                if (expenseForm) {
                     expenseForm.$setPristine();
                 }
 
@@ -105,14 +105,15 @@
              * Saves the expense.
              */
             $scope.saveExpense = function () {
-                if ( $scope.expenseForm.$valid && !$scope.isSaving ) {
+                var isDateInFuture = moment().diff($scope.expense.model.spentDate || $scope.expenseForm.spentDate) <= 0;
+                if ($scope.expenseForm.$valid && !$scope.isSaving) {
 
-                    var isDateInFuture = moment().diff($scope.expense.model.spentDate || $scope.expenseForm.spentDate) <= 0;
-                    if ( isDateInFuture ) {
+                    if (isDateInFuture) {
                         $scope.expenseForm.spentDate.$setValidity('validDate', false);
 
                         return;
                     }
+
                     $scope.isSaving = true;
 
                     // Update the  chosen category and master expense.
@@ -122,13 +123,14 @@
                     $scope.masterExpense
                         .save()
                         .then(function () {
-                            $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.expenseCreated);
-
                             var expenseToBePushed = angular.copy($scope.masterExpense);
+
                             $timeout(function () {
                                 $scope.isSaving = false;
                                 $rootScope.$broadcast(EXPENSE_EVENTS.isCreated, { expense: expenseToBePushed });
                             }, TIMEOUT_DURATION);
+
+                            $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.expenseCreated);
 
                             /**
                              * Finally, reset the add form.
@@ -138,7 +140,7 @@
                         .catch(function () {
                             $scope.badPostSubmitResponse = true;
                             $scope.isSaving = false;
-                            $rootScope.$broadcast(EXPENSE_EVENTS.isErrorOccurred, "We've encountered an error while trying to add this expense.");
+                            $rootScope.$broadcast(EXPENSE_EVENTS.isErrorOccurred, 'We\'ve encountered an error while trying to add this expense.');
                         });
                 }
             };
@@ -173,12 +175,12 @@
              * Performs bulk delete action
              */
             $scope.performBulkDelete = function () {
-                if ( $scope.isBulkDeleting ) {
+                var selectedExpenses = angular.copy(getSelectedExpensesForBulkAction());
+
+                if ($scope.isBulkDeleting) {
 
                     return;
                 }
-
-                var selectedExpenses = angular.copy(getSelectedExpensesForBulkAction());
 
                 // ---
                 // Set the deleting flag.
@@ -194,7 +196,7 @@
                         /**
                          * Track event.
                          */
-                        $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.expenseDeleted);
+                        $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.expenseDeleted);
 
                         $timeout(function () {
                             removeAllExpenseFrom($scope.expenses, selectedExpenses);
@@ -205,7 +207,7 @@
                     .catch(function () {
                         $scope.isBulkDeleting = false;
                         $scope.cancelBulkAction();
-                        $rootScope.$broadcast(EXPENSE_EVENTS.isErrorOccurred, "We've encountered an error while trying to perform bulk action.");
+                        $rootScope.$broadcast(EXPENSE_EVENTS.isErrorOccurred, 'We\'ve encountered an error while trying to perform bulk action.');
                     });
             };
 
@@ -219,7 +221,7 @@
             $scope.$on(EXPENSE_EVENTS.isCreated, function (event, args) {
                 $scope.expenses.push(args.expense);
 
-                $scope.$emit(ALERTS_EVENTS.SUCCESS, "Saved");
+                $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Saved');
             });
 
             /**
@@ -230,23 +232,23 @@
                     return expense.model.id === args.expense.model.id;
                 });
 
-                if ( result ) {
+                if (result) {
                     removeExpenseFrom($scope.expenses, args.expense);
                     $scope.expenses.push(args.expense);
                 }
 
-                $scope.$emit(ALERTS_EVENTS.SUCCESS, "Updated");
+                $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated');
             });
 
             /**
              * On expense deleted, display a success message, and remove the expense from the list.
              */
             $scope.$on(EXPENSE_EVENTS.isDeleted, function (event, args) {
-                if ( args.expense ) {
+                if (args.expense) {
                     removeExpenseFrom($scope.expenses, args.expense);
                 }
 
-                $scope.$emit(ALERTS_EVENTS.SUCCESS, "Deleted");
+                $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Deleted');
             });
 
             /**
@@ -268,7 +270,7 @@
                 return _.remove(expenseList, function (expenseFromArray) {
                     var expenseId = _.parseInt(expenseToBeRemoved.model.id, 10);
                     var expenseFromArrayId = _.parseInt(expenseFromArray.model.id, 10);
-                    if ( _.isNaN(expenseFromArrayId) || _.isNaN(expenseId) ) {
+                    if (_.isNaN(expenseFromArrayId) || _.isNaN(expenseId)) {
                         return false;
                     }
 

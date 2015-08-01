@@ -1,19 +1,21 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.expenses")
+        .module('revaluate.expenses')
         .directive('formatPrice', function () {
             return {
                 require: '?ngModel',
                 link: function (scope, elem, attrs, ctrl) {
-                    if ( !ctrl ) return;
-
                     var options = {
                         prefix: '',
                         centsSeparator: ',',
                         thousandsSeparator: '.'
                     };
+
+                    if (!ctrl) {
+                        return;
+                    }
 
                     /*First time format*/
                     ctrl.$formatters.unshift(function () {

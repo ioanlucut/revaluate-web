@@ -1,10 +1,10 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /* Account modal */
     angular
-        .module("revaluate.account")
-        .service("AccountModal", function ($rootScope, $timeout, AUTH_MODAL) {
+        .module('revaluate.account')
+        .service('AccountModal', function ($rootScope, $timeout, AUTH_MODAL) {
 
             // By default the modal is closed
             this.isOpen = false;

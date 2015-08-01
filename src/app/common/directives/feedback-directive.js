@@ -1,12 +1,12 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.common")
-        .directive("feedback", function ($rootScope, AuthService, AUTH_EVENTS, $timeout) {
+        .module('revaluate.common')
+        .directive('feedback', function ($rootScope, AuthService, AUTH_EVENTS, $timeout) {
             return {
-                restrict: "A",
-                templateUrl: "/app/common/partials/feedback-directive.tpl.html",
+                restrict: 'A',
+                templateUrl: '/app/common/partials/feedback-directive.tpl.html',
                 link: function (scope, el) {
                     var TIMEOUT = 2000;
 
@@ -25,7 +25,7 @@
                     });
 
                     scope.$on('$viewContentLoaded', function () {
-                        if ( !el.is(':visible') ) {
+                        if (!el.is(':visible')) {
                             $timeout(function () {
                                 el.show();
                             }, TIMEOUT);

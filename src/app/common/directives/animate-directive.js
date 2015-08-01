@@ -1,11 +1,11 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.common")
-        .directive("animate", function () {
+        .module('revaluate.common')
+        .directive('animate', function () {
             return {
-                restrict: "A",
+                restrict: 'A',
                 link: function (scope, el, attrs) {
 
                     // Apply the animate class when the given event occurs

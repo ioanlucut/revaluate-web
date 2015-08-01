@@ -1,17 +1,17 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.expenses")
-        .directive("expenseEntry", function ($rootScope, $timeout, EXPENSE_EVENTS, CategoryTransformerService) {
+        .module('revaluate.expenses')
+        .directive('expenseEntry', function ($rootScope, $timeout, EXPENSE_EVENTS, CategoryTransformerService) {
             return {
-                restrict: "A",
+                restrict: 'A',
                 controller: 'ExpenseEntryController',
                 scope: {
-                    categories: "=",
-                    expense: "="
+                    categories: '=',
+                    expense: '='
                 },
-                templateUrl: "/app/expenses/partials/expense/expenses-entry-directive.tpl.html",
+                templateUrl: '/app/expenses/partials/expense/expenses-entry-directive.tpl.html',
                 link: function (scope, el, attrs) {
 
                     var EXPENSE_INPUT_SELECTOR = '.expense__form__price__input';
@@ -54,7 +54,7 @@
                         // ---
                         // Auto focus price.
                         // ---
-                        if ( scope.showContent ) {
+                        if (scope.showContent) {
                             $timeout(function () {
                                 el.find(EXPENSE_INPUT_SELECTOR).focus();
                             });
@@ -102,7 +102,7 @@
                      * On expense updated/deleted - cancel edit mode.
                      */
                     $rootScope.$on(EXPENSE_EVENTS.isUpdated, function (event, args) {
-                        if ( scope.expense.model.id === args.expense.model.id ) {
+                        if (scope.expense.model.id === args.expense.model.id) {
 
                             // ---
                             // Now update the master expense, and remove the marked sign.

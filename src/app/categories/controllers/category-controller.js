@@ -1,20 +1,17 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /**
      * Categories controller.
      */
     angular
-        .module("revaluate.categories")
-        .controller("CategoryController", function ($rootScope, $scope, ALERTS_EVENTS, Category, CategoryColorService, CATEGORY_EVENTS, $timeout, categories, USER_ACTIVITY_EVENTS, APP_CONFIG, ALERTS_CONSTANTS) {
+        .module('revaluate.categories')
+        .controller('CategoryController', function ($rootScope, $scope, ALERTS_EVENTS, Category, CategoryColorService, CATEGORY_EVENTS, $timeout, categories, USER_ACTIVITY_EVENTS, APP_CONFIG, ALERTS_CONSTANTS) {
 
             /* jshint validthis: true */
-            var vm = this;
-
-            /**
-             * Saving timeout
-             */
-            var TIMEOUT_DURATION = 300;
+            var
+                vm = this,
+                TIMEOUT_DURATION = 300;
 
             /**
              * Alert identifier
@@ -52,7 +49,7 @@
             vm.initOrReset = function (categoryForm) {
                 vm.category = Category.build({ color: CategoryColorService.randomizedColor(vm.colors) });
 
-                if ( categoryForm ) {
+                if (categoryForm) {
                     categoryForm.$setPristine();
                 }
 
@@ -68,7 +65,7 @@
              * Saves the category or updates it.
              */
             vm.saveCategory = function (categoryForm) {
-                if ( categoryForm.$valid && !vm.isSaving ) {
+                if (categoryForm.$valid && !vm.isSaving) {
 
                     // Is saving category
                     vm.isSaving = true;
@@ -94,7 +91,7 @@
                             vm.isSaving = false;
                             vm.badPostSubmitResponse = true;
 
-                            $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: "error" });
+                            $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: 'error' });
                         });
                 }
             };
@@ -109,8 +106,8 @@
             $scope.$on(CATEGORY_EVENTS.isCreated, function (event, args) {
                 vm.categories.push(args.category);
 
-                $scope.$emit(ALERTS_EVENTS.SUCCESS, "Saved");
-                $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.categoryCreated);
+                $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Saved');
+                $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.categoryCreated);
             });
 
             /**
@@ -121,13 +118,13 @@
                     return topic.model.id === args.category.model.id;
                 });
 
-                if ( result ) {
+                if (result) {
                     removeCategoryFrom(vm.categories, args.category);
                     vm.categories.push(args.category);
                 }
 
-                $scope.$emit(ALERTS_EVENTS.SUCCESS, "Updated");
-                $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.categoryUpdated)
+                $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated');
+                $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.categoryUpdated)
             });
 
             /**
@@ -136,8 +133,8 @@
             $scope.$on(CATEGORY_EVENTS.isDeleted, function (event, args) {
                 removeCategoryFrom(vm.categories, args.category);
 
-                $scope.$emit(ALERTS_EVENTS.SUCCESS, "Deleted");
-                $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.categoryDeleted);
+                $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Deleted');
+                $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.categoryDeleted);
             });
 
             $scope.$on(CATEGORY_EVENTS.isErrorOccurred, function (event, args) {
@@ -153,9 +150,10 @@
              */
             function removeCategoryFrom(categoryList, categoryToBeRemoved) {
                 return _.remove(categoryList, function (categoryFromArray) {
-                    var categoryId = _.parseInt(categoryToBeRemoved.model.id, 10);
-                    var categoryFromArrayId = _.parseInt(categoryFromArray.model.id, 10);
-                    if ( _.isNaN(categoryFromArrayId) || _.isNaN(categoryId) ) {
+                    var
+                        categoryId = _.parseInt(categoryToBeRemoved.model.id, 10),
+                        categoryFromArrayId = _.parseInt(categoryFromArray.model.id, 10);
+                    if (_.isNaN(categoryFromArrayId) || _.isNaN(categoryId)) {
                         return false;
                     }
 

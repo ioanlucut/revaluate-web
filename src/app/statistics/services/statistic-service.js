@@ -1,12 +1,12 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /**
      * Summaries service which encapsulates the whole logic related to statistics.
      */
     angular
-        .module("revaluate.statistics")
-        .service("StatisticService", function (STATISTIC_URLS, $q, $http, StatisticsTransformerService) {
+        .module('revaluate.statistics')
+        .service('StatisticService', function (STATISTIC_URLS, $q, $http, StatisticsTransformerService) {
 
             /**
              * Get all expense statistics of current user. They represents a map of expenses per years/months.

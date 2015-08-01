@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.categories", [
-            "revaluate.common"
+        .module('revaluate.categories', [
+            'revaluate.common'
         ])
         .config(function ($stateProvider, USER_ACTIVITY_EVENTS) {
 
@@ -13,18 +13,18 @@
                 // Categories page.
                 // ---
                 .state({
-                    name: "settings.categories",
-                    url: "/categories",
-                    templateUrl: "/app/categories/partials/categories.html",
-                    controller: "CategoryController",
-                    controllerAs: "vm",
+                    name: 'settings.categories',
+                    url: '/categories',
+                    templateUrl: '/app/categories/partials/categories.html',
+                    controller: 'CategoryController',
+                    controllerAs: 'vm',
                     isPaymentMissingUnrestrictedPage: true,
                     resolve: {
                         categories: function (CategoryService) {
                             return CategoryService.getAllCategories();
                         }
                     },
-                    title: "Categories - Revaluate",
+                    title: 'Categories - Revaluate',
                     stateEventName: USER_ACTIVITY_EVENTS.categoriesPage
                 });
 

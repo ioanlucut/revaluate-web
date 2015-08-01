@@ -1,16 +1,16 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.common")
-        .directive("unisonListener", function (UNISON_BREAKPOINTS, UNISON_EVENTS) {
+        .module('revaluate.common')
+        .directive('unisonListener', function (UNISON_BREAKPOINTS, UNISON_EVENTS) {
             return {
-                restrict: "E",
+                restrict: 'E',
                 link: function (scope) {
 
                     Unison
                         .on('change', function (bp) {
-                            switch ( bp.name ) {
+                            switch (bp.name) {
                                 case UNISON_BREAKPOINTS.USN_X_SMALL.name:
                                 case UNISON_BREAKPOINTS.USN_SMALL.name:
                                 case UNISON_BREAKPOINTS.USN_SMALL_MEDIUM.name:

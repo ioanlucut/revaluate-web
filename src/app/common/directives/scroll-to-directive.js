@@ -1,17 +1,16 @@
 (function () {
-    "use strict";
-
-    /* Scroll to an element on the page */
+    'use strict';
 
     angular
-        .module("revaluate.common")
-        .directive("scrollTo", function ($window) {
+        .module('revaluate.common')
+        .directive('scrollTo', function () {
             return {
-                restrict: "A",
+                restrict: 'A',
                 link: function (scope, el, attrs) {
-                    el.on("click", function (e) {
+                    el.on('click', function (e) {
 
-                        $("html, body").animate({ scrollTop: $(attrs.scrollTo).offset().top }, parseInt(attrs.scrollSpeed) || 800);
+                        $('html, body')
+                            .animate({ scrollTop: $(attrs.scrollTo).offset().top }, parseInt(attrs.scrollSpeed) || 800);
                         e.preventDefault();
                     });
                 }

@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.categories")
-        .factory("Category", function ($q, $http, CategoryService, CategoryTransformerService) {
+        .module('revaluate.categories')
+        .factory('Category', function ($q, $http, CategoryService, CategoryTransformerService) {
 
             /**
              * Category class.
@@ -19,19 +19,19 @@
                     /**
                      * The category id.
                      */
-                    id: "",
+                    id: '',
 
                     /**
                      * The category text.
                      */
-                    name: "",
+                    name: '',
 
                     /**
                      * The color
                      */
                     color: {
 
-                        color: "",
+                        color: '',
 
                         id: 0,
 
@@ -44,7 +44,7 @@
                  * @returns {boolean}
                  */
                 this.isNew = function () {
-                    return this.model.id === "" || _.isUndefined(this.model.id);
+                    return this.model.id === '' || _.isUndefined(this.model.id);
                 };
 
                 /**
@@ -52,10 +52,9 @@
                  * @returns {*}
                  */
                 this.save = function () {
-                    if ( this.isNew() ) {
+                    if (this.isNew()) {
                         return CategoryService.createCategory(this);
-                    }
-                    else {
+                    }              else {
                         return CategoryService.updateCategory(this);
                     }
                 };
@@ -75,7 +74,7 @@
              * @returns {Category}
              */
             Category.build = function (data) {
-                if ( _.isEmpty(data) ) {
+                if (_.isEmpty(data)) {
                     return new Category();
                 }
 

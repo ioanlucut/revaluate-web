@@ -1,10 +1,10 @@
 (function () {
-    "use strict";
+    'use strict';
 
-// ---
-// Utilities.
-// ---
-    var testUtils = require("helpers/tests");
+    // ---
+    // Utilities.
+    // ---
+    var testUtils = require('helpers/tests');
 
     describe('app/account/account', function () {
 
@@ -15,7 +15,7 @@
             // ---
             // Load templates.
             // ---
-            angular.mock.module("gulpAngular");
+            angular.mock.module('gulpAngular');
 
             // ---
             // Provide APP_CONFIG.
@@ -46,11 +46,11 @@
             $state.go(state);
             $rootScope.$digest();
 
-            expect($state.current.url).toBe("/account");
-            expect($state.current.name).toBe("account");
-            expect($state.current.controller).toBe("LoginController");
-            expect($state.current.templateUrl).toBe("/app/site/partials/home.html");
-            expect($state.current.title).toBe("Login - Revaluate");
+            expect($state.current.url).toBe('/account');
+            expect($state.current.name).toBe('account');
+            expect($state.current.controller).toBe('LoginController');
+            expect($state.current.templateUrl).toBe('/app/site/partials/home.html');
+            expect($state.current.title).toBe('Login - Revaluate');
             expect($state.current.isPublicPage).toBeTruthy();
             expect($state.current.stateEventName).toBe(USER_ACTIVITY_EVENTS.account);
         });

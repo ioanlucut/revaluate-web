@@ -1,14 +1,14 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /**
      * Directive responsible for checking of a category name is valid.
      */
     angular
-        .module("revaluate.categories")
-        .directive("validCategoryName", function () {
+        .module('revaluate.categories')
+        .directive('validCategoryName', function () {
             return {
-                require: "ngModel",
+                require: 'ngModel',
                 link: function (scope, el, attr, ngModel) {
 
                     function isValidCategoryName(categoryName) {

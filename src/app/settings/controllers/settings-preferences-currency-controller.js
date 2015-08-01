@@ -1,12 +1,12 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /**
      * Preferences controller responsible for user update preferences action.
      */
     angular
-        .module("revaluate.settings")
-        .controller("SettingsPreferencesCurrencyController", function ($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, ALERTS_EVENTS, ALERTS_CONSTANTS, APP_CONFIG) {
+        .module('revaluate.settings')
+        .controller('SettingsPreferencesCurrencyController', function ($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, ALERTS_EVENTS, ALERTS_CONSTANTS, APP_CONFIG) {
 
             /* jshint validthis: true */
             var vm = this;
@@ -60,7 +60,7 @@
              * Update profile functionality.
              */
             vm.updatePreferences = function () {
-                if ( vm.preferencesForm.$valid && !vm.isSaving ) {
+                if (vm.preferencesForm.$valid && !vm.isSaving) {
 
                     // Show the loading bar
                     vm.isSaving = true;
@@ -102,7 +102,7 @@
                             vm.isSaving = false;
 
                             $scope.$emit(ALERTS_EVENTS.DANGER, {
-                                message: "We\'ve encountered an error.",
+                                message: 'We\'ve encountered an error.',
                                 alertId: vm.alertId
                             });
                         });

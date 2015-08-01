@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.insights")
-        .service("InsightsGenerator", function ($filter) {
+        .module('revaluate.insights')
+        .service('InsightsGenerator', function ($filter) {
 
             this.generate = function (insightsProgress, masterCategories) {
                 // ---
@@ -25,7 +25,7 @@
                             return categoryEntry.model.id === totalPerCategoryInsightsEntry.categoryDTO.id;
                         });
 
-                        if ( matchCategory ) {
+                        if (matchCategory) {
                             matchCategory.model.yearMonth[insightsMonthlyDTOEntry.yearMonth] = totalPerCategoryInsightsEntry.totalAmount;
                         }
                     });
@@ -66,9 +66,11 @@
 
                     return $filter('friendlyMonthShortDateNoYear')(availableYearMonthsEntry);
                 }));
+
                 var insightLineSeries = angular.copy(_.map(progressLineData, function (progressLineDataEntry) {
                     return progressLineDataEntry.categoryEntry.model.name;
                 }));
+
                 var insightLineColors = angular.copy(_.map(progressLineData, function (progressLineDataEntry) {
                     return progressLineDataEntry.categoryEntry.model.color.color;
                 }));
@@ -87,9 +89,11 @@
                 var insightsBarData = _.map(insightsMonthly.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
                     return [totalPerCategoryInsightDTO.totalAmount];
                 });
+
                 var insightsBarColors = _.map(insightsMonthly.model.totalPerCategoryInsightsDTOs, _.bind(function (totalPerCategoryInsightDTO) {
                     return this.getColour(this.hexToRgb(totalPerCategoryInsightDTO.categoryDTO.color.color.substr(1)));
                 }, this));
+
                 var insightLineSeries = _.map(insightsMonthly.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
                     return totalPerCategoryInsightDTO.categoryDTO.name;
                 });
@@ -98,7 +102,7 @@
                     insightsBarData: insightsBarData,
                     insightsBarSeries: insightLineSeries,
                     insightsBarColors: insightsBarColors,
-                    insightsBarLabels: ["Categories"]
+                    insightsBarLabels: ['Categories']
                 }
             };
 
@@ -107,16 +111,18 @@
                 var insightsDonutData = _.map(insightsMonthly.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
                     return totalPerCategoryInsightDTO.totalAmount;
                 });
+
                 var insightsDonutColors = _.map(insightsMonthly.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
                     return totalPerCategoryInsightDTO.categoryDTO.color.color;
                 });
+
                 var insightsDonutLabels = _.map(insightsMonthly.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
                     return totalPerCategoryInsightDTO.categoryDTO.name;
                 });
 
                 return {
                     insightsDonutData: insightsDonutData,
-                    insightsDonutSeries: ["Categories"],
+                    insightsDonutSeries: ['Categories'],
                     insightsDonutColors: insightsDonutColors,
                     insightsDonutLabels: insightsDonutLabels
                 }
@@ -127,15 +133,16 @@
                 var insightsBarData = _.map(insightsOverview.model.insightsOverview, function (insightOverviewEntry) {
                     return insightOverviewEntry.totalAmount;
                 });
+
                 var insightsBarLabels = _.map(insightsOverview.model.insightsOverview, function (insightOverviewEntry) {
                     return $filter('friendlyMonthDate')(insightOverviewEntry.yearMonth);
                 });
 
                 return {
                     insightsBarData: [insightsBarData],
-                    insightsBarSeries: "Categories",
+                    insightsBarSeries: 'Categories',
                     insightsBarLabels: insightsBarLabels,
-                    insightsBarColors: [this.getColour(this.hexToRgb("#22A7F0".substr(1)))]
+                    insightsBarColors: [this.getColour(this.hexToRgb('#22A7F0'.substr(1)))]
                 }
             };
 

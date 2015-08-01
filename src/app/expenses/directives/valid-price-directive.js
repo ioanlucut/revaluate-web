@@ -1,19 +1,19 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.common")
-        .directive("validPrice", function () {
+        .module('revaluate.common')
+        .directive('validPrice', function () {
             return {
-                require: "ngModel",
+                require: 'ngModel',
                 scope: {
-                    ngModel: "="
+                    ngModel: '='
                 },
                 link: function (scope, el, attr, ngModel) {
 
                     function isValidPrice(price) {
 
-                        return !(price === "" || _.isUndefined(price) || parseFloat(price) <= 0.01 || parseFloat(price) > 999999999999999999.99);
+                        return !(price === '' || _.isUndefined(price) || parseFloat(price) <= 0.01 || parseFloat(price) > 999999999999999999.99);
                     }
 
                     ngModel.$validators.validPrice = function (price) {

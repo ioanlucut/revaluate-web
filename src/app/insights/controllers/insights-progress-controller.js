@@ -1,9 +1,9 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("revaluate.insights")
-        .controller("InsightsProgressController", function (DatesUtils, $controller, $templateCache, $scope, $rootScope, $filter, $timeout, InsightsGenerator, ALERTS_EVENTS, INSIGHTS_INTERVAL, insightsProgress, monthsPerYearsStatistics, categories, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
+        .module('revaluate.insights')
+        .controller('InsightsProgressController', function (DatesUtils, $controller, $templateCache, $scope, $rootScope, $filter, $timeout, InsightsGenerator, ALERTS_EVENTS, INSIGHTS_INTERVAL, insightsProgress, monthsPerYearsStatistics, categories, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
 
             var TIMEOUT_DURATION = 150;
 
@@ -74,7 +74,7 @@
              * Prepares data for progress chart
              */
             function prepareDataForProgressChart() {
-                if ( vm.isMinimumNumberOfAllowedUnselectedCategoriesExceeded() ) {
+                if (vm.isMinimumNumberOfAllowedUnselectedCategoriesExceeded()) {
                     return;
                 }
 
@@ -113,14 +113,14 @@
             };
 
             vm.selectAll = function () {
-                if ( getSelectedCategories().length < vm.masterCategories.length ) {
+                if (getSelectedCategories().length < vm.masterCategories.length) {
 
                     reloadAllCategoriesWithSelectedAs(true);
                 }
             };
 
             vm.clearAll = function () {
-                if ( getSelectedCategories().length > 0 ) {
+                if (getSelectedCategories().length > 0) {
 
                     reloadAllCategoriesWithSelectedAs(false);
                 }
@@ -135,10 +135,11 @@
              * Load insights
              */
             vm.loadInsights = function (insightsIntervalMonths) {
-                if ( vm.isLoading ) {
+                if (vm.isLoading) {
 
                     return;
                 }
+
                 vm.isLoading = true;
                 var period = DatesUtils
                     .fromLastMonthsToNow(insightsIntervalMonths);
@@ -151,7 +152,7 @@
                         /**
                          * Track event.
                          */
-                        $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.insightsProgressFetched);
+                        $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.insightsProgressFetched);
 
                         $timeout(function () {
                             // ---
@@ -172,7 +173,7 @@
                         vm.isLoading = false;
 
                         $scope.$emit(ALERTS_EVENTS.DANGER, {
-                            message: "Could not fetch insights.",
+                            message: 'Could not fetch insights.',
                             alertId: vm.alertId
                         });
                     });

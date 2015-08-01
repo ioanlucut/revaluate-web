@@ -1,19 +1,20 @@
-(function () {     "use strict";
+(function () {
+    'use strict';
 
-/**
- * Session service which encapsulates the whole logic account related to the Local storage which contains currently logged in user.
- */
-angular
-    .module("revaluate.common")
-    .service("SessionService", function ($localStorage) {
+    /**
+     * Session service which encapsulates the whole logic account related to the Local storage which contains currently logged in user.
+     */
+    angular
+        .module('revaluate.common')
+    .service('SessionService', function ($localStorage) {
 
         /**
          * Local storage key for session data.
          *
          * @type {string}
          */
-        var sessionDataKey = "auth_session_data";
-        var jwtTokenKey = "auth_jwt_token";
+        var sessionDataKey = 'auth_session_data';
+        var jwtTokenKey = 'auth_jwt_token';
 
         /**
          * Create session.

@@ -1,12 +1,12 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /**
      * Setting import controller.
      */
     angular
-        .module("revaluate.expensesImport")
-        .controller("ExpensesImportController", function ($q, $scope, $rootScope, $timeout, IMPORT_PARSE_ANALYSE_URLS, importType, FileUploader, ImportService, ExpensesImport, StatesHandler, SessionService, AUTH_EVENTS, ALERTS_EVENTS, categories, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, APP_CONFIG) {
+        .module('revaluate.expensesImport')
+        .controller('ExpensesImportController', function ($q, $scope, $rootScope, $timeout, IMPORT_PARSE_ANALYSE_URLS, importType, FileUploader, ImportService, ExpensesImport, StatesHandler, SessionService, AUTH_EVENTS, ALERTS_EVENTS, categories, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, APP_CONFIG) {
 
             // ---
             // Configure uploader.
@@ -107,7 +107,7 @@
             uploader.onWhenAddingFileFailed = function (item, filter, options) {
 
                 $scope.$emit(ALERTS_EVENTS.DANGER, {
-                    message: "Hmm.. are you trying to upload anything but a CSV file?",
+                    message: 'Hmm.. are you trying to upload anything but a CSV file?',
                     alertId: $scope.alertId
                 });
             };
@@ -128,27 +128,26 @@
                 // ---
                 $scope.expensesImportAnswer = ExpensesImport.build(response);
                 $scope.isUploadSuccessful = true;
-                $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.settingsImportUploadSuccess);
+                $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.settingsImportUploadSuccess);
             };
 
             // ---
             // On error item.
             // ---
             uploader.onErrorItem = function (fileItem, response, status, headers) {
-                if ( status === BAD_RESPONSE ) {
+                if (status === BAD_RESPONSE) {
                     $scope.$emit(ALERTS_EVENTS.DANGER, {
-                        message: "Hmmm... Are you sure the CSV export is from selected app?",
+                        message: 'Hmmm... Are you sure the CSV export is from selected app?',
                         alertId: $scope.alertId
                     });
-                }
-                else {
-                    if ( status === SERVER_ERROR ) {
+                }            else {
+                    if (status === SERVER_ERROR) {
                         $scope.$emit(ALERTS_EVENTS.DANGER, {
-                            message: "Something went wrong. Can you please try one more time?",
+                            message: 'Something went wrong. Can you please try one more time?',
                             alertId: $scope.alertId
                         });
 
-                        $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.settingsImportServerError);
+                        $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.settingsImportServerError);
                     }
                 }
 
@@ -174,9 +173,10 @@
              * Is enough selected categories
              */
             $scope.isEnoughSelectedMatchingCategories = function () {
-                if ( !$scope.isUploadSuccessful ) {
+                if (!$scope.isUploadSuccessful) {
                     return false;
                 }
+
                 return getSelectedMatchingCategories().length >= APP_CONFIG.IMPORT_MIN_CATEGORIES_TO_SELECT;
             };
 
@@ -184,7 +184,7 @@
              * Update profile functionality.
              */
             $scope.submitPerformImport = function (expensesImportForm) {
-                if ( expensesImportForm.$valid && !$scope.isImporting ) {
+                if (expensesImportForm.$valid && !$scope.isImporting) {
 
                     // Show the loading bar
                     $scope.isImporting = true;
@@ -198,11 +198,10 @@
                     // We need to perform a transform of the selected categories.
                     // ---
                     _.each(expensesImportPrepared.model.expenseCategoryMatchingProfileDTOs, function (expenseCategoryMatchingProfileDTO) {
-                        if ( expenseCategoryMatchingProfileDTO.selected ) {
+                        if (expenseCategoryMatchingProfileDTO.selected) {
 
                             expenseCategoryMatchingProfileDTO.categoryDTO = angular.copy(expenseCategoryMatchingProfileDTO.category.selected.model);
-                        }
-                        else {
+                        }                else {
                             // ---
                             // Really ugly, but we can't send back an invalid category..
                             // ---
@@ -225,7 +224,7 @@
                             // ---
                             $scope.isImporting = false;
                             $scope.importFinished = true;
-                            $scope.$emit("trackEvent", USER_ACTIVITY_EVENTS.settingsImportSuccess);
+                            $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.settingsImportSuccess);
 
                             // ---
                             // Go to expenses after 1,5 sec.
@@ -240,7 +239,7 @@
                             $scope.isImporting = false;
 
                             $scope.$emit(ALERTS_EVENTS.DANGER, {
-                                message: "We\'ve encountered an error while trying to import your expenses.",
+                                message: 'We\'ve encountered an error while trying to import your expenses.',
                                 alertId: $scope.alertId
                             });
                         });

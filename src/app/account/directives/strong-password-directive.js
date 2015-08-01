@@ -1,14 +1,14 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /**
      * Directive responsible for checking of a password is strong enough.
      */
     angular
-        .module("revaluate.account")
-        .directive("strongPassword", function () {
+        .module('revaluate.account')
+        .directive('strongPassword', function () {
             return {
-                require: "ngModel",
+                require: 'ngModel',
                 link: function (scope, el, attr, ngModel) {
 
                     /**

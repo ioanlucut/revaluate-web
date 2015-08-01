@@ -1,12 +1,12 @@
 (function () {
-    "use strict";
+    'use strict';
 
     /**
      * Login controller responsible for user login actions.
      */
     angular
-        .module("revaluate.account")
-        .controller("LoginController", function ($scope, ALERTS_EVENTS, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountModal, StatesHandler, $timeout) {
+        .module('revaluate.account')
+        .controller('LoginController', function ($scope, ALERTS_EVENTS, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountModal, StatesHandler, $timeout) {
 
             /**
              * Alert identifier
@@ -16,7 +16,7 @@
             /**
              * If not opened, open it.
              */
-            if ( !AccountModal.isOpen ) {
+            if (!AccountModal.isOpen) {
                 AccountModal.openWithState(ACCOUNT_FORM_STATE.login)
             }
 
@@ -24,15 +24,15 @@
              * Login user information.
              */
             $scope.loginData = {
-                email: "",
-                password: ""
+                email: '',
+                password: ''
             };
 
             /**
              * Login functionality.
              */
             $scope.login = function (loginData) {
-                if ( $scope.loginForm.$valid && !$scope.isRequestPending ) {
+                if ($scope.loginForm.$valid && !$scope.isRequestPending) {
 
                     // Show the loading bar
                     $scope.isRequestPending = true;
@@ -54,7 +54,7 @@
                             $scope.badPostSubmitResponse = true;
 
                             $scope.$emit(ALERTS_EVENTS.DANGER, {
-                                message: "Your email or password are wrong. Please try again.",
+                                message: 'Your email or password are wrong. Please try again.',
                                 alertId: $scope.alertId
                             });
                         })
