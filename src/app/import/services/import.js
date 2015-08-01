@@ -1,52 +1,54 @@
-'use strict';
+(function () {
+    "use strict";
 
-angular
-    .module("revaluate.expensesImport")
-    .factory("ExpensesImport", function ($q, $http, ImportService, ImportTransformerService) {
-
-        /**
-         * ExpensesImport class.
-         * @constructor
-         */
-        function ExpensesImport() {
+    angular
+        .module("revaluate.expensesImport")
+        .factory("ExpensesImport", function ($q, $http, ImportService, ImportTransformerService) {
 
             /**
-             * Represents the DTO model of the expensesImport.
+             * ExpensesImport class.
+             * @constructor
              */
-            this.model = {
+            function ExpensesImport() {
 
                 /**
-                 * The expenses.
+                 * Represents the DTO model of the expensesImport.
                  */
-                expenseDTOs: [],
+                this.model = {
+
+                    /**
+                     * The expenses.
+                     */
+                    expenseDTOs: [],
+
+                    /**
+                     * The color
+                     */
+                    expenseCategoryMatchingProfileDTOs: []
+                };
 
                 /**
-                 * The color
+                 * Saves a expensesImport and update model with response.
+                 * @returns {*}
                  */
-                expenseCategoryMatchingProfileDTOs: []
-            };
-
-            /**
-             * Saves a expensesImport and update model with response.
-             * @returns {*}
-             */
-            this.save = function () {
-                return ImportService.performImport(this);
-            };
-        }
-
-        /**
-         * Builds a expensesImport with given data.
-         * @param data
-         * @returns {ExpensesImport}
-         */
-        ExpensesImport.build = function (data) {
-            if ( _.isEmpty(data) ) {
-                return new ExpensesImport();
+                this.save = function () {
+                    return ImportService.performImport(this);
+                };
             }
 
-            return ImportTransformerService.toImport(data, new ExpensesImport());
-        };
+            /**
+             * Builds a expensesImport with given data.
+             * @param data
+             * @returns {ExpensesImport}
+             */
+            ExpensesImport.build = function (data) {
+                if ( _.isEmpty(data) ) {
+                    return new ExpensesImport();
+                }
 
-        return ExpensesImport;
-    });
+                return ImportTransformerService.toImport(data, new ExpensesImport());
+            };
+
+            return ExpensesImport;
+        });
+}());

@@ -1,143 +1,145 @@
-'use strict';
+(function () {
+    "use strict";
 
-angular
-    .module("revaluate.settings")
-    .controller("SettingsEditPaymentMethodController", function ($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentInsights, ALERTS_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS) {
+    angular
+        .module("revaluate.settings")
+        .controller("SettingsEditPaymentMethodController", function ($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentInsights, ALERTS_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS) {
 
-        /* jshint validthis: true */
-        var vm = this;
+            /* jshint validthis: true */
+            var vm = this;
 
-        var TIMEOUT_PENDING = 300;
+            var TIMEOUT_PENDING = 300;
 
-        /**
-         * Alert identifier
-         */
-        vm.alertId = ALERTS_CONSTANTS.paymentProfile;
+            /**
+             * Alert identifier
+             */
+            vm.alertId = ALERTS_CONSTANTS.paymentProfile;
 
-        /**
-         * Current user.
-         */
-        vm.user = $rootScope.currentUser;
+            /**
+             * Current user.
+             */
+            vm.user = $rootScope.currentUser;
 
-        // ---
-        // Braintree client token got from server.
-        // ---
-        vm.clientToken = clientToken;
+            // ---
+            // Braintree client token got from server.
+            // ---
+            vm.clientToken = clientToken;
 
-        // ---
-        // Payment status.
-        // ---
-        vm.paymentInsights = paymentInsights;
+            // ---
+            // Payment status.
+            // ---
+            vm.paymentInsights = paymentInsights;
 
-        // ---
-        // Braintree client.
-        // ---
-        vm.client = new $braintree.api.Client({
-            clientToken: clientToken
-        });
+            // ---
+            // Braintree client.
+            // ---
+            vm.client = new $braintree.api.Client({
+                clientToken: clientToken
+            });
 
-        /**
-         * Initial payment data
-         */
-        function getInitialPaymentData() {
-            return {
-                cardNumber: '',
-                cardExpirationDate: ''
+            /**
+             * Initial payment data
+             */
+            function getInitialPaymentData() {
+                return {
+                    cardNumber: '',
+                    cardExpirationDate: ''
+                }
             }
-        }
 
-        /**
-         * Profile user information.
-         */
-        vm.paymentData = angular.copy(getInitialPaymentData());
+            /**
+             * Profile user information.
+             */
+            vm.paymentData = angular.copy(getInitialPaymentData());
 
-        /**
-         * Initial Payment details data
-         */
-        function getInitialPaymentDetailsData() {
-            return {
-                paymentMethodNonce: ''
+            /**
+             * Initial Payment details data
+             */
+            function getInitialPaymentDetailsData() {
+                return {
+                    paymentMethodNonce: ''
+                }
             }
-        }
 
-        /**
-         * Payment details data.
-         */
-        vm.paymentDetailsData = angular.copy(getInitialPaymentDetailsData());
+            /**
+             * Payment details data.
+             */
+            vm.paymentDetailsData = angular.copy(getInitialPaymentDetailsData());
 
-        // ---
-        // UPDATE PAYMENT METHOD RELATED
-        // ---
-        vm.updatePaymentMethod = function () {
-            if ( vm.updatePaymentMethodForm.$valid && !vm.isRequestPending ) {
+            // ---
+            // UPDATE PAYMENT METHOD RELATED
+            // ---
+            vm.updatePaymentMethod = function () {
+                if ( vm.updatePaymentMethodForm.$valid && !vm.isRequestPending ) {
 
-                // Show the loading bar
-                vm.isRequestPending = true;
+                    // Show the loading bar
+                    vm.isRequestPending = true;
 
-                // - Validate vm.paymentData
-                // - Make sure client is ready to use
-                vm
-                    .client
-                    .tokenizeCard({
-                        number: vm.paymentData.cardNumber,
-                        expirationDate: vm.paymentData.cardExpirationDate
-                    }, function (err, nonce) {
+                    // - Validate vm.paymentData
+                    // - Make sure client is ready to use
+                    vm
+                        .client
+                        .tokenizeCard({
+                            number: vm.paymentData.cardNumber,
+                            expirationDate: vm.paymentData.cardExpirationDate
+                        }, function (err, nonce) {
 
-                        if ( err ) {
-                            $scope.$emit(ALERTS_EVENTS.DANGER, {
-                                message: err,
-                                alertId: vm.alertId
-                            });
-                        }
-                        else {
-                            // ---
-                            // Update details with the received nonce.
-                            // ---
-                            var paymentDetailsData = angular.copy(vm.paymentDetailsData);
-                            paymentDetailsData.paymentMethodNonce = nonce;
-
-                            return $http
-                                .put(URLTo.api(AUTH_URLS.updatePaymentMethod), paymentDetailsData)
-                                .then(function () {
-
-                                    // ---
-                                    // Reset the payment data with empty new data.
-                                    // ---
-                                    vm.paymentData = angular.copy(getInitialPaymentData());
-
-                                    vm.updatePaymentMethodForm.$setPristine();
-
-                                    $timeout(function () {
-                                        vm.isRequestPending = false;
-                                        $scope.$emit(ALERTS_EVENTS.SUCCESS, 'We\'ve successfully updated your payment method!');
-                                    }, TIMEOUT_PENDING);
-                                })
-                                .catch(function (response) {
-                                    /* If bad feedback from server */
-                                    vm.badPostSubmitResponse = true;
-                                    vm.isRequestPending = false;
-
-                                    // ---
-                                    // Show errors.
-                                    // ---
-                                    var errors = response.data;
-                                    if ( _.isArray(errors) ) {
-                                        $scope.$emit(ALERTS_EVENTS.DANGER, {
-                                            message: errors.join("\n"),
-                                            alertId: vm.alertId
-                                        });
-                                    }
-                                    else {
-                                        $scope.$emit(ALERTS_EVENTS.DANGER, {
-                                            message: "We\'ve encountered an error.",
-                                            alertId: vm.alertId
-                                        });
-                                    }
+                            if ( err ) {
+                                $scope.$emit(ALERTS_EVENTS.DANGER, {
+                                    message: err,
+                                    alertId: vm.alertId
                                 });
-                        }
-                    });
-            }
+                            }
+                            else {
+                                // ---
+                                // Update details with the received nonce.
+                                // ---
+                                var paymentDetailsData = angular.copy(vm.paymentDetailsData);
+                                paymentDetailsData.paymentMethodNonce = nonce;
 
-        };
+                                return $http
+                                    .put(URLTo.api(AUTH_URLS.updatePaymentMethod), paymentDetailsData)
+                                    .then(function () {
 
-    });
+                                        // ---
+                                        // Reset the payment data with empty new data.
+                                        // ---
+                                        vm.paymentData = angular.copy(getInitialPaymentData());
+
+                                        vm.updatePaymentMethodForm.$setPristine();
+
+                                        $timeout(function () {
+                                            vm.isRequestPending = false;
+                                            $scope.$emit(ALERTS_EVENTS.SUCCESS, 'We\'ve successfully updated your payment method!');
+                                        }, TIMEOUT_PENDING);
+                                    })
+                                    .catch(function (response) {
+                                        /* If bad feedback from server */
+                                        vm.badPostSubmitResponse = true;
+                                        vm.isRequestPending = false;
+
+                                        // ---
+                                        // Show errors.
+                                        // ---
+                                        var errors = response.data;
+                                        if ( _.isArray(errors) ) {
+                                            $scope.$emit(ALERTS_EVENTS.DANGER, {
+                                                message: errors.join("\n"),
+                                                alertId: vm.alertId
+                                            });
+                                        }
+                                        else {
+                                            $scope.$emit(ALERTS_EVENTS.DANGER, {
+                                                message: "We\'ve encountered an error.",
+                                                alertId: vm.alertId
+                                            });
+                                        }
+                                    });
+                            }
+                        });
+                }
+
+            };
+
+        });
+}());

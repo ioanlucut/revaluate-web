@@ -1,4 +1,4 @@
-'use strict';
+(function () {     "use strict";
 
 /**
  * Dates utils service.
@@ -32,3 +32,4 @@ angular
         }
 
     });
+}());

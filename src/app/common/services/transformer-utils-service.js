@@ -1,4 +1,4 @@
-'use strict';
+(function () {     "use strict";
 
 /**
  * Transformer utils service.
@@ -29,3 +29,4 @@ angular
             return _.uniq(recipients, 'email');
         };
     });
+}());

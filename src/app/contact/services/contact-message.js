@@ -1,52 +1,54 @@
-'use strict';
+(function () {
+    "use strict";
 
-angular
-    .module("revaluate.contact")
-    .factory("Contact", function (ContactService) {
-
-        /**
-         * Contact class.
-         * @constructor
-         */
-        function Contact() {
+    angular
+        .module("revaluate.contact")
+        .factory("Contact", function (ContactService) {
 
             /**
-             * Represents the DTO model of the Contact.
+             * Contact class.
+             * @constructor
              */
-            this.model = {
+            function Contact() {
 
                 /**
-                 * Name
+                 * Represents the DTO model of the Contact.
                  */
-                name: "",
+                this.model = {
+
+                    /**
+                     * Name
+                     */
+                    name: "",
+
+                    /**
+                     * Contact email
+                     */
+                    email: "",
+
+                    /**
+                     * Contact message
+                     */
+                    message: ""
+                };
 
                 /**
-                 * Contact email
+                 * Sends a Contact.
+                 * @returns {*}
                  */
-                email: "",
-
-                /**
-                 * Contact message
-                 */
-                message: ""
-            };
+                this.send = function () {
+                    return ContactService.sendContact(this);
+                };
+            }
 
             /**
-             * Sends a Contact.
-             * @returns {*}
+             * Builds a Contact.
+             * @returns {Contact}
              */
-            this.send = function () {
-                return ContactService.sendContact(this);
+            Contact.build = function () {
+                return new Contact();
             };
-        }
 
-        /**
-         * Builds a Contact.
-         * @returns {Contact}
-         */
-        Contact.build = function () {
-            return new Contact();
-        };
-
-        return Contact;
-    });
+            return Contact;
+        });
+}());

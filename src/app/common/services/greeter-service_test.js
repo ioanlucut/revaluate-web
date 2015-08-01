@@ -1,4 +1,4 @@
-'use strict';
+(function () {     "use strict";
 
 // ---
 // Utilities.
@@ -30,3 +30,4 @@ describe('GreeterService', function () {
     }));
 
 });
+}());

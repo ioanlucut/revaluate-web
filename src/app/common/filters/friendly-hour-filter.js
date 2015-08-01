@@ -1,12 +1,14 @@
-'use strict';
+(function () {
+    "use strict";
 
-/* Friendly date filter */
+    /* Friendly date filter */
 
-angular
-    .module("revaluate.common")
-    .filter('friendlyHour', function () {
-        return function (date) {
+    angular
+        .module("revaluate.common")
+        .filter('friendlyHour', function () {
+            return function (date) {
 
-            return moment(date).format("h:mm A");
-        };
-    });
+                return moment(date).format("h:mm A");
+            };
+        });
+}());

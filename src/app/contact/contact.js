@@ -1,4 +1,6 @@
-'use strict';
+(function () {
+    "use strict";
 
-angular
-    .module("revaluate.contact", []);
+    angular
+        .module("revaluate.contact", []);
+}());

@@ -1,42 +1,44 @@
-'use strict';
+(function () {
+    "use strict";
 
-angular
-    .module("revaluate.insights")
-    .factory("InsightsProgress", function ($q, $http, InsightsService, InsightsTransformerService) {
-
-        /**
-         * Insights class.
-         * @constructor
-         */
-        function InsightsProgress() {
+    angular
+        .module("revaluate.insights")
+        .factory("InsightsProgress", function ($q, $http, InsightsService, InsightsTransformerService) {
 
             /**
-             * Represents the DTO model of the insights.
+             * Insights class.
+             * @constructor
              */
-            this.model = {
+            function InsightsProgress() {
 
                 /**
-                 * Total amount spent
+                 * Represents the DTO model of the insights.
                  */
-                totalAmountSpent: 0,
+                this.model = {
 
-                /**
-                 * Insights overview
-                 */
-                insightsMonthlyDTO: []
-            };
-        }
+                    /**
+                     * Total amount spent
+                     */
+                    totalAmountSpent: 0,
 
-        /**
-         * Builds a insights with given data.
-         */
-        InsightsProgress.build = function (data) {
-            if ( _.isEmpty(data) ) {
-                return new InsightsProgress();
+                    /**
+                     * Insights overview
+                     */
+                    insightsMonthlyDTO: []
+                };
             }
 
-            return InsightsTransformerService.toInsight(data, new InsightsProgress());
-        };
+            /**
+             * Builds a insights with given data.
+             */
+            InsightsProgress.build = function (data) {
+                if ( _.isEmpty(data) ) {
+                    return new InsightsProgress();
+                }
 
-        return InsightsProgress;
-    });
+                return InsightsTransformerService.toInsight(data, new InsightsProgress());
+            };
+
+            return InsightsProgress;
+        });
+}());

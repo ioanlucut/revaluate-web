@@ -1,74 +1,76 @@
-'use strict';
+(function () {
+    "use strict";
 
-angular
-    .module("revaluate.insights")
-    .factory("InsightsMonthly", function ($q, $http, InsightsService, InsightsTransformerService) {
-
-        /**
-         * InsightsMonthly class.
-         * @constructor
-         */
-        function InsightsMonthly() {
+    angular
+        .module("revaluate.insights")
+        .factory("InsightsMonthly", function ($q, $http, InsightsService, InsightsTransformerService) {
 
             /**
-             * Represents the DTO model of the insights.
+             * InsightsMonthly class.
+             * @constructor
              */
-            this.model = {
+            function InsightsMonthly() {
 
                 /**
-                 * From date period of the insights.
+                 * Represents the DTO model of the insights.
                  */
-                from: "",
+                this.model = {
+
+                    /**
+                     * From date period of the insights.
+                     */
+                    from: "",
+
+                    /**
+                     * To date period of the insights.
+                     */
+                    to: "",
+
+                    /**
+                     * Total amount spent
+                     */
+                    totalAmountSpent: 0,
+
+                    /**
+                     * Number of transactions for selected period.
+                     */
+                    numberOfTransactions: 0,
+
+                    /**
+                     * Total per categories
+                     */
+                    totalPerCategoryInsightsDTOs: []
+                };
 
                 /**
-                 * To date period of the insights.
+                 * Is insights empty.
+                 * @returns {boolean}
                  */
-                to: "",
+                this.isEmpty = function () {
+                    return this.model.totalPerCategoryInsightsDTOs.length === 0;
+                };
 
-                /**
-                 * Total amount spent
-                 */
-                totalAmountSpent: 0,
+                this.isTransactionsEmpty = function () {
+                    return this.model.numberOfTransactions === 0;
+                };
 
-                /**
-                 * Number of transactions for selected period.
-                 */
-                numberOfTransactions: 0,
+                this.isManyTransactions = function () {
+                    return this.model.numberOfTransactions > 5;
+                };
 
-                /**
-                 * Total per categories
-                 */
-                totalPerCategoryInsightsDTOs: []
-            };
-
-            /**
-             * Is insights empty.
-             * @returns {boolean}
-             */
-            this.isEmpty = function () {
-                return this.model.totalPerCategoryInsightsDTOs.length === 0;
-            };
-
-            this.isTransactionsEmpty = function () {
-                return this.model.numberOfTransactions === 0;
-            };
-
-            this.isManyTransactions = function () {
-                return this.model.numberOfTransactions > 5;
-            };
-
-        }
-
-        /**
-         * Builds a insights with given data.
-         */
-        InsightsMonthly.build = function (data) {
-            if ( _.isEmpty(data) ) {
-                return new InsightsMonthly();
             }
 
-            return InsightsTransformerService.toInsight(data, new InsightsMonthly());
-        };
+            /**
+             * Builds a insights with given data.
+             */
+            InsightsMonthly.build = function (data) {
+                if ( _.isEmpty(data) ) {
+                    return new InsightsMonthly();
+                }
 
-        return InsightsMonthly;
-    });
+                return InsightsTransformerService.toInsight(data, new InsightsMonthly());
+            };
+
+            return InsightsMonthly;
+        });
+}());

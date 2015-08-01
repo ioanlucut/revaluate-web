@@ -1,50 +1,52 @@
-'use strict';
+(function () {
+    "use strict";
 
-angular
-    .module("revaluate.account")
-    .controller("EmailConfirmationResendController", function ($scope, $rootScope, $timeout, ALERTS_EVENTS, AuthService, StatesHandler, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {
+    angular
+        .module("revaluate.account")
+        .controller("EmailConfirmationResendController", function ($scope, $rootScope, $timeout, ALERTS_EVENTS, AuthService, StatesHandler, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {
 
-        var TIMEOUT_PENDING = 300;
+            var TIMEOUT_PENDING = 300;
 
-        /**
-         * Alert identifier
-         */
-        $scope.alertId = ALERTS_CONSTANTS.validatePassword;
+            /**
+             * Alert identifier
+             */
+            $scope.alertId = ALERTS_CONSTANTS.validatePassword;
 
-        /**
-         * Current user.
-         */
-        $scope.user = $rootScope.currentUser;
+            /**
+             * Current user.
+             */
+            $scope.user = $rootScope.currentUser;
 
-        var sendConfirmationEmailData = {
-            email: $scope.user.model.email
-        };
+            var sendConfirmationEmailData = {
+                email: $scope.user.model.email
+            };
 
-        $scope.sendConfirmationEmail = function (sendConfirmationEmailForm) {
-            if ( sendConfirmationEmailForm.$valid && !$scope.isRequestPending ) {
+            $scope.sendConfirmationEmail = function (sendConfirmationEmailForm) {
+                if ( sendConfirmationEmailForm.$valid && !$scope.isRequestPending ) {
 
-                // Show the loading bar
-                $scope.isRequestPending = true;
+                    // Show the loading bar
+                    $scope.isRequestPending = true;
 
-                AuthService
-                    .requestConfirmationEmail(sendConfirmationEmailData.email)
-                    .then(function () {
-                        $timeout(function () {
+                    AuthService
+                        .requestConfirmationEmail(sendConfirmationEmailData.email)
+                        .then(function () {
+                            $timeout(function () {
+                                $scope.isRequestPending = false;
+                                $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Sent');
+                            }, TIMEOUT_PENDING);
+                        })
+                        .catch(function () {
+                            /* If bad feedback from server */
+                            $scope.badPostSubmitResponse = true;
                             $scope.isRequestPending = false;
-                            $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Sent');
-                        }, TIMEOUT_PENDING);
-                    })
-                    .catch(function () {
-                        /* If bad feedback from server */
-                        $scope.badPostSubmitResponse = true;
-                        $scope.isRequestPending = false;
 
-                        $scope.$emit(ALERTS_EVENTS.DANGER, {
-                            message: "Sorry, something went wrong.",
-                            alertId: $scope.alertId
+                            $scope.$emit(ALERTS_EVENTS.DANGER, {
+                                message: "Sorry, something went wrong.",
+                                alertId: $scope.alertId
+                            });
                         });
-                    });
-            }
-        };
+                }
+            };
 
-    });
+        });
+}());
