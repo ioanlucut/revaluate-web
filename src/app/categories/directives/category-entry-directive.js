@@ -75,8 +75,8 @@
                     };
 
                 },
-                controllerAs: 'vm',
-                templateUrl: "/app/categories/partials/category-entry-directive-template.html",
+                controllerAs: "vm",
+                templateUrl: "/app/categories/partials/category-entry-directive.tpl.html",
                 link: function (scope, el, attrs, vm) {
 
                     /**

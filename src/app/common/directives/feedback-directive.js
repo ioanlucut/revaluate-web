@@ -6,7 +6,7 @@
         .directive("feedback", function ($rootScope, AuthService, AUTH_EVENTS, $timeout) {
             return {
                 restrict: "A",
-                templateUrl: "/app/common/partials/feedback.html",
+                templateUrl: "/app/common/partials/feedback-directive.tpl.html",
                 link: function (scope, el) {
                     var TIMEOUT = 2000;
 

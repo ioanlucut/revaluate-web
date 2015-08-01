@@ -13,7 +13,7 @@
                     identifierId: "@"
                 },
                 restrict: "A",
-                templateUrl: "/app/common/partials/flash-messages.html",
+                templateUrl: "/app/common/partials/flash-messages-directive.tpl.html",
                 link: function () {
                 }
             };

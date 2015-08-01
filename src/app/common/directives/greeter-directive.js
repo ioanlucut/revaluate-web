@@ -9,7 +9,7 @@
                 scope: {
                     greet: "="
                 },
-                templateUrl: "/app/common/partials/greeter.html",
+                templateUrl: "/app/common/partials/greeter-directive.tpl.html",
                 link: function (scope, el) {
                     var TIMEOUT = 1000;
 
