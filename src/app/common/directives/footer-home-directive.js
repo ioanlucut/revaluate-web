@@ -9,7 +9,7 @@
         .directive("footerHome", function () {
             return {
                 restrict: "A",
-                templateUrl: "/app/common/partials/footer-home.tpl.html",
+                templateUrl: "/app/common/partials/footer-home-directive.tpl.html",
                 link: function () {
                 }
             };

@@ -8,7 +8,7 @@
                 restrict: "AE",
                 templateUrl: "/app/common/partials/header-side-directive.tpl.html",
                 controller: "HeaderController",
-                controllerAs: 'vm',
+                controllerAs: "vm",
                 link: function () {
                 }
             };

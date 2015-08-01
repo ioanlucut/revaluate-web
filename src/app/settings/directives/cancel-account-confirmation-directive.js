@@ -14,7 +14,7 @@
                     confirm: "&",
                     cancel: "&"
                 },
-                templateUrl: "/app/settings/partials/cancel_account_confirmation_template.html",
+                templateUrl: "/app/settings/partials/cancel-account-confirmation-directive.tpl.html",
                 link: function (scope) {
 
                     /**

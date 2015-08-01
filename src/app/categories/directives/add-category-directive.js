@@ -6,7 +6,7 @@
         .directive("addCategory", function ($rootScope, CATEGORY_EVENTS) {
             return {
                 restrict: "A",
-                templateUrl: "/app/categories/partials/add-category-directive-template.html",
+                templateUrl: "/app/categories/partials/add-category-directive.tpl.html",
                 link: function (scope, el, attrs) {
 
                     /**

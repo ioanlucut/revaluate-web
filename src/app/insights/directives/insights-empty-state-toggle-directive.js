@@ -10,7 +10,7 @@
                 scope: {
                     showEmptyState: "="
                 },
-                templateUrl: "/app/insights/partials/insights.empty.state.toggle.tpl.html",
+                templateUrl: "/app/insights/partials/insights-empty-state-toggle-directive.tpl.html",
                 link: function () {
                 }
             }

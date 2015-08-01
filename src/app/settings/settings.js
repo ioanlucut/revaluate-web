@@ -30,7 +30,7 @@
                     url: "/profile",
                     templateUrl: "/app/settings/partials/settings.profile.html",
                     controller: "SettingsProfileController",
-                    controllerAs: 'vm',
+                    controllerAs: "vm",
                     isPaymentMissingUnrestrictedPage: true,
                     title: "Profile - Revaluate",
                     stateEventName: USER_ACTIVITY_EVENTS.settingsProfile
@@ -52,7 +52,7 @@
                     url: "/add",
                     templateUrl: "/app/settings/partials/settings.payment.add.html",
                     controller: "SettingsPaymentMethodAddController",
-                    controllerAs: 'vm',
+                    controllerAs: "vm",
                     isPaymentMissingUnrestrictedPage: true,
                     resolve: {
                         clientToken: function ($http, AUTH_URLS) {
@@ -84,7 +84,7 @@
                     url: "/method",
                     templateUrl: "/app/settings/partials/settings.payment.method.update.html",
                     controller: "SettingsEditPaymentMethodController",
-                    controllerAs: 'vm',
+                    controllerAs: "vm",
                     isPaymentMissingUnrestrictedPage: true,
                     resolve: {
                         clientToken: function ($http, AUTH_URLS) {
@@ -137,7 +137,7 @@
                     url: "/insights",
                     templateUrl: "/app/settings/partials/settings.payment.insights.html",
                     controller: "SettingsPaymentInsightsController",
-                    controllerAs: 'vm',
+                    controllerAs: "vm",
                     isPaymentMissingUnrestrictedPage: true,
                     resolve: {
                         paymentInsights: function ($http, $state, AUTH_URLS) {
@@ -169,12 +169,12 @@
                         'updatePassword@settings.admin': {
                             templateUrl: "/app/settings/partials/settings.admin.updatePassword.html",
                             controller: "SettingsUpdatePasswordController",
-                            controllerAs: 'vm'
+                            controllerAs: "vm"
                         },
                         'cancelAccount@settings.admin': {
                             templateUrl: "/app/settings/partials/settings.admin.cancelAccount.html",
                             controller: "SettingsCancelAccountController",
-                            controllerAs: 'vm'
+                            controllerAs: "vm"
                         }
                     },
                     stateEventName: USER_ACTIVITY_EVENTS.settingsAccount,
@@ -194,7 +194,7 @@
                         'updateCurrency@settings.preferences': {
                             templateUrl: "/app/settings/partials/settings.preferences.updateCurrency.html",
                             controller: "SettingsPreferencesCurrencyController",
-                            controllerAs: 'vm'
+                            controllerAs: "vm"
                         }
                     },
                     stateEventName: USER_ACTIVITY_EVENTS.settingsPreferences,
@@ -208,7 +208,7 @@
                     url: "/setup",
                     templateUrl: '/app/settings/partials/settings.setup.registration.html',
                     controller: "SettingsSetUpRegistrationController",
-                    controllerAs: 'vm',
+                    controllerAs: "vm",
                     title: "Settings setup - revaluate",
                     stateEventName: USER_ACTIVITY_EVENTS.accountSetup
                 });
