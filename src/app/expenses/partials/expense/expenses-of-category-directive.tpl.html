@@ -1,7 +1,7 @@
 <!--Expand/collapse click-->
 <div ng-if="! vm.isEmptyTransactions()"
      class="expenses__list__expand"
-     ng-click="vm.toggleContent()">{{vm.expanded ? 'Hide transactions':'See transactions'}}
+     ng-click="vm.toggleContent()">{{vm.isExpensesLoaded() && vm.expanded ? 'Hide transactions':'See transactions'}}
 </div>
 
 <!--If is loading for the first time (until expenses are loaded)-->
@@ -13,7 +13,7 @@
 <!--If is loading for the first time (until expenses are loaded)-->
 <div class="expenses__list__category" ng-if="vm.isExpensesLoaded() && vm.expanded" fade-out-in fade-when="vm.isUpdatingListLayout">
 
-    <div class="expenses__list__category__entry" ng-repeat="expense in vm.expensesOfThisCategory | orderObjectBy : vm.selectedOrderBy : model.spentDate | limitTo: vm.expensesLimit track by expense.model.id">
+    <div class="expenses__list__category__entry" ng-repeat="expense in vm.expensesOfThisCategory | orderObjectBy : vm.selectedOrderBy : 'model.spentDate' | limitTo: vm.expensesLimit track by expense.model.id">
 
         <div class="expenses__list__category__entry__section">
 
