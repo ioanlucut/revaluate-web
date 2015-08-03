@@ -1,8 +1,7 @@
 <!--Expand/collapse click-->
 <div ng-if="! vm.isEmptyTransactions()"
-     class="expenses__list__expand simptip-position-left simptip-info simptip-smooth simptip-fade"
-     data-tooltip="{{vm.expanded ? 'Collapse':'Expand'}}"
-     ng-click="vm.toggleContent()">{{vm.expanded ? '-':'+'}}
+     class="expenses__list__expand"
+     ng-click="vm.toggleContent()">{{vm.expanded ? 'Hide transactions':'See transactions'}}
 </div>
 
 <!--If is loading for the first time (until expenses are loaded)-->

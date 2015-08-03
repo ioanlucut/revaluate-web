@@ -4,7 +4,7 @@
 
 /* starting animations */
 .expenses__list__category.ng-enter {
-    @include fadeInLeft(0.8s);
+    @include fadeInDown(0.8s);
 }
 
 /* destination animations */
@@ -13,7 +13,7 @@
 
 /* starting animations */
 .expenses__list__category.ng-leave {
-    @include fadeOutRight(0.5s);
+    @include fadeOutUp(0.5s);
 }
 
 /* destination animations */
@@ -38,16 +38,12 @@
 }
 
 .expenses__list__expand {
-    font-size: $font-size-largest;
+    font-size: $font-size-small;
     color: $gray-medium;
     cursor: pointer;
     position: absolute;
-    height: 40px;
-    width: 10px;
-    right: -20px;
-    top: 50%;
-    margin-top: -30px;
-    font-weight: bold;
+    right: 120px;
+    margin-top: -19px;
 }
 
 .expenses__list__category__loading {
