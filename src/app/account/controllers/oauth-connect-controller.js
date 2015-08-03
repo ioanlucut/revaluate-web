@@ -24,17 +24,22 @@
                     OAuth2Service
                         .connect(provider)
                         .then(function (response) {
+                            var userType = _.find(APP_CONFIG.USER_TYPES, function (userTypeEntry) {
+                                return userTypeEntry.indexOf(provider.toUpperCase()) > -1;
+                            });
+
                             return AuthService
                                 .connectViaOauth(response.email,
                                 _.extend(response, {
-                                    userType: _.find(APP_CONFIG.USER_TYPES, function (userTypeEntry) {
-                                        return userTypeEntry.indexOf(provider.toUpperCase()) > -1;
-                                    }),
-
+                                    userType: userType,
                                     currency: {
                                         'currencyCode': 'EUR'
                                     }
-                                }))
+                                }), {
+                                    oAuthData: {
+                                        picture: response.picture
+                                    }
+                                });
                         })
                         .then(function () {
                             vm.isRequestPending = false;

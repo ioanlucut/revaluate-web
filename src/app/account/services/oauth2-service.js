@@ -29,7 +29,8 @@
                                 deferred.resolve({
                                     firstName: me.first_name,
                                     lastName: me.last_name,
-                                    email: me.email
+                                    email: me.email,
+                                    picture: me.picture
                                 });
                             }, function (response) {
 

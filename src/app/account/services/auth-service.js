@@ -15,12 +15,12 @@
                 return !_.isUndefined(SessionService.sessionExists());
             };
 
-            function connectWith(url, payload) {
+            function connectWith(url, payload, oAuthData) {
                 return $http
                     .post(url, payload)
                     .then(function (response) {
 
-                        SessionService.create(response.data, response.headers()[AUTH_TOKEN_HEADER]);
+                        SessionService.create(_.extend(response.data, oAuthData), response.headers()[AUTH_TOKEN_HEADER]);
                         $rootScope.$broadcast(AUTH_EVENTS.loginSuccess, response);
 
                         return $q.when(response);
@@ -45,9 +45,9 @@
             /**
              * Connect via oauth
              */
-            this.connectViaOauth = function (email, payload) {
+            this.connectViaOauth = function (email, payload, oAuthData) {
 
-                return connectWith(URLTo.api(AUTH_URLS.connectViaOauth, { ':email': email }), payload);
+                return connectWith(URLTo.api(AUTH_URLS.connectViaOauth, { ':email': email }), payload, oAuthData);
             };
 
             /**
@@ -143,13 +143,13 @@
             };
 
             this.saveAttemptUrl = function () {
-                if ($location.path().toLowerCase() !== '/account') {
+                if ( $location.path().toLowerCase() !== '/account' ) {
                     redirectToUrlAfterLogin.url = $location.path();
                 }
             };
 
             this.redirectToAttemptedUrl = function () {
-                if (redirectToUrlAfterLogin.url) {
+                if ( redirectToUrlAfterLogin.url ) {
                     $location.path(redirectToUrlAfterLogin.url);
 
                     redirectToUrlAfterLogin.url = undefined;
