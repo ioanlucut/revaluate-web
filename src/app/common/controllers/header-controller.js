@@ -1,11 +1,9 @@
-'use strict';
+(function () {
+    'use strict';
 
-angular
-    .module("revaluate.common")
-    .controller("HeaderController", function ($scope, $rootScope, $state, $timeout, StatesHandler, AuthService, AUTH_EVENTS) {
-
-        /* jshint validthis: true */
-        var vm = this;
+    angular
+        .module('revaluate.common')
+    .controller('HeaderController', function ($scope, $rootScope, $state, $timeout, StatesHandler, AuthService, AUTH_EVENTS) {
 
         /**
          * Save state to scope
@@ -35,7 +33,7 @@ angular
 
                 $timeout(function () {
                     $rootScope
-                        .$broadcast("fullpage-scroll-to", {
+                        .$broadcast('fullpage-scroll-to', {
                             slideNumber: 2
                         })
                 });
@@ -61,3 +59,4 @@ angular
         }, this));
 
     });
+}());

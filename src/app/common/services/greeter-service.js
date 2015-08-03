@@ -1,8 +1,9 @@
-'use strict';
+(function () {
+    'use strict';
 
-angular
-    .module("revaluate.common")
-    .service("GreeterService", function ($rootScope, GREETER_CONSTANTS) {
+    angular
+        .module('revaluate.common')
+    .service('GreeterService', function ($rootScope, GREETER_CONSTANTS) {
 
         function getRandomized(greeterDayTime) {
 
@@ -12,16 +13,15 @@ angular
         this.greet = function () {
             var hour = moment().hour();
 
-            if ( hour > 0 && hour <= 6 ) {
+            if (hour > 0 && hour <= 6) {
                 return getRandomized(GREETER_CONSTANTS.NIGHT);
-            }
-            else if ( hour > 6 && hour <= 12 ) {
+            }        else if (hour > 6 && hour <= 12) {
                 return getRandomized(GREETER_CONSTANTS.MORNING);
-            }
-            else if ( hour > 12 && hour <= 18 ) {
+            }        else if (hour > 12 && hour <= 18) {
                 return getRandomized(GREETER_CONSTANTS.DAY);
             } else {
                 return getRandomized(GREETER_CONSTANTS.EVENING);
             }
         }
     });
+}());
