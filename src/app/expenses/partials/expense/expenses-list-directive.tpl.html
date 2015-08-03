@@ -3,7 +3,7 @@
 
     <div class="expenses__list" fade-out-in fade-when="isUpdatingListLayout">
 
-        <div class="expense__list__sort">
+        <div class="expense__list__sort" ng-if="expenses.length !== 0">
             <div class="expense__list__sort__date">
                 <span class="icon-sort"></span>
                 <a class="expense__list__sort__date__entry" href="javascript:void(0)" ng-class="{'expense__list__sort__date__entry--active': selectedOrderBy === 'model.spentDate'}" ng-click="setSelectedOrderBy('model.spentDate')">Expense date</a> |
