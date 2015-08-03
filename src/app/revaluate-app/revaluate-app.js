@@ -36,7 +36,11 @@
             'snap'
         ])
         .config(function ($locationProvider, $translateProvider, ChartJsProvider, CacheFactoryProvider, gravatarServiceProvider, ngToastProvider) {
-            angular.extend(CacheFactoryProvider.defaults, { maxAge: 15 * 60 * 1000 });
+            var MAIN_FONT,
+                MAIN_FONT_SIZE;
+
+            angular
+                .extend(CacheFactoryProvider.defaults, { maxAge: 15 * 60 * 1000 });
 
             // ---
             // Configure ng toast provider.
@@ -87,8 +91,8 @@
             // ---
             // Configure general chart settings.
             // ---
-            var MAIN_FONT = '\'Montserrat\',\'Arial\', sans-serif';
-            var MAIN_FONT_SIZE = 12;
+            MAIN_FONT = '\'Montserrat\',\'Arial\', sans-serif';
+            MAIN_FONT_SIZE = 12;
             ChartJsProvider.setOptions({
                 // Boolean - Whether to animate the chart
                 animation: true,
@@ -236,7 +240,7 @@
                 scaleShowVerticalLines: false,
 
                 //Boolean - If there is a stroke on each bar
-                barShowStroke: false,
+                barShowStroke: true,
 
                 //Number - Pixel width of the bar stroke
                 barStrokeWidth: 1,

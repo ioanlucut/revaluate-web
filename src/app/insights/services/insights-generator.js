@@ -6,6 +6,14 @@
         .service('InsightsGenerator', function ($filter) {
 
             this.generate = function (insightsProgress, masterCategories) {
+                var availableYearMonths,
+                    totalAmountPerMonths,
+                    progressLineData,
+                    insightLineColors,
+                    insightLineSeries,
+                    insightLabels,
+                    insightLineData;
+
                 // ---
                 // First, initialize all category models with yearMonth information.
                 // ---
@@ -31,14 +39,14 @@
                     });
                 });
 
-                var availableYearMonths = _.map(insightsProgress.model.insightsMonthlyDTO, function (insightsMonthlyDTOEntry) {
+                availableYearMonths = _.map(insightsProgress.model.insightsMonthlyDTO, function (insightsMonthlyDTOEntry) {
                     return insightsMonthlyDTOEntry.yearMonth;
                 });
 
                 // ---
                 // Total amount of categories per month.
                 // ---
-                var totalAmountPerMonths = _.reduce(insightsProgress.model.insightsMonthlyDTO, function (result, insightsMonthlyDTOEntry) {
+                totalAmountPerMonths = _.reduce(insightsProgress.model.insightsMonthlyDTO, function (result, insightsMonthlyDTOEntry) {
                     result[insightsMonthlyDTOEntry.yearMonth] = insightsMonthlyDTOEntry.totalAmountSpent;
                     return result;
                 }, {});
@@ -46,7 +54,7 @@
                 // ---
                 // Represents the computed line data categorised.
                 // ---
-                var progressLineData = _.map(masterCategories, function (categoryEntry) {
+                progressLineData = _.map(masterCategories, function (categoryEntry) {
 
                     var totalCategoryExpensesPerYearMonth = _.map(availableYearMonths, function (availableYearMonthEntry) {
                         return categoryEntry.model.yearMonth[availableYearMonthEntry];
@@ -61,17 +69,17 @@
                 // ---
                 // Computed information and methods.
                 // ---
-                var insightLineData = angular.copy(_.map(progressLineData, 'totalCategoryExpensesPerYearMonth'));
-                var insightLabels = angular.copy(_.map(availableYearMonths, function (availableYearMonthsEntry) {
+                insightLineData = angular.copy(_.map(progressLineData, 'totalCategoryExpensesPerYearMonth'));
+                insightLabels = angular.copy(_.map(availableYearMonths, function (availableYearMonthsEntry) {
 
                     return $filter('friendlyMonthShortDateNoYear')(availableYearMonthsEntry);
                 }));
 
-                var insightLineSeries = angular.copy(_.map(progressLineData, function (progressLineDataEntry) {
+                insightLineSeries = angular.copy(_.map(progressLineData, function (progressLineDataEntry) {
                     return progressLineDataEntry.categoryEntry.model.name;
                 }));
 
-                var insightLineColors = angular.copy(_.map(progressLineData, function (progressLineDataEntry) {
+                insightLineColors = angular.copy(_.map(progressLineData, function (progressLineDataEntry) {
                     return progressLineDataEntry.categoryEntry.model.color.color;
                 }));
 
@@ -86,15 +94,17 @@
             };
 
             this.generateMonthlyBar = function (insightsMonthly) {
-                var insightsBarData = _.map(insightsMonthly.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
+                var insightsBarData, insightsBarColors, insightLineSeries;
+
+                insightsBarData = _.map(insightsMonthly.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
                     return [totalPerCategoryInsightDTO.totalAmount];
                 });
 
-                var insightsBarColors = _.map(insightsMonthly.model.totalPerCategoryInsightsDTOs, _.bind(function (totalPerCategoryInsightDTO) {
+                insightsBarColors = _.map(insightsMonthly.model.totalPerCategoryInsightsDTOs, _.bind(function (totalPerCategoryInsightDTO) {
                     return this.getColour(this.hexToRgb(totalPerCategoryInsightDTO.categoryDTO.color.color.substr(1)));
                 }, this));
 
-                var insightLineSeries = _.map(insightsMonthly.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
+                insightLineSeries = _.map(insightsMonthly.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
                     return totalPerCategoryInsightDTO.categoryDTO.name;
                 });
 
@@ -107,16 +117,17 @@
             };
 
             this.generateMonthlyDonut = function (insightsMonthly) {
+                var insightsDonutData, insightsDonutLabels, insightsDonutColors;
 
-                var insightsDonutData = _.map(insightsMonthly.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
+                insightsDonutData = _.map(insightsMonthly.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
                     return totalPerCategoryInsightDTO.totalAmount;
                 });
 
-                var insightsDonutColors = _.map(insightsMonthly.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
+                insightsDonutColors = _.map(insightsMonthly.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
                     return totalPerCategoryInsightDTO.categoryDTO.color.color;
                 });
 
-                var insightsDonutLabels = _.map(insightsMonthly.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
+                insightsDonutLabels = _.map(insightsMonthly.model.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
                     return totalPerCategoryInsightDTO.categoryDTO.name;
                 });
 
@@ -130,11 +141,14 @@
 
             this.generateOverviewBar = function (insightsOverview) {
 
-                var insightsBarData = _.map(insightsOverview.model.insightsOverview, function (insightOverviewEntry) {
+                var insightsBarLabels,
+                    insightsBarData;
+
+                insightsBarData = _.map(insightsOverview.model.insightsOverview, function (insightOverviewEntry) {
                     return insightOverviewEntry.totalAmount;
                 });
 
-                var insightsBarLabels = _.map(insightsOverview.model.insightsOverview, function (insightOverviewEntry) {
+                insightsBarLabels = _.map(insightsOverview.model.insightsOverview, function (insightOverviewEntry) {
                     return $filter('friendlyMonthDate')(insightOverviewEntry.yearMonth);
                 });
 
@@ -148,7 +162,7 @@
 
             this.getColour = function (colour) {
                 return {
-                    fillColor: this.rgba(colour, 0.7),
+                    fillColor: this.rgba(colour, 0.9),
                     strokeColor: this.rgba(colour, 1),
                     pointColor: this.rgba(colour, 1),
                     pointStrokeColor: '#fff',
