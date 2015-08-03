@@ -7,7 +7,7 @@ angular.module("config", [])
 	"intercomAppId": "z2mfyywv",
 	"cacheResetKey": "a1jonsnow",
 	"OAUTH2_CLIENT_IDS": {
-		"FACEBOOK": "943425629012054",
+		"FACEBOOK": "933608719993745",
 		"GOOGLE": "997617697610-sl7dselm1osn67p84ks5vvupbui2nhlb.apps.googleusercontent.com"
 	},
 	"isProduction": false

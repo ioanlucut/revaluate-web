@@ -28,6 +28,9 @@
                             connectedViaOauth: false,
                             currency: {
                                 symbol: ''
+                            },
+                            oAuthData: {
+                                picture: ""
                             }
                         },
 

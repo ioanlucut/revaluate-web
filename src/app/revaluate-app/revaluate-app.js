@@ -74,6 +74,11 @@
                 'HOME': {
                     'TITLE_TEXT': 'Personal finance simplified',
                     'DESCRIPTION_TEXT': 'Start spending your money better!'
+                },
+                'PROFILE_PICTURE': {
+                    'OAUTH_FACEBOOK': 'Synced from Facebook',
+                    'OAUTH_GOOGLE': 'Synced from Google',
+                    'SIGN_UP': 'Synced from Gravatar'
                 }
             }));
 
