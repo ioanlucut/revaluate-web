@@ -5,9 +5,9 @@
 
         <div class="expense__list__sort">
             <div class="expense__list__sort__date">
-                Order by
-                <a href="javascript:void(0)" ng-class="{'expense__list__sort__date__entry--active': selectedOrderBy === 'model.spentDate'}" ng-click="setSelectedOrderBy('model.spentDate')">Expense date</a> |
-                <a href="javascript:void(0)" ng-class="{'expense__list__sort__date__entry--active': selectedOrderBy === 'model.createdDate'}" ng-click="setSelectedOrderBy('model.createdDate')">Added date</a>
+                <span class="icon-sort"></span>
+                <a class="expense__list__sort__date__entry" href="javascript:void(0)" ng-class="{'expense__list__sort__date__entry--active': selectedOrderBy === 'model.spentDate'}" ng-click="setSelectedOrderBy('model.spentDate')">Expense date</a> |
+                <a class="expense__list__sort__date__entry" href="javascript:void(0)" ng-class="{'expense__list__sort__date__entry--active': selectedOrderBy === 'model.createdDate'}" ng-click="setSelectedOrderBy('model.createdDate')">Added date</a>
             </div>
         </div>
 
