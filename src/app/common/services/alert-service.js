@@ -1,9 +1,10 @@
-'use strict';
+(function () {
+    'use strict';
 
-// or just use "success", "info", "warning" or "danger" shortcut methods:
-angular
-    .module("revaluate.common")
-    .service("AlertService", function (ngToast) {
+    // or just use "success", "info", "warning" or "danger" shortcut methods:
+    angular
+        .module('revaluate.common')
+    .service('AlertService', function (ngToast) {
 
         this.addMessage = function (message) {
             return ngToast.create(message);
@@ -49,3 +50,4 @@ angular
         };
 
     });
+}());
