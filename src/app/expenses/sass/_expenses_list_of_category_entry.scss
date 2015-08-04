@@ -1,22 +1,17 @@
 .expenses__list__category__entry__section {
-    @include border-radius($border-radius-base);
     @include clearfix();
-    padding: 0 0 0 10px;
-    margin: 0 5px;
-    min-height: 34px;
-    line-height: 26px;
-    border-bottom: solid 1px #f9f9f9;
+    line-height: 36px;
 
     div {
         display: inline-block;
-        padding: 1px 10px;
     }
 
     .expenses__list__category__entry__section__price {
-        width: 175px;
+        width: 140px;
         text-align: right;
-        margin-right: 15px;
-        float: left;
+        margin-right: 0;
+        padding-right: 0;
+        float: right;
 
         .currency__symbol {
             padding: 0 5px;
@@ -25,20 +20,18 @@
         }
     }
 
-    .expenses__list__category__entry__section__category {
-        @include category-label($brand-primary);
-    }
-
     .expenses__list__category__entry__section__details {
         color: $gray-medium;
         @include word-wrap();
+        text-align: left;
+        float: left;
     }
 
     .expenses__list__category__entry__section__date {
         width: 140px;
-        float: right;
+        float: left;
         color: $gray-medium;
-        text-align: right;
+        text-align: left;
         font-size: $font-size-small;
     }
 }
