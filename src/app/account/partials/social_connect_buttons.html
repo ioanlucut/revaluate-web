@@ -1,0 +1,16 @@
+<div class="account__oauth" ng-controller="OauthConnectController as vm">
+    <!-- Flash messages. -->
+    <div flash-messages flash="flash" identifier-id="{{vm.alertId}}"></div>
+
+    <a href="javascript:void(0)" ng-click="vm.connectWith('facebook')">
+        <span class="icon-facebook"></span>
+        Connect with Facebook
+    </a>
+
+    <a href="javascript:void(0)" ng-click="vm.connectWith('google')">
+        <span class="icon-google"></span>
+        Connect with Google
+    </a>
+
+    <span class="account__oauth__or">or</span>
+</div>

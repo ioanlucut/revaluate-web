@@ -12,7 +12,7 @@
                 <span class="icon-nav-expenses header__navigation__icon"></span>
                 <a class="header__navigation__link" href="javascript:void(0)" ui-sref="expenses.regular">Expenses</a>
             </li>
-            <li ng-class="{'header__navigation--active': $state.includes('insights')}">
+            <li ng-class="{'header__navigation--active': vm.$state.includes('insights')}">
                 <span class="icon-nav-insights header__navigation__icon"></span>
                 <a class="header__navigation__link" href="javascript:void(0)" ui-sref="insights.monthly">Insights</a>
             </li>
@@ -38,6 +38,9 @@
                     <a class="icon-logout" href="javascript:void(0)" ng-controller="LogoutController as vm" ng-click="vm.logOut()">
                         <!--Logout-->
                     </a>
+                </li>
+                <li class="header__navigation--links__item simptip-position-bottom simptip-info simptip-smooth simptip-fade" data-tooltip="{{vm.currentUser.model.email}}">
+                    <user-profile-picture-header></user-profile-picture-header>
                 </li>
             </ul>
         </div>
