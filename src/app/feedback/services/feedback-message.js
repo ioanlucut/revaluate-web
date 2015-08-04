@@ -1,47 +1,49 @@
-'use strict';
+(function () {
+    'use strict';
 
-angular
-    .module("revaluate.feedback")
-    .factory("Feedback", function (FeedbackService) {
-
-        /**
-         * Feedback class.
-         * @constructor
-         */
-        function Feedback() {
+    angular
+        .module('revaluate.feedback')
+        .factory('Feedback', function (FeedbackService) {
 
             /**
-             * Represents the DTO model of the Feedback.
+             * Feedback class.
+             * @constructor
              */
-            this.model = {
+            function Feedback() {
 
                 /**
-                 * Feedback subject
+                 * Represents the DTO model of the Feedback.
                  */
-                subject: "",
+                this.model = {
+
+                    /**
+                     * Feedback subject
+                     */
+                    subject: '',
+
+                    /**
+                     * Feedback message
+                     */
+                    message: ''
+                };
 
                 /**
-                 * Feedback message
+                 * Sends a Feedback.
+                 * @returns {*}
                  */
-                message: ""
-            };
+                this.send = function () {
+                    return FeedbackService.sendFeedback(this);
+                };
+            }
 
             /**
-             * Sends a Feedback.
-             * @returns {*}
+             * Builds a Feedback.
+             * @returns {Feedback}
              */
-            this.send = function () {
-                return FeedbackService.sendFeedback(this);
+            Feedback.build = function () {
+                return new Feedback();
             };
-        }
 
-        /**
-         * Builds a Feedback.
-         * @returns {Feedback}
-         */
-        Feedback.build = function () {
-            return new Feedback();
-        };
-
-        return Feedback;
-    });
+            return Feedback;
+        });
+}());
