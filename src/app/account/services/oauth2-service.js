@@ -12,6 +12,8 @@
                 .init({
                     facebook: ENV.OAUTH2_CLIENT_IDS.FACEBOOK,
                     google: ENV.OAUTH2_CLIENT_IDS.GOOGLE
+                }, {
+                    redirect_uri: ENV.redirectUri
                 });
 
             /**

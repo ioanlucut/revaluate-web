@@ -9,6 +9,7 @@
             "FACEBOOK": "933591903328760",
             "GOOGLE": "997617697610-sl7dselm1osn67p84ks5vvupbui2nhlb.apps.googleusercontent.com"
         },
+        "redirectUri": "https://www.revaluate.io",
         "isProduction": true
     }
 }

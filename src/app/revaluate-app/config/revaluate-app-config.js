@@ -10,6 +10,7 @@ angular.module("config", [])
 		"FACEBOOK": "943425629012054",
 		"GOOGLE": "997617697610-sl7dselm1osn67p84ks5vvupbui2nhlb.apps.googleusercontent.com"
 	},
+	"redirectUri": "http://dev.revaluate.io",
 	"isProduction": false
 })
 
