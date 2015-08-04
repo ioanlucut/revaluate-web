@@ -103,12 +103,6 @@
                     <td class="insights__table__entry__amount">
                         <span ng-bind-html="totalPerCategory.totalAmount | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
 
-                        <!--Expand/collapse click-->
-                        <div ng-if="totalPerCategory.numberOfTransactions !== 0"
-                             class="expenses__list__expand"
-                             ng-click="vm.toggleContent()">{{totalPerCategory.numberOfTransactions}} transactions
-                        </div>
-
                         <expenses-of-category total-per-category-insights="totalPerCategory" month-year-date="vm.insightData.yearMonthDate"></expenses-of-category>
                     </td>
                 </tr>
