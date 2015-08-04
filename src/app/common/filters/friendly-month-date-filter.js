@@ -1,19 +1,21 @@
-'use strict';
+(function () {
+    'use strict';
 
-/* Friendly date filter */
+    /* Friendly date filter */
 
-angular
-    .module("revaluate.common")
-    .filter('friendlyMonthDate', function () {
-        return function (date) {
+    angular
+        .module('revaluate.common')
+        .filter('friendlyMonthDate', function () {
+            return function (date) {
 
-            if ( !_.isDate(date) ) {
-                date = moment(new Date(date));
-            }
+                if (!_.isDate(date)) {
+                    date = moment(new Date(date));
+                }
 
-            var dateToFormat = moment(date);
-            var isSameYear = moment(moment().year()).isSame(dateToFormat.year());
+                var dateToFormat = moment(date);
+                var isSameYear = moment(moment().year()).isSame(dateToFormat.year());
 
-            return dateToFormat.format(isSameYear ? 'MMMM' : 'MMM YYYY');
-        };
-    });
+                return dateToFormat.format(isSameYear ? 'MMMM' : 'MMM YYYY');
+            };
+        });
+}());

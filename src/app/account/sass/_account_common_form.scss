@@ -1,6 +1,55 @@
+.account__oauth {
+    padding-bottom: 30px;
+    position: relative;
+    border-bottom: solid 1px $gray-light-2;
+    margin-bottom: 30px;
+
+    a {
+        @include btn-block($gray-light-2);
+        color: $gray-dark-1;
+        position: relative;
+        margin-bottom: 15px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        span {
+            font-size: 28px;
+            position: absolute;
+            left: 11px;
+            top: 3px;
+
+            &.icon-facebook {
+                color: $social-facebook-color;
+            }
+
+            &.icon-google {
+                color: $social-google-color;
+            }
+        }
+    }
+
+    .account__oauth__or {
+        position: absolute;
+        bottom: -38px;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: $white;
+        @include border-radius(50%);
+        width: 50px;
+        height: 50px;
+        text-transform: uppercase;
+        color: $gray-medium;
+    }
+}
+
 .account__btn {
     @include btn-block($brand-primary);
     margin-top: 25px;
+    margin-bottom: 20px;
     font-size: 16px;
 }
 

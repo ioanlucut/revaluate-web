@@ -1,0 +1,37 @@
+.expenses__list__category__entry__section {
+    @include clearfix();
+    line-height: 36px;
+
+    div {
+        display: inline-block;
+    }
+
+    .expenses__list__category__entry__section__price {
+        width: 140px;
+        text-align: right;
+        margin-right: 0;
+        padding-right: 0;
+        float: right;
+
+        .currency__symbol {
+            padding: 0 5px;
+            color: $gray-medium;
+            font-weight: $font-weight-light;
+        }
+    }
+
+    .expenses__list__category__entry__section__details {
+        color: $gray-medium;
+        @include word-wrap();
+        text-align: left;
+        float: left;
+    }
+
+    .expenses__list__category__entry__section__date {
+        width: 140px;
+        float: left;
+        color: $gray-medium;
+        text-align: left;
+        font-size: $font-size-small;
+    }
+}

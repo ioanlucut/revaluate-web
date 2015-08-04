@@ -1,28 +1,28 @@
-'use strict';
+(function () {
+    'use strict';
 
-angular
-    .module('revaluate.common')
+    angular
+        .module('revaluate.common')
     .service('JWTHelper', function () {
 
         this.urlBase64Decode = function (str) {
             var output = str.replace('-', '+').replace('_', '/');
-            switch ( output.length % 4 ) {
-                case 0:
-                {
+            switch (output.length % 4) {
+                case 0: {
                     break;
                 }
-                case 2:
-                {
+
+                case 2: {
                     output += '==';
                     break;
                 }
-                case 3:
-                {
+
+                case 3: {
                     output += '=';
                     break;
                 }
-                default:
-                {
+
+                default: {
                     throw 'Illegal base64url string!';
                 }
             }
@@ -32,12 +32,12 @@ angular
         this.decodeToken = function (token) {
             var parts = token.split('.');
 
-            if ( parts.length !== 3 ) {
+            if (parts.length !== 3) {
                 throw new Error('JWT must have 3 parts');
             }
 
             var decoded = this.urlBase64Decode(parts[1]);
-            if ( !decoded ) {
+            if (!decoded) {
                 throw new Error('Cannot decode the token');
             }
 
@@ -48,7 +48,7 @@ angular
             var decoded;
             decoded = this.decodeToken(token);
 
-            if ( !decoded.exp ) {
+            if (!decoded.exp) {
                 return null;
             }
 
@@ -61,7 +61,7 @@ angular
         this.isTokenExpired = function (token) {
             var d = this.getTokenExpirationDate(token);
 
-            if ( !d ) {
+            if (!d) {
                 return false;
             }
 
@@ -69,3 +69,4 @@ angular
             return !(d.valueOf() > new Date().valueOf());
         };
     });
+}());

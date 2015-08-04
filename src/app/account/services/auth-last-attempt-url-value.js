@@ -1,5 +1,7 @@
-'use strict';
+(function () {
+    'use strict';
 
-angular
-    .module("revaluate.account")
-    .value('redirectToUrlAfterLogin', { url: undefined });
+    angular
+        .module('revaluate.account')
+        .value('redirectToUrlAfterLogin', { url: undefined });
+}());
