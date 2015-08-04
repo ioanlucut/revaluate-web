@@ -1,9 +1,3 @@
-<!--Expand/collapse click-->
-<div ng-if="! vm.isEmptyTransactions()"
-     class="expenses__list__expand"
-     ng-click="vm.toggleContent()">{{vm.isExpensesLoaded() && vm.expanded ? 'Hide transactions':'See transactions'}}
-</div>
-
 <!--If is loading for the first time (until expenses are loaded)-->
 <div class="spinner expenses__list__category__loading" ng-if="vm.isUpdatingListLayout">
     <div class="double-bounce1"></div>
