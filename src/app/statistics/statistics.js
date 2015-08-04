@@ -1,6 +1,8 @@
-'use strict';
+(function () {
+    'use strict';
 
-angular
-    .module("revaluate.statistics", [
-        "revaluate.common"
-    ]);
+    angular
+        .module('revaluate.statistics', [
+            'revaluate.common'
+        ]);
+}());

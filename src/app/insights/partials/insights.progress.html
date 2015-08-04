@@ -8,6 +8,21 @@
         </div>
     </div>
 
+    <div class="insights__categories-controls">
+        <a href="javascript:void(0)" ng-click="vm.selectAll()">Select all</a>
+        <a href="javascript:void(0)" ng-click="vm.clearAll()">Clear all</a>
+    </div>
+
+    <div class="insights__categories">
+        <div class="insights__categories__category" ng-repeat="category in vm.masterCategories | orderObjectBy : 'model.name' : false track by category.model.id">
+            <button class="category-name" ng-class="{ 'category-name--unselected': ! category.selected }" ng-click="vm.toggleAndReloadInsights(category)">
+                <span class="icon-checkmark-filled" ng-style="{'color': category.selected ? category.model.color.color : 'transparent'}" ng-show="category.selected"></span>
+                <span class="icon-checkmark-light-unchecked" ng-show="!category.selected"></span>
+                {{category.model.name}}
+            </button>
+        </div>
+    </div>
+
     <div class="insights__chart__bar" fade-out-in fade-when="vm.isLoading">
 
         <div class="spinner insights__loading" ng-if="vm.isLoading">
@@ -15,14 +30,19 @@
             <div class="double-bounce2"></div>
         </div>
 
+        <div class="insights__chart__bar__nocategory" ng-if="vm.isMinimumNumberOfAllowedUnselectedCategoriesExceeded()">
+            Select at least 1 category.
+        </div>
+
         <canvas id="line"
                 class="chart chart-line"
                 data="vm.insightLineData"
                 series="vm.insightLineSeries"
                 legend="false"
-                options="vm.barOptions"
+                options="vm.lineOptions"
                 colours="vm.insightLineColors"
-                labels="vm.insightLabels">
+                labels="vm.insightLabels"
+                ng-if="! vm.isMinimumNumberOfAllowedUnselectedCategoriesExceeded()">
         </canvas>
 
     </div>

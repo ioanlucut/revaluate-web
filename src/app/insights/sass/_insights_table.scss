@@ -38,6 +38,7 @@
     .insights__table__category {
         position: relative;
         padding-left: 35px;
+        vertical-align: top;
 
         .insights__table__category__color {
             @include border-radius(50%);
@@ -94,11 +95,11 @@
     width: 65%;
 
     .insights__table__category {
-        width: 70%;
+        width: 20%;
     }
 
     .insights__table__amount {
-        width: 30%;
+        width: 80%;
     }
 }
 
