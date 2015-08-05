@@ -29,7 +29,7 @@
                             controller: 'ExpenseController',
                             resolve: {
                                 expenses: function (ExpenseService) {
-                                    return ExpenseService.getAllExpenses();
+                                    return ExpenseService.getAllExpensesGrouped();
                                 },
 
                                 categories: function (CategoryService) {

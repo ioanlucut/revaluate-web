@@ -10,9 +10,6 @@
 
             /**
              * Converts a expense business object model to a expenseDto object.
-             * @param expense
-             * @param skipKeys
-             * @returns {{}}
              */
             this.toExpenseDto = function (expense, skipKeys) {
                 var expenseDto = {};
@@ -27,10 +24,6 @@
 
             /**
              * Converts a expenseDto object to a expense business object model.
-             * @param expenseDto
-             * @param expense
-             * @param skipKeys
-             * @returns {*}
              */
             this.toExpense = function (expenseDto, expense, skipKeys) {
                 expense = expense || $injector.get('Expense').build();
@@ -45,10 +38,21 @@
                 return expense;
             };
 
+            this.toExpensesGrouped = function (expensesGroupedDto) {
+                return _.map(expensesGroupedDto, _.bind(function (expenseGroupedDtoEntry) {
+                    var expenseGrouped = $injector.get('ExpenseGrouped').build();
+
+                    _.extend(expenseGrouped.model, {
+                        localDate: moment(expenseGroupedDtoEntry.localDate).toDate(),
+                        expenseDTOs: this.toExpenses(expenseGroupedDtoEntry.expenseDTOs)
+                    });
+
+                    return expenseGrouped;
+                }, this))
+            };
+
             /**
              * Transform a list of expenses as JSON to a list of expenses as business object.
-             * @param expenseDtos
-             * @returns {Array}
              */
             this.toExpenses = function (expenseDtos) {
                 var expenses = [];
@@ -62,8 +66,6 @@
 
             /**
              * Transform a list of expenses as business objects to a list of DTOs.
-             * @param expenses
-             * @returns {Array}
              */
             this.toExpenseDTOs = function (expenses) {
                 var expenseDTOs = [];
