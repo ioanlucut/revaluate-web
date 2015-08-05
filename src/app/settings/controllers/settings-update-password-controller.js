@@ -43,7 +43,7 @@
 
                 if (vm.updatePasswordData.newPassword !== vm.updatePasswordData.newPasswordConfirmation) {
                     $scope.$emit(ALERTS_EVENTS.DANGER, {
-                        message: 'Your new password should match the new confirmation password!',
+                        message: 'Your new password should match the new confirmation password.',
                         alertId: vm.alertId
                     });
 
