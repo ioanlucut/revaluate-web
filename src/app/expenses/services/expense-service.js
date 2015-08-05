@@ -9,9 +9,7 @@
         .service('ExpenseService', function (EXPENSE_URLS, $q, $http, $injector, ExpenseTransformerService, DatesUtils) {
 
             /**
-             * Update a expense.
-             * @param expense
-             * @returns {*}
+             * Create expense.
              */
             this.createExpense = function (expense) {
                 return $http
@@ -24,9 +22,7 @@
             };
 
             /**
-             * Update a expense.
-             * @param expense
-             * @returns {*}
+             * Update expense.
              */
             this.updateExpense = function (expense) {
                 var expenseDto = ExpenseTransformerService.toExpenseDto(expense);
@@ -41,9 +37,7 @@
             };
 
             /**
-             * Delete a expense.
-             * @param expense
-             * @returns {*}
+             * Delete expense.
              */
             this.deleteExpense = function (expense) {
                 var expenseDto = ExpenseTransformerService.toExpenseDto(expense);
@@ -59,7 +53,6 @@
 
             /**
              * Get all expenses of current user
-             * @returns {*}
              */
             this.getAllExpenses = function () {
                 return $http
@@ -71,16 +64,27 @@
                         return $q.reject(response);
                     });
             };
+
+            /**
+             * Get all grouped expenses of current user
+             */
+            this.getAllExpensesGrouped = function () {
+                return $http
+                    .get(URLTo.api(EXPENSE_URLS.allExpenses))
+                    .then(function (response) {
+
+                        return ExpenseTransformerService.toExpensesGrouped(response.data)
+                    }).catch(function (response) {
+                        return $q.reject(response);
+                    });
+            };
+
             /**
              * Get all expenses of current user of a given category
-             * @param categoryId
-             * @param from
-             * @param to
-             * @returns {*}
              */
             this.getAllExpensesOfCategory = function (categoryId, from, to) {
-                var fromFormatted = DatesUtils.formatDate(from);
-                var toFormatted = DatesUtils.formatDate(to);
+                var fromFormatted = DatesUtils.formatDate(from),
+                 toFormatted = DatesUtils.formatDate(to);
 
                 return $http
                     .get(URLTo.api(EXPENSE_URLS.allExpensesOfCategory, {
@@ -98,8 +102,6 @@
 
             /**
              * Get details of a expense.
-             * @param id
-             * @returns {*}
              */
             this.getDetails = function (id) {
                 return $http
