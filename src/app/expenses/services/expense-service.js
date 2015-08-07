@@ -68,9 +68,12 @@
             /**
              * Get all grouped expenses of current user
              */
-            this.getAllExpensesGrouped = function () {
+            this.getAllExpensesGrouped = function (page, size) {
                 return $http
-                    .get(URLTo.api(EXPENSE_URLS.allExpenses))
+                    .get(URLTo.api(EXPENSE_URLS.allExpensesGrouped, {
+                        ':page': page,
+                        ':size': size
+                    }))
                     .then(function (response) {
 
                         return ExpenseTransformerService.toExpensesGrouped(response.data)
@@ -84,7 +87,7 @@
              */
             this.getAllExpensesOfCategory = function (categoryId, from, to) {
                 var fromFormatted = DatesUtils.formatDate(from),
-                 toFormatted = DatesUtils.formatDate(to);
+                    toFormatted = DatesUtils.formatDate(to);
 
                 return $http
                     .get(URLTo.api(EXPENSE_URLS.allExpensesOfCategory, {

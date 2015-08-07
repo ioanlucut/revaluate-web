@@ -45,8 +45,8 @@
                 return expense;
             };
 
-            this.toExpensesGrouped = function (expensesGroupedDto) {
-                return _.map(expensesGroupedDto, _.bind(function (expenseGroupedDtoEntry) {
+            this.toExpensesGrouped = function (queryResponse) {
+                var groupedExpensesDTOList = _.map(queryResponse.groupedExpensesDTOList, _.bind(function (expenseGroupedDtoEntry) {
                     var expenseGrouped = $injector.get('ExpenseGrouped').build();
 
                     _.extend(expenseGrouped.model, {
@@ -55,7 +55,14 @@
                     });
 
                     return expenseGrouped;
-                }, this))
+                }, this));
+
+                return {
+                    groupedExpensesDTOList: groupedExpensesDTOList,
+                    currentPage: queryResponse.currentPage,
+                    currentSize: queryResponse.currentSize,
+                    totalSize: queryResponse.totalSize
+                }
             };
 
             /**

@@ -3,7 +3,9 @@
 
     angular
         .module('revaluate.expenses')
-        .controller('ExpenseController', function (AlertService, $scope, $rootScope, $stateParams, Expense, expenses, ExpenseService, categories, $window, $timeout, StatesHandler, EXPENSE_EVENTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, ALERTS_CONSTANTS, APP_CONFIG) {
+        .controller('ExpenseController', function (AlertService, $scope, $rootScope, $stateParams, Expense, expensesQueryResponse, ExpenseService, categories, $window, $timeout, StatesHandler, EXPENSE_EVENTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, ALERTS_CONSTANTS, APP_CONFIG) {
+
+            var OFFSET = 50;
 
             /**
              * Alert identifier
@@ -23,9 +25,14 @@
             $scope.user = $rootScope.currentUser;
 
             /**
+             * Expenses query response
+             */
+            $scope.expensesQueryResponse = expensesQueryResponse;
+
+            /**
              * Existing expenses.
              */
-            $scope.expenses = expenses;
+            $scope.expenses = $scope.expensesQueryResponse.groupedExpensesDTOList;
 
             /**
              * Temporary list of existing expenses.
@@ -196,6 +203,28 @@
                         $scope.cancelBulkAction();
                         $rootScope.$broadcast(EXPENSE_EVENTS.isErrorOccurred, 'We\'ve encountered an error while trying to perform bulk action.');
                     });
+            };
+
+            /**
+             * On scroll.
+             */
+            $scope.loadMore = function () {
+                if ($scope.isUpdatingListLayout) {
+                    return;
+                }
+
+                $scope.isUpdatingListLayout = true;
+
+                ExpenseService
+                    .getAllExpensesGrouped(0, _.compose(_.flatten, _.map)($scope.expenses, 'model.expenseDTOs').length + OFFSET)
+                    .then(function (response) {
+
+                        $scope.expensesQueryResponse = response;
+                        $scope.expenses = $scope.expensesQueryResponse.groupedExpensesDTOList;
+                    })
+                    .finally(function () {
+                        $scope.isUpdatingListLayout = false;
+                    })
             };
 
             // ---

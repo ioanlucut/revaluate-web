@@ -14,7 +14,7 @@
             <!-- Error messages -->
             <div class="form-group-input__message" ng-class="{'has-error': expenseForm.value.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.value.$error" ng-if="expenseForm.$submitted">
                 <div ng-message="required">Don't forget the price.</div>
-                <div ng-message="validPrice">Oops, you  missed the price.</div>
+                <div ng-message="validPrice">Oops, you missed the price.</div>
             </div>
         </div>
 
@@ -104,7 +104,9 @@
     <div class="expenses__empty-state__icon"></div>
     <h1>No expenses yet.</h1>
 
-    <div>It seems like you have no expenses yet. Start adding some or <a href="javascript:void(0)" ui-sref="settings.import.choose">import your expenses</a>.</div>
+    <div>It seems like you have no expenses yet. Start adding some or
+        <a href="javascript:void(0)" ui-sref="settings.import.choose">import your expenses</a>.
+    </div>
 </div>
 
 <!--Temporary expense list-->
@@ -119,4 +121,7 @@
 </div>
 
 <!--The expenses list-->
-<div expenses-list expenses="expenses" categories="categories" search-by-text="searchByText" sort="desc"></div>
+<div infinite-scroll="loadMore()" infinite-scroll-disabled='isUpdatingListLayout'>
+
+    <div expenses-list expenses="expenses" categories="categories" search-by-text="searchByText" sort="desc"></div>
+</div>
