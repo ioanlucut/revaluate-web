@@ -14,8 +14,8 @@
                     /* jshint validthis: true */
                     var vm = this;
 
-                    this.LOAD_MORE_TIMEOUT = 500;
-                    this.DEFAULT_EXPENSES_LIMIT = 20;
+                    this.LOAD_MORE_TIMEOUT = 300;
+                    this.DEFAULT_EXPENSES_LIMIT = 50;
 
                     /**
                      * Current user.
@@ -46,11 +46,6 @@
                     this.expensesLimit = this.DEFAULT_EXPENSES_LIMIT;
 
                     /**
-                     * Initial selected order by
-                     */
-                    this.selectedOrderBy = 'model.createdDate';
-
-                    /**
                      * Expenses of this category
                      * @type {Array}
                      */
@@ -76,19 +71,7 @@
                     };
 
                     /**
-                     * Sets the selected order by
-                     */
-                    this.setSelectedOrderBy = function (by) {
-                        this.isUpdatingListLayout = !this.isUpdatingListLayout;
-
-                        $timeout(_.bind(function () {
-                            this.selectedOrderBy = by;
-                            this.isUpdatingListLayout = !this.isUpdatingListLayout
-                        }, this), this.LOAD_MORE_TIMEOUT);
-                    };
-
-                    /**
-                     * Expenses still to be loaded ?
+                     * First batch of expenses are loaded ?
                      */
                     this.isExpensesLoaded = function () {
                         return this.expensesOfThisCategory.length > 0;
@@ -99,22 +82,49 @@
                     };
 
                     /**
+                     * Show all expenses.
+                     */
+                    this.showAllExpenses = function () {
+                        this.isUpdatingListLayout = !this.isUpdatingListLayout;
+
+                        $timeout(_.bind(function () {
+                            this.expensesLimit = this.expensesOfThisCategory.length;
+                            this.isUpdatingListLayout = !this.isUpdatingListLayout;
+                            this.displayShowAllButton = false;
+                        }, this), this.LOAD_MORE_TIMEOUT);
+                    };
+
+                    function handleShowAllFunctionality(expensesOfThisCategory) {
+                        // ---
+                        // If expenses length > length * 0,2.
+                        // ---
+                        vm.displayShowAllButton = expensesOfThisCategory.length > vm.expensesLimit + vm.expensesLimit * 0.2;
+
+                        vm.expensesLimit = vm.displayShowAllButton
+                            ? vm.expensesLimit
+                            : expensesOfThisCategory.length;
+                    }
+
+                    /**
                      * Load expenses of category
                      */
                     this.loadExpensesOfCategory = function () {
+                        var period;
+
                         if (this.isExpensesLoaded()) {
                             return;
                         }
 
                         this.isUpdatingListLayout = true;
 
-                        var period = DatesUtils
+                        period = DatesUtils
                             .getFromToOfMonthYear(this.monthYearDate);
 
                         ExpenseService
                             .getAllExpensesOfCategory(vm.totalPerCategoryInsights.categoryDTO.id, period.from, period.to)
                             .then(function (expenses) {
                                 vm.expensesOfThisCategory = expenses;
+                                handleShowAllFunctionality(vm.expensesOfThisCategory);
                             })
                             .catch(function () {
                                 $scope.$emit(ALERTS_EVENTS.DANGER, {
