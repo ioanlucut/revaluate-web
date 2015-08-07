@@ -24,6 +24,14 @@
     display: block;
 }
 
+.expenses__list__group__name {
+    padding-left: 200px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: $gray-dark-1;
+    font-weight: bold;
+}
+
 .expense__list__sort {
     @include clearfix();
     padding: 3px 60px 3px 20px;

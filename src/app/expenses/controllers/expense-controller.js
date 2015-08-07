@@ -6,11 +6,6 @@
         .controller('ExpenseController', function (AlertService, $scope, $rootScope, $stateParams, Expense, expenses, ExpenseService, categories, $window, $timeout, StatesHandler, EXPENSE_EVENTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, ALERTS_CONSTANTS, APP_CONFIG) {
 
             /**
-             * Updating/deleting timeout
-             */
-            var TIMEOUT_DURATION = 300;
-
-            /**
              * Alert identifier
              */
             $scope.alertId = ALERTS_CONSTANTS.expenseList;
@@ -31,6 +26,11 @@
              * Existing expenses.
              */
             $scope.expenses = expenses;
+
+            /**
+             * Temporary list of existing expenses.
+             */
+            $scope.temporaryExpenses = [];
 
             /**
              * Existing categories.
@@ -116,25 +116,17 @@
 
                     $scope.isSaving = true;
 
-                    // Update the  chosen category and master expense.
+                    // Update the chosen category and master expense.
                     $scope.expense.model.category = angular.copy($scope.category.selected.model);
                     angular.copy($scope.expense, $scope.masterExpense);
 
                     $scope.masterExpense
                         .save()
                         .then(function () {
-                            var expenseToBePushed = angular.copy($scope.masterExpense);
-
-                            $timeout(function () {
-                                $scope.isSaving = false;
-                                $rootScope.$broadcast(EXPENSE_EVENTS.isCreated, { expense: expenseToBePushed });
-                            }, TIMEOUT_DURATION);
-
+                            $scope.isSaving = false;
+                            $rootScope.$broadcast(EXPENSE_EVENTS.isCreated, { expense: angular.copy($scope.masterExpense) });
                             $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.expenseCreated);
 
-                            /**
-                             * Finally, reset the add form.
-                             */
                             $scope.initOrReset($scope.expenseForm);
                         })
                         .catch(function () {
@@ -193,16 +185,11 @@
                 ExpenseService
                     .bulkDelete(selectedExpenses)
                     .then(function () {
-                        /**
-                         * Track event.
-                         */
                         $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.expenseDeleted);
 
-                        $timeout(function () {
-                            removeAllExpenseFrom($scope.expenses, selectedExpenses);
-                            $scope.isBulkDeleting = false;
-                            $rootScope.$broadcast(EXPENSE_EVENTS.isDeleted, {});
-                        }, TIMEOUT_DURATION);
+                        removeAllExpenseFrom($scope.expenses, selectedExpenses);
+                        $scope.isBulkDeleting = false;
+                        $rootScope.$broadcast(EXPENSE_EVENTS.isDeleted, {});
                     })
                     .catch(function () {
                         $scope.isBulkDeleting = false;
@@ -228,14 +215,15 @@
              * On expense updated.
              */
             $scope.$on(EXPENSE_EVENTS.isUpdated, function (event, args) {
-                var result = _.some($scope.expenses, function (expense) {
-                    return expense.model.id === args.expense.model.id;
-                });
+                var expenseExistsInList = _.some(_.compose(_.flatten, _.map)($scope.expenses, 'model.expenseDTOs'), 'model.id', args.expense.model.id);
 
-                if (result) {
-                    removeExpenseFrom($scope.expenses, args.expense);
-                    $scope.expenses.push(args.expense);
+                if (expenseExistsInList) {
+                    removeExpenseFromGroupedExpenses($scope.expenses, args.expense);
+
+                } else {
+                    _.remove($scope.temporaryExpenses, 'model.id', args.expense.model.id)
                 }
+                $scope.temporaryExpenses.push(args.expense);
 
                 $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated');
             });
@@ -245,7 +233,8 @@
              */
             $scope.$on(EXPENSE_EVENTS.isDeleted, function (event, args) {
                 if (args.expense) {
-                    removeExpenseFrom($scope.expenses, args.expense);
+                    removeExpenseFromGroupedExpenses($scope.expenses, args.expense);
+                    _.remove($scope.temporaryExpenses, 'model.id', args.expense.model.id)
                 }
 
                 $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Deleted');
@@ -255,7 +244,6 @@
              * On error occurred.
              */
             $scope.$on(EXPENSE_EVENTS.isErrorOccurred, function (event, args) {
-
                 $scope.$emit(ALERTS_EVENTS.DANGER, {
                     message: args.errorMessage,
                     alertId: $scope.alertId
@@ -263,27 +251,18 @@
 
             });
 
-            /**
-             * Removes given expense from the list.
-             */
-            function removeExpenseFrom(expenseList, expenseToBeRemoved) {
-                return _.remove(expenseList, function (expenseFromArray) {
-                    var expenseId = _.parseInt(expenseToBeRemoved.model.id, 10);
-                    var expenseFromArrayId = _.parseInt(expenseFromArray.model.id, 10);
-                    if (_.isNaN(expenseFromArrayId) || _.isNaN(expenseId)) {
-                        return false;
-                    }
-
-                    return expenseFromArrayId === expenseId;
+            function removeExpenseFromGroupedExpenses(groupedExpenses, expenseToBeRemoved) {
+                _.each(groupedExpenses, function (groupedExpenseEntry) {
+                    _.remove(groupedExpenseEntry.model.expenseDTOs, 'model.id', expenseToBeRemoved.model.id);
                 });
             }
 
             /**
-             * Remove a list of expenses from given existing list.
+             * Remove a list of expenses.
              */
-            function removeAllExpenseFrom(expenseList, expensesToBeRemoved) {
+            function removeAllExpenseFrom(expensesGrouped, expensesToBeRemoved) {
                 _.each(expensesToBeRemoved, function (expenseToBeRemoved) {
-                    removeExpenseFrom(expenseList, expenseToBeRemoved);
+                    removeExpenseFromGroupedExpenses(expensesGrouped, expenseToBeRemoved);
                 });
             }
 

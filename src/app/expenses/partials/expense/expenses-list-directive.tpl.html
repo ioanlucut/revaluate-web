@@ -12,9 +12,9 @@
         </div>
 
         <!--Expense list-->
-        <div class="expenses__list__entry-grouped" ng-repeat="expenseGroupEntry in expenses | orderObjectBy : 'model.localDate' : reverseOrder | limitTo: 20 track by expenseGroupEntry.model.localDate">
+        <div class="expenses__list__entry-grouped" ng-repeat="expenseGroupEntry in expenses | orderObjectBy : 'model.localDate' : reverseOrder | limitTo: 20 track by expenseGroupEntry.model.localDate" ng-show="expenseGroupEntry.model.expenseDTOs.length > 0">
 
-            <div>{{expenseGroupEntry.model.localDate | friendlyDate}}</div>
+            <div class="expenses__list__group__name">{{expenseGroupEntry.model.localDate | friendlyDate}}</div>
 
             <div class="expenses__list__entry"
                  ng-repeat="expense in expenseGroupEntry.model.expenseDTOs | orderObjectBy : selectedOrderBy : reverseOrder | limitTo: expensesLimit track by expense.model.id" expense-entry expense="expense" categories="categories">

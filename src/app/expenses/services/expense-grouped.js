@@ -39,7 +39,7 @@
                     return new ExpenseGrouped();
                 }
 
-                return ExpenseTransformerService.toExpense(data, new ExpenseGrouped());
+                return ExpenseTransformerService.toExpensesGrouped(data);
             };
 
             return ExpenseGrouped;
