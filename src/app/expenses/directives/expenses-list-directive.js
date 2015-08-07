@@ -16,8 +16,8 @@
                 templateUrl: '/app/expenses/partials/expense/expenses-list-directive.tpl.html',
                 link: function (scope, el, attrs) {
 
-                    var LOAD_MORE_TIMEOUT = 500;
-                    var DEFAULT_EXPENSES_LIMIT = 20;
+                    var LOAD_MORE_TIMEOUT = 500,
+                        DEFAULT_EXPENSES_LIMIT = 20;
 
                     /**
                      * The way of sort

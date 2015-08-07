@@ -13,8 +13,9 @@
              */
             this.toExpenseDto = function (expense, skipKeys) {
                 var expenseDto = {};
+                skipKeys = skipKeys || [];
 
-                TransformerUtils.copyKeysFromTo(expense.model, expenseDto, skipKeys);
+                TransformerUtils.copyKeysFromTo(expense.model, expenseDto, skipKeys.concat(['modifiedDate', 'createdDate']));
                 if (expenseDto.spentDate) {
                     expenseDto.spentDate = moment(expenseDto.spentDate).format('YYYY-MM-DDTHH:mm:ss.hhh');
                 }
@@ -33,6 +34,12 @@
                 // handle date conversion
                 if (expense.model.spentDate) {
                     expense.model.spentDate = moment(expense.model.spentDate).toDate();
+                }
+                if (expense.model.modifiedDate) {
+                    expense.model.modifiedDate = moment(expense.model.modifiedDate).toDate();
+                }
+                if (expense.model.createdDate) {
+                    expense.model.createdDate = moment(expense.model.createdDate).toDate();
                 }
 
                 return expense;
