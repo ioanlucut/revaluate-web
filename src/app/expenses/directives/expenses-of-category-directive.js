@@ -128,8 +128,7 @@
                             })
                             .catch(function () {
                                 $scope.$emit(ALERTS_EVENTS.DANGER, {
-                                    message: 'Could not fetch expenses for ' + vm.totalPerCategoryInsights.categoryDTO.name,
-                                    alertId: vm.alertId
+                                    message: 'Could not fetch expenses for ' + vm.totalPerCategoryInsights.categoryDTO.name
                                 });
                             })
                             .finally(function () {
