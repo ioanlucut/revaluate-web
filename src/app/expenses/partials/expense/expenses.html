@@ -113,7 +113,7 @@
     <div class="expenses__list__group__name">Just now</div>
 
     <div class="expenses__list__entry"
-         ng-repeat="expense in temporaryExpenses | orderObjectBy : 'model.modifiedDate' : true track by expense.model.id" expense-entry expense="expense" categories="categories">
+         ng-repeat="expense in temporaryExpenses | orderObjectBy : 'model.modifiedDate' : true track by expense.model.id" expense-entry expense="expense" categories="categories" show-date-details>
     </div>
 
 </div>
