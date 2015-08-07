@@ -149,7 +149,7 @@
              * @returns {Array.<T>}
              */
             function getSelectedExpensesForBulkAction() {
-                return _.filter($scope.expenses, 'marked', true);
+                return _.filter(_.compose(_.flatten, _.map)($scope.expenses, 'model.expenseDTOs'), 'marked', true);
             }
 
             /**
