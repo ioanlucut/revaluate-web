@@ -28,8 +28,8 @@
                             templateUrl: '/app/expenses/partials/expense/expenses.html',
                             controller: 'ExpenseController',
                             resolve: {
-                                expenses: function (ExpenseService) {
-                                    return ExpenseService.getAllExpensesGrouped();
+                                expensesQueryResponse: function (ExpenseService) {
+                                    return ExpenseService.getAllExpensesGrouped(0, 50);
                                 },
 
                                 categories: function (CategoryService) {
