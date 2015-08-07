@@ -15,7 +15,7 @@
                     var vm = this;
 
                     this.LOAD_MORE_TIMEOUT = 300;
-                    this.DEFAULT_EXPENSES_LIMIT = 50;
+                    this.DEFAULT_EXPENSES_LIMIT = 10;
 
                     /**
                      * Current user.
