@@ -1,5 +1,6 @@
 .expenses__list__category {
-    padding: 10px 0 0 0;
+    padding: 0 10px 10px 100px;
+    border-bottom: solid 1px $gray-light-2;
 }
 
 /* starting animations */
@@ -29,11 +30,11 @@
     border-bottom: solid 1px #f9f9f9;
 
     &:first-child {
-        border-top: solid 1px $gray-light-3;
+        border-top: solid 0 transparent;
     }
 
-    &:last-child{
-        border-width: 0;
+    &:last-child {
+        border-bottom: solid 1px $gray-light-3;
     }
 }
 
@@ -43,7 +44,11 @@
     cursor: pointer;
     position: absolute;
     right: 120px;
-    margin-top: -19px;
+    margin-top: -30px;
+
+    &:hover {
+        border-bottom: solid 1px $gray-light-1;
+    }
 }
 
 .expenses__list__category__loading {
