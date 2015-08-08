@@ -47,7 +47,7 @@
         }
 
         .expense__list__sort__date__entry {
-            color: $gray-light-1;
+            color: $gray-medium;
 
             &:hover {
                 color: $gray-medium;
@@ -55,7 +55,7 @@
         }
 
         .expense__list__sort__date__entry--active {
-            color: $gray-medium;
+            color: $gray-light-1;
             cursor: default;
         }
     }
