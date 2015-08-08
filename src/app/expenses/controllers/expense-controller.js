@@ -235,7 +235,7 @@
              * On expense created, display a success message, and add expense to the list.
              */
             $scope.$on(EXPENSE_EVENTS.isCreated, function (event, args) {
-                $scope.expenses.push(args.expense);
+                $scope.temporaryExpenses.push(args.expense);
 
                 $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Saved');
             });
