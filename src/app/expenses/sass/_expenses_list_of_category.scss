@@ -32,7 +32,7 @@
         border-top: solid 1px $gray-light-3;
     }
 
-    &:last-child{
+    &:last-child {
         border-width: 0;
     }
 }
@@ -44,6 +44,10 @@
     position: absolute;
     right: 120px;
     margin-top: -19px;
+
+    &:hover {
+        border-bottom: solid 1px $gray-light-2;
+    }
 }
 
 .expenses__list__category__loading {
@@ -53,6 +57,22 @@
     left: 50%;
     margin-left: -40px;
     margin-top: -20px;
+}
+
+.expenses__list__transactions__showall {
+    text-align: center;
+
+    button {
+        @include btn-link($brand-primary);
+        position: relative;
+
+        span {
+            position: absolute;
+            top: 7px;
+            left: -15px;
+            border-width: 0;
+        }
+    }
 }
 
 expenses-of-category {
