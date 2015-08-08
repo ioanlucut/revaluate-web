@@ -124,4 +124,6 @@
 <div infinite-scroll="loadMore()" infinite-scroll-disabled='isUpdatingListLayout'>
 
     <div expenses-list expenses="expenses" categories="categories" search-by-text="searchByText" sort="desc"></div>
+
+    <div ng-show="isUpdatingListLayout">Loading more expenses..</div>
 </div>
