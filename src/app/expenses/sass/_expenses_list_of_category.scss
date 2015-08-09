@@ -29,11 +29,11 @@
     border-bottom: solid 1px #f9f9f9;
 
     &:first-child {
-        border-top: solid 1px $gray-light-3;
+        border-top: solid 0 transparent;
     }
 
     &:last-child {
-        border-width: 0;
+        border-bottom: solid 1px $gray-light-3;
     }
 }
 
@@ -43,10 +43,10 @@
     cursor: pointer;
     position: absolute;
     right: 120px;
-    margin-top: -19px;
+    margin-top: -30px;
 
     &:hover {
-        border-bottom: solid 1px $gray-light-2;
+        border-bottom: solid 1px $gray-light-1;
     }
 }
 

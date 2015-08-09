@@ -10,7 +10,7 @@
             <div class="insights__controls__form__month" ng-class="{'has-error': vm.insightForm.yearMonthDate.$invalid && vm.insightForm.$submitted}">
 
                 <!--Hidden input of the insights chosen date-->
-                <input type="hidden" name="yearMonthDate" ng-model="vm.insightData.yearMonthDate" required valid-date />
+                <input type="hidden" name="yearMonthDate" ng-model="vm.insightData.yearMonthDate" required valid-date/>
 
                 <!--insights date picker-->
                 <div class="insight__form__date__input">
@@ -89,23 +89,30 @@
 
         <div class="insights__table insights__table--monthly">
             <table>
-                <tr class="insights__table__total">
-                    <th>TOTAL</th>
-                    <td class="insights__table__total__amount">
-                        <span ng-bind-html="vm.insightsMonthly.model.totalAmountSpent | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
-                    </td>
-                </tr>
-                <tr ng-repeat="totalPerCategory in vm.insightsMonthly.model.totalPerCategoryInsightsDTOs">
-                    <th class="insights__table__category label-uppercase">
-                        <span class="insights__table__category__color" ng-style="{'background':totalPerCategory.categoryDTO.color.color}">C</span>
-                        {{totalPerCategory.categoryDTO.name}}
-                    </th>
-                    <td class="insights__table__entry__amount">
-                        <span ng-bind-html="totalPerCategory.totalAmount | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
-
-                        <expenses-of-category total-per-category-insights="totalPerCategory" month-year-date="vm.insightData.yearMonthDate"></expenses-of-category>
-                    </td>
-                </tr>
+                <thead>
+                    <tr class="insights__table__total">
+                        <th>TOTAL</th>
+                        <td class="insights__table__total__amount">
+                            <span ng-bind-html="vm.insightsMonthly.model.totalAmountSpent | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody ng-repeat="totalPerCategory in vm.insightsMonthly.model.totalPerCategoryInsightsDTOs">
+                    <tr>
+                        <th class="insights__table__category label-uppercase">
+                            <span class="insights__table__category__color" ng-style="{'background':totalPerCategory.categoryDTO.color.color}">C</span>
+                            {{totalPerCategory.categoryDTO.name}}
+                        </th>
+                        <td class="insights__table__entry__amount">
+                            <span ng-bind-html="totalPerCategory.totalAmount | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
+                        </td>
+                    </tr>
+                    <tr class="insights__table__transactions">
+                        <td colspan="2">
+                            <expenses-of-category total-per-category-insights="totalPerCategory" month-year-date="vm.insightData.yearMonthDate"></expenses-of-category>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
         </div>
 

@@ -3,7 +3,7 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var argv = require('yargs').argv;
-var environment = argv.env || 'development';
+var environment = argv.env || 'local-dev';
 
 var configTask = function () {
     var myConfig = require('./app.config.' + environment + '.json');
@@ -20,13 +20,18 @@ var configTask = function () {
 module.exports = function () {
     gulp.task('config', configTask);
 
+    gulp.task('config:local', function () {
+        environment = argv.env || 'localhost';
+        configTask();
+    });
+
     gulp.task('config:dev', function () {
         environment = argv.env || 'development';
         configTask();
     });
 
-    gulp.task('config:local', function () {
-        environment = argv.env || 'localhost';
+    gulp.task('config:local-dev', function () {
+        environment = argv.env || 'local-dev';
         configTask();
     });
 
