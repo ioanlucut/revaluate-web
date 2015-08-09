@@ -16,6 +16,7 @@
         tr td {
             max-width: 70px;
             min-width: 60px;
+            padding: 0;
         }
 
         tr td:last-of-type {
@@ -52,6 +53,14 @@
         }
     }
 
+    .insights__table__transactions {
+        border-width: 0;
+
+        td:last-of-type {
+            padding-right: 0;
+        }
+    }
+
     .insights__table__entry__month {
         padding-left: 10px;
     }
@@ -59,7 +68,6 @@
     .insights__table__total__amount,
     .insights__table__entry__amount {
         text-align: right;
-        font-size: $font-size-small;
 
         .currency__symbol {
             padding-left: 5px;
@@ -95,11 +103,11 @@
     width: 65%;
 
     .insights__table__category {
-        width: 20%;
+
     }
 
     .insights__table__amount {
-        width: 80%;
+
     }
 }
 
@@ -110,7 +118,8 @@
 .insights__table--progress {
     width: 100%;
 
-    .insights__table__amount {
+    .insights__table__total__amount,
+    .insights__table__entry__amount {
         font-size: $font-size-small;
     }
 }
