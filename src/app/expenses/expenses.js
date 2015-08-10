@@ -35,7 +35,8 @@
                                 categories: function (CategoryService) {
                                     return CategoryService.getAllCategories();
                                 }
-                            }
+                            },
+                            controllerAs: 'vm'
                         }
                     },
                     title: 'Expenses - Revaluate',
