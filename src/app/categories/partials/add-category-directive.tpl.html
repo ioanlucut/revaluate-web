@@ -52,7 +52,7 @@
     <!--Content right-->
     <div class="categories__add__form__content__right">
         <!--Reset-->
-        <button ng-disabled="vm.isSaving" type="button" class="categories__add__form__content__right__cancel" ng-click="toggleContent();initOrReset(vm.categoryForm)">Nevermind</button>
+        <button ng-disabled="vm.isSaving" type="button" class="categories__add__form__content__right__cancel" ng-click="toggleContent();initOrResetAddExpense(vm.categoryForm)">Nevermind</button>
         <!-- Submit button container -->
         <button ng-disabled="vm.isSaving" class="categories__add__form__content__right__add" type="submit">{{vm.isSaving ? 'Saving...' : 'Save category'}}</button>
     </div>

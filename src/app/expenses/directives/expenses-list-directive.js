@@ -8,10 +8,10 @@
         .directive('expensesList', function ($rootScope, $timeout) {
             return {
                 restrict: 'A',
+                replace: true,
                 scope: {
                     expenses: '=',
-                    categories: '=',
-                    searchByText: '='
+                    categories: '='
                 },
                 templateUrl: '/app/expenses/partials/expense/expenses-list-directive.tpl.html',
                 link: function (scope, el, attrs) {
@@ -20,7 +20,6 @@
 
                     /**
                      * The way of sort
-                     * @type {boolean}
                      */
                     scope.reverseOrder = attrs.sort === 'desc';
 
@@ -31,7 +30,6 @@
 
                     /**
                      * Is loading more expenses flag.
-                     * @type {boolean}
                      */
                     scope.isUpdatingListLayout = false;
 
@@ -39,6 +37,15 @@
                      * Initial selected order by
                      */
                     scope.selectedOrderBy = 'model.createdDate';
+
+                    /**
+                     * On ng repeat expense finished
+                     */
+                    scope.$on('ngRepeatExpenseFinished', function () {
+                        $timeout(function () {
+                            scope.isInitiallyLoaded = true;
+                        }, TIMEOUT);
+                    });
 
                     /**
                      * Sets the selected order by
