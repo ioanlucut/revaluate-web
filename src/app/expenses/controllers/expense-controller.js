@@ -5,7 +5,8 @@
         .module('revaluate.expenses')
         .controller('ExpenseController', function (AlertService, $scope, $rootScope, $stateParams, Expense, expensesQueryResponse, ExpenseService, categories, $window, $timeout, StatesHandler, EXPENSE_EVENTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, ALERTS_CONSTANTS, APP_CONFIG) {
 
-            var OFFSET = 50;
+            var INFINITE_SCROLL_EXPENSES_OFFSET = 50,
+                INFINITE_SCROLL_TIMEOUT = 1500;
 
             /**
              * Alert identifier
@@ -13,14 +14,7 @@
             $scope.alertId = ALERTS_CONSTANTS.expenseList;
 
             /**
-             * Search by text
-             * @type {string}
-             */
-            $scope.searchByText = '';
-
-            /**
              * The current user
-             * @type {$rootScope.currentUser|*}
              */
             $scope.user = $rootScope.currentUser;
 
@@ -28,6 +22,11 @@
              * Expenses query response
              */
             $scope.expensesQueryResponse = expensesQueryResponse;
+
+            /**
+             * Existing categories.
+             */
+            $scope.categories = categories;
 
             /**
              * Existing expenses.
@@ -40,18 +39,12 @@
             $scope.temporaryExpenses = [];
 
             /**
-             * Existing categories.
-             */
-            $scope.categories = categories;
-
-            /**
              * Initialize or reset the state
              */
-            $scope.initOrReset = function (expenseForm) {
+            $scope.initOrResetAddExpense = function (expenseForm) {
 
                 /**
                  * Keep master expense.
-                 * @type {XMLList|XML|*}
                  */
                 $scope.masterExpense = Expense.build({
                     spentDate: moment().toDate()
@@ -64,7 +57,6 @@
 
                 /**
                  * Selected category
-                 * @type {{}}
                  */
                 $scope.category = {};
 
@@ -76,7 +68,6 @@
 
                 /**
                  * Flag which represents whether the save is in progress.
-                 * @type {boolean}
                  */
                 $scope.isSaving = false;
 
@@ -88,18 +79,16 @@
 
             /**
              * Minimum date to create expense.
-             * @type {Date}
              */
             $scope.datePickerMinDate = moment().year(2000);
 
             /**
              * Perform the first initialization.
              */
-            $scope.initOrReset();
+            $scope.initOrResetAddExpense();
 
             /**
              * Open date picker
-             * @param $event
              */
             $scope.openDatePicker = function ($event) {
                 $event.preventDefault();
@@ -123,7 +112,6 @@
 
                     $scope.isSaving = true;
 
-                    // Update the chosen category and master expense.
                     $scope.expense.model.category = angular.copy($scope.category.selected.model);
                     angular.copy($scope.expense, $scope.masterExpense);
 
@@ -134,7 +122,7 @@
                             $rootScope.$broadcast(EXPENSE_EVENTS.isCreated, { expense: angular.copy($scope.masterExpense) });
                             $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.expenseCreated);
 
-                            $scope.initOrReset($scope.expenseForm);
+                            $scope.initOrResetAddExpense($scope.expenseForm);
                         })
                         .catch(function () {
                             $scope.badPostSubmitResponse = true;
@@ -146,10 +134,15 @@
 
             /**
              * Get selected expenses for bulk action (marked===true)
-             * @returns {Array.<T>}
              */
             function getSelectedExpensesForBulkAction() {
-                return _.filter(_.compose(_.flatten, _.map)($scope.expenses, 'model.expenseDTOs'), 'marked', true);
+                var flatMap = _.compose(_.flatten, _.map),
+                    expensesJoined = flatMap($scope.expenses, 'model.expenseDTOs');
+
+                return _.filter(
+                    _(expensesJoined)
+                    .concat($scope.temporaryExpenses)
+                    .value(), 'marked', true);
             }
 
             /**
@@ -195,35 +188,50 @@
                         $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.expenseDeleted);
 
                         removeAllExpenseFrom($scope.expenses, selectedExpenses);
-                        $scope.isBulkDeleting = false;
                         $rootScope.$broadcast(EXPENSE_EVENTS.isDeleted, {});
                     })
                     .catch(function () {
-                        $scope.isBulkDeleting = false;
                         $scope.cancelBulkAction();
                         $rootScope.$broadcast(EXPENSE_EVENTS.isErrorOccurred, 'We\'ve encountered an error while trying to perform bulk action.');
-                    });
+                    })
+                    .finally(function () {
+                        $scope.isBulkDeleting = false;
+                    })
             };
 
             /**
-             * On scroll.
+             * Is no more expenses to be loaded
              */
-            $scope.loadMore = function () {
-                if ($scope.isUpdatingListLayout) {
+            $scope.isNoMoreExpensesToBeLoaded = function () {
+
+                return $scope.expensesQueryResponse.currentSize === $scope.expensesQueryResponse.totalSize;
+            };
+
+            /**
+             * On scroll, load more expenses.
+             */
+            $scope.loadMoreExpenses = function () {
+                if ($scope.isUpdatingListLayout || $scope.isNoMoreExpensesToBeLoaded()) {
                     return;
                 }
 
                 $scope.isUpdatingListLayout = true;
 
                 ExpenseService
-                    .getAllExpensesGrouped(0, _.compose(_.flatten, _.map)($scope.expenses, 'model.expenseDTOs').length + OFFSET)
+                    .getAllExpensesGrouped(0, _.compose(_.flatten, _.map)($scope.expenses, 'model.expenseDTOs').length + INFINITE_SCROLL_EXPENSES_OFFSET)
                     .then(function (response) {
-
                         $scope.expensesQueryResponse = response;
                         $scope.expenses = $scope.expensesQueryResponse.groupedExpensesDTOList;
+
+                        // ---
+                        // We did reload the whole list, therefore get rid of the temporary list.
+                        // ---
+                        $scope.temporaryExpenses = [];
                     })
                     .finally(function () {
-                        $scope.isUpdatingListLayout = false;
+                        $timeout(function () {
+                            $scope.isUpdatingListLayout = !$scope.isUpdatingListLayout;
+                        }, INFINITE_SCROLL_TIMEOUT);
                     })
             };
 

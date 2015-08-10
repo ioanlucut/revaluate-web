@@ -46,7 +46,7 @@
             /**
              * Initialize or reset the state
              */
-            vm.initOrReset = function (categoryForm) {
+            vm.initOrResetAddExpense = function (categoryForm) {
                 vm.category = Category.build({ color: CategoryColorService.randomizedColor(vm.colors) });
 
                 if (categoryForm) {
@@ -59,7 +59,7 @@
             /**
              * Perform the first initialization.
              */
-            vm.initOrReset();
+            vm.initOrResetAddExpense();
 
             /**
              * Saves the category or updates it.
@@ -82,7 +82,7 @@
                                 /**
                                  * Finally, reset the form.
                                  */
-                                vm.initOrReset(categoryForm);
+                                vm.initOrResetAddExpense(categoryForm);
                             }, TIMEOUT_DURATION);
                         })
                         .catch(function () {

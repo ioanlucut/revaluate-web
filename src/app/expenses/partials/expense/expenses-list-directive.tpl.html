@@ -1,4 +1,3 @@
-<!--Expense list content.-->
 <div class="expenses__list">
 
     <div class="expense__list__sort" ng-if="expenses.length !== 0">
@@ -10,13 +9,18 @@
     </div>
 
     <!--Expense list-->
-    <div class="expenses__list__entry-grouped" ng-repeat="expenseGroupEntry in expenses | orderObjectBy : 'model.localDate' : reverseOrder track by expenseGroupEntry.model.localDate" ng-show="expenseGroupEntry.model.expenseDTOs.length > 0">
+    <div class="expenses__list__entry-grouped"
+         ng-repeat="expenseGroupEntry in expenses | orderObjectBy : 'model.localDate' : reverseOrder track by expenseGroupEntry.model.localDate"
+         expense-finish-render
+         ng-show="expenseGroupEntry.model.expenseDTOs.length > 0">
 
         <div class="expenses__list__group__name">{{expenseGroupEntry.model.localDate | friendlyDate}}</div>
 
         <div class="expenses__list__entry"
-             ng-repeat="expense in expenseGroupEntry.model.expenseDTOs | orderObjectBy : selectedOrderBy : reverseOrder track by expense.model.id" expense-entry expense="expense" categories="categories">
+             ng-repeat="expense in expenseGroupEntry.model.expenseDTOs | orderObjectBy : selectedOrderBy : reverseOrder track by expense.model.id"
+             expense-entry
+             expense="expense"
+             categories="categories">
         </div>
-
     </div>
 </div>
