@@ -1,8 +1,8 @@
 angular.module("config", [])
 
 .constant("ENV", {
-	"name": "local",
-	"apiEndpoint": "http://localhost:8080",
+	"name": "local-dev",
+	"apiEndpoint": "https://revaluate-api-dev.herokuapp.com",
 	"mixPanelId": "216177bcdddef0cf2edd1650e63a3449",
 	"intercomAppId": "c509geda",
 	"cacheResetKey": "a2jonsnow",
