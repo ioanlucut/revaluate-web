@@ -48,7 +48,7 @@
                 // We need add the template entry into the templateCache if we ever specify a templateUrl
                 $templateCache.put('template.html', '');
 
-                $httpBackend.whenGET(URLTo.api(EXPENSE_URLS.allExpenses)).respond(200, []);
+                $httpBackend.whenGET(URLTo.api('expenses/retrieve_grouped?page=0&size=50')).respond(200, []);
                 $httpBackend.whenGET(URLTo.api(CATEGORY_URLS.allCategories)).respond(200, []);
 
                 AuthServiceMock.logout = jasmine.createSpy('logout');
