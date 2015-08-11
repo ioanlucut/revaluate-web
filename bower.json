@@ -33,7 +33,6 @@
         "neat": "~1.7.1",
         "angular-deferred-bootstrap": "~0.1.7",
         "angular-loading-bar": "~0.8.0",
-        "fullpage.js": "~2.6.6",
         "angular-intercom": "~2.0.4",
         "Chart.js": "~1.0.2",
         "ngtoast": "~1.5.4",
