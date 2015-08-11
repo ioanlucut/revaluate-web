@@ -6,7 +6,7 @@
      */
     angular
         .module('revaluate.account')
-        .controller('RevaluateAppController', function (flash, GreeterService, AlertService, $rootScope, $scope, $state, $timeout, $log, ALERTS_EVENTS, AuthService, AccountModal, IntercomUtilsService, MixpanelUtilsService, User, StatesHandler, AUTH_EVENTS, ALERTS_CONSTANTS, AUTH_MODAL, ERROR_INTERCEPTOR, ENV, APP_CONFIG) {
+        .controller('RevaluateAppController', function (flash, $location, GreeterService, AlertService, $rootScope, $scope, $state, $timeout, $log, ALERTS_EVENTS, AuthService, AccountModal, IntercomUtilsService, MixpanelUtilsService, User, StatesHandler, AUTH_EVENTS, ALERTS_CONSTANTS, AUTH_MODAL, ERROR_INTERCEPTOR, ENV, APP_CONFIG) {
 
             /**
              * Save the state on root scope
@@ -35,7 +35,7 @@
                 if (AuthService.isAuthenticated()) {
                     IntercomUtilsService.bootIntercom($rootScope.currentUser);
                     MixpanelUtilsService.bootMixpanel($rootScope.currentUser);
-                }            else {
+                } else {
                     MixpanelUtilsService.initMixpanel();
                 }
             }
@@ -52,13 +52,12 @@
                 $rootScope.currentUser = User.$new().loadFromSession();
                 AuthService.redirectToAttemptedUrl();
 
+                // ---
+                // Bootstrap intercom.
+                // ---
+                IntercomUtilsService.bootIntercom($rootScope.currentUser, $location.search().ref);
+
                 if (ENV.isProduction) {
-
-                    // ---
-                    // Bootstrap intercom.
-                    // ---
-                    IntercomUtilsService.bootIntercom($rootScope.currentUser);
-
                     // ---
                     // Bootstrap mixpanel people.
                     // ---
@@ -73,15 +72,15 @@
             /**
              * Sometimes we need to refresh the user from the local storage.
              */
-            $scope.$on(AUTH_EVENTS.refreshUser, function () {
+            $scope.$on(AUTH_EVENTS.refreshUser, function (event, args) {
                 $rootScope.currentUser = User.$new().loadFromSession();
 
-                if (ENV.isProduction) {
-                    // ---
-                    // Refresh intercom user.
-                    // ---
-                    IntercomUtilsService.updateIntercom($rootScope.currentUser);
+                // ---
+                // Refresh intercom user.
+                // ---
+                IntercomUtilsService.updateIntercom($rootScope.currentUser, args.intercomAttributes);
 
+                if (ENV.isProduction) {
                     // ---
                     // Refresh intercom user.
                     // ---

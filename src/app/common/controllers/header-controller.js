@@ -29,34 +29,28 @@
              * Handles tour page link
              */
             this.goToTourPage = function () {
-            StatesHandler.goHome(function () {
-
-                $timeout(function () {
-                    $rootScope
-                        .$broadcast('fullpage-scroll-to', {
-                            slideNumber: 2
-                        })
-                });
-
-            })
-        };
+                StatesHandler.goHome(function () {
+                    $timeout(function () {
+                    });
+                })
+            };
 
             /**
              * We validate the show app header content after view is loaded.
              */
             $scope.$on('$viewContentLoaded', _.bind(function () {
-            $timeout(_.bind(function () {
-                this.showAppHeader = this.isUserAuthenticated;
+                $timeout(_.bind(function () {
+                    this.showAppHeader = this.isUserAuthenticated;
+                }, this));
             }, this));
-        }, this));
 
             $scope.$on(AUTH_EVENTS.loginSuccess, _.bind(function () {
-            this.isUserAuthenticated = true;
-        }, this));
+                this.isUserAuthenticated = true;
+            }, this));
 
             $scope.$on(AUTH_EVENTS.logoutSuccess, _.bind(function () {
-            this.isUserAuthenticated = false;
-        }, this));
+                this.isUserAuthenticated = false;
+            }, this));
 
         });
 }());
