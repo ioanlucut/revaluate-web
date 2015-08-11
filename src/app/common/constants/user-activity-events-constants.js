@@ -11,8 +11,7 @@
             pricingPage: 'Pricing page',
             privacyPage: 'Privacy page',
 
-            signUpRequested: 'Signup requested',
-            signUpCompleted: 'Signup completed',
+            signUpCompleted: 'Sign-up completed (form submitted)',
 
             expensesPage: 'Expenses page',
             expenseCreated: 'Expense created',

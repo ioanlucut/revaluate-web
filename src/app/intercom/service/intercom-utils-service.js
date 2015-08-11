@@ -15,12 +15,12 @@
                     : this.getIntercomUser(user));
             };
 
-            this.updateIntercom = function (user) {
+            this.updateIntercom = function (user, args) {
 
                 // ---
                 // Update intercom.
                 // ---
-                $intercom.update(this.getIntercomUser(user));
+                $intercom.update(_.extend(this.getIntercomUser(user), args || {}));
             };
 
             this.trackEvent = function (eventName) {
