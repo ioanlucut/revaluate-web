@@ -16,7 +16,7 @@
     <div class="expenses__list__entry__section__details" ng-bind-html="expense.model.description | highlightSearch:searchByText"></div>
 
     <!--Expense date-->
-    <div class="expenses__list__entry__section__date">{{expense.model.spentDate | friendlyDate}}</div>
+    <div ng-if="showDateDetails" class="expenses__list__entry__section__date">{{expense.model.spentDate | friendlyDate}}</div>
 </div>
 
 <!-- Display expense in edit mode -->

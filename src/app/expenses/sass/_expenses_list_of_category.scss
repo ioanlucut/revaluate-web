@@ -1,6 +1,5 @@
 .expenses__list__category {
-    padding: 0 10px 10px 100px;
-    border-bottom: solid 1px $gray-light-2;
+    padding: 10px 0 0 0;
 }
 
 /* starting animations */
@@ -58,6 +57,22 @@
     left: 50%;
     margin-left: -40px;
     margin-top: -20px;
+}
+
+.expenses__list__transactions__showall {
+    text-align: center;
+
+    button {
+        @include btn-link($brand-primary);
+        position: relative;
+
+        span {
+            position: absolute;
+            top: 7px;
+            left: -15px;
+            border-width: 0;
+        }
+    }
 }
 
 expenses-of-category {
