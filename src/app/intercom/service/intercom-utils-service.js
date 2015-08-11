@@ -5,12 +5,14 @@
         .module('revaluate.intercom')
         .service('IntercomUtilsService', function ($intercom, AuthService, $rootScope) {
 
-            this.bootIntercom = function (user) {
+            this.bootIntercom = function (user, featured) {
 
                 // ---
                 // Bootstrap intercom.
                 // ---
-                $intercom.boot(this.getIntercomUser(user));
+                $intercom.boot(featured
+                    ? _.extend(this.getIntercomUser(user), { featured: featured })
+                    : this.getIntercomUser(user));
             };
 
             this.updateIntercom = function (user) {
@@ -29,7 +31,7 @@
                         created_at: moment().unix(),
                         user_id: '' + $rootScope.currentUser.model.id
                     });
-                }            else {
+                } else {
                     $intercom.trackEvent(eventName, {
                         created_at: moment().unix()
                     });
