@@ -72,15 +72,15 @@
             /**
              * Sometimes we need to refresh the user from the local storage.
              */
-            $scope.$on(AUTH_EVENTS.refreshUser, function () {
+            $scope.$on(AUTH_EVENTS.refreshUser, function (event, args) {
                 $rootScope.currentUser = User.$new().loadFromSession();
 
-                if (ENV.isProduction) {
-                    // ---
-                    // Refresh intercom user.
-                    // ---
-                    IntercomUtilsService.updateIntercom($rootScope.currentUser);
+                // ---
+                // Refresh intercom user.
+                // ---
+                IntercomUtilsService.updateIntercom($rootScope.currentUser, args.intercomAttributes);
 
+                if (ENV.isProduction) {
                     // ---
                     // Refresh intercom user.
                     // ---
