@@ -32,6 +32,9 @@
     </div>
 </div>
 
-<div ng-if="vm.displayShowAllButton">
-    <button type="submit" class="expenses__list__loadbtn" ng-click="vm.showAllExpenses()">{{vm.isUpdatingListLayout ? 'Loading..' : 'Show all ' + vm.totalPerCategoryInsights.numberOfTransactions + ' transactions'}}</button>
+<div class="expenses__list__transactions__showall" ng-if="vm.displayShowAllButton && vm.expanded">
+    <button type="submit" ng-click="vm.showAllExpenses()">
+        <span class="icon-chevron-down-light" ng-hide="vm.isUpdatingListLayout"></span>
+        {{vm.isUpdatingListLayout ? 'Loading...' : 'Show all transactions'}}
+    </button>
 </div>

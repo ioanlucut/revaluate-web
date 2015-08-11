@@ -17,6 +17,11 @@
                     var EXPENSE_INPUT_SELECTOR = '.expense__form__price__input';
 
                     /**
+                     * If date details should be shown
+                     */
+                    scope.showDateDetails = !_.isUndefined(attrs.showDateDetails);
+
+                    /**
                      * Current user.
                      */
                     scope.user = $rootScope.currentUser;
