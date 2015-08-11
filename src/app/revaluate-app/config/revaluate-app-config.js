@@ -4,7 +4,7 @@ angular.module("config", [])
 	"name": "local-dev",
 	"apiEndpoint": "https://revaluate-api-dev.herokuapp.com",
 	"mixPanelId": "216177bcdddef0cf2edd1650e63a3449",
-	"intercomAppId": "c509geda",
+	"intercomAppId": "z2mfyywv",
 	"cacheResetKey": "a2jonsnow",
 	"OAUTH2_CLIENT_IDS": {
 		"FACEBOOK": "933608719993745",
