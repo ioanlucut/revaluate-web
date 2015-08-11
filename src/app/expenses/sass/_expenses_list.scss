@@ -24,6 +24,14 @@
     display: block;
 }
 
+.expenses__list__group__name {
+    padding-left: 200px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #22596F;
+    font-weight: bold;
+}
+
 .expense__list__sort {
     @include clearfix();
     padding: 3px 60px 3px 20px;
@@ -39,7 +47,7 @@
         }
 
         .expense__list__sort__date__entry {
-            color: $gray-light-1;
+            color: $gray-medium;
 
             &:hover {
                 color: $gray-medium;
@@ -47,7 +55,7 @@
         }
 
         .expense__list__sort__date__entry--active {
-            color: $gray-medium;
+            color: $gray-light-1;
             cursor: default;
         }
     }

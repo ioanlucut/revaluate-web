@@ -33,6 +33,7 @@
             'pascalprecht.translate',
             'ngToast',
             'ui.select',
+            'infinite-scroll',
             'snap'
         ])
         .config(function ($locationProvider, $translateProvider, ChartJsProvider, CacheFactoryProvider, gravatarServiceProvider, ngToastProvider) {
