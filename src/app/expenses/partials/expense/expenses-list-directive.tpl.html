@@ -14,7 +14,10 @@
          expense-finish-render
          ng-show="expenseGroupEntry.model.expenseDTOs.length > 0">
 
-        <div class="expenses__list__group__name">{{expenseGroupEntry.model.localDate | friendlyDate}}</div>
+        <div class="expenses__list__group__name">
+            <span class="expenses__list__group__name__bullet"></span>
+            {{expenseGroupEntry.model.localDate | friendlyDate}}
+        </div>
 
         <div class="expenses__list__entry"
              ng-repeat="expense in expenseGroupEntry.model.expenseDTOs | orderObjectBy : selectedOrderBy : reverseOrder track by expense.model.id"

@@ -28,6 +28,18 @@
     padding: 20px 5px 0 60px;
     color: $gray-medium;
     font-weight: $font-weight-light;
+    position: relative;
+
+    .expenses__list__group__name__bullet {
+        height: 11px;
+        width: 11px;
+        position: absolute;
+        left: 40px;
+        bottom: 5px;
+        border: solid 1px $gray-light-1;
+        background-color: $gray-light-3;
+        @include border-radius(50%);
+    }
 }
 
 .expense__list__sort {
@@ -57,4 +69,8 @@
             cursor: default;
         }
     }
+}
+
+.expenses__list__loading {
+    margin: 10px auto 30px auto;
 }
