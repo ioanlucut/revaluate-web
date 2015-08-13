@@ -1,10 +1,11 @@
 .expenses__list__entry__section {
     @include border-radius($border-radius-base);
     padding: 0 0 0 10px;
-    margin: 0 50px;
-    min-height: 34px;
-    line-height: 26px;
-    border: solid 2px transparent;
+    margin: 0 0 0 20px;
+    min-height: 44px;
+    line-height: 40px;
+    box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+    border: solid 1px $gray-light-3;
 
     div {
         display: inline-block;
@@ -12,7 +13,7 @@
     }
 
     &:hover {
-        background-color: $gray-light-4;
+        border-color: $gray-light-1;
         cursor: pointer;
 
         .expenses__list__entry__section__select {
@@ -30,8 +31,8 @@
 
     .expenses__list__entry__section__select {
         position: absolute;
-        top: 9px;
-        left: 30px;
+        top: 8px;
+        left: 0;
         display: inline-block;
         width: 20px;
         height: 20px;
@@ -51,25 +52,25 @@
         }
     }
 
-    .expenses__list__entry__section__price {
-        width: 175px;
-        text-align: right;
-        margin-right: 15px;
-
-        .currency__symbol {
-            padding: 0 5px;
-            color: $gray-medium;
-            font-weight: $font-weight-light;
-        }
-    }
-
     .expenses__list__entry__section__category {
         @include category-label($brand-primary);
     }
 
     .expenses__list__entry__section__details {
         color: $gray-medium;
+        font-weight: $font-weight-light;
         @include word-wrap();
+    }
+
+    .expenses__list__entry__section__price {
+        text-align: right;
+        float: right;
+
+        .currency__symbol {
+            padding: 0 5px;
+            color: $gray-medium;
+            font-weight: $font-weight-light;
+        }
     }
 
     .expenses__list__entry__section__date {
