@@ -36,7 +36,6 @@
 
                         /**
                          * Is user already authenticated
-                         * @returns {*}
                          */
                         isAuthenticated: function () {
 
@@ -49,7 +48,6 @@
 
                         /**
                          * Is user already initiated
-                         * @returns {*}
                          */
                         isInitiated: function () {
                             return this.isAuthenticated() && this.model.initiated;
@@ -79,7 +77,6 @@
 
                         /**
                          * Loads a user from local storage.
-                         * @returns {*}
                          */
                         loadFromSession: function () {
 
@@ -88,7 +85,6 @@
 
                         /**
                          * Loads a user from given data.
-                         * @returns {*}
                          */
                         loadFrom: function (data) {
                             TransformerUtils.copyKeysFromTo(data, this.model);
