@@ -14,8 +14,7 @@
                     /* jshint validthis: true */
                     var vm = this;
 
-                    this.LOAD_MORE_TIMEOUT = 300;
-                    this.DEFAULT_EXPENSES_LIMIT = 20;
+                    this.DEFAULT_EXPENSES_LIMIT = 50;
 
                     /**
                      * Current user.
@@ -91,7 +90,7 @@
                             this.expensesLimit = this.expensesOfThisCategory.length;
                             this.isUpdatingListLayout = !this.isUpdatingListLayout;
                             this.displayShowAllButton = false;
-                        }, this), this.LOAD_MORE_TIMEOUT);
+                        }, this));
                     };
 
                     function handleShowAllFunctionality(expensesOfThisCategory) {
@@ -128,7 +127,7 @@
                             })
                             .catch(function () {
                                 $scope.$emit(ALERTS_EVENTS.DANGER, {
-                                    message: 'Could not fetch expenses for ' + vm.totalPerCategoryInsights.categoryDTO.name
+                                    message: 'Could not fetch expenses'
                                 });
                             })
                             .finally(function () {

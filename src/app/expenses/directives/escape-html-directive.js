@@ -7,7 +7,9 @@
             return {
                 require: '?ngModel',
                 link: function (scope, elem, attrs, ctrl) {
-                    if (!ctrl) return;
+                    if (!ctrl) {
+                        return;
+                    }
 
                     ctrl.$parsers.unshift(function (value) {
                         if (value == '' || value == null || value == undefined) {

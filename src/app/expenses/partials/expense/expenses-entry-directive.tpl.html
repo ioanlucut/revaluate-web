@@ -22,24 +22,24 @@
 <!-- Display expense in edit mode -->
 <div class="expense__edit__form" ng-if="showContent">
 
-    <form name="expenseForm" ng-submit="updateExpense(expenseForm, shownExpense, category)" novalidate focus-first-error>
+    <form name="vm.expenseForm" ng-submit="vm.updateExpense(vm.expenseForm, shownExpense, category)" novalidate focus-first-error>
 
         <!-- Form groups -->
-        <div class="expense__edit__form__price" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.value.$invalid || badPostSubmitResponse)}">
-            <input class="expense__edit__form__price__input" ng-disabled="isUpdating" type="text" name="value" placeholder="The value" maxlength="18" ng-model="shownExpense.model.value" format-price format="number" caret-price-position required valid-price />
+        <div class="expense__edit__form__price" ng-class="{'has-error': vm.expenseForm.$submitted && (vm.expenseForm.value.$invalid || vm.badPostSubmitResponse)}">
+            <input class="expense__edit__form__price__input" ng-disabled="vm.isUpdating" type="text" name="value" placeholder="The value" maxlength="18" ng-model="shownExpense.model.value" format-price format="number" caret-price-position required valid-price />
             <span class="expense__edit__form__price__currency">{{user.model.currency.symbol}}</span>
 
             <!-- Error messages -->
-            <div class="form-group-input__message" ng-class="{'has-error': expenseForm.value.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.value.$error" ng-if="expenseForm.$submitted">
+            <div class="form-group-input__message" ng-class="{'has-error': vm.expenseForm.value.$invalid && vm.expenseForm.$submitted}" ng-messages="vm.expenseForm.value.$error" ng-if="vm.expenseForm.$submitted">
                 <div ng-message="required">Please add a price.</div>
                 <div ng-message="validPrice">Price is invalid</div>
             </div>
         </div>
 
         <!-- Form group -->
-        <div class="expense__edit__form__category" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.category.$invalid || badPostSubmitResponse)}">
+        <div class="expense__edit__form__category" ng-class="{'has-error': vm.expenseForm.$submitted && (vm.expenseForm.category.$invalid || vm.badPostSubmitResponse)}">
 
-            <ui-select name="category" ng-disabled="isUpdating" class="category-select__input" ng-style="{'background':$select.selected.model.color.color}" required ng-model="category.selected" theme="selectize">
+            <ui-select name="category" ng-disabled="vm.isUpdating" class="category-select__input" ng-style="{'background':$select.selected.model.color.color}" required ng-model="category.selected" theme="selectize">
                 <ui-select-match ng-style="{'background':$select.selected.model.color.color}" placeholder="Select a category">{{$select.selected.model.name}}</ui-select-match>
                 <ui-select-choices repeat="categoryEntry in categories | orderObjectBy : 'model.name' : false | filter:{model:{name:$select.search}} track by categoryEntry.model.id">
                     <span class="category__color__preview" ng-style="{'background':categoryEntry.model.color.color}">C</span>
@@ -48,23 +48,23 @@
             </ui-select>
 
             <!-- Error messages -->
-            <div class="form-group-input__message" ng-class="{'has-error': expenseForm.category.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.category.$error" ng-if="expenseForm.$submitted">
+            <div class="form-group-input__message" ng-class="{'has-error': vm.expenseForm.category.$invalid && vm.expenseForm.$submitted}" ng-messages="vm.expenseForm.category.$error" ng-if="vm.expenseForm.$submitted">
                 <div ng-message="required">Please add a category.</div>
             </div>
         </div>
 
         <!-- Description input -->
-        <div class="expense__edit__form__details" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.description.$invalid || badPostSubmitResponse)}">
-            <input class="expense__edit__form__details__input" ng-disabled="isUpdating" type="text" name="description" ng-maxlength="30" maxlength="30" placeholder="Add details (optional)" ng-model="shownExpense.model.description" escape-html />
+        <div class="expense__edit__form__details" ng-class="{'has-error': vm.expenseForm.$submitted && (vm.expenseForm.description.$invalid || vm.badPostSubmitResponse)}">
+            <input class="expense__edit__form__details__input" ng-disabled="vm.isUpdating" type="text" name="description" ng-maxlength="30" maxlength="30" placeholder="Add details (optional)" ng-model="shownExpense.model.description" escape-html />
 
             <!-- Error messages -->
-            <div class="form-group-input__message" ng-class="{'has-error': expenseForm.description.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.description.$error" ng-if="expenseForm.$submitted">
+            <div class="form-group-input__message" ng-class="{'has-error': vm.expenseForm.description.$invalid && vm.expenseForm.$submitted}" ng-messages="vm.expenseForm.description.$error" ng-if="vm.expenseForm.$submitted">
                 <div ng-message="maxlength">Hmm. Too long.</div>
             </div>
         </div>
 
         <!-- Date input -->
-        <div class="expense__edit__form__date" ng-class="{'has-error': expenseForm.spentDate.$invalid && expenseForm.$submitted}">
+        <div class="expense__edit__form__date" ng-class="{'has-error': vm.expenseForm.spentDate.$invalid && vm.expenseForm.$submitted}">
 
             <!--Hidden input of the expense chosen date-->
             <input type="hidden" name="spentDate" ng-model="shownExpense.model.spentDate" required valid-date />
@@ -74,8 +74,8 @@
                 <button ng-click="openDatePicker($event)" type="button"
                         class="expense__edit__form__date__input__btn"
                         datepicker-popup is-open="datePickerStatus.opened"
-                        ng-disabled="isUpdating"
-                        min-date="minDate"
+                        ng-disabled="vm.isUpdating"
+                        min-date="vm.minDate"
                         max-date="maxDate"
                         ng-model="shownExpense.model.spentDate"
                         datepicker-options="{startingDay:1,showWeeks:false}">
@@ -84,7 +84,7 @@
             </div>
 
             <!--Error messages-->
-            <div class="form-group-input__message" ng-class="{'has-error': expenseForm.spentDate.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.spentDate.$error" ng-if="expenseForm.$submitted">
+            <div class="form-group-input__message" ng-class="{'has-error': vm.expenseForm.spentDate.$invalid && vm.expenseForm.$submitted}" ng-messages="vm.expenseForm.spentDate.$error" ng-if="vm.expenseForm.$submitted">
                 <div ng-message="required">Please add a date.</div>
                 <div ng-message="validDate">Date should be in the past.</div>
             </div>
@@ -96,7 +96,7 @@
         </div>
 
         <div class="expense__edit__form__submit__save">
-            <button ng-disabled="isUpdating" class="expense__edit__form__savebtn" type="submit">{{isUpdating ? 'Saving' : 'Save'}}</button>
+            <button ng-disabled="vm.isUpdating" class="expense__edit__form__savebtn" type="submit">{{vm.isUpdating ? 'Saving' : 'Save'}}</button>
         </div>
     </form>
 

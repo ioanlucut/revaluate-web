@@ -3,7 +3,7 @@
 
     angular
         .module('revaluate.common')
-        .controller('HeaderController', function ($scope, $rootScope, $state, $timeout, StatesHandler, AuthService, AUTH_EVENTS) {
+        .controller('HeaderController', function ($document,$scope, $rootScope, $state, $timeout, StatesHandler, AuthService, AUTH_EVENTS) {
 
             /**
              * Save state to scope
@@ -30,7 +30,15 @@
              */
             this.goToTourPage = function () {
                 StatesHandler.goHome(function () {
+
+                    // Callback
                     $timeout(function () {
+                        var duration = 1000,
+                            offset = 0,
+                            someElement = angular.element(document.getElementById('section__1'));
+
+                        $document
+                            .scrollToElement(someElement, offset, duration);
                     });
                 })
             };
