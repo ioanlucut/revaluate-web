@@ -103,14 +103,7 @@
              * Saves the expense.
              */
             this.saveExpense = function () {
-                var isDateInFuture = moment().diff(this.expense.model.spentDate || this.expenseForm.spentDate) <= 0;
                 if (this.expenseForm.$valid && !this.isSaving) {
-
-                    if (isDateInFuture) {
-                        this.expenseForm.spentDate.$setValidity('validDate', false);
-
-                        return;
-                    }
 
                     this.isSaving = true;
 

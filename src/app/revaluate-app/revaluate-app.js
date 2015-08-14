@@ -34,7 +34,8 @@
             'ngToast',
             'ui.select',
             'infinite-scroll',
-            'snap'
+            'snap',
+            'duScroll'
         ])
         .config(function ($locationProvider, $translateProvider, ChartJsProvider, CacheFactoryProvider, gravatarServiceProvider, ngToastProvider) {
             var MAIN_FONT,
