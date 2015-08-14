@@ -14,7 +14,7 @@
             vm.currentYear = moment().year();
 
             /**
-             * Default insights overview.
+             * Default insights daily.
              */
             vm.insightsDaily = insightsDaily;
 

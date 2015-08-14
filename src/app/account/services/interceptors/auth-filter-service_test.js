@@ -8,7 +8,7 @@
 
     describe('app/AuthFilter', function () {
 
-        var $rootScope, $location, $state, $injector, $httpBackend, $q, ENV, AUTH_URLS, AccountModal, EXPENSE_URLS, CATEGORY_URLS, STATES, AuthServiceMock, UserMock;
+        var $rootScope, $location, $state, $injector, $httpBackend, $q, ENV, AUTH_URLS, AccountModal, DatesUtils, InsightsService, INSIGHTS_URLS, EXPENSE_URLS, CATEGORY_URLS, STATES, AuthServiceMock, UserMock;
 
         beforeEach(function () {
 
@@ -30,7 +30,11 @@
                 $provide.value('User', UserMock = {});
             });
 
-            inject(function (_$rootScope_, _$state_, _$location_, _$injector_, _$httpBackend_, _$q_, _ENV_, _AccountModal_, _EXPENSE_URLS_, _CATEGORY_URLS_, _STATES_, _AUTH_URLS_, $templateCache) {
+            inject(function (_$rootScope_, _$state_, _$location_, _$injector_, _$httpBackend_, _$q_, _ENV_, _AccountModal_, _DatesUtils_, _InsightsService_, _INSIGHTS_URLS_, _EXPENSE_URLS_, _CATEGORY_URLS_, _STATES_, _AUTH_URLS_, $templateCache) {
+                var period,
+                    fromFormatted,
+                    toFormatted;
+
                 $rootScope = _$rootScope_;
                 $state = _$state_;
                 $location = _$location_;
@@ -43,12 +47,25 @@
                 CATEGORY_URLS = _CATEGORY_URLS_;
                 STATES = _STATES_;
                 AUTH_URLS = _AUTH_URLS_;
+                DatesUtils = _DatesUtils_;
+                InsightsService = _InsightsService_;
+                INSIGHTS_URLS = _INSIGHTS_URLS_;
+
                 URLTo.apiBase(ENV.apiEndpoint);
 
                 // We need add the template entry into the templateCache if we ever specify a templateUrl
                 $templateCache.put('template.html', '');
 
+                period = DatesUtils.fromLastMonthsToNow(1);
+                fromFormatted = DatesUtils.formatDate(period.from);
+                toFormatted = DatesUtils.formatDate(period.to);
+
                 $httpBackend.whenGET(URLTo.api('expenses/retrieve_grouped?page=0&size=50')).respond(200, []);
+                $httpBackend.whenGET(URLTo.api('insights/insights_months_per_years')).respond(200, []);
+                $httpBackend.whenGET(URLTo.api(INSIGHTS_URLS.fetchDailyInsights, {
+                    ':from': fromFormatted,
+                    ':to': toFormatted
+                })).respond(200, []);
                 $httpBackend.whenGET(URLTo.api(CATEGORY_URLS.allCategories)).respond(200, []);
 
                 AuthServiceMock.logout = jasmine.createSpy('logout');

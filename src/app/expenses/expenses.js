@@ -43,13 +43,6 @@
                             controller: 'InsightsDailyController',
                             controllerAs: 'vm',
                             resolve: {
-                                insightsOverview: function (DatesUtils, InsightsService, INSIGHTS_INTERVAL) {
-                                    var period = DatesUtils.fromLastMonthsToNow(INSIGHTS_INTERVAL.QUARTER_YEAR);
-
-                                    return InsightsService
-                                        .fetchOverviewInsightsFromTo(period.from, period.to);
-                                },
-
                                 monthsPerYearsStatistics: function (StatisticService) {
                                     return StatisticService
                                         .fetchInsightsMonthsPerYearStatistics();
