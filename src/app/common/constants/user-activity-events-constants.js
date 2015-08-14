@@ -26,6 +26,7 @@
             insightsPage: 'Insights page',
             insightsFetched: 'Insights fetched',
             insightsOverviewFetched: 'Insights overview fetched',
+            insightsDailyFetched: 'Insights daily fetched',
             insightsProgressFetched: 'Insights progress fetched',
 
             settings: 'Settings',
