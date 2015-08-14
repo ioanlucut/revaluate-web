@@ -41,13 +41,13 @@
 * `git push`
 
 # GULP
-* Configs are three, they can be found at e.g. `app.config.production.json`. To activate the environment, just pass to the gulp arguments, e.g. `gulp serve:dist --env=localhost`
+* Configs are three, they can be found at e.g. `app.config.production.json`. To activate the environment, just pass to the gulp arguments, e.g. `gulp serve:dist --env=local`
 * Build `DEV`: `gulp build:dev`
 * Build `PROD`: `gulp build:prod`
-* Build `localhost`: `gulp build:local`
+* Build `local`: `gulp build:local`
 * Same applies for `gulp serve`
 * Same applies for `gulp serve:dist`
-* To run in localhost `gulp serve --env=localhost`
+* To run in localhost `gulp serve --env=local`
 * Build `custom`: `gulp --env=localhost` but the configs have to be defined for that specific custom environments.
 * Note: All paths are `relative`. Always use `/app/sometheing`, and not `app/something`
 * More infos `https://github.com/Swiip/generator-gulp-angular`
