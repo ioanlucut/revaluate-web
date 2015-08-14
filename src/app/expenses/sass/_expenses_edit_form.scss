@@ -1,0 +1,213 @@
+.expense__edit__form {
+    @include clearfix();
+    width: 100%;
+    color: $black;
+    position: relative;
+    font-weight: $font-weight-regular;
+    @include no-user-select();
+    @include border-radius($border-radius-base);
+    background-color: $brand-warning-light;
+    padding: 20px 40px 20px 40px;
+    margin: 0 auto;
+
+    .expense__edit__form__price__input,
+    .expense__edit__form__category__input,
+    .expense__edit__form__category .category-select__input .selectize-input,
+    .expense__edit__form__details__input,
+    .expense__edit__form__date__input {
+        @include border-radius(0);
+        font-weight: $font-weight-regular;
+        margin: 0;
+        border: solid 1px $add-expense-form-border-color;
+        border-radius: 0;
+
+        &:focus {
+            border-color: $brand-primary;
+            background-color: lighten($brand-primary, 35%);
+        }
+
+        &[disabled] {
+            cursor: not-allowed;
+        }
+    }
+}
+
+.expense__edit__form__price,
+.expense__edit__form__category,
+.expense__edit__form__details,
+.expense__edit__form__date {
+    &.has-error {
+
+        input {
+
+        }
+    }
+}
+
+// Price input styling
+// ----------------------
+
+.expense__edit__form__price {
+    @include clearfix();
+    float: left;
+    padding: 0;
+    width: 50%;
+    position: relative;
+
+    .expense__edit__form__price__input {
+        height: $edit-expense-form-height;
+        line-height: $edit-expense-form-height;
+        text-align: right;
+        padding-right: 50px;
+        position: relative;
+    }
+
+    .expense__edit__form__price__input,
+    .expense__edit__form__price__input:focus {
+        border-right: solid 1px $gray-light-2;
+        border-bottom: solid 1px $gray-light-2;
+        border-top-left-radius: $border-radius-base;
+    }
+
+    .expense__edit__form__price__currency {
+        height: $edit-expense-form-height - 4px;
+        line-height: $edit-expense-form-height - 4px;
+        position: absolute;
+        right: 0;
+        top: 2px;
+        padding: 0 10px;
+        color: $gray-light-1;
+        font-weight: $font-weight-regular;
+        z-index: 999;
+        border-right: solid 1px $gray-light-3;
+    }
+}
+
+// Category input styling
+// ----------------------
+
+.expense__edit__form__category {
+    float: left;
+    padding: 0;
+    width: 50%;
+    position: relative;
+    height: $edit-expense-form-height;
+
+    .category-select__input {
+        height: $edit-expense-form-height;
+        background-color: $gray-light-3;
+
+        .selectize-input {
+            @include border-radius(0);
+            height: $edit-expense-form-height;
+            line-height: $edit-expense-form-height - 3px !important;
+            border-color: $add-expense-form-border-color $add-expense-form-border-color $gray-light-2 $gray-light-2 !important;
+            border-width: 1px 1px 1px 0 !important;
+            border-top-right-radius: $base-border-radius !important;
+
+            & > * {
+                height: 100%;
+            }
+
+            & > input {
+                height: $edit-expense-form-height - 3px;
+                border-right: solid 1px $gray-light-3;
+                @include border-radius(0);
+            }
+        }
+    }
+}
+
+.category__color__preview {
+    @include border-radius(50%);
+    @include size(21px 21px);
+    margin: 3px 3px 3px 0;
+    display: inline-block;
+    text-indent: -9999px;
+}
+
+// Details input styling
+// -------------------------
+.expense__edit__form__details {
+    float: left;
+    width: 50%;
+    position: relative;
+
+    .expense__edit__form__details__input {
+        height: $edit-expense-form-height;
+    }
+
+    .expense__edit__form__details__input,
+    .expense__edit__form__details__input:focus {
+        border-right: solid 1px $gray-light-2;
+        border-top: solid 0 $gray-light-2;
+        border-bottom-left-radius: $base-border-radius;
+    }
+}
+
+// Date input styling
+// -------------------------
+.expense__edit__form__date {
+    float: left;
+    display: block;
+    width: 50%;
+    padding: 0;
+    position: relative;
+
+    .expense__edit__form__date__input {
+        height: $edit-expense-form-height;
+        text-align: right;
+        border-left: solid 0 $gray-light-2;
+        border-top: solid 0 $gray-light-2;
+        border-bottom-right-radius: $base-border-radius;
+
+        &:focus {
+            border: solid 2px $brand-primary;
+        }
+
+        .expense__edit__form__date__input__btn {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            background-color: $white;
+            border-left: solid 1px $gray-light-3;
+            @include border-radius(0);
+            @include transition(none);
+
+            &:focus {
+                background-color: lighten($brand-primary, 35%);
+            }
+        }
+    }
+
+    & > .form-group-input__message {
+        top: 0;
+        right: 140px;
+    }
+}
+
+// Buttons
+// -------
+.expense__edit__form__submit__save,
+.expense__edit__form__submit__cancel {
+    float: left;
+    width: 50%;
+    height: $edit-expense-form-height;
+    margin-top: 2px;
+}
+
+.expense__edit__form__submit__save .expense__edit__form__savebtn {
+    @include btn($brand-primary);
+    float: right;
+    height: 100%;
+    width: 100%;
+}
+
+.expense__edit__form__submit__cancel .expense__edit__form__cancelbtn {
+    @include btn-link($brand-danger);
+}
+
+.expense__edit__form__submit__save .expense__edit__form__savebtn,
+.expense__edit__form__submit__cancel .expense__edit__form__cancelbtn {
+    font-size: $font-size-base;
+}
