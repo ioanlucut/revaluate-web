@@ -5,7 +5,7 @@
     min-height: 44px;
     line-height: 40px;
     box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
-    border: solid 1px $gray-light-3;
+    border: solid 1px $gray-light-1;
 
     div {
         display: inline-block;
@@ -13,7 +13,7 @@
     }
 
     &:hover {
-        border-color: $gray-light-1;
+        border-color: $gray-medium;
         cursor: pointer;
 
         .expenses__list__entry__section__select {
@@ -57,7 +57,7 @@
     }
 
     .expenses__list__entry__section__details {
-        color: $gray-medium;
+        color: $gray-dark-1;
         font-weight: $font-weight-light;
         @include word-wrap();
     }
