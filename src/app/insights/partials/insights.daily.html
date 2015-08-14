@@ -1,0 +1,21 @@
+<div insights-empty-state-toggle show-empty-state="vm.monthsPerYearsStatistics.isOverallTransactionsEmpty()">
+
+    <div class="insights__chart__bar" fade-out-in fade-when="vm.isLoading">
+
+        <div class="spinner insights__loading" ng-if="vm.isLoading">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+
+        <canvas id="bar"
+                class="chart chart-bar"
+                data="vm.barInsightsPrepared.insightsBarData"
+                series="vm.barInsightsPrepared.insightsBarSeries"
+                legend="false"
+                options="vm.barOptions"
+                colours="vm.barInsightsPrepared.insightsBarColors"
+                labels="vm.barInsightsPrepared.insightsBarLabels">
+        </canvas>
+    </div>
+
+</div>

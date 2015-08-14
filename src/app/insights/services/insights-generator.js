@@ -160,6 +160,29 @@
                 }
             };
 
+            this.generateDailyBar = function (month, insightsDaily) {
+
+                var insightsBarLabels,
+                    insightsBarData;
+
+                insightsBarData = _.map(insightsDaily.model.totalPerDayDTOs, function (totalPerDayDTOEntry) {
+                    return totalPerDayDTOEntry.totalAmount;
+                });
+
+                insightsBarLabels = _.map(insightsDaily.model.totalPerDayDTOs, function (totalPerDayDTOEntry) {
+                    var dateFromMonthDay = totalPerDayDTOEntry.monthDay.replace(/--/g, month + '-');
+
+                    return $filter('friendlyMonthDay')(dateFromMonthDay);
+                });
+
+                return {
+                    insightsBarData: [insightsBarData],
+                    insightsBarSeries: 'Expenses',
+                    insightsBarLabels: insightsBarLabels,
+                    insightsBarColors: [this.getColour(this.hexToRgb('#22A7F0'.substr(1)))]
+                }
+            };
+
             this.getColour = function (colour) {
                 return {
                     fillColor: this.rgba(colour, 0.9),

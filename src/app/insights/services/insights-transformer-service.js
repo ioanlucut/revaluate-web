@@ -41,5 +41,12 @@
 
                 return insightsProgress;
             };
+
+            this.toInsightsDaily = function (insightDto, insightsDaily, skipKeys) {
+                insightsDaily = insightsDaily || $injector.get('InsightsDaily').build();
+                TransformerUtils.copyKeysFromTo(insightDto, insightsDaily.model, skipKeys);
+
+                return insightsDaily;
+            };
         });
 }());

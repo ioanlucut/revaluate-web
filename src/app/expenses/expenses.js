@@ -24,8 +24,8 @@
                 .state('expenses.regular', {
                     url: '',
                     views: {
-                        'expenses': {
-                            templateUrl: '/app/expenses/partials/expense/expenses.html',
+                        'left__content': {
+                            templateUrl: '/app/expenses/partials/expense/expenses__left.html',
                             controller: 'ExpenseController',
                             resolve: {
                                 expensesQueryResponse: function (ExpenseService) {
@@ -37,6 +37,33 @@
                                 }
                             },
                             controllerAs: 'vm'
+                        },
+                        'right__content': {
+                            templateUrl: '/app/insights/partials/insights.daily.html',
+                            controller: 'InsightsDailyController',
+                            controllerAs: 'vm',
+                            resolve: {
+                                insightsOverview: function (DatesUtils, InsightsService, INSIGHTS_INTERVAL) {
+                                    var period = DatesUtils.fromLastMonthsToNow(INSIGHTS_INTERVAL.QUARTER_YEAR);
+
+                                    return InsightsService
+                                        .fetchOverviewInsightsFromTo(period.from, period.to);
+                                },
+
+                                monthsPerYearsStatistics: function (StatisticService) {
+                                    return StatisticService
+                                        .fetchInsightsMonthsPerYearStatistics();
+                                },
+
+                                insightsDaily: function (DatesUtils, InsightsService) {
+                                    var period = DatesUtils.fromLastMonthsToNow(1);
+
+                                    return InsightsService
+                                        .fetchDailyInsightsFromTo(period.from, period.to);
+                                }
+                            },
+                            title: 'Insights daily - Revaluate',
+                            stateEventName: USER_ACTIVITY_EVENTS.insightsPage
                         }
                     },
                     title: 'Expenses - Revaluate',

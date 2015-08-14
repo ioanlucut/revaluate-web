@@ -182,8 +182,7 @@
                     .then(function () {
                         $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.expenseDeleted);
 
-                        removeBulkExpenses(selectedForBulkDelete);
-                        $rootScope.$broadcast(EXPENSE_EVENTS.isDeleted, {});
+                        $rootScope.$broadcast(EXPENSE_EVENTS.isDeleted, { expenses: selectedForBulkDelete });
                     })
                     .catch(function () {
                         vm.cancelBulkAction();
@@ -264,9 +263,8 @@
              * On expense deleted, display a success message, and remove the expense from the list.
              */
             $scope.$on(EXPENSE_EVENTS.isDeleted, function (event, args) {
-                if (args.expense) {
-                    removeExpenseFromGroupedExpenses(vm.expenses, args.expense);
-                    _.remove(vm.temporaryExpenses, 'model.id', args.expense.model.id);
+                if (args.expenses) {
+                    removeBulkExpenses(args.expenses);
                 }
 
                 $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Deleted');

@@ -9,8 +9,8 @@
         .service('InsightsService', function (INSIGHTS_URLS, $q, $http, $injector, InsightsTransformerService, DatesUtils) {
 
             this.fetchMonthlyInsightsFromTo = function (from, to) {
-                var fromFormatted = DatesUtils.formatDate(from);
-                var toFormatted = DatesUtils.formatDate(to);
+                var fromFormatted = DatesUtils.formatDate(from),
+                    toFormatted = DatesUtils.formatDate(to);
 
                 return $http
                     .get(URLTo.api(INSIGHTS_URLS.fetchInsights, { ':from': fromFormatted, ':to': toFormatted }))
@@ -23,8 +23,8 @@
             };
 
             this.fetchOverviewInsightsFromTo = function (from, to) {
-                var fromFormatted = DatesUtils.formatDate(from);
-                var toFormatted = DatesUtils.formatDate(to);
+                var fromFormatted = DatesUtils.formatDate(from),
+                    toFormatted = DatesUtils.formatDate(to);
 
                 return $http
                     .get(URLTo.api(INSIGHTS_URLS.fetchOverviewInsights, { ':from': fromFormatted, ':to': toFormatted }))
@@ -37,14 +37,28 @@
             };
 
             this.fetchProgressInsightsFromTo = function (from, to) {
-                var fromFormatted = DatesUtils.formatDate(from);
-                var toFormatted = DatesUtils.formatDate(to);
+                var fromFormatted = DatesUtils.formatDate(from),
+                    toFormatted = DatesUtils.formatDate(to);
 
                 return $http
                     .get(URLTo.api(INSIGHTS_URLS.fetchProgressInsights, { ':from': fromFormatted, ':to': toFormatted }))
                     .then(function (response) {
 
                         return InsightsTransformerService.toInsightsProgress(response.data);
+                    }).catch(function (response) {
+                        return $q.reject(response);
+                    });
+            };
+
+            this.fetchDailyInsightsFromTo = function (from, to) {
+                var fromFormatted = DatesUtils.formatDate(from),
+                    toFormatted = DatesUtils.formatDate(to);
+
+                return $http
+                    .get(URLTo.api(INSIGHTS_URLS.fetchDailyInsights, { ':from': fromFormatted, ':to': toFormatted }))
+                    .then(function (response) {
+
+                        return InsightsTransformerService.toInsightsDaily(response.data);
                     }).catch(function (response) {
                         return $q.reject(response);
                     });
