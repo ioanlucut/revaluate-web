@@ -1,0 +1,54 @@
+@media (max-width: $screen-xs-min) {
+
+    .expense__edit__form {
+        padding: 10px;
+        margin: 0 auto;
+
+        .expense__edit__form__price__input,
+        .expense__edit__form__category__input,
+        .expense__edit__form__category .category-select__input .selectize-input,
+        .expense__edit__form__details__input,
+        .expense__edit__form__date__input {
+            border-width: 1px 1px;
+            border-color: $add-expense-form-border-color;
+            border-radius: 0;
+        }
+
+        .expense__edit__form__price .expense__edit__form__price__currency {
+            border-width: 0;
+        }
+
+        .expense__edit__form__price__input,
+        .expense__edit__form__price__input:focus {
+            border-right: solid 1px $add-expense-form-border-color;
+            border-bottom: solid 1px $gray-light-2;
+            @include border-radius(0);
+            @include border-top-radius($base-border-radius);
+        }
+
+        .expense__edit__form__category .category-select__input .selectize-input {;
+            border-color: $gray-light-2 $add-expense-form-border-color $gray-light-2 $add-expense-form-border-color !important;
+            border-width: 0 1px 1px 1px !important;
+            border-top-right-radius: 0 !important;
+        }
+
+        .expense__edit__form__details__input,
+        .expense__edit__form__details__input:focus {
+            border-right: solid 1px $add-expense-form-border-color;
+            border-top: solid 0 $gray-light-2;
+            border-bottom: solid 1px $gray-light-2;
+        }
+
+        .expense__edit__form__date__input {
+            border-top: solid 0 $gray-light-2;
+            @include border-bottom-radius($base-border-radius);
+        }
+    }
+
+    .expense__edit__form__price,
+    .expense__edit__form__category,
+    .expense__edit__form__details,
+    .expense__edit__form__date {
+        width: 100%;
+    }
+}

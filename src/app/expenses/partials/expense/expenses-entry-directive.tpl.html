@@ -20,14 +20,14 @@
 </div>
 
 <!-- Display expense in edit mode -->
-<div class="expenses__form expenses__form--edit" ng-if="showContent">
+<div class="expense__edit__form" ng-if="showContent">
 
     <form name="expenseForm" ng-submit="updateExpense(expenseForm, shownExpense, category)" novalidate focus-first-error>
 
         <!-- Form groups -->
-        <div class="expense__form__price" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.value.$invalid || badPostSubmitResponse)}">
-            <input class="expense__form__price__input" ng-disabled="isUpdating" type="text" name="value" placeholder="The value" maxlength="18" ng-model="shownExpense.model.value" format-price format="number" caret-price-position required valid-price />
-            <span class="expense__form__price__currency">{{user.model.currency.symbol}}</span>
+        <div class="expense__edit__form__price" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.value.$invalid || badPostSubmitResponse)}">
+            <input class="expense__edit__form__price__input" ng-disabled="isUpdating" type="text" name="value" placeholder="The value" maxlength="18" ng-model="shownExpense.model.value" format-price format="number" caret-price-position required valid-price />
+            <span class="expense__edit__form__price__currency">{{user.model.currency.symbol}}</span>
 
             <!-- Error messages -->
             <div class="form-group-input__message" ng-class="{'has-error': expenseForm.value.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.value.$error" ng-if="expenseForm.$submitted">
@@ -37,7 +37,7 @@
         </div>
 
         <!-- Form group -->
-        <div class="expense__form__category" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.category.$invalid || badPostSubmitResponse)}">
+        <div class="expense__edit__form__category" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.category.$invalid || badPostSubmitResponse)}">
 
             <ui-select name="category" ng-disabled="isUpdating" class="category-select__input" ng-style="{'background':$select.selected.model.color.color}" required ng-model="category.selected" theme="selectize">
                 <ui-select-match ng-style="{'background':$select.selected.model.color.color}" placeholder="Select a category">{{$select.selected.model.name}}</ui-select-match>
@@ -54,8 +54,8 @@
         </div>
 
         <!-- Description input -->
-        <div class="expense__form__details" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.description.$invalid || badPostSubmitResponse)}">
-            <input class="expense__form__details__input" ng-disabled="isUpdating" type="text" name="description" ng-maxlength="30" maxlength="30" placeholder="Add details (optional)" ng-model="shownExpense.model.description" escape-html />
+        <div class="expense__edit__form__details" ng-class="{'has-error': expenseForm.$submitted && (expenseForm.description.$invalid || badPostSubmitResponse)}">
+            <input class="expense__edit__form__details__input" ng-disabled="isUpdating" type="text" name="description" ng-maxlength="30" maxlength="30" placeholder="Add details (optional)" ng-model="shownExpense.model.description" escape-html />
 
             <!-- Error messages -->
             <div class="form-group-input__message" ng-class="{'has-error': expenseForm.description.$invalid && expenseForm.$submitted}" ng-messages="expenseForm.description.$error" ng-if="expenseForm.$submitted">
@@ -64,15 +64,15 @@
         </div>
 
         <!-- Date input -->
-        <div class="expense__form__date" ng-class="{'has-error': expenseForm.spentDate.$invalid && expenseForm.$submitted}">
+        <div class="expense__edit__form__date" ng-class="{'has-error': expenseForm.spentDate.$invalid && expenseForm.$submitted}">
 
             <!--Hidden input of the expense chosen date-->
             <input type="hidden" name="spentDate" ng-model="shownExpense.model.spentDate" required valid-date />
 
             <!--Expense date picker-->
-            <div class="expense__form__date__input">
+            <div class="expense__edit__form__date__input">
                 <button ng-click="openDatePicker($event)" type="button"
-                        class="expense__form__date__input__btn"
+                        class="expense__edit__form__date__input__btn"
                         datepicker-popup is-open="datePickerStatus.opened"
                         ng-disabled="isUpdating"
                         min-date="minDate"
@@ -91,12 +91,12 @@
         </div>
 
         <!-- Button container -->
-        <div class="expense__form__submit__save">
-            <button ng-disabled="isUpdating" class="expense__edit__form__savebtn" type="submit">{{isUpdating ? 'Saving' : 'Save'}}</button>
+        <div class="expense__edit__form__submit__cancel">
+            <button class="expense__edit__form__cancelbtn" type="button" ng-click="cancel();">Discard changes</button>
         </div>
 
-        <div class="expense__form__submit__cancel">
-            <button class="expense__edit__form__cancelbtn" type="button" ng-click="cancel();">Discard changes</button>
+        <div class="expense__edit__form__submit__save">
+            <button ng-disabled="isUpdating" class="expense__edit__form__savebtn" type="submit">{{isUpdating ? 'Saving' : 'Save'}}</button>
         </div>
     </form>
 

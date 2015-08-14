@@ -1,0 +1,10 @@
+@media (max-width: $screen-sm-min) {
+    .expenses__column__left {
+        width: 100%;
+        border-right: solid 0 transparent;
+    }
+
+    .expenses__column__right {
+        display: none;
+    }
+}
