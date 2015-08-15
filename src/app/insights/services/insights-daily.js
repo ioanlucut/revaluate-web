@@ -1,40 +1,34 @@
 (function () {
     'use strict';
 
+    function InsightsDailyFactory(InsightsAbstract) {
+
+        /**
+         * Insights daily class.
+         */
+        function InsightsDaily(data) {
+            InsightsAbstract.call(this, data);
+
+            this.totalPerDayDTOs = data.totalPerDayDTOs;
+        }
+
+        /**
+         * Inherit the base class prototype
+         */
+        InsightsDaily.prototype = Object.create(InsightsAbstract.prototype);
+
+        /**
+         * Builds a daily insights from the given data.
+         */
+        InsightsDaily.build = function (data) {
+
+            return new InsightsDaily(data);
+        };
+
+        return InsightsDaily;
+    }
+
     angular
         .module('revaluate.insights')
-        .factory('InsightsDaily', function ($q, $http, InsightsService, InsightsTransformerService) {
-
-            /**
-             * Insights class.
-             */
-            function InsightsDaily() {
-
-                /**
-                 * Represents the DTO model of the insights.
-                 */
-                this.model = {
-
-                    /**
-                     * Total amount spent
-                     */
-                    totalAmountSpent: 0,
-
-                    totalPerDayDTOs: []
-                };
-            }
-
-            /**
-             * Builds a insights with given data.
-             */
-            InsightsDaily.build = function (data) {
-                if (_.isEmpty(data)) {
-                    return new InsightsDaily();
-                }
-
-                return InsightsTransformerService.toInsightsDaily(data, new InsightsDaily());
-            };
-
-            return InsightsDaily;
-        });
+        .factory('InsightsDaily', InsightsDailyFactory);
 }());

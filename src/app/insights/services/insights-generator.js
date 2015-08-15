@@ -165,11 +165,11 @@
                 var insightsBarLabels,
                     insightsBarData;
 
-                insightsBarData = _.map(insightsDaily.model.totalPerDayDTOs, function (totalPerDayDTOEntry) {
+                insightsBarData = _.map(insightsDaily.totalPerDayDTOs, function (totalPerDayDTOEntry) {
                     return totalPerDayDTOEntry.totalAmount;
                 });
 
-                insightsBarLabels = _.map(insightsDaily.model.totalPerDayDTOs, function (totalPerDayDTOEntry) {
+                insightsBarLabels = _.map(insightsDaily.totalPerDayDTOs, function (totalPerDayDTOEntry) {
                     var dateFromMonthDay = totalPerDayDTOEntry.monthDay.replace(/--/g, month + '-');
 
                     return $filter('friendlyMonthDay')(dateFromMonthDay);
