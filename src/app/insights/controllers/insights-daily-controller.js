@@ -40,8 +40,11 @@
                 scaleShowVerticalLines: false,
                 scaleShowLabels: false,
                 showScale: false,
+                scaleFontSize: 12,
                 tooltipFontSize: 12,
-                tooltipTitleFontSize: 12
+                tooltipTitleFontSize: 12,
+                tooltipYPadding: 15,
+                tooltipXPadding: 15
             });
 
             /**
@@ -65,16 +68,15 @@
             /**
              * Reload chart if necessary upon delete/update/create.
              */
-            function tryToReloadIfNecessary(args) {
+            function reloadIfRequired(expense) {
+                var isSameMonth = moment(moment().year()).isSame(moment(expense.model.spentDate).year());
 
-                function reloadIfRequired(expense) {
-                    var isSameMonth = moment(moment().year()).isSame(moment(expense.model.spentDate).year());
-
-                    if (isSameMonth) {
-                        vm.loadInsights();
-                    }
+                if (isSameMonth) {
+                    vm.loadInsights();
                 }
+            }
 
+            function tryToReloadIfNecessary(args) {
                 if (args.expense) {
                     reloadIfRequired(args.expense);
                 } else if (args.expenses) {
@@ -126,15 +128,12 @@
             };
 
             $scope.$on(EXPENSE_EVENTS.isCreated, function (event, args) {
-                console.log('created!!');
                 tryToReloadIfNecessary(args);
             });
             $scope.$on(EXPENSE_EVENTS.isDeleted, function (event, args) {
-                console.log('deleted!!');
                 tryToReloadIfNecessary(args);
             });
             $scope.$on(EXPENSE_EVENTS.isUpdated, function (event, args) {
-                console.log('updated!!');
                 tryToReloadIfNecessary(args);
             });
 
