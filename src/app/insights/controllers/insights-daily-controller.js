@@ -38,14 +38,10 @@
             vm.barOptions = angular.extend(vm.barOptions, {
                 scaleShowHorizontalLines: false,
                 scaleShowVerticalLines: false,
-                scaleFontSize: 8,
-                tooltipFontSize: 8,
-                tooltipTitleFontSize: 8,
-                tooltipYPadding: 5,
-                tooltipXPadding: 5,
-                tooltipCaretSize: 4,
-                tooltipCornerRadius: 3,
-                tooltipXOffset: 5
+                scaleShowLabels: false,
+                showScale: false,
+                tooltipFontSize: 12,
+                tooltipTitleFontSize: 12
             });
 
             /**

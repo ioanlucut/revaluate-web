@@ -6,7 +6,7 @@
      */
     angular
         .module('revaluate.insights')
-        .service('InsightsService', function (INSIGHTS_URLS, $q, $http, $injector, InsightsTransformerService, DatesUtils) {
+        .service('InsightsService', function (INSIGHTS_URLS, $q, $http, $injector, InsightsDaily, InsightsTransformerService, DatesUtils) {
 
             this.fetchMonthlyInsightsFromTo = function (from, to) {
                 var fromFormatted = DatesUtils.formatDate(from),
@@ -56,10 +56,8 @@
 
                 return $http
                     .get(URLTo.api(INSIGHTS_URLS.fetchDailyInsights, { ':from': fromFormatted, ':to': toFormatted }))
-                    .then(function (response) {
-
-                        return InsightsTransformerService.toInsightsDaily(response.data);
-                    }).catch(function (response) {
+                    .then(InsightsTransformerService.apiResponseTransformer)
+                    .catch(function (response) {
                         return $q.reject(response);
                     });
             };
