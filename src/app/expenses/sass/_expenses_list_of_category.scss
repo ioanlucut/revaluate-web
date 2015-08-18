@@ -1,10 +1,11 @@
 .expenses__list__category {
-    padding: 10px 0 0 0;
+    padding: 0 5px 10px 120px;
+    border-bottom: solid 1px $gray-light-1;
 }
 
 /* starting animations */
 .expenses__list__category.ng-enter {
-    @include fadeInDown(0.8s);
+    @include fadeInDown(0.5s);
 }
 
 /* destination animations */
@@ -26,14 +27,14 @@
     height: 100%;
     width: 100%;
     position: relative;
-    border-bottom: solid 1px #f9f9f9;
+    border-bottom: solid 1px $gray-light-2;
 
     &:first-child {
-        border-top: solid 1px $gray-light-3;
+        border-top: solid 0 transparent;
     }
 
-    &:last-child{
-        border-width: 0;
+    &:last-child {
+        border-bottom: solid 1px $gray-light-3;
     }
 }
 
@@ -43,7 +44,11 @@
     cursor: pointer;
     position: absolute;
     right: 120px;
-    margin-top: -19px;
+    margin-top: -30px;
+
+    &:hover {
+        border-bottom: solid 1px $gray-light-1;
+    }
 }
 
 .expenses__list__category__loading {
@@ -53,6 +58,22 @@
     left: 50%;
     margin-left: -40px;
     margin-top: -20px;
+}
+
+.expenses__list__transactions__showall {
+    text-align: center;
+
+    button {
+        @include btn-link($brand-primary);
+        position: relative;
+
+        span {
+            position: absolute;
+            top: 7px;
+            left: -15px;
+            border-width: 0;
+        }
+    }
 }
 
 expenses-of-category {

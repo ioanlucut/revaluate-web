@@ -1,24 +1,29 @@
-<!--Expense list content.-->
-<div ng-show="showExpensesContent" class="expense-list-box" ng-class="{ 'expense-list-box--past-expenses': reverseOrder}">
+<div class="expenses__list">
 
-    <div class="expenses__list" fade-out-in fade-when="isUpdatingListLayout">
+    <div class="expense__list__sort" ng-if="expenses.length !== 0">
+        <div class="expense__list__sort__date">
+            <span class="icon-sort"></span>
+            <a class="expense__list__sort__date__entry" href="javascript:void(0)" ng-class="{'expense__list__sort__date__entry--active': selectedOrderBy === 'model.spentDate'}" ng-click="setSelectedOrderBy('model.spentDate')">Expense date</a> |
+            <a class="expense__list__sort__date__entry" href="javascript:void(0)" ng-class="{'expense__list__sort__date__entry--active': selectedOrderBy === 'model.createdDate'}" ng-click="setSelectedOrderBy('model.createdDate')">Added date</a>
+        </div>
+    </div>
 
-        <div class="expense__list__sort" ng-if="expenses.length !== 0">
-            <div class="expense__list__sort__date">
-                <span class="icon-sort"></span>
-                <a class="expense__list__sort__date__entry" href="javascript:void(0)" ng-class="{'expense__list__sort__date__entry--active': selectedOrderBy === 'model.spentDate'}" ng-click="setSelectedOrderBy('model.spentDate')">Expense date</a> |
-                <a class="expense__list__sort__date__entry" href="javascript:void(0)" ng-class="{'expense__list__sort__date__entry--active': selectedOrderBy === 'model.createdDate'}" ng-click="setSelectedOrderBy('model.createdDate')">Added date</a>
-            </div>
+    <!--Expense list-->
+    <div class="expenses__list__entry-grouped"
+         ng-repeat="expenseGroupEntry in expenses | orderObjectBy : 'model.localDate' : reverseOrder track by expenseGroupEntry.model.localDate"
+         expense-finish-render
+         ng-show="expenseGroupEntry.model.expenseDTOs.length > 0">
+
+        <div class="expenses__list__group__name">
+            <span class="expenses__list__group__name__bullet"></span>
+            {{expenseGroupEntry.model.localDate | friendlyDate}}
         </div>
 
-        <!--Expense list-->
         <div class="expenses__list__entry"
-             ng-repeat="expense in expenses | orderObjectBy : selectedOrderBy : reverseOrder | limitTo: expensesLimit track by expense.model.id" expense-entry expense="expense" categories="categories">
+             ng-repeat="expense in expenseGroupEntry.model.expenseDTOs | orderObjectBy : selectedOrderBy : reverseOrder track by expense.model.id"
+             expense-entry
+             expense="expense"
+             categories="categories">
         </div>
     </div>
-
-    <div ng-if="isStillExpensesToBeLoaded()">
-        <button type="submit" class="expenses__list__loadbtn" ng-click="loadMoreExpenses()">{{isUpdatingListLayout ? 'Loading..' : 'Load more'}}</button>
-    </div>
-
 </div>

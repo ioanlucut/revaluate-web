@@ -1,4 +1,4 @@
-<div fullpage-initializer layzr-initializer>
+<div layzr-initializer>
 
     <div id="section__0" class="section active site__container site__container--homemain">
 
@@ -13,7 +13,7 @@
 
         <div class="site__container__section">
             <button class="home__section__start__btn" type="button" account-modal-toggle="requestSignUpRegistration">Create your FREE account!</button>
-            <button class="home__section__learn__btn" type="button" ng-click="fullpageCtrl.scrollDownTo(2)">Learn more</button>
+            <button class="home__section__learn__btn" type="button" du-smooth-scroll="section__1" duration="1000">Learn more</button>
         </div>
 
         <div class="site__container__section home__section__tour-screenmain">
@@ -21,7 +21,7 @@
         </div>
 
         <div class="site__container__section home__section__tour-arrow">
-            <span class="icon-chevron-down-circled" ng-click="fullpageCtrl.scrollDownTo(2)"></span>
+            <span class="icon-chevron-down-circled" du-smooth-scroll="section__1" duration="1000"></span>
         </div>
 
     </div>

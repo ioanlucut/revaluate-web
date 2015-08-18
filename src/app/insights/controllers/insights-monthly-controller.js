@@ -84,7 +84,7 @@
             /**
              * Default active chart
              */
-            vm.activeChart = vm.INSIGHTS_CHARTS.DOUGHNUT;
+            vm.activeChart = vm.INSIGHTS_CHARTS.BAR;
 
             /**
              * Sets te active chart displayed with the given chart type.

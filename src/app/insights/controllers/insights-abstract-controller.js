@@ -74,17 +74,19 @@
             // Updates bar data sets spacing values options (we do not want to have too fat bars - e.g. if there is only one column)
             // ---
             function adjustResizeChartOptionsAndSpacing(currentBreakpoint, chartSetSize) {
+                var breakpoint, numberOfSets, spacing;
+
                 if (!resizeOnUpdate) {
                     return;
                 }
 
-                var breakpoint = _.find(UNISON_BREAKPOINTS, function (breakPointEntry) {
+                breakpoint = _.find(UNISON_BREAKPOINTS, function (breakPointEntry) {
                     return breakPointEntry.name === currentBreakpoint;
                 });
 
                 if (breakpoint) {
-                    var numberOfSets = chartSetSize || getChartSetSize();
-                    var spacing =
+                    numberOfSets = chartSetSize || getChartSetSize();
+                    spacing =
                         numberOfSets === 1
                             ? Math.floor(breakpoint.chartBarWidth * 1.5)
                             : Math.floor(breakpoint.chartBarWidth / numberOfSets);
@@ -98,9 +100,6 @@
                             barDatasetSpacing: spacing
                         })
                     });
-
-                    /*For future use.*/
-                    /*console.log(currentBreakpoint + ' with size: ' + numberOfSets + ' and computed spacing: ' + spacing);*/
                 }
 
             }

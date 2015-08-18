@@ -3,17 +3,17 @@
     width: 100%;
     margin: 0 auto;
     color: $black;
-    position: relative;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding-left: 30px;
 
     .expenses__bulk-actions__buttons {
-        position: absolute;
-        left: 55px;
-        right: 0;
 
         .expenses__bulk-actions__buttons__delete {
 
             .expenses__bulk-actions__buttons__delete__btn-delete {
-                @include btn($brand-danger);
+                @include btn-small($brand-danger);
                 display: block;
                 float: left;
             }
@@ -22,7 +22,7 @@
         .expenses__bulk-actions__buttons__cancel {
 
             .expenses__bulk-actions__buttons__delete__btn-cancel {
-                @include btn($brand-default);
+                @include btn-small($brand-default);
                 color: $gray-dark-1;
                 display: block;
                 float: left;
