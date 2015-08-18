@@ -1,6 +1,6 @@
 .site__container {
     text-align: center;
-    padding: 10px 0;
+    padding: 150px 0;
     background-color: $white;
 
     &:last-of-type {
@@ -16,6 +16,7 @@
     position: relative;
     background: $landing-page;
     padding-top: 10px;
+    height: 100vh;
 
     h1, h2 {
         color: $white;
@@ -68,6 +69,7 @@
 }
 
 .site__container--faq {
+    padding-top: 50px;
     padding-bottom: 50px;
     background-color: $gray-light-2;
 }

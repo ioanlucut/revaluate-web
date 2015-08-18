@@ -54,7 +54,7 @@
                 this.save = function () {
                     if (this.isNew()) {
                         return CategoryService.createCategory(this);
-                    }              else {
+                    } else {
                         return CategoryService.updateCategory(this);
                     }
                 };
