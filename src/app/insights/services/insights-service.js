@@ -14,12 +14,7 @@
 
                 return $http
                     .get(URLTo.api(INSIGHTS_URLS.fetchInsights, { ':from': fromFormatted, ':to': toFormatted }))
-                    .then(function (response) {
-
-                        return InsightsTransformerService.toInsight(response.data);
-                    }).catch(function (response) {
-                        return $q.reject(response);
-                    });
+                    .then(InsightsTransformerService.insightsMonthlyApiResponseTransformer);
             };
 
             this.fetchOverviewInsightsFromTo = function (from, to) {
@@ -28,12 +23,7 @@
 
                 return $http
                     .get(URLTo.api(INSIGHTS_URLS.fetchOverviewInsights, { ':from': fromFormatted, ':to': toFormatted }))
-                    .then(function (response) {
-
-                        return InsightsTransformerService.toInsightOverview(response.data);
-                    }).catch(function (response) {
-                        return $q.reject(response);
-                    });
+                    .then(InsightsTransformerService.insightsOverviewApiResponseTransformer);
             };
 
             this.fetchProgressInsightsFromTo = function (from, to) {
@@ -42,12 +32,7 @@
 
                 return $http
                     .get(URLTo.api(INSIGHTS_URLS.fetchProgressInsights, { ':from': fromFormatted, ':to': toFormatted }))
-                    .then(function (response) {
-
-                        return InsightsTransformerService.toInsightsProgress(response.data);
-                    }).catch(function (response) {
-                        return $q.reject(response);
-                    });
+                    .then(InsightsTransformerService.insightsProgressApiResponseTransformer);
             };
 
             this.fetchDailyInsightsFromTo = function (from, to) {
@@ -56,10 +41,7 @@
 
                 return $http
                     .get(URLTo.api(INSIGHTS_URLS.fetchDailyInsights, { ':from': fromFormatted, ':to': toFormatted }))
-                    .then(InsightsTransformerService.apiResponseTransformer)
-                    .catch(function (response) {
-                        return $q.reject(response);
-                    });
+                    .then(InsightsTransformerService.insightDailyApiResponseTransformer);
             };
         });
 }());

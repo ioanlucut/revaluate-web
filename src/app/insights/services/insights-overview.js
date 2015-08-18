@@ -1,54 +1,26 @@
 (function () {
     'use strict';
 
+    function InsightsOverviewFactory(InsightsAbstract) {
+
+        /**
+         * Insights Overview class.
+         */
+        function InsightsOverview(data) {
+            InsightsAbstract.call(this, data);
+
+            this.insightsOverview = data.insightsOverview;
+        }
+
+        /**
+         * Inherit the base class prototype
+         */
+        InsightsOverview.prototype = Object.create(InsightsAbstract.prototype);
+
+        return InsightsOverview;
+    }
+
     angular
         .module('revaluate.insights')
-        .factory('InsightsOverview', function ($q, $http, InsightsService, InsightsTransformerService) {
-
-            /**
-             * Insights class.
-             * @constructor
-             */
-            function InsightsOverview() {
-
-                /**
-                 * Represents the DTO model of the insights.
-                 */
-                this.model = {
-
-                    /**
-                     * Total amount spent
-                     */
-                    totalAmountSpent: 0,
-
-                    /**
-                     * The insights data.
-                     */
-                    insightData: [],
-
-                    /**
-                     * The insights labels
-                     */
-                    insightLabels: [],
-
-                    /**
-                     * Insights overview
-                     */
-                    insightsOverview: []
-                };
-            }
-
-            /**
-             * Builds a insights with given data.
-             */
-            InsightsOverview.build = function (data) {
-                if (_.isEmpty(data)) {
-                    return new InsightsOverview();
-                }
-
-                return InsightsTransformerService.toInsight(data, new InsightsOverview());
-            };
-
-            return InsightsOverview;
-        });
+        .factory('InsightsOverview', InsightsOverviewFactory);
 }());
