@@ -39,7 +39,7 @@
                     scope.$watch('isOpen', function (isOpen, isOpenOld) {
                         if (isOpen === true) {
                             $animate.addClass(elm, CLASS_OPEN);
-                        }                else if (isOpen === false && isOpenOld === true) {
+                        } else if (isOpen === false && isOpenOld === true) {
                             $animate.removeClass(elm, CLASS_OPEN);
                         }
                     });

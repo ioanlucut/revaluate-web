@@ -6,15 +6,71 @@
         .directive('expenseEntry', function ($rootScope, $timeout, EXPENSE_EVENTS, CategoryTransformerService) {
             return {
                 restrict: 'A',
-                controller: 'ExpenseEntryController',
                 scope: {
                     categories: '=',
                     expense: '='
                 },
+                controller: function ($scope, $rootScope, Expense, $timeout, EXPENSE_EVENTS, USER_ACTIVITY_EVENTS) {
+                    /* jshint validthis: true */
+                    var vm = this,
+                        MIN_YEAR_TO_CREATE_EXPENSE = 1800;
+
+                    /**
+                     * Minimum date to create expense.
+                     */
+                    this.minDate = moment().year(MIN_YEAR_TO_CREATE_EXPENSE);
+
+                    /**
+                     * Update the expense.
+                     */
+                    this.updateExpense = function (expenseForm, expense, category) {
+                        var isDateInFuture = moment().diff(expense.model.spentDate || expenseForm.spentDate) <= 0;
+
+                        if (expenseForm.$valid && !this.isUpdating) {
+
+                            if (isDateInFuture) {
+                                expenseForm.spentDate.$setValidity('validDate', false);
+
+                                return;
+                            }
+
+                            // Is saving expense
+                            this.isUpdating = true;
+
+                            // Update the chosen category - if defined
+                            if (category && category.selected) {
+                                expense.model.category = angular.copy(category.selected.model);
+                            }
+
+                            expense
+                                .save()
+                                .then(function () {
+                                    $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.expenseUpdated);
+
+                                    $rootScope.$broadcast(EXPENSE_EVENTS.isUpdated, {
+                                        expense: expense
+                                    });
+                                })
+                                .catch(function () {
+                                    vm.badPostSubmitResponse = true;
+                                    $rootScope.$broadcast(EXPENSE_EVENTS.isErrorOccurred, 'We\'ve encountered an error while trying to update this expense.');
+                                })
+                                .finally(function () {
+                                    vm.isUpdating = false;
+                                })
+                        }
+                    };
+                },
+                controllerAs: 'vm',
                 templateUrl: '/app/expenses/partials/expense/expenses-entry-directive.tpl.html',
                 link: function (scope, el, attrs) {
 
                     var EXPENSE_INPUT_SELECTOR = '.expense__form__price__input';
+
+                    /**
+                     * If date details should be shown
+                     */
+                    scope.showDateDetails = !_.isUndefined(attrs.showDateDetails);
 
                     /**
                      * Current user.

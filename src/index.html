@@ -26,7 +26,7 @@
         <!-- endbuild -->
     </head>
 
-    <body class="body--{{$state.current.pageId}}">
+    <body class="body--{{$state.current.pageId}}" intro-bar-listener>
 
         <div class="body__loading">
             Loading...
@@ -44,10 +44,6 @@
         </script>
         <!-- end Mixpanel -->
 
-        <!-- Adobe Typekit -->
-        <script async src="//use.typekit.net/tnp6cqt.js"></script>
-        <script async>try {Typekit.load();} catch (e) {}</script>
-
         <!-- Snap menu -->
         <snap-drawer class="side__menu">
             <header-side></header-side>
@@ -60,6 +56,12 @@
 
         <!-- Account modal -->
         <div class="account-modal" account-modal></div>
+
+        <!-- IntroBar.com script-->
+        <script>
+            var _intro_bar = window._intro_bar || {};(function() {var i,e;i=document.createElement("script"), i.type='text/javascript';i.async=1, i.src="//cdn.introbar.com/js/v1.js", e=document.getElementsByTagName("script")[0], e.parentNode.insertBefore(i,e);})();
+            _intro_bar.account_id = '55890b0f7be5b';
+        </script>
 
         <!-- build:js(src) /scripts/vendor.js defer-->
         <!-- bower:js -->
