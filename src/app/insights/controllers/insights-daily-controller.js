@@ -42,9 +42,9 @@
                 scaleFontSize: 12,
                 tooltipFontSize: 12,
                 tooltipTitleFontSize: 12,
-                tooltipYPadding: 15,
-                tooltipXPadding: 15,
-                barValueSpacing: 9
+                tooltipYPadding: 10,
+                tooltipXPadding: 10,
+                barValueSpacing: 3
             });
 
             /**
