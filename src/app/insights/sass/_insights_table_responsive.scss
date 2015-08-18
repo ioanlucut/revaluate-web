@@ -1,8 +1,23 @@
+@media (max-width: $screen-tablet) {
+
+    .insights__table {
+
+        &.insights__table--monthly {
+            width: 80%;
+        }
+    }
+
+}
+
 @media (max-width: $screen-phone) {
 
     .insights__table {
         width: 100%;
         padding: 0;
+
+        &.insights__table--monthly {
+            width: 90%;
+        }
 
         .insights__table__category {
             width: 70%;
@@ -34,7 +49,8 @@ Max width before this PARTICULAR table gets nasty. This query will take effect f
 */
 @media only screen and (max-width: $screen-tablet), (min-device-width: $screen-tablet) and (max-device-width: 1024px) {
 
-    .insights__table--progress {
+    .insights__table--progress,
+    .insights__table--monthly {
 
         &.insights__table--3m,
         &.insights__table--6m {
@@ -47,6 +63,10 @@ Max width before this PARTICULAR table gets nasty. This query will take effect f
 
         table tr td {
             max-width: 100%;
+        }
+
+        .insights__table__category {
+            width: 100%;
         }
 
         .insights__table__entry__amount {

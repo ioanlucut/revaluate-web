@@ -24,18 +24,39 @@
                 .state('expenses.regular', {
                     url: '',
                     views: {
-                        'expenses': {
-                            templateUrl: '/app/expenses/partials/expense/expenses.html',
+                        'left__content': {
+                            templateUrl: '/app/expenses/partials/expense/expenses__left.html',
                             controller: 'ExpenseController',
                             resolve: {
-                                expenses: function (ExpenseService) {
-                                    return ExpenseService.getAllExpenses();
+                                expensesQueryResponse: function (ExpenseService) {
+                                    return ExpenseService.getAllExpensesGrouped(0, 50);
                                 },
 
                                 categories: function (CategoryService) {
                                     return CategoryService.getAllCategories();
                                 }
-                            }
+                            },
+                            controllerAs: 'vm'
+                        },
+                        'right__content': {
+                            templateUrl: '/app/insights/partials/insights.daily.html',
+                            controller: 'InsightsDailyController',
+                            controllerAs: 'vm',
+                            resolve: {
+                                monthsPerYearsStatistics: function (StatisticService) {
+                                    return StatisticService
+                                        .fetchInsightsMonthsPerYearStatistics();
+                                },
+
+                                insightsDaily: function (DatesUtils, InsightsService) {
+                                    var period = DatesUtils.fromLastMonthsToNow(1);
+
+                                    return InsightsService
+                                        .fetchDailyInsightsFromTo(period.from, period.to);
+                                }
+                            },
+                            title: 'Insights daily - Revaluate',
+                            stateEventName: USER_ACTIVITY_EVENTS.insightsPage
                         }
                     },
                     title: 'Expenses - Revaluate',

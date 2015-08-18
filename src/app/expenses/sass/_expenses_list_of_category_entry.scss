@@ -1,6 +1,6 @@
 .expenses__list__category__entry__section {
     @include clearfix();
-    line-height: 36px;
+    line-height: 26px;
 
     div {
         display: inline-block;
@@ -12,6 +12,7 @@
         margin-right: 0;
         padding-right: 0;
         float: right;
+        font-size: $font-size-small;
 
         .currency__symbol {
             padding: 0 5px;
@@ -20,18 +21,19 @@
         }
     }
 
-    .expenses__list__category__entry__section__details {
-        color: $gray-medium;
-        @include word-wrap();
-        text-align: left;
-        float: left;
-    }
-
     .expenses__list__category__entry__section__date {
         width: 140px;
         float: left;
-        color: $gray-medium;
+        color: $gray-dark-1;
         text-align: left;
         font-size: $font-size-small;
+    }
+
+    .expenses__list__category__entry__section__details {
+        float: left;
+        text-align: left;
+        color: $gray-dark-1;
+        font-size: $font-size-small;
+        @include word-wrap();
     }
 }

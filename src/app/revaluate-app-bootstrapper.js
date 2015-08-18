@@ -14,6 +14,19 @@
     }
 
     // ---
+    // Add Object create function.
+    // ---
+    if (typeof Object.create !== 'function') {
+        Object.create = function (o) {
+            function F() {
+            }
+
+            F.prototype = o;
+            return new F();
+        };
+    }
+
+    // ---
     // This is the app config skeleton.
     // ---
     window
@@ -42,8 +55,9 @@
             injectorModules: ['config', 'angular-cache'],
             resolve: {
                 APP_CONFIG: ['ENV', '$http', 'CacheFactory', function (ENV, $http, CacheFactory) {
-                    var APP_CACHE_FACTORY_NAME = 'appCache';
-                    var APP_CONFIG_RESOURCE_URL = 'appconfig/fetchConfig' + '?' + ENV.name + '&' + ENV.cacheResetKey;
+                    var APP_CACHE_FACTORY_NAME = 'appCache',
+                        APP_CONFIG_RESOURCE_URL = 'appconfig/fetchConfig' + '?' + ENV.name + '&' + ENV.cacheResetKey,
+                        appCache;
 
                     URLTo.apiBase(ENV.apiEndpoint);
 
@@ -55,7 +69,7 @@
                             });
                     }
 
-                    var appCache = CacheFactory
+                    appCache = CacheFactory
                         .get(APP_CACHE_FACTORY_NAME);
 
                     return $http

@@ -259,7 +259,7 @@
                             // We need to set the data and refresh the user.
                             // ---
                             SessionService.setData(response.data);
-                            $rootScope.$broadcast(AUTH_EVENTS.refreshUser, response);
+                            $rootScope.$broadcast(AUTH_EVENTS.refreshUser, { intercomAttributes: { initiated: true } });
 
                             $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.accountSetupFinished);
 

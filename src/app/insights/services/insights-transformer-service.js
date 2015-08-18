@@ -6,7 +6,7 @@
      */
     angular
         .module('revaluate.insights')
-        .service('InsightsTransformerService', function ($filter, $injector, TransformerUtils) {
+        .service('InsightsTransformerService', function ($filter, $injector, InsightsDaily, TransformerUtils) {
 
             /**
              * Converts a insightDto object to a insights business object model.
@@ -41,5 +41,10 @@
 
                 return insightsProgress;
             };
+
+            this.apiResponseTransformer = function (responseData) {
+                return InsightsDaily.build(responseData.data);
+            };
+
         });
 }());

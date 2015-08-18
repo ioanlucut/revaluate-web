@@ -11,8 +11,7 @@
             pricingPage: 'Pricing page',
             privacyPage: 'Privacy page',
 
-            signUpRequested: 'Signup requested',
-            signUpCompleted: 'Signup completed',
+            signUpCompleted: 'Sign-up completed (form submitted)',
 
             expensesPage: 'Expenses page',
             expenseCreated: 'Expense created',
@@ -27,6 +26,7 @@
             insightsPage: 'Insights page',
             insightsFetched: 'Insights fetched',
             insightsOverviewFetched: 'Insights overview fetched',
+            insightsDailyFetched: 'Insights daily fetched',
             insightsProgressFetched: 'Insights progress fetched',
 
             settings: 'Settings',

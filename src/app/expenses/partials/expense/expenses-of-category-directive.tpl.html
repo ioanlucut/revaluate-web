@@ -13,7 +13,7 @@
 <!--If is loading for the first time (until expenses are loaded)-->
 <div class="expenses__list__category" ng-if="vm.isExpensesLoaded() && vm.expanded" fade-out-in fade-when="vm.isUpdatingListLayout">
 
-    <div class="expenses__list__category__entry" ng-repeat="expense in vm.expensesOfThisCategory | orderObjectBy : vm.selectedOrderBy : 'model.spentDate' | limitTo: vm.expensesLimit track by expense.model.id">
+    <div class="expenses__list__category__entry" ng-repeat="expense in vm.expensesOfThisCategory | orderObjectBy : 'model.spentDate' : true | limitTo: vm.expensesLimit track by expense.model.id">
 
         <div class="expenses__list__category__entry__section">
 
@@ -29,5 +29,12 @@
             </div>
 
         </div>
+    </div>
+
+    <div class="expenses__list__transactions__showall" ng-if="vm.displayShowAllButton && vm.expanded">
+        <button type="submit" ng-click="vm.showAllExpenses()">
+            <span class="icon-chevron-down-light" ng-hide="vm.isUpdatingListLayout"></span>
+            {{vm.isUpdatingListLayout ? 'Loading...' : 'Show all transactions'}}
+        </button>
     </div>
 </div>
