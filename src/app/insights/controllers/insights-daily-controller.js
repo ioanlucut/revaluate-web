@@ -26,9 +26,8 @@
                 $rootScope: $rootScope,
                 $filter: $filter,
                 monthsPerYearsStatistics: monthsPerYearsStatistics,
-                resizeOnUpdate: true,
-                getChartSetSize: function getChartSetSize() {
-                    return vm.barInsightsPrepared.insightsBarData[0].length;
+                resizeOnUpdate: false,
+                getChartSetSize: function () {
                 }
             }));
 
@@ -44,7 +43,8 @@
                 tooltipFontSize: 12,
                 tooltipTitleFontSize: 12,
                 tooltipYPadding: 15,
-                tooltipXPadding: 15
+                tooltipXPadding: 15,
+                barValueSpacing: 9
             });
 
             /**
