@@ -8,12 +8,15 @@
         .module('revaluate.insights')
         .service('InsightsService', function (INSIGHTS_URLS, $q, $http, $injector, InsightsDaily, InsightsTransformerService, DatesUtils) {
 
-            this.fetchMonthlyInsightsFromTo = function (from, to) {
+            this.fetchMonthlyInsightsFromTo = function (from, to, tracker) {
                 var fromFormatted = DatesUtils.formatDate(from),
                     toFormatted = DatesUtils.formatDate(to);
 
                 return $http
-                    .get(URLTo.api(INSIGHTS_URLS.fetchInsights, { ':from': fromFormatted, ':to': toFormatted }))
+                    .get(URLTo.api(INSIGHTS_URLS.fetchInsights, {
+                        ':from': fromFormatted,
+                        ':to': toFormatted
+                    }), { tracker: tracker })
                     .then(InsightsTransformerService.insightsMonthlyApiResponseTransformer);
             };
 
