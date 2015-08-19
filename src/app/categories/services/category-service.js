@@ -1,108 +1,55 @@
 (function () {
     'use strict';
 
-    /**
-     * Categories service which encapsulates the whole logic related to categories.
-     */
     angular
         .module('revaluate.categories')
         .service('CategoryService', function (CATEGORY_URLS, $q, $http, CategoryTransformerService) {
 
-            /**
-             * Update a category.
-             * @param category
-             * @returns {*}
-             */
-            this.createCategory = function (category) {
+            this.createCategory = function (category, tracker) {
                 return $http
-                    .post(URLTo.api(CATEGORY_URLS.create), CategoryTransformerService.toCategoryDto(category))
-                    .then(function (response) {
-                        CategoryTransformerService.toCategory(response.data, category);
-
-                        return response;
-                    });
+                    .post(URLTo.api(CATEGORY_URLS.create), CategoryTransformerService.categoryApiRequestTransformer(category), { tracker: tracker })
+                    .then(CategoryTransformerService.categoryApiResponseTransformer);
             };
 
-            /**
-             * Update a category.
-             * @param category
-             * @returns {*}
-             */
-            this.updateCategory = function (category) {
-                var categoryDto = CategoryTransformerService.toCategoryDto(category);
+            this.updateCategory = function (category, tracker) {
+                var categoryDto = CategoryTransformerService.categoryApiRequestTransformer(category);
 
                 return $http
-                    .put(URLTo.api(CATEGORY_URLS.update), categoryDto)
-                    .then(function (response) {
-                        CategoryTransformerService.toCategory(response.data, category);
-
-                        return response;
-                    });
+                    .put(URLTo.api(CATEGORY_URLS.update), categoryDto, { tracker: tracker })
+                    .then(CategoryTransformerService.categoryApiResponseTransformer);
             };
 
-            /**
-             * Delete a category.
-             * @param category
-             * @returns {*}
-             */
-            this.deleteCategory = function (category) {
-                var categoryDto = CategoryTransformerService.toCategoryDto(category);
+            this.deleteCategory = function (category, tracker) {
 
                 return $http
-                    .delete(URLTo.api(CATEGORY_URLS.delete, { ':id': categoryDto.id }), categoryDto)
-                    .then(function (response) {
-                        CategoryTransformerService.toCategory(response.data, category);
-
-                        return response.data;
-                    });
+                    .delete(URLTo.api(CATEGORY_URLS.delete, { ':id': category.id }), { tracker: tracker });
             };
 
-            /**
-             * Get all categories of current user
-             * @returns {*}
-             */
             this.getAllCategories = function () {
                 return $http
                     .get(URLTo.api(CATEGORY_URLS.allCategories))
-                    .then(function (response) {
-
-                        return CategoryTransformerService.toCategories(response.data)
-                    }).catch(function (response) {
-                        return $q.reject(response);
-                    });
+                    .then(CategoryTransformerService.categoryApiResponseTransformer);
             };
 
             /**
              * Bulk create action of a list of categories.
-             * @returns {*}
              */
             this.setupBulkCreateCategories = function (categories) {
                 return $http
-                    .post(URLTo.api(CATEGORY_URLS.setupBulkCreateCategories), CategoryTransformerService.toCategoryDTOs(categories))
-                    .then(function (response) {
-
-                        return CategoryTransformerService.toCategories(response.data);
-                    });
+                    .post(URLTo.api(CATEGORY_URLS.setupBulkCreateCategories), CategoryTransformerService.categoryApiRequestTransformer(categories))
+                    .then(CategoryTransformerService.categoryApiResponseTransformer);
             };
 
             /**
              * Bulk delete action of a list of categories.
-             * @returns {*}
              */
             this.bulkDelete = function (categories) {
                 return $http
-                    .put(URLTo.api(CATEGORY_URLS.bulkDelete), CategoryTransformerService.toCategoryDTOs(categories))
-                    .then(function (response) {
-
-                        return response.data;
-                    });
+                    .put(URLTo.api(CATEGORY_URLS.bulkDelete), CategoryTransformerService.categoryApiRequestTransformer(categories));
             };
 
             /**
              * Check if a category name is unique.
-             *
-             * @param name
-             * @returns {*}
              */
             this.isUnique = function (name) {
                 var deferred = $q.defer();

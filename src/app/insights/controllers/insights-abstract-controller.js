@@ -5,7 +5,7 @@
         .module('revaluate.insights')
         .controller('InsightsAbstractController', function ($scope, $timeout, $rootScope, $filter, monthsPerYearsStatistics, UNISON_BREAKPOINTS, UNISON_EVENTS, resizeOnUpdate, getChartSetSize) {
 
-            /* jshint validthis: true */
+
             var vm = this;
 
             /**

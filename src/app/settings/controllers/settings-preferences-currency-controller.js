@@ -8,7 +8,7 @@
         .module('revaluate.settings')
         .controller('SettingsPreferencesCurrencyController', function ($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, ALERTS_EVENTS, ALERTS_CONSTANTS, APP_CONFIG) {
 
-            /* jshint validthis: true */
+
             var vm = this;
 
             /**

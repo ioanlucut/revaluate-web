@@ -35,6 +35,7 @@
             'ui.select',
             'infinite-scroll',
             'snap',
+            'ajoslin.promise-tracker',
             'duScroll'
         ])
         .config(function ($locationProvider, $translateProvider, ChartJsProvider, CacheFactoryProvider, gravatarServiceProvider, ngToastProvider) {

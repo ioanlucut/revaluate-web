@@ -5,7 +5,7 @@
         .module('revaluate.insights')
         .controller('InsightsMonthlyController', function ($controller, $scope, DatesUtils, $rootScope, $filter, $timeout, ExpenseService, InsightsGenerator, ALERTS_EVENTS, insightsMonthly, monthsPerYearsStatistics, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
 
-            /* jshint validthis: true */
+
             var vm = this;
 
             /**

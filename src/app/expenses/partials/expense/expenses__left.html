@@ -21,11 +21,11 @@
         <!-- Form group -->
         <div class="expense__form__category" ng-class="{'has-error': vm.expenseForm.$submitted && (vm.expenseForm.category.$invalid || vm.badPostSubmitResponse)}">
 
-            <ui-select ng-disabled="vm.isSaving" name="category" class="category-select__input" ng-style="{'background':$select.selected.model.color.color}" required ng-model="vm.category.selected" theme="selectize">
-                <ui-select-match ng-style="{'background':$select.selected.model.color.color}" placeholder="Select a category">{{$select.selected.model.name}}</ui-select-match>
-                <ui-select-choices repeat="categoryEntry in vm.categories | orderObjectBy : 'model.name' : false | filter:{model:{name:$select.search}} track by categoryEntry.model.id">
-                    <span class="category__color__preview" ng-style="{'background':categoryEntry.model.color.color}">C</span>
-                    <span class="" ng-bind-html="categoryEntry.model.name | highlight: $select.search"></span>
+            <ui-select ng-disabled="vm.isSaving" name="category" class="category-select__input" ng-style="{'background':$select.selected.color.color}" required ng-model="vm.category.selected" theme="selectize">
+                <ui-select-match ng-style="{'background':$select.selected.color.color}" placeholder="Select a category">{{$select.selected.name}}</ui-select-match>
+                <ui-select-choices repeat="categoryEntry in vm.categories | orderObjectBy : 'model' : false | filter:{name:$select.search} track by categoryEntry.id">
+                    <span class="category__color__preview" ng-style="{'background':categoryEntry.color.color}">C</span>
+                    <span ng-bind-html="categoryEntry.name | highlight: $select.search"></span>
                 </ui-select-choices>
             </ui-select>
 
