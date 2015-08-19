@@ -3,7 +3,7 @@
 
     angular
         .module('revaluate.expenses')
-        .directive('expenseEntry', function ($rootScope, $timeout, EXPENSE_EVENTS, CategoryTransformerService) {
+        .directive('expenseEntry', function ($rootScope, $timeout, EXPENSE_EVENTS, Category) {
             return {
                 restrict: 'A',
                 scope: {
@@ -11,7 +11,7 @@
                     expense: '='
                 },
                 controller: function ($scope, $rootScope, Expense, $timeout, EXPENSE_EVENTS, USER_ACTIVITY_EVENTS) {
-                    /* jshint validthis: true */
+
                     var vm = this,
                         MIN_YEAR_TO_CREATE_EXPENSE = 1800;
 
@@ -39,7 +39,7 @@
 
                             // Update the chosen category - if defined
                             if (category && category.selected) {
-                                expense.model.category = angular.copy(category.selected.model);
+                                expense.model.category = angular.copy(category.selected);
                             }
 
                             expense
@@ -87,7 +87,7 @@
                      * @type {{}}
                      */
                     scope.category = {};
-                    scope.category.selected = CategoryTransformerService.toCategory(scope.shownExpense.model.category);
+                    scope.category.selected = new Category(scope.shownExpense.model.category);
 
                     /**
                      * Show block content

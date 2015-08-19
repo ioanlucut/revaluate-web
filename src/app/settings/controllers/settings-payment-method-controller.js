@@ -5,7 +5,7 @@
         .module('revaluate.settings')
         .controller('SettingsEditPaymentMethodController', function ($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentInsights, ALERTS_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS) {
 
-            /* jshint validthis: true */
+
             var vm = this;
 
             var TIMEOUT_PENDING = 300;

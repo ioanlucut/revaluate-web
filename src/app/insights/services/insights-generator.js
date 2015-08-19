@@ -19,8 +19,8 @@
                 // ---
                 _.each(insightsProgress.insightsMonthlyDTO, function (insightsMonthlyDTOEntry) {
                     _.each(masterCategories, function (categoryEntry) {
-                        categoryEntry.model.yearMonth = categoryEntry.model.yearMonth || {};
-                        categoryEntry.model.yearMonth[insightsMonthlyDTOEntry.yearMonth] = categoryEntry.model.yearMonth[insightsMonthlyDTOEntry.yearMonth] || 0;
+                        categoryEntry.yearMonth = categoryEntry.yearMonth || {};
+                        categoryEntry.yearMonth[insightsMonthlyDTOEntry.yearMonth] = categoryEntry.yearMonth[insightsMonthlyDTOEntry.yearMonth] || 0;
                     });
                 });
 
@@ -30,11 +30,11 @@
                 _.each(insightsProgress.insightsMonthlyDTO, function (insightsMonthlyDTOEntry) {
                     _.each(insightsMonthlyDTOEntry.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightsEntry) {
                         var matchCategory = _.find(masterCategories, function (categoryEntry) {
-                            return categoryEntry.model.id === totalPerCategoryInsightsEntry.categoryDTO.id;
+                            return categoryEntry.id === totalPerCategoryInsightsEntry.categoryDTO.id;
                         });
 
                         if (matchCategory) {
-                            matchCategory.model.yearMonth[insightsMonthlyDTOEntry.yearMonth] = totalPerCategoryInsightsEntry.totalAmount;
+                            matchCategory.yearMonth[insightsMonthlyDTOEntry.yearMonth] = totalPerCategoryInsightsEntry.totalAmount;
                         }
                     });
                 });
@@ -57,7 +57,7 @@
                 progressLineData = _.map(masterCategories, function (categoryEntry) {
 
                     var totalCategoryExpensesPerYearMonth = _.map(availableYearMonths, function (availableYearMonthEntry) {
-                        return categoryEntry.model.yearMonth[availableYearMonthEntry];
+                        return categoryEntry.yearMonth[availableYearMonthEntry];
                     });
 
                     return {
@@ -76,11 +76,11 @@
                 }));
 
                 insightLineSeries = angular.copy(_.map(progressLineData, function (progressLineDataEntry) {
-                    return progressLineDataEntry.categoryEntry.model.name;
+                    return progressLineDataEntry.categoryEntry.name;
                 }));
 
                 insightLineColors = angular.copy(_.map(progressLineData, function (progressLineDataEntry) {
-                    return progressLineDataEntry.categoryEntry.model.color.color;
+                    return progressLineDataEntry.categoryEntry.color.color;
                 }));
 
                 return {

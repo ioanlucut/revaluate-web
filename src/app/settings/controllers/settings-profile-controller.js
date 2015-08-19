@@ -8,7 +8,7 @@
         .module('revaluate.settings')
         .controller('SettingsProfileController', function ($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, ALERTS_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS) {
 
-            /* jshint validthis: true */
+
             var vm = this;
 
             var TIMEOUT_PENDING = 300;

@@ -5,7 +5,7 @@
         .module('revaluate.expenses')
         .controller('ExpenseController', function ($scope, $rootScope, $stateParams, AlertService, Expense, ExpenseService, StatesHandler, expensesQueryResponse, categories, $window, $timeout, EXPENSE_EVENTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, ALERTS_CONSTANTS, APP_CONFIG) {
 
-            /* jshint validthis: true */
+
             var vm = this,
                 INFINITE_SCROLL_EXPENSES_OFFSET = 50,
                 INFINITE_SCROLL_TIMEOUT = 1500;
@@ -107,7 +107,7 @@
 
                     this.isSaving = true;
 
-                    this.expense.model.category = angular.copy(this.category.selected.model);
+                    this.expense.model.category = angular.copy(this.category.selected);
                     angular.copy(this.expense, this.masterExpense);
 
                     this.masterExpense

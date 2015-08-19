@@ -9,7 +9,7 @@
              */
             var TIMEOUT_DURATION = 300;
 
-            /* jshint validthis: true */
+
             var vm = this;
 
             /**

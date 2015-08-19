@@ -11,7 +11,7 @@
                     monthYearDate: '='
                 },
                 controller: function ($scope, $rootScope, $timeout, DatesUtils, ExpenseService, ALERTS_EVENTS) {
-                    /* jshint validthis: true */
+
                     var vm = this;
 
                     this.DEFAULT_EXPENSES_LIMIT = 50;
