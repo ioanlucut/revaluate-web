@@ -1,7 +1,8 @@
 (function () {
     'use strict';
 
-    function AddCategoryController($scope, promiseTracker, Category, CategoryColorService, CategoryService, CATEGORY_EVENTS) {
+    function AddCategoryController(CATEGORY_EVENTS, $scope, promiseTracker, Category, CategoryColorService, CategoryService) {
+
         var vm = this;
 
         /**

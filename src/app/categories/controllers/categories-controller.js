@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function CategoriesController($rootScope, $scope, ALERTS_EVENTS, CATEGORY_EVENTS, categories, USER_ACTIVITY_EVENTS, APP_CONFIG, ALERTS_CONSTANTS) {
+    function CategoriesController(ALERTS_EVENTS, CATEGORY_EVENTS, USER_ACTIVITY_EVENTS, APP_CONFIG, ALERTS_CONSTANTS, $rootScope, $scope, categories) {
 
         var vm = this;
 
