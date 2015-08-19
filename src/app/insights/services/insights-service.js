@@ -35,12 +35,15 @@
                     .then(InsightsTransformerService.insightsProgressApiResponseTransformer);
             };
 
-            this.fetchDailyInsightsFromTo = function (from, to) {
+            this.fetchDailyInsightsFromTo = function (from, to, tracker) {
                 var fromFormatted = DatesUtils.formatDate(from),
                     toFormatted = DatesUtils.formatDate(to);
 
                 return $http
-                    .get(URLTo.api(INSIGHTS_URLS.fetchDailyInsights, { ':from': fromFormatted, ':to': toFormatted }))
+                    .get(URLTo.api(INSIGHTS_URLS.fetchDailyInsights, {
+                        ':from': fromFormatted,
+                        ':to': toFormatted
+                    }), { tracker: tracker })
                     .then(InsightsTransformerService.insightDailyApiResponseTransformer);
             };
         });
