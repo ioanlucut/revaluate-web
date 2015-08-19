@@ -1,6 +1,60 @@
 (function () {
     'use strict';
 
+    function CategoryEntryController($scope, $rootScope, promiseTracker, CategoryService, CATEGORY_EVENTS) {
+
+        var vm = this;
+
+        /**
+         * Work with a copy - keep the master backup
+         */
+        vm.categoryEntry = angular.copy($scope.category);
+
+        /**
+         * Create an updating tracker.
+         */
+        vm.updateTracker = promiseTracker();
+
+        /**
+         * Update the category.
+         */
+        vm.updateCategory = updateCategory;
+
+        /**
+         * Create an deleting tracker.
+         */
+        vm.deleteTracker = promiseTracker();
+
+        /**
+         * Delete category;
+         */
+        vm.deleteCategory = deleteCategory;
+
+        function updateCategory() {
+            CategoryService
+                .updateCategory(vm.categoryEntry, vm.updateTracker)
+                .then(function (updatedCategory) {
+                    $rootScope.$broadcast(CATEGORY_EVENTS.isUpdated, { category: _.extend(vm.categoryEntry, updatedCategory) });
+                })
+                .catch(function () {
+                    vm.badPostSubmitResponse = true;
+                    $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: 'error' });
+                });
+        }
+
+        function deleteCategory() {
+            CategoryService
+                .deleteCategory(vm.categoryEntry, vm.deleteTracker)
+                .then(function () {
+                    vm.isSuccessfullyDeleted = true;
+                    $rootScope.$broadcast(CATEGORY_EVENTS.isDeleted, { category: vm.categoryEntry });
+                })
+                .catch(function () {
+                    $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: 'error' });
+                });
+        }
+    }
+
     angular
         .module('revaluate.categories')
         .directive('categoryEntry', function ($rootScope, promiseTracker, CategoryService, CATEGORY_EVENTS) {
@@ -11,68 +65,13 @@
                     colors: '=',
                     isMinimumNumberOfAllowedCategoriesExceeded: '&'
                 },
-                controller: function ($scope, $rootScope, $timeout, CATEGORY_EVENTS) {
-
-                    var vm = this;
-
-                    /**
-                     * Work with a copy - keep the master backup
-                     */
-                    vm.categoryEntry = angular.copy($scope.category);
-
-                    /**
-                     * Create an updating tracker.
-                     */
-                    vm.updateTracker = promiseTracker();
-
-                    /**
-                     * Update the category.
-                     */
-                    vm.updateCategory = updateCategory;
-
-                    /**
-                     * Create an deleting tracker.
-                     */
-                    vm.deleteTracker = promiseTracker();
-
-                    /**
-                     * Delete category;
-                     */
-                    vm.deleteCategory = deleteCategory;
-
-                    function updateCategory() {
-                        CategoryService
-                            .updateCategory(vm.categoryEntry, vm.updateTracker)
-                            .then(function (updatedCategory) {
-                                $rootScope.$broadcast(CATEGORY_EVENTS.isUpdated, { category: _.extend(vm.categoryEntry, updatedCategory) });
-                            })
-                            .catch(function () {
-                                vm.badPostSubmitResponse = true;
-                                $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: 'error' });
-                            });
-                    }
-
-                    function deleteCategory() {
-                        CategoryService
-                            .deleteCategory(vm.categoryEntry, vm.deleteTracker)
-                            .then(function () {
-                                vm.isSuccessfullyDeleted = true;
-                                $rootScope.$broadcast(CATEGORY_EVENTS.isDeleted, { category: vm.categoryEntry });
-                            })
-                            .catch(function () {
-                                $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: 'error' });
-                            });
-                    }
-
-                },
-
+                controller: CategoryEntryController,
                 controllerAs: 'vm',
                 templateUrl: '/app/categories/partials/category-entry-directive.tpl.html',
                 link: function (scope, el, attrs, vm) {
 
                     /**
                      * Show block content
-                     * @type {boolean}
                      */
                     scope.showContent = false;
 

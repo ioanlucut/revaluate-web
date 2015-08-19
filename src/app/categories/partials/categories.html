@@ -5,7 +5,7 @@
     <div flash-messages flash="flash" identifier-id="{{vm.alertId}}"></div>
 
     <!--Add category-->
-    <div class="categories__add" add-category colors="vm.colors"></div>
+    <div class="categories__add" category-add colors="vm.colors" is-maximum-number-of-allowed-categories-exceeded="vm.isMaximumNumberOfAllowedCategoriesExceeded()"></div>
 
     <!--List all categories-->
     <div class="categories__edit">
