@@ -96,7 +96,7 @@
              * Trigger submit of the category on the fly nested form
              */
             vm.triggerSubmit = function () {
-                $scope.$broadcast('add-category-on-the-fly-event');
+                $scope.$broadcast('category-add-on-the-fly-event');
             };
 
             /**
