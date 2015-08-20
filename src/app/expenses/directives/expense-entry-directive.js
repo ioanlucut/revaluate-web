@@ -58,22 +58,6 @@
          */
         vm.updateTracker = promiseTracker();
 
-        function toggleMark() {
-            vm.expense.marked = !vm.expense.marked;
-
-            // ---
-            // We need this info also in the parent scope, so we synchronize the master too.
-            // ---
-            vm.shownExpense.marked = vm.expense.marked;
-        }
-
-        function openDatePicker($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
-
-            vm.datePickerStatus.opened = true;
-        }
-
         function updateExpense(expense, category) {
             if (category && category.selected) {
                 expense.model.category = angular.copy(category.selected);
@@ -90,6 +74,22 @@
                     vm.badPostSubmitResponse = true;
                     $scope.$emit(EXPENSE_EVENTS.isErrorOccurred, 'We\'ve encountered an error while trying to update this expense.');
                 });
+        }
+
+        function toggleMark() {
+            vm.expense.marked = !vm.expense.marked;
+
+            // ---
+            // We need this info also in the parent scope, so we synchronize the master too.
+            // ---
+            vm.shownExpense.marked = vm.expense.marked;
+        }
+
+        function openDatePicker($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            vm.datePickerStatus.opened = true;
         }
     }
 

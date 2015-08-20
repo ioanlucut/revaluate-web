@@ -9,7 +9,7 @@
     <div class="expenses__list__entry__section__category" ng-style="{'background':vm.expense.model.category.color.color}" ng-bind-html="vm.expense.model.category.name"></div>
 
     <!--Expense description-->
-    <div class="expenses__list__entry__section__details" ng-bind-html="vm.expense.model.description | highlightSearch:searchByText"></div>
+    <div class="expenses__list__entry__section__details" ng-bind-html="vm.expense.model.description"></div>
 
     <div class="expenses__list__entry__section__price">
         <span ng-bind-html="vm.expense.model.value | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
