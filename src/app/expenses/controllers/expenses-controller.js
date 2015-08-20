@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function ExpensesController(EXPENSE_EVENTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, ALERTS_CONSTANTS, APP_CONFIG, $scope, $rootScope, $timeout, Expense, ExpenseService, expensesQueryResponse, categories) {
+    function ExpensesController(EXPENSE_EVENTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, ALERTS_CONSTANTS, APP_CONFIG, $scope, $rootScope, $timeout, promiseTracker, ExpenseService, expensesQueryResponse, categories) {
 
         var vm = this,
             INFINITE_SCROLL_EXPENSES_OFFSET = 50,
@@ -38,24 +38,9 @@
         this.temporaryExpenses = [];
 
         /**
-         * Initialize or reset the state
+         * Create a delete tracker.
          */
-        this.initOrResetAddExpense = initOrResetAddExpense;
-
-        /**
-         * Open date picker
-         */
-        this.openDatePicker = openDatePicker;
-
-        /**
-         * Minimum date to create expense.
-         */
-        this.datePickerMinDate = moment().year(2000);
-
-        /**
-         * Saves the expense.
-         */
-        this.saveExpense = saveExpense;
+        this.bulkDeleteTracker = promiseTracker();
 
         /**
          * On scroll, load more expenses.
@@ -83,78 +68,6 @@
         this.isNoMoreExpensesToBeLoaded = function () {
             return this.expensesQueryResponse.currentSize === this.expensesQueryResponse.totalSize;
         };
-
-        /**
-         * Perform the first initialization.
-         */
-        this.initOrResetAddExpense();
-
-        function initOrResetAddExpense(expenseForm) {
-
-            /**
-             * Keep master expense.
-             */
-            vm.masterExpense = Expense.build({
-                spentDate: moment().toDate()
-            });
-
-            /**
-             * Work with a copy of master expense
-             */
-            vm.expense = angular.copy(vm.masterExpense);
-
-            /**
-             * Selected category
-             */
-            vm.category = {};
-
-            if (expenseForm) {
-                expenseForm.$setPristine();
-            }
-
-            vm.badPostSubmitResponse = false;
-
-            /**
-             * Flag which represents whether the save is in progress.
-             */
-            vm.isSaving = false;
-
-            /**
-             * Max date to create expense
-             */
-            vm.datePickerMaxDate = moment().hours(0).minutes(0).seconds(0);
-        }
-
-        function openDatePicker($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
-
-            vm.datePickerOpened = true;
-        }
-
-        function saveExpense() {
-            if (this.expenseForm.$valid && !this.isSaving) {
-
-                this.isSaving = true;
-
-                this.expense.model.category = angular.copy(this.category.selected);
-                angular.copy(this.expense, this.masterExpense);
-
-                this.masterExpense
-                    .save()
-                    .then(function () {
-                        vm.isSaving = false;
-                        $rootScope.$broadcast(EXPENSE_EVENTS.isCreated, { expense: angular.copy(vm.masterExpense) });
-
-                        vm.initOrResetAddExpense(vm.expenseForm);
-                    })
-                    .catch(function () {
-                        vm.badPostSubmitResponse = true;
-                        vm.isSaving = false;
-                        $rootScope.$broadcast(EXPENSE_EVENTS.isErrorOccurred, 'We\'ve encountered an error while trying to add this expense.');
-                    });
-            }
-        }
 
         function loadMoreExpenses() {
             if (vm.isUpdatingListLayout || vm.isNoMoreExpensesToBeLoaded()) {
@@ -209,16 +122,6 @@
         function performBulkDelete() {
             var selectedForBulkDelete = angular.copy(getSelectedExpensesForBulkAction());
 
-            if (this.isBulkDeleting) {
-
-                return;
-            }
-
-            // ---
-            // Set the deleting flag.
-            // ---
-            this.isBulkDeleting = true;
-
             // ---
             // Try to save them at once and if successfully, update the user.
             // ---
@@ -228,12 +131,8 @@
                     $rootScope.$broadcast(EXPENSE_EVENTS.isDeleted, { expenses: selectedForBulkDelete });
                 })
                 .catch(function () {
-                    vm.cancelBulkAction();
                     $rootScope.$broadcast(EXPENSE_EVENTS.isErrorOccurred, 'We\'ve encountered an error while trying to perform bulk action.');
-                })
-                .finally(function () {
-                    vm.isBulkDeleting = false;
-                })
+                });
         }
 
         // ---

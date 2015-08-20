@@ -16,7 +16,7 @@
 
                 .state('expenses', {
                     url: '/expenses',
-                    templateUrl: '/app/expenses/partials/expense/expenses.abstract.html',
+                    templateUrl: '/app/expenses/partials/expenses.abstract.html',
                     abstract: true
                 })
 
@@ -25,7 +25,7 @@
                     url: '',
                     views: {
                         'left__content': {
-                            templateUrl: '/app/expenses/partials/expense/expenses__left.html',
+                            templateUrl: '/app/expenses/partials/expenses__left.html',
                             controller: 'ExpensesController',
                             resolve: {
                                 expensesQueryResponse: function (ExpenseService) {

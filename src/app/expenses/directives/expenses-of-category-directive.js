@@ -138,7 +138,7 @@
                 },
 
                 controllerAs: 'vm',
-                templateUrl: '/app/expenses/partials/expense/expenses-of-category-directive.tpl.html',
+                templateUrl: '/app/expenses/partials/expenses-of-category-directive.tpl.html',
                 link: function (scope, el, attrs) {
                 }
             }
