@@ -20,7 +20,7 @@
                 .state('home', {
                     url: '/',
                     templateUrl: '/app/site/partials/home.html',
-                    title: 'Personal finance simplified - Revaluate',
+                    title: 'Change the way you spend your money - Revaluate',
                     stateEventName: USER_ACTIVITY_EVENTS.homePage,
                     pageId: 'home',
                     isPublicPage: true
@@ -28,7 +28,7 @@
                 .state('pricing', {
                     url: '/pricing',
                     templateUrl: '/app/site/partials/pricing.html',
-                    title: 'Personal finance simplified - Revaluate',
+                    title: 'Change the way you spend your money - Revaluate',
                     stateEventName: USER_ACTIVITY_EVENTS.pricingPage,
                     pageId: 'pricing',
                     isPublicPage: true

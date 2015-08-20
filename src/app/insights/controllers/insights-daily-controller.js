@@ -28,21 +28,21 @@
             }
         }));
 
-        // ---
-        // Customize look.
-        // ---
-        vm.barOptions = angular.extend(vm.barOptions, {
-            scaleShowHorizontalLines: false,
-            scaleShowVerticalLines: false,
-            scaleShowLabels: false,
-            showScale: false,
-            scaleFontSize: 12,
-            tooltipFontSize: 12,
-            tooltipTitleFontSize: 12,
-            tooltipYPadding: 10,
-            tooltipXPadding: 10,
-            barValueSpacing: 3
-        });
+            // ---
+            // Customize look.
+            // ---
+            vm.barOptions = angular.extend(vm.barOptions, {
+                scaleShowHorizontalLines: false,
+                scaleShowVerticalLines: false,
+                scaleShowLabels: false,
+                showScale: false,
+                scaleFontSize: 12,
+                tooltipFontSize: 12,
+                tooltipTitleFontSize: 12,
+                tooltipYPadding: 10,
+                tooltipXPadding: 10,
+                barValueSpacing: 2
+            });
 
         /**
          * Load insights
