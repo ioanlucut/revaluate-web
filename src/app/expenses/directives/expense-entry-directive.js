@@ -1,15 +1,15 @@
 (function () {
     'use strict';
 
-    function ExpenseEntryController($scope, promiseTracker, EXPENSE_EVENTS) {
+    function ExpenseEntryController(EXPENSE_EVENTS, $rootScope, $scope, Category, promiseTracker) {
 
         var vm = this,
             MIN_YEAR_TO_CREATE_EXPENSE = 1800;
 
         /**
-         * Create an updating tracker.
+         * Current user.
          */
-        vm.updateTracker = promiseTracker();
+        this.user = $rootScope.currentUser;
 
         /**
          * Minimum date to create expense.
@@ -17,9 +17,62 @@
         this.minDate = moment().year(MIN_YEAR_TO_CREATE_EXPENSE);
 
         /**
+         * Keep the master backup. Work only with shownExpense.
+         */
+        this.shownExpense = angular.copy(this.expense);
+
+        /**
+         * Selected category
+         */
+        this.category = {};
+        this.category.selected = new Category(this.shownExpense.model.category);
+
+        /**
+         * We need an object in the scope as this model is changed by the
+         * datePicker and we want to see those changes. Remember '.' notation.
+         */
+        this.datePickerStatus = {};
+
+        /**
+         * Max date to create expense
+         */
+        this.maxDate = moment().hours(0).minutes(0).seconds(0);
+
+        /**
          * Update the expense.
          */
         this.updateExpense = updateExpense;
+
+        /**
+         * Toggle mark for bulk action
+         */
+        this.toggleMark = toggleMark;
+
+        /**
+         * Open date picker
+         */
+        this.openDatePicker = openDatePicker;
+
+        /**
+         * Create an updating tracker.
+         */
+        vm.updateTracker = promiseTracker();
+
+        function toggleMark() {
+            vm.expense.marked = !vm.expense.marked;
+
+            // ---
+            // We need this info also in the parent scope, so we synchronize the master too.
+            // ---
+            vm.shownExpense.marked = vm.expense.marked;
+        }
+
+        function openDatePicker($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            vm.datePickerStatus.opened = true;
+        }
 
         function updateExpense(expense, category) {
             if (category && category.selected) {
@@ -42,7 +95,7 @@
 
     angular
         .module('revaluate.expenses')
-        .directive('expenseEntry', function ($rootScope, $timeout, EXPENSE_EVENTS, Category) {
+        .directive('expenseEntry', function (EXPENSE_EVENTS, $rootScope, $timeout) {
             return {
                 restrict: 'A',
                 scope: {
@@ -50,9 +103,10 @@
                     expense: '='
                 },
                 controller: ExpenseEntryController,
+                bindToController: true,
                 controllerAs: 'vm',
                 templateUrl: '/app/expenses/partials/expense-entry-directive.tpl.html',
-                link: function (scope, el, attrs) {
+                link: function (scope, el, attrs, vm) {
                     var EXPENSE_INPUT_SELECTOR = '.expense__form__price__input';
 
                     /**
@@ -61,31 +115,9 @@
                     scope.showDateDetails = !_.isUndefined(attrs.showDateDetails);
 
                     /**
-                     * Current user.
-                     */
-                    scope.user = $rootScope.currentUser;
-
-                    /**
-                     * Keep the master backup. Work only with shownExpense.
-                     */
-                    scope.shownExpense = angular.copy(scope.expense);
-
-                    /**
-                     * Selected category
-                     */
-                    scope.category = {};
-                    scope.category.selected = new Category(scope.shownExpense.model.category);
-
-                    /**
                      * Show block content
                      */
                     scope.showContent = false;
-
-                    /**
-                     * We need an object in the scope as this model is changed by the
-                     * datePicker and we want to see those changes. Remember '.' notation.
-                     */
-                    scope.datePickerStatus = {};
 
                     /**
                      * Toggle content
@@ -100,35 +132,7 @@
                             $timeout(function () {
                                 el.find(EXPENSE_INPUT_SELECTOR).focus();
                             });
-
-                            /**
-                             * Max date to create expense
-                             */
-                            scope.maxDate = moment().hours(0).minutes(0).seconds(0);
                         }
-                    };
-
-                    /**
-                     * Toggle mark for bulk action
-                     */
-                    scope.toggleMark = function () {
-                        scope.expense.marked = !scope.expense.marked;
-
-                        // ---
-                        // We need this info also in the parent scope, so we synchronize the master too.
-                        // ---
-                        scope.shownExpense.marked = scope.expense.marked;
-                    };
-
-                    /**
-                     * Open date picker
-                     * @param $event
-                     */
-                    scope.openDatePicker = function ($event) {
-                        $event.preventDefault();
-                        $event.stopPropagation();
-
-                        scope.datePickerStatus.opened = true;
                     };
 
                     /**
@@ -137,20 +141,20 @@
                     scope.cancel = function () {
                         scope.toggleContent();
 
-                        scope.shownExpense = angular.copy(scope.expense);
+                        vm.shownExpense = angular.copy(vm.expense);
                     };
 
                     /**
                      * On expense updated/deleted - cancel edit mode.
                      */
                     $rootScope.$on(EXPENSE_EVENTS.isUpdated, function (event, args) {
-                        if (scope.expense.model.id === args.expense.model.id) {
+                        if (vm.expense.model.id === args.expense.model.id) {
 
                             // ---
                             // Now update the master expense, and remove the marked sign.
                             // ---
-                            scope.shownExpense.marked = false;
-                            scope.expense = angular.copy(scope.shownExpense);
+                            vm.shownExpense.marked = false;
+                            vm.expense = angular.copy(vm.shownExpense);
 
                             scope.cancel();
                         }
