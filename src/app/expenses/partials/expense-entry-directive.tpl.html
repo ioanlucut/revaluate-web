@@ -22,11 +22,11 @@
 <!-- Display expense in edit mode -->
 <div class="expense__edit__form" ng-if="showContent">
 
-    <form name="vm.expenseForm" ng-submit="vm.updateExpense(vm.expenseForm, shownExpense, category)" novalidate focus-first-error>
+    <form name="vm.expenseForm" ng-submit="vm.expenseForm.$valid ? vm.updateExpense(shownExpense, category) : ''" novalidate focus-first-error>
 
         <!-- Form groups -->
         <div class="expense__edit__form__price" ng-class="{'has-error': vm.expenseForm.$submitted && (vm.expenseForm.value.$invalid || vm.badPostSubmitResponse)}">
-            <input class="expense__edit__form__price__input" ng-disabled="vm.isUpdating" type="text" name="value" placeholder="The value" maxlength="18" ng-model="shownExpense.model.value" format-price format="number" caret-price-position required valid-price />
+            <input class="expense__edit__form__price__input" ng-disabled="vm.updateTracker.active()" type="text" name="value" placeholder="The value" maxlength="18" ng-model="shownExpense.model.value" format-price format="number" caret-price-position required valid-price />
             <span class="expense__edit__form__price__currency">{{user.model.currency.symbol}}</span>
 
             <!-- Error messages -->
@@ -39,7 +39,7 @@
         <!-- Form group -->
         <div class="expense__edit__form__category" ng-class="{'has-error': vm.expenseForm.$submitted && (vm.expenseForm.category.$invalid || vm.badPostSubmitResponse)}">
 
-            <ui-select name="category" ng-disabled="vm.isUpdating" class="category-select__input" ng-style="{'background':$select.selected.color.color}" required ng-model="category.selected" theme="selectize">
+            <ui-select name="category" ng-disabled="vm.updateTracker.active()" class="category-select__input" ng-style="{'background':$select.selected.color.color}" required ng-model="category.selected" theme="selectize">
                 <ui-select-match ng-style="{'background':$select.selected.color.color}" placeholder="Select a category">{{$select.selected.name}}</ui-select-match>
                 <ui-select-choices repeat="categoryEntry in categories | orderObjectBy : 'name' : false | filter:{name:$select.search} track by categoryEntry.id">
                     <span class="category__color__preview" ng-style="{'background':categoryEntry.color.color}">C</span>
@@ -55,7 +55,7 @@
 
         <!-- Description input -->
         <div class="expense__edit__form__details" ng-class="{'has-error': vm.expenseForm.$submitted && (vm.expenseForm.description.$invalid || vm.badPostSubmitResponse)}">
-            <input class="expense__edit__form__details__input" ng-disabled="vm.isUpdating" type="text" name="description" ng-maxlength="30" maxlength="30" placeholder="Add details (optional)" ng-model="shownExpense.model.description" escape-html />
+            <input class="expense__edit__form__details__input" ng-disabled="vm.updateTracker.active()" type="text" name="description" ng-maxlength="30" maxlength="30" placeholder="Add details (optional)" ng-model="shownExpense.model.description" escape-html />
 
             <!-- Error messages -->
             <div class="form-group-input__message" ng-class="{'has-error': vm.expenseForm.description.$invalid && vm.expenseForm.$submitted}" ng-messages="vm.expenseForm.description.$error" ng-if="vm.expenseForm.$submitted">
@@ -74,7 +74,7 @@
                 <button ng-click="openDatePicker($event)" type="button"
                         class="expense__edit__form__date__input__btn"
                         datepicker-popup is-open="datePickerStatus.opened"
-                        ng-disabled="vm.isUpdating"
+                        ng-disabled="vm.updateTracker.active()"
                         min-date="vm.minDate"
                         max-date="maxDate"
                         ng-model="shownExpense.model.spentDate"
@@ -96,7 +96,7 @@
         </div>
 
         <div class="expense__edit__form__submit__save">
-            <button ng-disabled="vm.isUpdating" class="expense__edit__form__savebtn" type="submit">{{vm.isUpdating ? 'Saving' : 'Save'}}</button>
+            <button ng-disabled="vm.updateTracker.active()" class="expense__edit__form__savebtn" type="submit">{{vm.updateTracker.active() ? 'Saving' : 'Save'}}</button>
         </div>
     </form>
 
