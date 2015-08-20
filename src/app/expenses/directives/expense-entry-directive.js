@@ -1,6 +1,45 @@
 (function () {
     'use strict';
 
+    function ExpenseEntryController($scope, promiseTracker, EXPENSE_EVENTS) {
+
+        var vm = this,
+            MIN_YEAR_TO_CREATE_EXPENSE = 1800;
+
+        /**
+         * Create an updating tracker.
+         */
+        vm.updateTracker = promiseTracker();
+
+        /**
+         * Minimum date to create expense.
+         */
+        this.minDate = moment().year(MIN_YEAR_TO_CREATE_EXPENSE);
+
+        /**
+         * Update the expense.
+         */
+        this.updateExpense = updateExpense;
+
+        function updateExpense(expense, category) {
+            if (category && category.selected) {
+                expense.model.category = angular.copy(category.selected);
+            }
+
+            expense
+                .save()
+                .then(function () {
+                    $scope.$emit(EXPENSE_EVENTS.isUpdated, {
+                        expense: expense
+                    });
+                })
+                .catch(function () {
+                    vm.badPostSubmitResponse = true;
+                    $scope.$emit(EXPENSE_EVENTS.isErrorOccurred, 'We\'ve encountered an error while trying to update this expense.');
+                });
+        }
+    }
+
     angular
         .module('revaluate.expenses')
         .directive('expenseEntry', function ($rootScope, $timeout, EXPENSE_EVENTS, Category) {
@@ -10,59 +49,10 @@
                     categories: '=',
                     expense: '='
                 },
-                controller: function ($scope, $rootScope, Expense, $timeout, EXPENSE_EVENTS) {
-
-                    var vm = this,
-                        MIN_YEAR_TO_CREATE_EXPENSE = 1800;
-
-                    /**
-                     * Minimum date to create expense.
-                     */
-                    this.minDate = moment().year(MIN_YEAR_TO_CREATE_EXPENSE);
-
-                    /**
-                     * Update the expense.
-                     */
-                    this.updateExpense = function (expenseForm, expense, category) {
-                        var isDateInFuture = moment().diff(expense.model.spentDate || expenseForm.spentDate) <= 0;
-
-                        if (expenseForm.$valid && !this.isUpdating) {
-
-                            if (isDateInFuture) {
-                                expenseForm.spentDate.$setValidity('validDate', false);
-
-                                return;
-                            }
-
-                            // Is saving expense
-                            this.isUpdating = true;
-
-                            // Update the chosen category - if defined
-                            if (category && category.selected) {
-                                expense.model.category = angular.copy(category.selected);
-                            }
-
-                            expense
-                                .save()
-                                .then(function () {
-                                    $rootScope.$broadcast(EXPENSE_EVENTS.isUpdated, {
-                                        expense: expense
-                                    });
-                                })
-                                .catch(function () {
-                                    vm.badPostSubmitResponse = true;
-                                    $rootScope.$broadcast(EXPENSE_EVENTS.isErrorOccurred, 'We\'ve encountered an error while trying to update this expense.');
-                                })
-                                .finally(function () {
-                                    vm.isUpdating = false;
-                                })
-                        }
-                    };
-                },
+                controller: ExpenseEntryController,
                 controllerAs: 'vm',
-                templateUrl: '/app/expenses/partials/expenses-entry-directive.tpl.html',
+                templateUrl: '/app/expenses/partials/expense-entry-directive.tpl.html',
                 link: function (scope, el, attrs) {
-
                     var EXPENSE_INPUT_SELECTOR = '.expense__form__price__input';
 
                     /**
@@ -82,14 +72,12 @@
 
                     /**
                      * Selected category
-                     * @type {{}}
                      */
                     scope.category = {};
                     scope.category.selected = new Category(scope.shownExpense.model.category);
 
                     /**
                      * Show block content
-                     * @type {boolean}
                      */
                     scope.showContent = false;
 
