@@ -45,8 +45,6 @@
                             expense
                                 .save()
                                 .then(function () {
-                                    $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.expenseUpdated);
-
                                     $rootScope.$broadcast(EXPENSE_EVENTS.isUpdated, {
                                         expense: expense
                                     });

@@ -26,7 +26,7 @@
                     views: {
                         'left__content': {
                             templateUrl: '/app/expenses/partials/expense/expenses__left.html',
-                            controller: 'ExpenseController',
+                            controller: 'ExpensesController',
                             resolve: {
                                 expensesQueryResponse: function (ExpenseService) {
                                     return ExpenseService.getAllExpensesGrouped(0, 50);
