@@ -13,7 +13,7 @@
                     expenses: '=',
                     categories: '='
                 },
-                templateUrl: '/app/expenses/partials/expense/expenses-list-directive.tpl.html',
+                templateUrl: '/app/expenses/partials/expenses-list-directive.tpl.html',
                 link: function (scope, el, attrs) {
 
                     var TIMEOUT = 200;

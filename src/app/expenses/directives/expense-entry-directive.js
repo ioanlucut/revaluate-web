@@ -10,7 +10,7 @@
                     categories: '=',
                     expense: '='
                 },
-                controller: function ($scope, $rootScope, Expense, $timeout, EXPENSE_EVENTS, USER_ACTIVITY_EVENTS) {
+                controller: function ($scope, $rootScope, Expense, $timeout, EXPENSE_EVENTS) {
 
                     var vm = this,
                         MIN_YEAR_TO_CREATE_EXPENSE = 1800;
@@ -60,7 +60,7 @@
                     };
                 },
                 controllerAs: 'vm',
-                templateUrl: '/app/expenses/partials/expense/expenses-entry-directive.tpl.html',
+                templateUrl: '/app/expenses/partials/expenses-entry-directive.tpl.html',
                 link: function (scope, el, attrs) {
 
                     var EXPENSE_INPUT_SELECTOR = '.expense__form__price__input';

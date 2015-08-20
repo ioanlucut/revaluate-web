@@ -1,0 +1,54 @@
+<div expense-add categories="vm.categories"></div>
+
+<div class="expenses__column__left">
+
+    <!--Expense bulk actions-->
+    <div class="expenses__bulk-actions" ng-if="vm.isBulkActionEnabled()">
+
+        <div class="expenses__bulk-actions__buttons">
+
+            <div class="expenses__bulk-actions__buttons__delete">
+                <button class="expenses__bulk-actions__buttons__delete__btn-delete" ng-disabled="vm.bulkDeleteTracker.active()" ng-click="vm.performBulkDelete()">{{vm.bulkDeleteTracker.active() ? 'Deleting...' : 'Delete'}}</button>
+            </div>
+
+            <div class="expenses__bulk-actions__buttons__cancel">
+                <button class="expenses__bulk-actions__buttons__delete__btn-cancel" ng-click="vm.cancelBulkAction()">Nevermind</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!--Empty state-->
+    <div class="expenses__empty-state" ng-if="vm.expenses.length === 0">
+        <div class="expenses__empty-state__icon"></div>
+        <h1>No expenses yet.</h1>
+
+        <div>It seems like you have no expenses yet. Start adding some or
+            <a href="javascript:void(0)" ui-sref="settings.import.choose">import your expenses</a>.
+        </div>
+    </div>
+
+    <!--Temporary expense list-->
+    <div class="expenses__list__entry-grouped" ng-show="vm.temporaryExpenses.length > 0">
+
+        <div class="expenses__list__group__name">Added just now</div>
+
+        <div class="expenses__list__entry"
+             ng-repeat="expense in vm.temporaryExpenses | orderObjectBy : 'model.modifiedDate' : true track by expense.model.id" expense-entry expense="expense" categories="vm.categories" show-date-details>
+        </div>
+
+    </div>
+
+    <!--The expenses list-->
+    <div infinite-scroll="vm.loadMoreExpenses()" infinite-scroll-disabled="vm.isUpdatingListLayout || vm.isNoMoreExpensesToBeLoaded()" infinite-scroll-distance='0'>
+
+        <div expenses-list expenses="vm.expenses" categories="vm.categories" sort="desc"></div>
+
+        <div class="spinner expenses__list__loading" ng-show="vm.isUpdatingListLayout">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+    </div>
+
+</div>

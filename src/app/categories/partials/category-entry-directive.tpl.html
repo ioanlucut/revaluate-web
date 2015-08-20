@@ -14,7 +14,7 @@
 </div>
 
 <!-- Update category form -->
-<form name="vm.categoryForm" class="categories__edit__form" ng-if="showContent" ng-submit="vm.updateCategory()" novalidate focus-first-error>
+<form name="vm.categoryForm" class="categories__edit__form" ng-if="showContent" ng-submit="vm.categoryForm.$valid ? vm.updateCategory() : ''" novalidate focus-first-error>
 
     <!--Content left-->
     <div class="categories__edit__form__content__left">
@@ -69,7 +69,7 @@
         <!--Reset-->
         <button ng-disabled="vm.updateTracker.active()" type="button" class="categories__edit__form__content__right__cancel" ng-click="cancel();">Nevermind</button>
         <!-- Button container -->
-        <button ng-disabled="vm.categoryForm.$invalid || vm.updateTracker.active()" class="categories__edit__form__content__right__update" type="submit">{{vm.updateTracker.active() ? 'Saving.' : 'Save changes'}}</button>
+        <button ng-disabled="vm.updateTracker.active()" class="categories__edit__form__content__right__update" type="submit">{{vm.updateTracker.active() ? 'Saving.' : 'Save changes'}}</button>
     </div>
 
 </form>
