@@ -1,4 +1,4 @@
-@media (max-width: 650px) {
+@media (max-width: $header-responsive-breakpoint) {
     .header-public__brand {
         float: none;
         display: inline-block;
