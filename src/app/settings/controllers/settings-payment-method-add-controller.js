@@ -44,7 +44,7 @@
                 return {
                     cardNumber: '',
                     cardExpirationDate: ''
-                }
+                };
             }
 
             /**
@@ -65,7 +65,7 @@
                     paymentNonceDetailsDTO: {
                         paymentMethodNonce: ''
                     }
-                }
+                };
             }
 
             /**

@@ -3,7 +3,7 @@
 
     angular
         .module('revaluate.settings')
-        .controller('SettingsEditPaymentMethodController', function ($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentInsights, ALERTS_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS) {
+        .controller('SettingsEditPaymentMethodController', function ($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentInsights, ALERTS_EVENTS, ALERTS_CONSTANTS) {
 
 
             var vm = this;
@@ -44,7 +44,7 @@
                 return {
                     cardNumber: '',
                     cardExpirationDate: ''
-                }
+                };
             }
 
             /**
@@ -58,7 +58,7 @@
             function getInitialPaymentDetailsData() {
                 return {
                     paymentMethodNonce: ''
-                }
+                };
             }
 
             /**

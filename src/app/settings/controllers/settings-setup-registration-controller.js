@@ -175,7 +175,7 @@
         function setAllCategoriesWithSelectedStatusOf(status) {
             _.each(vm.categories, function (category) {
                 category.selected = status;
-            })
+            });
         }
 
         /**
@@ -230,7 +230,7 @@
                         })
                         .catch(function (response) {
                             return deferred.reject(response);
-                        })
+                        });
                 })
                 .catch(function (response) {
                     return deferred.reject(response);

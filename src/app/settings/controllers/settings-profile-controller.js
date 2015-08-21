@@ -6,12 +6,9 @@
      */
     angular
         .module('revaluate.settings')
-        .controller('SettingsProfileController', function ($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, ALERTS_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS) {
-
+        .controller('SettingsProfileController', function ($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, ALERTS_EVENTS, ALERTS_CONSTANTS) {
 
             var vm = this;
-
-            var TIMEOUT_PENDING = 300;
 
             /**
              * Alert identifier
@@ -71,10 +68,8 @@
 
                             vm.profileForm.$setPristine();
 
-                            $timeout(function () {
-                                vm.isRequestPending = false;
-                                $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated');
-                            }, TIMEOUT_PENDING);
+                            vm.isRequestPending = false;
+                            $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated');
                         })
                         .catch(function () {
                             /* If bad feedback from server */
