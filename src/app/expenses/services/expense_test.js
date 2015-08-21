@@ -23,20 +23,20 @@
             expect(Expense).toBeTruthy();
         }));
 
-        it('Should perform isCreatedBy method correctly', inject(function (Expense, ExpenseTransformerService) {
-            var expenseDto = {
-                id: '1',
-                text: 'ABC',
-                dueOn: new Date(),
-                createdByUser: { email: 'createdByEmail@email.email' },
-                recipients: [{ email: 'xx@xx' }, { email: 'yy@yy' }]
-            };
+        it('Should be able to instantiate correctly', inject(function (Expense) {
 
-            var actual = ExpenseTransformerService.toExpense(expenseDto);
+            var
+                expenseDto = {
+                    id: '1',
+                    value: 1.2,
+                    description: 'desc'
+                },
+                actual = new Expense(expenseDto);
+
             expect(actual.model).toBeTruthy();
             expect(actual.model.id).toEqual(expenseDto.id);
-            expect(actual.model.dueOn).toEqual(expenseDto.dueOn);
-            expect(actual.model.recipients).toEqual([{ email: 'xx@xx' }, { email: 'yy@yy' }]);
+            expect(actual.model.value).toEqual(expenseDto.value);
+            expect(actual.model.description).toEqual(expenseDto.description);
         }));
     });
 }());
