@@ -5,13 +5,13 @@
 </div>
 
 <!--If is loading for the first time (until expenses are loaded)-->
-<div class="spinner expenses__list__category__loading" ng-if="vm.isUpdatingListLayout">
+<div class="spinner expenses__list__category__loading" ng-if="vm.loadingTracker.active()">
     <div class="double-bounce1"></div>
     <div class="double-bounce2"></div>
 </div>
 
 <!--If is loading for the first time (until expenses are loaded)-->
-<div class="expenses__list__category" ng-if="vm.isExpensesLoaded() && vm.expanded" fade-out-in fade-when="vm.isUpdatingListLayout">
+<div class="expenses__list__category" ng-if="vm.isExpensesLoaded() && vm.expanded" fade-out-in fade-when="vm.loadingTracker.active()">
 
     <div class="expenses__list__category__entry" ng-repeat="expense in vm.expensesOfThisCategory | orderObjectBy : 'spentDate' : true | limitTo: vm.expensesLimit track by expense.id">
 
@@ -33,8 +33,8 @@
 
     <div class="expenses__list__transactions__showall" ng-if="vm.displayShowAllButton && vm.expanded">
         <button type="submit" ng-click="vm.showAllExpenses()">
-            <span class="icon-chevron-down-light" ng-hide="vm.isUpdatingListLayout"></span>
-            {{vm.isUpdatingListLayout ? 'Loading...' : 'Show all transactions'}}
+            <span class="icon-chevron-down-light" ng-hide="vm.loadingTracker.active()"></span>
+            {{vm.loadingTracker.active() ? 'Loading...' : 'Show all transactions'}}
         </button>
     </div>
 </div>

@@ -19,30 +19,19 @@
                     .then(ExpenseTransformerService.expenseApiResponseTransformer);
             };
 
-            this.deleteExpense = function (expense, tracker) {
-                return $http
-                    .delete(URLTo.api(EXPENSE_URLS.delete, { ':id': expense.id }), { tracker: tracker });
-            };
-
-            this.getAllExpenses = function () {
-                return $http
-                    .get(URLTo.api(EXPENSE_URLS.allExpenses))
-                    .then(ExpenseTransformerService.expenseApiResponseTransformer);
-            };
-
             /**
              * Get all expenses of current user of a given expense
              */
-            this.getAllExpensesOfExpense = function (expenseId, from, to) {
+            this.getAllExpensesOfCategory = function (categoryId, from, to, tracker) {
                 var fromFormatted = DatesUtils.formatDate(from),
                     toFormatted = DatesUtils.formatDate(to);
 
                 return $http
                     .get(URLTo.api(EXPENSE_URLS.allExpensesOfCategory, {
-                        ':expenseId': expenseId,
+                        ':categoryId': categoryId,
                         ':from': fromFormatted,
                         ':to': toFormatted
-                    }))
+                    }), { tracker: tracker })
                     .then(ExpenseTransformerService.expenseApiResponseTransformer);
             };
 
@@ -66,8 +55,5 @@
                     .then(ExpenseGroupedTransformerService.expenseGroupedApiResponseTransformer);
             };
 
-            this.formatDate = function (givenDate) {
-                return moment(givenDate).format('YYYY-MM-DDTHH:mm:ss') + 'Z';
-            }
         });
 }());
