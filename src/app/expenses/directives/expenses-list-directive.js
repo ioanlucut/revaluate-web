@@ -36,7 +36,7 @@
                     /**
                      * Initial selected order by
                      */
-                    scope.selectedOrderBy = 'model.createdDate';
+                    scope.selectedOrderBy = 'createdDate';
 
                     /**
                      * On ng repeat expense finished

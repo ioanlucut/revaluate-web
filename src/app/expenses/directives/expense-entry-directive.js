@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function ExpenseEntryController(EXPENSE_EVENTS, $rootScope, $scope, Category, promiseTracker) {
+    function ExpenseEntryController(EXPENSE_EVENTS, $rootScope, ExpenseService, Category, promiseTracker) {
 
         var vm = this,
             MIN_YEAR_TO_CREATE_EXPENSE = 1800;
@@ -25,7 +25,7 @@
          * Selected category
          */
         this.category = {};
-        this.category.selected = new Category(this.shownExpense.model.category);
+        this.category.selected = new Category(this.shownExpense.category);
 
         /**
          * We need an object in the scope as this model is changed by the
@@ -60,19 +60,17 @@
 
         function updateExpense(expense, category) {
             if (category && category.selected) {
-                expense.model.category = angular.copy(category.selected);
+                expense.category = angular.copy(category.selected);
             }
 
-            expense
-                .save()
-                .then(function () {
-                    $scope.$emit(EXPENSE_EVENTS.isUpdated, {
-                        expense: expense
-                    });
+            ExpenseService
+                .updateExpense(expense, vm.updateTracker)
+                .then(function (updatedExpense) {
+                    $rootScope.$broadcast(EXPENSE_EVENTS.isUpdated, { expense: _.extend(expense, updatedExpense) });
                 })
                 .catch(function () {
                     vm.badPostSubmitResponse = true;
-                    $scope.$emit(EXPENSE_EVENTS.isErrorOccurred, 'We\'ve encountered an error while trying to update this expense.');
+                    $rootScope.$broadcast(EXPENSE_EVENTS.isErrorOccurred, { errorMessage: 'error' });
                 });
         }
 
@@ -148,7 +146,7 @@
                      * On expense updated/deleted - cancel edit mode.
                      */
                     $rootScope.$on(EXPENSE_EVENTS.isUpdated, function (event, args) {
-                        if (vm.expense.model.id === args.expense.model.id) {
+                        if (vm.expense.id === args.expense.id) {
 
                             // ---
                             // Now update the master expense, and remove the marked sign.

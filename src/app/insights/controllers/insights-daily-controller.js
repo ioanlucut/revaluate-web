@@ -28,21 +28,21 @@
             }
         }));
 
-            // ---
-            // Customize look.
-            // ---
-            vm.barOptions = angular.extend(vm.barOptions, {
-                scaleShowHorizontalLines: false,
-                scaleShowVerticalLines: false,
-                scaleShowLabels: false,
-                showScale: false,
-                scaleFontSize: 12,
-                tooltipFontSize: 12,
-                tooltipTitleFontSize: 12,
-                tooltipYPadding: 10,
-                tooltipXPadding: 10,
-                barValueSpacing: 2
-            });
+        // ---
+        // Customize look.
+        // ---
+        vm.barOptions = angular.extend(vm.barOptions, {
+            scaleShowHorizontalLines: false,
+            scaleShowVerticalLines: false,
+            scaleShowLabels: false,
+            showScale: false,
+            scaleFontSize: 12,
+            tooltipFontSize: 12,
+            tooltipTitleFontSize: 12,
+            tooltipYPadding: 10,
+            tooltipXPadding: 10,
+            barValueSpacing: 2
+        });
 
         /**
          * Load insights
@@ -120,7 +120,7 @@
         }
 
         function reloadIfRequired(expense) {
-            var isSameMonth = moment(moment().year()).isSame(moment(expense.model.spentDate).year());
+            var isSameMonth = moment(moment().year()).isSame(moment(expense.spentDate).year());
 
             if (isSameMonth) {
                 vm.loadInsights();

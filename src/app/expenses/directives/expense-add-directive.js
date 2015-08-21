@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function AddExpenseController(EXPENSE_EVENTS, $scope, Expense, promiseTracker) {
+    function AddExpenseController(EXPENSE_EVENTS, $scope, ExpenseService, Expense, promiseTracker) {
 
         var vm = this,
             MIN_DATE = 2000;
@@ -32,17 +32,9 @@
 
         function initOrResetAddExpense() {
 
-            /**
-             * Keep master expense.
-             */
-            vm.masterExpense = Expense.build({
+            vm.expense = new Expense({
                 spentDate: moment().toDate()
             });
-
-            /**
-             * Work with a copy of master expense
-             */
-            vm.expense = angular.copy(vm.masterExpense);
 
             /**
              * Selected category
@@ -62,18 +54,17 @@
         }
 
         function saveExpense() {
-            this.expense.model.category = angular.copy(this.category.selected);
-            angular.copy(this.expense, this.masterExpense);
+            this.expense.category = angular.copy(this.category.selected);
 
-            this.masterExpense
-                .save()
-                .then(function () {
-                    $scope.$emit(EXPENSE_EVENTS.isCreated, { expense: angular.copy(vm.masterExpense) });
+            ExpenseService
+                .createExpense(this.expense, vm.saveTracker)
+                .then(function (createdExpense) {
+                    $scope.$emit(EXPENSE_EVENTS.isCreated, { expense: createdExpense });
                     vm.initOrResetAddExpense();
                 })
                 .catch(function () {
                     vm.badPostSubmitResponse = true;
-                    $scope.$emit(EXPENSE_EVENTS.isErrorOccurred, 'We\'ve encountered an error while trying to add this expense.');
+                    $scope.$emit(EXPENSE_EVENTS.isErrorOccurred, { errorMessage: 'Error' });
                 });
         }
 

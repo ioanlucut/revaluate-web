@@ -77,7 +77,7 @@
             this.isUpdatingListLayout = true;
 
             ExpenseService
-                .getAllExpensesGrouped(0, _.compose(_.flatten, _.map)(vm.expenses, 'model.expenseDTOs').length + INFINITE_SCROLL_EXPENSES_OFFSET)
+                .getAllExpensesGrouped(0, _.compose(_.flatten, _.map)(vm.expenses, 'expenseDTOs').length + INFINITE_SCROLL_EXPENSES_OFFSET)
                 .then(function (response) {
                     vm.expensesQueryResponse = response;
                     vm.expenses = vm.expensesQueryResponse.groupedExpensesDTOList;
@@ -103,7 +103,7 @@
          */
         function getSelectedExpensesForBulkAction() {
             var flatMap = _.compose(_.flatten, _.map),
-                expensesJoined = flatMap(vm.expenses, 'model.expenseDTOs');
+                expensesJoined = flatMap(vm.expenses, 'expenseDTOs');
 
             return _.filter(
                 _(expensesJoined)
@@ -153,13 +153,13 @@
          * On expense updated.
          */
         $scope.$on(EXPENSE_EVENTS.isUpdated, function (event, args) {
-            var expenseExistsInList = _.some(_.compose(_.flatten, _.map)(vm.expenses, 'model.expenseDTOs'), 'model.id', args.expense.model.id);
+            var expenseExistsInList = _.some(_.compose(_.flatten, _.map)(vm.expenses, 'expenseDTOs'), 'id', args.expense.id);
 
             if (expenseExistsInList) {
                 removeExpenseFromGroupedExpenses(vm.expenses, args.expense);
 
             } else {
-                _.remove(vm.temporaryExpenses, 'model.id', args.expense.model.id);
+                _.remove(vm.temporaryExpenses, 'id', args.expense.id);
             }
             vm.temporaryExpenses.push(args.expense);
 
@@ -181,14 +181,14 @@
 
         function removeExpenseFromGroupedExpenses(groupedExpenses, expenseToBeRemoved) {
             _.each(groupedExpenses, function (groupedExpenseEntry) {
-                _.remove(groupedExpenseEntry.model.expenseDTOs, 'model.id', expenseToBeRemoved.model.id);
+                _.remove(groupedExpenseEntry.expenseDTOs, 'id', expenseToBeRemoved.id);
             });
         }
 
         function removeBulkExpenses(selectedForBulkDelete) {
             _.each(selectedForBulkDelete, function (selectedForBulkDeleteEntry) {
                 removeExpenseFromGroupedExpenses(vm.expenses, selectedForBulkDeleteEntry);
-                _.remove(vm.temporaryExpenses, 'model.id', selectedForBulkDeleteEntry.model.id);
+                _.remove(vm.temporaryExpenses, 'id', selectedForBulkDeleteEntry.id);
             });
         }
 
