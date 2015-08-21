@@ -8,7 +8,7 @@
 
         <!-- Form groups -->
         <div class="expense__form__price" ng-class="{'has-error': vm.expenseForm.$submitted && (vm.expenseForm.value.$invalid || vm.badPostSubmitResponse)}">
-            <input class="expense__form__price__input" ng-disabled="vm.saveTracker.active()" type="text" name="value" placeholder="The value" maxlength="18" ng-model="vm.expense.model.value" format-price format="number" caret-price-position required valid-price auto-focus post-add-expense-focus />
+            <input class="expense__form__price__input" ng-disabled="vm.saveTracker.active()" type="text" name="value" placeholder="The value" maxlength="18" ng-model="vm.expense.value" format-price format="number" caret-price-position required valid-price auto-focus post-add-expense-focus />
             <span class="expense__form__price__currency">{{user.model.currency.symbol}}</span>
 
             <!-- Error messages -->
@@ -37,7 +37,7 @@
 
         <!-- Description input -->
         <div class="expense__form__details" ng-class="{'has-error': vm.expenseForm.$submitted && (vm.expenseForm.description.$invalid || vm.badPostSubmitResponse)}">
-            <input class="expense__form__details__input" ng-disabled="vm.saveTracker.active()" type="text" name="description" ng-maxlength="30" maxlength="30" placeholder="Add details (optional)" ng-model="vm.expense.model.description" escape-html />
+            <input class="expense__form__details__input" ng-disabled="vm.saveTracker.active()" type="text" name="description" ng-maxlength="30" maxlength="30" placeholder="Add details (optional)" ng-model="vm.expense.description" escape-html />
 
             <!-- Error messages -->
             <div class="form-group-input__message" ng-class="{'has-error': vm.expenseForm.description.$invalid && vm.expenseForm.$submitted}" ng-messages="vm.expenseForm.description.$error" ng-if="vm.expenseForm.$submitted">
@@ -49,20 +49,20 @@
         <div class="expense__form__date" ng-class="{'has-error': vm.expenseForm.spentDate.$invalid && vm.expenseForm.$submitted}">
 
             <!--Hidden input of the expense chosen date-->
-            <input type="hidden" name="spentDate" ng-model="vm.expense.model.spentDate" required valid-date />
+            <input type="hidden" name="spentDate" ng-model="vm.expense.spentDate" required valid-date />
 
             <!--Expense date picker-->
             <div class="expense__form__date__input">
                 <button type="button"
                         class="expense__form__date__input__btn"
                         ng-click="vm.openDatePicker($event)"
-                        ng-model="vm.expense.model.spentDate"
+                        ng-model="vm.expense.spentDate"
                         ng-disabled="vm.saveTracker.active()"
                         datepicker-popup
                         is-open="vm.datePickerOpened"
                         min-date="vm.datePickerMinDate"
                         max-date="vm.datePickerMaxDate"
-                        datepicker-options="{startingDay:1,showWeeks:false}">{{vm.expense.model.spentDate | friendlyDate}}
+                        datepicker-options="{startingDay:1,showWeeks:false}">{{vm.expense.spentDate | friendlyDate}}
                     <span class="caret"></span>
                 </button>
             </div>
