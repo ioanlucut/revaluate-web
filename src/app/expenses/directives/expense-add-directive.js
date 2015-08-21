@@ -31,14 +31,10 @@
         this.initOrResetAddExpense();
 
         function initOrResetAddExpense() {
-
             vm.expense = new Expense({
                 spentDate: moment().toDate()
             });
 
-            /**
-             * Selected category
-             */
             vm.category = {};
 
             if (vm.expenseForm) {
