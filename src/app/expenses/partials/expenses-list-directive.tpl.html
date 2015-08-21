@@ -1,17 +1,15 @@
 <div class="expenses__list">
 
-    <div class="expense__list__sort" ng-if="expenses.length !== 0">
+    <div class="expense__list__sort" ng-if="vm.expenses.length !== 0">
         <div class="expense__list__sort__date">
             <span class="icon-sort"></span>
-            <a class="expense__list__sort__date__entry" href="javascript:void(0)" ng-class="{'expense__list__sort__date__entry--active': selectedOrderBy === 'spentDate'}" ng-click="setSelectedOrderBy('spentDate')">Expense date</a> |
-            <a class="expense__list__sort__date__entry" href="javascript:void(0)" ng-class="{'expense__list__sort__date__entry--active': selectedOrderBy === 'createdDate'}" ng-click="setSelectedOrderBy('createdDate')">Added date</a>
+            <a class="expense__list__sort__date__entry" href="javascript:void(0)" ng-class="{'expense__list__sort__date__entry--active': vm.selectedOrderBy === 'spentDate'}" ng-click="vm.setSelectedOrderBy('spentDate')">Expense date</a> |
+            <a class="expense__list__sort__date__entry" href="javascript:void(0)" ng-class="{'expense__list__sort__date__entry--active': vm.selectedOrderBy === 'createdDate'}" ng-click="vm.setSelectedOrderBy('createdDate')">Added date</a>
         </div>
     </div>
-
     <!--Expense list-->
     <div class="expenses__list__entry-grouped"
-         ng-repeat="expenseGroupEntry in expenses | orderObjectBy : 'localDate' : reverseOrder track by expenseGroupEntry.localDate"
-         expense-finish-render
+         ng-repeat="expenseGroupEntry in vm.expenses | orderObjectBy : 'localDate' : reverseOrder track by expenseGroupEntry.localDate"
          ng-show="expenseGroupEntry.expenseDTOs.length > 0">
 
         <div class="expenses__list__group__name">
@@ -20,10 +18,10 @@
         </div>
 
         <div class="expenses__list__entry"
-             ng-repeat="expense in expenseGroupEntry.expenseDTOs | orderObjectBy : selectedOrderBy : reverseOrder track by expense.id"
+             ng-repeat="expense in expenseGroupEntry.expenseDTOs | orderObjectBy : vm.selectedOrderBy : reverseOrder track by expense.id"
              expense-entry
              expense="expense"
-             categories="categories">
+             categories="vm.categories">
         </div>
     </div>
 </div>

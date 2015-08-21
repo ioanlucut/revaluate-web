@@ -79,17 +79,6 @@
             }, this));
         };
 
-        function handleShowAllFunctionality(expensesOfThisCategory) {
-            // ---
-            // If expenses length > length * 0,2.
-            // ---
-            vm.displayShowAllButton = expensesOfThisCategory.length > vm.expensesLimit + vm.expensesLimit * 0.2;
-
-            vm.expensesLimit = vm.displayShowAllButton
-                ? vm.expensesLimit
-                : expensesOfThisCategory.length;
-        }
-
         /**
          * Load expenses of category
          */
@@ -115,6 +104,18 @@
                     });
                 });
         };
+
+        function handleShowAllFunctionality(expensesOfThisCategory) {
+            // ---
+            // If expenses length > length * 0,2.
+            // ---
+            vm.displayShowAllButton = expensesOfThisCategory.length
+                > vm.expensesLimit + vm.expensesLimit * 0.2;
+
+            vm.expensesLimit = vm.displayShowAllButton
+                ? vm.expensesLimit
+                : expensesOfThisCategory.length;
+        }
 
     }
 
