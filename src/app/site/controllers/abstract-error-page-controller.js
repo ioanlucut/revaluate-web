@@ -12,7 +12,7 @@
              * Track event.
              */
             $scope.trackErrorEvent = function (event) {
-                $scope.$broadcast('trackEvent', event)
+                $scope.$broadcast('trackEvent', event);
             };
 
             /**

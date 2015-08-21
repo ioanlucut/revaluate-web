@@ -24,8 +24,8 @@
                 .state('expenses.regular', {
                     url: '',
                     views: {
-                        'left__content': {
-                            templateUrl: '/app/expenses/partials/expenses__left.html',
+                        "expenses__content": {
+                            templateUrl: '/app/expenses/partials/expenses__content.html',
                             controller: 'ExpensesController',
                             resolve: {
                                 expensesQueryResponse: function (ExpenseService) {

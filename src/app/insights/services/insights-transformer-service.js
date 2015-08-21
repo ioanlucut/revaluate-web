@@ -6,7 +6,7 @@
      */
     angular
         .module('revaluate.insights')
-        .service('InsightsTransformerService', function ($filter, $injector, InsightsMonthly, InsightsDaily, InsightsProgress, InsightsOverview, TransformerUtils) {
+        .service('InsightsTransformerService', function ($filter, $injector, InsightsMonthly, InsightsDaily, InsightsProgress, InsightsOverview) {
 
             this.insightsMonthlyApiResponseTransformer = function (responseData) {
                 return new InsightsMonthly(_.extend(responseData.data, {
