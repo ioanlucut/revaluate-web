@@ -44,6 +44,7 @@
 .home__section__tour-arrow {
     padding-bottom: 50px;
     color: $brand-secondary;
+    @include fadeInDown($delay: 2s);
 }
 
 .home__section__tour-screenmain {
