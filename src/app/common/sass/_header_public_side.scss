@@ -1,3 +1,26 @@
+.header__public__side__top {
+    position: relative;
+    height: 120px;
+    background-color: $white;
+    padding: 30px 5px 5px 5px;
+    text-align: center;
+
+    .header__public__side__top__logo {
+        @include size(60px 60px);
+        background: url("../assets/img/logo.svg") no-repeat top left;
+        background-size: contain;
+        //position: absolute;
+        margin: 0 auto;
+        display: block;
+        //left: 15px;
+        //top: 10px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
 .header__public__side__list {
     padding: 0;
 
