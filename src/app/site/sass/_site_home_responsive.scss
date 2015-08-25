@@ -55,6 +55,12 @@
 
 }
 
+@media (max-width: $header-responsive-breakpoint) {
+    .body__feedback-section {
+        display: none;
+    }
+}
+
 @media (max-width: 500px) {
 
     .home__title {
