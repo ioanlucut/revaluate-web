@@ -80,7 +80,7 @@
             $translateProvider.translations('en', ({
                 'HOME': {
                     'TITLE_TEXT': 'Change the way you spend your money',
-                    'DESCRIPTION_TEXT': 'Personal finance simplified!'
+                    'DESCRIPTION_TEXT': 'Personal finance simplified'
                 },
                 'PROFILE_PICTURE': {
                     'OAUTH_FACEBOOK': 'Synced from Facebook',
