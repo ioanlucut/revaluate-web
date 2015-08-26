@@ -6,12 +6,12 @@
     <button type="button" ng-click="closeAndToggle()">Close</button>
 
     <!--Message-->
-    <div class="message">Are you sure? This action can't be undone and will delete all the expenses in <strong>{{category.model.name}}</strong>.</div>
+    <div class="message">Are you sure? This action can't be undone and will delete all the expenses in <strong>{{category.name}}</strong>.</div>
 
     <div class="categories__delete__confirmation__check">
         <input type="checkbox" ng-model="messageAcknowledged" id="check"/>
-        <label class="categories__delete__confirmation__check" for="check">Delete <strong>{{category.model.name}}</strong> and all expenses associated with it.</label>
+        <label class="categories__delete__confirmation__check" for="check">Delete <strong>{{category.name}}</strong> and all expenses associated with it.</label>
     </div>
 
-    <button type="button" ng-disabled="! messageAcknowledged" ng-click="doConfirm();">{{progress ? 'Deleting..': 'Permanently delete'}} <strong>{{category.model.name}}</strong></button>
+    <button type="button" ng-disabled="! messageAcknowledged" ng-click="doConfirm();">{{progress ? 'Deleting.': 'Permanently delete'}} <strong>{{category.name}}</strong></button>
 </div>

@@ -14,11 +14,11 @@
     </div>
 
     <div class="insights__categories">
-        <div class="insights__categories__category" ng-repeat="category in vm.masterCategories | orderObjectBy : 'model.name' : false track by category.model.id">
+        <div class="insights__categories__category" ng-repeat="category in vm.masterCategories | orderObjectBy : 'name' : false track by category.id">
             <button class="category-name" ng-class="{ 'category-name--unselected': ! category.selected }" ng-click="vm.toggleAndReloadInsights(category)">
-                <span class="icon-checkmark-filled" ng-style="{'color': category.selected ? category.model.color.color : 'transparent'}" ng-show="category.selected"></span>
+                <span class="icon-checkmark-filled" ng-style="{'color': category.selected ? category.color.color : 'transparent'}" ng-show="category.selected"></span>
                 <span class="icon-checkmark-light-unchecked" ng-show="!category.selected"></span>
-                {{category.model.name}}
+                {{category.name}}
             </button>
         </div>
     </div>
@@ -64,15 +64,15 @@
                     <span class="insights__table__entry__amount__value" ng-bind-html="vm.totalAmountPerMonths[availableYearMonthsEntry] | currencysNoSymbol:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
                 </td>
             </tr>
-            <tr ng-repeat="category in vm.masterCategories | orderBy : 'model.name' : true">
+            <tr ng-repeat="category in vm.masterCategories | orderBy : 'name' : true">
                 <th class="insights__table__category label-uppercase">
-                    <span class="insights__table__category__color" ng-style="{'background':category.model.color.color}">C</span>
-                    {{category.model.name}}
+                    <span class="insights__table__category__color" ng-style="{'background':category.color.color}">C</span>
+                    {{category.name}}
                 </th>
                 <td class="insights__table__entry__amount" ng-repeat="availableYearMonthsEntry in vm.availableYearMonths">
                     <span class="insights__table__entry__amount__th" ng-bind-html="availableYearMonthsEntry | friendlyMonthShortDateNoYear"></span>
 
-                    <span class="insights__table__entry__amount__value" ng-bind-html="category.model.yearMonth[availableYearMonthsEntry] | currencysNoSymbol:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize" ng-class="{ insights__table__zero : category.model.yearMonth[availableYearMonthsEntry] === 0}"></span>
+                    <span class="insights__table__entry__amount__value" ng-bind-html="category.yearMonth[availableYearMonthsEntry] | currencysNoSymbol:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize" ng-class="{ insights__table__zero : category.yearMonth[availableYearMonthsEntry] === 0}"></span>
                 </td>
             </tr>
         </table>

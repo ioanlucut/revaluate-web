@@ -19,7 +19,7 @@
         "jquery-price-format-ilucut-fork": "git@github.com:ioanlucut/Jquery-Price-Format.git#6161f4d0d3006c727461b46c6525fd1aff3249dc",
         "braintree-angular": "~1.2.6",
         "angular-gravatar": "~0.3.1",
-        "angular-ui-select": "~0.12.0",
+        "angular-ui-select": "git@github.com:ioanlucut/ui-select.git#5c247c7d21d6a55c499a8073b5b00e90e55df42e",
         "angular-chart.js": "~0.7.2",
         "angular-payments": "*",
         "angular-translate": "~2.7.2",
@@ -41,7 +41,8 @@
         "angular-snap": "~1.8.3",
         "unison": "0.6.0",
         "ngInfiniteScroll": "~1.2.1",
-        "angular-scroll": "~0.7.1"
+        "angular-scroll": "~0.7.1",
+        "angular-promise-tracker": "~2.1.0"
     },
     "devDependencies": {
         "angular-mocks": "1.4.3"

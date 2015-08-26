@@ -164,7 +164,7 @@
                 // Close login modal if everything is loaded.
                 // ---
                 if (AccountModal.isOpen) {
-                    $rootScope.$broadcast(AUTH_MODAL.close, {})
+                    $rootScope.$broadcast(AUTH_MODAL.close, {});
                 }
             });
 

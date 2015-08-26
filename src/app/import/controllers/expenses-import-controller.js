@@ -140,7 +140,7 @@
                         message: 'Hmmm... Are you sure the CSV export is from selected app?',
                         alertId: $scope.alertId
                     });
-                }            else {
+                } else {
                     if (status === SERVER_ERROR) {
                         $scope.$emit(ALERTS_EVENTS.DANGER, {
                             message: 'Something went wrong. Can you please try one more time?',
@@ -200,12 +200,12 @@
                     _.each(expensesImportPrepared.model.expenseCategoryMatchingProfileDTOs, function (expenseCategoryMatchingProfileDTO) {
                         if (expenseCategoryMatchingProfileDTO.selected) {
 
-                            expenseCategoryMatchingProfileDTO.categoryDTO = angular.copy(expenseCategoryMatchingProfileDTO.category.selected.model);
-                        }                else {
+                            expenseCategoryMatchingProfileDTO.categoryDTO = angular.copy(expenseCategoryMatchingProfileDTO.category.selected);
+                        } else {
                             // ---
                             // Really ugly, but we can't send back an invalid category..
                             // ---
-                            expenseCategoryMatchingProfileDTO.categoryDTO = angular.copy(getSelectedMatchingCategories()[0].category.selected.model);
+                            expenseCategoryMatchingProfileDTO.categoryDTO = angular.copy(getSelectedMatchingCategories()[0].category.selected);
                         }
                     });
 

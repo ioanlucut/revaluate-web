@@ -1,11 +1,38 @@
 (function () {
     'use strict';
 
-    /* Email list */
+    function ExpenseListController($rootScope, $timeout) {
+        var vm = this,
+            TIMEOUT = 200;
+
+        /**
+         * Initial selected order by
+         */
+        this.selectedOrderBy = 'createdDate';
+
+        /**
+         * Sets the selected order by
+         */
+        this.setSelectedOrderBy = setSelectedOrderBy;
+
+        /**
+         * Is loading more expenses flag.
+         */
+        this.isUpdatingListLayout = false;
+
+        function setSelectedOrderBy(by) {
+            vm.isUpdatingListLayout = !vm.isUpdatingListLayout;
+
+            $timeout(function () {
+                vm.selectedOrderBy = by;
+                vm.isUpdatingListLayout = !vm.isUpdatingListLayout
+            }, TIMEOUT);
+        };
+    }
 
     angular
         .module('revaluate.expenses')
-        .directive('expensesList', function ($rootScope, $timeout) {
+        .directive('expensesList', function () {
             return {
                 restrict: 'A',
                 replace: true,
@@ -13,51 +40,13 @@
                     expenses: '=',
                     categories: '='
                 },
-                templateUrl: '/app/expenses/partials/expense/expenses-list-directive.tpl.html',
+                controller: ExpenseListController,
+                bindToController: true,
+                controllerAs: 'vm',
+                templateUrl: '/app/expenses/partials/expenses-list-directive.tpl.html',
                 link: function (scope, el, attrs) {
 
-                    var TIMEOUT = 200;
-
-                    /**
-                     * The way of sort
-                     */
                     scope.reverseOrder = attrs.sort === 'desc';
-
-                    /**
-                     * Current user.
-                     */
-                    scope.user = $rootScope.currentUser;
-
-                    /**
-                     * Is loading more expenses flag.
-                     */
-                    scope.isUpdatingListLayout = false;
-
-                    /**
-                     * Initial selected order by
-                     */
-                    scope.selectedOrderBy = 'model.createdDate';
-
-                    /**
-                     * On ng repeat expense finished
-                     */
-                    scope.$on('ngRepeatExpenseFinished', function () {
-                        $timeout(function () {
-                            scope.isInitiallyLoaded = true;
-                        }, TIMEOUT);
-                    });
-
-                    /**
-                     * Sets the selected order by
-                     */
-                    scope.setSelectedOrderBy = function (by) {
-                        scope.isUpdatingListLayout = !scope.isUpdatingListLayout;
-
-                        $timeout(function () {
-                            scope.selectedOrderBy = by;
-                            scope.isUpdatingListLayout = !scope.isUpdatingListLayout
-                        }, TIMEOUT);
-                    };
                 }
             }
         });

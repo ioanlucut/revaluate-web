@@ -1,68 +1,46 @@
 (function () {
     'use strict';
 
-    /**
-     * Expenses service which encapsulates the whole logic related to expenses.
-     */
     angular
         .module('revaluate.expenses')
-        .service('ExpenseService', function (EXPENSE_URLS, $q, $http, $injector, ExpenseTransformerService, DatesUtils) {
+        .service('ExpenseService', function (EXPENSE_URLS, $q, $http, DatesUtils, ExpenseGroupedTransformerService, ExpenseTransformerService) {
 
-            /**
-             * Create expense.
-             */
-            this.createExpense = function (expense) {
+            this.createExpense = function (expense, tracker) {
                 return $http
-                    .post(URLTo.api(EXPENSE_URLS.create), ExpenseTransformerService.toExpenseDto(expense))
-                    .then(function (response) {
-                        ExpenseTransformerService.toExpense(response.data, expense);
+                    .post(URLTo.api(EXPENSE_URLS.create), ExpenseTransformerService.expenseApiRequestTransformer(expense), { tracker: tracker })
+                    .then(ExpenseTransformerService.expenseApiResponseTransformer);
+            };
 
-                        return response;
-                    });
+            this.updateExpense = function (expense, tracker) {
+                var expenseDto = ExpenseTransformerService.expenseApiRequestTransformer(expense);
+
+                return $http
+                    .put(URLTo.api(EXPENSE_URLS.update), expenseDto, { tracker: tracker })
+                    .then(ExpenseTransformerService.expenseApiResponseTransformer);
             };
 
             /**
-             * Update expense.
+             * Get all expenses of current user of a given expense
              */
-            this.updateExpense = function (expense) {
-                var expenseDto = ExpenseTransformerService.toExpenseDto(expense);
+            this.getAllExpensesOfCategory = function (categoryId, from, to, tracker) {
+                var fromFormatted = DatesUtils.formatDate(from),
+                    toFormatted = DatesUtils.formatDate(to);
 
                 return $http
-                    .put(URLTo.api(EXPENSE_URLS.update), expenseDto)
-                    .then(function (response) {
-                        ExpenseTransformerService.toExpense(response.data, expense);
-
-                        return response;
-                    });
+                    .get(URLTo.api(EXPENSE_URLS.allExpensesOfCategory, {
+                        ':categoryId': categoryId,
+                        ':from': fromFormatted,
+                        ':to': toFormatted
+                    }), { tracker: tracker })
+                    .then(ExpenseTransformerService.expenseApiResponseTransformer);
             };
 
             /**
-             * Delete expense.
+             * Bulk delete action of a list of expenses.
              */
-            this.deleteExpense = function (expense) {
-                var expenseDto = ExpenseTransformerService.toExpenseDto(expense);
-
+            this.bulkDelete = function (expenses) {
                 return $http
-                    .delete(URLTo.api(EXPENSE_URLS.delete, { ':id': expenseDto.id }), expenseDto)
-                    .then(function (response) {
-                        ExpenseTransformerService.toExpense(response.data, expense);
-
-                        return response.data;
-                    });
-            };
-
-            /**
-             * Get all expenses of current user
-             */
-            this.getAllExpenses = function () {
-                return $http
-                    .get(URLTo.api(EXPENSE_URLS.allExpenses))
-                    .then(function (response) {
-
-                        return ExpenseTransformerService.toExpenses(response.data)
-                    }).catch(function (response) {
-                        return $q.reject(response);
-                    });
+                    .put(URLTo.api(EXPENSE_URLS.bulkDelete), ExpenseTransformerService.expenseApiRequestTransformer(expenses));
             };
 
             /**
@@ -74,61 +52,8 @@
                         ':page': page,
                         ':size': size
                     }))
-                    .then(function (response) {
-
-                        return ExpenseTransformerService.toExpensesGrouped(response.data)
-                    }).catch(function (response) {
-                        return $q.reject(response);
-                    });
+                    .then(ExpenseGroupedTransformerService.expenseGroupedApiResponseTransformer);
             };
 
-            /**
-             * Get all expenses of current user of a given category
-             */
-            this.getAllExpensesOfCategory = function (categoryId, from, to) {
-                var fromFormatted = DatesUtils.formatDate(from),
-                    toFormatted = DatesUtils.formatDate(to);
-
-                return $http
-                    .get(URLTo.api(EXPENSE_URLS.allExpensesOfCategory, {
-                        ':categoryId': categoryId,
-                        ':from': fromFormatted,
-                        ':to': toFormatted
-                    }))
-                    .then(function (response) {
-
-                        return ExpenseTransformerService.toExpenses(response.data)
-                    }).catch(function (response) {
-                        return $q.reject(response);
-                    });
-            };
-
-            /**
-             * Get details of a expense.
-             */
-            this.getDetails = function (id) {
-                return $http
-                    .get(URLTo.api(EXPENSE_URLS.details, { ':id': id }))
-                    .then(function (response) {
-                        return ExpenseTransformerService.toExpense(response.data, $injector.get('Expense').build());
-                    });
-            };
-
-            /**
-             * Bulk delete action of a list of expenses.
-             * @returns {*}
-             */
-            this.bulkDelete = function (categories) {
-                return $http
-                    .put(URLTo.api(EXPENSE_URLS.bulkDelete), ExpenseTransformerService.toExpenseDTOs(categories))
-                    .then(function (response) {
-
-                        return response.data;
-                    });
-            };
-
-            this.formatDate = function (givenDate) {
-                return moment(givenDate).format('YYYY-MM-DDTHH:mm:ss') + 'Z';
-            }
         });
 }());

@@ -70,7 +70,7 @@
 
                 AuthServiceMock.logout = jasmine.createSpy('logout');
                 AuthServiceMock.saveAttemptUrl = jasmine.createSpy('saveAttemptUrl');
-            })
+            });
         });
 
         it('should redirect to expenses page a authenticated user', function () {

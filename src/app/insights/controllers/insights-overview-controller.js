@@ -8,7 +8,7 @@
             var TIMEOUT_DURATION = 150;
             var MONTHS = 'Months';
 
-            /* jshint validthis: true */
+
             var vm = this;
 
             /**
@@ -110,7 +110,7 @@
                             alertId: vm.alertId
                         });
                     });
-            }
+            };
 
         });
 }());

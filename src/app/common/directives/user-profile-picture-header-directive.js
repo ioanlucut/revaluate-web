@@ -7,7 +7,7 @@
             return {
                 restrict: 'E',
                 controller: function ($scope, $rootScope) {
-                    /* jshint validthis: true */
+
                     var userProfileVm = this;
 
                     /**
