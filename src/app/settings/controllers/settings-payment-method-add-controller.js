@@ -5,7 +5,7 @@
         .module('revaluate.settings')
         .controller('SettingsPaymentMethodAddController', function ($q, $scope, $state, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentStatus, ALERTS_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, AUTH_EVENTS, USER_SUBSCRIPTION_STATUS) {
 
-            /* jshint validthis: true */
+
             var vm = this;
 
             var TIMEOUT_PENDING = 300;
@@ -44,7 +44,7 @@
                 return {
                     cardNumber: '',
                     cardExpirationDate: ''
-                }
+                };
             }
 
             /**
@@ -65,7 +65,7 @@
                     paymentNonceDetailsDTO: {
                         paymentMethodNonce: ''
                     }
-                }
+                };
             }
 
             /**

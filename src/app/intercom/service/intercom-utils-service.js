@@ -10,9 +10,7 @@
                 // ---
                 // Bootstrap intercom.
                 // ---
-                $intercom.boot(featured
-                    ? _.extend(this.getIntercomUser(user), { featured: featured })
-                    : this.getIntercomUser(user));
+                $intercom.boot(featured ? _.extend(this.getIntercomUser(user), { featured: featured }) : this.getIntercomUser(user));
             };
 
             this.updateIntercom = function (user, args) {

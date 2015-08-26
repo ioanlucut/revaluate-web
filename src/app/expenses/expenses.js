@@ -16,7 +16,7 @@
 
                 .state('expenses', {
                     url: '/expenses',
-                    templateUrl: '/app/expenses/partials/expense/expenses.abstract.html',
+                    templateUrl: '/app/expenses/partials/expenses.abstract.html',
                     abstract: true
                 })
 
@@ -24,9 +24,9 @@
                 .state('expenses.regular', {
                     url: '',
                     views: {
-                        'left__content': {
-                            templateUrl: '/app/expenses/partials/expense/expenses__left.html',
-                            controller: 'ExpenseController',
+                        "expenses__content": {
+                            templateUrl: '/app/expenses/partials/expenses__content.html',
+                            controller: 'ExpensesController',
                             resolve: {
                                 expensesQueryResponse: function (ExpenseService) {
                                     return ExpenseService.getAllExpensesGrouped(0, 50);

@@ -4,7 +4,7 @@
 </div>
 
 <!-- Add category form -->
-<form name="vm.categoryForm" class="categories__add__form" ng-if="showContent" ng-submit="vm.saveCategory(vm.categoryForm)" novalidate focus-first-error>
+<form name="vm.categoryForm" class="categories__add__form" ng-if="showContent" ng-submit="vm.categoryForm.$valid ? vm.saveCategory() : ''" novalidate focus-first-error>
 
     <!--Content left-->
     <div class="categories__add__form__content__left">
@@ -12,7 +12,7 @@
         <!-- Form group -->
         <div class="categories__form__input-group" ng-class="{'has-error': vm.categoryForm.$submitted && (vm.categoryForm.color.$invalid || vm.badPostSubmitResponse)}">
 
-            <input ng-disabled="vm.isSaving" class="categories__form__input-group__color" type="hidden" placeholder="Category color" name="color" ng-model="vm.category.model.color.color" required valid-category-color />
+            <input ng-disabled="vm.saveTracker.active()" class="categories__form__input-group__color" type="hidden" placeholder="Category color" name="color" ng-model="vm.category.color.color" required valid-category-color />
 
             <!-- Error messages -->
             <div class="form-group-input__message" ng-class="{'has-error': vm.categoryForm.color.$invalid && vm.categoryForm.$submitted}" ng-messages="vm.categoryForm.color.$error" ng-if="vm.categoryForm.$submitted">
@@ -30,21 +30,21 @@
             </div>
 
             <!--Color preview-->
-            <label class="categories__form__color__preview" ng-style="{'background':vm.category.model.color.color}"></label>
+            <label class="categories__form__color__preview" ng-style="{'background':vm.category.color.color}"></label>
 
-            <input ng-disabled="vm.isSaving"
+            <input ng-disabled="vm.saveTracker.active()"
                    type="text"
                    name="name"
                    class="categories__form__input-group__name"
                    placeholder="Category name"
                    ng-maxlength="20"
                    maxlength="20"
-                   ng-model="vm.category.model.name"
+                   ng-model="vm.category.name"
                    auto-focus required valid-category-name unique-category-name />
 
-            <div ng-show="! vm.isSaving" class="categories__form__input-group__count">{{20 - vm.category.model.name.length}}</div>
+            <div ng-show="! vm.saveTracker.active()" class="categories__form__input-group__count">{{20 - vm.category.name.length}}</div>
 
-            <div color-picker colors="vm.colors" category-color="vm.category.model.color"></div>
+            <div color-picker colors="vm.colors" category-color="vm.category.color"></div>
         </div>
 
     </div>
@@ -52,8 +52,8 @@
     <!--Content right-->
     <div class="categories__add__form__content__right">
         <!--Reset-->
-        <button ng-disabled="vm.isSaving" type="button" class="categories__add__form__content__right__cancel" ng-click="toggleContent();initOrResetAddExpense(vm.categoryForm)">Nevermind</button>
+        <button ng-disabled="vm.saveTracker.active()" type="button" class="categories__add__form__content__right__cancel" ng-click="toggleContent();initOrResetAddCategory(vm.categoryForm)">Nevermind</button>
         <!-- Submit button container -->
-        <button ng-disabled="vm.isSaving" class="categories__add__form__content__right__add" type="submit">{{vm.isSaving ? 'Saving...' : 'Save category'}}</button>
+        <button ng-disabled="vm.saveTracker.active()" class="categories__add__form__content__right__add" type="submit">{{vm.saveTracker.active() ? 'Saving..' : 'Save category'}}</button>
     </div>
 </form>

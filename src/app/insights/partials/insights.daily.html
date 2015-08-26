@@ -4,9 +4,9 @@
 
     <div>Daily expenses</div>
 
-    <div class="insights__chart__bar insights__chart__bar--small" fade-out-in fade-when="vm.isLoading">
+    <div class="insights__chart__bar insights__chart__bar--small" fade-out-in fade-when="vm.loadTracker.active()">
 
-        <div class="spinner insights__loading" ng-if="vm.isLoading">
+        <div class="spinner insights__loading" ng-if="vm.loadTracker.active()">
             <div class="double-bounce1"></div>
             <div class="double-bounce2"></div>
         </div>

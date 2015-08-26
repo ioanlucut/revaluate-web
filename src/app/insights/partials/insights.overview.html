@@ -31,10 +31,10 @@
             <tr class="insights__table__total">
                 <th>TOTAL</th>
                 <td class="insights__table__total__amount">
-                    <span ng-bind-html="vm.insightsOverview.model.totalAmountSpent | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
+                    <span ng-bind-html="vm.insightsOverview.totalAmountSpent | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
                 </td>
             </tr>
-            <tr class="insights__table__entry" ng-repeat="insightsOverviewEntry in vm.insightsOverview.model.insightsOverview | orderBy : 'yearMonth' : reverse">
+            <tr class="insights__table__entry" ng-repeat="insightsOverviewEntry in vm.insightsOverview.insightsOverview | orderBy : 'yearMonth' : reverse">
                 <th class="insights__table__entry__month">
                     {{insightsOverviewEntry.yearMonth | friendlyMonthDateNoYear}}
                 </th>

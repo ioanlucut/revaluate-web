@@ -5,7 +5,6 @@
         .module('revaluate.account')
         .controller('OauthConnectController', function ($rootScope, $scope, $q, $timeout, OAuth2Service, ALERTS_EVENTS, ALERTS_CONSTANTS, StatesHandler, User, APP_CONFIG, AuthService) {
 
-            /* jshint validthis: true */
             var vm = this;
 
             /**

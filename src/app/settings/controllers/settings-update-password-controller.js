@@ -8,7 +8,7 @@
         .module('revaluate.settings')
         .controller('SettingsUpdatePasswordController', function ($scope, ALERTS_EVENTS, $timeout, AuthService, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {
 
-            /* jshint validthis: true */
+
             var vm = this;
 
             var TIMEOUT_PENDING = 300;

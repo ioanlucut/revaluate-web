@@ -64,7 +64,6 @@
                         if (val === true && valOld === false) {
                             $timeout(function () {
                                 scope.toggleConfirmationContent();
-
                             });
                         }
                     });
