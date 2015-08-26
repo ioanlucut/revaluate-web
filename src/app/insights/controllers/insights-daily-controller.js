@@ -44,7 +44,7 @@
                 tooltipTitleFontSize: 12,
                 tooltipYPadding: 10,
                 tooltipXPadding: 10,
-                barValueSpacing: 3
+                barValueSpacing: 2
             });
 
             /**
