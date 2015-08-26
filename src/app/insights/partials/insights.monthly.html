@@ -5,7 +5,7 @@
         <form name="vm.insightForm" class="insights__controls__form" novalidate>
 
             <!-- Select prev month -->
-            <button type="button" class="insights__controls__form__arrow insights__controls__form__arrow--left icon-chevron-left" ng-disabled="vm.loadTracker.active() || ! vm.canLoadPrevMonth()" ng-click="vm.prevMonth()"></button>
+            <button type="button" class="insights__controls__form__arrow insights__controls__form__arrow--left icon-chevron-left" ng-disabled="vm.isLoading || ! vm.canLoadPrevMonth()" ng-click="vm.prevMonth()"></button>
 
             <div class="insights__controls__form__month" ng-class="{'has-error': vm.insightForm.yearMonthDate.$invalid && vm.insightForm.$submitted}">
 
@@ -21,11 +21,11 @@
                             datepicker-popup
                             is-open="vm.datePickerOpened"
                             ng-change="vm.onChange()"
-                            ng-disabled="vm.loadTracker.active()"
+                            ng-disabled="vm.isLoading"
                             datepicker-mode="'month'" min-mode="month"
                             date-disabled="vm.shouldDateBeDisabled(date, mode)"
                             show-button-bar="false"
-                            datepicker-options="{minMode: 'month',datepickerMode: 'month'}">{{vm.loadTracker.active() ? 'Loading'
+                            datepicker-options="{minMode: 'month',datepickerMode: 'month'}">{{vm.isLoading ? 'Loading'
                         : (vm.insightData.yearMonthDate | friendlyMonthDate)}}
                     </button>
                 </div>
@@ -38,7 +38,7 @@
             </div>
 
             <!-- Select next month -->
-            <button type="button" class="insights__controls__form__arrow insights__controls__form__arrow--right icon-chevron-right" ng-disabled="vm.loadTracker.active() || ! vm.canLoadNextMonth()" ng-click="vm.nextMonth()"></button>
+            <button type="button" class="insights__controls__form__arrow insights__controls__form__arrow--right icon-chevron-right" ng-disabled="vm.isLoading || ! vm.canLoadNextMonth()" ng-click="vm.nextMonth()"></button>
 
         </form>
 
@@ -65,7 +65,7 @@
             <span class="label-info" ng-bind-html="vm.insightsMonthly.totalAmountSpent | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>.
         </div>
 
-        <div ng-if="vm.activeChart === vm.INSIGHTS_CHARTS.BAR" class="insights__chart__bar" fade-out-in fade-when="vm.loadTracker.active()">
+        <div ng-if="vm.activeChart === vm.INSIGHTS_CHARTS.BAR" class="insights__chart__bar" fade-out-in fade-when="vm.isLoading">
             <canvas id="bar"
                     class="chart chart-bar"
                     data="vm.barInsightsPrepared.insightsBarData"
@@ -77,7 +77,7 @@
             </canvas>
         </div>
 
-        <div ng-if="vm.activeChart === vm.INSIGHTS_CHARTS.DOUGHNUT" class="insights__chart__doughnut" fade-out-in fade-when="vm.loadTracker.active()">
+        <div ng-if="vm.activeChart === vm.INSIGHTS_CHARTS.DOUGHNUT" class="insights__chart__doughnut" fade-out-in fade-when="vm.isLoading">
             <canvas class="chart chart-doughnut"
                     data="vm.donutInsightsPrepared.insightsDonutData"
                     labels="vm.donutInsightsPrepared.insightsDonutLabels"
