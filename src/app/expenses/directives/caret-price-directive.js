@@ -5,7 +5,7 @@
         .module('revaluate.expenses')
         .directive('caretPricePosition', function ($timeout) {
             return {
-                link: function (scope, elem, attrs) {
+                link: function (scope, elem) {
 
                     elem.on('focus, click', function () {
                         var el = this;
@@ -18,7 +18,7 @@
                                 $(el).val(el.value);
                             }
                         });
-                    })
+                    });
                 }
             };
         });

@@ -17,7 +17,7 @@
                     cancel: '&'
                 },
                 templateUrl: '/app/categories/partials/remove-category-confirmation-directive.tpl.html',
-                link: function (scope, el, attrs) {
+                link: function (scope) {
 
                     /**
                      * Show block content
@@ -68,6 +68,6 @@
                         }
                     });
                 }
-            }
+            };
         });
 }());

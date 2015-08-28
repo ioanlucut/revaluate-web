@@ -91,7 +91,7 @@
                     $timeout(function () {
                         vm.isUpdatingListLayout = !vm.isUpdatingListLayout;
                     }, INFINITE_SCROLL_TIMEOUT);
-                })
+                });
         }
 
         function isBulkActionEnabled() {

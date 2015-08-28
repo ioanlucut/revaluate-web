@@ -25,9 +25,9 @@
 
             $timeout(function () {
                 vm.selectedOrderBy = by;
-                vm.isUpdatingListLayout = !vm.isUpdatingListLayout
+                vm.isUpdatingListLayout = !vm.isUpdatingListLayout;
             }, TIMEOUT);
-        };
+        }
     }
 
     angular
@@ -48,6 +48,6 @@
 
                     scope.reverseOrder = attrs.sort === 'desc';
                 }
-            }
+            };
         });
 }());

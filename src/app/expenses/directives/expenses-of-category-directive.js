@@ -51,7 +51,7 @@
             }
 
             $timeout(_.bind(function () {
-                this.expanded = !this.expanded
+                this.expanded = !this.expanded;
             }, this));
         };
 
@@ -109,12 +109,8 @@
             // ---
             // If expenses length > length * 0,2.
             // ---
-            vm.displayShowAllButton = expensesOfThisCategory.length
-                > vm.expensesLimit + vm.expensesLimit * 0.2;
-
-            vm.expensesLimit = vm.displayShowAllButton
-                ? vm.expensesLimit
-                : expensesOfThisCategory.length;
+            vm.displayShowAllButton = expensesOfThisCategory.length > vm.expensesLimit + vm.expensesLimit * 0.2;
+            vm.expensesLimit = vm.displayShowAllButton ? vm.expensesLimit : expensesOfThisCategory.length;
         }
 
     }
@@ -132,8 +128,8 @@
 
                 controllerAs: 'vm',
                 templateUrl: '/app/expenses/partials/expenses-of-category-directive.tpl.html',
-                link: function (scope, el, attrs) {
+                link: function () {
                 }
-            }
+            };
         });
 }());

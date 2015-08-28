@@ -12,7 +12,7 @@
                     }
 
                     ctrl.$parsers.unshift(function (value) {
-                        if (value == '' || value == null || value == undefined) {
+                        if (value === '' || value === null || value === undefined) {
                             // null means that there is no value which is fine
                             return null;
                         }

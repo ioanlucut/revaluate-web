@@ -54,9 +54,7 @@
                             vm.isRequestPending = false;
 
                             $scope.$emit(ALERTS_EVENTS.DANGER, {
-                                message: response && response.status === 400
-                                    ? 'You can\'t connect with this email. This email is already registered but with a different provider.'
-                                    : 'Sorry, something went wrong.',
+                                message: response && response.status === 400 ? 'You can\'t connect with this email. This email is already registered but with a different provider.' : 'Sorry, something went wrong.',
                                 alertId: vm.alertId
                             });
                         });

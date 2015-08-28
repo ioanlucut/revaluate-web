@@ -24,7 +24,7 @@
                 .state('expenses.regular', {
                     url: '',
                     views: {
-                        "expenses__content": {
+                        'expenses__content': {
                             templateUrl: '/app/expenses/partials/expenses__content.html',
                             controller: 'ExpensesController',
                             resolve: {

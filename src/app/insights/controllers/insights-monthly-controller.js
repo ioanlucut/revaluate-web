@@ -215,15 +215,18 @@
          * Load insights
          */
         function loadInsight() {
+            var computedInsightsData,
+                period;
+
             if (vm.loadTracker.active()) {
 
                 vm.insightData = angular.copy(vm.masterInsightData);
                 return;
             }
 
-            var computedInsightsData = angular.copy(vm.insightData),
-                period = DatesUtils
-                    .getFromToOfMonthYear(computedInsightsData.yearMonthDate);
+            computedInsightsData = angular.copy(vm.insightData);
+            period = DatesUtils
+                .getFromToOfMonthYear(computedInsightsData.yearMonthDate);
 
             InsightsService
                 .fetchMonthlyInsightsFromTo(period.from, period.to, vm.loadTracker)
@@ -256,7 +259,8 @@
                 });
         }
 
-    };
+    }
+
     angular
         .module('revaluate.insights')
         .controller('InsightsMonthlyController', InsightsMonthlyController);
