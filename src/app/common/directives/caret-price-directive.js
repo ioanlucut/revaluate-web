@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('revaluate.expenses')
+        .module('revaluate.common')
         .directive('caretPricePosition', function ($timeout) {
             return {
                 link: function (scope, elem) {
