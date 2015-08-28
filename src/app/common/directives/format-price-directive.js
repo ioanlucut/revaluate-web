@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('revaluate.expenses')
+        .module('revaluate.common')
         .directive('formatPrice', function () {
             return {
                 require: '?ngModel',
