@@ -16,7 +16,7 @@
                 }
 
                 if (_.isArray(requestData)) {
-                    return _.map(requestData, buildCategoryPayload)
+                    return _.map(requestData, buildCategoryPayload);
                 } else {
                     return buildCategoryPayload(requestData);
                 }
@@ -30,7 +30,7 @@
                 }
 
                 if (_.isArray(responseData.data)) {
-                    return _.map(responseData.data, buildCategory)
+                    return _.map(responseData.data, buildCategory);
                 } else {
                     return buildCategory(responseData.data);
                 }

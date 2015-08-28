@@ -13,6 +13,6 @@
                 templateUrl: '/app/insights/partials/insights-empty-state-toggle-directive.tpl.html',
                 link: function () {
                 }
-            }
+            };
         });
 }());

@@ -49,14 +49,14 @@
 
                 $compile = _$compile_;
                 scope = $rootScope.$new();
-            })
+            });
 
         });
 
         it('should not show anything if total per category insights is 0', function () {
             var scope = _.extend($rootScope.$new(), {
                     totalPerCategory: { numberOfTransactions: 0 },
-                    monthYearDate: "10/2015"
+                    monthYearDate: '10/2015'
                 }),
                 elm = $compile('<expenses-of-category total-per-category-insights="totalPerCategory" month-year-date="yearMonthDate"></expenses-of-category>')(scope);
             scope.$digest();

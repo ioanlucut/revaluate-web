@@ -13,13 +13,13 @@
                     /**
                      * Current user.
                      */
-                    this.user = $rootScope.currentUser;
+                    userProfileVm.user = $rootScope.currentUser;
                 },
 
                 controllerAs: 'userProfileVm',
                 templateUrl: '/app/common/partials/user-profile-picture-header-directive.tpl.html',
-                link: function (scope, el, attrs) {
+                link: function () {
                 }
-            }
+            };
         });
 }());

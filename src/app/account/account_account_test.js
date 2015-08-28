@@ -35,7 +35,7 @@
 
                 // We need add the template entry into the templateCache if we ever specify a templateUrl
                 $templateCache.put('template.html', '');
-            })
+            });
         });
 
         it('should respond to URL', function () {

@@ -60,7 +60,7 @@
                 bindToController: true,
                 controllerAs: 'vm',
                 templateUrl: '/app/categories/partials/category-add-directive.tpl.html',
-                link: function (scope, el, attrs) {
+                link: function (scope) {
 
                     /**
                      * Show block content
@@ -78,6 +78,6 @@
                         scope.toggleContent();
                     });
                 }
-            }
+            };
         });
 }());

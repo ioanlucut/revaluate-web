@@ -115,7 +115,7 @@
             } else if (args.expenses) {
                 _.each(args.expenses, function (expenseCandidate) {
                     reloadIfRequired(expenseCandidate);
-                })
+                });
             }
         }
 

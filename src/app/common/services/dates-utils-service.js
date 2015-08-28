@@ -30,7 +30,7 @@
 
             this.formatDate = function (givenDate) {
                 return moment(givenDate).format('YYYY-MM-DDTHH:mm:ss') + 'Z';
-            }
+            };
 
         });
 }());

@@ -16,7 +16,7 @@
                     // ---
                     // Default state.
                     // ---
-                    scope.ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile)
+                    scope.ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile);
                 }
             };
         });

@@ -87,6 +87,6 @@
                 templateUrl: '/app/expenses/partials/expense-add-directive.tpl.html',
                 link: function () {
                 }
-            }
+            };
         });
 }());

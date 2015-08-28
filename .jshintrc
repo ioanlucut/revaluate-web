@@ -6,7 +6,7 @@
     "eqeqeq": true,
     "immed": true,
     "indent": 2,
-    "latedef": true,
+    "latedef": "nofunc",
     "newcap": true,
     "noarg": true,
     "quotmark": "single",
@@ -40,6 +40,10 @@
         "beforeEach": false,
         "after": false,
         "afterEach": false,
-        "expect": false
+        "expect": false,
+        "Unison": false,
+        "alert": false,
+        "Layzr": false,
+        "hello": false
     }
 }

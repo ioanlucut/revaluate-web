@@ -63,7 +63,7 @@
                     return {
                         totalCategoryExpensesPerYearMonth: totalCategoryExpensesPerYearMonth,
                         categoryEntry: categoryEntry
-                    }
+                    };
                 });
 
                 // ---
@@ -90,7 +90,7 @@
                     insightLineSeries: insightLineSeries,
                     availableYearMonths: angular.copy(availableYearMonths),
                     totalAmountPerMonths: angular.copy(totalAmountPerMonths)
-                }
+                };
             };
 
             this.generateMonthlyBar = function (insightsMonthly) {
@@ -113,7 +113,7 @@
                     insightsBarSeries: insightLineSeries,
                     insightsBarColors: insightsBarColors,
                     insightsBarLabels: ['Categories']
-                }
+                };
             };
 
             this.generateMonthlyDonut = function (insightsMonthly) {
@@ -136,7 +136,7 @@
                     insightsDonutSeries: ['Categories'],
                     insightsDonutColors: insightsDonutColors,
                     insightsDonutLabels: insightsDonutLabels
-                }
+                };
             };
 
             this.generateOverviewBar = function (insightsOverview) {
@@ -157,7 +157,7 @@
                     insightsBarSeries: 'Categories',
                     insightsBarLabels: insightsBarLabels,
                     insightsBarColors: [this.getColour(this.hexToRgb('#22A7F0'.substr(1)))]
-                }
+                };
             };
 
             this.generateDailyBar = function (month, insightsDaily) {
@@ -180,7 +180,7 @@
                     insightsBarSeries: 'Expenses',
                     insightsBarLabels: insightsBarLabels,
                     insightsBarColors: [this.getColour(this.hexToRgb('#22A7F0'.substr(1)))]
-                }
+                };
             };
 
             this.getColour = function (colour) {
@@ -191,10 +191,11 @@
                     pointStrokeColor: '#fff',
                     pointHighlightFill: '#fff',
                     pointHighlightStroke: this.rgba(colour, 0.1)
-                }
+                };
             };
 
             this.hexToRgb = function (hex) {
+                /*jshint validthis: true */
                 var bigint = parseInt(hex, 16),
                     r = (bigint >> 16) & 255,
                     g = (bigint >> 8) & 255,
