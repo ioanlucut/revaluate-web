@@ -1,5 +1,6 @@
 // Typography
-$base-font-family: "Montserrat", "Arial", sans-serif;
+//$base-font-family: "Montserrat", "Arial", sans-serif;
+$base-font-family: "Source Sans Pro", "Arial", sans-serif;
 $heading-font-family: $base-font-family;
 
 // Font Sizes
@@ -13,9 +14,9 @@ $font-size-h2: 24px;
 $font-size-h3: 18px;
 
 // Font Weights
-$font-weight-light: 100;
-$font-weight-regular: 200;
-$font-weight-bold: 300;
+$font-weight-light: 300;//100;
+$font-weight-regular: 400;//200;
+$font-weight-bold: 700;//300;
 
 // Line height
 $base-line-height: 1.5;
