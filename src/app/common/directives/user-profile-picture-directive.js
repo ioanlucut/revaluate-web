@@ -6,8 +6,8 @@
         .directive('userProfilePicture', function () {
             return {
                 restrict: 'E',
+                scope: {},
                 controller: function ($scope, $rootScope) {
-
                     var vm = this;
 
                     /**
@@ -15,7 +15,7 @@
                      */
                     vm.user = $rootScope.currentUser;
                 },
-
+                bindToController: true,
                 controllerAs: 'vm',
                 templateUrl: '/app/common/partials/user-profile-picture-directive.tpl.html',
                 link: function () {
