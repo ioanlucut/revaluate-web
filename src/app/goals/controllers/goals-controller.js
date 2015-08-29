@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function GoalsController(GOAL_EVENTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, ALERTS_CONSTANTS, APP_CONFIG, $scope, $rootScope, DatesUtils, promiseTracker, GoalService, goals, categories) {
+    function GoalsController(GOAL_EVENTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, ALERTS_CONSTANTS, APP_CONFIG, $scope, $rootScope, DatesUtils, promiseTracker, GoalService, monthsPerYearsStatistics, goals, categories) {
 
         var vm = this;
 
@@ -24,6 +24,11 @@
          * Existing goals.
          */
         this.goals = goals;
+
+        /**
+         * Insights months per years.
+         */
+        this.monthsPerYearsStatistics = monthsPerYearsStatistics;
 
         /**
          * Create a delete tracker.
