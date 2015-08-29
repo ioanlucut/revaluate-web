@@ -1,0 +1,84 @@
+.goals__list__category {
+    padding: 0 5px 10px 120px;
+    border-bottom: solid 1px $gray-light-1;
+}
+
+/* starting animations */
+.goals__list__category.ng-enter {
+    @include fadeInDown(0.5s);
+}
+
+/* destination animations */
+.goals__list__category.ng-enter.ng-enter-active {
+}
+
+/* starting animations */
+.goals__list__category.ng-leave {
+    @include fadeOutUp(0.5s);
+}
+
+/* destination animations */
+.goals__list__category.ng-leave.ng-enter-active {
+}
+
+.goals__list__category__entry {
+    @include no-user-select();
+    margin: 0 auto;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    border-bottom: solid 1px $gray-light-2;
+
+    &:first-child {
+        border-top: solid 0 transparent;
+    }
+
+    &:last-child {
+        border-bottom: solid 1px $gray-light-3;
+    }
+}
+
+.goals__list__expand {
+    font-size: $font-size-small;
+    color: $gray-medium;
+    cursor: pointer;
+    position: absolute;
+    right: 120px;
+    margin-top: -30px;
+
+    &:hover {
+        border-bottom: solid 1px $gray-light-1;
+    }
+}
+
+.goals__list__category__loading {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -40px;
+    margin-top: -20px;
+}
+
+.goals__list__transactions__showall {
+    text-align: center;
+
+    button {
+        @include btn-link($brand-primary);
+        position: relative;
+
+        span {
+            position: absolute;
+            top: 7px;
+            left: -15px;
+            border-width: 0;
+        }
+    }
+}
+
+goals-of-category {
+    @include clearfix();
+    position: relative;
+    display: block;
+    width: 100%;
+}
