@@ -1,38 +1,27 @@
 (function () {
     'use strict';
 
+    function StatisticsFactory() {
+
+        /**
+         * Statistics class.
+         */
+        function Statistics(data) {
+
+            /**
+             * The monthsPerYears.
+             */
+            this.monthsPerYears = data.monthsPerYears;
+        }
+
+        Statistics.prototype.isOverallTransactionsEmpty = function () {
+            return _.keys(this.monthsPerYears).length === 0;
+        };
+
+        return Statistics;
+    }
+
     angular
         .module('revaluate.statistics')
-        .factory('Statistics', function () {
-
-            function Statistics() {
-
-                /**
-                 * Represents the DTO model of the expense.
-                 */
-                this.model = {
-
-                    /**
-                     * Months per years insights
-                     */
-                    insightsMonthsPerYears: {},
-
-                    /**
-                     * Is overall transactions empty ?
-                     */
-                    overallTransactionsEmpty: false
-                };
-
-                this.isOverallTransactionsEmpty = function () {
-                    return this.model.overallTransactionsEmpty;
-                };
-
-            }
-
-            Statistics.build = function () {
-                return new Statistics();
-            };
-
-            return Statistics;
-        });
+        .factory('Statistics', StatisticsFactory);
 }());

@@ -26,6 +26,11 @@
                     templateUrl: '/app/goals/partials/goals-content.tpl.html',
                     controller: 'GoalsController',
                     resolve: {
+                        monthsPerYearsStatistics: function (StatisticService) {
+                            return StatisticService
+                                .fetchGoalsMonthsPerYearStatistics();
+                        },
+
                         goals: function (GoalService, DatesUtils) {
                             var period = DatesUtils.fromLastMonthsToNow(1);
 
