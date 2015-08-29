@@ -3,8 +3,7 @@
 
     function InsightsMonthlyController(USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS, ALERTS_EVENTS, $controller, $scope, promiseTracker, DatesUtils, $rootScope, $filter, $timeout, InsightsGenerator, InsightsService, insightsMonthly, monthsPerYearsStatistics) {
 
-        var vm = this,
-            MONTH = 'month';
+        var vm = this;
 
         /**
          * Alert identifier
@@ -64,61 +63,16 @@
         };
 
         /**
-         * Checks if the date should be disabled.
+         * Exposed insights data.
          */
-        vm.shouldDateBeDisabled = shouldDateBeDisabled;
-
-        /**
-         * Open date picker
-         */
-        vm.openDatePicker = openDatePicker;
-
-        /**
-         * Exposed insights data (first define master copy).
-         */
-        vm.masterInsightData = {
+        vm.insightData = {
             yearMonthDate: moment().toDate()
         };
 
         /**
-         * Exposed insights data.
-         */
-        vm.insightData = angular.copy(vm.masterInsightData);
-
-        /**
          * On date change do load insights
          */
-        vm.onChange = function () {
-            loadInsight();
-        };
-
-        /**
-         * Only if -1 month is at most the first existing expenses date.
-         */
-        vm.canLoadPrevMonth = canLoadPrevMonth;
-
-        /**
-         * Only if +1 month is at most the last existing expenses date.
-         */
-        vm.canLoadNextMonth = canLoadNextMonth;
-
-        /**
-         * Go to previous month
-         */
-        vm.prevMonth = function () {
-            vm.insightData.yearMonthDate = moment(vm.insightData.yearMonthDate).subtract(1, MONTH).toDate();
-
-            loadInsight();
-        };
-
-        /**
-         * Go to next month
-         */
-        vm.nextMonth = function () {
-            vm.insightData.yearMonthDate = moment(vm.insightData.yearMonthDate).add(1, MONTH).toDate();
-
-            loadInsight();
-        };
+        vm.loadInsight = loadInsight;
 
         /**
          * Create a saving tracker.
@@ -141,100 +95,23 @@
             $scope.$emit('chartsLoaded', { size: vm.barInsightsPrepared.insightsBarData.length });
         }
 
-        function shouldDateBeDisabled(date) {
-            var givenDate = moment(date),
-                givenDateYear = givenDate.year(),
-                givenDateMonth = givenDate.month() + 1;
-
-            if (!_.has(vm.monthsPerYearsStatistics.model.insightsMonthsPerYears, givenDateYear)) {
-
-                return true;
-            }
-
-            return !_.some(_.result(vm.monthsPerYearsStatistics.model.insightsMonthsPerYears, givenDateYear), function (entry) {
-                return entry === givenDateMonth;
-            });
-        }
-
-        function openDatePicker($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
-
-            vm.datePickerOpened = true;
-        }
-
-        function canLoadPrevMonth() {
-            var currentSelectedDate = moment(vm.insightData.yearMonthDate),
-                currentSelectedDateYear = currentSelectedDate.year(),
-                currentSelectedDateMonth = currentSelectedDate.month() + 1;
-
-            if (!expensesExistsInYear(currentSelectedDateYear)) {
-
-                return true;
-            }
-
-            // ---
-            // We check in the previous month.
-            // ---
-            return expensesExistsInMonthWithYear(currentSelectedDateYear, currentSelectedDateMonth - 1);
-        }
-
-        function canLoadNextMonth() {
-            var currentSelectedDate = moment(vm.insightData.yearMonthDate),
-                currentSelectedDateYear = currentSelectedDate.year(),
-                currentSelectedDateMonth = currentSelectedDate.month() + 1;
-
-            if (!expensesExistsInYear(currentSelectedDateYear)) {
-
-                return true;
-            }
-
-            // ---
-            // We check in the previous month.
-            // ---
-            return expensesExistsInMonthWithYear(currentSelectedDateYear, currentSelectedDateMonth + 1);
-        }
-
-        /**
-         * Checks if in the given year are expenses defined.
-         */
-        function expensesExistsInYear(dateYear) {
-            return _.has(vm.monthsPerYearsStatistics.model.insightsMonthsPerYears, dateYear);
-        }
-
-        /**
-         * Checks if in the given year and month are expenses defined.
-         */
-        function expensesExistsInMonthWithYear(givenDateYear, givenDateMonth) {
-            return _.some(_.result(vm.monthsPerYearsStatistics.model.insightsMonthsPerYears, givenDateYear), function (entry) {
-                return entry === givenDateMonth;
-            });
-        }
-
         /**
          * Load insights
          */
-        function loadInsight() {
-            var computedInsightsData,
-                period;
+        function loadInsight(ofYearMonthDate) {
+            var period;
 
             if (vm.loadTracker.active()) {
 
-                vm.insightData = angular.copy(vm.masterInsightData);
                 return;
             }
 
-            computedInsightsData = angular.copy(vm.insightData);
             period = DatesUtils
-                .getFromToOfMonthYear(computedInsightsData.yearMonthDate);
+                .getFromToOfMonthYear(ofYearMonthDate);
 
             InsightsService
                 .fetchMonthlyInsightsFromTo(period.from, period.to, vm.loadTracker)
                 .then(function (receivedInsight) {
-                    // ---
-                    // Update everything.
-                    // ---
-                    vm.masterInsightData = angular.copy(vm.insightData);
                     vm.insightsMonthly = receivedInsight;
                     prepareDataForChart();
 
@@ -248,10 +125,6 @@
                 })
                 .catch(function () {
                     vm.badPostSubmitResponse = true;
-                    // ---
-                    // Reset the insights data.
-                    // ---
-                    vm.insightData = angular.copy(vm.masterInsightData);
                     $scope.$emit(ALERTS_EVENTS.DANGER, {
                         message: 'Could not fetch insights.',
                         alertId: vm.alertId

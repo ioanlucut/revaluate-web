@@ -1,0 +1,102 @@
+.goals__list {
+    padding: 0 0 20px 0;
+}
+
+.goals__list__entry {
+    @include no-user-select();
+    padding: 5px 5px;
+    margin: 0 auto;
+    min-height: 45px;
+    height: 100%;
+    width: 100%;
+    position: relative;
+
+    &:first-child {
+        border-top: solid 1px $gray-light-3;
+    }
+
+    &:after {
+        content: '';
+        width: 5px;
+        height: 11px;
+        border-left: solid 1px $gray-light-1;
+        position: absolute;
+        left: 45px;
+        bottom: -6px;
+    }
+
+    &:last-child:after {
+        bottom: -20px;
+        height: 24px;
+    }
+}
+
+.goals__list__loadbtn {
+    @include btn($gray-light-2);
+    width: 120px;
+    color: $gray-dark-1;
+    margin: 20px auto 40px auto;
+    display: block;
+}
+
+.goals__list__group__name {
+    padding: 15px 5px 0 60px;
+    color: $gray-medium;
+    font-weight: $font-weight-light;
+    font-size: $font-size-small;
+    position: relative;
+
+    .goals__list__group__name__bullet {
+        height: 12px;
+        width: 12px;
+        position: absolute;
+        left: 40px;
+        bottom: 4px;
+        border: solid 1px $gray-light-1;
+        background-color: $gray-light-3;
+        @include border-radius(50%);
+
+        &:after {
+            content: '';
+            width: 5px;
+            height: 8px;
+            border-left: solid 1px $gray-light-1;
+            position: absolute;
+            left: 4px;
+            top: 12px;
+        }
+    }
+}
+
+.goal__list__sort {
+    @include clearfix();
+    padding: 3px 10px 3px 20px;
+    font-size: $font-size-small;
+    color: $gray-light-1;
+    border-bottom: solid 1px $gray-light-3;
+
+    .goal__list__sort__date {
+        float: right;
+
+        .icon-sort {
+            color: $gray-medium;
+        }
+
+        .goal__list__sort__date__entry {
+            color: $gray-light-1;
+
+            &:hover {
+                color: $gray-medium;
+            }
+        }
+
+        .goal__list__sort__date__entry--active {
+            color: $gray-medium;
+            cursor: default;
+        }
+    }
+}
+
+.goals__list__loading {
+    margin: 10px auto 30px auto;
+}

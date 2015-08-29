@@ -120,7 +120,7 @@
         }
 
         function reloadIfRequired(expense) {
-            var isSameMonth = moment(moment().year()).isSame(moment(expense.spentDate).year());
+            var isSameMonth = moment(moment().month()).isSame(moment(expense.spentDate).month());
 
             if (isSameMonth) {
                 vm.loadInsights();

@@ -1,0 +1,83 @@
+.goals__list__entry__section {
+    @include border-radius($border-radius-base);
+    padding: 0 0 0 10px;
+    margin: 0 0 0 20px;
+    min-height: 44px;
+    line-height: 40px;
+    box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+    border: solid 1px $gray-light-1;
+
+    div {
+        display: inline-block;
+        padding: 1px 10px;
+    }
+
+    &:hover {
+        border-color: $gray-medium;
+        cursor: pointer;
+
+        .goals__list__entry__section__select {
+            opacity: 1;
+        }
+    }
+
+    &.goals__list__entry__section--bulk-marked {
+        background: $brand-warning-light !important;
+
+        .goals__list__entry__section__select {
+            opacity: 1;
+        }
+    }
+
+    .goals__list__entry__section__select {
+        position: absolute;
+        top: 8px;
+        left: 0;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        margin-right: 15px;
+        padding: 2px !important;
+        font-size: 14px;
+        color: $gray-light-1;
+        opacity: 0;
+
+        &:hover {
+            color: $gray-medium;
+        }
+
+        input {
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    .goals__list__entry__section__category {
+        @include category-label($brand-primary);
+    }
+
+    .goals__list__entry__section__details {
+        color: $gray-dark-1;
+        font-weight: $font-weight-light;
+        @include word-wrap();
+    }
+
+    .goals__list__entry__section__price {
+        text-align: right;
+        float: right;
+
+        .currency__symbol {
+            padding: 0 5px;
+            color: $gray-medium;
+            font-weight: $font-weight-light;
+        }
+    }
+
+    .goals__list__entry__section__date {
+        width: 140px;
+        float: right;
+        color: $gray-medium;
+        text-align: right;
+        font-size: $font-size-small;
+    }
+}

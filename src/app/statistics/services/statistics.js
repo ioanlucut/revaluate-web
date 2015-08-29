@@ -18,7 +18,7 @@
                     insightsMonthsPerYears: {},
 
                     /**
-                     * Is overall transasctions empty ?
+                     * Is overall transactions empty ?
                      */
                     overallTransactionsEmpty: false
                 };
