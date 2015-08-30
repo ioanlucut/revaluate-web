@@ -14,12 +14,12 @@
             this.id = data.id;
 
             /**
-             * The goal description.
+             * The goal category.
              */
             this.category = data.category;
 
             /**
-             * The goal target.
+             * The goal target (LESS,MORE).
              */
             this.goalTarget = data.goalTarget;
 
