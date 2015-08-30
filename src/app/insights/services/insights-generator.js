@@ -160,7 +160,7 @@
                 };
             };
 
-            this.generateDailyBar = function (month, insightsDaily) {
+            this.generateDailyBar = function (year, insightsDaily) {
 
                 var insightsBarLabels,
                     insightsBarData;
@@ -170,7 +170,7 @@
                 });
 
                 insightsBarLabels = _.map(insightsDaily.totalPerDayDTOs, function (totalPerDayDTOEntry) {
-                    var dateFromMonthDay = totalPerDayDTOEntry.monthDay.replace(/--/g, month + '-');
+                    var dateFromMonthDay = totalPerDayDTOEntry.monthDay.replace(/--/g, year + '-');
 
                     return $filter('friendlyMonthDay')(dateFromMonthDay);
                 });

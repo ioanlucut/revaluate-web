@@ -26,6 +26,9 @@
 
     <!--Goal date-->
     <div ng-if="showDateDetails" class="goals__list__entry__section__date">{{vm.goal.yearMonthDate | friendlyDate}}</div>
+
+    <!--Daily chart-->
+    <goal-daily-status insights-daily="vm.goal.goalStatus.daily"></goal-daily-status>
 </div>
 
 <!-- Display goal in edit mode -->
