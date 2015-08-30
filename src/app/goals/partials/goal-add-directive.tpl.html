@@ -1,5 +1,10 @@
+<!--Show content functionality-->
+<div class="goals__add__controls" ng-if="! vm.showContent">
+    <button class="goals__add__controls__btn" ng-disabled="vm.isMaximumNumberOfAllowedGoalsExceeded()" ng-click="vm.toggleContent()">Add goal</button>
+</div>
+
 <!-- Add a new goal form -->
-<div class="goals__form">
+<div class="goals__form" ng-if="vm.showContent">
 
     <form name="vm.goalForm" ng-submit="vm.goalForm.$valid ? vm.saveGoal() : ''" novalidate focus-first-error>
 
@@ -80,5 +85,7 @@
             <button ng-disabled="vm.saveTracker.active()" class="goal__edit__form__savebtn" type="submit">{{vm.saveTracker.active() ? 'Adding' : 'Add'}}</button>
         </div>
     </form>
+
+    <button ng-disabled="vm.saveTracker.active()" type="button" class="goals__add__form__content__cancel" ng-click="vm.toggleContent();vm.initOrResetAddGoalForm()">Nevermind</button>
 
 </div>

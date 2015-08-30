@@ -67,6 +67,8 @@
          */
         vm.loadTracker = promiseTracker();
 
+        vm.isMaximumNumberOfAllowedGoalsExceeded = isMaximumNumberOfAllowedGoalsExceeded;
+
         function isBulkActionEnabled() {
             return getSelectedGoalsForBulkAction().length >= APP_CONFIG.MIN_GOALS_TO_ENABLE_BULK_ACTION;
         }
@@ -136,6 +138,10 @@
                         alertId: vm.alertId
                     });
                 });
+        }
+
+        function isMaximumNumberOfAllowedGoalsExceeded() {
+            return vm.goals.length >= APP_CONFIG.MAX_ALLOWED_GOALS;
         }
 
         // ---
