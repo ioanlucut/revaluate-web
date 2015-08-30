@@ -10,8 +10,14 @@
          */
         this.saveTracker = promiseTracker();
 
-        this.initOrResetAddGoal = initOrResetAddGoal;
+        /**
+         * Initializes or resets the add goal form
+         */
+        this.initOrResetAddGoalForm = initOrResetAddGoalForm;
 
+        /**
+         * Save goal functionality
+         */
         this.saveGoal = saveGoal;
 
         /**
@@ -20,7 +26,7 @@
         this.openDatePicker = openDatePicker;
 
         /**
-         * Minimum date to create goal.
+         * Minimum date to create goal - now.
          */
         this.datePickerMinDate = moment();
 
@@ -30,11 +36,30 @@
         this.goalsTargets = APP_CONFIG.GOALS_TARGETS;
 
         /**
+         * Show block content
+         */
+        this.showContent = false;
+
+        /**
+         * Toggle content
+         */
+        this.toggleContent = function () {
+            this.showContent = !this.showContent;
+        };
+
+        /**
          * Perform the first initialization.
          */
-        this.initOrResetAddGoal();
+        this.initOrResetAddGoalForm();
 
-        function initOrResetAddGoal() {
+        /**
+         * On goal created, we toggle content.
+         */
+        $scope.$on(GOAL_EVENTS.isCreated, function () {
+            vm.toggleContent();
+        });
+
+        function initOrResetAddGoalForm() {
             vm.goal = new Goal({
                 yearMonthDate: moment().toDate(),
                 goalTarget: _.first(vm.goalsTargets).value
@@ -61,7 +86,7 @@
                 .createGoal(this.goal, vm.saveTracker)
                 .then(function (createdGoal) {
                     $scope.$emit(GOAL_EVENTS.isCreated, { goal: createdGoal });
-                    vm.initOrResetAddGoal();
+                    vm.initOrResetAddGoalForm();
                 })
                 .catch(function () {
                     vm.badPostSubmitResponse = true;
@@ -84,7 +109,8 @@
             return {
                 restrict: 'A',
                 scope: {
-                    categories: '='
+                    categories: '=',
+                    isMaximumNumberOfAllowedGoalsExceeded: '&'
                 },
                 controller: AddGoalController,
                 bindToController: true,
