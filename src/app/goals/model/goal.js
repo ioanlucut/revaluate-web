@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function GoalFactory() {
+    function GoalFactory(GoalStatus) {
 
         /**
          * Goal class.
@@ -49,6 +49,11 @@
             this.modifiedData = data.modifiedData;
 
             /**
+             * Goal status
+             */
+            this.goalStatus = data.goalStatusDTO && new GoalStatus(data.goalStatusDTO);
+
+            /**
              * The year month of this goal.
              */
             this.yearMonthDate = data.yearMonthDate;
@@ -63,6 +68,6 @@
     }
 
     angular
-        .module('revaluate.insights')
+        .module('revaluate.goals')
         .factory('Goal', GoalFactory);
 }());

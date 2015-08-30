@@ -7,10 +7,7 @@
     angular
         .module('revaluate.account')
         .controller('RevaluateAppController', function (flash, $location, GreeterService, AlertService, $rootScope, $scope, $state, $timeout, $log, ALERTS_EVENTS, AuthService, AccountModal, IntercomUtilsService, MixpanelUtilsService, User, StatesHandler, AUTH_EVENTS, ALERTS_CONSTANTS, AUTH_MODAL, ERROR_INTERCEPTOR, ENV, APP_CONFIG) {
-            $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
-                event.preventDefault();
-                console.log(error)
-            });
+
             /**
              * Save the state on root scope
              */
