@@ -4,7 +4,7 @@
     // ---
     // Add String format prototype.
     // ---
-    if ( !String.prototype.format ) {
+    if (!String.prototype.format) {
         String.prototype.format = function () {
             var args = arguments;
             return this.replace(/{(\d+)}/g, function (match, number) {
@@ -16,7 +16,7 @@
     // ---
     // Add Object create function.
     // ---
-    if ( typeof Object.create !== 'function' ) {
+    if (typeof Object.create !== 'function') {
         Object.create = function (o) {
             function F() {
             }
@@ -64,7 +64,7 @@
 
                     URLTo.apiBase(ENV.apiEndpoint);
 
-                    if ( !CacheFactory.get(APP_CACHE_FACTORY_NAME) ) {
+                    if (!CacheFactory.get(APP_CACHE_FACTORY_NAME)) {
                         CacheFactory
                             .createCache(APP_CACHE_FACTORY_NAME, {
                                 deleteOnExpire: 'aggressive',
