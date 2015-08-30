@@ -12,6 +12,18 @@
         <span ng-bind-html="vm.goal.value | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
     </div>
 
+    <div class="goals__list__entry__section__price">
+        <span ng-bind-html="vm.goal.goalTarget"></span>
+    </div>
+
+    <div class="goals__list__entry__section__price">
+        <span ng-bind-html="vm.goal.goalStatus.currentValue | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
+    </div>
+
+    <div class="goals__list__entry__section__price">
+        <span>{{vm.goal.goalStatus.goalAccomplished ? 'Well done.':'You bitch, don\'t spent that much!'}}</span>
+    </div>
+
     <!--Goal date-->
     <div ng-if="showDateDetails" class="goals__list__entry__section__date">{{vm.goal.yearMonthDate | friendlyDate}}</div>
 </div>
@@ -69,19 +81,19 @@
             <!--Goal date picker-->
             <div class="goal__edit__form__date__input">
                 <button
-                        type="button"
-                        class="goal__edit__form__date__input__btn"
-                        ng-click="vm.openDatePicker($event)"
-                        datepicker-popup
-                        is-open="vm.datePickerStatus.opened"
-                        ng-disabled="vm.updateTracker.active()"
-                        min-date="vm.minDate"
-                        max-date="vm.maxDate"
-                        ng-model="vm.shownGoal.yearMonthDate"
-                        datepicker-mode="'month'"
-                        min-mode="'month'"
-                        show-button-bar="false"
-                        datepicker-options="{minMode: 'month',datepickerMode: 'month'}">
+                    type="button"
+                    class="goal__edit__form__date__input__btn"
+                    ng-click="vm.openDatePicker($event)"
+                    datepicker-popup
+                    is-open="vm.datePickerStatus.opened"
+                    ng-disabled="vm.updateTracker.active()"
+                    min-date="vm.minDate"
+                    max-date="vm.maxDate"
+                    ng-model="vm.shownGoal.yearMonthDate"
+                    datepicker-mode="'month'"
+                    min-mode="'month'"
+                    show-button-bar="false"
+                    datepicker-options="{minMode: 'month',datepickerMode: 'month'}">
                     {{vm.shownGoal.yearMonthDate | friendlyMonthDate}}
                 </button>
             </div>
