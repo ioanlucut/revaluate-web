@@ -5,7 +5,7 @@
 </div>
 
 <!--Show content-->
-<div remove-category-confirmation category="category" confirm="vm.deleteCategory(category)" progress="vm.deleteTracker.active()" auto-toggle-when="vm.isSuccessfullyDeleted">
+<div remove-category-confirmation category="category" confirm="vm.deleteCategory(category)" progress-tracker="vm.deleteTracker.active()" auto-toggle-when="vm.isSuccessfullyDeleted">
     <div class="categories__edit__category__controls" ng-if="! showContent">
         <button class="categories__edit__category__delete" ng-disabled="isMinimumNumberOfAllowedCategoriesExceeded()" ng-click="$parent.$parent.toggleConfirmationContent()">{{vm.deleteTracker.active() ? 'Deleting.' : 'Delete'}}</button>
 

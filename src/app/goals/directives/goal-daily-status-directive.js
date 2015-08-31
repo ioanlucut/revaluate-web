@@ -3,8 +3,7 @@
 
     function GoalDailyStatusController($rootScope, $filter, InsightsGenerator) {
 
-        var vm = this,
-            maxValue = _.max(vm.insightsDaily.totalPerDayDTOs, 'totalAmount');
+        var vm = this;
 
         /**
          * Insights current year
@@ -21,8 +20,6 @@
         // ---
         vm.barInsightsPrepared = InsightsGenerator
             .generateDailyBar(vm.currentYear, vm.insightsDaily);
-
-        console.log(_.parseInt(Math.ceil(maxValue.totalAmount / 5)));
 
         vm.barOptions = {
             scaleLabel: function (label) {

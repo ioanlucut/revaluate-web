@@ -3,8 +3,7 @@
 
     function GoalEntryController(GOAL_EVENTS, APP_CONFIG, $rootScope, GoalService, DatesUtils, Category, promiseTracker) {
 
-        var vm = this,
-            MAX_YEAR_TO_CREATE_GOAL = 2050;
+        var vm = this;
 
         /**
          * Current user.
@@ -14,12 +13,12 @@
         /**
          * Minimum date to create goal.
          */
-        this.minDate = moment().hours(0).minutes(0).seconds(0);
+        this.minDate = moment();
 
         /**
          * Max date to create goal
          */
-        this.maxDate = moment().year(MAX_YEAR_TO_CREATE_GOAL);
+        this.maxDate = moment().year(APP_CONFIG.MAX_YEAR_TO_CREATE_GOAL);
 
         /**
          * Keep the master backup. Work only with shownGoal.
