@@ -31,6 +31,11 @@
         this.datePickerMinDate = moment();
 
         /**
+         * Max date to create goal
+         */
+        this.datePickerMaxDate = moment().year(APP_CONFIG.MAX_YEAR_TO_CREATE_GOAL);
+
+        /**
          * Goals targets available
          */
         this.goalsTargets = APP_CONFIG.GOALS_TARGETS;
@@ -67,7 +72,7 @@
 
             vm.category = {};
 
-            if (vm.goalForm) {
+            if ( vm.goalForm ) {
                 vm.goalForm.$setPristine();
             }
 

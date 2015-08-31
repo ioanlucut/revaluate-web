@@ -1,10 +1,9 @@
 (function () {
     'use strict';
 
-    function ExpenseEntryController(EXPENSE_EVENTS, $rootScope, ExpenseService, Category, promiseTracker) {
+    function ExpenseEntryController(EXPENSE_EVENTS, APP_CONFIG, $rootScope, ExpenseService, Category, promiseTracker) {
 
-        var vm = this,
-            MIN_YEAR_TO_CREATE_EXPENSE = 1800;
+        var vm = this;
 
         /**
          * Current user.
@@ -14,7 +13,7 @@
         /**
          * Minimum date to create expense.
          */
-        this.minDate = moment().year(MIN_YEAR_TO_CREATE_EXPENSE);
+        this.minDate = angular.copy(APP_CONFIG.EXPENSES_ALLOWED_MIN_DATE);
 
         /**
          * Keep the master backup. Work only with shownExpense.
