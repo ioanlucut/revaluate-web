@@ -7,7 +7,7 @@
     box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
     border: solid 1px $gray-light-1;
 
-    div {
+    > div {
         display: inline-block;
         padding: 1px 10px;
     }
@@ -79,5 +79,42 @@
         color: $gray-medium;
         text-align: right;
         font-size: $font-size-small;
+    }
+
+    goal-status-progress-bar {
+        display: block;
+        position: relative;
+        clear: both;
+        margin-top: 30px;
+        margin-left: 20px;
+        margin-right: 30px;
+
+        .progress {
+            height: 40px;
+            border-radius: 0;
+        }
+
+        .today__line {
+            opacity: 0.5;
+            float: left;
+            position: absolute;
+            left: 80%;
+            top: -40%;
+            width: 3px;
+            height: 180%;
+            padding: 0;
+            margin: 0 0 0px -1px;
+            background-color: $brand-secondary;
+
+            &:before {
+                position: relative;
+                content: "Today";
+                color: $brand-secondary;
+                height: 20px;
+                width: 20px;
+                left: -15px;
+                top: -20px;
+            }
+        }
     }
 }
