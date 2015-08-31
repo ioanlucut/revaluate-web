@@ -81,6 +81,16 @@
         font-size: $font-size-small;
     }
 
+    goal-daily-status {
+
+        canvas {
+            width: 100% !important;
+            max-width: 500px;
+            max-height: 60px;
+            height: auto !important;
+        }
+    }
+
     goal-status-progress-bar {
         display: block;
         position: relative;
