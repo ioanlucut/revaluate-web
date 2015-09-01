@@ -43,6 +43,10 @@
          */
         vm.prevMonth = function () {
             moveToTheNextMonthUsing(function (failedCandidateAsMoment) {
+                if (failedCandidateAsMoment.month() === 1) {
+                    return failedCandidateAsMoment.subtract(1, 'years').set('month', 11);
+                }
+
                 return failedCandidateAsMoment.subtract(1, MONTH);
             });
         };
@@ -52,6 +56,11 @@
          */
         vm.nextMonth = function () {
             moveToTheNextMonthUsing(function (failedCandidateAsMoment) {
+
+                if (failedCandidateAsMoment.month() === 11) {
+                    return failedCandidateAsMoment.add(1, 'years').set('month', 0);
+                }
+
                 return failedCandidateAsMoment.add(1, MONTH);
             });
         };
@@ -63,23 +72,23 @@
         }
 
         function getMonthRecursivelyWith(of, momentRetryCallback) {
-            var prevMonthCandidateDate = moment(of),
-                prevMonthCandidate = momentRetryCallback(prevMonthCandidateDate).toDate(),
-                prevMonthCandidateYear = prevMonthCandidateDate.year(),
-                prevMonthCandidateMonthOfYear = prevMonthCandidateDate.month() + 1;
+            var prevMonthCandidate = momentRetryCallback(moment(of)),
+                prevMonthCandidateAsDate = prevMonthCandidate.toDate(),
+                prevMonthCandidateYear = prevMonthCandidate.year(),
+                prevMonthCandidateMonthOfYear = prevMonthCandidate.month() + 1;
 
             if (prevMonthCandidateYear < 2000 || prevMonthCandidateYear > 2040) {
 
-                return prevMonthCandidate;
+                return prevMonthCandidateAsDate;
             }
 
             if (_.some(_.result(vm.monthsPerYearsStatistics, prevMonthCandidateYear), function (entry) {
                     return entry === prevMonthCandidateMonthOfYear;
                 })) {
-                return prevMonthCandidate;
+                return prevMonthCandidateAsDate;
             }
 
-            return getMonthRecursivelyWith(prevMonthCandidate, momentRetryCallback);
+            return getMonthRecursivelyWith(prevMonthCandidateAsDate, momentRetryCallback);
         }
 
         function doPerform(yearMonthDate) {
@@ -107,22 +116,20 @@
 
         function canLoadPrevMonth() {
             var currentDate = moment(vm.data.yearMonthDate),
-                currentYear = currentDate.year(),
-                currentMonthOfYear = currentDate.month() + 1;
+                currentYear = currentDate.year();
 
-            return _.some(_.result(vm.monthsPerYearsStatistics, currentYear), function (entry) {
-                return _.lte(entry, currentMonthOfYear - 1);
+            return _.some(_.keys(vm.monthsPerYearsStatistics), function (keyEntry) {
+                return _.lte(_.parseInt(keyEntry), _.parseInt(currentYear));
             });
         }
 
         function canLoadNextMonth() {
             var currentDate = moment(vm.data.yearMonthDate),
-                currentYear = currentDate.year(),
-                currentMonthOfYear = currentDate.month() + 1;
+                currentYear = currentDate.year();
 
-            return _.some(_.result(vm.monthsPerYearsStatistics, currentYear), function (entry) {
-                return _.gte(entry, currentMonthOfYear + 1);
-            });
+            return _.some(_.keys(vm.monthsPerYearsStatistics), function (keyEntry) {
+                    return _.gte(_.parseInt(keyEntry), _.parseInt(currentYear));
+                });
         }
 
     }
