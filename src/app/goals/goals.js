@@ -8,6 +8,7 @@
         .module('revaluate.goals', [
             'revaluate.common',
             'revaluate.account',
+            'revaluate.insights',
             'revaluate.statistics'
         ])
         .config(function ($stateProvider, USER_ACTIVITY_EVENTS) {

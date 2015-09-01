@@ -1,21 +1,23 @@
 (function () {
     'use strict';
 
-    function GoalStatusFactory(Daily) {
+    function GoalStatusFactory(InsightsDaily) {
 
         /**
-         * Goal status class.
+         * Goal status factory function.
          */
-        function GoalStatus(data) {
+        function goalStatus(data) {
 
-            this.currentValue = data.currentValue;
-
-            this.goalAccomplished = data.goalAccomplished;
-
-            this.daily = new Daily(data.insightsDaily);
+            return _.extend({}, {
+                currentValue: data.currentValue,
+                goalAccomplished: data.goalAccomplished,
+                daily: InsightsDaily.build(data.insightsDaily)
+            });
         }
 
-        return GoalStatus;
+        return {
+            build: goalStatus
+        };
     }
 
     angular
