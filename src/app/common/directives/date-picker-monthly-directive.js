@@ -44,7 +44,7 @@
         vm.prevMonth = function () {
             moveToTheNextMonthUsing(function (failedCandidateAsMoment) {
                 return failedCandidateAsMoment.subtract(1, MONTH);
-            })
+            });
         };
 
         /**
@@ -53,7 +53,7 @@
         vm.nextMonth = function () {
             moveToTheNextMonthUsing(function (failedCandidateAsMoment) {
                 return failedCandidateAsMoment.add(1, MONTH);
-            })
+            });
         };
 
         function moveToTheNextMonthUsing(momentRetryCallback) {

@@ -65,14 +65,14 @@
         });
 
         function initOrResetAddGoalForm() {
-            vm.goal = new Goal({
+            vm.goal = Goal.build({
                 yearMonthDate: moment().toDate(),
                 goalTarget: _.first(vm.goalsTargets).value
             });
 
             vm.category = {};
 
-            if ( vm.goalForm ) {
+            if (vm.goalForm) {
                 vm.goalForm.$setPristine();
             }
 
