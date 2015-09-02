@@ -1,19 +1,16 @@
 .goals__list__entry__section {
     @include border-radius($border-radius-base);
-    padding: 0 0 0 10px;
-    margin: 0 0 0 20px;
-    min-height: 44px;
-    line-height: 40px;
+    padding: 15px;
+    margin: 0;
     box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
     border: solid 1px $gray-light-1;
 
     > div {
         display: inline-block;
-        padding: 1px 10px;
+        padding: 1px 0;
     }
 
     &:hover {
-        border-color: $gray-medium;
         cursor: pointer;
 
         .goals__list__entry__section__select {
@@ -21,50 +18,17 @@
         }
     }
 
-    &.goals__list__entry__section--bulk-marked {
-        background: $brand-warning-light !important;
-
-        .goals__list__entry__section__select {
-            opacity: 1;
-        }
-    }
-
-    .goals__list__entry__section__select {
-        position: absolute;
-        top: 8px;
-        left: 0;
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        margin-right: 15px;
-        padding: 2px !important;
-        font-size: 14px;
-        color: $gray-light-1;
-        opacity: 0;
-
-        &:hover {
-            color: $gray-medium;
-        }
-
-        input {
-            height: 100%;
-            width: 100%;
-        }
-    }
-
-    .goals__list__entry__section__category {
-        @include category-label($brand-primary);
-    }
-
-    .goals__list__entry__section__details {
-        color: $gray-dark-1;
+    .goals__list__entry__section__text {
         font-weight: $font-weight-light;
-        @include word-wrap();
+        color: $gray-medium;
+        padding: 1px 5px;
+    }
+
+    .goals__list__entry__section__target {
+        text-transform: uppercase;
     }
 
     .goals__list__entry__section__price {
-        text-align: right;
-        float: right;
 
         .currency__symbol {
             padding: 0 5px;
@@ -73,19 +37,15 @@
         }
     }
 
-    .goals__list__entry__section__date {
-        width: 140px;
-        float: right;
-        color: $gray-medium;
-        text-align: right;
-        font-size: $font-size-small;
+    .goals__list__entry__section__category {
+        font-weight: $font-weight-bold;
     }
 
     goal-daily-status {
 
         canvas {
-            width: 100% !important;
-            max-width: 500px;
+            //width: 100% !important;
+            //max-width: 500px;
             max-height: 60px;
             height: auto !important;
         }
@@ -96,12 +56,37 @@
         position: relative;
         clear: both;
         margin-top: 30px;
-        margin-left: 20px;
-        margin-right: 30px;
+        margin-left: 3px;
+        margin-right: 5px;
 
         .progress {
             height: 40px;
             border-radius: 0;
+            @include border-radius($base-border-radius);
+        }
+
+        .progress-bar {
+            text-align: right;
+        }
+
+        .progressbar__value__min,
+        .progressbar__value__max {
+            position: absolute;
+            top: -20px;
+            color: $gray-medium;
+        }
+
+        .progressbar__value__min {
+            left: 0;
+        }
+
+        .progressbar__value__max {
+            right: 0;
+        }
+
+        .progressbar__value__crt {
+            padding: 1px 5px 1px 1px;
+            line-height: 40px;
         }
 
         .today__line {
@@ -109,21 +94,22 @@
             float: left;
             position: absolute;
             left: 80%;
-            top: -40%;
-            width: 2px;
-            height: 140px;
+            top: -15%;
+            width: 1px;
+            height: 132px;
             padding: 0;
             margin: 0 0 0px -1px;
-            background-color: $brand-secondary;
+            background-color: $gray-medium;
 
             &:before {
                 position: relative;
                 content: "Today";
-                color: $brand-secondary;
+                color: $gray-medium;
                 height: 20px;
                 width: 20px;
                 left: -15px;
                 top: -20px;
+                font-weight: $font-weight-light;
             }
         }
     }
