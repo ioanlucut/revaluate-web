@@ -51,7 +51,7 @@
 
         <!-- Form groups -->
         <div class="goal__edit__form__price" ng-class="{'has-error': vm.goalForm.$submitted && (vm.goalForm.value.$invalid || vm.badPostSubmitResponse)}">
-            <input class="goal__edit__form__price__input" ng-disabled="vm.updateTracker.active()" type="text" name="value" placeholder="The value" maxlength="18" ng-model="vm.shownGoal.value" format-price format="number" caret-price-position required valid-price />
+            <input class="goal__edit__form__price__input" ng-disabled="vm.updateTracker.active()" type="text" name="value" placeholder="The value" maxlength="18" ng-model="vm.shownGoal.value" format-price format="number" required valid-price />
             <span class="goal__edit__form__price__currency">{{vm.user.model.currency.symbol}}</span>
 
             <!-- Error messages -->
