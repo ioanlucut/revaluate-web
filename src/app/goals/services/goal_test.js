@@ -29,7 +29,7 @@
                     id: '1',
                     value: 1.2
                 },
-                actual = new Goal(goalDto);
+                actual = Goal.build(goalDto);
 
             expect(actual).toBeTruthy();
             expect(actual.id).toEqual(goalDto.id);

@@ -4,67 +4,73 @@
     function GoalFactory(GoalStatus) {
 
         /**
-         * Goal class.
+         * Goal status factory function.
          */
-        function Goal(data) {
+        function goal(data) {
 
-            /**
-             * The goal id.
-             */
-            this.id = data.id;
+            return _.extend({}, {
 
-            /**
-             * The goal category.
-             */
-            this.category = data.category;
+                /**
+                 * The goal id.
+                 */
+                id: data.id,
 
-            /**
-             * The goal target (LESS,MORE).
-             */
-            this.goalTarget = data.goalTarget;
+                /**
+                 * The goal category.
+                 */
+                category: data.category,
 
-            /**
-             * The goal value
-             */
-            this.value = data.value;
+                /**
+                 * The goal target (LESS,MORE).
+                 */
+                goalTarget: data.goalTarget,
 
-            /**
-             * Start date of the goal.
-             */
-            this.startDate = data.startDate;
+                /**
+                 * The goal value
+                 */
+                value: data.value,
 
-            /**
-             * End date of the goal.
-             */
-            this.endDate = data.endDate;
+                /**
+                 * Start date of the goal.
+                 */
+                startDate: data.startDate,
 
-            /**
-             * Created date of the goal.
-             */
-            this.createdDate = data.createdDate;
+                /**
+                 * End date of the goal.
+                 */
+                endDate: data.endDate,
 
-            /**
-             * Created date of the goal.
-             */
-            this.modifiedData = data.modifiedData;
+                /**
+                 * Created date of the goal.
+                 */
+                createdDate: data.createdDate,
 
-            /**
-             * Goal status
-             */
-            this.goalStatus = data.goalStatusDTO && new GoalStatus(data.goalStatusDTO);
+                /**
+                 * Created date of the goal.
+                 */
+                modifiedData: data.modifiedData,
 
-            /**
-             * The year month of this goal.
-             */
-            this.yearMonthDate = data.yearMonthDate;
+                /**
+                 * Goal status
+                 */
+                goalStatus: data.goalStatusDTO && GoalStatus.build(data.goalStatusDTO),
 
-            /**
-             * Shows if this goal is marked (can be used e.g. in a bulk list)
-             */
-            this.marked = false;
+                /**
+                 * The year month of this goal.
+                 */
+                yearMonthDate: data.yearMonthDate,
+
+                /**
+                 * Shows if this goal is marked (can be used e.g. in a bulk list)
+                 */
+                marked: false
+
+            });
         }
 
-        return Goal;
+        return {
+            build: goal
+        };
     }
 
     angular
