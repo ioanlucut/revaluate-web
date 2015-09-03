@@ -25,7 +25,7 @@
 
             this.goalApiResponseTransformer = function (responseData) {
                 function buildGoal(data) {
-                    return new Goal(_.extend(data, {
+                    return Goal.build(_.extend(data, {
                         startDate: toDate(data.startDate),
                         endDate: toDate(data.endDate),
                         modifiedDate: toDate(data.modifiedDate),
