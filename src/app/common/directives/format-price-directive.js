@@ -5,32 +5,38 @@
         .module('revaluate.common')
         .directive('formatPrice', function () {
             return {
-                require: '?ngModel',
-                link: function (scope, elem, attrs, ctrl) {
-                    var options = {
-                        prefix: '',
-                        centsSeparator: ',',
-                        thousandsSeparator: '.'
-                    };
+                require: 'ngModel',
+                link: function (scope, elm, attrs, ctrl) {
+                    elm
+                        .bind('blur', function () {
+                            if (!ctrl.$modelValue) {
+                                return;
+                            }
 
-                    if (!ctrl) {
-                        return;
+                            ctrl.$viewValue = asViewValue(ctrl.$modelValue);
+                            ctrl.$render();
+                        });
+
+                    ctrl.$formatters.push(function (value) {
+                        if (_.isUndefined(value) || _.isEmpty(value)) {
+                            return '';
+                        }
+
+                        return asViewValue(value);
+                    });
+
+                    ctrl.$parsers.push(function (inputValue) {
+                        if (_.isUndefined(inputValue) || _.isEmpty(inputValue)) {
+                            return null;
+                        }
+
+                        return accounting.unformat(inputValue, ',').toFixed(2);
+                    });
+
+                    function asViewValue(value) {
+                        return accounting.formatMoney(value, '', 2, ".", ",");
                     }
 
-                    /*First time format*/
-                    ctrl.$formatters.unshift(function () {
-                        elem[0].value = parseInt(ctrl.$modelValue, 10) * 100;
-                        elem.priceFormat(options);
-
-                        return elem[0].value;
-                    });
-
-                    /*Parser*/
-                    ctrl.$parsers.unshift(function () {
-                        elem.priceFormat(options);
-
-                        return elem[0].value.replace(/\./g, '').replace(/,/g, '.');
-                    });
                 }
             };
         });
