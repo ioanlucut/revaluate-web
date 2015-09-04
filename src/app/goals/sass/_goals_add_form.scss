@@ -1,0 +1,131 @@
+.goals__add__controls {
+    text-align: center;
+    margin: 30px;
+
+    .goals__add__controls__btn {
+        @include btn-big($brand-primary);
+        width: 200px;
+    }
+}
+
+.goals__form {
+    @include clearfix();
+    padding-top: 30px;
+    width: 100%;
+
+    .goals__form__text,
+    .goals__form__target,
+    .goals__form__price,
+    .goals__form__category,
+    .goals__form__date {
+        display: inline-block;
+        position: relative;
+        float: left;
+    }
+
+    .goals__form__text,
+    .goals__form__target,
+    .goals__form__price,
+    .goals__form__category,
+    .goals__form__date,
+    .goals__form__date__input,
+    .goals__form__date__input__btn {
+        height: $add-goal-form-height;
+    }
+
+    .goals__form__target select,
+    .goals__form__price__input,
+    .goals__form__category .category-select__input .selectize-input {
+        height: 100%;
+        border-width: 1px;
+        border-color: $add-goal-form-border-color;
+    }
+
+    .goals__form__text {
+        padding: 0 15px;
+        line-height: $add-goal-form-height - ($font-size-base / 2 - 5);
+        color: $gray-light-1;
+    }
+
+    .goals__form__target select {
+        @include appearance(none);
+        width: 80px;
+        padding: 0 5px 0 5px;
+        background: $white;
+        text-transform: uppercase;
+        position: relative;
+    }
+
+    .goals__form__target::after {
+        content: "\25be";
+        color: $gray-medium;
+        position: absolute;
+        top: 8px;
+        right: 10px;
+    }
+
+    .goals__form__price {
+        max-width: 90px;
+
+        .goals__form__price__input {
+            text-align: right;
+        }
+    }
+
+    .goals__form__category {
+        float: left;
+        padding: 0;
+        width: 250px;
+        position: relative;
+        height: $add-goal-form-height;
+
+        .category-select__input {
+            height: $add-goal-form-height;
+            background-color: $gray-light-3;
+            font-size: $font-size-base; //font-size of the dropdown ----- DON'T REMOVE
+
+            .selectize-input {
+                @include border-radius($base-border-radius);
+                line-height: 38px !important;
+                //font-size: $font-size-larger; //font-size of the selected element ----- DON'T REMOVE
+
+                & > input {
+                    height: 40px;
+                    //font-size: $font-size-larger; //font-size of the placeholder ----- DON'T REMOVE
+                    @include border-radius($base-border-radius);
+                }
+            }
+        }
+    }
+
+    .goals__form__date {
+        .goals__form__date__input {
+            .goals__form__date__input__btn {
+                background-color: $white;
+                border: solid 1px $add-goal-form-border-color;
+                width: 115px;
+            }
+        }
+    }
+}
+
+.goals__form__buttons {
+    float: left;
+    display: block;
+    width: 100%;
+
+    .goals__form__buttons__save,
+    .goals__form__buttons__cancel {
+        width: 120px;
+        margin: 10px;
+    }
+
+    .goals__form__buttons__save {
+        @include btn-big($brand-primary);
+    }
+
+    .goals__form__buttons__cancel {
+        @include btn-big($brand-default);
+        color: $gray-dark-1;
+    }
+}

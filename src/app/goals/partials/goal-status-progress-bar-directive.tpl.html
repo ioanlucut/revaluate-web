@@ -1,0 +1,6 @@
+<progressbar max="vm.targetValue" value="vm.currentValue">
+    <span class="progressbar__value__min">0</span>
+    <span class="progressbar__value__crt" style="color:white; white-space:nowrap;">{{vm.currentValue}}</span>
+    <span class="today__line"  ng-style="{left: {{vm.todayPosition}} + '%'}"></span>
+    <span class="progressbar__value__max">{{vm.targetValue}}</span>
+</progressbar>

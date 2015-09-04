@@ -1,0 +1,126 @@
+.goals__list__entry__section {
+    @include border-radius($border-radius-base);
+    height: 210px;
+    padding: 15px;
+    margin: 0;
+    border: solid 2px $gray-light-3;
+    position: relative;
+
+    > div {
+        display: inline-block;
+        padding: 1px 0;
+    }
+
+    .goals__list__entry__section__select {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+
+        span {
+            font-size: 24px;
+            color: $gray-light-1;
+            @include transition(all 0.3s);
+
+            &:hover {
+                cursor: pointer;
+                color: $gray-medium;
+            }
+        }
+    }
+
+    .goals__list__entry__section__text {
+        font-weight: $font-weight-light;
+        color: $gray-medium;
+        padding: 1px 5px;
+    }
+
+    .goals__list__entry__section__target {
+        text-transform: uppercase;
+    }
+
+    .goals__list__entry__section__price {
+
+        .currency__symbol {
+            padding: 0 5px;
+            color: $gray-medium;
+            font-weight: $font-weight-light;
+        }
+    }
+
+    .goals__list__entry__section__category {
+        font-weight: $font-weight-bold;
+    }
+
+    goal-daily-status {
+
+        canvas {
+            //width: 100% !important;
+            //max-width: 500px;
+            max-height: 60px;
+            height: auto !important;
+        }
+    }
+
+    goal-status-progress-bar {
+        display: block;
+        position: relative;
+        clear: both;
+        margin-top: 30px;
+        margin-left: 3px;
+        margin-right: 5px;
+
+        .progress {
+            height: 40px;
+            border-radius: 0;
+            @include border-radius($base-border-radius);
+        }
+
+        .progress-bar {
+            text-align: right;
+        }
+
+        .progressbar__value__min,
+        .progressbar__value__max {
+            position: absolute;
+            top: -20px;
+            color: $gray-medium;
+        }
+
+        .progressbar__value__min {
+            left: 0;
+        }
+
+        .progressbar__value__max {
+            right: 0;
+        }
+
+        .progressbar__value__crt {
+            padding: 1px 5px 1px 1px;
+            line-height: 40px;
+        }
+
+        .today__line {
+            opacity: 0.5;
+            float: left;
+            position: absolute;
+            left: 80%;
+            top: -15%;
+            width: 1px;
+            height: 132px;
+            padding: 0;
+            margin: 0 0 0px -1px;
+            background-color: $gray-medium;
+
+            &:before {
+                position: relative;
+                content: "Today";
+                color: $gray-medium;
+                height: 20px;
+                width: 20px;
+                left: -15px;
+                top: -20px;
+                font-weight: $font-weight-light;
+            }
+        }
+    }
+}

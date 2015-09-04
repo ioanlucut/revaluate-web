@@ -1,0 +1,54 @@
+@media (max-width: $screen-xs-min) {
+
+    .goal__edit__form {
+        padding: 10px;
+        margin: 0 auto;
+
+        .goal__edit__form__price__input,
+        .goal__edit__form__category__input,
+        .goal__edit__form__category .category-select__input .selectize-input,
+        .goal__edit__form__details__input,
+        .goal__edit__form__date__input {
+            border-width: 1px 1px;
+            border-color: $add-goal-form-border-color;
+            border-radius: 0;
+        }
+
+        .goal__edit__form__price .goal__edit__form__price__currency {
+            border-width: 0;
+        }
+
+        .goal__edit__form__price__input,
+        .goal__edit__form__price__input:focus {
+            border-right: solid 1px $add-goal-form-border-color;
+            border-bottom: solid 1px $gray-light-2;
+            @include border-radius(0);
+            @include border-top-radius($base-border-radius);
+        }
+
+        .goal__edit__form__category .category-select__input .selectize-input {;
+            border-color: $gray-light-2 $add-goal-form-border-color $gray-light-2 $add-goal-form-border-color !important;
+            border-width: 0 1px 1px 1px !important;
+            border-top-right-radius: 0 !important;
+        }
+
+        .goal__edit__form__details__input,
+        .goal__edit__form__details__input:focus {
+            border-right: solid 1px $add-goal-form-border-color;
+            border-top: solid 0 $gray-light-2;
+            border-bottom: solid 1px $gray-light-2;
+        }
+
+        .goal__edit__form__date__input {
+            border-top: solid 0 $gray-light-2;
+            @include border-bottom-radius($base-border-radius);
+        }
+    }
+
+    .goal__edit__form__price,
+    .goal__edit__form__category,
+    .goal__edit__form__details,
+    .goal__edit__form__date {
+        width: 100%;
+    }
+}
