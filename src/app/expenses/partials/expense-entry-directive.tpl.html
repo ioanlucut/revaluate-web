@@ -26,7 +26,7 @@
 
         <!-- Form groups -->
         <div class="expense__edit__form__price" ng-class="{'has-error': vm.expenseForm.$submitted && (vm.expenseForm.value.$invalid || vm.badPostSubmitResponse)}">
-            <input class="expense__edit__form__price__input" ng-disabled="vm.updateTracker.active()" type="text" name="value" placeholder="The value" maxlength="18" ng-model="vm.shownExpense.value" format-price format="number" required valid-price />
+            <input class="expense__edit__form__price__input" ng-disabled="vm.updateTracker.active()" type="text" name="value" placeholder="0,00" maxlength="18" ng-model="vm.shownExpense.value" format-price format="number" required valid-price />
             <span class="expense__edit__form__price__currency">{{vm.user.model.currency.symbol}}</span>
 
             <!-- Error messages -->
