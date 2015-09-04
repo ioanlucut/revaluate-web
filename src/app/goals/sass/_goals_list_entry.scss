@@ -1,20 +1,30 @@
 .goals__list__entry__section {
     @include border-radius($border-radius-base);
+    height: 210px;
     padding: 15px;
     margin: 0;
-    box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
-    border: solid 1px $gray-light-1;
+    border: solid 2px $gray-light-3;
+    position: relative;
 
     > div {
         display: inline-block;
         padding: 1px 0;
     }
 
-    &:hover {
-        cursor: pointer;
+    .goals__list__entry__section__select {
+        position: absolute;
+        top: 5px;
+        right: 10px;
 
-        .goals__list__entry__section__select {
-            opacity: 1;
+        span {
+            font-size: 24px;
+            color: $gray-light-1;
+            @include transition(all 0.3s);
+
+            &:hover {
+                cursor: pointer;
+                color: $gray-medium;
+            }
         }
     }
 

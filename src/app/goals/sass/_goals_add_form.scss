@@ -51,9 +51,7 @@
         @include appearance(none);
         width: 80px;
         padding: 0 5px 0 5px;
-        //background: $white;
-        background: transparent;
-        //background: url(http://www.stackoverflow.com/favicon.ico) 96% / 15% no-repeat #eee;
+        background: $white;
         text-transform: uppercase;
         position: relative;
     }
