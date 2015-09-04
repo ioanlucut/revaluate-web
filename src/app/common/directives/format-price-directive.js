@@ -34,7 +34,7 @@
                     });
 
                     function asViewValue(value) {
-                        return accounting.formatMoney(value, '', 2, ".", ",");
+                        return accounting.formatMoney(value, '', 2, '.', ',');
                     }
 
                 }
