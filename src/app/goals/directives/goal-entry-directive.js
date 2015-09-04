@@ -48,11 +48,6 @@
         this.updateGoal = updateGoal;
 
         /**
-         * Toggle mark for bulk action
-         */
-        this.toggleMark = toggleMark;
-
-        /**
          * Open date picker
          */
         this.openDatePicker = openDatePicker;
@@ -61,6 +56,16 @@
          * Create an updating tracker.
          */
         vm.updateTracker = promiseTracker();
+
+        /**
+         * Create an deleting tracker.
+         */
+        vm.deleteTracker = promiseTracker();
+
+        /**
+         * Delete goal;
+         */
+        vm.deleteGoal = deleteGoal;
 
         function updateGoal(goal, category) {
             var period;
@@ -71,8 +76,8 @@
 
             period = DatesUtils
                 .getFromToOfMonthYear(vm.goal.yearMonthDate);
-            this.goal.startDate = period.from;
-            this.goal.endDate = period.to;
+            vm.goal.startDate = period.from;
+            vm.goal.endDate = period.to;
 
             GoalService
                 .updateGoal(goal, vm.updateTracker)
@@ -85,13 +90,15 @@
                 });
         }
 
-        function toggleMark() {
-            vm.goal.marked = !vm.goal.marked;
-
-            // ---
-            // We need this info also in the parent scope, so we synchronize the master too.
-            // ---
-            vm.shownGoal.marked = vm.goal.marked;
+        function deleteGoal() {
+            GoalService
+                .bulkDelete([vm.goal], vm.deleteTracker)
+                .then(function () {
+                    $rootScope.$broadcast(GOAL_EVENTS.isDeleted, { goal: vm.goal });
+                })
+                .catch(function () {
+                    $rootScope.$broadcast(GOAL_EVENTS.isErrorOccurred, { errorMessage: 'error' });
+                });
         }
 
         function openDatePicker($event) {
