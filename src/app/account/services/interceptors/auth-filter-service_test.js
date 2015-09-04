@@ -61,7 +61,7 @@
                 toFormatted = DatesUtils.formatDate(period.to);
 
                 $httpBackend.whenGET(URLTo.api('expenses/retrieve_grouped?page=0&size=50')).respond(200, []);
-                $httpBackend.whenGET(URLTo.api('insights/insights_months_per_years')).respond(200, []);
+                $httpBackend.whenGET(URLTo.api('statistics/expenses_months_per_years')).respond(200, []);
                 $httpBackend.whenGET(URLTo.api(INSIGHTS_URLS.fetchDailyInsights, {
                     ':from': fromFormatted,
                     ':to': toFormatted

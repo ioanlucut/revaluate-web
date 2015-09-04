@@ -2,45 +2,18 @@
 
     <!-- InsightsMonthly fetch form -->
     <div class="insights__controls">
-        <form name="vm.insightForm" class="insights__controls__form" novalidate>
 
-            <!-- Select prev month -->
-            <button type="button" class="insights__controls__form__arrow insights__controls__form__arrow--left icon-chevron-left" ng-disabled="vm.loadTracker.active() || ! vm.canLoadPrevMonth()" ng-click="vm.prevMonth()"></button>
+        <div class="insights__controls__form__month">
 
-            <div class="insights__controls__form__month" ng-class="{'has-error': vm.insightForm.yearMonthDate.$invalid && vm.insightForm.$submitted}">
-
-                <!--Hidden input of the insights chosen date-->
-                <input type="hidden" name="yearMonthDate" ng-model="vm.insightData.yearMonthDate" required valid-date/>
-
-                <!--insights date picker-->
-                <div class="insight__form__date__input">
-                    <button type="button"
-                            class="insight__form__date__input__btn"
-                            ng-click="vm.openDatePicker($event)"
-                            ng-model="vm.insightData.yearMonthDate"
-                            datepicker-popup
-                            is-open="vm.datePickerOpened"
-                            ng-change="vm.onChange()"
-                            ng-disabled="vm.loadTracker.active()"
-                            datepicker-mode="'month'" min-mode="'month'"
-                            date-disabled="vm.shouldDateBeDisabled(date, mode)"
-                            show-button-bar="false"
-                            datepicker-options="{minMode: 'month',datepickerMode: 'month'}">{{vm.loadTracker.active() ? 'Loading'
-                        : (vm.insightData.yearMonthDate | friendlyMonthDate)}}
-                    </button>
-                </div>
-
-                <!--Error messages-->
-                <div class="form-group-input__message" ng-class="{'has-error': vm.insightForm.yearMonthDate.$invalid && vm.insightForm.$submitted}" ng-messages="vm.insightForm.yearMonthDate.$error" ng-if="vm.insightForm.$submitted">
-                    <div ng-message="required">Please add a date.</div>
-                    <div ng-message="validDate">Date should be in the past.</div>
-                </div>
-            </div>
-
-            <!-- Select next month -->
-            <button type="button" class="insights__controls__form__arrow insights__controls__form__arrow--right icon-chevron-right" ng-disabled="vm.loadTracker.active() || ! vm.canLoadNextMonth()" ng-click="vm.nextMonth()"></button>
-
-        </form>
+            <!--Insights date picker-->
+            <date-picker-monthly
+                date-model="vm.insightData.yearMonthDate"
+                months-per-years-statistics="vm.monthsPerYearsStatistics.monthsPerYears"
+                perform-on-prev-or-next="vm.loadInsight(yearMonthDate)"
+                load-tracker="vm.loadTracker"
+                show-left-right-arrows="true">
+            </date-picker-monthly>
+        </div>
 
         <div class="insights__controls__chart-toggle insights__controls__chart-toggle--two">
             <a class="insights__controls__chart-toggle__entry" ng-class="{'insights__controls__chart-toggle__entry--active': vm.activeChart === vm.INSIGHTS_CHARTS.BAR}" href="javascript:void(0)" ng-click="vm.setActiveChart(vm.INSIGHTS_CHARTS.BAR)">Bar</a>
@@ -90,28 +63,28 @@
         <div class="insights__table insights__table--monthly">
             <table>
                 <thead>
-                    <tr class="insights__table__total">
-                        <th>TOTAL</th>
-                        <td class="insights__table__total__amount">
-                            <span ng-bind-html="vm.insightsMonthly.totalAmountSpent | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
-                        </td>
-                    </tr>
+                <tr class="insights__table__total">
+                    <th>TOTAL</th>
+                    <td class="insights__table__total__amount">
+                        <span ng-bind-html="vm.insightsMonthly.totalAmountSpent | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
+                    </td>
+                </tr>
                 </thead>
                 <tbody ng-repeat="totalPerCategory in vm.insightsMonthly.totalPerCategoryInsightsDTOs">
-                    <tr>
-                        <th class="insights__table__category label-uppercase">
-                            <span class="insights__table__category__color" ng-style="{'background':totalPerCategory.categoryDTO.color.color}">C</span>
-                            {{totalPerCategory.categoryDTO.name}}
-                        </th>
-                        <td class="insights__table__entry__amount">
-                            <span ng-bind-html="totalPerCategory.totalAmount | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
-                        </td>
-                    </tr>
-                    <tr class="insights__table__transactions">
-                        <td colspan="2">
-                            <expenses-of-category total-per-category-insights="totalPerCategory" month-year-date="vm.insightData.yearMonthDate"></expenses-of-category>
-                        </td>
-                    </tr>
+                <tr>
+                    <th class="insights__table__category label-uppercase">
+                        <span class="insights__table__category__color" ng-style="{'background':totalPerCategory.categoryDTO.color.color}">C</span>
+                        {{totalPerCategory.categoryDTO.name}}
+                    </th>
+                    <td class="insights__table__entry__amount">
+                        <span ng-bind-html="totalPerCategory.totalAmount | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
+                    </td>
+                </tr>
+                <tr class="insights__table__transactions">
+                    <td colspan="2">
+                        <expenses-of-category total-per-category-insights="totalPerCategory" month-year-date="vm.insightData.yearMonthDate"></expenses-of-category>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>

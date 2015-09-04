@@ -12,7 +12,7 @@
                 scope: {
                     category: '=',
                     autoToggleWhen: '=',
-                    progress: '=',
+                    progressTracker: '=',
                     confirm: '&',
                     cancel: '&'
                 },

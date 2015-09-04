@@ -1,0 +1,182 @@
+.goals__edit__form {
+    @include no-user-select();
+    @include clearfix();
+    @include border-radius($border-radius-base);
+    position: relative;
+    width: 100%;
+    height: 210px;
+    padding: 40px 20px 20px 20px;
+    margin: 0 auto;
+    background-color: $white;
+    border: solid 2px $gray-light-3;
+    font-weight: $font-weight-regular;
+
+    .goals__edit__form__close {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+
+        span {
+            font-size: 24px;
+            color: $gray-light-1;
+            @include transition(all 0.3s);
+
+            &:hover {
+                cursor: pointer;
+                color: $gray-medium;
+            }
+        }
+    }
+
+    .goals__edit__form__text,
+    .goals__edit__form__target,
+    .goals__edit__form__price,
+    .goals__edit__form__category,
+    .goals__edit__form__date {
+        display: inline-block;
+        position: relative;
+        float: left;
+    }
+
+    .goals__edit__form__text,
+    .goals__edit__form__target,
+    .goals__edit__form__price,
+    .goals__edit__form__category,
+    .goals__edit__form__date,
+    .goals__edit__form__date__input,
+    .goals__edit__form__date__input__btn {
+        height: $add-goal-form-height;
+    }
+
+    .goals__edit__form__target select,
+    .goals__edit__form__price__input,
+    .goals__edit__form__category .category-select__input .selectize-input {
+        height: 100%;
+        border-width: 1px;
+        border-color: $add-goal-form-border-color;
+    }
+
+    .goals__edit__form__text {
+        padding: 0 10px;
+        line-height: $add-goal-form-height - ($font-size-base / 2 - 5);
+        color: $gray-medium;
+    }
+
+    .goals__edit__form__target select {
+        @include appearance(none);
+        width: 80px;
+        padding: 0 5px 0 5px;
+        background: $white;
+        //background: url(http://www.stackoverflow.com/favicon.ico) 96% / 15% no-repeat #eee;
+        text-transform: uppercase;
+        position: relative;
+    }
+
+    .goals__edit__form__target::after {
+        content: "\25be";
+        color: $gray-medium;
+        position: absolute;
+        top: 8px;
+        right: 10px;
+    }
+
+    .goals__edit__form__price {
+        max-width: 90px;
+        margin-right: 15px;
+
+        .goals__edit__form__price__input {
+            text-align: right;
+        }
+
+        .goals__edit__form__price__currency {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            top: 9px;
+            right: -25px;
+            color: $gray-medium;
+        }
+    }
+
+    .goals__edit__form__category {
+        float: left;
+        padding: 0;
+        width: 250px;
+        position: relative;
+        height: $add-goal-form-height;
+
+        .category-select__input {
+            height: $add-goal-form-height;
+            background-color: $gray-light-3;
+            font-size: $font-size-base; //font-size of the dropdown ----- DON'T REMOVE
+
+            .selectize-input {
+                @include border-radius($base-border-radius);
+                line-height: 38px !important;
+                //font-size: $font-size-larger; //font-size of the selected element ----- DON'T REMOVE
+
+                & > input {
+                    height: 40px;
+                    //font-size: $font-size-larger; //font-size of the placeholder ----- DON'T REMOVE
+                    @include border-radius($base-border-radius);
+                }
+            }
+        }
+    }
+
+    .goals__edit__form__date {
+        .goals__edit__form__date__input {
+            .goals__edit__form__date__input__btn {
+                background-color: $white;
+                border: solid 1px $add-goal-form-border-color;
+                width: 115px;
+            }
+        }
+    }
+}
+
+.goals__edit__form__price,
+.goals__edit__form__category,
+.goals__edit__form__details,
+.goals__edit__form__date {
+    &.has-error {
+
+        input {
+
+        }
+    }
+}
+
+.goals__edit__form__buttons {
+    position: absolute;
+    display: block;
+    width: 100%;
+    bottom: 0;
+    right: 0;
+    padding: 7px;
+    @include clearfix();
+
+    .goals__edit__form__buttons__save {
+        @include btn-big($brand-primary);
+        width: 150px;
+        margin: 5px;
+        float: right;
+    }
+
+    .goals__edit__form__buttons__delete {
+        position: absolute;
+        bottom: 15px;
+        left: 15px;
+        padding: 0;
+        color: $gray-light-1;
+        background-color: $white;
+
+        span {
+            font-size: 20px;
+        }
+
+        &:hover {
+            color: $brand-danger;
+        }
+    }
+}

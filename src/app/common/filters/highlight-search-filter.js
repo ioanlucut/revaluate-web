@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('revaluate.expenses')
+        .module('revaluate.common')
         .filter('highlightSearch', function ($sce) {
             return function (text, phrase) {
                 if (phrase) {

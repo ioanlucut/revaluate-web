@@ -2,11 +2,12 @@
     'use strict';
 
     /**
-     * Summaries constants.
+     * Statistics constants.
      */
     angular
         .module('revaluate.statistics')
         .constant('STATISTIC_URLS', {
-            insightsMonthsPerYearsStatistics: 'insights/insights_months_per_years'
+            expensesMonthsPerYearsStatistics: 'statistics/expenses_months_per_years',
+            goalsPerYearsStatistics: 'statistics/goals_months_per_years'
         });
 }());

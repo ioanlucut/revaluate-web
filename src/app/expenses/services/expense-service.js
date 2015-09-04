@@ -38,9 +38,9 @@
             /**
              * Bulk delete action of a list of expenses.
              */
-            this.bulkDelete = function (expenses) {
+            this.bulkDelete = function (expenses, tracker) {
                 return $http
-                    .put(URLTo.api(EXPENSE_URLS.bulkDelete), ExpenseTransformerService.expenseApiRequestTransformer(expenses));
+                    .put(URLTo.api(EXPENSE_URLS.bulkDelete), ExpenseTransformerService.expenseApiRequestTransformer(expenses), { tracker: tracker });
             };
 
             /**

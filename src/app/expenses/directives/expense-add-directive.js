@@ -1,10 +1,9 @@
 (function () {
     'use strict';
 
-    function AddExpenseController(EXPENSE_EVENTS, $scope, ExpenseService, Expense, promiseTracker) {
+    function AddExpenseController(EXPENSE_EVENTS, APP_CONFIG, $scope, ExpenseService, Expense, promiseTracker) {
 
-        var vm = this,
-            MIN_DATE = 2000;
+        var vm = this;
 
         /**
          * Create a saving tracker.
@@ -23,7 +22,7 @@
         /**
          * Minimum date to create expense.
          */
-        this.datePickerMinDate = moment().year(MIN_DATE);
+        this.datePickerMinDate = angular.copy(APP_CONFIG.EXPENSES_ALLOWED_MIN_DATE);
 
         /**
          * Perform the first initialization.

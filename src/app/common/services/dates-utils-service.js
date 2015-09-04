@@ -32,5 +32,17 @@
                 return moment(givenDate).format('YYYY-MM-DDTHH:mm:ss') + 'Z';
             };
 
+            this.formatStartOfMonthInclusive = function (givenDate) {
+                return moment(givenDate).format('YYYY-MM-DDTHH:mm:ss.hhh');
+            };
+
+            this.formatEndOfMonthExclusive = function (givenDate) {
+                return moment(givenDate).subtract(1, 's').format('YYYY-MM-DDTHH:mm:ss.hhh');
+            };
+
+            this.formatDateExpectedForEndOfMonth = function (givenDate) {
+                return moment(givenDate).add(1, 's').format('YYYY-MM-DDTHH:mm:ss') + 'Z';
+            };
+
         });
 }());

@@ -45,7 +45,7 @@
                             resolve: {
                                 monthsPerYearsStatistics: function (StatisticService) {
                                     return StatisticService
-                                        .fetchInsightsMonthsPerYearStatistics();
+                                        .fetchExpensesMonthsPerYearStatistics();
                                 },
 
                                 insightsDaily: function (DatesUtils, InsightsService) {

@@ -21,6 +21,9 @@ var options = {
         overrides: {
             "angular-promise-tracker": {
                 "main": ["./promise-tracker.js", "./promise-tracker-http-interceptor.js"]
+            },
+            "accounting.js": {
+                "main": "./accounting.js"
             }
         },
         exclude: ['bower_components/bootstrap-sass/assets/javascripts/bootstrap.js'],
