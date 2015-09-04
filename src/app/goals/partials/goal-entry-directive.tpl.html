@@ -1,5 +1,9 @@
 <!--Display goal-->
-<div class="goals__list__entry__section" ng-if="! showContent" ng-class="vm.goal.marked ? 'goals__list__entry__section--bulk-marked' : ''" ng-click="toggleContent();">
+<div class="goals__list__entry__section" ng-if="! showContent" ng-class="vm.goal.marked ? 'goals__list__entry__section--bulk-marked' : ''">
+
+    <div class="goals__list__entry__section__select" ng-click="toggleContent();">
+        <span class="icon-pen"></span>
+    </div>
 
     <div class="goals__list__entry__section__text">Spend</div>
 
@@ -32,17 +36,25 @@
 <!-- Display goal in edit mode -->
 <div class="goals__edit__form" ng-if="showContent">
 
+    <div class="goals__edit__form__close" ng-click="cancel();">
+        <span class="icon-close"></span>
+    </div>
+
     <form name="vm.goalForm" ng-submit="vm.goalForm.$valid ? vm.updateGoal(vm.shownGoal, category) : ''" novalidate focus-first-error>
 
+        <div class="goals__edit__form__text">Spend</div>
+
         <!-- Form groups -->
-        <div class="goals__form__price" ng-class="{'has-error': vm.goalForm.$submitted && (vm.goalForm.goalTarget.$invalid || vm.badPostSubmitResponse)}">
-            <select class="goals__form__price__input" ng-model="vm.shownGoal.goalTarget" ng-disabled="vm.saveTracker.active()" ng-options="goalTarget.value as goalTarget.label for goalTarget in vm.goalsTargets" required></select>
+        <div class="goals__edit__form__target" ng-class="{'has-error': vm.goalForm.$submitted && (vm.goalForm.goalTarget.$invalid || vm.badPostSubmitResponse)}">
+            <select ng-model="vm.shownGoal.goalTarget" ng-disabled="vm.saveTracker.active()" ng-options="goalTarget.value as goalTarget.label for goalTarget in vm.goalsTargets" required></select>
 
             <!-- Error messages -->
             <div class="form-group-input__message" ng-class="{'has-error': vm.goalForm.goalTarget.$invalid && vm.goalForm.$submitted}" ng-messages="vm.goalForm.goalTarget.$error" ng-if="vm.goalForm.$submitted">
                 <div ng-message="required">Don't forget the target.</div>
             </div>
         </div>
+
+        <div class="goals__edit__form__text">than</div>
 
         <!-- Form groups -->
         <div class="goals__edit__form__price" ng-class="{'has-error': vm.goalForm.$submitted && (vm.goalForm.value.$invalid || vm.badPostSubmitResponse)}">
@@ -55,6 +67,8 @@
                 <div ng-message="validPrice">Price is invalid</div>
             </div>
         </div>
+
+        <div class="goals__edit__form__text">on</div>
 
         <!-- Form group -->
         <div class="goals__edit__form__category" ng-class="{'has-error': vm.goalForm.$submitted && (vm.goalForm.category.$invalid || vm.badPostSubmitResponse)}">
@@ -73,46 +87,12 @@
             </div>
         </div>
 
-        <!-- Date input -->
-        <div class="goals__edit__form__date" ng-class="{'has-error': vm.goalForm.yearMonthDate.$invalid && vm.goalForm.$submitted}">
-
-            <!--Hidden input of the goal chosen date-->
-            <input type="hidden" name="yearMonthDate" ng-model="vm.shownGoal.yearMonthDate" required valid-date />
-
-            <!--Goal date picker-->
-            <div class="goals__edit__form__date__input">
-                <button
-                    type="button"
-                    class="goals__edit__form__date__input__btn"
-                    ng-click="vm.openDatePicker($event)"
-                    datepicker-popup
-                    is-open="vm.datePickerStatus.opened"
-                    ng-disabled="vm.updateTracker.active()"
-                    min-date="vm.minDate"
-                    max-date="vm.maxDate"
-                    ng-model="vm.shownGoal.yearMonthDate"
-                    datepicker-mode="'month'"
-                    min-mode="'month'"
-                    show-button-bar="false"
-                    datepicker-options="{minMode: 'month',datepickerMode: 'month'}">
-                    {{vm.shownGoal.yearMonthDate | friendlyMonthDate}}
-                </button>
-            </div>
-
-            <!--Error messages-->
-            <div class="form-group-input__message" ng-class="{'has-error': vm.goalForm.yearMonthDate.$invalid && vm.goalForm.$submitted}" ng-messages="vm.goalForm.yearMonthDate.$error" ng-if="vm.goalForm.$submitted">
-                <div ng-message="required">Please add a date.</div>
-                <div ng-message="validDate">Date should be in the past.</div>
-            </div>
-        </div>
-
         <!-- Button container -->
-        <div class="goals__edit__form__submit__cancel">
-            <button class="goals__edit__form__cancelbtn" type="button" ng-click="cancel();">Discard changes</button>
-        </div>
-
-        <div class="goals__edit__form__submit__save">
-            <button ng-disabled="vm.updateTracker.active()" class="goals__edit__form__savebtn" type="submit">{{vm.updateTracker.active() ? 'Saving' : 'Save'}}</button>
+        <div class="goals__edit__form__buttons">
+            <button class="goals__edit__form__buttons__save" ng-disabled="vm.updateTracker.active()"  type="submit">{{vm.updateTracker.active() ? 'Saving...' : 'Save'}}</button>
+            <button class="goals__edit__form__buttons__delete" type="button" ng-click="" ng-disabled="vm.updateTracker.active()">
+                <span class="icon-trash"></span>
+            </button>
         </div>
     </form>
 
