@@ -1,0 +1,18 @@
+.goals__controls {
+    @include clearfix();
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+
+    h1 {
+        float: left;
+        margin-top: 10px;
+        color: $gray-light-1;
+        font-weight: $font-weight-light;
+        font-size: 24px;
+    }
+
+    .goals__controls__month {
+        float: right;
+    }
+}
