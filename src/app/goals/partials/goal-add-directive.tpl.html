@@ -1,6 +1,9 @@
 <!--Show content functionality-->
 <div class="goals__add__controls" ng-if="! vm.showContent">
-    <button class="goals__add__controls__btn" ng-disabled="vm.isMaximumNumberOfAllowedGoalsExceeded()" ng-click="vm.toggleContent()">Add goal</button>
+    <button class="goals__add__controls__btn" ng-disabled="vm.isMaximumNumberOfAllowedGoalsExceeded()" ng-click="vm.toggleContent()">
+    <span class="icon-plus"></span>
+        Add goal
+    </button>
 </div>
 
 <!-- Add a new goal form -->

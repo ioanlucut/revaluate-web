@@ -32,7 +32,22 @@
 
 @media (max-width: $screen-xs-min) {
     .goals__add__controls {
-        margin: 5px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        @include border-radius(50%);
+
+        .goals__add__controls__btn {
+            width: 40px;
+            padding: 2px 0 0 9px;
+            @include border-radius(50%);
+            @include box-shadow(1px 1px 4px $gray-light-1);
+
+            span {
+                margin-right: 9999px; //Hide the label
+                font-size: 22px;
+            }
+        }
     }
 
     .goals__form {

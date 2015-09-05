@@ -6,16 +6,16 @@
     }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 480px) {
 
     .goals__controls {
         padding-top: 5px;
         padding-bottom: 0;
 
         h1 {
-            text-align: center;
+            margin-top: 0;
         }
-        
+
         h1,
         .goals__controls__month {
             display: block;
