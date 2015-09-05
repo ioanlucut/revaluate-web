@@ -173,10 +173,14 @@
 
         span {
             font-size: 20px;
+            @include transition(all 0.3s);
         }
 
         &:hover {
-            color: $brand-danger;
+
+            span {
+                color: $brand-danger;
+            }
         }
     }
 }

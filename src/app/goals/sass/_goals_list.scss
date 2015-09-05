@@ -5,7 +5,7 @@
     .goals__list__entry {
         @include no-user-select();
         padding: 15px;
-        margin: 0 auto;
+        margin: 10px auto;
         min-height: 45px;
         height: 100%;
         width: 100%;
