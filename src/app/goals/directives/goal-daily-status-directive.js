@@ -43,7 +43,9 @@
             tooltipTitleFontSize: 12,
             tooltipYPadding: 10,
             tooltipXPadding: 10,
-            barValueSpacing: 2
+            barValueSpacing: 2,
+            maintainAspectRatio: false,
+            responsive: true
         };
 
         function formatChartValue(price) {

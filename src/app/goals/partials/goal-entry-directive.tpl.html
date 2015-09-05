@@ -1,5 +1,5 @@
 <!--Display goal-->
-<div class="goals__list__entry__section" ng-if="! showContent" ng-class="vm.goal.marked ? 'goals__list__entry__section--bulk-marked' : ''">
+<div class="goals__list__entry__section" ng-if="! showContent">
 
     <div class="goals__list__entry__section__select" ng-click="toggleContent();">
         <span class="icon-pen"></span>
@@ -31,8 +31,6 @@
     <goal-daily-status insights-daily="vm.goal.goalStatus.daily"></goal-daily-status>
 </div>
 
-
-
 <!-- Display goal in edit mode -->
 <div class="goals__edit__form" ng-if="showContent">
 
@@ -58,7 +56,7 @@
 
         <!-- Form groups -->
         <div class="goals__edit__form__price" ng-class="{'has-error': vm.goalForm.$submitted && (vm.goalForm.value.$invalid || vm.badPostSubmitResponse)}">
-            <input class="goals__edit__form__price__input" ng-disabled="vm.updateTracker.active()" type="text" name="value" placeholder="The value" maxlength="18" ng-model="vm.shownGoal.value" format-price format="number" required valid-price />
+            <input class="goals__edit__form__price__input" ng-disabled="vm.updateTracker.active()" type="text" name="value" placeholder="0,00" maxlength="18" ng-model="vm.shownGoal.value" format-price format="number" required valid-price />
             <span class="goals__edit__form__price__currency">{{vm.user.model.currency.symbol}}</span>
 
             <!-- Error messages -->
@@ -89,9 +87,9 @@
 
         <!-- Button container -->
         <div class="goals__edit__form__buttons">
-            <button class="goals__edit__form__buttons__save" ng-disabled="vm.updateTracker.active()"  type="submit">{{vm.updateTracker.active() ? 'Saving...' : 'Save'}}</button>
-            <button class="goals__edit__form__buttons__delete" type="button" ng-click="" ng-disabled="vm.updateTracker.active()">
-                <span class="icon-trash"></span>
+            <button class="goals__edit__form__buttons__save" ng-disabled="vm.updateTracker.active()" type="submit">{{vm.updateTracker.active() ? 'Saving...' : 'Save'}}</button>
+            <button class="goals__edit__form__buttons__delete" type="button" ng-disabled="vm.deleteTracker.active()" ng-click="vm.deleteGoal()">
+                <span class="icon-trash"></span>{{vm.deleteTracker.active() ? ' Deleting..' : ''}}
             </button>
         </div>
     </form>
