@@ -57,9 +57,8 @@
 
         $scope.$watch(function () {
             return vm.goal;
-        }, function (newVal, oldVal) {
-            prepareData(newVal);
-            console.log('ONCE');
+        }, function (newGoal) {
+            prepareData(newGoal);
         });
     }
 
