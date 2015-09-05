@@ -1,24 +1,5 @@
 @media (max-width: $screen-xs) {
     .goals__list__entry__section {
-        margin: 0;
-        padding: 0;
-        height: 50px;
-        line-height: 22px;
-        border-color: $gray-medium;
-
-        .goals__list__entry__section__category {
-            display: block;
-            @include border-bottom-radius(0);
-            height: 25px;
-            line-height: 23px;
-            padding-left: 30px;
-        }
-
-        .goals__list__entry__section__select {
-            left: 5px;
-            top: 7px;
-            font-size: 18px;
-            opacity: 1;
-        }
+        padding: 5px;
     }
 }
