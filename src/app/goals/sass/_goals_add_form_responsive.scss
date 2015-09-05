@@ -39,13 +39,17 @@
 
         .goals__add__controls__btn {
             width: 40px;
-            padding: 2px 0 0 9px;
+            padding: 2px 0 0 1px;
             @include border-radius(50%);
             @include box-shadow(1px 1px 4px $gray-light-1);
 
-            span {
-                margin-right: 9999px; //Hide the label
+            .icon-plus {
+                display: block;
                 font-size: 22px;
+            }
+
+            .goals__add__controls__btn__label {
+                display: none;
             }
         }
     }
