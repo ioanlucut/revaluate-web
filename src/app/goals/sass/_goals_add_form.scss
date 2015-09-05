@@ -28,10 +28,6 @@
         }
     }
 
-    .goals__form__text {
-        position: relative;
-        float: left;
-    }
     .goals__form__target,
     .goals__form__price,
     .goals__form__category,
@@ -59,7 +55,9 @@
     }
 
     .goals__form__text {
-        padding: 0 15px;
+        position: relative;
+        float: left;
+        padding-right: 15px;
         line-height: $add-goal-form-height - ($font-size-base / 2 - 5);
         color: $gray-medium;
     }
