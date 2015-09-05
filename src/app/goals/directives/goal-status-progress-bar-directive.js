@@ -1,15 +1,47 @@
 (function () {
     'use strict';
 
-    function GoalStatusProgressBarController() {
-        var vm = this,
+    function GoalStatusProgressBarController($scope) {
+        var vm = this;
+
+        // ---
+        // Initially, prepare data with this information.
+        // ---
+        prepareData(vm.goal);
+
+        function prepareData(goal) {
+            var noOfDaysInMonth, currentDay;
+
+            // ---
+            // Target value of the goal.
+            // ---
+            vm.targetValue = goal.value;
+
+            // ---
+            // The current value of the goal.
+            // ---
+            vm.currentValue = goal.goalStatus.currentValue;
+
+            // ---
+            // The type of the progress bar goal.
+            // ---
+            vm.type = computeProgressBarType
+                .call(this);
+
+            /**
+             * If warning should be shown
+             */
+            vm.showWarning = (vm.type === 'danger' || vm.type === 'warning');
+
+            // ---
+            // Compute the today position.
+            // ---
             noOfDaysInMonth = daysInMonth(),
-            currentDay = moment().date();
+                currentDay = moment().date();
+            vm.todayPosition = (100 * currentDay) / noOfDaysInMonth;
+        }
 
-        vm.targetValue = vm.goal.value;
-        vm.currentValue = vm.goal.goalStatus.currentValue;
-
-        function computeType(currentValue, targetValue) {
+        function computeProgressBarType(currentValue, targetValue) {
             if (currentValue === targetValue) {
                 return 'success';
             } else if (currentValue > targetValue) {
@@ -23,12 +55,12 @@
             return new Date(moment().year(), moment().month(), 0).getDate();
         }
 
-        vm.type = computeType
-            .call(this);
-
-        vm.showWarning = (vm.type === 'danger' || vm.type === 'warning');
-
-        vm.todayPosition = (100 * currentDay) / noOfDaysInMonth;
+        $scope.$watch(function () {
+            return vm.goal;
+        }, function (newVal, oldVal) {
+            prepareData(newVal);
+            console.log('ONCE');
+        });
     }
 
     angular

@@ -21,8 +21,14 @@
     <!--Small hook-->
     <greeter greet="greet"></greeter>
 
+    <!--Normal expenses content-->
     <div ui-view="expenses__content"></div>
-    <div class="expenses__column__right" ui-view="right__content"></div>
+
+    <!--Expenses daily insights content-->
+    <div class="expenses__column__right" ui-view="expenses__daily__insights__content"></div>
+
+    <!--Expenses goals content-->
+    <div class="expenses__column__right" ui-view="expenses__goals__content"></div>
 
 </div>
 
