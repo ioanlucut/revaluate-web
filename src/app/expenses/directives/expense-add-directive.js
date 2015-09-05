@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function AddExpenseController(EXPENSE_EVENTS, APP_CONFIG, $scope, ExpenseService, Expense, promiseTracker) {
+    function AddExpenseController(EXPENSE_EVENTS, APP_CONFIG, $scope, $rootScope, ExpenseService, Expense, promiseTracker) {
 
         var vm = this;
 
@@ -10,8 +10,14 @@
          */
         this.saveTracker = promiseTracker();
 
+        /**
+         * Initialize or reset the add expense form
+         */
         this.initOrResetAddExpense = initOrResetAddExpense;
 
+        /**
+         * The save expense functionality
+         */
         this.saveExpense = saveExpense;
 
         /**
@@ -54,7 +60,7 @@
             ExpenseService
                 .createExpense(this.expense, vm.saveTracker)
                 .then(function (createdExpense) {
-                    $scope.$emit(EXPENSE_EVENTS.isCreated, { expense: createdExpense });
+                    $rootScope.$broadcast(EXPENSE_EVENTS.isCreated, { expense: createdExpense });
                     vm.initOrResetAddExpense();
                 })
                 .catch(function () {
