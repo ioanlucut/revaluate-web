@@ -29,12 +29,11 @@
          * Goals targets available
          */
         this.goalsTargets = APP_CONFIG.GOALS_TARGETS;
+
         /**
          * Selected category
          */
-        this.category = {};
-
-        this.category.selected = new Category(this.shownGoal.category);
+        this.category = _.extend({}, { selected: new Category(this.shownGoal.category) });
 
         /**
          * We need an object in the scope as this model is changed by the
@@ -53,6 +52,11 @@
         this.openDatePicker = openDatePicker;
 
         /**
+         * Discard changes
+         */
+        this.discardChanges = discardChanges;
+
+        /**
          * Create an updating tracker.
          */
         vm.updateTracker = promiseTracker();
@@ -67,22 +71,20 @@
          */
         vm.deleteGoal = deleteGoal;
 
-        function updateGoal(goal, category) {
-            var period;
+        function updateGoal() {
+            var period = DatesUtils
+                .getFromToOfMonthYear(vm.shownGoal.yearMonthDate);
 
-            if (category && category.selected) {
-                goal.category = angular.copy(category.selected);
-            }
-
-            period = DatesUtils
-                .getFromToOfMonthYear(vm.goal.yearMonthDate);
-            vm.goal.startDate = period.from;
-            vm.goal.endDate = period.to;
+            vm.shownGoal = _.extend(vm.shownGoal, {
+                category: angular.copy(vm.category.selected),
+                startDate: period.from,
+                endDate: period.to
+            });
 
             GoalService
-                .updateGoal(goal, vm.updateTracker)
+                .updateGoal(vm.shownGoal, vm.updateTracker)
                 .then(function (updatedGoal) {
-                    $rootScope.$broadcast(GOAL_EVENTS.isUpdated, { goal: _.extend(goal, updatedGoal) });
+                    $rootScope.$broadcast(GOAL_EVENTS.isUpdated, { goal: _.extend(vm.shownGoal, updatedGoal) });
                 })
                 .catch(function () {
                     vm.badPostSubmitResponse = true;
@@ -106,6 +108,11 @@
             $event.stopPropagation();
 
             vm.datePickerStatus.opened = true;
+        }
+
+        function discardChanges() {
+            vm.shownGoal = angular.copy(vm.goal);
+            vm.category = _.extend({}, { selected: new Category(vm.shownGoal.category) });
         }
     }
 
@@ -144,7 +151,7 @@
                         // ---
                         // Auto focus price.
                         // ---
-                        if (scope.showContent) {
+                        if ( scope.showContent ) {
                             $timeout(function () {
                                 el.find(GOAL_INPUT_SELECTOR).focus();
                             });
@@ -157,14 +164,14 @@
                     scope.cancel = function () {
                         scope.toggleContent();
 
-                        vm.shownGoal = angular.copy(vm.goal);
+                        vm.discardChanges();
                     };
 
                     /**
                      * On goal updated/deleted - cancel edit mode.
                      */
                     $rootScope.$on(GOAL_EVENTS.isUpdated, function (event, args) {
-                        if (vm.goal.id === args.goal.id) {
+                        if ( vm.goal.id === args.goal.id ) {
 
                             // ---
                             // Now update the master goal, and remove the marked sign.
