@@ -2,7 +2,8 @@
     'use strict';
 
     function GoalStatusProgressBarController($scope) {
-        var vm = this;
+        var vm = this,
+            THRESHOLD = 10;
 
         // ---
         // Initially, prepare data with this information.
@@ -25,8 +26,7 @@
             // ---
             // The type of the progress bar goal.
             // ---
-            vm.type = computeProgressBarType
-                .call(this);
+            vm.type = computeProgressBarType(vm.currentValue, vm.targetValue, goal.goalTarget);
 
             /**
              * If warning should be shown
@@ -41,13 +41,47 @@
             vm.todayPosition = (100 * currentDay) / noOfDaysInMonth;
         }
 
-        function computeProgressBarType(currentValue, targetValue) {
-            if (currentValue === targetValue) {
-                return 'success';
-            } else if (currentValue > targetValue) {
-                return 'warning';
-            } else {
-                return 'danger';
+        function getMinMaxThreshold(of) {
+            var result = (THRESHOLD / 100) * of;
+
+            return {
+                min: of - result,
+                max: of + result
+            };
+        }
+
+        function computeProgressBarType(currentValue, targetValue, type) {
+            var LEVEL_SUCCESS = 'success',
+                LEVEL_INFO = 'info',
+                LEVEL_WARNING = 'warning',
+            /* LEVEL_DANGER = 'danger',*/
+                thresholdTarget = getMinMaxThreshold(targetValue);
+
+            // 0, -10, 10
+
+            // MORE THAN 100
+            // actual = 30;
+            // thresholdMin = 90
+            // thresholdMax = 110
+            // 30 >= 90
+            // 30 > 90 e ok
+
+            if (type === 'MORE_THAN') {
+                if (_.gt(currentValue, targetValue)) {
+                    return LEVEL_SUCCESS;
+                } else if (_.gte(currentValue, thresholdTarget.min)) {
+                    return LEVEL_INFO;
+                } else {
+                    return LEVEL_WARNING;
+                }
+            } else if (type === 'LESS_THAN') {
+                if (_.lt(currentValue, targetValue)) {
+                    return LEVEL_SUCCESS;
+                } else if (_.lte(currentValue, thresholdTarget.max)) {
+                    return LEVEL_INFO;
+                } else {
+                    return LEVEL_WARNING;
+                }
             }
         }
 
