@@ -17,7 +17,7 @@
 
                 .state('expenses', {
                     url: '/expenses',
-                    templateUrl: '/app/expenses/partials/expenses.abstract.html',
+                    templateUrl: '/app/expenses/partials/expenses-abstract.tpl.html',
                     abstract: true
                 })
 
@@ -26,7 +26,7 @@
                     url: '',
                     views: {
                         'expenses__content': {
-                            templateUrl: '/app/expenses/partials/expenses__content.html',
+                            templateUrl: '/app/expenses/partials/expenses-content.tpl.html',
                             controller: 'ExpensesController',
                             controllerAs: 'vm',
                             resolve: {
