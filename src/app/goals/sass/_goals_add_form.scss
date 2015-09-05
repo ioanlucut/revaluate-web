@@ -5,6 +5,10 @@
     .goals__add__controls__btn {
         @include btn-big($brand-primary);
         width: 160px;
+
+        .icon-plus {
+            display: none;
+        }
     }
 }
 
@@ -62,21 +66,24 @@
         color: $gray-medium;
     }
 
-    .goals__form__target select {
-        @include appearance(none);
-        width: 150px;
-        padding: 0 5px 0 10px;
-        background: $white;
-        text-transform: uppercase;
-        position: relative;
-    }
+    .goals__form__target {
 
-    .goals__form__target::after {
-        content: "\25be";
-        color: $gray-medium;
-        position: absolute;
-        top: 8px;
-        right: 10px;
+        select {
+            @include appearance(none);
+            width: 150px;
+            padding: 0 5px 0 10px;
+            background: $white;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        &::after {
+            content: "\25be";
+            color: $gray-medium;
+            position: absolute;
+            top: 8px;
+            right: 10px;
+        }
     }
 
     .goals__form__price {
@@ -84,6 +91,16 @@
 
         .goals__form__price__input {
             text-align: right;
+            padding-right: 25px;
+        }
+
+        .goals__form__price__currency {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            top: 10px;
+            right: 0;
+            color: $gray-medium;
         }
     }
 
