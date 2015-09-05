@@ -59,12 +59,6 @@
                  * The year month of this goal.
                  */
                 yearMonthDate: data.yearMonthDate,
-
-                /**
-                 * Shows if this goal is marked (can be used e.g. in a bulk list)
-                 */
-                marked: false
-
             });
         }
 
