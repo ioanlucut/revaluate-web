@@ -2,7 +2,11 @@
 
 }
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
+    .goals__add__controls {
+        margin: 15px;
+    }
+
     .goals__form {
         padding-left: 60px;
         padding-right: 60px;
@@ -27,6 +31,10 @@
 }
 
 @media (max-width: $screen-xs-min) {
+    .goals__add__controls {
+        margin: 5px;
+    }
+
     .goals__form {
         padding-left: 10px;
         padding-right: 10px;
