@@ -4,14 +4,18 @@
 
     .goals__add__controls__btn {
         @include btn-big($brand-primary);
-        width: 200px;
+        width: 160px;
     }
 }
 
 .goals__form {
     @include clearfix();
-    padding-top: 30px;
+    padding: 5px 20px;
     width: 100%;
+    max-width: 700px;
+    margin: 40px auto 20px auto;
+    border: solid 2px $gray-light-2;
+    @include border-radius($base-border-radius);
 
     .goals__form__text,
     .goals__form__target,
@@ -21,6 +25,7 @@
         display: inline-block;
         position: relative;
         float: left;
+        margin-top: 10px;
     }
 
     .goals__form__text,
@@ -44,13 +49,13 @@
     .goals__form__text {
         padding: 0 15px;
         line-height: $add-goal-form-height - ($font-size-base / 2 - 5);
-        color: $gray-light-1;
+        color: $gray-medium;
     }
 
     .goals__form__target select {
         @include appearance(none);
-        width: 80px;
-        padding: 0 5px 0 5px;
+        width: 100px;
+        padding: 0 5px 0 10px;
         background: $white;
         text-transform: uppercase;
         position: relative;
@@ -65,7 +70,7 @@
     }
 
     .goals__form__price {
-        max-width: 90px;
+        max-width: 100px;
 
         .goals__form__price__input {
             text-align: right;
@@ -103,7 +108,16 @@
             .goals__form__date__input__btn {
                 background-color: $white;
                 border: solid 1px $add-goal-form-border-color;
-                width: 115px;
+                width: 140px;
+                color: $black;
+
+                &::after {
+                    content: "\25be";
+                    color: $gray-medium;
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                }
             }
         }
     }
@@ -113,11 +127,13 @@
     float: left;
     display: block;
     width: 100%;
+    @include clearfix();
 
     .goals__form__buttons__save,
     .goals__form__buttons__cancel {
         width: 120px;
         margin: 10px;
+        float: right;
     }
 
     .goals__form__buttons__save {
