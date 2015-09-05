@@ -22,7 +22,7 @@
 <!-- Display expense in edit mode -->
 <div class="expense__edit__form" ng-if="showContent">
 
-    <form name="vm.expenseForm" ng-submit="vm.expenseForm.$valid ? vm.updateExpense(vm.shownExpense, category) : ''" novalidate focus-first-error>
+    <form name="vm.expenseForm" ng-submit="vm.expenseForm.$valid ? vm.updateExpense() : ''" novalidate focus-first-error>
 
         <!-- Form groups -->
         <div class="expense__edit__form__price" ng-class="{'has-error': vm.expenseForm.$submitted && (vm.expenseForm.value.$invalid || vm.badPostSubmitResponse)}">

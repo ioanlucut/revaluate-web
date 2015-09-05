@@ -91,8 +91,8 @@
 
         <!-- Button container -->
         <div class="goals__form__buttons">
-            <button ng-disabled="vm.saveTracker.active()" class="goals__form__buttons__cancel" type="button" ng-click="vm.toggleContent();vm.initOrResetAddGoalForm()">Nevermind</button>
             <button ng-disabled="vm.saveTracker.active()" class="goals__form__buttons__save" type="submit">{{vm.saveTracker.active() ? 'Adding' : 'Add'}}</button>
+            <button ng-disabled="vm.saveTracker.active()" class="goals__form__buttons__cancel" type="button" ng-click="vm.toggleContent();vm.initOrResetAddGoalForm()">Nevermind</button>
         </div>
     </form>
 

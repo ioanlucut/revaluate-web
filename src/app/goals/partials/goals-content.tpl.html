@@ -1,13 +1,12 @@
 <!--Add goal-->
 <div goal-add categories="vm.categories" is-maximum-number-of-allowed-goals-exceeded="vm.isMaximumNumberOfAllowedGoalsExceeded()"></div>
 
-<!--&lt;!&ndash;Goals left content&ndash;&gt;-->
-<!--<div class="goals__column__left">-->
-
 <!-- Goals fetch form -->
-<div class="insights__controls">
+<div class="insights__controls goals__controls">
 
-    <div class="insights__controls__form__month">
+    <h1>Your goals</h1>
+
+    <div class="insights__controls__form__month goals__controls__month">
 
         <!--Insights date picker-->
         <date-picker-monthly
@@ -26,12 +25,8 @@
     <div class="goals__empty-state__icon"></div>
     <h1>No goals yet.</h1>
 
-    <div>It seems like you have no goals yet. Start adding some or
-        <a href="javascript:void(0)" ui-sref="settings.import.choose">import your goals</a>.
-    </div>
+    <div>It seems like you have no goals yet. Start adding some.</div>
 </div>
 
 <!--The goals list-->
 <div goals-list goals="vm.goals" categories="vm.categories" sort="desc"></div>
-
-<!--</div>-->

@@ -1,7 +1,7 @@
 <!--Display goal-->
 <div class="goals__list__entry__section" ng-if="! showContent">
 
-    <div class="goals__list__entry__section__select" ng-click="toggleContent();">
+    <div class="goals__list__entry__section__select simptip-position-right simptip-smooth simptip-fade" data-tooltip="Edit goal" ng-click="toggleContent();">
         <span class="icon-pen"></span>
     </div>
 
@@ -22,8 +22,6 @@
     <!--Goal category-->
     <div class="goals__list__entry__section__category" ng-style="{'color':vm.goal.category.color.color}" ng-bind-html="vm.goal.category.name"></div>
 
-    <div class="goals__list__entry__section__text">every month.</div>
-
     <!--Goal status bar progress-->
     <goal-status-progress-bar goal="vm.goal"></goal-status-progress-bar>
 
@@ -34,11 +32,11 @@
 <!-- Display goal in edit mode -->
 <div class="goals__edit__form" ng-if="showContent">
 
-    <div class="goals__edit__form__close" ng-click="cancel();">
+    <div class="goals__edit__form__close simptip-position-right simptip-smooth simptip-fade" data-tooltip="Discard changes" ng-click="cancel();">
         <span class="icon-close"></span>
     </div>
 
-    <form name="vm.goalForm" ng-submit="vm.goalForm.$valid ? vm.updateGoal(vm.shownGoal, category) : ''" novalidate focus-first-error>
+    <form name="vm.goalForm" ng-submit="vm.goalForm.$valid ? vm.updateGoal() : ''" novalidate focus-first-error>
 
         <div class="goals__edit__form__text">Spend</div>
 
@@ -88,8 +86,12 @@
         <!-- Button container -->
         <div class="goals__edit__form__buttons">
             <button class="goals__edit__form__buttons__save" ng-disabled="vm.updateTracker.active()" type="submit">{{vm.updateTracker.active() ? 'Saving...' : 'Save'}}</button>
-            <button class="goals__edit__form__buttons__delete" type="button" ng-disabled="vm.deleteTracker.active()" ng-click="vm.deleteGoal()">
-                <span class="icon-trash"></span>{{vm.deleteTracker.active() ? ' Deleting..' : ''}}
+            <button class="goals__edit__form__buttons__delete simptip-position-right simptip-danger simptip-smooth simptip-fade"
+                    type="button"
+                    data-tooltip="Remove goal"
+                    ng-disabled="vm.deleteTracker.active()"
+                    ng-click="vm.deleteGoal()">
+                <span class="icon-trash"></span>
             </button>
         </div>
     </form>

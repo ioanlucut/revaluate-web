@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function InsightsDailyController(EXPENSE_EVENTS, USER_ACTIVITY_EVENTS, ALERTS_EVENTS, $controller, $scope, $rootScope, $filter, InsightsGenerator, DatesUtils, InsightsService, promiseTracker, monthsPerYearsStatistics, insightsDaily) {
+    function MonthlyDailyInsightsController(EXPENSE_EVENTS, USER_ACTIVITY_EVENTS, ALERTS_EVENTS, $controller, $scope, $rootScope, $filter, InsightsGenerator, DatesUtils, InsightsService, promiseTracker, monthsPerYearsStatistics, insightsDaily) {
 
         var vm = this;
 
@@ -130,6 +130,6 @@
     }
 
     angular
-        .module('revaluate.insights')
-        .controller('InsightsDailyController', InsightsDailyController);
+        .module('revaluate.expenses')
+        .controller('MonthlyDailyInsightsController', MonthlyDailyInsightsController);
 }());
