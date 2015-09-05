@@ -36,8 +36,8 @@
             // ---
             // Compute the today position.
             // ---
-            noOfDaysInMonth = daysInMonth(),
-                currentDay = moment().date();
+            noOfDaysInMonth = daysInMonth();
+            currentDay = moment().date();
             vm.todayPosition = (100 * currentDay) / noOfDaysInMonth;
         }
 
