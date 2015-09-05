@@ -40,8 +40,8 @@
                             }
                         },
                         'expenses__daily__insights__content': {
-                            templateUrl: '/app/insights/partials/insights.daily.html',
-                            controller: 'InsightsDailyController',
+                            templateUrl: '/app/expenses/partials/monthly-daily-insights.tpl.html',
+                            controller: 'MonthlyDailyInsightsController',
                             controllerAs: 'vm',
                             resolve: {
                                 monthsPerYearsStatistics: function (StatisticService) {
