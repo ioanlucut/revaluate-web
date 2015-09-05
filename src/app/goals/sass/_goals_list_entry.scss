@@ -52,8 +52,9 @@
     }
 
     .goals__list__entry__section__category {
-        font-weight: $font-weight-bold;
+        @include category-label($brand-primary);
         margin-right: 40px;
+        padding: 0 5px;
     }
 
     goal-daily-status {
