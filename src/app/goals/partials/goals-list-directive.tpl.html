@@ -1,13 +1,5 @@
 <div class="goals__list">
 
-    <div class="goal__list__sort" ng-if="vm.goals.length !== 0">
-        <div class="goal__list__sort__date">
-            <span class="icon-sort"></span>
-            <a class="goal__list__sort__date__entry" href="javascript:void(0)" ng-class="{'goal__list__sort__date__entry--active': vm.selectedOrderBy === 'spentDate'}" ng-click="vm.setSelectedOrderBy('spentDate')">Goal date</a> |
-            <a class="goal__list__sort__date__entry" href="javascript:void(0)" ng-class="{'goal__list__sort__date__entry--active': vm.selectedOrderBy === 'createdDate'}" ng-click="vm.setSelectedOrderBy('createdDate')">Added date</a>
-        </div>
-    </div>
-
     <!--Goal list-->
     <div class="goals__list__entry"
          ng-repeat="goal in vm.goals | orderObjectBy : vm.selectedOrderBy : reverseOrder track by goal.id"

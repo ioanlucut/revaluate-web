@@ -1,54 +1,37 @@
 <!--Add goal-->
 <div goal-add categories="vm.categories" is-maximum-number-of-allowed-goals-exceeded="vm.isMaximumNumberOfAllowedGoalsExceeded()"></div>
 
-<!--Goals left content-->
-<div class="goals__column__left">
+<!--&lt;!&ndash;Goals left content&ndash;&gt;-->
+<!--<div class="goals__column__left">-->
 
-    <!--Goal bulk actions-->
-    <div class="goals__bulk-actions" ng-if="vm.isBulkActionEnabled()">
+<!-- Goals fetch form -->
+<div class="insights__controls">
 
-        <div class="goals__bulk-actions__buttons">
+    <div class="insights__controls__form__month">
 
-            <div class="goals__bulk-actions__buttons__delete">
-                <button class="goals__bulk-actions__buttons__delete__btn-delete" ng-disabled="vm.bulkDeleteTracker.active()" ng-click="vm.performBulkDelete()">{{vm.bulkDeleteTracker.active() ? 'Deleting...' : 'Delete'}}</button>
-            </div>
-
-            <div class="goals__bulk-actions__buttons__cancel">
-                <button class="goals__bulk-actions__buttons__delete__btn-cancel" ng-click="vm.cancelBulkAction()">Nevermind</button>
-            </div>
-
-        </div>
-
+        <!--Insights date picker-->
+        <date-picker-monthly
+            date-model="vm.goalsData.yearMonthDate"
+            months-per-years-statistics="vm.monthsPerYearsStatistics.monthsPerYears"
+            perform-on-prev-or-next="vm.loadGoals(yearMonthDate)"
+            load-tracker="vm.loadTracker"
+            show-left-right-arrows="true">
+        </date-picker-monthly>
     </div>
-
-    <!-- Goals fetch form -->
-    <div class="insights__controls">
-
-        <div class="insights__controls__form__month">
-
-            <!--Insights date picker-->
-            <date-picker-monthly
-                date-model="vm.goalsData.yearMonthDate"
-                months-per-years-statistics="vm.monthsPerYearsStatistics.monthsPerYears"
-                perform-on-prev-or-next="vm.loadGoals(yearMonthDate)"
-                load-tracker="vm.loadTracker"
-                show-left-right-arrows="true">
-            </date-picker-monthly>
-        </div>
-
-    </div>
-
-    <!--Empty state-->
-    <div class="goals__empty-state" ng-if="vm.goals.length === 0">
-        <div class="goals__empty-state__icon"></div>
-        <h1>No goals yet.</h1>
-
-        <div>It seems like you have no goals yet. Start adding some or
-            <a href="javascript:void(0)" ui-sref="settings.import.choose">import your goals</a>.
-        </div>
-    </div>
-
-    <!--The goals list-->
-    <div goals-list goals="vm.goals" categories="vm.categories" sort="desc"></div>
 
 </div>
+
+<!--Empty state-->
+<div class="goals__empty-state" ng-if="vm.goals.length === 0">
+    <div class="goals__empty-state__icon"></div>
+    <h1>No goals yet.</h1>
+
+    <div>It seems like you have no goals yet. Start adding some or
+        <a href="javascript:void(0)" ui-sref="settings.import.choose">import your goals</a>.
+    </div>
+</div>
+
+<!--The goals list-->
+<div goals-list goals="vm.goals" categories="vm.categories" sort="desc"></div>
+
+<!--</div>-->

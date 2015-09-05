@@ -119,6 +119,12 @@
                 currentYear = currentDate.year();
 
             return _.some(_.keys(vm.monthsPerYearsStatistics), function (keyEntry) {
+                if (_.parseInt(keyEntry) === _.parseInt(currentYear)) {
+                    return _.some(vm.monthsPerYearsStatistics[keyEntry], function (month) {
+                        return _.lt(_.parseInt(month), _.parseInt(currentDate.month() + 1));
+                    });
+                }
+
                 return _.lte(_.parseInt(keyEntry), _.parseInt(currentYear));
             });
         }
@@ -128,8 +134,14 @@
                 currentYear = currentDate.year();
 
             return _.some(_.keys(vm.monthsPerYearsStatistics), function (keyEntry) {
-                    return _.gte(_.parseInt(keyEntry), _.parseInt(currentYear));
-                });
+                if (_.parseInt(keyEntry) === _.parseInt(currentYear)) {
+                    return _.some(vm.monthsPerYearsStatistics[keyEntry], function (month) {
+                        return _.gt(_.parseInt(month), _.parseInt(currentDate.month() + 1));
+                    });
+                }
+
+                return _.gte(_.parseInt(keyEntry), _.parseInt(currentYear));
+            });
         }
 
     }

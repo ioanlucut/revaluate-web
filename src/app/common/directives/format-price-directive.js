@@ -18,15 +18,15 @@
                         });
 
                     ctrl.$formatters.push(function (value) {
-                        if (_.isUndefined(value) || _.isEmpty(value)) {
-                            return '';
+                        if (_.isUndefined(value) || _.isNaN(value)) {
+                            return null;
                         }
 
                         return asViewValue(value);
                     });
 
                     ctrl.$parsers.push(function (inputValue) {
-                        if (_.isUndefined(inputValue) || _.isEmpty(inputValue)) {
+                        if (_.isUndefined(inputValue) || _.isNaN(inputValue)) {
                             return null;
                         }
 
@@ -34,7 +34,7 @@
                     });
 
                     function asViewValue(value) {
-                        return accounting.formatMoney(value, '', 2, ".", ",");
+                        return accounting.formatMoney(value, '', 2, '.', ',');
                     }
 
                 }
