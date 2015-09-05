@@ -54,23 +54,26 @@
             var LEVEL_SUCCESS = 'success',
                 LEVEL_INFO = 'info',
                 LEVEL_WARNING = 'warning',
-            /* LEVEL_DANGER = 'danger',*/
+                LEVEL_DANGER = 'danger',
                 thresholdTarget = getMinMaxThreshold(targetValue);
 
             // 0, -10, 10
 
             // MORE THAN 100
-            // actual = 30;
             // thresholdMin = 90
             // thresholdMax = 110
-            // 30 >= 90
-            // 30 > 90 e ok
+            // actual > 90 e success
+            // actual >= 90 info
+            // actual < 90 warning
+            // actual < 10 danger
 
             if (type === 'MORE_THAN') {
                 if (_.gt(currentValue, targetValue)) {
                     return LEVEL_SUCCESS;
                 } else if (_.gte(currentValue, thresholdTarget.min)) {
                     return LEVEL_INFO;
+                } else if (_.lt(currentValue, targetValue - thresholdTarget.min)) {
+                    return LEVEL_DANGER;
                 } else {
                     return LEVEL_WARNING;
                 }
@@ -79,6 +82,8 @@
                     return LEVEL_SUCCESS;
                 } else if (_.lte(currentValue, thresholdTarget.max)) {
                     return LEVEL_INFO;
+                } else if (_.gt(currentValue, thresholdTarget.max)) {
+                    return LEVEL_DANGER;
                 } else {
                     return LEVEL_WARNING;
                 }
