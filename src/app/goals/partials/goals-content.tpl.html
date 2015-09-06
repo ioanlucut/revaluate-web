@@ -10,6 +10,8 @@
 
         <!--Insights date picker-->
         <date-picker-monthly
+            fade-out-in
+            fade-when="vm.updateStatisticsTracker.active()"
             date-model="vm.goalsData.yearMonthDate"
             months-per-years-statistics="vm.monthsPerYearsStatistics.monthsPerYears"
             perform-on-prev-or-next="vm.loadGoals(yearMonthDate)"

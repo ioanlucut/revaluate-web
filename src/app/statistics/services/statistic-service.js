@@ -21,10 +21,10 @@
             /**
              * Get all goals statistics of current user. They represents a map of expenses per years/months.
              */
-            this.fetchGoalsMonthsPerYearStatistics = function () {
+            this.fetchGoalsMonthsPerYearStatistics = function (tracker) {
 
                 return $http
-                    .get(URLTo.api(STATISTIC_URLS.goalsPerYearsStatistics))
+                    .get(URLTo.api(STATISTIC_URLS.goalsPerYearsStatistics), { tracker: tracker })
                     .then(StatisticTransformerService.statisticApiResponseTransformer);
             };
 
