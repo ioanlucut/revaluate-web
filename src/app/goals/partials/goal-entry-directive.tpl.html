@@ -69,7 +69,7 @@
         <!-- Form group -->
         <div class="goals__edit__form__category" ng-class="{'has-error': vm.goalForm.$submitted && (vm.goalForm.category.$invalid || vm.badPostSubmitResponse)}">
 
-            <ui-select name="category" ng-disabled="vm.updateTracker.active()" class="category-select__input" ng-style="{'background':$select.selected.color.color}" required ng-model="vm.category.selected" theme="selectize">
+            <ui-select name="category" ng-disabled="vm.updateTracker.active()" class="category-select__input" ng-style="{'background':$select.selected.color.color}" ng-model="vm.category.selected" theme="selectize">
                 <ui-select-match ng-style="{'background':$select.selected.color.color}" placeholder="Select a category">{{$select.selected.name}}</ui-select-match>
                 <ui-select-choices repeat="categoryEntry in vm.categories | orderObjectBy : 'name' : false | filter:{name:$select.search} track by categoryEntry.id">
                     <span class="category__color__preview" ng-style="{'background':categoryEntry.color.color}">C</span>
@@ -80,7 +80,9 @@
             <!--Category of the goal-->
             <input type="hidden" name="category"
                    ng-model="vm.category.selected"
+                   required
                    unique-category-per-goal
+                   ng-model-options="{ debounce: 0 }"
                    unique-category-except="vm.shownGoal.category"
                    unique-category-from="vm.shownGoal.startDate"
                    unique-category-to="vm.shownGoal.endDate" />
@@ -94,7 +96,7 @@
 
         <!-- Button container -->
         <div class="goals__edit__form__buttons">
-            <button class="goals__edit__form__buttons__save" ng-disabled="vm.updateTracker.active()" type="submit">{{vm.updateTracker.active() ? 'Saving...' : 'Save'}}</button>
+            <button class="goals__edit__form__buttons__save" ng-disabled="vm.updateTracker.active() || vm.goalForm.category.$pending" type="submit">{{vm.updateTracker.active() ? 'Saving...' : 'Save'}}</button>
             <button class="goals__edit__form__buttons__delete simptip-position-right simptip-danger simptip-smooth simptip-fade"
                     type="button"
                     data-tooltip="Remove goal"

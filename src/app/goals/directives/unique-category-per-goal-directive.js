@@ -3,12 +3,10 @@
 
     angular
         .module('revaluate.goals')
-        .directive('uniqueCategoryPerGoal', function (GoalService, DatesUtils) {
+        .directive('uniqueCategoryPerGoal', function ($q, GoalService, DatesUtils) {
             return {
                 require: 'ngModel',
                 scope: {
-                    ngModel: '=',
-
                     /**
                      * Represents the current category
                      */
@@ -26,7 +24,12 @@
                     uniqueCategoryYearMonth: '='
                 },
                 link: function (scope, el, attr, ngModel) {
-                    scope.$watch('ngModel', function (categoryCandidate) {
+                    // ---
+                    // Async validator.
+                    // ---
+                    ngModel
+                        .$asyncValidators
+                        .uniqueCategoryPerGoal = function (categoryCandidate) {
                         var uniqueCategoryFrom,
                             uniqueCategoryTo,
                             period;
@@ -35,15 +38,14 @@
                         // Category candidate and view value should not be undefined
                         // ---
                         if (_.isUndefined(categoryCandidate) || _.isUndefined(ngModel.$viewValue)) {
-
-                            return;
+                            return $q.when();
                         }
 
                         // ---
                         // If there is an except category, then try to check if we should apply this rule.
                         // ---
                         if (_.has(scope.uniqueCategoryExcept, 'id') && (ngModel.$viewValue.id === scope.uniqueCategoryExcept.id)) {
-                            return;
+                            return $q.when();
                         }
 
                         // ---
@@ -58,20 +60,12 @@
                             uniqueCategoryFrom = period.from;
                             uniqueCategoryTo = period.to;
                         } else {
-                            return;
+                            return $q.when();
                         }
 
-                        GoalService
-                            .isUniqueCategoryPerGoaBetween(categoryCandidate, uniqueCategoryFrom, uniqueCategoryTo)
-                            .then(function (response) {
-
-                                // Make sure we are validating the latest categoryCandidate of the model (asynchronous responses)
-                                if (response.category.id === ngModel.$viewValue.id) {
-                                    ngModel.$setValidity('uniqueCategoryPerGoal', response.isUnique);
-                                }
-                            });
-                    });
-
+                        return GoalService
+                            .isUniqueCategoryPerGoalBetween(categoryCandidate, uniqueCategoryFrom, uniqueCategoryTo);
+                    };
                 }
             };
         });
