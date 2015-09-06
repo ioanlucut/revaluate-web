@@ -42,7 +42,7 @@
         <!-- Form group -->
         <div class="goals__form__category" ng-class="{'has-error': vm.goalForm.$submitted && (vm.goalForm.category.$invalid || vm.badPostSubmitResponse)}">
 
-            <ui-select ng-disabled="vm.saveTracker.active()" name="category" class="category-select__input" ng-style="{'background':$select.selected.color.color}" required ng-model="vm.category.selected" theme="selectize">
+            <ui-select ng-disabled="vm.saveTracker.active()" name="category" class="category-select__input" ng-style="{'background':$select.selected.color.color}" ng-model="vm.category.selected" theme="selectize">
                 <ui-select-match ng-style="{'background':$select.selected.color.color}" placeholder="Select a category">{{$select.selected.name}}</ui-select-match>
                 <ui-select-choices repeat="categoryEntry in vm.categories | orderObjectBy : 'model' : false | filter:{name:$select.search} track by categoryEntry.id">
                     <span class="category__color__preview" ng-style="{'background':categoryEntry.color.color}">C</span>
@@ -53,7 +53,9 @@
             <!--Category of the goal-->
             <input type="hidden" name="category"
                    ng-model="vm.category.selected"
+                   required
                    unique-category-per-goal
+                   ng-model-options="{ debounce: 0 }"
                    unique-category-except="vm.goal.category"
                    unique-category-year-month="vm.goal.yearMonthDate" />
 
@@ -99,7 +101,7 @@
 
         <!-- Button container -->
         <div class="goals__form__buttons">
-            <button ng-disabled="vm.saveTracker.active()" class="goals__form__buttons__save" type="submit">{{vm.saveTracker.active() ? 'Adding' : 'Add'}}</button>
+            <button ng-disabled="vm.saveTracker.active() || vm.goalForm.category.$pending" class="goals__form__buttons__save" type="submit">{{vm.saveTracker.active() ? 'Adding' : 'Add'}}</button>
             <button ng-disabled="vm.saveTracker.active()" class="goals__form__buttons__cancel" type="button" ng-click="vm.toggleContent();vm.initOrResetAddGoalForm()">Nevermind</button>
         </div>
     </form>

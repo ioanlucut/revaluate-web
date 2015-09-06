@@ -29,28 +29,27 @@
                 .then(GoalTransformerService.goalApiResponseTransformer);
         };
 
-        this.isUniqueCategoryPerGoaBetween = function (categoryCandidate, from, to) {
+        this.isUniqueCategoryPerGoalBetween = function (categoryCandidate, from, to) {
             var fromFormatted = DatesUtils.formatDate(from),
                 toFormatted = DatesUtils.formatDateExpectedForEndOfMonth(to),
                 deferred = $q.defer();
 
             $http
-                .get(URLTo.api(GOAL_URLS.isUniqueCategoryPerGoaBetween, {
+                .get(URLTo.api(GOAL_URLS.isUniqueCategoryPerGoalBetween, {
                     ':categoryId': categoryCandidate.id,
                     ':from': fromFormatted,
                     ':to': toFormatted
                 }))
                 .then(function (response) {
+                    if (!response.data.isUniqueGoalCategory) {
+                        deferred.reject()
+                    }
                     deferred.resolve({
-                        isUnique: response.data.isUniqueGoalCategory,
-                        category: categoryCandidate
+                        isUnique: response.data.isUniqueGoalCategory
                     });
                 })
                 .catch(function () {
-                    deferred.resolve({
-                        isUnique: false,
-                        category: categoryCandidate
-                    });
+                    deferred.reject();
                 });
 
             return deferred.promise;
