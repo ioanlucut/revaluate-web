@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function GoalsController(GOAL_EVENTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, ALERTS_CONSTANTS, APP_CONFIG, $scope, $rootScope, DatesUtils, promiseTracker, GoalService, monthsPerYearsStatistics, goals, categories) {
+    function GoalsController(GOAL_EVENTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, ALERTS_CONSTANTS, $scope, $rootScope, StatisticService, DatesUtils, promiseTracker, GoalService, monthsPerYearsStatistics, goals, categories) {
 
         var vm = this;
 
@@ -48,6 +48,11 @@
         vm.loadTracker = promiseTracker();
 
         /**
+         * Create a saving tracker.
+         */
+        vm.updateStatisticsTracker = promiseTracker();
+
+        /**
          * Is maximum number of allowed goals exceeded. Depends on the type of user.
          */
         vm.isMaximumNumberOfAllowedGoalsExceeded = isMaximumNumberOfAllowedGoalsExceeded;
@@ -89,7 +94,15 @@
         }
 
         function isMaximumNumberOfAllowedGoalsExceeded() {
-            return vm.goals.length >= APP_CONFIG.MAX_ALLOWED_GOALS;
+            return vm.goals.length >= vm.categories.length;
+        }
+
+        function reloadMonthsPerYearsStatistics() {
+            StatisticService
+                .fetchGoalsMonthsPerYearStatistics(vm.updateStatisticsTracker)
+                .then(function (receivedMonthsPerYearsStatistics) {
+                    vm.monthsPerYearsStatistics = receivedMonthsPerYearsStatistics;
+                })
         }
 
         // ---
@@ -104,6 +117,8 @@
 
             if (isSameMonth) {
                 vm.goals.push(args.goal);
+            } else {
+                reloadMonthsPerYearsStatistics();
             }
 
             $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.goalCreated);
@@ -114,6 +129,8 @@
          * On goal updated.
          */
         $scope.$on(GOAL_EVENTS.isUpdated, function (event, args) {
+            reloadMonthsPerYearsStatistics();
+
             _.remove(vm.goals, 'id', args.goal.id);
             vm.goals.push(args.goal);
 
@@ -127,6 +144,7 @@
         $scope.$on(GOAL_EVENTS.isDeleted, function (event, args) {
             if (args.goal) {
                 _.remove(vm.goals, 'id', args.goal.id);
+                reloadMonthsPerYearsStatistics();
             }
 
             $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Deleted');
