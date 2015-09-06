@@ -38,7 +38,7 @@
             // ---
             noOfDaysInMonth = daysInMonth();
             currentDay = moment().date();
-            vm.todayPosition = (100 * currentDay) / noOfDaysInMonth;
+            vm.todayPosition = ((100 * currentDay) / noOfDaysInMonth) - 0.5;
         }
 
         function getMinMaxThreshold(of) {
