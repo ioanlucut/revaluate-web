@@ -50,9 +50,17 @@
                 </ui-select-choices>
             </ui-select>
 
+            <!--Category of the goal-->
+            <input type="hidden" name="category"
+                   ng-model="vm.category.selected"
+                   unique-category-per-goal
+                   unique-category-except="vm.goal.category"
+                   unique-category-year-month="vm.goal.yearMonthDate" />
+
             <!-- Error messages -->
             <div class="form-group-input__message" ng-class="{'has-error': vm.goalForm.category.$invalid && vm.goalForm.$submitted}" ng-messages="vm.goalForm.category.$error" ng-if="vm.goalForm.$submitted">
                 <div ng-message="required">Please add a category.</div>
+                <div ng-message="uniqueCategoryPerGoal">Category should be unique.</div>
             </div>
         </div>
 
