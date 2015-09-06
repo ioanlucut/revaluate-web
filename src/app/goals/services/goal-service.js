@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function GoalService(GOAL_URLS, $http, DatesUtils, GoalTransformerService) {
+    function GoalService(GOAL_URLS, $q, $http, DatesUtils, GoalTransformerService) {
 
         this.createGoal = function (goal, tracker) {
             return $http
@@ -27,6 +27,33 @@
                     ':to': toFormatted
                 }), { tracker: tracker })
                 .then(GoalTransformerService.goalApiResponseTransformer);
+        };
+
+        this.isUniqueCategoryPerGoaBetween = function (categoryCandidate, from, to) {
+            var fromFormatted = DatesUtils.formatDate(from),
+                toFormatted = DatesUtils.formatDateExpectedForEndOfMonth(to),
+                deferred = $q.defer();
+
+            $http
+                .get(URLTo.api(GOAL_URLS.isUniqueCategoryPerGoaBetween, {
+                    ':categoryId': categoryCandidate.id,
+                    ':from': fromFormatted,
+                    ':to': toFormatted
+                }))
+                .then(function (response) {
+                    deferred.resolve({
+                        isUnique: response.data.isUniqueGoalCategory,
+                        category: categoryCandidate
+                    });
+                })
+                .catch(function () {
+                    deferred.resolve({
+                        isUnique: false,
+                        category: categoryCandidate
+                    });
+                });
+
+            return deferred.promise;
         };
 
         /**

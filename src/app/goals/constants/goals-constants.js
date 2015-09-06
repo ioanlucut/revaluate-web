@@ -12,7 +12,8 @@
             details: 'goals/:id',
             delete: 'goals/:id',
             bulkDelete: 'goals/bulkDelete',
-            allGoalsFromTo: 'goals/retrieve_from_to?from=:from&to=:to'
+            allGoalsFromTo: 'goals/retrieve_from_to?from=:from&to=:to',
+            isUniqueCategoryPerGoaBetween: 'goals/isUnique/:categoryId?from=:from&to=:to'
         })
         .constant('GOAL_EVENTS', {
             isCreated: 'goal-is-created',
