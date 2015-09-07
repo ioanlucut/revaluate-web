@@ -18,6 +18,6 @@
                         el.removeClass(attrs.animateClass);
                     });
                 }
-            }
+            };
         });
 }());

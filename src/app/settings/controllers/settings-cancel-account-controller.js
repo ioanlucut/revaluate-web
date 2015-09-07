@@ -5,7 +5,7 @@
         .module('revaluate.settings')
         .controller('SettingsCancelAccountController', function ($q, $scope, $rootScope, $timeout, StatesHandler, AuthService, ALERTS_EVENTS, ALERTS_CONSTANTS) {
 
-            /* jshint validthis: true */
+
             var vm = this;
 
             var TIMEOUT_PENDING = 1000;

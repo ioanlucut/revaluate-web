@@ -21,6 +21,6 @@
                     scope
                         .$on(EXPENSE_EVENTS.isUpdated, focus);
                 }
-            }
+            };
         });
 }());

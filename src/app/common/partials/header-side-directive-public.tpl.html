@@ -1,6 +1,5 @@
-<div class="side__menu__user">
-    <div class="side__menu__brand--logo"></div>
-    <a href="javascript:void(0)" ui-sref="expenses.regular" class="side__menu__user__email">Revaluate</a>
+<div class="header__public__side__top">
+    <div class="header__public__side__top__logo"></div>
 </div>
 
 <ul class="header__public__side__list">
@@ -21,5 +20,14 @@
     </li>
     <li snap-close class="header__public__side__list__item">
         <a href="javascript:void(0)" ui-sref="pricing" ui-sref-opts="{reload:true}">Pricing</a>
+    </li>
+    <li snap-close class="header__public__side__list__item">
+        <a href="http://blog.revaluate.io" target="_blank">Blog</a>
+    </li>
+</ul>
+
+<ul class="header__public__side__list">
+    <li class="header__public__side__list__item">
+        <a href="javascript:void(0)" ng-controller="ContactModalController" ng-click="openContactModal()">Contact us</a>
     </li>
 </ul>

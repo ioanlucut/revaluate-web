@@ -23,6 +23,12 @@
             categoryUpdated: 'Category updated',
             categoryDeleted: 'Category deleted',
 
+            goalsPage: 'Goals page',
+            goalCreated: 'Goal created',
+            goalUpdated: 'Goal updated',
+            goalDeleted: 'Goal deleted',
+            goalsFetched: 'Goals fetched',
+
             insightsPage: 'Insights page',
             insightsFetched: 'Insights fetched',
             insightsOverviewFetched: 'Insights overview fetched',

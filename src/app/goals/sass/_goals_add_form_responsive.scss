@@ -1,0 +1,94 @@
+@media (max-width: $screen-sm-min) {
+
+}
+
+@media (max-width: 650px) {
+    .goals__add__controls {
+        margin: 15px;
+    }
+
+    .goals__form {
+        padding-left: 60px;
+        padding-right: 60px;
+        margin-top: 10px;
+
+        .goals__form__group {
+            margin-top: 10px;
+            width: 100%;
+
+            &:nth-of-type(odd) {
+                padding-left: 0;
+            }
+        }
+
+        .goals__form__target select,
+        .goals__form__price,
+        .goals__form__category,
+        .goals__form__date .goals__form__date__input .goals__form__date__input__btn {
+            width: 240px;
+        }
+    }
+}
+
+@media (max-width: $screen-xs-min) {
+    .goals__add__controls {
+        position: absolute;
+        top: 0;
+        right: 0;
+        @include border-radius(50%);
+
+        .goals__add__controls__btn {
+            width: 40px;
+            padding: 2px 0 0 1px;
+            @include border-radius(50%);
+            @include box-shadow(1px 1px 4px $gray-light-1);
+
+            .icon-plus {
+                display: block;
+                font-size: 22px;
+            }
+
+            .goals__add__controls__btn__label {
+                display: none;
+            }
+        }
+    }
+
+    .goals__form {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+@media (max-width: 400px) {
+    .goals__form {
+
+        .goals__form__group {
+            margin-top: 10px;
+            width: 100%;
+
+            &:nth-of-type(odd) {
+                padding-left: 0;
+            }
+        }
+
+        .goals__form__target select,
+        .goals__form__price,
+        .goals__form__category,
+        .goals__form__date .goals__form__date__input .goals__form__date__input__btn {
+            width: 210px;
+        }
+    }
+
+    .goals__form__buttons {
+
+        .goals__form__buttons__save,
+        .goals__form__buttons__cancel {
+            width: 49%;
+        }
+
+        .goals__form__buttons__save {
+            margin-left: 5px;
+        }
+    }
+}

@@ -3,7 +3,7 @@
 
     angular
         .module('revaluate.settings')
-        .controller('SettingsPaymentCustomerController', function ($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, paymentInsights, ALERTS_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS) {
+        .controller('SettingsPaymentCustomerController', function ($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, paymentInsights, ALERTS_EVENTS, ALERTS_CONSTANTS) {
 
             var TIMEOUT_PENDING = 300;
 
@@ -30,7 +30,7 @@
                     firstName: $scope.paymentInsights.paymentCustomerDTO.firstName,
                     lastName: $scope.paymentInsights.paymentCustomerDTO.lastName,
                     email: $scope.paymentInsights.paymentCustomerDTO.email
-                }
+                };
             }
 
             /**
@@ -78,12 +78,12 @@
                             if (_.isArray(errors)) {
                                 $scope.$emit(ALERTS_EVENTS.DANGER, {
                                     message: errors.join('\n'),
-                                    alertId: vm.alertId
+                                    alertId: $scope.alertId
                                 });
-                            }                          else {
+                            } else {
                                 $scope.$emit(ALERTS_EVENTS.DANGER, {
                                     message: 'We\'ve encountered an error.',
-                                    alertId: vm.alertId
+                                    alertId: $scope.alertId
                                 });
                             }
                         });

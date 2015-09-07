@@ -6,20 +6,20 @@
         .directive('userProfilePicture', function () {
             return {
                 restrict: 'E',
+                scope: {},
                 controller: function ($scope, $rootScope) {
-                    /* jshint validthis: true */
                     var vm = this;
 
                     /**
                      * Current user.
                      */
-                    this.user = $rootScope.currentUser;
+                    vm.user = $rootScope.currentUser;
                 },
-
+                bindToController: true,
                 controllerAs: 'vm',
                 templateUrl: '/app/common/partials/user-profile-picture-directive.tpl.html',
-                link: function (scope, el, attrs) {
+                link: function () {
                 }
-            }
+            };
         });
 }());

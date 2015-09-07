@@ -96,7 +96,7 @@
             // ---
             uploader.filters.push({
                 name: 'csvFilter',
-                fn: function (item, options) {
+                fn: function (item) {
                     return '|text/csv|application/vnd.ms-excel|text/plain|text/tsv|'.indexOf(item.type) !== -1;
                 }
             });
@@ -104,7 +104,7 @@
             // ---
             // If file does not pass the filter, show an error message.
             // ---
-            uploader.onWhenAddingFileFailed = function (item, filter, options) {
+            uploader.onWhenAddingFileFailed = function () {
 
                 $scope.$emit(ALERTS_EVENTS.DANGER, {
                     message: 'Hmm.. are you trying to upload anything but a CSV file?',
@@ -115,7 +115,7 @@
             // ---
             // If successful, take the answer.
             // ---
-            uploader.onSuccessItem = function (fileItem, response, status, headers) {
+            uploader.onSuccessItem = function (fileItem, response) {
                 // ---
                 // If there was a previously error, just clear it.
                 // ---
@@ -134,13 +134,13 @@
             // ---
             // On error item.
             // ---
-            uploader.onErrorItem = function (fileItem, response, status, headers) {
+            uploader.onErrorItem = function (fileItem, response, status) {
                 if (status === BAD_RESPONSE) {
                     $scope.$emit(ALERTS_EVENTS.DANGER, {
                         message: 'Hmmm... Are you sure the CSV export is from selected app?',
                         alertId: $scope.alertId
                     });
-                }            else {
+                } else {
                     if (status === SERVER_ERROR) {
                         $scope.$emit(ALERTS_EVENTS.DANGER, {
                             message: 'Something went wrong. Can you please try one more time?',
@@ -160,7 +160,7 @@
             // ---
             // Mark upload completed.
             // ---
-            uploader.onCompleteItem = function (fileItem, response, status, headers) {
+            uploader.onCompleteItem = function () {
 
                 $scope.isUploadFinished = true;
             };
@@ -200,12 +200,12 @@
                     _.each(expensesImportPrepared.model.expenseCategoryMatchingProfileDTOs, function (expenseCategoryMatchingProfileDTO) {
                         if (expenseCategoryMatchingProfileDTO.selected) {
 
-                            expenseCategoryMatchingProfileDTO.categoryDTO = angular.copy(expenseCategoryMatchingProfileDTO.category.selected.model);
-                        }                else {
+                            expenseCategoryMatchingProfileDTO.categoryDTO = angular.copy(expenseCategoryMatchingProfileDTO.category.selected);
+                        } else {
                             // ---
                             // Really ugly, but we can't send back an invalid category..
                             // ---
-                            expenseCategoryMatchingProfileDTO.categoryDTO = angular.copy(getSelectedMatchingCategories()[0].category.selected.model);
+                            expenseCategoryMatchingProfileDTO.categoryDTO = angular.copy(getSelectedMatchingCategories()[0].category.selected);
                         }
                     });
 

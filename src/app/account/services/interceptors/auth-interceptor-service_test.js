@@ -24,7 +24,7 @@
             // ---
             // Just inject the angular.mock.module and define dependencies.
             // ---
-            angular.mock.module('revaluate', function ($provide) {
+            angular.mock.module('revaluate', function () {
             });
 
             inject(function (_$rootScope_, _$state_, _$location_, _$injector_, _$httpBackend_, _$q_, _ENV_, _AccountModal_, _AuthInterceptor_, _AUTH_EVENTS_) {
@@ -36,7 +36,7 @@
                 AUTH_EVENTS = _AUTH_EVENTS_;
 
                 spyOn($rootScope, '$broadcast').and.callThrough();
-            })
+            });
         });
 
         it('AuthInterceptor and its responseError method should be defined', function () {

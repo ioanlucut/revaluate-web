@@ -12,7 +12,7 @@
                     colors: '='
                 },
                 templateUrl: '/app/categories/partials/color-picker-directive.tpl.html',
-                link: function (scope, elm, attrs) {
+                link: function (scope, elm) {
 
                     // By default the popover is closed
                     scope.isOpen = false;

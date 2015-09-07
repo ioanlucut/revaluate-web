@@ -1,0 +1,16 @@
+.goals__form__date__input {
+    position: relative;
+
+    .goals__form__date__input__btn {
+        &:hover,
+        &:active {
+            background-color: $brand-primary-light;
+        }
+    }
+
+    .dropdown-menu {
+        width: 300px;
+        right: 0;
+        left: auto !important;
+    }
+}

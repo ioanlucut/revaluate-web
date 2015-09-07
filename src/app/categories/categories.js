@@ -16,7 +16,7 @@
                     name: 'settings.categories',
                     url: '/categories',
                     templateUrl: '/app/categories/partials/categories.html',
-                    controller: 'CategoryController',
+                    controller: 'CategoriesController',
                     controllerAs: 'vm',
                     isPaymentMissingUnrestrictedPage: true,
                     resolve: {

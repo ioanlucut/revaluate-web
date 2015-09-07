@@ -1,0 +1,24 @@
+<div goals-empty-state-toggle show-empty-state="vm.monthsPerYearsStatistics.isOverallTransactionsEmpty()">
+
+    <h2 class="expenses__column__right__title">Goals</h2>
+
+    <div class="insights__chart__bar insights__chart__bar--small" fade-out-in fade-when="vm.loadTracker.active()">
+
+        <div class="spinner insights__loading" ng-if="vm.loadTracker.active()">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+
+        <!--List of this month goals-->
+        <div class="goals__list expenses__goals__list">
+
+            <!--Goal list-->
+            <div class="goals__list__entry"
+                 ng-repeat="goal in vm.goals | orderObjectBy : 'createdDate' : reverseOrder track by goal.id"
+                 goals-display-entry goal="goal">
+            </div>
+        </div>
+
+    </div>
+
+</div>

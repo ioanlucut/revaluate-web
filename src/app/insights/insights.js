@@ -40,7 +40,7 @@
 
                         monthsPerYearsStatistics: function (StatisticService) {
                             return StatisticService
-                                .fetchInsightsMonthsPerYearStatistics();
+                                .fetchExpensesMonthsPerYearStatistics();
                         }
                     },
                     title: 'Insights monthly - Revaluate',
@@ -66,7 +66,7 @@
 
                         monthsPerYearsStatistics: function (StatisticService) {
                             return StatisticService
-                                .fetchInsightsMonthsPerYearStatistics();
+                                .fetchExpensesMonthsPerYearStatistics();
                         }
                     },
                     title: 'Insights overview - Revaluate',
@@ -92,7 +92,7 @@
 
                         monthsPerYearsStatistics: function (StatisticService) {
                             return StatisticService
-                                .fetchInsightsMonthsPerYearStatistics();
+                                .fetchExpensesMonthsPerYearStatistics();
                         },
 
                         categories: function (CategoryService) {
