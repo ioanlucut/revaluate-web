@@ -1,9 +1,19 @@
 (function () {
     'use strict';
 
-    function GoalStatusProgressBarController($scope) {
+    function GoalStatusProgressBarController($scope, $rootScope) {
         var vm = this,
             THRESHOLD = 10;
+
+        /**
+         * Current user.
+         */
+        vm.user = $rootScope.currentUser;
+
+        /**
+         * Goals on current month.
+         */
+        vm.isCurrentMonthSelected = moment().isSame(moment(vm.goal.endDate), 'month');
 
         // ---
         // Initially, prepare data with this information.

@@ -42,7 +42,7 @@
                 }))
                 .then(function (response) {
                     if (!response.data.isUniqueGoalCategory) {
-                        deferred.reject()
+                        deferred.reject();
                     }
                     deferred.resolve({
                         isUnique: response.data.isUniqueGoalCategory
