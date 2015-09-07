@@ -14,7 +14,7 @@
                         $timeout(function () {
                             el.focus();
                         });
-                    }              else {
+                    } else {
 
                         // Watch the specified model, and auto-focus the element when the model is "true"
                         scope.$watch(attrs.autoFocus, function (val) {
@@ -26,6 +26,6 @@
                         });
                     }
                 }
-            }
+            };
         });
 }());

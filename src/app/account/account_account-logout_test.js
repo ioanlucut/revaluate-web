@@ -63,7 +63,7 @@
                         };
                     }
                 });
-            })
+            });
         });
 
         it('should respond to URL', function () {

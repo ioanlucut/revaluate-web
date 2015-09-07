@@ -38,7 +38,7 @@
         this.goToExpenses = function (callback) {
             this.go(STATES.expenses);
 
-            call(callback)
+            call(callback);
         };
 
         this.goHome = function (callback) {
@@ -53,6 +53,6 @@
                 inherit: false,
                 notify: true
             });
-        }
+        };
     });
 }());

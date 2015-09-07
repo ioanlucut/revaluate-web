@@ -6,44 +6,29 @@
      */
     angular
         .module('revaluate.insights')
-        .service('InsightsTransformerService', function ($filter, $injector, InsightsDaily, TransformerUtils) {
+        .service('InsightsTransformerService', function ($filter, $injector, InsightsMonthly, InsightsDaily, InsightsProgress, InsightsOverview) {
 
-            /**
-             * Converts a insightDto object to a insights business object model.
-             */
-            this.toInsight = function (insightDto, insightsMonthly, skipKeys) {
-                insightsMonthly = insightsMonthly || $injector.get('InsightsMonthly').build();
-
-                TransformerUtils.copyKeysFromTo(insightDto, insightsMonthly.model, skipKeys);
-
-                // handle date conversion
-                if (insightsMonthly.model.from) {
-                    insightsMonthly.model.from = moment(insightsMonthly.model.from).toDate();
-                }
-
-                if (insightsMonthly.model.to) {
-                    insightsMonthly.model.to = moment(insightsMonthly.model.to).toDate();
-                }
-
-                return insightsMonthly;
+            this.insightsMonthlyApiResponseTransformer = function (responseData) {
+                return InsightsMonthly
+                    .build(_.extend(responseData.data, {
+                        from: moment(responseData.data.from).toDate(),
+                        to: moment(responseData.data.from).toDate()
+                    }));
             };
 
-            this.toInsightOverview = function (insightDto, insightsOverview, skipKeys) {
-                insightsOverview = insightsOverview || $injector.get('InsightsOverview').build();
-                TransformerUtils.copyKeysFromTo(insightDto, insightsOverview.model, skipKeys);
-
-                return insightsOverview;
+            this.insightsOverviewApiResponseTransformer = function (responseData) {
+                return InsightsOverview
+                    .build(responseData.data);
             };
 
-            this.toInsightsProgress = function (insightDto, insightsProgress, skipKeys) {
-                insightsProgress = insightsProgress || $injector.get('InsightsProgress').build();
-                TransformerUtils.copyKeysFromTo(insightDto, insightsProgress.model, skipKeys);
-
-                return insightsProgress;
+            this.insightsProgressApiResponseTransformer = function (responseData) {
+                return InsightsProgress
+                    .build(responseData.data);
             };
 
-            this.apiResponseTransformer = function (responseData) {
-                return InsightsDaily.build(responseData.data);
+            this.insightDailyApiResponseTransformer = function (responseData) {
+                return InsightsDaily
+                    .build(responseData.data);
             };
 
         });

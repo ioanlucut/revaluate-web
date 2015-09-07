@@ -44,6 +44,7 @@
 .home__section__tour-arrow {
     padding-bottom: 50px;
     color: $brand-secondary;
+    @include fadeInDown($delay: 2s);
 }
 
 .home__section__tour-screenmain {
@@ -161,7 +162,7 @@
 }
 
 .body__feedback-section {
-    @include fadeInDown(1s);
+    @include fadeIn(1s);
     @include border-radius(50%);
     background-color: $gray-medium;
     box-shadow: 0 0 15px rgba(10, 10, 10, 0.5);

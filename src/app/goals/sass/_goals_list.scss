@@ -1,0 +1,15 @@
+.goals__list {
+    @include clearfix();
+    padding: 0 0 20px 0;
+
+    .goals__list__entry {
+        @include no-user-select();
+        padding: 15px;
+        margin: 10px auto;
+        min-height: 45px;
+        height: 100%;
+        width: 100%;
+        max-width: 700px;
+        position: relative;
+    }
+}

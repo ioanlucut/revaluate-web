@@ -66,6 +66,7 @@
             }
 
             // Token expired?
+            /*jshint validthis: true */
             return !(d.valueOf() > new Date().valueOf());
         };
     });

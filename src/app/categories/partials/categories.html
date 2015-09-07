@@ -5,15 +5,15 @@
     <div flash-messages flash="flash" identifier-id="{{vm.alertId}}"></div>
 
     <!--Add category-->
-    <div class="categories__add" add-category colors="vm.colors"></div>
+    <div class="categories__add" category-add colors="vm.colors" is-maximum-number-of-allowed-categories-exceeded="vm.isMaximumNumberOfAllowedCategoriesExceeded()"></div>
 
     <!--List all categories-->
     <div class="categories__edit">
 
-        <div class="categories__edit__category" ng-repeat="category in vm.categories | orderObjectBy : 'model.name' : false track by category.model.id">
+        <div class="categories__edit__category" ng-repeat="category in vm.categories | orderObjectBy : 'name' : false track by category.id">
 
             <!--Edit/remove category-->
-            <div category-entry colors="vm.colors" category="category" is-minimum-number-of-allowed-categories-exceeded="vm.isMinimumNumberOfAllowedCategoriesExceeded()" ></div>
+            <div category-entry category="category" colors="vm.colors" is-minimum-number-of-allowed-categories-exceeded="vm.isMinimumNumberOfAllowedCategoriesExceeded()"></div>
         </div>
 
     </div>

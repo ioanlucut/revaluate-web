@@ -1,9 +1,63 @@
 (function () {
     'use strict';
 
+    function CategoryEntryController(CATEGORY_EVENTS, $scope, $rootScope, promiseTracker, CategoryService) {
+
+        var vm = this;
+
+        /**
+         * Work with a copy - keep the master backup
+         */
+        vm.categoryEntry = angular.copy($scope.category);
+
+        /**
+         * Create an updating tracker.
+         */
+        vm.updateTracker = promiseTracker();
+
+        /**
+         * Update the category.
+         */
+        vm.updateCategory = updateCategory;
+
+        /**
+         * Create an deleting tracker.
+         */
+        vm.deleteTracker = promiseTracker();
+
+        /**
+         * Delete category;
+         */
+        vm.deleteCategory = deleteCategory;
+
+        function updateCategory() {
+            CategoryService
+                .updateCategory(vm.categoryEntry, vm.updateTracker)
+                .then(function (updatedCategory) {
+                    $rootScope.$broadcast(CATEGORY_EVENTS.isUpdated, { category: _.extend(vm.categoryEntry, updatedCategory) });
+                })
+                .catch(function () {
+                    vm.badPostSubmitResponse = true;
+                    $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: 'error' });
+                });
+        }
+
+        function deleteCategory() {
+            CategoryService
+                .deleteCategory(vm.categoryEntry, vm.deleteTracker)
+                .then(function () {
+                    vm.isSuccessfullyDeleted = true;
+                    $rootScope.$broadcast(CATEGORY_EVENTS.isDeleted, { category: vm.categoryEntry });
+                })
+                .catch(function () {
+                    $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: 'error' });
+                });
+        }
+    }
+
     angular
         .module('revaluate.categories')
-        .directive('categoryEntry', function ($rootScope, CATEGORY_EVENTS) {
+        .directive('categoryEntry', function ($rootScope, promiseTracker, CategoryService, CATEGORY_EVENTS) {
             return {
                 restrict: 'A',
                 scope: {
@@ -11,78 +65,13 @@
                     colors: '=',
                     isMinimumNumberOfAllowedCategoriesExceeded: '&'
                 },
-                controller: function ($scope, $rootScope, $timeout, CATEGORY_EVENTS) {
-
-                    /* jshint validthis: true */
-                    var vm = this;
-
-                    /**
-                     * Edit/update timeout
-                     */
-                    var TIMEOUT_DURATION = 300;
-
-                    /**
-                     * Work with a copy - keep the master backup
-                     */
-                    vm.categoryEntry = angular.copy($scope.category);
-
-                    /**
-                     * Update the category.
-                     */
-                    vm.updateCategory = function (categoryForm) {
-                        if (categoryForm.$valid && !vm.isUpdating) {
-
-                            vm.isUpdating = true;
-
-                            vm
-                                .categoryEntry
-                                .save()
-                                .then(function () {
-                                    $timeout(function () {
-                                        vm.isUpdating = false;
-                                        $rootScope.$broadcast(CATEGORY_EVENTS.isUpdated, { category: vm.categoryEntry });
-                                    }, TIMEOUT_DURATION);
-                                })
-                                .catch(function () {
-                                    vm.isUpdating = false;
-                                    vm.badPostSubmitResponse = true;
-                                    $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: 'error' });
-                                });
-                        }
-                    };
-
-                    /**
-                     * Remove category;
-                     */
-                    vm.deleteCategory = function () {
-                        if (vm.isDeleting) {
-                            return;
-                        }
-
-                        vm.isDeleting = true;
-
-                        vm
-                            .categoryEntry
-                            .destroy()
-                            .then(function () {
-                                vm.isSuccessfullyDeleted = true;
-                                $rootScope.$broadcast(CATEGORY_EVENTS.isDeleted, { category: vm.categoryEntry });
-                            })
-                            .catch(function () {
-                                vm.isDeleting = false;
-                                $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: 'error' });
-                            });
-                    };
-
-                },
-
+                controller: CategoryEntryController,
                 controllerAs: 'vm',
                 templateUrl: '/app/categories/partials/category-entry-directive.tpl.html',
                 link: function (scope, el, attrs, vm) {
 
                     /**
                      * Show block content
-                     * @type {boolean}
                      */
                     scope.showContent = false;
 
@@ -106,7 +95,7 @@
                      * On category updated/deleted
                      */
                     $rootScope.$on(CATEGORY_EVENTS.isUpdated, function (event, args) {
-                        if (scope.category.model.id === args.category.model.id) {
+                        if (scope.category.id === args.category.id) {
                             scope.toggleContent();
 
                             // ---
@@ -118,11 +107,11 @@
                     });
 
                     scope.$on(CATEGORY_EVENTS.isDeleted, function (event, args) {
-                        if (scope.category.model.id === args.category.model.id) {
+                        if (scope.category.id === args.category.id) {
                             scope.toggleContent();
                         }
                     });
                 }
-            }
+            };
         });
 }());

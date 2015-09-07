@@ -10,12 +10,13 @@ $font-size-larger: 18px;
 $font-size-largest: 20px;
 $font-size-h1: 32px;
 $font-size-h2: 24px;
-$font-size-h3: 18px;
+$font-size-h3: 20px;
 
 // Font Weights
-$font-weight-light: 100;
-$font-weight-regular: 200;
-$font-weight-bold: 300;
+$font-weight-extralight: 100;
+$font-weight-light: 200;
+$font-weight-regular: 300;
+$font-weight-bold: 700;
 
 // Line height
 $base-line-height: 1.5;
@@ -31,11 +32,21 @@ $setup-currency-input-width: 320px;
 $footer-height: 50px;
 $footer__home-height: 150px;
 $settings-aside-width: 180px;
+
 $add-expense-form-height: 60px;
 $edit-expense-form-height: 50px;
+
+// Goals
+$add-goal-form-height: 40px;
+$edit-goal-form-height: 50px;
+$goal-select-width: 100%;
+$goal-select-height: 35px;
+
 $add-category-form-height: 40px;
 $category-select-width: 100%;
 $category-select-height: 35px;
+
+
 $selectize-dropdown-height: 45px;
 
 // Other Sizes
@@ -115,3 +126,4 @@ $base-border: 1px solid $base-border-color;
 $form-box-shadow: none;
 $form-box-shadow-focus: $form-box-shadow, 0 0 5px adjust-color($action-color, $lightness: -5%, $alpha: -0.3);
 $add-expense-form-border-color: $brand-primary;
+$add-goal-form-border-color: $gray-light-2;
