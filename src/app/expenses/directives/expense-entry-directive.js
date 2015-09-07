@@ -1,10 +1,9 @@
 (function () {
     'use strict';
 
-    function ExpenseEntryController(EXPENSE_EVENTS, $rootScope, ExpenseService, Category, promiseTracker) {
+    function ExpenseEntryController(EXPENSE_EVENTS, APP_CONFIG, $rootScope, ExpenseService, Category, promiseTracker) {
 
-        var vm = this,
-            MIN_YEAR_TO_CREATE_EXPENSE = 1800;
+        var vm = this;
 
         /**
          * Current user.
@@ -14,7 +13,7 @@
         /**
          * Minimum date to create expense.
          */
-        this.minDate = moment().year(MIN_YEAR_TO_CREATE_EXPENSE);
+        this.minDate = angular.copy(APP_CONFIG.EXPENSES_ALLOWED_MIN_DATE);
 
         /**
          * Keep the master backup. Work only with shownExpense.
@@ -24,8 +23,7 @@
         /**
          * Selected category
          */
-        this.category = {};
-        this.category.selected = new Category(this.shownExpense.category);
+        this.category = _.extend({}, { selected: new Category(this.shownExpense.category) });
 
         /**
          * We need an object in the scope as this model is changed by the
@@ -54,19 +52,24 @@
         this.openDatePicker = openDatePicker;
 
         /**
+         * Discard changes
+         */
+        this.discardChanges = discardChanges;
+
+        /**
          * Create an updating tracker.
          */
         vm.updateTracker = promiseTracker();
 
-        function updateExpense(expense, category) {
-            if (category && category.selected) {
-                expense.category = angular.copy(category.selected);
-            }
+        function updateExpense() {
+            vm.shownExpense = _.extend(vm.shownExpense, {
+                category: angular.copy(vm.category.selected)
+            });
 
             ExpenseService
-                .updateExpense(expense, vm.updateTracker)
+                .updateExpense(vm.shownExpense, vm.updateTracker)
                 .then(function (updatedExpense) {
-                    $rootScope.$broadcast(EXPENSE_EVENTS.isUpdated, { expense: _.extend(expense, updatedExpense) });
+                    $rootScope.$broadcast(EXPENSE_EVENTS.isUpdated, { expense: _.extend(vm.shownExpense, updatedExpense) });
                 })
                 .catch(function () {
                     vm.badPostSubmitResponse = true;
@@ -89,6 +92,12 @@
 
             vm.datePickerStatus.opened = true;
         }
+
+        function discardChanges() {
+            vm.shownExpense = angular.copy(vm.expense);
+            vm.category = _.extend({}, { selected: new Category(vm.shownExpense.category) });
+        }
+
     }
 
     angular
@@ -139,7 +148,7 @@
                     scope.cancel = function () {
                         scope.toggleContent();
 
-                        vm.shownExpense = angular.copy(vm.expense);
+                        vm.discardChanges();
                     };
 
                     /**
@@ -158,6 +167,6 @@
                         }
                     });
                 }
-            }
+            };
         });
 }());

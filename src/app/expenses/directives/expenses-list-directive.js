@@ -1,33 +1,7 @@
 (function () {
     'use strict';
 
-    function ExpenseListController($rootScope, $timeout) {
-        var vm = this,
-            TIMEOUT = 200;
-
-        /**
-         * Initial selected order by
-         */
-        this.selectedOrderBy = 'createdDate';
-
-        /**
-         * Sets the selected order by
-         */
-        this.setSelectedOrderBy = setSelectedOrderBy;
-
-        /**
-         * Is loading more expenses flag.
-         */
-        this.isUpdatingListLayout = false;
-
-        function setSelectedOrderBy(by) {
-            vm.isUpdatingListLayout = !vm.isUpdatingListLayout;
-
-            $timeout(function () {
-                vm.selectedOrderBy = by;
-                vm.isUpdatingListLayout = !vm.isUpdatingListLayout
-            }, TIMEOUT);
-        };
+    function ExpenseListController() {
     }
 
     angular
@@ -48,6 +22,6 @@
 
                     scope.reverseOrder = attrs.sort === 'desc';
                 }
-            }
+            };
         });
 }());

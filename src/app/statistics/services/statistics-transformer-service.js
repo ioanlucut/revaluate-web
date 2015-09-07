@@ -3,20 +3,18 @@
 
     angular
         .module('revaluate.statistics')
-        .service('StatisticsTransformerService', function ($injector, TransformerUtils) {
+        .service('StatisticTransformerService', function (Statistics) {
 
-            this.toStatistics = function (statisticsDto, skipKeys) {
-                var statistics = $injector.get('Statistics').build();
+            this.statisticApiResponseTransformer = function (responseData) {
+                function buildStatistic(data) {
+                    return new Statistics(data);
+                }
 
-                TransformerUtils.copyKeysFromTo(statisticsDto, statistics.model, skipKeys);
-
-                // ---
-                // Compute this first time only.
-                // ---
-                statistics.model.overallTransactionsEmpty = _.keys(statistics.model.insightsMonthsPerYears).length === 0;
-
-                return statistics;
+                if (_.isArray(responseData.data)) {
+                    return _.map(responseData.data, buildStatistic);
+                } else {
+                    return buildStatistic(responseData.data);
+                }
             };
-
         });
 }());

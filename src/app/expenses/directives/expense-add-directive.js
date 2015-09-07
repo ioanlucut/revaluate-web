@@ -1,18 +1,23 @@
 (function () {
     'use strict';
 
-    function AddExpenseController(EXPENSE_EVENTS, $scope, ExpenseService, Expense, promiseTracker) {
+    function AddExpenseController(EXPENSE_EVENTS, APP_CONFIG, $scope, $rootScope, ExpenseService, Expense, promiseTracker) {
 
-        var vm = this,
-            MIN_DATE = 2000;
+        var vm = this;
 
         /**
          * Create a saving tracker.
          */
         this.saveTracker = promiseTracker();
 
+        /**
+         * Initialize or reset the add expense form
+         */
         this.initOrResetAddExpense = initOrResetAddExpense;
 
+        /**
+         * The save expense functionality
+         */
         this.saveExpense = saveExpense;
 
         /**
@@ -23,7 +28,7 @@
         /**
          * Minimum date to create expense.
          */
-        this.datePickerMinDate = moment().year(MIN_DATE);
+        this.datePickerMinDate = angular.copy(APP_CONFIG.EXPENSES_ALLOWED_MIN_DATE);
 
         /**
          * Perform the first initialization.
@@ -55,7 +60,7 @@
             ExpenseService
                 .createExpense(this.expense, vm.saveTracker)
                 .then(function (createdExpense) {
-                    $scope.$emit(EXPENSE_EVENTS.isCreated, { expense: createdExpense });
+                    $rootScope.$broadcast(EXPENSE_EVENTS.isCreated, { expense: createdExpense });
                     vm.initOrResetAddExpense();
                 })
                 .catch(function () {
@@ -87,6 +92,6 @@
                 templateUrl: '/app/expenses/partials/expense-add-directive.tpl.html',
                 link: function () {
                 }
-            }
+            };
         });
 }());

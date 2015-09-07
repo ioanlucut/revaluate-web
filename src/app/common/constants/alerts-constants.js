@@ -21,6 +21,7 @@
             insightsMonthly: 'insights',
             insights: 'insights',
             categoryList: 'categoryList',
+            goalList: 'goalList',
             createUpdateCategory: 'createUpdateCategory',
             updateProfile: 'updateProfile',
             paymentProfile: 'paymentProfile',

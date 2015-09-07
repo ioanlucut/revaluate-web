@@ -50,12 +50,12 @@
                 tooltipTemplate: function (label) {
                     return label.label + ' ' + formatChartValue(label);
                 }
-            }
+            };
         }
 
         function formatChartValue(price) {
 
-            return $filter('currency')(price.value.toString(), '', vm.user.model.currency.fractionSize) + ' ' + vm.user.model.currency.symbol
+            return $filter('currency')(price.value.toString(), '', vm.user.model.currency.fractionSize) + ' ' + vm.user.model.currency.symbol;
         }
 
         // ---
@@ -79,8 +79,7 @@
             if (breakpoint) {
                 numberOfSets = chartSetSize || getChartSetSize();
                 spacing =
-                    numberOfSets === 1
-                        ? Math.floor(breakpoint.chartBarWidth * 1.5)
+                    numberOfSets === 1 ? Math.floor(breakpoint.chartBarWidth * 1.5)
                         : Math.floor(breakpoint.chartBarWidth / numberOfSets);
 
                 // ---
@@ -90,7 +89,7 @@
                     vm.barOptions = angular.extend(vm.barOptions, {
                         barValueSpacing: spacing,
                         barDatasetSpacing: spacing
-                    })
+                    });
                 });
             }
 
@@ -111,7 +110,8 @@
             .$on('chartsLoaded', function (event, args) {
                 adjustResizeChartOptionsAndSpacing(Unison.fetch.now().name, args.size);
             });
-    };
+    }
+
     angular
         .module('revaluate.insights')
         .controller('InsightsAbstractController', InsightsAbstractController);

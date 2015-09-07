@@ -7,14 +7,8 @@
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/tooltip";
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/popovers";
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/dropdowns";
+@import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/progress-bars";
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_modals.scss";
-// ---
-// GOOGLE FONT.
-// ---
-//@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
-//@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
-//@import url(http://fonts.googleapis.com/css?family=Indie+Flower);
-//@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
 // ---
 // BOURBON.
 // ---
@@ -92,6 +86,7 @@
 @import "../app/account/sass/account";
 @import "../app/expenses/sass/expenses";
 @import "../app/categories/sass/categories";
+@import "../app/goals/sass/goals";
 @import "../app/insights/sass/insights";
 @import "../app/settings/sass/settings";
 @import "../app/import/sass/import";

@@ -20,6 +20,7 @@
             'revaluate.contact',
             'revaluate.common',
             'revaluate.categories',
+            'revaluate.goals',
             'revaluate.expensesImport',
             'revaluate.expenses',
             'revaluate.statistics',

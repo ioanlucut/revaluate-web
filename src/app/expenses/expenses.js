@@ -8,6 +8,7 @@
         .module('revaluate.expenses', [
             'revaluate.common',
             'revaluate.account',
+            'revaluate.goals',
             'revaluate.statistics'
         ])
         .config(function ($stateProvider, USER_ACTIVITY_EVENTS) {
@@ -16,7 +17,7 @@
 
                 .state('expenses', {
                     url: '/expenses',
-                    templateUrl: '/app/expenses/partials/expenses.abstract.html',
+                    templateUrl: '/app/expenses/partials/expenses-abstract.tpl.html',
                     abstract: true
                 })
 
@@ -24,9 +25,10 @@
                 .state('expenses.regular', {
                     url: '',
                     views: {
-                        "expenses__content": {
-                            templateUrl: '/app/expenses/partials/expenses__content.html',
+                        'expenses__content': {
+                            templateUrl: '/app/expenses/partials/expenses-content.tpl.html',
                             controller: 'ExpensesController',
+                            controllerAs: 'vm',
                             resolve: {
                                 expensesQueryResponse: function (ExpenseService) {
                                     return ExpenseService.getAllExpensesGrouped(0, 50);
@@ -35,17 +37,16 @@
                                 categories: function (CategoryService) {
                                     return CategoryService.getAllCategories();
                                 }
-                            },
-                            controllerAs: 'vm'
+                            }
                         },
-                        'right__content': {
-                            templateUrl: '/app/insights/partials/insights.daily.html',
-                            controller: 'InsightsDailyController',
+                        'expenses__daily__insights__content': {
+                            templateUrl: '/app/expenses/partials/monthly-daily-insights.tpl.html',
+                            controller: 'MonthlyDailyInsightsController',
                             controllerAs: 'vm',
                             resolve: {
                                 monthsPerYearsStatistics: function (StatisticService) {
                                     return StatisticService
-                                        .fetchInsightsMonthsPerYearStatistics();
+                                        .fetchExpensesMonthsPerYearStatistics();
                                 },
 
                                 insightsDaily: function (DatesUtils, InsightsService) {
@@ -54,9 +55,25 @@
                                     return InsightsService
                                         .fetchDailyInsightsFromTo(period.from, period.to);
                                 }
-                            },
-                            title: 'Insights daily - Revaluate',
-                            stateEventName: USER_ACTIVITY_EVENTS.insightsPage
+                            }
+                        },
+                        'expenses__goals__content': {
+                            templateUrl: '/app/expenses/partials/monthly-goals.tpl.html',
+                            controller: 'MonthlyGoalsController',
+                            controllerAs: 'vm',
+                            resolve: {
+                                monthsPerYearsStatistics: function (StatisticService) {
+                                    return StatisticService
+                                        .fetchGoalsMonthsPerYearStatistics();
+                                },
+
+                                goals: function (GoalService, DatesUtils) {
+                                    var period = DatesUtils.fromLastMonthsToNow(1);
+
+                                    return GoalService
+                                        .getAllGoalsFromTo(period.from, period.to);
+                                }
+                            }
                         }
                     },
                     title: 'Expenses - Revaluate',

@@ -1,0 +1,57 @@
+@media (max-width: $screen-sm-min) {
+
+}
+
+@media (max-width: 650px) {
+
+    .goals__edit__form {
+        padding-left: 60px;
+        padding-right: 60px;
+        margin-top: 10px;
+
+        .goals__edit__form__group {
+            margin-top: 10px;
+            width: 100%;
+
+            &:nth-of-type(even) {
+                padding-left: 0;
+            }
+        }
+
+        .goals__edit__form__target select,
+        .goals__edit__form__price,
+        .goals__edit__form__category,
+        .goals__edit__form__date .goals__edit__form__date__input .goals__edit__form__date__input__btn {
+            width: 240px;
+        }
+    }
+}
+
+@media (max-width: $screen-xs-min) {
+
+    .goals__edit__form {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+@media (max-width: 400px) {
+    .goals__edit__form {
+
+        .goals__edit__form__group {
+            margin-top: 10px;
+            width: 100%;
+
+            &:nth-of-type(even) {
+                padding-left: 0;
+            }
+        }
+
+        .goals__edit__form__target select,
+        .goals__edit__form__price,
+        .goals__edit__form__category,
+        .goals__edit__form__date .goals__edit__form__date__input .goals__edit__form__date__input__btn {
+            width: 210px;
+        }
+    }
+}

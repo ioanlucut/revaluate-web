@@ -19,7 +19,7 @@
                         currentPage: queryResponse.currentPage,
                         currentSize: queryResponse.currentSize,
                         totalSize: queryResponse.totalSize
-                    }
+                    };
                 }
 
                 return toExpensesGrouped(responseData.data);

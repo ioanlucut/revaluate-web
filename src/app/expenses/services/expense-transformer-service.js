@@ -14,7 +14,7 @@
                 }
 
                 if (_.isArray(requestData)) {
-                    return _.map(requestData, buildExpensePayload)
+                    return _.map(requestData, buildExpensePayload);
                 } else {
                     return buildExpensePayload(requestData);
                 }
@@ -34,7 +34,7 @@
                 }
 
                 if (_.isArray(responseData.data)) {
-                    return _.map(responseData.data, buildExpense)
+                    return _.map(responseData.data, buildExpense);
                 } else {
                     return buildExpense(responseData.data);
                 }

@@ -1,0 +1,197 @@
+.goals__edit__form {
+    @include no-user-select();
+    @include clearfix();
+    @include border-radius($border-radius-base);
+    position: relative;
+    width: 100%;
+    //height: 210px;
+    padding: 20px 20px 20px 20px;
+    margin: 0 auto;
+    background-color: $white;
+    border: solid 2px $gray-light-3;
+    font-weight: $font-weight-regular;
+
+    .goals__edit__form__close {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+
+        span {
+            font-size: 24px;
+            color: $gray-light-1;
+            @include transition(all 0.3s);
+
+            &:hover {
+                cursor: pointer;
+                color: $gray-medium;
+            }
+        }
+    }
+
+    .goals__edit__form__group {
+        @include clearfix();
+        margin-top: 10px;
+        float: left;
+        width: 50%;
+
+        &:nth-of-type(even) {
+            padding-left: 30px;
+        }
+    }
+
+    //.goals__edit__form__text,
+    .goals__edit__form__target,
+    .goals__edit__form__price,
+    .goals__edit__form__category,
+    .goals__edit__form__date {
+        position: relative;
+        float: right;
+    }
+
+    .goals__edit__form__text,
+    .goals__edit__form__target,
+    .goals__edit__form__price,
+    .goals__edit__form__category,
+    .goals__edit__form__date,
+    .goals__edit__form__date__input,
+    .goals__edit__form__date__input__btn {
+        height: $add-goal-form-height;
+    }
+
+    .goals__edit__form__target select,
+    .goals__edit__form__price__input,
+    .goals__edit__form__category .category-select__input .selectize-input {
+        height: 100%;
+        border-width: 1px;
+        border-color: $add-goal-form-border-color;
+    }
+
+    .goals__edit__form__text {
+        position: relative;
+        float: left;
+        padding: 0 10px;
+        line-height: $add-goal-form-height - ($font-size-base / 2 - 5);
+        color: $gray-medium;
+    }
+
+    .goals__edit__form__target {
+        select {
+            @include appearance(none);
+            width: 150px;
+            padding: 0 5px 0 5px;
+            background: $white;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        &::after {
+            content: "\25be";
+            color: $gray-medium;
+            position: absolute;
+            top: 8px;
+            right: 10px;
+        }
+    }
+
+    .goals__edit__form__price {
+        width: 150px;
+
+        .goals__edit__form__price__input {
+            text-align: right;
+            padding-right: 25px;
+        }
+
+        .goals__edit__form__price__currency {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            top: 10px;
+            right: 0;
+            color: $gray-medium;
+        }
+    }
+
+    .goals__edit__form__category {
+        padding: 0;
+        width: 250px;
+        position: relative;
+        height: $add-goal-form-height;
+
+        .category-select__input {
+            height: $add-goal-form-height;
+            background-color: $gray-light-3;
+            font-size: $font-size-base; //font-size of the dropdown ----- DON'T REMOVE
+
+            .selectize-input {
+                @include border-radius($base-border-radius);
+                line-height: 38px !important;
+                //font-size: $font-size-larger; //font-size of the selected element ----- DON'T REMOVE
+
+                & > input {
+                    height: 40px;
+                    //font-size: $font-size-larger; //font-size of the placeholder ----- DON'T REMOVE
+                    @include border-radius($base-border-radius);
+                }
+            }
+        }
+    }
+
+    .goals__edit__form__date {
+        .goals__edit__form__date__input {
+            .goals__edit__form__date__input__btn {
+                background-color: $white;
+                border: solid 1px $add-goal-form-border-color;
+                width: 115px;
+            }
+        }
+    }
+}
+
+.goals__edit__form__price,
+.goals__edit__form__category,
+.goals__edit__form__details,
+.goals__edit__form__date {
+    &.has-error {
+
+        input {
+
+        }
+    }
+}
+
+.goals__edit__form__buttons {
+    float: left;
+    display: block;
+    width: 100%;
+    margin: 20px 0 0 0;
+    @include clearfix();
+
+    .goals__edit__form__buttons__save {
+        @include btn-big($brand-primary);
+        width: 150px;
+        margin: 0;
+        float: right;
+    }
+
+    .goals__edit__form__buttons__delete {
+        position: absolute;
+        bottom: 15px;
+        left: 15px;
+        padding: 0;
+        float: left;
+        color: $gray-light-1;
+        background-color: $white;
+
+        span {
+            font-size: 20px;
+            @include transition(all 0.3s);
+        }
+
+        &:hover {
+
+            span {
+                color: $brand-danger;
+            }
+        }
+    }
+}

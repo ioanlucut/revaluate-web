@@ -8,7 +8,7 @@
 
     describe('app/AuthFilter', function () {
 
-        var $rootScope, $location, $state, $injector, $httpBackend, $q, ENV, AUTH_URLS, AccountModal, DatesUtils, InsightsService, INSIGHTS_URLS, EXPENSE_URLS, CATEGORY_URLS, STATES, AuthServiceMock, UserMock;
+        var $rootScope, $location, $state, $injector, $httpBackend, $q, ENV, AUTH_URLS, AccountModal, DatesUtils, InsightsService, INSIGHTS_URLS, GOAL_URLS, EXPENSE_URLS, CATEGORY_URLS, STATES, AuthServiceMock, UserMock;
 
         beforeEach(function () {
 
@@ -30,10 +30,11 @@
                 $provide.value('User', UserMock = {});
             });
 
-            inject(function (_$rootScope_, _$state_, _$location_, _$injector_, _$httpBackend_, _$q_, _ENV_, _AccountModal_, _DatesUtils_, _InsightsService_, _INSIGHTS_URLS_, _EXPENSE_URLS_, _CATEGORY_URLS_, _STATES_, _AUTH_URLS_, $templateCache) {
+            inject(function (_$rootScope_, _$state_, _$location_, _$injector_, _$httpBackend_, _$q_, _ENV_, _AccountModal_, _DatesUtils_, _InsightsService_, _INSIGHTS_URLS_, _EXPENSE_URLS_, _GOAL_URLS_, _CATEGORY_URLS_, _STATES_, _AUTH_URLS_, $templateCache) {
                 var period,
                     fromFormatted,
-                    toFormatted;
+                    toFormatted,
+                    goalsToFormatted;
 
                 $rootScope = _$rootScope_;
                 $state = _$state_;
@@ -50,6 +51,7 @@
                 DatesUtils = _DatesUtils_;
                 InsightsService = _InsightsService_;
                 INSIGHTS_URLS = _INSIGHTS_URLS_;
+                GOAL_URLS = _GOAL_URLS_;
 
                 URLTo.apiBase(ENV.apiEndpoint);
 
@@ -58,13 +60,19 @@
 
                 period = DatesUtils.fromLastMonthsToNow(1);
                 fromFormatted = DatesUtils.formatDate(period.from);
-                toFormatted = DatesUtils.formatDate(period.to);
+                toFormatted = DatesUtils.formatDate(period.to),
+                goalsToFormatted = DatesUtils.formatDateExpectedForEndOfMonth(period.to),
 
                 $httpBackend.whenGET(URLTo.api('expenses/retrieve_grouped?page=0&size=50')).respond(200, []);
-                $httpBackend.whenGET(URLTo.api('insights/insights_months_per_years')).respond(200, []);
+                $httpBackend.whenGET(URLTo.api('statistics/expenses_months_per_years')).respond(200, []);
+                $httpBackend.whenGET(URLTo.api('statistics/goals_months_per_years')).respond(200, []);
                 $httpBackend.whenGET(URLTo.api(INSIGHTS_URLS.fetchDailyInsights, {
                     ':from': fromFormatted,
                     ':to': toFormatted
+                })).respond(200, []);
+                $httpBackend.whenGET(URLTo.api(GOAL_URLS.allGoalsFromTo, {
+                    ':from': fromFormatted,
+                    ':to': goalsToFormatted
                 })).respond(200, []);
                 $httpBackend.whenGET(URLTo.api(CATEGORY_URLS.allCategories)).respond(200, []);
 

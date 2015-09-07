@@ -1,0 +1,11 @@
+@media (max-width: $header-responsive-breakpoint) {
+
+    .goals__list {
+        padding: 5px 0 20px 0;
+
+        .goals__list__entry {
+            padding: 0;
+        }
+    }
+
+}
