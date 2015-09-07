@@ -102,7 +102,7 @@
                 .fetchGoalsMonthsPerYearStatistics(vm.updateStatisticsTracker)
                 .then(function (receivedMonthsPerYearsStatistics) {
                     vm.monthsPerYearsStatistics = receivedMonthsPerYearsStatistics;
-                })
+                });
         }
 
         // ---
@@ -113,7 +113,7 @@
          * On goal created, display a success message, and add goal to the list.
          */
         $scope.$on(GOAL_EVENTS.isCreated, function (event, args) {
-            var isSameMonth = moment(moment(vm.goalsData.yearMonthDate).month()).isSame(moment(args.goal.yearMonthDate).month());
+            var isSameMonth = moment(vm.goalsData.yearMonthDate).isSame(moment(args.goal.yearMonthDate), 'month');
 
             if (isSameMonth) {
                 vm.goals.push(args.goal);
