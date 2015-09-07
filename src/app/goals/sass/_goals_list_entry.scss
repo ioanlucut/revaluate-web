@@ -1,6 +1,5 @@
 .goals__list__entry__section {
     @include border-radius($border-radius-base);
-    height: 210px;
     padding: 15px;
     margin: 0;
     border: solid 2px $gray-light-3;
@@ -52,7 +51,9 @@
     }
 
     .goals__list__entry__section__category {
-        font-weight: $font-weight-bold;
+        @include category-label($brand-primary);
+        margin-right: 40px;
+        padding: 0 5px;
     }
 
     goal-daily-status {
@@ -115,6 +116,7 @@
             padding: 0;
             margin: 0 0 0px -1px;
             background-color: $gray-medium;
+            box-shadow: 0 0 1px rgba(255, 255, 255, 1);
 
             &:before {
                 position: relative;
