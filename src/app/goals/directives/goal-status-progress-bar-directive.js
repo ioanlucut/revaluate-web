@@ -10,6 +10,11 @@
          */
         vm.user = $rootScope.currentUser;
 
+        /**
+         * Goals on current month.
+         */
+        vm.isCurrentMonthSelected = moment().isSame(moment(vm.goal.endDate), 'month');
+
         // ---
         // Initially, prepare data with this information.
         // ---
