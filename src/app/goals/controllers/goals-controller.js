@@ -102,7 +102,7 @@
                 .fetchGoalsMonthsPerYearStatistics(vm.updateStatisticsTracker)
                 .then(function (receivedMonthsPerYearsStatistics) {
                     vm.monthsPerYearsStatistics = receivedMonthsPerYearsStatistics;
-                })
+                });
         }
 
         // ---

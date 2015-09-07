@@ -1,9 +1,14 @@
 (function () {
     'use strict';
 
-    function GoalStatusProgressBarController($scope) {
+    function GoalStatusProgressBarController($scope, $rootScope) {
         var vm = this,
             THRESHOLD = 10;
+
+        /**
+         * Current user.
+         */
+        vm.user = $rootScope.currentUser;
 
         // ---
         // Initially, prepare data with this information.
