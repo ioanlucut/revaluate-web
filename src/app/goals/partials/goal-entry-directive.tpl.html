@@ -20,7 +20,7 @@
     <div class="goals__list__entry__section__text">on</div>
 
     <!--Goal category-->
-    <div class="goals__list__entry__section__category" ng-style="{'color':vm.goal.category.color.color}" ng-bind-html="vm.goal.category.name"></div>
+    <div class="goals__list__entry__section__category" ng-style="{'background-color':vm.goal.category.color.color}" ng-bind-html="vm.goal.category.name"></div>
 
     <!--Goal status bar progress-->
     <goal-status-progress-bar goal="vm.goal"></goal-status-progress-bar>
@@ -38,36 +38,41 @@
 
     <form name="vm.goalForm" ng-submit="vm.goalForm.$valid ? vm.updateGoal() : ''" novalidate focus-first-error>
 
-        <div class="goals__edit__form__text">Spend</div>
+        <div class="goals__edit__form__group">
+            <div class="goals__edit__form__text">Spend</div>
 
-        <!-- Form groups -->
-        <div class="goals__edit__form__target" ng-class="{'has-error': vm.goalForm.$submitted && (vm.goalForm.goalTarget.$invalid || vm.badPostSubmitResponse)}">
-            <select ng-model="vm.shownGoal.goalTarget" ng-disabled="vm.saveTracker.active()" ng-options="goalTarget.value as goalTarget.label for goalTarget in vm.goalsTargets" required></select>
+            <!-- Form groups -->
+            <div class="goals__edit__form__target" ng-class="{'has-error': vm.goalForm.$submitted && (vm.goalForm.goalTarget.$invalid || vm.badPostSubmitResponse)}">
+                <select ng-model="vm.shownGoal.goalTarget" ng-disabled="vm.saveTracker.active()" ng-options="goalTarget.value as goalTarget.label for goalTarget in vm.goalsTargets" required></select>
 
-            <!-- Error messages -->
-            <div class="form-group-input__message" ng-class="{'has-error': vm.goalForm.goalTarget.$invalid && vm.goalForm.$submitted}" ng-messages="vm.goalForm.goalTarget.$error" ng-if="vm.goalForm.$submitted">
-                <div ng-message="required">Don't forget the target.</div>
+                <!-- Error messages -->
+                <div class="form-group-input__message" ng-class="{'has-error': vm.goalForm.goalTarget.$invalid && vm.goalForm.$submitted}" ng-messages="vm.goalForm.goalTarget.$error" ng-if="vm.goalForm.$submitted">
+                    <div ng-message="required">Don't forget the target.</div>
+                </div>
             </div>
         </div>
 
-        <div class="goals__edit__form__text">than</div>
+        <div class="goals__edit__form__group">
+            <div class="goals__edit__form__text">than</div>
 
-        <!-- Form groups -->
-        <div class="goals__edit__form__price" ng-class="{'has-error': vm.goalForm.$submitted && (vm.goalForm.value.$invalid || vm.badPostSubmitResponse)}">
-            <input class="goals__edit__form__price__input" ng-disabled="vm.updateTracker.active()" type="text" name="value" placeholder="0,00" maxlength="18" ng-model="vm.shownGoal.value" format-price format="number" required valid-price />
-            <span class="goals__edit__form__price__currency">{{vm.user.model.currency.symbol}}</span>
+            <!-- Form groups -->
+            <div class="goals__edit__form__price" ng-class="{'has-error': vm.goalForm.$submitted && (vm.goalForm.value.$invalid || vm.badPostSubmitResponse)}">
+                <input class="goals__edit__form__price__input" ng-disabled="vm.updateTracker.active()" type="text" name="value" placeholder="0,00" maxlength="18" ng-model="vm.shownGoal.value" format-price format="number" required valid-price/>
+                <span class="goals__edit__form__price__currency">{{vm.user.model.currency.symbol}}</span>
 
-            <!-- Error messages -->
-            <div class="form-group-input__message" ng-class="{'has-error': vm.goalForm.value.$invalid && vm.goalForm.$submitted}" ng-messages="vm.goalForm.value.$error" ng-if="vm.goalForm.$submitted">
-                <div ng-message="required">Please add a price.</div>
-                <div ng-message="validPrice">Price is invalid</div>
+                <!-- Error messages -->
+                <div class="form-group-input__message" ng-class="{'has-error': vm.goalForm.value.$invalid && vm.goalForm.$submitted}" ng-messages="vm.goalForm.value.$error" ng-if="vm.goalForm.$submitted">
+                    <div ng-message="required">Please add a price.</div>
+                    <div ng-message="validPrice">Price is invalid</div>
+                </div>
             </div>
         </div>
 
-        <div class="goals__edit__form__text">on</div>
+        <div class="goals__edit__form__group">
+            <div class="goals__edit__form__text">on</div>
 
-        <!-- Form group -->
-        <div class="goals__edit__form__category" ng-class="{'has-error': vm.goalForm.$submitted && (vm.goalForm.category.$invalid || vm.badPostSubmitResponse)}">
+            <!-- Form group -->
+            <div class="goals__edit__form__category" ng-class="{'has-error': vm.goalForm.$submitted && (vm.goalForm.category.$invalid || vm.badPostSubmitResponse)}">
 
             <ui-select name="category" ng-disabled="vm.updateTracker.active()" class="category-select__input" ng-style="{'background':$select.selected.color.color}" ng-model="vm.category.selected" theme="selectize">
                 <ui-select-match ng-style="{'background':$select.selected.color.color}" placeholder="Select a category">{{$select.selected.name}}</ui-select-match>
@@ -96,7 +101,7 @@
 
         <!-- Button container -->
         <div class="goals__edit__form__buttons">
-            <button class="goals__edit__form__buttons__save" ng-disabled="vm.updateTracker.active() || vm.goalForm.category.$pending" type="submit">{{vm.updateTracker.active() ? 'Saving...' : 'Save'}}</button>
+            <button class="goals__edit__form__buttons__save" ng-disabled="vm.updateTracker.active()" type="submit">{{vm.updateTracker.active() ? 'Saving...' : 'Save'}}</button>
             <button class="goals__edit__form__buttons__delete simptip-position-right simptip-danger simptip-smooth simptip-fade"
                     type="button"
                     data-tooltip="Remove goal"
