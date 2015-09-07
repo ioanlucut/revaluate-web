@@ -17,7 +17,7 @@
              * If not opened, open it.
              */
             if (!AccountModal.isOpen) {
-                AccountModal.openWithState(ACCOUNT_FORM_STATE.login)
+                AccountModal.openWithState(ACCOUNT_FORM_STATE.login);
             }
 
             /**
@@ -60,7 +60,7 @@
                         })
                         .finally(function () {
                             $scope.isRequestPending = false;
-                        })
+                        });
                 }
             };
         });

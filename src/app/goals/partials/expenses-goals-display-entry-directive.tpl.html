@@ -1,0 +1,23 @@
+<!--Display goal-->
+<div class="goals__list__entry__section">
+
+    <div class="goals__list__entry__section__text">Spend</div>
+
+    <div class="goals__list__entry__section__target">
+        <span ng-bind-html="vm.goal.goalTarget | goalTarget"></span>
+    </div>
+
+    <div class="goals__list__entry__section__text">than</div>
+
+    <div class="goals__list__entry__section__price">
+        <span ng-bind-html="vm.goal.value | currencys:vm.user.model.currency.symbol:0"></span>
+    </div>
+
+    <div class="goals__list__entry__section__text">on</div>
+
+    <!--Goal category-->
+    <div class="goals__list__entry__section__category" ng-style="{'background-color':vm.goal.category.color.color}" ng-bind-html="vm.goal.category.name"></div>
+
+    <!--Goal status bar progress-->
+    <goal-status-progress-bar goal="vm.goal"></goal-status-progress-bar>
+</div>

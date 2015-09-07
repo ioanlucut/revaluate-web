@@ -40,7 +40,7 @@
                         $document
                             .scrollToElement(someElement, offset, duration);
                     });
-                })
+                });
             };
 
             /**

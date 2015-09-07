@@ -22,6 +22,6 @@
             } else {
                 return getRandomized(GREETER_CONSTANTS.EVENING);
             }
-        }
+        };
     });
 }());

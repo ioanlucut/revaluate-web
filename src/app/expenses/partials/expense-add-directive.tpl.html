@@ -8,7 +8,7 @@
 
         <!-- Form groups -->
         <div class="expense__form__price" ng-class="{'has-error': vm.expenseForm.$submitted && (vm.expenseForm.value.$invalid || vm.badPostSubmitResponse)}">
-            <input class="expense__form__price__input" ng-disabled="vm.saveTracker.active()" type="text" name="value" placeholder="The value" maxlength="18" ng-model="vm.expense.value" format-price format="number" caret-price-position required valid-price auto-focus post-add-expense-focus />
+            <input class="expense__form__price__input" ng-disabled="vm.saveTracker.active()" type="text" name="value" placeholder="0,00" maxlength="18" ng-model="vm.expense.value" format-price format="number" required valid-price auto-focus post-add-expense-focus />
             <span class="expense__form__price__currency">{{user.model.currency.symbol}}</span>
 
             <!-- Error messages -->

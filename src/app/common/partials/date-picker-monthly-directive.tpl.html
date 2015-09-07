@@ -1,0 +1,39 @@
+<div class="insights__controls__form">
+
+    <!-- Select prev month -->
+    <button type="button" class="insights__controls__form__arrow insights__controls__form__arrow--left icon-chevron-left"
+            ng-disabled="vm.loadTracker.active() || ! vm.canLoadPrevMonth()"
+            ng-if="vm.showLeftRightArrows"
+            ng-click="vm.prevMonth()">
+    </button>
+
+    <div class="insights__controls__form__month">
+
+        <!--Monthly date picker-->
+        <div class="insight__form__date__input">
+
+            <button type="button"
+                    class="insight__form__date__input__btn"
+                    ng-model="vm.data.yearMonthDate"
+                    datepicker-popup
+                    ng-click="vm.openDatePicker($event)"
+                    is-open="vm.datePickerOpened"
+                    ng-change="vm.onChange()"
+                    ng-disabled="vm.loadTracker.active()"
+                    date-disabled="vm.shouldDateBeDisabled(date, mode)"
+                    datepicker-mode="'month'"
+                    min-mode="'month'"
+                    show-button-bar="false"
+                    datepicker-options="{minMode: 'month',datepickerMode: 'month'}">{{vm.loadTracker.active() ? 'Loading' : (vm.dateModel | friendlyMonthDate)}}
+            </button>
+
+        </div>
+    </div>
+
+    <!-- Select next month -->
+    <button type="button" class="insights__controls__form__arrow insights__controls__form__arrow--right icon-chevron-right"
+            ng-disabled="vm.loadTracker.active() || ! vm.canLoadNextMonth()"
+            ng-if="vm.showLeftRightArrows"
+            ng-click="vm.nextMonth()">
+    </button>
+</div>

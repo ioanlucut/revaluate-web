@@ -1,0 +1,44 @@
+.expenses__goals__list {
+    padding: 0;
+
+    .goals__list__entry {
+        margin: 0;
+        padding: 10px 0 0 0;
+
+        .goals__list__entry__section {
+            padding: 10px 7px;
+
+            .goals__list__entry__section__text {
+                padding: 0;
+            }
+
+            .goals__list__entry__section__price {
+
+                .currency__symbol {
+                    padding: 1px;
+                }
+            }
+
+            .goals__list__entry__section__category {
+                margin-right: 0;
+            }
+
+            goal-status-progress-bar {
+
+                .progress {
+                    height: 25px;
+                    margin-bottom: 5px;
+                }
+
+                .progressbar__value__crt {
+                    line-height: 25px;
+                }
+
+                .today__line {
+                    height: 37px;
+                }
+            }
+        }
+
+    }
+}

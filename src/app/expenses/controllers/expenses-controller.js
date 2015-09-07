@@ -91,7 +91,7 @@
                     $timeout(function () {
                         vm.isUpdatingListLayout = !vm.isUpdatingListLayout;
                     }, INFINITE_SCROLL_TIMEOUT);
-                })
+                });
         }
 
         function isBulkActionEnabled() {
@@ -126,7 +126,7 @@
             // Try to save them at once and if successfully, update the user.
             // ---
             ExpenseService
-                .bulkDelete(selectedForBulkDelete)
+                .bulkDelete(selectedForBulkDelete, vm.bulkDeleteTracker)
                 .then(function () {
                     $rootScope.$broadcast(EXPENSE_EVENTS.isDeleted, { expenses: selectedForBulkDelete });
                 })

@@ -12,6 +12,7 @@
             'ui.bootstrap.tpls',
             'ui.bootstrap.transition',
             'ui.bootstrap.datepicker',
+            'ui.bootstrap.progressbar',
             'ui.bootstrap.dateparser',
             'ui.bootstrap.dropdown',
             'ui.bootstrap.modal',

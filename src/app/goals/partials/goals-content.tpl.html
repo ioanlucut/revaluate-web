@@ -1,0 +1,34 @@
+<!--Add goal-->
+<div goal-add categories="vm.categories" is-maximum-number-of-allowed-goals-exceeded="vm.isMaximumNumberOfAllowedGoalsExceeded()"></div>
+
+<!-- Goals fetch form -->
+<div class="insights__controls goals__controls">
+
+    <h1>Your goals</h1>
+
+    <div class="insights__controls__form__month goals__controls__month">
+
+        <!--Insights date picker-->
+        <date-picker-monthly
+            fade-out-in
+            fade-when="vm.updateStatisticsTracker.active()"
+            date-model="vm.goalsData.yearMonthDate"
+            months-per-years-statistics="vm.monthsPerYearsStatistics.monthsPerYears"
+            perform-on-prev-or-next="vm.loadGoals(yearMonthDate)"
+            load-tracker="vm.loadTracker"
+            show-left-right-arrows="true">
+        </date-picker-monthly>
+    </div>
+
+</div>
+
+<!--Empty state-->
+<div class="goals__empty-state" ng-if="vm.goals.length === 0">
+    <div class="goals__empty-state__icon"></div>
+    <h1>No goals yet.</h1>
+
+    <div>Start adding some goals to really master your finances.</div>
+</div>
+
+<!--The goals list-->
+<div goals-list goals="vm.goals" categories="vm.categories" sort="desc"></div>

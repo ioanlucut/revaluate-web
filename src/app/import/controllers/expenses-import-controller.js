@@ -96,7 +96,7 @@
             // ---
             uploader.filters.push({
                 name: 'csvFilter',
-                fn: function (item, options) {
+                fn: function (item) {
                     return '|text/csv|application/vnd.ms-excel|text/plain|text/tsv|'.indexOf(item.type) !== -1;
                 }
             });
@@ -104,7 +104,7 @@
             // ---
             // If file does not pass the filter, show an error message.
             // ---
-            uploader.onWhenAddingFileFailed = function (item, filter, options) {
+            uploader.onWhenAddingFileFailed = function () {
 
                 $scope.$emit(ALERTS_EVENTS.DANGER, {
                     message: 'Hmm.. are you trying to upload anything but a CSV file?',
@@ -115,7 +115,7 @@
             // ---
             // If successful, take the answer.
             // ---
-            uploader.onSuccessItem = function (fileItem, response, status, headers) {
+            uploader.onSuccessItem = function (fileItem, response) {
                 // ---
                 // If there was a previously error, just clear it.
                 // ---
@@ -134,7 +134,7 @@
             // ---
             // On error item.
             // ---
-            uploader.onErrorItem = function (fileItem, response, status, headers) {
+            uploader.onErrorItem = function (fileItem, response, status) {
                 if (status === BAD_RESPONSE) {
                     $scope.$emit(ALERTS_EVENTS.DANGER, {
                         message: 'Hmmm... Are you sure the CSV export is from selected app?',
@@ -160,7 +160,7 @@
             // ---
             // Mark upload completed.
             // ---
-            uploader.onCompleteItem = function (fileItem, response, status, headers) {
+            uploader.onCompleteItem = function () {
 
                 $scope.isUploadFinished = true;
             };

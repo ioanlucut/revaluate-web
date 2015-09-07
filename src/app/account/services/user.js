@@ -30,7 +30,7 @@
                                 symbol: ''
                             },
                             oAuthData: {
-                                picture: ""
+                                picture: ''
                             }
                         },
 
@@ -39,7 +39,7 @@
                          */
                         isAuthenticated: function () {
 
-                            return !_.isUndefined(SessionService.sessionExists())
+                            return !_.isUndefined(SessionService.sessionExists());
                         },
 
                         isConnectedViaOauth: function () {
