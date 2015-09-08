@@ -14,7 +14,8 @@
     <div class="goals__list__entry__section__text">than</div>
 
     <div class="goals__list__entry__section__price">
-        <span ng-bind-html="vm.goal.value | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
+        <span ng-bind-html="vm.goal.value"></span>
+        <span class="goals__list__entry__section__price__currency">{{vm.user.model.currency.symbol}}</span>
     </div>
 
     <div class="goals__list__entry__section__text">on</div>
@@ -57,7 +58,7 @@
 
             <!-- Form groups -->
             <div class="goals__edit__form__price" ng-class="{'has-error': vm.goalForm.$submitted && (vm.goalForm.value.$invalid || vm.badPostSubmitResponse)}">
-                <input class="goals__edit__form__price__input" ng-disabled="vm.updateTracker.active()" type="text" name="value" placeholder="0,00" maxlength="18" ng-model="vm.shownGoal.value" format-price format="number" required valid-price/>
+                <input class="goals__edit__form__price__input" ng-disabled="vm.updateTracker.active()" type="text" name="value" placeholder="0" maxlength="18" ng-model="vm.shownGoal.value" format-price format="number" required valid-price/>
                 <span class="goals__edit__form__price__currency">{{vm.user.model.currency.symbol}}</span>
 
                 <!-- Error messages -->
@@ -74,28 +75,29 @@
             <!-- Form group -->
             <div class="goals__edit__form__category" ng-class="{'has-error': vm.goalForm.$submitted && (vm.goalForm.category.$invalid || vm.badPostSubmitResponse)}">
 
-            <ui-select name="category" ng-disabled="vm.updateTracker.active()" class="category-select__input" ng-style="{'background':$select.selected.color.color}" ng-model="vm.category.selected" theme="selectize">
-                <ui-select-match ng-style="{'background':$select.selected.color.color}" placeholder="Select a category">{{$select.selected.name}}</ui-select-match>
-                <ui-select-choices repeat="categoryEntry in vm.categories | orderObjectBy : 'name' : false | filter:{name:$select.search} track by categoryEntry.id">
-                    <span class="category__color__preview" ng-style="{'background':categoryEntry.color.color}">C</span>
-                    <span ng-bind-html="categoryEntry.name | highlight: $select.search"></span>
-                </ui-select-choices>
-            </ui-select>
+                <ui-select name="category" ng-disabled="vm.updateTracker.active()" class="category-select__input" ng-style="{'background':$select.selected.color.color}" ng-model="vm.category.selected" theme="selectize">
+                    <ui-select-match ng-style="{'background':$select.selected.color.color}" placeholder="Select a category">{{$select.selected.name}}</ui-select-match>
+                    <ui-select-choices repeat="categoryEntry in vm.categories | orderObjectBy : 'name' : false | filter:{name:$select.search} track by categoryEntry.id">
+                        <span class="category__color__preview" ng-style="{'background':categoryEntry.color.color}">C</span>
+                        <span ng-bind-html="categoryEntry.name | highlight: $select.search"></span>
+                    </ui-select-choices>
+                </ui-select>
 
-            <!--Category of the goal-->
-            <input type="hidden" name="category"
-                   ng-model="vm.category.selected"
-                   required
-                   unique-category-per-goal
-                   ng-model-options="{ debounce: 0 }"
-                   unique-category-except="vm.shownGoal.category"
-                   unique-category-from="vm.shownGoal.startDate"
-                   unique-category-to="vm.shownGoal.endDate" />
+                <!--Category of the goal-->
+                <input type="hidden" name="category"
+                       ng-model="vm.category.selected"
+                       required
+                       unique-category-per-goal
+                       ng-model-options="{ debounce: 0 }"
+                       unique-category-except="vm.shownGoal.category"
+                       unique-category-from="vm.shownGoal.startDate"
+                       unique-category-to="vm.shownGoal.endDate" />
 
-            <!-- Error messages -->
-            <div class="form-group-input__message" ng-class="{'has-error': vm.goalForm.category.$invalid && vm.goalForm.$submitted}" ng-messages="vm.goalForm.category.$error" ng-if="vm.goalForm.$submitted">
-                <div ng-message="required">Please add a category.</div>
-                <div ng-message="uniqueCategoryPerGoal">Category should be unique.</div>
+                <!-- Error messages -->
+                <div class="form-group-input__message" ng-class="{'has-error': vm.goalForm.category.$invalid && vm.goalForm.$submitted}" ng-messages="vm.goalForm.category.$error" ng-if="vm.goalForm.$submitted">
+                    <div ng-message="required">Please select a category.</div>
+                    <div ng-message="uniqueCategoryPerGoal">You already have a goal on this category.</div>
+                </div>
             </div>
         </div>
 

@@ -14,8 +14,10 @@
 
             <!--Goal list-->
             <div class="goals__list__entry"
+                 ui-sref="goals.regular"
                  ng-repeat="goal in vm.goals | orderObjectBy : 'createdDate' : reverseOrder track by goal.id"
-                 goals-display-entry goal="goal">
+                 goals-display-entry
+                 goal="goal">
             </div>
         </div>
 
