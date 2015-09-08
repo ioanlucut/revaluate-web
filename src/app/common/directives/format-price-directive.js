@@ -30,11 +30,12 @@
                             return null;
                         }
 
-                        return accounting.unformat(inputValue, ',').toFixed(2);
+                        return accounting.unformat(inputValue, '.').toFixed(2);
                     });
 
                     function asViewValue(value) {
-                        return accounting.formatMoney(value, '', 2, '.', ',');
+                        // number, symbol, precision, thousand, decimal, format
+                        return accounting.formatMoney(value, '', 2, ',', '.');
                     }
 
                 }
