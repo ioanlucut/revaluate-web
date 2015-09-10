@@ -41,9 +41,11 @@
     margin-left: 40px;
     padding: 0;
     height: $header-height;
+    @include clearfix();
 
     li {
-        display: inline-block;
+        display: block;
+        float: left;
         height: 100%;
         min-width: 120px;
         padding: 0;
@@ -129,7 +131,7 @@
 }
 
 .header__navigation--links__item {
-    display: inline-block;
+    display: block;
     width: 35px;
     height: 35px;
     margin: 3px 2px 0 0;
