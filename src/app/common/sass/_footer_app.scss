@@ -18,9 +18,11 @@
 
 .footer__links {
     @include span-columns(8);
+    @include clearfix();
     text-align: right;
 
     li {
-        display: inline-block;
+        display: block;
+        float: right;
     }
 }
