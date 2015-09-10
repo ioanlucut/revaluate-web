@@ -7,6 +7,11 @@
 
         .goals__list__entry__section {
             padding: 10px 7px;
+            cursor: pointer;
+
+            &:hover {
+                border: solid 2px $gray-light-1;
+            }
 
             .goals__list__entry__section__text {
                 padding: 0;
