@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function GoalDisplayEntryController($rootScope) {
+    function GoalsDisplayEntryController($rootScope) {
 
         /**
          * Current user.
@@ -17,10 +17,10 @@
                 scope: {
                     goal: '='
                 },
-                controller: GoalDisplayEntryController,
+                controller: GoalsDisplayEntryController,
                 bindToController: true,
                 controllerAs: 'vm',
-                templateUrl: '/app/goals/partials/expenses-goals-display-entry-directive.tpl.html',
+                templateUrl: '/app/goals/partials/goals-display-entry-directive.tpl.html',
                 link: function () {
                 }
             };

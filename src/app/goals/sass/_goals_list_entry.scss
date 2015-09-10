@@ -2,7 +2,7 @@
     @include border-radius($border-radius-base);
     padding: 15px;
     margin: 0;
-    border: solid 2px $gray-light-3;
+    border: solid 2px $gray-light-2;
     position: relative;
 
     > div {
@@ -43,8 +43,9 @@
 
     .goals__list__entry__section__price {
 
+        .goals__list__entry__section__price__currency,
         .currency__symbol {
-            padding: 0 5px;
+            padding: 0;
             color: $gray-medium;
             font-weight: $font-weight-light;
         }
