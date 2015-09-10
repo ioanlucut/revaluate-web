@@ -35,8 +35,9 @@
             scaleShowHorizontalLines: false,
             scaleShowVerticalLines: false,
             scaleShowLabels: false,
-            showScale: false,
-            scaleFontSize: 12,
+            scaleShowGridLines : false,
+            showScale: true,
+            scaleFontSize: 10,
             tooltipFontSize: 12,
             tooltipTitleFontSize: 12,
             tooltipYPadding: 10,
@@ -120,7 +121,7 @@
         }
 
         function reloadIfRequired(expense) {
-            var isSameMonth = moment(moment().month()).isSame(moment(expense.spentDate).month());
+            var isSameMonth = moment().isSame(moment(expense.spentDate), 'month');
 
             if (isSameMonth) {
                 vm.loadInsights();

@@ -7,6 +7,9 @@
             return {
                 require: 'ngModel',
                 link: function (scope, elm, attrs, ctrl) {
+                    var DEFAULT_DECIMALS = 2,
+                        decimals = (!_.isUndefined(attrs.decimals) && _.isNumber(_.parseInt(attrs.decimals))) ? _.parseInt(attrs.decimals) : DEFAULT_DECIMALS;
+
                     elm
                         .bind('blur', function () {
                             if (!ctrl.$modelValue) {
@@ -30,11 +33,12 @@
                             return null;
                         }
 
-                        return accounting.unformat(inputValue, ',').toFixed(2);
+                        return accounting.unformat(inputValue, '.').toFixed(decimals);
                     });
 
                     function asViewValue(value) {
-                        return accounting.formatMoney(value, '', 2, '.', ',');
+                        // number, symbol, precision, thousand, decimal, format
+                        return accounting.formatMoney(value, '', decimals, ',', '.');
                     }
 
                 }
