@@ -10,7 +10,7 @@
                     date = moment(new Date(date));
                 }
 
-                return moment(date).format('ddd Do,');
+                return moment(date).format('D');
             };
         });
 }());
