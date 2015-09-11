@@ -54,6 +54,11 @@
     }
 }
 
+.site__container__section--ctabtns {
+    display: flex;
+    justify-content: center;
+}
+
 .site__container__section--pricing {
     padding: 40px 0 30px 0;
 
