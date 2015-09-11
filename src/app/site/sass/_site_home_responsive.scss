@@ -59,6 +59,11 @@
     .body__feedback-section {
         display: none;
     }
+
+    .home__section__tour-arrow {
+        padding-bottom: 15px;
+        font-size: 40px;
+    }
 }
 
 @media (max-width: 500px) {
@@ -90,10 +95,5 @@
 
     .home__description {
         font-size: 18px;
-    }
-
-    .home__section__tour-arrow {
-        padding-bottom: 15px;
-        font-size: 40px;
     }
 }

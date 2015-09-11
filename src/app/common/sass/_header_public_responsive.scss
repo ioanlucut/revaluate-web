@@ -1,8 +1,7 @@
 @media (max-width: $header-responsive-breakpoint) {
     .header-public__brand {
-        float: none;
-        display: inline-block;
-        margin: 0 auto;
+        float: right;
+        margin-right: 10px;
     }
 
     .header-public__navigation {

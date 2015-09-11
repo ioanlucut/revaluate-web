@@ -1,5 +1,5 @@
 <!--Oauth user-->
-<img ng-if="userProfileVm.user.isConnectedViaOauth()" class="header__dropdown__avatar" ng-src="{{userProfileVm.user.model.oAuthData.picture}}" />
+<img ng-if="userProfileVm.user.isConnectedViaOauth()" class="side__menu__user__avatar" ng-src="{{userProfileVm.user.model.oAuthData.picture}}" />
 
 <!--Non Oauth user-->
-<img ng-if="! userProfileVm.user.isConnectedViaOauth()" class="header__dropdown__avatar" src="" gravatar-src="'{{userProfileVm.user.model.email}}'" />
+<img ng-if="! userProfileVm.user.isConnectedViaOauth()" class="side__menu__user__avatar" src="" gravatar-src="'{{userProfileVm.user.model.email}}'" />
