@@ -34,6 +34,17 @@
         }
     }
 
+    .site__container__section--ctabtns {
+        display: block;
+
+        .home__section__start__btn,
+        .home__section__learn__btn {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
     .site__container__section--wide {
         max-width: 100%;
     }

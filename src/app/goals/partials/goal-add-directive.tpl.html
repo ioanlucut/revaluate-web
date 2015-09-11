@@ -33,7 +33,7 @@
 
             <!-- Form groups -->
             <div class="goals__form__price" ng-class="{'has-error': vm.goalForm.$submitted && (vm.goalForm.value.$invalid || vm.badPostSubmitResponse)}">
-                <input class="goals__form__price__input" ng-disabled="vm.saveTracker.active()" type="text" name="value" placeholder="0,00" maxlength="18" ng-model="vm.goal.value" format-price format="number" required valid-price />
+                <input class="goals__form__price__input" ng-disabled="vm.saveTracker.active()" type="text" name="value" placeholder="0" maxlength="18" ng-model="vm.goal.value" format-price decimals="0" required valid-price />
                 <span class="goals__form__price__currency">{{user.model.currency.symbol}}</span>
 
                 <!-- Error messages -->
