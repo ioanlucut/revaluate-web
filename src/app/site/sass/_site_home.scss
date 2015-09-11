@@ -85,8 +85,8 @@
     li {
         margin: 0;
         padding: 20px 10px;
-        @include span-columns(6);
-        @include omega(2n);
+        @include span-columns(4);
+        @include omega(3n);
 
         h3 {
             font-size: $font-size-largest;
