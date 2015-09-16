@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function MonthlyGoalsController(EXPENSE_EVENTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, $scope, DatesUtils, promiseTracker, GoalService, monthsPerYearsStatistics, goals) {
+    function MonthlyGoalsController(EXPENSE_EVENTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, $scope, DatesUtils, promiseTracker, GoalService, monthsPerYearsStatisticsGoals, monthsPerYearsStatisticsExpenses, goals) {
         var vm = this;
 
         /**
@@ -12,7 +12,12 @@
         /**
          * Goals months per years statistics
          */
-        vm.monthsPerYearsStatistics = monthsPerYearsStatistics;
+        vm.monthsPerYearsStatisticsGoals = monthsPerYearsStatisticsGoals;
+
+        /**
+         * Expenses months per years statistics
+         */
+        vm.monthsPerYearsStatisticsExpenses = monthsPerYearsStatisticsExpenses;
 
         /**
          * Goals of this month

@@ -39,7 +39,7 @@
                                 }
                             }
                         },
-                        'expenses__daily__insights__content': {
+                        'expenses__daily__insights__content@expenses.regular': {
                             templateUrl: '/app/expenses/partials/monthly-daily-insights.tpl.html',
                             controller: 'MonthlyDailyInsightsController',
                             controllerAs: 'vm',
@@ -57,14 +57,19 @@
                                 }
                             }
                         },
-                        'expenses__goals__content': {
+                        'expenses__goals__content@expenses.regular': {
                             templateUrl: '/app/expenses/partials/monthly-goals.tpl.html',
                             controller: 'MonthlyGoalsController',
                             controllerAs: 'vm',
                             resolve: {
-                                monthsPerYearsStatistics: function (StatisticService) {
+                                monthsPerYearsStatisticsGoals: function (StatisticService) {
                                     return StatisticService
                                         .fetchGoalsMonthsPerYearStatistics();
+                                },
+
+                                monthsPerYearsStatisticsExpenses: function (StatisticService) {
+                                    return StatisticService
+                                        .fetchExpensesMonthsPerYearStatistics();
                                 },
 
                                 goals: function (GoalService, DatesUtils) {
