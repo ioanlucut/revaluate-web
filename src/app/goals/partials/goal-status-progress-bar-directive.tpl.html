@@ -1,6 +1,6 @@
 <progressbar max="vm.targetValue" value="vm.currentValue" type="{{vm.type}}">
     <span class="progressbar__value__min" ng-bind-html="0"></span>
-    <span class="progressbar__value__crt" style="color:white; white-space:nowrap;" ng-bind-html="vm.currentValue"></span>
-    <span class="today__line" ng-show="vm.isCurrentMonthSelected"  ng-style="{left: {{vm.todayPosition}} + '%'}"></span>
-    <span class="progressbar__value__max" ng-bind-html="vm.targetValue"></span>
+    <span class="progressbar__value__crt" style="color:black; white-space:nowrap;padding: 10px;" ng-bind-html="vm.currentValue | currency:'':0"></span>
+    <span class="today__line" ng-show="vm.isCurrentMonthSelected" ng-style="{left: {{vm.todayPosition}} + '%'}"></span>
+    <span class="progressbar__value__max" ng-bind-html="vm.targetValue | currency:'':0"></span>
 </progressbar>

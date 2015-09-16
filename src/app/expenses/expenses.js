@@ -28,7 +28,7 @@
                         'expenses__content': {
                             templateUrl: '/app/expenses/partials/expenses-content.tpl.html',
                             controller: 'ExpensesController',
-                            controllerAs: 'vm',
+                            controllerAs: 'expensesVm',
                             resolve: {
                                 expensesQueryResponse: function (ExpenseService) {
                                     return ExpenseService.getAllExpensesGrouped(0, 50);
@@ -44,11 +44,6 @@
                             controller: 'MonthlyDailyInsightsController',
                             controllerAs: 'vm',
                             resolve: {
-                                monthsPerYearsStatistics: function (StatisticService) {
-                                    return StatisticService
-                                        .fetchExpensesMonthsPerYearStatistics();
-                                },
-
                                 insightsDaily: function (DatesUtils, InsightsService) {
                                     var period = DatesUtils.fromLastMonthsToNow(1);
 
@@ -62,16 +57,6 @@
                             controller: 'MonthlyGoalsController',
                             controllerAs: 'vm',
                             resolve: {
-                                monthsPerYearsStatisticsGoals: function (StatisticService) {
-                                    return StatisticService
-                                        .fetchGoalsMonthsPerYearStatistics();
-                                },
-
-                                monthsPerYearsStatisticsExpenses: function (StatisticService) {
-                                    return StatisticService
-                                        .fetchExpensesMonthsPerYearStatistics();
-                                },
-
                                 goals: function (GoalService, DatesUtils) {
                                     var period = DatesUtils.fromLastMonthsToNow(1);
 
