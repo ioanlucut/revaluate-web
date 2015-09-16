@@ -151,7 +151,7 @@
                         // ---
                         // Auto focus price.
                         // ---
-                        if ( scope.showContent ) {
+                        if (scope.showContent) {
                             $timeout(function () {
                                 el.find(GOAL_INPUT_SELECTOR).focus();
                             });
@@ -171,7 +171,7 @@
                      * On goal updated/deleted - cancel edit mode.
                      */
                     $rootScope.$on(GOAL_EVENTS.isUpdated, function (event, args) {
-                        if ( vm.goal.id === args.goal.id ) {
+                        if (vm.goal.id === args.goal.id) {
 
                             // ---
                             // Now update the master goal, and remove the marked sign.

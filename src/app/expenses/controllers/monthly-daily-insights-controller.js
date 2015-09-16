@@ -32,6 +32,15 @@
         // Customize look.
         // ---
         vm.barOptions = angular.extend(vm.barOptions, {
+            scaleLabel: function (label) {
+                return vm.formatChartValue(label);
+            },
+            multiTooltipTemplate: function (label) {
+                return vm.formatChartValue(label);
+            },
+            tooltipTemplate: function (label) {
+                return vm.formatChartValue(label);
+            },
             scaleShowHorizontalLines: false,
             scaleShowVerticalLines: false,
             scaleShowLabels: false,
