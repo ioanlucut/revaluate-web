@@ -1,5 +1,15 @@
 <div expense-add categories="vm.categories"></div>
 
+<!--Empty state-->
+<div class="expenses__empty-state" ng-if="vm.expenses.length === 0">
+    <div class="expenses__empty-state__icon"></div>
+    <h1>No expenses yet.</h1>
+
+    <div>It seems like you have no expenses yet. Start adding some or
+        <a href="javascript:void(0)" ui-sref="settings.import.choose">import your expenses</a>.
+    </div>
+</div>
+
 <div class="expenses__column__left">
 
     <!--Expense bulk actions-->
@@ -17,16 +27,6 @@
 
         </div>
 
-    </div>
-
-    <!--Empty state-->
-    <div class="expenses__empty-state" ng-if="vm.expenses.length === 0">
-        <div class="expenses__empty-state__icon"></div>
-        <h1>No expenses yet.</h1>
-
-        <div>It seems like you have no expenses yet. Start adding some or
-            <a href="javascript:void(0)" ui-sref="settings.import.choose">import your expenses</a>.
-        </div>
     </div>
 
     <!--Temporary expense list-->
