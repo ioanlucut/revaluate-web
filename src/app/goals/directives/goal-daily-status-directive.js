@@ -27,18 +27,19 @@
             },
 
             multiTooltipTemplate: function (label) {
-                return label.datasetLabel + ' ' + formatChartValue(label);
+                return formatChartValue(label);
             },
 
             tooltipTemplate: function (label) {
-                return label.label + ' ' + formatChartValue(label);
+                return formatChartValue(label);
             },
 
             scaleShowHorizontalLines: false,
             scaleShowVerticalLines: false,
             scaleShowLabels: false,
-            showScale: false,
-            scaleFontSize: 12,
+            scaleShowGridLines: false,
+            showScale: true,
+            scaleFontSize: 10,
             tooltipFontSize: 12,
             tooltipTitleFontSize: 12,
             tooltipYPadding: 10,
