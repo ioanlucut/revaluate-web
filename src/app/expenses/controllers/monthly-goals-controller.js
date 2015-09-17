@@ -1,18 +1,13 @@
 (function () {
     'use strict';
 
-    function MonthlyGoalsController(EXPENSE_EVENTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, $scope, DatesUtils, promiseTracker, GoalService, monthsPerYearsStatistics, goals) {
+    function MonthlyGoalsController(EXPENSE_EVENTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, $scope, DatesUtils, promiseTracker, GoalService, goals) {
         var vm = this;
 
         /**
          * Load insights
          */
         vm.loadGoals = loadGoals;
-
-        /**
-         * Goals months per years statistics
-         */
-        vm.monthsPerYearsStatistics = monthsPerYearsStatistics;
 
         /**
          * Goals of this month
@@ -62,9 +57,9 @@
         });
 
         function tryToReloadIfNecessary(args) {
-            if (args.expense) {
+            if ( args.expense ) {
                 reloadIfRequired(args.expense);
-            } else if (args.expenses) {
+            } else if ( args.expenses ) {
                 _.each(args.expenses, function (expenseCandidate) {
                     reloadIfRequired(expenseCandidate);
                 });
@@ -74,7 +69,7 @@
         function reloadIfRequired(expense) {
             var isSameMonth = moment().isSame(moment(expense.spentDate), 'month');
 
-            if (isSameMonth) {
+            if ( isSameMonth ) {
                 vm.loadGoals();
             }
         }

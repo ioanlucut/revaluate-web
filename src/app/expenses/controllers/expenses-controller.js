@@ -69,6 +69,13 @@
             return this.expensesQueryResponse.currentSize === this.expensesQueryResponse.totalSize;
         };
 
+        /**
+         * Is overall transactions empty
+         */
+        this.isOverallTransactionsEmpty = function () {
+            return vm.expenses.length === 0 && vm.temporaryExpenses.length === 0;
+        };
+
         function loadMoreExpenses() {
             if (vm.isUpdatingListLayout || vm.isNoMoreExpensesToBeLoaded()) {
                 return;
