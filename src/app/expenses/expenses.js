@@ -28,7 +28,7 @@
                         'expenses__content': {
                             templateUrl: '/app/expenses/partials/expenses-content.tpl.html',
                             controller: 'ExpensesController',
-                            controllerAs: 'vm',
+                            controllerAs: 'expensesVm',
                             resolve: {
                                 expensesQueryResponse: function (ExpenseService) {
                                     return ExpenseService.getAllExpensesGrouped(0, 50);
@@ -39,16 +39,11 @@
                                 }
                             }
                         },
-                        'expenses__daily__insights__content': {
+                        'expenses__daily__insights__content@expenses.regular': {
                             templateUrl: '/app/expenses/partials/monthly-daily-insights.tpl.html',
                             controller: 'MonthlyDailyInsightsController',
                             controllerAs: 'vm',
                             resolve: {
-                                monthsPerYearsStatistics: function (StatisticService) {
-                                    return StatisticService
-                                        .fetchExpensesMonthsPerYearStatistics();
-                                },
-
                                 insightsDaily: function (DatesUtils, InsightsService) {
                                     var period = DatesUtils.fromLastMonthsToNow(1);
 
@@ -57,16 +52,11 @@
                                 }
                             }
                         },
-                        'expenses__goals__content': {
+                        'expenses__goals__content@expenses.regular': {
                             templateUrl: '/app/expenses/partials/monthly-goals.tpl.html',
                             controller: 'MonthlyGoalsController',
                             controllerAs: 'vm',
                             resolve: {
-                                monthsPerYearsStatistics: function (StatisticService) {
-                                    return StatisticService
-                                        .fetchGoalsMonthsPerYearStatistics();
-                                },
-
                                 goals: function (GoalService, DatesUtils) {
                                     var period = DatesUtils.fromLastMonthsToNow(1);
 
