@@ -43,7 +43,7 @@
          */
         vm.prevMonth = function () {
             moveToTheNextMonthUsing(function (failedCandidateAsMoment) {
-                if (failedCandidateAsMoment.month() === 1) {
+                if (failedCandidateAsMoment.month() === 0) {
                     return failedCandidateAsMoment.subtract(1, 'years').set('month', 11);
                 }
 

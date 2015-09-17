@@ -5,7 +5,7 @@
     color: $gray-medium;
 
     .goals__empty-state__icon {
-        @include cssSprite($icon-timeline-gray);
+        @include cssSprite($icon-goals-gray);
         margin: 0 auto;
     }
 }
