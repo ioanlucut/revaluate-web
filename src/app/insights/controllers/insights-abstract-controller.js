@@ -15,6 +15,8 @@
          */
         vm.user = $rootScope.currentUser;
 
+        vm.formatChartValue = formatChartValue;
+
         /**
          * Insights months per years.
          */

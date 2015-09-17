@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function MonthlyDailyInsightsController(EXPENSE_EVENTS, USER_ACTIVITY_EVENTS, ALERTS_EVENTS, $controller, $scope, $rootScope, $filter, InsightsGenerator, DatesUtils, InsightsService, promiseTracker, monthsPerYearsStatistics, insightsDaily) {
+    function MonthlyDailyInsightsController(EXPENSE_EVENTS, USER_ACTIVITY_EVENTS, ALERTS_EVENTS, $controller, $scope, $rootScope, $filter, InsightsGenerator, DatesUtils, InsightsService, promiseTracker, insightsDaily) {
 
         var vm = this;
 
@@ -22,7 +22,7 @@
             $scope: $scope,
             $rootScope: $rootScope,
             $filter: $filter,
-            monthsPerYearsStatistics: monthsPerYearsStatistics,
+            monthsPerYearsStatistics: null,
             resizeOnUpdate: false,
             getChartSetSize: function () {
             }
@@ -32,6 +32,15 @@
         // Customize look.
         // ---
         vm.barOptions = angular.extend(vm.barOptions, {
+            scaleLabel: function (label) {
+                return vm.formatChartValue(label);
+            },
+            multiTooltipTemplate: function (label) {
+                return vm.formatChartValue(label);
+            },
+            tooltipTemplate: function (label) {
+                return vm.formatChartValue(label);
+            },
             scaleShowHorizontalLines: false,
             scaleShowVerticalLines: false,
             scaleShowLabels: false,
