@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function IntegrationAuthorizedController(ALERTS_EVENTS, USER_ACTIVITY_EVENTS, INTEGRATIONS_CONSTANTS, ALERTS_CONSTANTS, ENV, IntegrationsService, $timeout, $location, $scope, $rootScope, promiseTracker) {
+    function IntegrationAuthorizedController(ALERTS_EVENTS, USER_ACTIVITY_EVENTS, INTEGRATIONS_CONSTANTS, ALERTS_CONSTANTS, ENV, StatesHandler, IntegrationsService, $timeout, $location, $scope, $rootScope, promiseTracker) {
 
         var vm = this;
 
@@ -50,7 +50,8 @@
                     $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.appIntegrated);
 
                     $scope.$emit(ALERTS_EVENTS.SUCCESS, {
-                        message: 'Integration added.'
+                        message: 'Integration added. Redirecting..',
+                        alertId: vm.alertId
                     });
                 })
                 .catch(function () {
@@ -60,7 +61,12 @@
                         message: 'Could not add integration.',
                         alertId: vm.alertId
                     });
-                });
+                })
+                .finally(function () {
+                    $timeout(function () {
+                        StatesHandler.goToIntegrations();
+                    }, 2000);
+                })
         }
 
     }
