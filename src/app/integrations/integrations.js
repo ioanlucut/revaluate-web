@@ -26,6 +26,12 @@
                     templateUrl: '/app/integrations/partials/integrations.main.tpl.html',
                     controller: 'IntegrationsMainController',
                     controllerAs: 'vm',
+                    resolve: {
+                        integrations: function (IntegrationsService) {
+                            return IntegrationsService
+                                .getAllIntegrations();
+                        }
+                    },
                     title: 'Integrations - Revaluate',
                     stateEventName: 'integrations-main'
                 })
@@ -47,6 +53,6 @@
                     templateUrl: '/app/integrations/partials/integrations.invalid.tpl.html',
                     title: 'Invalid confirmation email token - Revaluate',
                     stateEventName: 'integrations-denied'
-                })
+                });
         });
 }());
