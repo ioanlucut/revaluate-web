@@ -27,6 +27,7 @@
             'revaluate.account',
             'revaluate.settings',
             'revaluate.insights',
+            'revaluate.integrations',
             'ngIntercom',
             'revaluate.intercom',
             'ui.gravatar',

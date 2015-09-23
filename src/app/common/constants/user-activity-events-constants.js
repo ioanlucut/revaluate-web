@@ -29,6 +29,9 @@
             goalDeleted: 'Goal deleted',
             goalsFetched: 'Goals fetched',
 
+            appIntegrated: 'Slack app integrated',
+            appIntegrationFailed: 'Slack app integration failed',
+
             insightsPage: 'Insights page',
             insightsFetched: 'Insights fetched',
             insightsOverviewFetched: 'Insights overview fetched',
