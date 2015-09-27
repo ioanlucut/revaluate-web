@@ -66,7 +66,7 @@
                     $timeout(function () {
                         StatesHandler.goToIntegrations();
                     }, 2000);
-                })
+                });
         }
 
     }
