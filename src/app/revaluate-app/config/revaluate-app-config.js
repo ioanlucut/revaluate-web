@@ -11,7 +11,8 @@ angular.module("config", [])
 		"GOOGLE": "997617697610-sl7dselm1osn67p84ks5vvupbui2nhlb.apps.googleusercontent.com"
 	},
 	"redirectUri": "http://localhost:3000",
-	"isProduction": false
+	"isProduction": false,
+	"isMaintenanceMode": true
 })
 
 ;
