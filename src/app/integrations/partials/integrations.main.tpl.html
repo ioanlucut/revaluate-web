@@ -13,6 +13,10 @@
                 {{integration.appIntegrationScopeType}}
                 {{integration.slackUserId}}
                 {{integration.slackTeamId}}
+
+                <div class="categories__edit__category__controls">
+                    <button class="categories__edit__category__delete" ng-click="vm.deleteIntegration(integration)">{{vm.deleteTracker.active() ? 'Deleting.' : 'Delete'}}</button>
+                </div>
             </div>
         </div>
 
