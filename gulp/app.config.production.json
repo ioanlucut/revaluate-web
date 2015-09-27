@@ -11,6 +11,6 @@
         },
         "redirectUri": "https://www.revaluate.io",
         "isProduction": true,
-        "isMaintenanceMode": false
+        "isMaintenanceMode": true
     }
 }
