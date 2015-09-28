@@ -12,12 +12,16 @@
         <div class="integrations__list">
             <h2 class="integrations__list__header">Your active integrations</h2>
 
+            <!--Empty list-->
+            <div class="integrations__list__entry" ng-show="vm.integrations.length === 0">No active integrations</div>
+
             <div class="integrations__list__entry" ng-repeat="integration in vm.integrations track by integration.id">
-                <img class="integrations__list__entry__logo" src="../../../../assets/img/logo_slack.png"/>
+                <img class="integrations__list__entry__logo" src="/assets/img/logo_slack.png" />
+
                 <div class="integrations__list__entry__name">Slack</div>
                 <div class="integrations__list__entry__authorized">Authorized for team: {{integration.slackTeamId}}</div>
                 <div class="integrations__list__entry__action">
-                    <a href="javascript:void(0)">Disconnect</a>
+                    <button type="button" ng-disabled="vm.deleteTracker.active()" ng-click="vm.deleteIntegration(integration)">{{vm.deleteTracker.active() ? 'Disconnecting..' : 'Disconnect'}}</button>
                 </div>
             </div>
         </div>
@@ -28,7 +32,8 @@
 
             <div class="integrations__list__entry">
                 <div class="integrations__list__entry__row">
-                    <img class="integrations__list__entry__logo" src="../../../../assets/img/logo_slack.png"/>
+                    <img class="integrations__list__entry__logo" src="/assets/img/logo_slack.png" />
+
                     <div class="integrations__list__entry__name">Slack</div>
                 </div>
 
@@ -42,7 +47,7 @@
                     <ul class="integrations__list__entry__tutorial__step__description">
                         <li><span>Step 1:</span> Go to your Slack account to add a <a href="https://slack.com/services/new/slash-commands" target="_blank">new slash command</a>.</li>
                         <li><span>Step 2:</span> In the <strong>Choose a Command</strong> input, add <code>/revaluate</code></li>
-                        <li><img src="../../../../assets/img/integrations/integration_slack_02.png" /></li>
+                        <li><img src="/assets/img/integrations/integration_slack_02.png" /></li>
 
                         <li><span>Step 3:</span> Click on the <strong>Add Slash Command Integration</strong> button.</li>
                         <li><span>Step 4:</span> In the new loaded screen, go to <strong>Integration Settings</strong> section.</li>
@@ -50,7 +55,7 @@
                             <ul>
                                 <li>URL: <code>https://revaluate-api.herokuapp.com/slack</code></li>
                                 <li>Method: <code>GET</code></li>
-                                <img src="../../../../assets/img/integrations/integration_slack_03.png" />
+                                <img src="/assets/img/integrations/integration_slack_03.png" />
 
                                 <li>Autocomplete Help Text:
                                     <ul>
@@ -58,7 +63,7 @@
                                         <li> Usage hint: <code>[command] - “/revaluate help” for additional info</code></li>
                                     </ul>
                                 </li>
-                                <img src="../../../../assets/img/integrations/integration_slack_04.png" />
+                                <img src="/assets/img/integrations/integration_slack_04.png" />
                             </ul>
                         </li>
 
