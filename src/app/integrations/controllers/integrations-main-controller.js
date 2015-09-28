@@ -3,7 +3,7 @@
 
     angular
         .module('revaluate.integrations')
-        .controller('IntegrationsMainController', function ($scope, $rootScope, INTEGRATIONS_CONSTANTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, ENV, IntegrationService, promiseTracker, integrations) {
+        .controller('IntegrationsMainController', function ($scope, $rootScope, INTEGRATIONS_CONSTANTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, ENV, IntegrationsService, promiseTracker, integrations) {
 
             var vm = this;
 
@@ -30,8 +30,11 @@
              */
             vm.deleteIntegration = deleteIntegration;
 
+            // ---
+            // Private methods.
+            // ---
             function deleteIntegration(entry) {
-                IntegrationService
+                IntegrationsService
                     .deleteIntegration(entry, vm.deleteTracker)
                     .then(function () {
                         _.remove(vm.integrations, 'id', entry.id);
