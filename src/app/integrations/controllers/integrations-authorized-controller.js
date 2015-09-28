@@ -1,24 +1,21 @@
 (function () {
     'use strict';
 
-    function IntegrationAuthorizedController(ALERTS_EVENTS, USER_ACTIVITY_EVENTS, INTEGRATIONS_CONSTANTS, ALERTS_CONSTANTS, ENV, StatesHandler, IntegrationsService, $timeout, $location, $scope, $rootScope, promiseTracker) {
+    function IntegrationAuthorizedController(ALERTS_EVENTS, USER_ACTIVITY_EVENTS, INTEGRATIONS_CONSTANTS, ALERTS_CONSTANTS, ENV, StatesHandler, IntegrationsService, $timeout, $location, $scope, $rootScope) {
 
-        var vm = this;
+        var vm = this,
+            AUTHORIZATION_TIMEOUT = 100,
+            REDIRECT_TIMEOUT = 5000;
 
         /**
          * Alert identifier
          */
-        this.alertId = ALERTS_CONSTANTS.oauthIntegrations;
+        vm.alertId = ALERTS_CONSTANTS.oauthIntegrations;
 
         /**
          * The current user
          */
-        this.user = $rootScope.currentUser;
-
-        /**
-         * Create a loading tracker.
-         */
-        vm.loadTracker = promiseTracker();
+        vm.user = $rootScope.currentUser;
 
         /**
          * Creates the oauth entry
@@ -27,45 +24,51 @@
 
         //$location.search().state !== $rootScope.currentUser.model.id
 
-        if (_.isUndefined($location.search().code)) {
+        // ---
+        // Try to authorize.
+        // ---
+        if (!_.isUndefined($location.search().code)) {
+            vm.createOauthEntry();
+        } else {
             $timeout(function () {
                 $scope.$emit(ALERTS_EVENTS.DANGER, {
                     message: 'The URL format is invalid. Please try again.',
                     alertId: vm.alertId
                 });
-            }, 100);
-        } else {
-            vm.createOauthEntry();
+
+            }, AUTHORIZATION_TIMEOUT);
         }
 
+        // ---
+        // Private functions.
+        // ---
+
         function createOauthEntry() {
-            if (vm.loadTracker.active()) {
-
-                return;
-            }
-
             IntegrationsService
-                .createOauthEntry($location.search().code, INTEGRATIONS_CONSTANTS.returnUriFormat.format(ENV.redirectUri), vm.loadTracker)
+                .createOauthEntry($location.search().code, INTEGRATIONS_CONSTANTS.returnUriFormat.format(ENV.redirectUri))
                 .then(function () {
                     $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.appIntegrated);
 
                     $scope.$emit(ALERTS_EVENTS.SUCCESS, {
-                        message: 'Integration added. Redirecting..',
+                        message: 'Integration successfully added. Redirecting..',
                         alertId: vm.alertId
                     });
+
+                    $timeout(function () {
+                        StatesHandler.goToIntegrations();
+                    }, REDIRECT_TIMEOUT);
                 })
                 .catch(function () {
                     $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.appIntegrationFailed);
 
                     $scope.$emit(ALERTS_EVENTS.DANGER, {
-                        message: 'Could not add integration.',
+                        message: 'Could not authorize integration. Please make sure the URL is proper.',
                         alertId: vm.alertId
                     });
+
                 })
                 .finally(function () {
-                    $timeout(function () {
-                        StatesHandler.goToIntegrations();
-                    }, 2000);
+                    vm.isAuthCallFinished = true;
                 });
         }
 

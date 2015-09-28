@@ -3,12 +3,12 @@
 
     function IntegrationsService(INTEGRATIONS_CONSTANTS, IntegrationsTransformerService, $http) {
 
-        this.createOauthEntry = function (code, redirectUri, tracker) {
+        this.createOauthEntry = function (code, redirectUri) {
             return $http
                 .post(URLTo.api(INTEGRATIONS_CONSTANTS.createOauthEntry, {
                     ':code': code,
                     ':redirect_uri': redirectUri
-                }, { tracker: tracker }))
+                }))
                 .then(IntegrationsTransformerService.integrationApiResponseTransformer);
         };
 

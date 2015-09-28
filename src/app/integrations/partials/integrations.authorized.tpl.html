@@ -10,13 +10,13 @@
         <!-- Flash messages. -->
         <div flash-messages flash="flash" identifier-id="{{vm.alertId}}"></div>
 
-        <div style="position:relative">
-            <div class="spinner insights__loading" ng-if="vm.loadTracker.active()">
+        <div style="position:relative" ng-hide="vm.isAuthCallFinished">
+            <div class="spinner insights__loading">
                 <div class="double-bounce1"></div>
                 <div class="double-bounce2"></div>
             </div>
 
-            <div ng-if="vm.loadTracker.active()">Please wait until we authorize this integration</div>
+            <div>Please wait until we authorize this integration.</div>
         </div>
 
     </div>
