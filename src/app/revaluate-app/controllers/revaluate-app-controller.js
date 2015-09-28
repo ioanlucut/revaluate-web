@@ -150,13 +150,6 @@
                 // Say HI.
                 // ---
                 $rootScope.greet = GreeterService.greet();
-
-                // ---
-                // Handle fullpage.
-                // ---
-                if ($.fn.fullpage && $.fn.fullpage.destroy) {
-                    $.fn.fullpage.destroy('all');
-                }
             });
 
             $rootScope.$on('$viewContentLoaded', function () {
