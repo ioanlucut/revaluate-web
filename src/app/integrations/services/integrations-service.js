@@ -18,6 +18,11 @@
                 .then(IntegrationsTransformerService.integrationApiResponseTransformer);
         };
 
+        this.deleteIntegration = function (integration, tracker) {
+            return $http
+                .delete(URLTo.api(INTEGRATIONS_CONSTANTS.removeOauth, { ':id': integration.id }), { tracker: tracker });
+        };
+
     }
 
     angular
