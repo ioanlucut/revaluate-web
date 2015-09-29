@@ -38,7 +38,7 @@
         .integrations__list__entry__action {
             float: right;
 
-            a {
+            button {
                 @include btn($brand-danger);
             }
         }

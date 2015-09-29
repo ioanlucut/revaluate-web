@@ -4,19 +4,24 @@
     <!-- Integrations small section -->
     <div class="settings__box__section">
 
-        <!-- Title -->
-        <h1 class="settings__title">Authorize integration</h1>
-
         <!-- Flash messages. -->
         <div flash-messages flash="flash" identifier-id="{{vm.alertId}}"></div>
 
         <div style="position:relative" ng-hide="vm.isAuthCallFinished">
-            <div class="spinner insights__loading">
+
+            <!-- Title -->
+            <h1 class="settings__title integrations__authorized__title">Authorize integration</h1>
+
+            <!-- Loading animation-->
+            <div class="spinner insights__loading integrations__authorized__loading">
                 <div class="double-bounce1"></div>
                 <div class="double-bounce2"></div>
             </div>
+        </div>
 
-            <div>Please wait until we authorize this integration.</div>
+        <!-- Image -->
+        <div class="integrations__authorized__image">
+            <img src="/assets/img/integrations/integration_slack_revalaute_logo.png" />
         </div>
 
     </div>
