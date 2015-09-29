@@ -39,15 +39,27 @@
             float: right;
 
             button {
-                @include btn($brand-danger);
+                @include btn($brand-primary);
+            }
+        }
+
+        .integrations__list__entry__action--disconnect {
+            button {
+                @include btn-link($brand-danger);
             }
         }
 
         .integrations__list__entry__row {
             @include clearfix();
+            float: left;
         }
 
         .integrations__list__entry__tutorial {
+            background-color: $gray-light-3;
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            float: left;
 
             .integrations__list__entry__tutorial__intro {
                 padding-top: 10px;
@@ -85,12 +97,18 @@
                     border: solid 1px $gray-light-2;
                 }
             }
-
         }
 
         .integrations__list__entry__connect {
             margin-top: 10px;
         }
+    }
 
+    .integrations__list__entry--new {
+
+        //&:hover {
+        //    background-color: $gray-light-3;
+        //    cursor: pointer;
+        //}
     }
 }
