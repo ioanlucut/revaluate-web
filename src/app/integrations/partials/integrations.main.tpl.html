@@ -19,7 +19,7 @@
 
                 <div class="integrations__list__entry__name">Slack</div>
                 <div class="integrations__list__entry__authorized">Authorized for team: {{integration.slackTeamId}}</div>
-                <div class="integrations__list__entry__action">
+                <div class="integrations__list__entry__action integrations__list__entry__action--disconnect">
                     <button type="button" ng-disabled="vm.deleteTracker.active()" ng-click="vm.deleteIntegration(integration)">{{vm.deleteTracker.active() ? 'Disconnecting..' : 'Disconnect'}}</button>
                 </div>
             </div>
@@ -29,14 +29,18 @@
         <div class="integrations__list">
             <h2 class="integrations__list__header">Add new integration</h2>
 
-            <div class="integrations__list__entry">
+            <div class="integrations__list__entry integrations__list__entry--new">
                 <div class="integrations__list__entry__row">
                     <img class="integrations__list__entry__logo" src="/assets/img/logo_slack.png" />
 
                     <div class="integrations__list__entry__name">Slack</div>
                 </div>
 
-                <div class="integrations__list__entry__tutorial">
+                <div class="integrations__list__entry__action">
+                    <button type="button" ng-click="">Add Integration</button>
+                </div>
+
+                <div class="integrations__list__entry__tutorial" ng-show="false">
                     <div class="integrations__list__entry__tutorial__intro">
                         Slack is the communication tool for modern teams. To connect Revaluate to Slack you'll have to do 2 things:
                     </div>
