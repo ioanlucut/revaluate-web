@@ -18,7 +18,8 @@
             // If new oauth integration is added.
             // ---
             vm.redirectUri = INTEGRATIONS_CONSTANTS.returnUriFormat.format(ENV.redirectUri);
-            vm.state = vm.user.model.id;
+            vm.state = JSON.stringify({ userId: vm.user.model.id });
+            vm.scope = 'identify';
 
             /**
              * Create an deleting tracker.

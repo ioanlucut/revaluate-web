@@ -18,16 +18,19 @@
         vm.user = $rootScope.currentUser;
 
         /**
+         * The current user
+         */
+        vm.oauthState = $rootScope.currentUser;
+
+        /**
          * Creates the oauth entry
          */
         vm.createOauthEntry = createOauthEntry;
 
-        //$location.search().state !== $rootScope.currentUser.model.id
-
         // ---
         // Try to authorize.
         // ---
-        if (!_.isUndefined($location.search().code)) {
+        if (!isUrlUnProper()) {
             vm.createOauthEntry();
         } else {
             $timeout(function () {
@@ -42,6 +45,21 @@
         // ---
         // Private functions.
         // ---
+
+        function isUrlUnProper() {
+            var state;
+
+            if (_.isUndefined($location.search().code) || _.isUndefined($location.search().state)) {
+                return true;
+            }
+
+            try {
+                state = JSON.parse($location.search().state);
+                return state.userId !== vm.user.model.id;
+            } catch (ex) {
+                return true;
+            }
+        }
 
         function createOauthEntry() {
             IntegrationsService
