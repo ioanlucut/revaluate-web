@@ -1,29 +1,42 @@
-.header__wrapper {
+.header__wrapper--top {
     background-color: $header-background-color;
+
+    .header {
+        height: 48px;
+    }
+}
+
+.header__wrapper {
+
+    .header {
+        height: $header-height;
+    }
 }
 
 .header {
     @include outer-container();
     @include clearfix();
-    height: $header-height;
     padding: 0;
+    position: relative;
 }
 
 .header__brand {
     float: left;
-    height: $header-height;
     position: relative;
     margin-right: 40px;
+}
+
+.header__brand--responsive {
+    display: none;
 }
 
 .header__brand--logo {
     @include size($header-brand-logo-size $header-brand-logo-size);
     background: url("../assets/img/logo.svg") no-repeat top left;
     background-size: contain;
-    position: absolute;
+    margin: 6px 2px 0 0;
     display: block;
-    left: 15px;
-    top: ($header-height/2) - ($header-brand-logo-size/2);
+    float: left;
 
     &:hover {
         cursor: pointer;
@@ -33,12 +46,21 @@
 .header__brand--name {
     @include brand-inline();
     color: $white;
-    display: none;
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: $font-weight-regular;
+    float: left;
+    line-height: 45px;
+    padding-left: 5px;
+
+    &:hover {
+        color: $white;
+        cursor: pointer;
+    }
 }
 
 .header__navigation {
     float: left;
-    margin-left: 40px;
     padding: 0;
     height: $header-height;
     @include clearfix();
@@ -47,75 +69,55 @@
         display: block;
         float: left;
         height: 100%;
-        min-width: 120px;
-        padding: 0;
+        padding: 0 20px;
         margin: 0;
         text-align: center;
-        color: lighten($header-background-color, 20%);
-        @include transition(all 0.3s);
+        @include transition(all 0.2s);
         position: relative;
         @include user-select(none);
-
-        &:hover {
-            color: lighten($header-background-color, 40%);
-        }
-
-        .header__navigation__icon {
-            position: absolute;
-            top: 20px;
-            left: 0;
-            right: 0;
-            font-size: 28px;
-        }
-
-        .header__navigation__link,
-        .header__navigation--comingsoon__label {
-            display: block;
-            position: relative;
-            padding-top: 58px;
-            height: 100%;
-            color: lighten($header-background-color, 20%);
-        }
-
-        .header__navigation__link {
-            &:hover {
-                color: lighten($header-background-color, 40%);
-            }
-        }
-
-        .nav-coming-soon {
-            color: lighten($header-background-color, 10%);;
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 5px;
-            font-size: $font-size-small;
-        }
-    }
-
-    .header__navigation--comingsoon:hover {
-        color: lighten($header-background-color, 20%);
-        cursor: default;
     }
 
     .header__navigation--active,
     .header__navigation--active:hover {
-        color: $white;
-        background-color: darken($header-background-color, 4%);
-        border-bottom: solid 5px $brand-danger;
-        text-shadow: 1px 1px 1px darken($header-background-color, 20%);;
+        border-bottom: solid 4px $brand-primary;
 
         a {
-            color: $white;
+            color: $brand-primary;
         }
+    }
+}
+
+.header__navigation__link {
+    display: block;
+    position: relative;
+    padding-top: 20px;
+    height: 100%;
+    color: $gray-medium;
+    text-transform: uppercase;
+
+    &:hover {
+        color: $gray-dark-2;
+    }
+}
+
+.header__navigation__secondary {
+    height: $header-height;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    .header__navigation__link {
+        color: $gray-light-1;
+        text-transform: none;
+        font-weight: $font-weight-regular;
     }
 }
 
 .header__navigation__toggle {
     @include btn-big($brand-primary);
     position: absolute;
-    top: 15px;
-    left: 15px;
+    top: 10px;
+    left: 10px;
     text-transform: uppercase;
     display: none;
 }
@@ -132,7 +134,6 @@
 
 .header__navigation--links__item {
     display: block;
-    width: 35px;
     height: 35px;
     margin: 3px 2px 0 0;
     padding: 0;

@@ -12,7 +12,7 @@ angular.module("config", [])
 	},
 	"redirectUri": "http://localhost:3000",
 	"isProduction": false,
-	"isMaintenanceMode": true
+	"isMaintenanceMode": false
 })
 
 ;
