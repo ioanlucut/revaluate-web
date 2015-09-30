@@ -23,9 +23,9 @@ $base-line-height: 1.5;
 $heading-line-height: 1.2;
 
 // Heights and widths
-$header-height: 100px;
+$header-height: 60px;
 $header-height-responsive: 70px;
-$header-brand-logo-size: 40px;
+$header-brand-logo-size: 35px;
 $header-responsive-breakpoint: 650px;
 
 $setup-currency-input-width: 320px;
@@ -99,7 +99,7 @@ $brand-warning-accent: #F6BB42;
 $brand-warning-dark: darken($brand-warning, 20%);
 $brand-warning-light: lighten($brand-warning, 30%);
 
-$header-background-color: #2C3E50;
+$header-background-color: $gray-dark-2;
 $landing-page: #363b48;
 
 $social-facebook-color: #3b5998;
