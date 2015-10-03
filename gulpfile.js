@@ -24,6 +24,9 @@ var options = {
             },
             "accounting.js": {
                 "main": "./accounting.js"
+            },
+            "hello": {
+                "main": "./dist/hello.all.js"
             }
         },
         exclude: ['bower_components/bootstrap-sass/assets/javascripts/bootstrap.js'],

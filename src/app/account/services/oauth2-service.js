@@ -11,9 +11,11 @@
             hello
                 .init({
                     facebook: ENV.OAUTH2_CLIENT_IDS.FACEBOOK,
-                    google: ENV.OAUTH2_CLIENT_IDS.GOOGLE
+                    google: ENV.OAUTH2_CLIENT_IDS.GOOGLE,
+                    slack: ENV.OAUTH2_CLIENT_IDS.SLACK
                 }, {
-                    redirect_uri: ENV.redirectUri
+                    redirect_uri: ENV.redirectUri,
+                    oauth_proxy: URLTo.api('oauth/grant')
                 });
 
             /**
@@ -41,6 +43,27 @@
                     });
 
                 return deferred.promise;
+            };
+
+            /**
+             * Connect with app to integrate and get profile.
+             */
+            this.connectWithAppGet = function (provider) {
+                return hello(provider)
+                    .login({ scope: 'identify', response_type: 'code' })
+                    .then(function (authCallResponse) {
+                        return hello(provider)
+                            .api('/me')
+                            .then(function (me) {
+                                return {
+                                    accessToken: authCallResponse.authResponse.access_token,
+                                    scopes: authCallResponse.authResponse.scope,
+                                    userId: me.user_id,
+                                    teamId: me.team_id,
+                                    teamName: me.team
+                                }
+                            });
+                    });
             };
         });
 }());
