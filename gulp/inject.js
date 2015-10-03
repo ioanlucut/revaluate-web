@@ -30,6 +30,7 @@ module.exports = function (options) {
 
         var injectScripts = gulp.src([
             options.src + '/app/**/*.js',
+            options.src + '/vendor/**/*.js',
             '!' + options.src + '/app/**/*.spec.js',
             '!' + options.src + '/app/**/*test.js',
             '!' + options.src + '/app/**/*.mock.js'

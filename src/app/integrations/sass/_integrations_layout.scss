@@ -1,0 +1,120 @@
+.integrations__list {
+
+    h2.integrations__list__header {
+        font-size: $font-size-larger;
+        font-weight: $font-weight-regular;
+        color: $gray-medium;
+        padding-top: 30px;
+    }
+
+    .integrations__list__entry {
+        @include clearfix();
+        @include border-radius($base-border-radius);
+        padding: 10px;
+        border: solid 1px $gray-light-2;
+        margin-bottom: 10px;
+
+        .integrations__list__entry__logo,
+        .integrations__list__entry__name,
+        .integrations__list__entry__authorized {
+            float: left;
+        }
+
+        .integrations__list__entry__logo {
+            height: 35px;
+        }
+
+        .integrations__list__entry__name {
+            font-size: 22px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .integrations__list__entry__authorized {
+            line-height: 35px;
+            color: $gray-light-1;
+        }
+
+        .integrations__list__entry__action {
+            float: right;
+
+            button {
+                @include btn($brand-primary);
+            }
+        }
+
+        .integrations__list__entry__action--disconnect {
+            margin-top: 3px;
+
+            button {
+                @include btn-link($brand-danger);
+            }
+        }
+
+        .integrations__list__entry__row {
+            @include clearfix();
+            float: left;
+        }
+
+        .integrations__list__entry__tutorial {
+            background-color: $gray-light-3;
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            float: left;
+
+            .integrations__list__entry__tutorial__intro {
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+
+            .integrations__list__entry__tutorial__step__title {
+                margin-top: 30px;
+                border-bottom: solid 1px $gray-light-2;
+                font-weight: $font-weight-bold;
+            }
+
+            .integrations__list__entry__tutorial__step__description {
+
+                li {
+                    padding: 10px 0 5px 0;
+
+                    // Format "Step X" text
+                    span {
+                        color: $gray-medium;
+                    }
+
+                    // Substep lists
+                    ul {
+                        list-style: circle;
+                        margin-left: 20px;
+
+                        li ul {
+                            list-style: square;
+                        }
+                    }
+                }
+
+                li img {
+                    border: solid 1px $gray-light-2;
+                }
+            }
+        }
+
+        .integrations__list__entry__connect {
+            margin-top: 10px;
+        }
+
+        .panel-title {
+            margin: 0;
+        }
+    }
+
+    .integrations__list__entry--new {
+
+        //&:hover {
+        //    background-color: $gray-light-3;
+        //    cursor: pointer;
+        //}
+    }
+}

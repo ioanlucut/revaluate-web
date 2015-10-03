@@ -150,13 +150,6 @@
                 // Say HI.
                 // ---
                 $rootScope.greet = GreeterService.greet();
-
-                // ---
-                // Handle fullpage.
-                // ---
-                if ($.fn.fullpage && $.fn.fullpage.destroy) {
-                    $.fn.fullpage.destroy('all');
-                }
             });
 
             $rootScope.$on('$viewContentLoaded', function () {
@@ -194,7 +187,7 @@
                 if (args.alertId) {
                     flash.to(args.alertId).error = args.message;
                 } else {
-                    AlertService.addDanger(args.message);
+                    AlertService.addDanger(args);
                 }
             });
 
@@ -209,7 +202,11 @@
             });
 
             $scope.$on(ALERTS_EVENTS.SUCCESS, function (event, args) {
-                AlertService.addSuccess(args);
+                if (args.alertId) {
+                    flash.to(args.alertId).success = args.message;
+                } else {
+                    AlertService.addSuccess(args);
+                }
             });
         });
 }());
