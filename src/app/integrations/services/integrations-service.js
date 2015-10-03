@@ -3,18 +3,15 @@
 
     function IntegrationsService(INTEGRATIONS_CONSTANTS, IntegrationsTransformerService, $http) {
 
-        this.createOauthEntry = function (code, redirectUri, tracker) {
+        this.addIntegrationAs = function (profile, tracker) {
             return $http
-                .post(URLTo.api(INTEGRATIONS_CONSTANTS.createOauthEntry, {
-                    ':code': code,
-                    ':redirect_uri': redirectUri
-                }, { tracker: tracker }))
+                .post(URLTo.api(INTEGRATIONS_CONSTANTS.addIntegration), profile, { tracker: tracker })
                 .then(IntegrationsTransformerService.integrationApiResponseTransformer);
         };
 
         this.getAllIntegrations = function (tracker) {
             return $http
-                .get(URLTo.api(INTEGRATIONS_CONSTANTS.createOauthEntry), { tracker: tracker })
+                .get(URLTo.api(INTEGRATIONS_CONSTANTS.addIntegration), { tracker: tracker })
                 .then(IntegrationsTransformerService.integrationApiResponseTransformer);
         };
 

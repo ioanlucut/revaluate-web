@@ -36,6 +36,11 @@
                 slackTeamId: data.slackTeamId,
 
                 /**
+                 * The slack team name
+                 */
+                slackTeamName: data.slackTeamName,
+
+                /**
                  * Created date of the goal.
                  */
                 createdDate: data.createdDate,
