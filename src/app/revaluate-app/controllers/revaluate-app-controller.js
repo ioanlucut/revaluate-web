@@ -31,13 +31,14 @@
             // ---
             // Bootstrap intercom & mixpanel.
             // ---
-            if (ENV.isProduction) {
-                if (AuthService.isAuthenticated()) {
-                    IntercomUtilsService.bootIntercom($rootScope.currentUser);
+            if (AuthService.isAuthenticated()) {
+                IntercomUtilsService.bootIntercom($rootScope.currentUser);
+
+                if (ENV.isProduction) {
                     MixpanelUtilsService.bootMixpanel($rootScope.currentUser);
-                } else {
-                    MixpanelUtilsService.initMixpanel();
                 }
+            } else {
+                MixpanelUtilsService.initMixpanel();
             }
 
             if (!ENV.isProduction) {
