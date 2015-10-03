@@ -187,7 +187,7 @@
                 if (args.alertId) {
                     flash.to(args.alertId).error = args.message;
                 } else {
-                    AlertService.addDanger(args.message);
+                    AlertService.addDanger(args);
                 }
             });
 
