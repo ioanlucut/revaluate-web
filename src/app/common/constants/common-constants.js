@@ -8,6 +8,7 @@
         .module('revaluate.common')
         .constant('STATES', {
             home: 'home',
+            integrations: 'settings.integrations.main',
             profile: 'profile',
             expenses: 'expenses.regular',
             setUp: 'setup',
