@@ -20,6 +20,13 @@
     user-select: none;
 }
 
+@mixin set-user-select() {
+    -webkit-user-select: initial;
+    -moz-user-select: initial;
+    -ms-user-select: initial;
+    user-select: initial;
+}
+
 @mixin word-wrap() {
     -ms-word-break: break-all;
     word-break: break-all;
