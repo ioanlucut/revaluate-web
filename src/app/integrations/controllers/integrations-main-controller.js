@@ -63,9 +63,11 @@
                     .connectWithAppGet(provider)
                     .then(function (profile) {
                         createOauthEntryWith(profile, vm.addTracker);
+                        $scope.$apply();
                     })
                     .then(null, function () {
                         $scope.$emit(ALERTS_EVENTS.DANGER, 'Sorry, something went wrong.');
+                        $scope.$apply();
                     });
             }
 
