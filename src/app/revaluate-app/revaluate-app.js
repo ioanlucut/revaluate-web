@@ -27,6 +27,7 @@
             'revaluate.account',
             'revaluate.settings',
             'revaluate.insights',
+            'revaluate.integrations',
             'ngIntercom',
             'revaluate.intercom',
             'ui.gravatar',
@@ -37,6 +38,7 @@
             'infinite-scroll',
             'snap',
             'ajoslin.promise-tracker',
+            'ui.bootstrap.accordion',
             'duScroll'
         ])
         .config(function ($locationProvider, $translateProvider, ChartJsProvider, CacheFactoryProvider, gravatarServiceProvider, ngToastProvider) {
