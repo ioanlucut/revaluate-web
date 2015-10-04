@@ -77,6 +77,7 @@
 
                         $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Integration successfully added.');
 
+                        _.remove(vm.integrations, 'id', addedIntegration.id);
                         vm.integrations.push(addedIntegration);
                         vm.accordionStatus.isOpen = false;
                     })
