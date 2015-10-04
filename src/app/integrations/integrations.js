@@ -35,13 +35,5 @@
                     title: 'Integrations - Revaluate',
                     stateEventName: 'integrations-main'
                 })
-
-                .state({
-                    name: 'settings.integrations.deny',
-                    url: '/denied',
-                    templateUrl: '/app/integrations/partials/integrations.invalid.tpl.html',
-                    title: 'Invalid confirmation email token - Revaluate',
-                    stateEventName: 'integrations-denied'
-                });
         });
 }());
