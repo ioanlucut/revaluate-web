@@ -61,6 +61,7 @@
             accountConfirmationEmailValid: 'Account confirmation email valid',
             accountConfirmationEmailInvalid: 'Account confirmation email invalid',
             accountSetup: 'Account setup page',
+            accountCanceled: 'Account canceled',
 
             accountSetupFinished: 'Account setup finished',
 

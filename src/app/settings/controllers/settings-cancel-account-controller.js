@@ -3,8 +3,7 @@
 
     angular
         .module('revaluate.settings')
-        .controller('SettingsCancelAccountController', function ($q, $scope, $rootScope, $timeout, StatesHandler, AuthService, ALERTS_EVENTS, ALERTS_CONSTANTS) {
-
+        .controller('SettingsCancelAccountController', function ($q, $scope, $rootScope, $timeout, USER_ACTIVITY_EVENTS, StatesHandler, IntercomUtilsService, AuthService, ALERTS_EVENTS, ALERTS_CONSTANTS) {
 
             var vm = this;
 
@@ -20,7 +19,7 @@
              */
             vm.cancelAccount = function () {
 
-                if (vm.isDeleting) {
+                if ( vm.isDeleting ) {
                     return;
                 }
 
@@ -29,6 +28,12 @@
                 AuthService
                     .cancelAccount()
                     .then(function () {
+
+                        // ---
+                        // Mark this user as canceled in intercom.
+                        // ---
+                        IntercomUtilsService.updateIntercom($rootScope.currentUser, { intercomAttributes: { canceled: true } });
+                        $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.accountCanceled);
 
                         $scope.$emit(ALERTS_EVENTS.SUCCESS, 'We\'ve successfully deleted your account!');
                         vm.isDeleting = false;
