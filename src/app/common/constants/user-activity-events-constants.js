@@ -29,6 +29,10 @@
             goalDeleted: 'Goal deleted',
             goalsFetched: 'Goals fetched',
 
+            appIntegrated: 'Slack app integrated',
+            appIntegrationDeleted: 'Slack app integration deleted',
+            appIntegrationFailed: 'Slack app integration failed',
+
             insightsPage: 'Insights page',
             insightsFetched: 'Insights fetched',
             insightsOverviewFetched: 'Insights overview fetched',
@@ -57,6 +61,7 @@
             accountConfirmationEmailValid: 'Account confirmation email valid',
             accountConfirmationEmailInvalid: 'Account confirmation email invalid',
             accountSetup: 'Account setup page',
+            accountCanceled: 'Account canceled',
 
             accountSetupFinished: 'Account setup finished',
 

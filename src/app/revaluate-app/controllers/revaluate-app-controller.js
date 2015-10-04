@@ -31,13 +31,14 @@
             // ---
             // Bootstrap intercom & mixpanel.
             // ---
-            if (ENV.isProduction) {
-                if (AuthService.isAuthenticated()) {
-                    IntercomUtilsService.bootIntercom($rootScope.currentUser);
+            if (AuthService.isAuthenticated()) {
+                IntercomUtilsService.bootIntercom($rootScope.currentUser);
+
+                if (ENV.isProduction) {
                     MixpanelUtilsService.bootMixpanel($rootScope.currentUser);
-                } else {
-                    MixpanelUtilsService.initMixpanel();
                 }
+            } else {
+                MixpanelUtilsService.initMixpanel();
             }
 
             if (!ENV.isProduction) {
@@ -150,13 +151,6 @@
                 // Say HI.
                 // ---
                 $rootScope.greet = GreeterService.greet();
-
-                // ---
-                // Handle fullpage.
-                // ---
-                if ($.fn.fullpage && $.fn.fullpage.destroy) {
-                    $.fn.fullpage.destroy('all');
-                }
             });
 
             $rootScope.$on('$viewContentLoaded', function () {
@@ -194,7 +188,7 @@
                 if (args.alertId) {
                     flash.to(args.alertId).error = args.message;
                 } else {
-                    AlertService.addDanger(args.message);
+                    AlertService.addDanger(args);
                 }
             });
 
@@ -209,7 +203,11 @@
             });
 
             $scope.$on(ALERTS_EVENTS.SUCCESS, function (event, args) {
-                AlertService.addSuccess(args);
+                if (args.alertId) {
+                    flash.to(args.alertId).success = args.message;
+                } else {
+                    AlertService.addSuccess(args);
+                }
             });
         });
 }());

@@ -22,6 +22,7 @@
             insights: 'insights',
             categoryList: 'categoryList',
             goalList: 'goalList',
+            oauthIntegrations: 'oauthIntegrations',
             createUpdateCategory: 'createUpdateCategory',
             updateProfile: 'updateProfile',
             paymentProfile: 'paymentProfile',
