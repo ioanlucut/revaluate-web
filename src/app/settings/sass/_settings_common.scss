@@ -72,6 +72,10 @@
     }
 }
 
+.settings__box--selectable {
+    @include set-user-select();
+}
+
 .settings__box__section--large,
 .settings__box__section--medium,
 .settings__box__section--small {
