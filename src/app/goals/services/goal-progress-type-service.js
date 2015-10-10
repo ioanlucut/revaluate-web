@@ -64,7 +64,7 @@
                     return LEVEL_WARNING;
                 }
             }
-        }
+        };
 
     }
 
