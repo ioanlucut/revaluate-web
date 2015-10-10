@@ -33,6 +33,14 @@
         }
     }
 
+    .goals__list__entry__section__status {
+        font-weight: $font-weight-light;
+        color: $gray-medium;
+        float: none;
+        display: block;
+        padding: 1px 5px 10px;
+    }
+
     .goals__list__entry__section__text {
         font-weight: $font-weight-light;
         color: $gray-medium;
