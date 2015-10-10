@@ -34,6 +34,6 @@
                     },
                     title: 'Integrations - Revaluate',
                     stateEventName: 'integrations-main'
-                })
+                });
         });
 }());
