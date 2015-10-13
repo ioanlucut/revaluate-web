@@ -23,6 +23,12 @@
                     <button type="button" ng-disabled="vm.deleteTracker.active()" ng-click="vm.deleteIntegration(integration)">{{vm.deleteTracker.active() ? 'Disconnecting..' : 'Disconnect'}}</button>
                 </div>
             </div>
+
+            <div class="">
+                <span>See available Slack commands here:</span>
+                <a href="https://medium.com/revaluate-help/slack-commands-for-revaluate-a0f58c0295d7" target="_blank">Slack commands for Revaluate</a>
+            </div>
+
         </div>
 
         <!-- List of available integrations -->
@@ -63,7 +69,7 @@
                                 <li><span>Step 4:</span> In the new loaded screen, go to <strong>Integration Settings</strong> section.</li>
                                 <li><span>Step 5:</span> Add the following information in the input fields:
                                     <ul>
-                                        <li>URL: <code>https://revaluate-api.herokuapp.com/slack</code></li>
+                                        <li>URL: <code>https://revaluate-api-prod.herokuapp.com/slack</code></li>
                                         <li>Method: <code>GET</code></li>
                                         <img src="/assets/img/integrations/integration_slack_03.png" />
 
