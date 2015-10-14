@@ -1,6 +1,6 @@
 .site__container {
     text-align: center;
-    padding: 150px 0;
+    padding: 20px 0;
     background-color: $white;
 
     &:last-of-type {
@@ -14,13 +14,52 @@
 
 .site__container--homemain {
     position: relative;
-    background: $landing-page;
     padding-top: 10px;
     height: 100vh;
+    width: 100%;
 
-    h1, h2 {
-        color: $white;
+    background: $white;
+
+    //background: -webkit-radial-gradient(circle at top left, #3371A4, #6071A3); /* Safari 5.1 to 6.0 */
+    //background: -o-radial-gradient(#3371A4, #6071A3); /* For Opera 11.6 to 12.0 */
+    //background: -moz-radial-gradient(#3371A4, #6071A3); /* For Firefox 3.6 to 15 */
+    //background: radial-gradient(circle at top left, #3371A4, #6071A3); /* Standard syntax (must be last) */
+
+    .site__container__section {
+        padding-bottom: 30px;
     }
+}
+
+.site__container--blue {
+    background-color: $brand-primary;
+    color: $white;
+
+    .site__container__section--accent a {
+        @include btn-big($white);
+        color: $brand-primary;
+        font-size: 16px;
+        height: 40px;
+        line-height: 40px;
+    }
+}
+
+.site__container--purple {
+    background-color: $color-purple;
+    color: $white;
+
+    .site__container__section--accent button {
+        @include btn-big($white);
+        color: $color-purple;
+        height: 70px;
+        width: 350px;
+        margin-top: 30px;
+        font-size: 18px;
+    }
+}
+
+.site__container--blue .site__container__section--accent a:hover,
+.site__container--purple .site__container__section--accent button:hover {
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 #section__0 {
@@ -30,33 +69,87 @@
     }
 }
 
-.site__container--darkgray {
-    background-color: $gray-dark-3;
-    color: $white;
-}
-
-.site__container--lightgray {
-    background-color: $gray-light-2;
-}
-
 .site__container__section {
     @include clearfix();
     @include outer-container();
     margin-left: auto;
     margin-right: auto;
     margin-top: 0;
-    padding: 10px 20px;
+    padding: 100px 20px;
     text-align: center;
 
-    h2 {
-        font-size: 50px;
-        margin-bottom: 50px;
+    .site__container__section__title {
+        font-size: 42px;
+        font-weight: $font-weight-bold;
+        text-align: center;
+        margin-bottom: 130px;
+
+        span.label-coming-soon {
+            display: block;
+            margin: 20px auto;
+            font-size: 14px;
+            width: 130px;
+            color: $gray-medium;
+            background-color: $gray-light-3;
+        }
     }
+}
+
+.site__container__section__testimonials {
+
+    .site__container__section__testimonials__entry {
+        @include border-radius($base-border-radius);
+        border: solid 2px $gray-light-3;
+        float: left;
+        width: 360px;
+        height: 220px;
+        padding: 15px 15px 5px 15px;
+        margin-right: 80px;
+        text-align: center;
+
+        &:nth-child(3n) {
+            margin-right: 0;
+        }
+
+        .site__container__section__testimonials__entry__avatar {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto;
+            @include border-radius(50%);
+        }
+
+        .avatar__ghita-bizau {
+            background: url("../assets/img/home/user_ghita_bizau.jpeg") no-repeat top left;
+            background-size: contain;
+        }
+
+        .site__container__section__testimonials__entry__name {
+            font-size: 18px;
+        }
+
+        .site__container__section__testimonials__entry__url {
+            font-size: 12px;
+        }
+
+        .site__container__section__testimonials__entry__quote {
+            font-size: 16px;
+            font-style: italic;
+            color: $gray-medium;
+        }
+    }
+}
+
+// Ruller
+.site__container__section__ruler {
+    @include outer-container();
+    height: 10px;
+    border-top: solid 1px $gray-light-2;
 }
 
 .site__container__section--ctabtns {
     display: flex;
     justify-content: center;
+    padding: 0;
 }
 
 .site__container__section--pricing {
@@ -71,6 +164,12 @@
     max-width: 90%;
     padding-left: 0;
     padding-right: 0;
+}
+
+.site__container__section--accent {
+    text-align: center;
+    font-size: 32px;
+    color: $white;
 }
 
 .site__container--faq {
