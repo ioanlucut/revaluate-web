@@ -18,8 +18,13 @@
             <li>
                 <a href="javascript:void(0)" ng-click="vm.goToTourPage();">Tour</a>
             </li>
+
+            <!-- Hide the pricing page while in beta as it's not relevant-->
+            <!--<li>-->
+                <!--<a href="javascript:void(0)" ui-sref="pricing" ui-sref-opts="{reload:true}">Pricing</a>-->
+            <!--</li>-->
             <li>
-                <a href="javascript:void(0)" ui-sref="pricing" ui-sref-opts="{reload:true}">Pricing</a>
+                <a href="javascript:void(0)" class="simptip-position-bottom simptip-fade simptip-smooth simptip-success" data-tooltip="Free while in beta.">Pricing</a>
             </li>
             <li>
                 <a href="http://blog.revaluate.io" target="_blank">Blog</a>
@@ -29,7 +34,7 @@
             </li>
             <li>
                 <button class="header-public__navigation__signupbtn" account-modal-toggle="requestSignUpRegistration">
-                    Get started now!
+                    Sign up
                 </button>
             </li>
         </ul>
