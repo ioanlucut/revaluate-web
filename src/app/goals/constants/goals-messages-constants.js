@@ -12,13 +12,14 @@
             },
             INFO: {
                 messages: [
-                    'Few more steps, {0}!',
-                    'Hey {0}! Great start so far!'
+                    'Few more steps!',
+                    'Hey! Great start so far!',
+                    'Looking good!'
                 ]
             },
             WARNING: {
                 messages: [
-                    'Hey {0}! Seems to be a tough challenge, huh ?!'
+                    'Seems to be a tough challenge, but you can do it!'
                 ]
             },
             DANGER: {
