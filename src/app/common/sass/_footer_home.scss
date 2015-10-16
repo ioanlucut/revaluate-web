@@ -5,18 +5,20 @@
     position: absolute;
     bottom: 0;
     left: 0;
-
-    background-color: $gray-dark-2;
     color: $gray-medium;
 }
 
 .footer__home__wrapper {
     @include outer-container();
+
+    &:first-of-type {
+        border-top: solid 1px $gray-light-3;
+    }
 }
 
 .footer__home__logo {
     @include span-columns(3);
-    color: $gray-light-1;
+    padding-top: 5px;
 }
 
 .footer__home__links {
@@ -30,7 +32,23 @@
         float: right;
 
         a {
-            color: $gray-dark-1;
+            color: $gray-medium;
+
+            &:hover {
+                color: $gray-dark-1;
+            }
+        }
+    }
+}
+
+.footer__home__links--secondary {
+    float: right;
+
+    li {
+        color: $gray-light-1;
+
+        a {
+            color: $gray-light-1;
 
             &:hover {
                 color: $gray-medium;
