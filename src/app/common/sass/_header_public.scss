@@ -50,13 +50,14 @@
     li {
         display: block;
         float: left;
+        padding: 0 10px;
 
         a {
             color: $gray-medium;
             font-size: $font-size-large;
 
             &:hover {
-                color: $gray-light-1;
+                color: $gray-dark-1;
             }
         }
     }
@@ -69,6 +70,6 @@
 }
 
 .header-public__navigation__signupbtn {
-    @include btn($color-red);
+    @include btn($color-green);
     font-size: $font-size-large;
 }

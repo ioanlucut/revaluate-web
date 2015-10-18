@@ -12,7 +12,7 @@
     @include outer-container();
 
     &:first-of-type {
-        border-top: solid 1px $gray-light-3;
+        border-top: solid 1px $gray-light-2;
     }
 }
 
