@@ -70,6 +70,6 @@
 }
 
 .header-public__navigation__signupbtn {
-    @include btn($color-red);
+    @include btn($color-green);
     font-size: $font-size-large;
 }
