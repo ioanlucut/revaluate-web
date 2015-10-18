@@ -29,7 +29,7 @@
     position: absolute;
     left: 45%;
     top: 100px;
-    width: 1000px;
+    width: 1077px;
 }
 
 .home__section__tour-arrow {
@@ -62,8 +62,8 @@
     }
 
     .site__container__section__feature__title {
-        font-size: 32px;
-        font-weight: $font-weight-bold;
+        font-size: 22px;
+        //font-weight: $font-weight-bold;
         margin-top: 15px;
         margin-bottom: 15px;
     }
@@ -71,7 +71,7 @@
     .site__container__section__feature__description {
         font-size: $font-size-large;
         padding: 5px 90px;
-        color: darken($color-green, 15%);
+        color: $gray-medium;
     }
 }
 
