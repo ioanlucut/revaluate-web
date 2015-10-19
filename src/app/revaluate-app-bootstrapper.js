@@ -50,6 +50,11 @@
             'MAX_YEAR_TO_CREATE_GOAL': 2050
         };
 
+    window
+        .APP_STATS_SKELETON = window.APP_STATS_SKELETON || {
+            'EXPENSES_COUNTS': 0
+        };
+
     // ---
     // Bootstrap our angular app.
     // ---
@@ -89,7 +94,21 @@
                                 .extend(window.APP_CONFIG_SKELETON, response.data);
                         });
                 }
+                ],
+                APP_STATS: ['ENV', '$http', function (ENV, $http) {
+                    var STATS_RESOURCE_URL = 'appstats/fetch' + '?' + ENV.name + '&' + ENV.cacheResetKey;
 
+                    return $http
+                        .get(URLTo.api(STATS_RESOURCE_URL))
+                        .then(function (response) {
+
+                            return angular
+                                .extend(window.APP_STATS_SKELETON, response.data);
+                        })
+                        .catch(function () {
+                            return window.APP_STATS_SKELETON;
+                        });
+                }
                 ]
             }
         });

@@ -21,6 +21,7 @@
                     url: '/',
                     templateUrl: '/app/site/partials/home.html',
                     title: 'Change the way you spend your money - Revaluate',
+                    controller: 'HomePageController',
                     stateEventName: USER_ACTIVITY_EVENTS.homePage,
                     pageId: 'home',
                     isPublicPage: true

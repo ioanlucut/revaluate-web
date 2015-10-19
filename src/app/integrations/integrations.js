@@ -34,25 +34,6 @@
                     },
                     title: 'Integrations - Revaluate',
                     stateEventName: 'integrations-main'
-                })
-                //url: '/authorized/?code&state',
-
-                .state({
-                    name: 'settings.integrations.authorized',
-                    url: '/authorized',
-                    controller: 'IntegrationAuthorizedController',
-                    controllerAs: 'vm',
-                    templateUrl: '/app/integrations/partials/integrations.authorized.tpl.html',
-                    title: 'Authorized page- Revaluate',
-                    stateEventName: 'integrations-authorized'
-                })
-
-                .state({
-                    name: 'settings.integrations.deny',
-                    url: '/denied',
-                    templateUrl: '/app/integrations/partials/integrations.invalid.tpl.html',
-                    title: 'Invalid confirmation email token - Revaluate',
-                    stateEventName: 'integrations-denied'
                 });
         });
 }());

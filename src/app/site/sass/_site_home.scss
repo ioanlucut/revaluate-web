@@ -1,84 +1,81 @@
 .home__title {
-    padding: 40px 10px 5px 10px;
+    padding: 90px 10px 5px 10px;
     font-size: 48px;
     font-weight: $font-weight-bold;
-    color: $white;
+    color: $gray-dark-3;
+    width: 50%;
+    text-align: left;
 }
 
 .home__description {
-    padding: 5px 10px 20px 10px;
-    color: lighten($landing-page, 20%);
+    padding: 25px 10px 20px 10px;
+    color: $gray-medium;
     font-size: 22px;
     font-weight: $font-weight-light;
     font-family: $base-font-family;
+    text-align: left;
+    width: 50%;
 }
 
 .home__section__start__btn {
-    @include btn-big($brand-secondary);
-    font-weight: $font-weight-bold;
-    margin-right: 20px;
-}
-
-.home__section__learn__btn {
-    @include btn-translucent($white);
-    text-align: center;
-}
-
-.home__section__start__btn,
-.home__section__learn__btn {
+    @include btn-big($color-blue);
     width: 250px;
     height: 60px;
     font-size: $font-size-large;
 }
 
-.home__section__tour-arrow,
 .home__section__tour-screenmain {
-    width: 100%;
-    max-width: 100%;
+    @include fadeInRight($delay: 0.4s);
     position: absolute;
-    bottom: 0;
-    text-align: center;
-    font-size: 60px;
+    left: 45%;
+    top: 100px;
+    width: 1077px;
 }
 
 .home__section__tour-arrow {
-    padding-bottom: 50px;
-    color: $brand-secondary;
-    @include fadeInDown($delay: 2s);
-}
-
-.home__section__tour-screenmain {
-    max-height: 50vh;
-    padding: 0;
-    @include fadeInUp();
-
-    img {
-        max-height: 50vh;
-        max-width: 70%;
-    }
+    width: 100%;
+    max-width: 100%;
+    position: absolute;
+    bottom: -30px;
+    text-align: center;
+    font-size: 50px;
+    padding-bottom: 0;
+    color: $gray-light-1;
+    @include fadeInDown($delay: 1.2s);
 }
 
 // Features
 // ----------------------------
 
-.site__container__section__feature__text {
-    @include span-columns(6);
-    text-align: left;
-    font-size: 25px;
-    font-weight: $font-weight-light;
+.site__container__section__feature {
+    float: left;
+    width: 50%;
+    height: 450px;
+    text-align: center;
+    padding: 40px;
 
-    h2 {
-        font-size: 50px;
-        font-family: $base-font-family;
-        margin-bottom: 100px;
+    .site__container__section__feature__img {
+        margin: 0 auto;
+        width: 400px;
+        height: 200px;
+        @include border-radius($base-border-radius);
+    }
+
+    .site__container__section__feature__title {
+        font-size: 22px;
+        //font-weight: $font-weight-bold;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .site__container__section__feature__description {
+        font-size: $font-size-large;
+        padding: 5px 90px;
+        color: $gray-medium;
     }
 }
 
-.site__container__section__feature__img {
-    @include span-columns(6);
-}
-
-.site__container__section__nextfeatures {
+.site__container__section__cards {
     @include clearfix();
     padding: 0;
 
@@ -107,11 +104,6 @@
         }
     }
 
-    .icon__goals {
-        background: url("../assets/img/home/goals.svg") no-repeat top left;
-        background-size: contain;
-    }
-
     .icon__calendar {
         background: url("../assets/img/home/calendar.svg") no-repeat top left;
         background-size: contain;
@@ -124,6 +116,21 @@
 
     .icon__split {
         background: url("../assets/img/home/split.svg") no-repeat top left;
+        background-size: contain;
+    }
+
+    .icon__simple {
+        background: url("../assets/img/home/simple.svg") no-repeat top left;
+        background-size: contain;
+    }
+
+    .icon__personal {
+        background: url("../assets/img/home/personal.svg") no-repeat top left;
+        background-size: contain;
+    }
+
+    .icon__secure {
+        background: url("../assets/img/home/secure.svg") no-repeat top left;
         background-size: contain;
     }
 
@@ -148,7 +155,7 @@
 
 .home__action-btn--pricing {
     font-size: 14px;
-    font-weight: $font-weight-light;
+    font-weight: $font-weight-regular;
 }
 
 .home__action-btn--info {

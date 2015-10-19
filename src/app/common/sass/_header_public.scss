@@ -1,5 +1,5 @@
 .header-public__wrapper {
-    background-color: $landing-page;
+
 }
 
 .header-public {
@@ -30,18 +30,13 @@
     padding: 3px 0 0 55px;
     font-size: $font-size-largest;
     font-weight: $font-weight-regular;
-    color: $white;
     position: relative;
-
-    &:hover {
-        color: $white;
-    }
 
     .header-public__brand__name__beta {
         position: absolute;
         bottom: -17px;
         right: 0;
-        color: lighten($landing-page, 15%);
+        color: $gray-light-2;
         font-size: $font-size-small;
     }
 }
@@ -55,23 +50,26 @@
     li {
         display: block;
         float: left;
-        text-transform: uppercase;
+        padding: 0 10px;
 
         a {
             color: $gray-medium;
+            font-size: $font-size-large;
 
             &:hover {
-                color: $gray-light-1;
+                color: $gray-dark-1;
             }
         }
     }
 }
 
 .header-public__navigation__loginbtn {
-    @include btn-small(lighten($landing-page, 5%));
+    @include btn($gray-light-3);
     color: $gray-medium;
+    font-size: $font-size-large;
 }
 
 .header-public__navigation__signupbtn {
-    @include btn-small($brand-secondary);
+    @include btn($color-green);
+    font-size: $font-size-large;
 }

@@ -1,5 +1,7 @@
 // Typography
-$base-font-family: "Montserrat", "Arial", sans-serif;
+//$base-font-family: "Montserrat", "Arial", sans-serif;
+$base-font-family: "proxima-nova", "Arial", sans-serif;
+//$font-family-serif: "museo-slab", "Arial", serif;
 $heading-font-family: $base-font-family;
 
 // Font Sizes
@@ -14,8 +16,8 @@ $font-size-h3: 20px;
 
 // Font Weights
 $font-weight-extralight: 100;
-$font-weight-light: 200;
-$font-weight-regular: 300;
+$font-weight-light: 300;
+$font-weight-regular: 400;
 $font-weight-bold: 700;
 
 // Line height
@@ -101,6 +103,11 @@ $brand-warning-light: lighten($brand-warning, 30%);
 
 $header-background-color: $gray-dark-2;
 $landing-page: #363b48;
+
+$color-purple: #967FA8;
+$color-green: #03C9A9;
+$color-blue: #36AAFB;
+$color-red: #EE8687;
 
 $social-facebook-color: #3b5998;
 $social-google-color: #d34636;

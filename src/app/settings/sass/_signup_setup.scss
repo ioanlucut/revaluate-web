@@ -9,7 +9,7 @@
         @include border-radius($base-border-radius);
         background-color: $white;
         padding: 40px;
-        font-weight: $font-weight-light;
+        font-weight: $font-weight-regular;
         box-shadow: 1px 1px 1px rgba(0, 0, 0, .1);
 
         .sign-up__setup__title {
@@ -39,7 +39,7 @@
             padding: 10px 10px 40px 10px;
             color: $gray-medium;
             font-size: 22px;
-            font-weight: $font-weight-light;
+            font-weight: $font-weight-regular;
         }
 
         .sign-up__setup__btn {
