@@ -5,3 +5,4 @@ src/app/account/services/oauth2-service.js
 src/app/common/services/jwt-helper-service.js
 src/app/insights/services/insights-generator.js
 src/**/*_test.js
+src/**/*hello.slack.js

@@ -33,8 +33,16 @@
         }
     }
 
+    .goals__list__entry__section__status {
+        font-weight: $font-weight-regular;
+        color: $gray-medium;
+        float: none;
+        display: block;
+        padding: 1px 5px 10px;
+    }
+
     .goals__list__entry__section__text {
-        font-weight: $font-weight-light;
+        font-weight: $font-weight-regular;
         color: $gray-medium;
         padding: 1px 5px;
     }
@@ -49,7 +57,7 @@
         .currency__symbol {
             padding: 0;
             color: $gray-medium;
-            font-weight: $font-weight-light;
+            font-weight: $font-weight-regular;
         }
     }
 
@@ -128,7 +136,7 @@
                 width: 20px;
                 left: -15px;
                 top: -20px;
-                font-weight: $font-weight-light;
+                font-weight: $font-weight-regular;
             }
         }
     }

@@ -57,7 +57,7 @@
 .settings__title__h2 {
     margin-top: 40px;
     font-size: $font-size-larger;
-    font-weight: $font-weight-light;
+    font-weight: $font-weight-regular;
 }
 
 .settings__box {
@@ -70,6 +70,10 @@
         margin-bottom: 0;
         border-color: transparent;
     }
+}
+
+.settings__box--selectable {
+    @include set-user-select();
 }
 
 .settings__box__section--large,

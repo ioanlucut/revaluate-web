@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function GoalEntryController(GOAL_EVENTS, APP_CONFIG, $rootScope, GoalService, DatesUtils, Category, promiseTracker) {
+    function GoalEntryController(GOAL_EVENTS, APP_CONFIG, $rootScope, GoalService, DatesUtils, Category, GoalProgressTypeService, GoalMessagesService, promiseTracker) {
 
         var vm = this;
 
@@ -70,6 +70,11 @@
          * Delete goal;
          */
         vm.deleteGoal = deleteGoal;
+
+        // ---
+        // Just a message.
+        // ---
+        vm.message = GoalMessagesService.getMessage(GoalProgressTypeService.computeProgressBarType(vm.shownGoal));
 
         function updateGoal() {
             var period = DatesUtils
@@ -151,7 +156,7 @@
                         // ---
                         // Auto focus price.
                         // ---
-                        if (scope.showContent) {
+                        if ( scope.showContent ) {
                             $timeout(function () {
                                 el.find(GOAL_INPUT_SELECTOR).focus();
                             });
@@ -171,7 +176,7 @@
                      * On goal updated/deleted - cancel edit mode.
                      */
                     $rootScope.$on(GOAL_EVENTS.isUpdated, function (event, args) {
-                        if (vm.goal.id === args.goal.id) {
+                        if ( vm.goal.id === args.goal.id ) {
 
                             // ---
                             // Now update the master goal, and remove the marked sign.
