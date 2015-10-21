@@ -1,13 +1,12 @@
 // Typography
-//$base-font-family: "Montserrat", "Arial", sans-serif;
 $base-font-family: "proxima-nova", "Arial", sans-serif;
 //$font-family-serif: "museo-slab", "Arial", serif;
 $heading-font-family: $base-font-family;
 
 // Font Sizes
-$font-size-base: 14px;
+$font-size-base: 14.4px;
 $font-size-small: 12px;
-$font-size-large: 16px;
+$font-size-large: 16.4px;
 $font-size-larger: 18px;
 $font-size-largest: 20px;
 $font-size-h1: 32px;
@@ -15,9 +14,9 @@ $font-size-h2: 24px;
 $font-size-h3: 20px;
 
 // Font Weights
-$font-weight-extralight: 100;
 $font-weight-light: 300;
 $font-weight-regular: 400;
+$font-weight-medium: 500;
 $font-weight-bold: 700;
 
 // Line height
@@ -25,9 +24,9 @@ $base-line-height: 1.5;
 $heading-line-height: 1.2;
 
 // Heights and widths
-$header-height: 100px;
+$header-height: 45px;
 $header-height-responsive: 70px;
-$header-brand-logo-size: 40px;
+$header-brand-logo-size: 35px;
 $header-responsive-breakpoint: 650px;
 
 $setup-currency-input-width: 320px;
@@ -35,7 +34,7 @@ $footer-height: 50px;
 $footer__home-height: 150px;
 $settings-aside-width: 180px;
 
-$add-expense-form-height: 60px;
+$add-expense-form-height: 50px;
 $edit-expense-form-height: 50px;
 
 // Goals
@@ -64,11 +63,13 @@ $black: #000000;
 $gray-dark-3: #333333;
 $gray-dark-2: #444444;
 $gray-dark-1: #5F5F5F;
-$gray-medium: #999;
+$gray-medium: #AAA;
 $gray-light-1: #ddd;
 $gray-light-2: #e8e8e8;
 $gray-light-3: #f9f9f9;
 $gray-light-4: #fcfcfc;
+
+$gray-background: $gray-light-4;
 
 $brand-primary: #22A7F0;
 $brand-primary-light: lighten($brand-primary, 40%);
@@ -99,9 +100,9 @@ $brand-danger-light: lighten($brand-danger, 32%);
 $brand-warning: #FFCE54;
 $brand-warning-accent: #F6BB42;
 $brand-warning-dark: darken($brand-warning, 20%);
-$brand-warning-light: lighten($brand-warning, 30%);
+$brand-warning-light: lighten($brand-warning, 31%);
 
-$header-background-color: #2C3E50;
+$header-background-color: $gray-light-4;
 $landing-page: #363b48;
 
 $color-purple: #967FA8;
@@ -126,11 +127,11 @@ $action-color: $brand-primary;
 // Border
 $base-border-color: $gray-light-1;
 $base-border: 1px solid $base-border-color;
-// DON'T EVEN THINK ABOUT TOUCHING THIS !!!
 
 // Forms
-//$form-box-shadow: inset 0 1px 3px rgba(#000, 0.06);
 $form-box-shadow: none;
 $form-box-shadow-focus: $form-box-shadow, 0 0 5px adjust-color($action-color, $lightness: -5%, $alpha: -0.3);
 $add-expense-form-border-color: $brand-primary;
+$add-expense-form-border-width: 1px;
+
 $add-goal-form-border-color: $gray-light-2;

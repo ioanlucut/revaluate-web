@@ -6,10 +6,13 @@
     <div class="expenses__list__entry__section__select icon-checkbox-square-1" ng-if="vm.expense.marked" ng-click="vm.toggleMark();$event.stopPropagation();"></div>
 
     <!--Expense category-->
-    <div class="expenses__list__entry__section__category" ng-style="{'background':vm.expense.category.color.color}" ng-bind-html="vm.expense.category.name"></div>
+    <div class="expenses__list__entry__section__category">
+        <div class="expenses__list__entry__section__category__icon" ng-style="{'border-color': vm.expense.category.color.color, 'background-color': '#fff'}"></div>
+        <div class="expenses__list__entry__section__category__label" ng-bind-html="vm.expense.category.name"></div>
+    </div>
 
     <!--Expense description-->
-    <div class="expenses__list__entry__section__details" ng-bind-html="vm.expense.description"></div>
+    <div class="expenses__list__entry__section__details" ng-bind-html="vm.expense.description"> </div>
 
     <div class="expenses__list__entry__section__price">
         <span ng-bind-html="vm.expense.value | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>

@@ -33,7 +33,7 @@
     <!--Temporary expense list-->
     <div class="expenses__list__entry-grouped" ng-show="expensesVm.temporaryExpenses.length > 0">
 
-        <div class="expenses__list__group__name">Added just now</div>
+        <div class="expenses__list__group__name expenses__list__group__name--now">Added just now</div>
 
         <div class="expenses__list__entry"
              ng-repeat="expense in expensesVm.temporaryExpenses | orderObjectBy : 'modifiedDate' : true track by expense.id" expense-entry expense="expense" categories="expensesVm.categories" show-date-details>
