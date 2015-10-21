@@ -1,13 +1,12 @@
 .expenses__column__left {
     width: 60%;
-    border-right: solid 1px $gray-light-3;
     float: left;
-    padding: 30px 20px 0 5px;
+    padding: 30px 0 0 0;
     position: relative;
 }
 
 .expenses__column__right {
-    width: 38%;
+    width: 40%;
     float: left;
     padding: 30px 0 10px 20px;
 
@@ -20,11 +19,9 @@
     }
 
     h2.expenses__column__right__title {
-        font-size: 14px;
+        font-size: 16px;
         font-weight: $font-weight-regular;
-        color: $gray-medium;
-        background-color: $gray-light-3;
-        @include border-radius($base-border-radius);
-        padding: 5px;
+        padding: 20px 5px 5px 5px;
+        margin: 0;
     }
 }
