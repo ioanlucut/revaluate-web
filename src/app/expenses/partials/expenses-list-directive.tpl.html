@@ -1,12 +1,11 @@
 <div class="expenses__list">
 
     <!--Expense list-->
-    <div class="expenses__list__entry-grouped"
+    <div class="expenses__list__group"
          ng-repeat="expenseGroupEntry in vm.expenses | orderObjectBy : 'localDate' : reverseOrder track by expenseGroupEntry.localDate"
          ng-show="expenseGroupEntry.expenseDTOs.length > 0">
 
         <div class="expenses__list__group__name">
-            <span class="expenses__list__group__name__bullet"></span>
             {{expenseGroupEntry.localDate | friendlyDate}}
         </div>
 

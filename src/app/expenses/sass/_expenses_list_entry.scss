@@ -1,46 +1,39 @@
 .expenses__list__entry__section {
-    @include border-radius($border-radius-base);
-    padding: 0 0 0 10px;
-    margin: 0 0 0 20px;
+    @include clearfix();
+    padding: 0;
+    margin: 0;
     min-height: 44px;
     line-height: 40px;
-    box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
-    border: solid 1px $gray-light-1;
+    border-left: solid 3px transparent;
 
-    div {
-        display: inline-block;
-        padding: 1px 10px;
+    & > div {
+        padding: 0 5px;
+        height: 100%;
+        float: left;
+        line-height: 44px;
     }
 
     &:hover {
-        border-color: $gray-medium;
         cursor: pointer;
-
-        .expenses__list__entry__section__select {
-            opacity: 1;
-        }
     }
 
     &.expenses__list__entry__section--bulk-marked {
-        background: $brand-warning-light !important;
+        background-color: $brand-warning-light;
+        border-left: solid 3px $brand-warning-accent;
 
         .expenses__list__entry__section__select {
-            opacity: 1;
+            color: $gray-medium;
         }
     }
 
     .expenses__list__entry__section__select {
-        position: absolute;
-        top: 8px;
-        left: 0;
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        margin-right: 15px;
-        padding: 2px !important;
         font-size: 14px;
-        color: $gray-light-1;
-        opacity: 0;
+        color: $gray-light-2;
+        width: 28px;
+        text-align: center;
+        padding-left: 6px;
+        display: inline-flex;
+        margin-top: 14px;
 
         &:hover {
             color: $gray-medium;
@@ -53,18 +46,41 @@
     }
 
     .expenses__list__entry__section__category {
-        @include category-label($brand-primary);
+        @include clearfix();
+        width: 30%;
+
+        & > div {
+            float: left;
+        }
+
+        .expenses__list__entry__section__category__icon {
+            width: 17px;
+            height: 17px;
+            padding: 0;
+            margin-top: 13px;
+            border: solid 2px $gray-medium;
+            @include border-radius(50%);
+        }
+
+        .expenses__list__entry__section__category__label {
+            font-size: 12px;
+            font-weight: $font-weight-bold;
+            color: $gray-dark-2;
+            padding-left: 15px;
+        }
     }
 
     .expenses__list__entry__section__details {
-        color: $gray-dark-1;
+        color: $gray-medium;
         font-weight: $font-weight-regular;
         @include word-wrap();
+        width: 40%;
     }
 
     .expenses__list__entry__section__price {
         text-align: right;
         float: right;
+        width: 15%;
 
         .currency__symbol {
             padding: 0 5px;
@@ -74,7 +90,7 @@
     }
 
     .expenses__list__entry__section__date {
-        width: 140px;
+        //width: px;
         float: right;
         color: $gray-medium;
         text-align: right;
