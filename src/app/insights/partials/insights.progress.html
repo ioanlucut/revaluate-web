@@ -15,7 +15,7 @@
 
     <div class="insights__categories">
         <div class="insights__categories__category" ng-repeat="category in vm.masterCategories | orderObjectBy : 'name' : false track by category.id">
-            <button class="category-name" ng-class="{ 'category-name--unselected': ! category.selected }" ng-click="vm.toggleAndReloadInsights(category)">
+            <button class="category-name" ng-class="{ 'category-name--unselected': ! category.selected }" ng-style="{'border-color': category.selected ? category.color.color : 'transparent'}"ng-click="vm.toggleAndReloadInsights(category)">
                 <span class="icon-checkmark-filled" ng-style="{'color': category.selected ? category.color.color : 'transparent'}" ng-show="category.selected"></span>
                 <span class="icon-checkmark-light-unchecked" ng-show="!category.selected"></span>
                 {{category.name}}
