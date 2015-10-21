@@ -1,11 +1,3 @@
-.header__wrapper--top {
-    background-color: $header-background-color;
-
-    .header {
-        height: 55px;
-    }
-}
-
 .header__wrapper {
     background-color: $header-background-color;
     border-bottom: solid 1px $gray-light-2;
@@ -18,14 +10,13 @@
 .header {
     @include outer-container();
     @include clearfix();
-    padding: 0;
+    padding: 10px 0 0 0;
     position: relative;
 }
 
 .header__brand {
-    float: left;
     position: relative;
-    margin-right: 40px;
+    width: 100%;
 }
 
 .header__brand--responsive {
@@ -36,9 +27,8 @@
     @include size($header-brand-logo-size $header-brand-logo-size);
     background: url("../assets/img/logo.svg") no-repeat top left;
     background-size: contain;
-    margin: 6px 2px 0 0;
+    margin: 0 auto;
     display: block;
-    float: left;
 
     &:hover {
         cursor: pointer;
@@ -64,15 +54,15 @@
 .header__navigation {
     float: left;
     padding: 0;
-    height: $header-height;
+    height: $header-height / 2;
     @include clearfix();
 
     li {
         display: block;
         float: left;
         height: 100%;
-        padding: 0 20px;
-        margin: 0;
+        padding: 0;
+        margin: 0 30px 0 0;
         text-align: center;
         @include transition(all 0.2s);
         position: relative;
@@ -81,7 +71,7 @@
 
     .header__navigation--active,
     .header__navigation--active:hover {
-        border-bottom: solid 3px $brand-primary;
+        border-bottom: solid 4px $brand-primary;
 
         a {
             color: $black;
@@ -104,22 +94,8 @@
     }
 }
 
-.header__navigation__secondary {
-    height: $header-height;
-    position: absolute;
-    right: 0;
-    top: 0;
-
-    .header__navigation__link {
-        //color: $gray-light-1;
-        text-transform: none;
-        font-weight: $font-weight-regular;
-        border: solid 1px $gray-medium;
-    }
-}
-
 .header__navigation__toggle {
-    @include btn-big($brand-primary);
+    @include btn-big($gray-medium);
     position: absolute;
     top: 10px;
     left: 10px;
@@ -128,7 +104,7 @@
 }
 
 .header__navigation--links {
-    height: $header-height;
+    height: $header-height / 2;
     float: right;
 
     ul {
@@ -140,11 +116,12 @@
 .header__navigation--links__item {
     display: block;
     height: 35px;
+    width: 35px;
     margin: 3px 2px 0 0;
     padding: 0;
     float: left;
 
-    img, a {
+    img {
         @include border-radius(50%);
     }
 
@@ -157,9 +134,12 @@
     a {
         display: block;
         height: 100%;
-        padding: 3px 5px;
-        font-size: 24px;
-        color: $gray-medium;
+        width: 100%;
+        padding: 5px 0;
+        font-size: 20px;
+        color: $gray-light-1;
+        text-align: center;
+        @include box-sizing(border-box);
 
         &:hover {
             color: darken($gray-medium, 5%);
