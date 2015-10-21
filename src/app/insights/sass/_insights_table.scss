@@ -24,7 +24,6 @@
         }
     }
 
-
     .insights__table__header__month {
         text-transform: uppercase;
         text-align: right;
@@ -119,7 +118,12 @@
 .insights__table--6m {
     margin: 0 auto;
     max-width: 100%;
-    @include transition(all .1s ease-in-out)
+    @include transition(all .1s ease-in-out);
+
+    .insights__table__total__amount,
+    .insights__table__entry__amount {
+        font-size: $font-size-base;
+    }
 }
 
 .insights__table--3m {
