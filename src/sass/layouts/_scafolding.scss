@@ -50,5 +50,5 @@ code {
     background-color: $gray-light-3;
     color: $gray-dark-1;
     @include border-radius(2px);
-    padding: 2px;
+    padding: 2px 4px;
 }

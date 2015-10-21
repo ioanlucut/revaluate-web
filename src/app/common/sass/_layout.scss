@@ -5,7 +5,8 @@
 .view-container__tabs {
     @include outer-container();
     @include clearfix();
-    border-bottom: solid 1px $gray-light-2;
+    border-bottom: solid 1px $gray-light-3;
+    padding: 0;
 
     li {
         display: block;
