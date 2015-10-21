@@ -1,9 +1,9 @@
 @import "../../../bower_components/animate.css-scss/animate";
 
 .alert-animation.ng-enter {
-    @include fadeInDown(0.5s);
+    @include fadeIn(0.5s);
 }
 
 .alert-animation.ng-leave {
-    @include fadeOutUp(0.5s);
+    @include fadeOut(0.5s);
 }
