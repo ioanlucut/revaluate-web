@@ -3,11 +3,12 @@
 
     .goals__list__entry {
         margin: 0;
-        padding: 10px 0 0 0;
+        padding: 20px 0 0 0;
 
         .goals__list__entry__section {
             padding: 10px 7px;
             cursor: pointer;
+            @include border-radius(0);
 
             &:hover {
                 border: solid 1px $gray-light-1;
