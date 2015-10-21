@@ -1,30 +1,26 @@
 <div header class="view-container__header"></div>
 
-<div class="view-container__content view-container__content--settings">
+<ul class="view-container__tabs">
+    <li ui-sref-active="tab__active">
+        <a href="javascript:void(0)" ui-sref="settings.profile">Profile</a>
+    </li>
+    <li ui-sref-active="tab__active">
+        <a href="javascript:void(0)" ui-sref="settings.admin">Account</a>
+    </li>
+    <li ui-sref-active="tab__active">
+        <a href="javascript:void(0)" ui-sref="settings.preferences">Preferences</a>
+    </li>
+    <li ui-sref-active="tab__active">
+        <a href="javascript:void(0)" ui-sref="settings.categories">Categories</a>
+    </li>
+    <li ng-class="{tab__active: $state.includes('settings.integrations')}">
+        <a href="javascript:void(0)" ui-sref="settings.integrations.main">Integrations</a>
+    </li>
+    <li ng-class="{tab__active: $state.includes('settings.import')}">
+        <a href="javascript:void(0)" ui-sref="settings.import.choose">Import</a>
+    </li>
+</ul>
 
-    <ul class="view-container__content__admin__aside">
-        <li ui-sref-active="tab__active">
-            <a href="javascript:void(0)" ui-sref="settings.profile">Profile</a>
-        </li>
-        <li ui-sref-active="tab__active">
-            <a href="javascript:void(0)" ui-sref="settings.admin">Account</a>
-        </li>
-        <li ui-sref-active="tab__active">
-            <a href="javascript:void(0)" ui-sref="settings.preferences">Preferences</a>
-        </li>
-        <li ui-sref-active="tab__active">
-            <a href="javascript:void(0)" ui-sref="settings.categories">Categories</a>
-        </li>
-        <li ng-class="{tab__active: $state.includes('settings.integrations')}">
-            <a href="javascript:void(0)" ui-sref="settings.integrations.main">Integrations</a>
-        </li>
-        <li ng-class="{tab__active: $state.includes('settings.import')}">
-            <a href="javascript:void(0)" ui-sref="settings.import.choose">Import</a>
-        </li>
-    </ul>
-
-    <div class="view-container__content__admin__section" ui-view></div>
-
-</div>
+<div class="view-container__content" ui-view></div>
 
 <div footer class="view-container__footer"></div>
