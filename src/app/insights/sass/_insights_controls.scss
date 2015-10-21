@@ -14,13 +14,13 @@
             width: 40px;
             padding: 4px 0 0 0;
             background-color: $white;
-            color: $gray-dark-1;
+            color: $gray-medium;
             text-align: center;
             font-size: 22px;
             font-weight: $font-weight-bold;
 
             &:hover {
-                background-color: $gray-light-3;
+                color: $black;
             }
 
             &.insights__controls__form__arrow--left {
@@ -38,12 +38,13 @@
         }
 
         .insight__form__date__input__btn {
-            @include btn-big($white);
+            @include btn-big($gray-light-3);
             width: 100%;
-            border-bottom: dashed 1px $gray-light-1;
-            color: $brand-primary;
-            font-size: $font-size-largest;
-            font-weight: $font-weight-bold;
+            color: $black;
+            font-size: 16px;
+            text-transform: none;
+            font-weight: $font-weight-regular;
+            letter-spacing: normal;
         }
     }
 
