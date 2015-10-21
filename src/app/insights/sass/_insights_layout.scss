@@ -1,17 +1,16 @@
 .view-container__content__nav {
     @include outer-container();
-    padding: 15px 0 0 0;
+    @include clearfix();
+    border-bottom: solid 1px $gray-light-2;
 
     li {
-        display: inline-block;
-        width: 20%;
-        height: 45px;
+        display: block;
+        float: left;
+        height: 55px;
         @include border-top-radius($base-border-radius);
         text-align: center;
-        margin: 0 5px 0 0;
-        padding: 0;
-        background-color: $gray-light-1;
-        border-top: solid 4px transparent;
+        margin: 0 40px 0 0;
+        padding: 10px 0;
 
         a {
             display: block;
@@ -29,11 +28,9 @@
 
     .tab__active {
         background-color: $white;
-        border-top: solid 4px $brand-primary;
 
         a {
-            color: $gray-dark-3;
-            font-weight: $font-weight-bold;
+            color: $black;
         }
     }
 }

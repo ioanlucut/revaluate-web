@@ -26,6 +26,7 @@
             &.insights__controls__form__arrow--left {
                 float: left;
             }
+
             &.insights__controls__form__arrow--right {
                 float: right;
             }
@@ -52,27 +53,18 @@
         padding: 7px 0;
 
         .insights__controls__chart-toggle__entry {
-            display: inline-block;
-            float: right;
-            height: 30px;
+            float: left;
+            height: 25px;
             width: 55px;
             line-height: 24px;
             padding: 3px 15px;
             margin: 0;
             text-align: center;
-            background-color: $gray-light-3;
             color: $gray-medium;
-            border: solid 1px $gray-light-1;
-            border-left-width: 0;
-
-            &:first-child {
-                @include border-right-radius(50px);
-                border-left-width: 0;
-            }
+            border-right: solid 1px $gray-light-1;
 
             &:last-child {
-                @include border-left-radius(50px);
-                border-left-width: 1px;
+                border-right-width: 0;
             }
 
             &:hover {
@@ -84,7 +76,6 @@
         .insights__controls__chart-toggle__entry--active:hover {
             color: $gray-dark-3;
             background-color: $white;
-            font-weight: $font-weight-bold;
             cursor: default;
         }
     }
