@@ -2,11 +2,13 @@
     background-color: $header-background-color;
 
     .header {
-        height: 48px;
+        height: 55px;
     }
 }
 
 .header__wrapper {
+    background-color: $header-background-color;
+    border-bottom: solid 1px $gray-light-2;
 
     .header {
         height: $header-height;
@@ -79,10 +81,10 @@
 
     .header__navigation--active,
     .header__navigation--active:hover {
-        border-bottom: solid 4px $brand-primary;
+        border-bottom: solid 3px $brand-primary;
 
         a {
-            color: $brand-primary;
+            color: $black;
         }
     }
 }
@@ -90,10 +92,12 @@
 .header__navigation__link {
     display: block;
     position: relative;
-    padding-top: 20px;
+    padding-top: 13px;
     height: 100%;
     color: $gray-medium;
     text-transform: uppercase;
+    font-weight: $font-weight-medium;
+    font-family: $heading-font-family;
 
     &:hover {
         color: $gray-dark-2;
@@ -107,9 +111,10 @@
     top: 0;
 
     .header__navigation__link {
-        color: $gray-light-1;
+        //color: $gray-light-1;
         text-transform: none;
         font-weight: $font-weight-regular;
+        border: solid 1px $gray-medium;
     }
 }
 
@@ -154,10 +159,10 @@
         height: 100%;
         padding: 3px 5px;
         font-size: 24px;
-        color: lighten($header-background-color, 25%);
+        color: $gray-medium;
 
         &:hover {
-            color: lighten($header-background-color, 45%);
+            color: darken($gray-medium, 5%);
         }
     }
 }
