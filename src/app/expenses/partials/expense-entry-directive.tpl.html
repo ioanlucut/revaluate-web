@@ -11,12 +11,13 @@
         <div class="expenses__list__entry__section__category__label" ng-bind-html="vm.expense.category.name"></div>
     </div>
 
-    <!--Expense description-->
-    <div class="expenses__list__entry__section__details" ng-bind-html="vm.expense.description"> </div>
-
+    <!-- Expense price -->
     <div class="expenses__list__entry__section__price">
         <span ng-bind-html="vm.expense.value | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
     </div>
+
+    <!--Expense description-->
+    <div class="expenses__list__entry__section__details" ng-bind-html="vm.expense.description"> </div>
 
     <!--Expense date-->
     <div ng-if="showDateDetails" class="expenses__list__entry__section__date">{{vm.expense.spentDate | friendlyDate}}</div>
@@ -58,7 +59,7 @@
 
         <!-- Description input -->
         <div class="expense__edit__form__details" ng-class="{'has-error': vm.expenseForm.$submitted && (vm.expenseForm.description.$invalid || vm.badPostSubmitResponse)}">
-            <input class="expense__edit__form__details__input" ng-disabled="vm.updateTracker.active()" type="text" name="description" ng-maxlength="30" maxlength="30" placeholder="Add details (optional)" ng-model="vm.shownExpense.description" escape-html />
+            <input class="expense__edit__form__details__input" ng-disabled="vm.updateTracker.active()" type="text" name="description" ng-maxlength="100" maxlength="100" placeholder="Add details (optional)" ng-model="vm.shownExpense.description" escape-html />
 
             <!-- Error messages -->
             <div class="form-group-input__message" ng-class="{'has-error': vm.expenseForm.description.$invalid && vm.expenseForm.$submitted}" ng-messages="vm.expenseForm.description.$error" ng-if="vm.expenseForm.$submitted">
