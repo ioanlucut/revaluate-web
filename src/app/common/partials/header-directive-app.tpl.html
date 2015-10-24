@@ -18,7 +18,7 @@
             <li ui-sref-active="header__navigation--active">
                 <a class="header__navigation__link" href="javascript:void(0)" ui-sref="goals.regular">Goals</a>
             </li>
-            <li ui-sref-active="header__navigation--active">
+            <li ng-class="{'header__navigation--active': vm.$state.includes('settings')}">
                 <a class="header__navigation__link" href="javascript:void(0)" ui-sref="settings.profile">Settings</a>
             </li>
         </ul>
