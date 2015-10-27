@@ -194,7 +194,7 @@
                 tooltipTitleFontSize: 14,
 
                 // String - Tooltip title font weight style
-                tooltipTitleFontStyle: 'bold',
+                tooltipTitleFontStyle: 'normal',
 
                 // String - Tooltip title font colour
                 tooltipTitleFontColor: '#fff',

@@ -156,7 +156,7 @@
                     insightsBarData: [insightsBarData],
                     insightsBarSeries: 'Categories',
                     insightsBarLabels: insightsBarLabels,
-                    insightsBarColors: [this.getColour(this.hexToRgb('#22A7F0'.substr(1)))]
+                    insightsBarColors: [this.getColour(this.hexToRgb('#dddddd'.substr(1)))]
                 };
             };
 
@@ -179,7 +179,7 @@
                     insightsBarData: [insightsBarData],
                     insightsBarSeries: 'Expenses',
                     insightsBarLabels: insightsBarLabels,
-                    insightsBarColors: [this.getColour(this.hexToRgb('#22A7F0'.substr(1)))]
+                    insightsBarColors: [this.getColour(this.hexToRgb('#dddddd'.substr(1)))]
                 };
             };
 
