@@ -23,7 +23,10 @@
     <div class="goals__list__entry__section__text">on</div>
 
     <!--Goal category-->
-    <div class="goals__list__entry__section__category" ng-style="{'background-color':vm.goal.category.color.color}" ng-bind-html="vm.goal.category.name"></div>
+    <div class="goals__list__entry__section__category">
+        <div class="goals__list__entry__section__category__icon" ng-style="{'border-color': vm.goal.category.color.color, 'background-color': '#fff'}"></div>
+        <div class="goals__list__entry__section__category__label" ng-bind-html="vm.goal.category.name"></div>
+    </div>
 
     <!--Goal status bar progress-->
     <goal-status-progress-bar goal="vm.goal"></goal-status-progress-bar>
