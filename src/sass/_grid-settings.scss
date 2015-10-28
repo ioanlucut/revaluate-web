@@ -11,7 +11,8 @@ $visual-grid-opacity: 0.2;
 $column: 90px;
 $gutter: 30px;
 $grid-columns: 12;
-$max-width: em(1200);
+//$max-width: em(1200);
+$max-width: 1070px;
 
 // Breakpoints
 $sm: new-breakpoint(min-width 200px 4);

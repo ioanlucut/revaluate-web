@@ -4,7 +4,7 @@
     display: block;
     width: 100%;
     margin-bottom: $base-spacing / 2;
-    padding: $base-spacing / 2;
+    padding: 10px 20px;
     @include border-radius($base-border-radius);
     text-align: center;
     background-color: $bg-color;
@@ -30,11 +30,8 @@
 }
 
 .alert-success {
-    @include flash($brand-success, lighten($header-background-color, 8%));
+    @include flash($white, $brand-success);
     @include border-top-radius(0);
-    border: solid 1px lighten($header-background-color, 14%);
-    box-shadow: 0 1px 3px darken($header-background-color, 10%);
-    margin-top: -1px;
 
     .close {
         color: $brand-success;

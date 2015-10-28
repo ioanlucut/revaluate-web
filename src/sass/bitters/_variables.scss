@@ -4,7 +4,7 @@ $base-font-family: "proxima-nova", "Arial", sans-serif;
 $heading-font-family: $base-font-family;
 
 // Font Sizes
-$font-size-base: 14.4px;
+$font-size-base: 15.4px;
 $font-size-small: 12px;
 $font-size-large: 16.4px;
 $font-size-larger: 18px;
@@ -12,6 +12,8 @@ $font-size-largest: 20px;
 $font-size-h1: 32px;
 $font-size-h2: 24px;
 $font-size-h3: 20px;
+
+$font-size-table: 13px;
 
 // Font Weights
 $font-weight-light: 300;
@@ -24,7 +26,7 @@ $base-line-height: 1.5;
 $heading-line-height: 1.2;
 
 // Heights and widths
-$header-height: 45px;
+$header-height: 90px;
 $header-height-responsive: 70px;
 $header-brand-logo-size: 35px;
 $header-responsive-breakpoint: 650px;
@@ -122,6 +124,7 @@ $close-text-shadow: 0 1px 0 #fff !default;
 // Font Colors
 $base-background-color: #fff;
 $base-font-color: $black;
+$heading-font-color: $black;
 $action-color: $brand-primary;
 
 // Border

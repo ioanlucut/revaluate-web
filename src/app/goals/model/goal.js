@@ -58,7 +58,7 @@
                 /**
                  * The year month of this goal.
                  */
-                yearMonthDate: data.yearMonthDate,
+                yearMonthDate: data.yearMonthDate
             });
         }
 

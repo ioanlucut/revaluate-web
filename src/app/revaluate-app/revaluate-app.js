@@ -97,7 +97,7 @@
             // ---
             // Configure general chart settings.
             // ---
-            MAIN_FONT = '\'Montserrat\',\'Arial\', sans-serif';
+            MAIN_FONT = '\'proxima-nova\',\'Arial\', sans-serif';
             MAIN_FONT_SIZE = 12;
             ChartJsProvider.setOptions({
                 // Boolean - Whether to animate the chart
@@ -194,7 +194,7 @@
                 tooltipTitleFontSize: 14,
 
                 // String - Tooltip title font weight style
-                tooltipTitleFontStyle: 'bold',
+                tooltipTitleFontStyle: 'normal',
 
                 // String - Tooltip title font colour
                 tooltipTitleFontColor: '#fff',

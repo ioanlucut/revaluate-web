@@ -6,6 +6,11 @@
         var vm = this;
 
         /**
+         * Current user.
+         */
+        this.user = $rootScope.currentUser;
+
+        /**
          * Create a saving tracker.
          */
         this.saveTracker = promiseTracker();
@@ -42,7 +47,7 @@
 
             vm.category = {};
 
-            if (vm.expenseForm) {
+            if ( vm.expenseForm ) {
                 vm.expenseForm.$setPristine();
             }
 
