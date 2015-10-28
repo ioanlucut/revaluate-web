@@ -38,9 +38,9 @@
             // thresholdMin = 90
             // thresholdMax = 110
             // thresholdVeryMax = 110
-            // actual < 100 e success
-            // actual >= 90 info
-            // actual > 90 warning
+            // actual < 90 success
+            // actual >= 90 && < 100 e info
+            // actual >= 100 && < 110 e warning
             // actual >= 110 danger
 
             if (type === 'MORE_THAN') {
@@ -54,14 +54,16 @@
                     return LEVEL_WARNING;
                 }
             } else if (type === 'LESS_THAN') {
-                if (_.lt(currentValue, targetValue)) {
+                if (_.lt(currentValue, thresholdTarget.min)) {
                     return LEVEL_SUCCESS;
-                } else if (_.lte(currentValue, thresholdTarget.max)) {
+                } else if (_.gte(currentValue, thresholdTarget.min) && _.lt(currentValue, targetValue)) {
                     return LEVEL_INFO;
+                } else if (_.gte(currentValue, targetValue) && _.lt(currentValue, thresholdTarget.max)) {
+                    return LEVEL_WARNING;
                 } else if (_.gte(currentValue, thresholdTarget.max)) {
                     return LEVEL_DANGER;
                 } else {
-                    return LEVEL_WARNING;
+                    return LEVEL_SUCCESS;
                 }
             }
         };
