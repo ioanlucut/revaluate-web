@@ -62,10 +62,20 @@
     }
 
     .goals__list__entry__section__category {
-        @include category-label($brand-primary);
-        margin-right: 40px;
-        margin-top: 3px;
-        padding: 0 5px;
+        @include clearfix();
+        position: relative;
+        margin: 2px 40px 0 0;
+        padding: 0 0 0 25px;
+
+        .goals__list__entry__section__category__icon {
+            position: absolute;
+            left: 5px;
+            top: 2px;
+            width: 17px;
+            height: 17px;
+            border: solid 2px $gray-medium;
+            @include border-radius(50%);
+        }
     }
 
     goal-daily-status {
@@ -81,7 +91,7 @@
         display: block;
         position: relative;
         clear: both;
-        margin-top: 50px;
+        margin-top: 70px;
         margin-left: 3px;
         margin-right: 5px;
 
@@ -93,6 +103,7 @@
 
         .progress-bar {
             text-align: right;
+            box-shadow: none;
         }
 
         .progressbar__value__min,
@@ -113,9 +124,10 @@
         .progressbar__value__crt {
             padding: 1px 5px 1px 1px;
             line-height: 40px;
-            color: black;
+            color: $white;
             white-space: nowrap;
             font-size: 14px;
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
         }
 
         .today__line {
@@ -123,7 +135,7 @@
             float: left;
             position: absolute;
             left: 80%;
-            top: -15%;
+            top: -40%;
             width: 1px;
             height: 132px;
             padding: 0;
