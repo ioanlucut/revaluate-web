@@ -26,6 +26,7 @@
             }
 
             goal-status-progress-bar {
+                margin-top: 55px;
 
                 .progress {
                     height: 25px;
@@ -38,6 +39,7 @@
 
                 .today__line {
                     height: 37px;
+                    top: -55%;
                 }
             }
         }
