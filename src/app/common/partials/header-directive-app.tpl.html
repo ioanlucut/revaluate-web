@@ -1,36 +1,11 @@
-<div class="header__wrapper--top">
-
-     <header class="header">
-
-         <div class="header__brand">
-             <div class="header__brand--logo" ui-sref="expenses.regular"></div>
-             <a href="javascript:void(0)" class="header__brand--name"></a>
-         </div>
-
-         <!--Header links-->
-         <div class="header__navigation--links">
-             <ul>
-                 <li class="header__navigation--links__item simptip-position-bottom simptip-info simptip-smooth simptip-fade" data-tooltip="Settings">
-                     <a class="icon-settings" href="javascript:void(0)" ui-sref="settings.profile">
-                         <!--Settings-->
-                     </a>
-                 </li>
-                 <li class="header__navigation--links__item simptip-position-bottom simptip-info simptip-smooth simptip-fade" data-tooltip="Logout">
-                     <a class="icon-logout" href="javascript:void(0)" ng-controller="LogoutController as vm" ng-click="vm.logOut()">
-                         <!--Logout-->
-                     </a>
-                 </li>
-                 <li class="header__navigation--links__item simptip-position-bottom simptip-info simptip-smooth simptip-fade" data-tooltip="{{vm.currentUser.model.email}}">
-                     <user-profile-picture-header></user-profile-picture-header>
-                 </li>
-             </ul>
-         </div>
-
-     </header>
-</div>
-
 <div class="header__wrapper">
     <header class="header">
+
+        <!-- Header brand -->
+        <div class="header__brand">
+            <div class="header__brand--logo" ui-sref="expenses.regular"></div>
+            <a href="javascript:void(0)" class="header__brand--name"></a>
+        </div>
 
         <!--Navigation list-->
         <ul class="header__navigation">
@@ -43,13 +18,23 @@
             <li ui-sref-active="header__navigation--active">
                 <a class="header__navigation__link" href="javascript:void(0)" ui-sref="goals.regular">Goals</a>
             </li>
-            <li ui-sref-active="header__navigation--active">
+            <li ng-class="{'header__navigation--active': vm.$state.includes('settings')}">
                 <a class="header__navigation__link" href="javascript:void(0)" ui-sref="settings.profile">Settings</a>
             </li>
         </ul>
 
-        <div class="header__navigation__secondary">
-            <!--<a class="header__navigation__link" href="javascript:void(0)" ui-sref="settings.profile">Settings</a>-->
+        <!--Header links-->
+        <div class="header__navigation--links">
+            <ul>
+                <li class="header__navigation--links__item simptip-position-bottom simptip-smooth simptip-fade" data-tooltip="Logout">
+                    <a class="icon-logout" href="javascript:void(0)" ng-controller="LogoutController as vm" ng-click="vm.logOut()">
+                        <!--Logout-->
+                    </a>
+                </li>
+                <li class="header__navigation--links__item simptip-position-bottom simptip-smooth simptip-fade" data-tooltip="{{vm.currentUser.model.email}}">
+                    <user-profile-picture-header></user-profile-picture-header>
+                </li>
+            </ul>
         </div>
 
         <!--Snap menu-->

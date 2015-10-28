@@ -47,26 +47,23 @@
 
     .expenses__list__entry__section__category {
         @include clearfix();
-        width: 30%;
-
-        & > div {
-            float: left;
-        }
+        width: 65%;
+        position: relative;
+        font-size: 15.4px;
+        padding: 0 0 0 30px;
 
         .expenses__list__entry__section__category__icon {
+            position: absolute;
+            left: 5px;
+            top: 13px;
             width: 17px;
             height: 17px;
-            padding: 0;
-            margin-top: 13px;
             border: solid 2px $gray-medium;
             @include border-radius(50%);
         }
 
         .expenses__list__entry__section__category__label {
-            font-size: 12px;
-            font-weight: $font-weight-bold;
-            color: $gray-dark-2;
-            padding-left: 15px;
+
         }
     }
 
@@ -74,13 +71,19 @@
         color: $gray-medium;
         font-weight: $font-weight-regular;
         @include word-wrap();
-        width: 40%;
+        width: 65%;
+        line-height: 15px;
+        margin-left: 28px;
+        font-size: 13px;
+        margin-top: -10px;
+        padding-left: 30px;
+        padding-bottom: 10px;
     }
 
     .expenses__list__entry__section__price {
         text-align: right;
         float: right;
-        width: 15%;
+        width: 30%;
 
         .currency__symbol {
             padding: 0 5px;
@@ -90,10 +93,13 @@
     }
 
     .expenses__list__entry__section__date {
-        //width: px;
         float: right;
         color: $gray-medium;
         text-align: right;
         font-size: $font-size-small;
+        line-height: 15px;
+        margin-left: 28px;
+        margin-top: -10px;
+        padding-bottom: 10px;
     }
 }

@@ -11,7 +11,7 @@
             this.isUserAuthenticated = AuthService.isAuthenticated();
 
             if (!this.isUserAuthenticated) {
-                updateAppStats()
+                updateAppStats();
             }
 
             $scope.$on('$destroy', function () {
