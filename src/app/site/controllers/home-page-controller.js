@@ -6,7 +6,7 @@
         .controller('HomePageController', function (APP_STATS, AUTH_EVENTS, SiteService, $scope, $timeout, AuthService) {
             var vm = this,
                 currentUpdateAppStatsPromise,
-                TIMEOUT = 60000; // POOL every 1 minute
+                TIMEOUT = 10000; // POOL every 1 minute
 
             this.isUserAuthenticated = AuthService.isAuthenticated();
 
