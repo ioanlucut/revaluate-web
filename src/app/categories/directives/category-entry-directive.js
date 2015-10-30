@@ -38,7 +38,7 @@
                 })
                 .catch(function () {
                     vm.badPostSubmitResponse = true;
-                    $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: 'error' });
+                    $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something bad just happened.' });
                 });
         }
 
@@ -50,7 +50,7 @@
                     $rootScope.$broadcast(CATEGORY_EVENTS.isDeleted, { category: vm.categoryEntry });
                 })
                 .catch(function () {
-                    $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: 'error' });
+                    $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something bad just happened.' });
                 });
         }
     }

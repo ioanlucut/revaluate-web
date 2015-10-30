@@ -75,7 +75,7 @@
         $scope.$on(CATEGORY_EVENTS.isErrorOccurred, function (event, args) {
             $scope.$emit(ALERTS_EVENTS.DANGER, {
                 message: args.errorMessage,
-                alertId: $scope.alertId
+                alertId: vm.alertId
             });
         });
 
