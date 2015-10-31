@@ -41,7 +41,7 @@
                             $scope.isRequestPending = false;
 
                             $scope.$emit(ALERTS_EVENTS.DANGER, {
-                                message: 'Sorry, something went wrong.',
+                                message: 'Ups, something went wrong.',
                                 alertId: $scope.alertId
                             });
                         });

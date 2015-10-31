@@ -41,7 +41,7 @@
                 })
                 .catch(function () {
                     vm.badPostSubmitResponse = true;
-                    $scope.$emit(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something bad just happened.' });
+                    $scope.$emit(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something went wrong.' });
                 });
         }
 
