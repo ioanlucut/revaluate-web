@@ -54,7 +54,7 @@
                         $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.appIntegrationDeleted);
                     })
                     .catch(function () {
-                        $scope.$emit(ALERTS_EVENTS.DANGER, 'Ups, something bad just happened.');
+                        $scope.$emit(ALERTS_EVENTS.DANGER, 'Ups, something went wrong.');
                     });
             }
 
@@ -66,7 +66,7 @@
                         $scope.$apply();
                     })
                     .then(null, function () {
-                        $scope.$emit(ALERTS_EVENTS.DANGER, 'Sorry, something went wrong.');
+                        $scope.$emit(ALERTS_EVENTS.DANGER, 'Ups, something went wrong.');
                         $scope.$apply();
                     });
             }

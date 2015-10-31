@@ -93,7 +93,7 @@
                 })
                 .catch(function () {
                     vm.badPostSubmitResponse = true;
-                    $rootScope.$broadcast(GOAL_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something bad just happened.' });
+                    $rootScope.$broadcast(GOAL_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something went wrong.' });
                 });
         }
 
@@ -104,7 +104,7 @@
                     $rootScope.$broadcast(GOAL_EVENTS.isDeleted, { goal: vm.goal });
                 })
                 .catch(function () {
-                    $rootScope.$broadcast(GOAL_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something bad just happened.' });
+                    $rootScope.$broadcast(GOAL_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something went wrong.' });
                 });
         }
 

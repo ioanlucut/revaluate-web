@@ -35,7 +35,7 @@
                             $scope.badPostSubmitResponse = true;
 
                             $scope.$emit(ALERTS_EVENTS.DANGER, {
-                                message: 'This email does not exist in our database.',
+                                message: 'Ups, something went wrong.',
                                 alertId: $scope.alertId
                             });
                         });
