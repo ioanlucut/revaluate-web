@@ -23,6 +23,10 @@
                 color: $black;
             }
 
+            &:disabled {
+                opacity: 0 !important;
+            }
+
             &.insights__controls__form__arrow--left {
                 float: left;
             }
