@@ -2,10 +2,9 @@
 
 <!--Empty state-->
 <div class="expenses__empty-state" ng-if="expensesVm.expenses.length === 0 && expensesVm.temporaryExpenses.length === 0">
-    <div class="expenses__empty-state__icon"></div>
-    <h1>No expenses yet.</h1>
+    <div class="expenses__empty-state__title">No expenses yet.</div>
 
-    <div>It seems like you have no expenses yet. Start adding some or
+    <div>You have no expenses yet. Start adding or
         <a href="javascript:void(0)" ui-sref="settings.import.choose">import your expenses</a>.
     </div>
 </div>
