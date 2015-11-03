@@ -1,11 +1,7 @@
 @mixin category-label($color) {
     @include border-radius(2px);
-    height: 20px;
-    line-height: 20px;
     color: $white;
     text-transform: uppercase;
-    font-size: $font-size-small;
-    font-weight: $font-weight-bold;
-    text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
     background-color: $color;
+    padding: 1px 5px;
 }

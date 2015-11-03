@@ -63,18 +63,12 @@
 
     .goals__list__entry__section__category {
         @include clearfix();
-        position: relative;
-        margin: 2px 40px 0 0;
-        padding: 0 0 0 25px;
+        margin: 0 40px 0 5px;
+        padding: 0;
 
-        .goals__list__entry__section__category__icon {
-            position: absolute;
-            left: 5px;
-            top: 2px;
-            width: 17px;
-            height: 17px;
-            border: solid 2px $gray-medium;
-            @include border-radius(50%);
+        .goals__list__entry__section__category__label {
+            @include category-label($gray-light-4);
+            position: relative;
         }
     }
 
