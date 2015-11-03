@@ -47,7 +47,7 @@
             // ---
             noOfDaysInMonth = daysInMonth();
             currentDay = moment().date();
-            vm.todayPosition = ((100 * currentDay) / noOfDaysInMonth) - 0.5;
+            vm.todayPosition = ((100 / noOfDaysInMonth) * currentDay) - ((100 / noOfDaysInMonth) / 2);
         }
 
         function daysInMonth() {
