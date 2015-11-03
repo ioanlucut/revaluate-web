@@ -9,7 +9,7 @@
     z-index: 1080;
     width: 100%;
     height: 0;
-    margin-top: $header-height + 1;
+    margin-top: 10px;
     text-align: center;
 }
 
@@ -19,13 +19,21 @@
 }
 
 .ng-toast.ng-toast--top .ng-toast__list {
+    position: relative;
     top: 0;
+    left: auto;
+    right: auto;
     bottom: auto;
 }
 
 .ng-toast.ng-toast--top.ng-toast--center .ng-toast__list {
     position: static;
+
 }
+
+/* ----------
+// We are not using these for now, commenging out for better troubleshooting
+// ----
 
 .ng-toast.ng-toast--bottom {
     top: auto;
@@ -62,9 +70,10 @@
 .ng-toast.ng-toast--left .ng-toast__message {
     text-align: left;
 }
+------- */
 
 .ng-toast .ng-toast__list {
-    display: inline-block;
+    display: block;
     position: absolute;
     right: auto;
     left: auto;
@@ -74,7 +83,7 @@
 }
 
 .ng-toast .ng-toast__message {
-    display: inline-block;
+    display: block;
     width: auto;
     max-width: 400px;
     text-align: center;
