@@ -3,18 +3,17 @@
 }
 
 .settings__import__choose__source {
-    border: solid 1px $gray-lighter;
+    border: solid 1px $gray-light-2;
     @include size(450px 60px);
     margin: 0 auto 20px;
     padding: 0;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
     line-height: 56px;
     font-size: $font-size-larger;
     color: $gray-dark-1;
 
     &:hover {
         cursor: pointer;
-        border-color: $gray-medium;
+        border-color: $gray-light-1;
 
         .settings__import__choose__source__label,
         .settings__import__choose__source__arrow {
