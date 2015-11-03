@@ -55,16 +55,22 @@
 
                         <div class="integrations__list__entry__tutorial">
                             <div class="integrations__list__entry__tutorial__intro">
-                                Slack is the communication tool for modern teams.
-                                In order to connect Revaluate to Slack you need to have integrations permission for your user.
+                                Slack is the communication tool for modern teams.<br>
+                                <span>Slack limitation: In order to connect Revaluate to Slack you need to have integrations permission for your user.</span>
                             </div>
 
-                            <div class="integrations__list__entry__tutorial__step__title">1: Add a slash command in Slack (this needs to be done only by a team member):</div>
+                            <div class="integrations__list__entry__tutorial__step__title">1: Authorize Revaluate in your Slack team (this needs to be done by each member from their Revaluate account):</div>
+                            <div class="integrations__list__entry__connect">
+                                <a href="javascript:void(0)" ng-click="vm.addIntegrationOf('slack')">
+                                    <img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x">
+                                </a>
+                            </div>
+
+                            <div class="integrations__list__entry__tutorial__step__title">2: Add a slash command in Slack (this needs to be done only by a team member):</div>
 
                             <ul class="integrations__list__entry__tutorial__step__description">
                                 <li><span>Step 1:</span> Go to your Slack account to add a <a href="https://slack.com/services/new/slash-commands" target="_blank">new slash command</a>.</li>
                                 <li><span>Step 2:</span> In the <strong>Choose a Command</strong> input, add <code>/revaluate</code></li>
-                                <li><img src="/assets/img/integrations/integration_slack_02.png" /></li>
 
                                 <li><span>Step 3:</span> Click on the <strong>Add Slash Command Integration</strong> button.</li>
                                 <li><span>Step 4:</span> In the new loaded screen, go to <strong>Integration Settings</strong> section.</li>
@@ -72,7 +78,6 @@
                                     <ul>
                                         <li>URL: <code>https://revaluate-api-prod.herokuapp.com/slack</code></li>
                                         <li>Method: <code>GET</code></li>
-                                        <img src="/assets/img/integrations/integration_slack_03.png" />
 
                                         <li>Autocomplete Help Text:
                                             <ul>
@@ -80,19 +85,12 @@
                                                 <li> Usage hint: <code>[command] - “/revaluate help” for additional info</code></li>
                                             </ul>
                                         </li>
-                                        <img src="/assets/img/integrations/integration_slack_04.png" />
                                     </ul>
                                 </li>
 
                                 <li><span>Step 6:</span> Click <strong>Save Integration</strong>.</li>
                             </ul>
 
-                            <div class="integrations__list__entry__tutorial__step__title">2: Authorize Revaluate in your Slack team (this needs to be done by each member from their Revaluate account):</div>
-                            <div class="integrations__list__entry__connect">
-                                <a href="javascript:void(0)" ng-click="vm.addIntegrationOf('slack')">
-                                    <img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x">
-                                </a>
-                            </div>
                         </div>
                     </accordion-group>
                 </accordion>
