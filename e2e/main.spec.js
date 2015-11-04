@@ -16,6 +16,7 @@ describe('The main view', function () {
     it('it should fill the required field and login', function() {
         LoginPage.userName.sendKeys('e2e-user@example.com');
         LoginPage.password.sendKeys('e2e-password');
+        LoginPage.loginButton.click();
         expect(LoginPage.greeting.getText()).toContain('Welcome!');
     });
 
