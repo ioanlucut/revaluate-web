@@ -5,11 +5,14 @@
 
 'use strict';
 
-var MainPage = function() { 
-  this.jumbEl = element(by.css('.jumbotron'));
-  this.h1El = this.jumbEl.element(by.css('h1'));
-  this.imgEl = this.jumbEl.element(by.css('img'));
-  this.thumbnailEls = element(by.css('body')).all(by.repeater('awesomeThing in awesomeThings'));
+var LoginPage;
+LoginPage = function () {
+    this.firstLoginButton = element(by.css(Button['header-public__navigation__loginbtn']));
+    this.userName = element(by.input('form-group-input__input ng-pristine ng-invalid ng-invalid-required ng-valid-email ng-touched'));
+    this.password = element(by.input('form-group-input__input.ng-pristine.ng-invalid.ng-invalid-required.ng-touched'));
+    this.greeting = element(by.binding("Welcome!"));
+    this.loginButton = element(by.css(Button['button.account__btn.ng-binding']));
 };
 
-module.exports = new MainPage();
+module.exports = new (LoginPage);
+
