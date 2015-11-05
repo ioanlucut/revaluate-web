@@ -189,13 +189,18 @@
          * Update profile functionality.
          */
         vm.setUp = function () {
+            var selectedCategories,
+                selectedCategoriesToBeSaved,
+                deferred,
+                userProfileToBeUpdated;
+
             if (vm.setUpForm.$invalid || vm.isSaving) {
 
                 return;
             }
 
-            var selectedCategories = angular.copy(getSelectedCategories());
-            var userProfileToBeUpdated = {
+            selectedCategories = angular.copy(getSelectedCategories());
+            userProfileToBeUpdated = {
                 currency: angular.copy(vm.currency.selected),
                 initiated: true
             };
@@ -203,14 +208,14 @@
             // ---
             // We perform a bulk create.
             // ---
-            var selectedCategoriesToBeSaved = _.map(selectedCategories, function (categoryDTO) {
+            selectedCategoriesToBeSaved = _.map(selectedCategories, function (categoryDTO) {
                 return new Category(categoryDTO);
             });
 
             // ---
             // This is the final deferred to update the user.
             // ---
-            var deferred = $q.defer();
+            deferred = $q.defer();
 
             // ---
             // Flag is saving flag.
@@ -246,7 +251,12 @@
                     // We need to set the data and refresh the user.
                     // ---
                     SessionService.setData(response.data);
-                    $rootScope.$broadcast(AUTH_EVENTS.refreshUser, { intercomAttributes: { initiated: true } });
+                    $rootScope.$broadcast(AUTH_EVENTS.refreshUser, {
+                        intercomAttributes: {
+                            initiated: true,
+                            countCategories: selectedCategoriesToBeSaved.length
+                        }
+                    });
 
                     $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.accountSetupFinished);
 
@@ -266,7 +276,7 @@
                     vm.isSaving = false;
 
                     $scope.$emit(ALERTS_EVENTS.DANGER, {
-                        message: 'We\'ve encountered an error.',
+                        message: 'Ups, something went wrong.',
                         alertId: vm.alertId
                     });
                 });
