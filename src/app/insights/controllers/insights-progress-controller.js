@@ -5,10 +5,8 @@
         .module('revaluate.insights')
         .controller('InsightsProgressController', function (DatesUtils, $controller, $templateCache, $scope, $rootScope, $filter, $timeout, InsightsGenerator, ALERTS_EVENTS, INSIGHTS_INTERVAL, insightsProgress, monthsPerYearsStatistics, categories, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
 
-            var TIMEOUT_DURATION = 150;
-
-
-            var vm = this;
+            var TIMEOUT_DURATION = 150,
+                vm = this;
 
             /**
              * Alert identifier
@@ -74,7 +72,7 @@
              * Prepares data for progress chart
              */
             function prepareDataForProgressChart() {
-                if (vm.isMinimumNumberOfAllowedUnselectedCategoriesExceeded()) {
+                if ( vm.isMinimumNumberOfAllowedUnselectedCategoriesExceeded() ) {
                     return;
                 }
 
@@ -113,14 +111,14 @@
             };
 
             vm.selectAll = function () {
-                if (getSelectedCategories().length < vm.masterCategories.length) {
+                if ( getSelectedCategories().length < vm.masterCategories.length ) {
 
                     reloadAllCategoriesWithSelectedAs(true);
                 }
             };
 
             vm.clearAll = function () {
-                if (getSelectedCategories().length > 0) {
+                if ( getSelectedCategories().length > 0 ) {
 
                     reloadAllCategoriesWithSelectedAs(false);
                 }
@@ -135,7 +133,7 @@
              * Load insights
              */
             vm.loadInsights = function (insightsIntervalMonths) {
-                if (vm.isLoading) {
+                if ( vm.isLoading ) {
 
                     return;
                 }

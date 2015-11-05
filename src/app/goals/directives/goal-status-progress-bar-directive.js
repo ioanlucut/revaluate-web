@@ -51,7 +51,7 @@
         }
 
         function daysInMonth() {
-            return new Date(moment().year(), moment().month(), 0).getDate();
+            return new Date(moment().year(), moment().month() + 1, 0).getDate();
         }
 
         $scope.$watch(function () {
