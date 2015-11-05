@@ -5,12 +5,12 @@
         .module('revaluate.intercom')
         .service('IntercomUtilsService', function ($intercom, AuthService, $rootScope) {
 
-            this.bootIntercom = function (user, featured) {
+            this.bootIntercom = function (user, args) {
 
                 // ---
                 // Bootstrap intercom.
                 // ---
-                $intercom.boot(featured ? _.extend(this.getIntercomUser(user), { featured: featured }) : this.getIntercomUser(user));
+                $intercom.boot(_.extend(this.getIntercomUser(user), args || {}));
             };
 
             this.updateIntercom = function (user, args) {
