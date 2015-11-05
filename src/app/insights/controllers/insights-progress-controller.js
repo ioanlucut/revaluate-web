@@ -39,7 +39,7 @@
              * Default active interval selected.
              * @type {number}
              */
-            vm.activeInterval = vm.INSIGHTS_INTERVAL.QUARTER_YEAR;
+            vm.activeInterval = vm.INSIGHTS_INTERVAL.HALF_YEAR;
 
             // ---
             // Inherit from parent controller.
