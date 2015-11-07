@@ -12,6 +12,7 @@ angular.module("config", [])
 		"SLACK": "2151987168.10687444405"
 	},
 	"redirectUri": "http://localhost:3000",
+	"frontEndUri": "http://localhost:3000",
 	"isProduction": false,
 	"isMaintenanceMode": false
 })

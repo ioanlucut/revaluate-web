@@ -3,15 +3,14 @@
 
     angular
         .module('revaluate.common')
-        .controller('HomePageController', function (APP_STATS, AUTH_EVENTS, SiteService, $scope, $timeout, AuthService) {
-            var vm = this,
-                currentUpdateAppStatsPromise,
-                TIMEOUT = 10000; // POOL every 1 minute
+        .controller('HomePageController', function (APP_STATS, AUTH_EVENTS, SiteService, $scope, $interval, AuthService) {
+            var currentUpdateAppStatsPromise,
+                INTERVAL_DELAY = 60000; // POOL every 1 minute
 
             this.isUserAuthenticated = AuthService.isAuthenticated();
 
             if (!this.isUserAuthenticated) {
-                updateAppStats();
+                currentUpdateAppStatsPromise = $interval(updateAppStats, INTERVAL_DELAY);
             }
 
             $scope.$on('$destroy', function () {
@@ -24,7 +23,7 @@
 
             function cancelUpdateAppStatsPromise() {
                 if (currentUpdateAppStatsPromise) {
-                    $timeout.cancel(currentUpdateAppStatsPromise);
+                    $interval.cancel(currentUpdateAppStatsPromise);
 
                     currentUpdateAppStatsPromise = null;
                 }
@@ -35,10 +34,6 @@
                     .fetchInstant()
                     .then(function (response) {
                         $scope.$broadcast('update-app-stats', { appStats: response.data });
-
-                        if (!vm.isUserAuthenticated) {
-                            currentUpdateAppStatsPromise = $timeout(updateAppStats, TIMEOUT);
-                        }
                     });
             }
         });
