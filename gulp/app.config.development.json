@@ -11,6 +11,7 @@
             "SLACK": "2151987168.10687444405"
         },
         "redirectUri": "http://dev.revaluate.io",
+        "frontEndUri": "http://dev.revaluate.io",
         "isProduction": false,
         "isMaintenanceMode": false
     }

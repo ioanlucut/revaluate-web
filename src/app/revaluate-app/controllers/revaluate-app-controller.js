@@ -56,7 +56,7 @@
                 // ---
                 // Bootstrap intercom.
                 // ---
-                IntercomUtilsService.bootIntercom($rootScope.currentUser, $location.search().ref);
+                IntercomUtilsService.bootIntercom($rootScope.currentUser, { featured: $location.search().ref });
 
                 if (ENV.isProduction) {
                     // ---
@@ -79,7 +79,7 @@
                 // ---
                 // Refresh intercom user.
                 // ---
-                IntercomUtilsService.updateIntercom($rootScope.currentUser, args.intercomAttributes);
+                $scope.$emit('updateUserStats', { args: args.intercomAttributes });
 
                 if (ENV.isProduction) {
                     // ---
@@ -137,6 +137,17 @@
 
                 mixpanel.track(args);
                 IntercomUtilsService.trackEvent(args);
+            });
+
+            /**
+             * Track update user events.
+             */
+            $rootScope.$on('updateUserStats', function (event, args) {
+                if (!ENV.isProduction) {
+                    return;
+                }
+
+                IntercomUtilsService.updateIntercom($rootScope.currentUser, args.args);
             });
 
             /**

@@ -63,18 +63,12 @@
 
     .goals__list__entry__section__category {
         @include clearfix();
-        position: relative;
-        margin: 2px 40px 0 0;
-        padding: 0 0 0 25px;
+        margin: 0 40px 0 5px;
+        padding: 0;
 
-        .goals__list__entry__section__category__icon {
-            position: absolute;
-            left: 5px;
-            top: 2px;
-            width: 17px;
-            height: 17px;
-            border: solid 2px $gray-medium;
-            @include border-radius(50%);
+        .goals__list__entry__section__category__label {
+            @include category-label($gray-light-4);
+            position: relative;
         }
     }
 
@@ -92,18 +86,19 @@
         position: relative;
         clear: both;
         margin-top: 70px;
-        margin-left: 3px;
-        margin-right: 5px;
+        margin-left: 11px;
+        margin-right: 8px;
 
         .progress {
             height: 40px;
             border-radius: 0;
             @include border-radius($base-border-radius);
+            @include box-shadow(none);
         }
 
         .progress-bar {
             text-align: right;
-            box-shadow: none;
+            @include box-shadow(none);
         }
 
         .progressbar__value__min,
@@ -137,7 +132,7 @@
             left: 80%;
             top: -40%;
             width: 1px;
-            height: 132px;
+            height: 150px;
             padding: 0;
             margin: 0 0 0px -1px;
             background-color: $gray-medium;

@@ -41,7 +41,6 @@
             width: 40px;
             padding: 2px 0 0 1px;
             @include border-radius(50%);
-            @include box-shadow(1px 1px 4px $gray-light-1);
 
             .icon-plus {
                 display: block;

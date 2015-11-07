@@ -47,11 +47,11 @@
             // ---
             noOfDaysInMonth = daysInMonth();
             currentDay = moment().date();
-            vm.todayPosition = ((100 * currentDay) / noOfDaysInMonth) - 0.5;
+            vm.todayPosition = ((100 / noOfDaysInMonth) * currentDay) - ((100 / noOfDaysInMonth) / 2);
         }
 
         function daysInMonth() {
-            return new Date(moment().year(), moment().month(), 0).getDate();
+            return new Date(moment().year(), moment().month() + 1, 0).getDate();
         }
 
         $scope.$watch(function () {

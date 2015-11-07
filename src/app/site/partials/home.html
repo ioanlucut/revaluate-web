@@ -185,8 +185,6 @@
         </div>
     </div>
 
-
-
     <div class="site__container">
 
         <!-- Basic features-->
@@ -219,7 +217,6 @@
 
     </div>
 
-
     <div class="site__container site__container--purple">
 
         <!-- Twitter hook -->
@@ -234,7 +231,6 @@
         </div>
     </div>
 
-
     <div class="site__container">
 
         <!-- Basic features-->
@@ -242,7 +238,7 @@
 
             <!-- Counter of expenses-->
             <div class="site__counter">
-                <div class="site__counter__value" odometer odometer-options="{theme: 'default', duration: 3000}"></div>
+                <div class="site__counter__value" odometer odometer-options="{theme: 'plaza', duration: 3000}"></div>
                 <div class="site__counter__key"> expenses tracked with Revaluate so far</div>
             </div>
 
@@ -253,6 +249,7 @@
                     <div class="site__container__section__testimonials__entry__avatar avatar__quentin-pautrat"></div>
                     <div class="site__container__section__testimonials__entry__name">Quentin Pautrat</div>
                     <a class="site__container__section__testimonials__entry__url" href="https://twitter.com/qpautrat">@qpautrat</a>
+
                     <div class="site__container__section__testimonials__entry__quote">Revaluate is really easy to use. I
                         know how much I spend each month. I love the fact that Revaluate helps me to have a better
                         understanding of my expenses.
@@ -262,6 +259,7 @@
                     <div class="site__container__section__testimonials__entry__avatar avatar__ghita-bizau"></div>
                     <div class="site__container__section__testimonials__entry__name">Ghita Bizau</div>
                     <a class="site__container__section__testimonials__entry__url" href="https://twitter.com/ghitab27">@ghitab27</a>
+
                     <div class="site__container__section__testimonials__entry__quote">This app helps me to save money
                         and time. I track all my expenses with Revaluate. It's way better than when I kept them in a
                         spreadsheet.
@@ -271,6 +269,7 @@
                     <div class="site__container__section__testimonials__entry__avatar avatar__sujet-kumar"></div>
                     <div class="site__container__section__testimonials__entry__name">Sujeet Kumar</div>
                     <a class="site__container__section__testimonials__entry__url" href="https://twitter.com/Solar_Victor">@solar_victor</a>
+
                     <div class="site__container__section__testimonials__entry__quote">Revaluate is really very cool! The
                         simplicity of this tool has won me over. Kudos to the nifty welcome messages on top, loved it! I
                         am kind of surprised why I couldn't find a tool like this for a very long time!
@@ -316,7 +315,7 @@
                         <div class="form-group-input__message" ng-if="signUpForm.firstName.$invalid && signUpForm.$submitted">
                             Please tell us your First Name.
                         </div>
-                        <input class="form-group-input__input" type="text" name="firstName" placeholder="First Name" ng-model="signUpData.firstName" required/>
+                        <input class="form-group-input__input" type="text" name="firstName" placeholder="First Name" ng-model="signUpData.firstName" required />
                     </div>
 
                     <!-- Form group -->
@@ -324,7 +323,7 @@
                         <div class="form-group-input__message" ng-if="signUpForm.lastName.$invalid && signUpForm.$submitted">
                             Please tell us your Last Name.
                         </div>
-                        <input class="form-group-input__input" type="text" name="lastName" placeholder="Last Name" ng-model="signUpData.lastName" required/>
+                        <input class="form-group-input__input" type="text" name="lastName" placeholder="Last Name" ng-model="signUpData.lastName" required />
                     </div>
 
                     <!-- Email input -->
@@ -338,7 +337,7 @@
                                     password?</a>
                             </div>
                         </div>
-                        <input class="form-group-input__input" type="email" name="email" placeholder="Email" ng-model="signUpData.email" required valid-email unique-email/>
+                        <input class="form-group-input__input" type="email" name="email" placeholder="Email" ng-model="signUpData.email" required valid-email unique-email />
                     </div>
 
                     <!-- Form groups -->
@@ -348,7 +347,7 @@
                             <div ng-message="required">Please choose a password.</div>
                             <div ng-message="strongPassword">Please choose a password with at least 7 characters.</div>
                         </div>
-                        <input class="form-group-input__input" type="password" name="password" placeholder="Password" ng-model="signUpData.password" required strong-password/>
+                        <input class="form-group-input__input" type="password" name="password" placeholder="Password" ng-model="signUpData.password" required strong-password />
                     </div>
 
                     <!-- Button container -->

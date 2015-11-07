@@ -19,6 +19,15 @@
                  goals-display-entry
                  goal="goal">
             </div>
+
+            <!--Empty state-->
+            <div class="goals__empty-state" ng-if="vm.goals.length === 0">
+                <div class="goals__empty-state__title">No goals this month.</div>
+
+                <div>
+                    <a href="javascript:void(0)" ui-sref="goals.regular">Add some goals</a> to master your finances like a pro.
+                </div>
+            </div>
         </div>
 
     </div>

@@ -102,7 +102,7 @@
                             vm.isSaving = false;
 
                             $scope.$emit(ALERTS_EVENTS.DANGER, {
-                                message: 'We\'ve encountered an error.',
+                                message: 'Ups, something went wrong.',
                                 alertId: vm.alertId
                             });
                         });

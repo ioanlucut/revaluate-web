@@ -37,6 +37,10 @@
             return vm.categories.length <= APP_CONFIG.MIN_ALLOWED_CATEGORIES;
         }
 
+        function updateNoOfCategories() {
+            $scope.$emit('updateUserStats', { args: { countCategories: vm.categories.length } });
+        }
+
         // ---
         // EVENT LISTENERS (listen for events from e.g. entries list).
         // ---
@@ -49,6 +53,7 @@
 
             $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Saved');
             $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.categoryCreated);
+            updateNoOfCategories();
         });
 
         /**
@@ -70,12 +75,13 @@
 
             $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Deleted');
             $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.categoryDeleted);
+            updateNoOfCategories();
         });
 
         $scope.$on(CATEGORY_EVENTS.isErrorOccurred, function (event, args) {
             $scope.$emit(ALERTS_EVENTS.DANGER, {
                 message: args.errorMessage,
-                alertId: $scope.alertId
+                alertId: vm.alertId
             });
         });
 

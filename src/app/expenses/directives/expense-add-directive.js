@@ -70,7 +70,7 @@
                 })
                 .catch(function () {
                     vm.badPostSubmitResponse = true;
-                    $scope.$emit(EXPENSE_EVENTS.isErrorOccurred, { errorMessage: 'Error' });
+                    $scope.$emit(EXPENSE_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something went wrong.' });
                 });
         }
 

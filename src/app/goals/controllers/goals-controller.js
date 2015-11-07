@@ -105,6 +105,10 @@
                 });
         }
 
+        function updateNoOfGoals() {
+            $scope.$emit('updateUserStats', { args: { countGoals: vm.goals.length } });
+        }
+
         // ---
         // EVENT LISTENERS (listen for events from e.g. entries list).
         // ---
@@ -123,6 +127,7 @@
 
             $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.goalCreated);
             $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Saved');
+            updateNoOfGoals();
         });
 
         /**
@@ -149,6 +154,7 @@
 
             $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Deleted');
             $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.goalDeleted);
+            updateNoOfGoals();
         });
 
         /**
@@ -157,7 +163,7 @@
         $scope.$on(GOAL_EVENTS.isErrorOccurred, function (event, args) {
             $scope.$emit(ALERTS_EVENTS.DANGER, {
                 message: args.errorMessage,
-                alertId: $scope.alertId
+                alertId: vm.alertId
             });
         });
 

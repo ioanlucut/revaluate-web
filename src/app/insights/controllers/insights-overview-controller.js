@@ -56,7 +56,7 @@
             /**
              * Default interval
              */
-            vm.activeInterval = vm.INSIGHTS_INTERVAL.QUARTER_YEAR;
+            vm.activeInterval = vm.INSIGHTS_INTERVAL.HALF_YEAR;
 
             /**
              * Series (static)
