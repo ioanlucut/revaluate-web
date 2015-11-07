@@ -153,7 +153,7 @@
             vm.temporaryExpenses.push(args.expense);
 
             $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.expenseCreated);
-            $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Saved');
+            $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Saved expense.');
         });
 
         /**
@@ -170,7 +170,7 @@
             }
             vm.temporaryExpenses.push(args.expense);
 
-            $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated');
+            $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated expense.');
             $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.expenseUpdated);
         });
 
@@ -182,7 +182,7 @@
                 removeBulkExpenses(args.expenses);
             }
 
-            $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Deleted');
+            $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Deleted expense.');
             $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.expenseDeleted);
         });
 
@@ -205,7 +205,7 @@
         $scope.$on(EXPENSE_EVENTS.isErrorOccurred, function (event, args) {
             $scope.$emit(ALERTS_EVENTS.DANGER, {
                 message: args.errorMessage,
-                alertId: $scope.alertId
+                alertId: vm.alertId
             });
         });
 

@@ -13,7 +13,6 @@ module.exports = function (options) {
     gulp.task('webdriver-standalone', $.protractor.webdriver_standalone);
 
     function runProtractor(done) {
-
         gulp.src(options.e2e + '/**/*.js')
             .pipe($.protractor.protractor({
                 configFile: 'protractor.conf.js'

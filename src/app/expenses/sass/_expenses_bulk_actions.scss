@@ -8,6 +8,7 @@
     top: 0;
 
     .expenses__bulk-actions__buttons {
+        @include clearfix();
 
         .expenses__bulk-actions__buttons__delete {
 
@@ -21,7 +22,7 @@
         .expenses__bulk-actions__buttons__cancel {
 
             .expenses__bulk-actions__buttons__delete__btn-cancel {
-                @include btn-small($brand-default);
+                @include btn-small($gray-light-3);
                 color: $gray-dark-1;
                 display: block;
                 float: left;
@@ -30,7 +31,9 @@
 
         .expenses__bulk-actions__buttons__delete,
         .expenses__bulk-actions__buttons__cancel {
-            display: inline-block;
+            display: block;
+            float: left;
+            margin-right: 5px;
         }
     }
 }

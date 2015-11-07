@@ -1,11 +1,14 @@
 .expenses__empty-state {
-    @include section-center(100%);
-    min-height: 200px;
-    padding: 40px 100px;
+    width: 100%;
+    max-width: 500px;
+    margin: 50px auto 10px;
+    padding: 20px;
+    text-align: center;
     color: $gray-medium;
+    background-color: $gray-light-4;
+    @include border-radius($border-radius-base);
 
-    .expenses__empty-state__icon {
-        @include cssSprite($icon-timeline-gray);
-        margin: 0 auto;
+    .expenses__empty-state__title {
+        color: $gray-dark-2;
     }
 }

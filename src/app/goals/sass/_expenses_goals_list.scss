@@ -38,11 +38,14 @@
                 }
 
                 .today__line {
-                    height: 37px;
+                    height: 45px;
                     top: -55%;
                 }
             }
         }
+    }
 
+    .goals__empty-state {
+        margin-top: 10px;
     }
 }

@@ -73,7 +73,7 @@
                 })
                 .catch(function () {
                     vm.badPostSubmitResponse = true;
-                    $rootScope.$broadcast(EXPENSE_EVENTS.isErrorOccurred, { errorMessage: 'error' });
+                    $rootScope.$broadcast(EXPENSE_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something went wrong.' });
                 });
         }
 

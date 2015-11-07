@@ -200,10 +200,10 @@
                 tooltipTitleFontColor: '#fff',
 
                 // Number - pixel width of padding around tooltip text
-                tooltipYPadding: 20,
+                tooltipYPadding: 15,
 
                 // Number - pixel width of padding around tooltip text
-                tooltipXPadding: 40,
+                tooltipXPadding: 15,
 
                 // Number - Size of the caret on the tooltip
                 tooltipCaretSize: 8,

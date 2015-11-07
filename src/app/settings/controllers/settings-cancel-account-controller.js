@@ -5,9 +5,8 @@
         .module('revaluate.settings')
         .controller('SettingsCancelAccountController', function ($q, $scope, $rootScope, $timeout, USER_ACTIVITY_EVENTS, StatesHandler, IntercomUtilsService, AuthService, ALERTS_EVENTS, ALERTS_CONSTANTS) {
 
-            var vm = this;
-
-            var TIMEOUT_PENDING = 1000;
+            var vm = this,
+                TIMEOUT_PENDING = 1000;
 
             /**
              * Alert identifier
@@ -32,7 +31,12 @@
                         // ---
                         // Mark this user as canceled in intercom.
                         // ---
-                        IntercomUtilsService.updateIntercom($rootScope.currentUser, { intercomAttributes: { canceled: true } });
+                        $scope.$emit('updateUserStats', {
+                            user: $rootScope.currentUser,
+                            args: {
+                                canceled: true
+                            }
+                        });
                         $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.accountCanceled);
 
                         $scope.$emit(ALERTS_EVENTS.SUCCESS, 'We\'ve successfully deleted your account!');
@@ -56,7 +60,7 @@
                         vm.isDeleting = false;
 
                         $scope.$emit(ALERTS_EVENTS.DANGER, {
-                            message: 'We\'ve encountered an error.',
+                            message: 'Ups, something went wrong.',
                             alertId: vm.alertId
                         });
                     });

@@ -51,3 +51,8 @@
 * Build `custom`: `gulp --env=localhost` but the configs have to be defined for that specific custom environments.
 * Note: All paths are `relative`. Always use `/app/sometheing`, and not `app/something`
 * More infos `https://github.com/Swiip/generator-gulp-angular`
+
+# API HEROKU useful commands
+* `heroku ps:restart --app revaluate-api-prod`
+* `heroku config:set JAVA_OTPS='-Xmx768m -Xms768m -Xss512k -XX:+UseCompressedOops' --app revaluate-api-prod`
+* `heroku logs -t -n 300 --app revaluate-api-prod`

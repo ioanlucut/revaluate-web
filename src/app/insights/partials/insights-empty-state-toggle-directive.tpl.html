@@ -1,9 +1,9 @@
 <!--Empty state if no expenses overall-->
 <div class="insights__empty-state" ng-if="showEmptyState">
-    <div class="insights__empty-state__icon"></div>
-    <h1>No data yet.</h1>
+    <div class="insights__empty-state__title">No data yet.</div>
 
-    <div>Add some expenses or
+    <div>
+        <a href="javascript:void(0)" ui-sref="expenses.regular">Start adding</a> your expenses or
         <a href="javascript:void(0)" ui-sref="settings.import.choose">import from other apps</a> using csv export.
     </div>
 </div>

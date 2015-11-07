@@ -7,19 +7,22 @@
             SUCCESS: {
                 messages: [
                     'OMG, I really made it.',
-                    'Look at me! Who\'s your daddy, now ?'
+                    'Look at me! I\'ve totally made it!'
                 ]
             },
             INFO: {
                 messages: [
                     'Few more steps!',
                     'Hey! Great start so far!',
-                    'Looking good!'
+                    'Looking good!',
+                    'Just keep doing what you\'re doing',
+                    'You\'ll definately hit this goal!'
                 ]
             },
             WARNING: {
                 messages: [
-                    'Seems to be a tough challenge, but you can do it!'
+                    'Seems to be a tough challenge, but you can do it!',
+                    'Just a little '
                 ]
             },
             DANGER: {
@@ -27,7 +30,8 @@
                     'Only those who dare to fail greatly can ever achieve greatly.',
                     'It\'s fine to celebrate success but it is more important to heed the lessons of failure.',
                     'There is no failure except in no longer trying.',
-                    'It is hard to fail, but it is worse never to have tried to succeed.'
+                    'It is hard to fail, but it is worse never to have tried to succeed.',
+                    'Don\'t be to hard on yourself. You\'ll do better next time'
                 ]
             }
         });
