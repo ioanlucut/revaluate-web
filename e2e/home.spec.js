@@ -11,7 +11,7 @@
             page = require('./home.po');
         });
 
-        xit('should contain proper description', function () {
+        it('should contain proper description', function () {
             expect(page.mainDescription.getText()).toBe('Simplify your personal finance management');
             expect(page.mainTitle.getText()).toBe('Change the way you spend your money');
         });

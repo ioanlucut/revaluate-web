@@ -2,17 +2,25 @@
     'use strict';
 
     var LoginPage = function () {
-        this.logInButton = element(by.css('.header-public__navigation .header-public__navigation__loginbtn'));
-        this.userName = element(by.css('form[name="loginForm"] input[name=email]'));
-        this.password = element(by.css('form[name="loginForm"] input[name=password]'));
-        this.loginSubmitButton = element(by.css('.account__btn'));
-        this.greeting = element(by.css(".expenses__greeting"));
-        this.expensePriceInput = element(by.css(".expense__form__price__input"));
-        this.addExpense = element(by.css(".expense__edit__form__savebtn"));
-        this.expenseErrors = element(by.css(".form-group-input__message.has-error"));
+        var utils = require('./utils');
+
+        this.loginModal = element(by.css('.header-public__navigation .header-public__navigation__loginbtn'));
+        this.userInput = element(by.model('loginData.email'));
+        this.passwordInput = element(by.model('loginData.password'));
+        this.loginButton = element(by.css('.account__btn'));
+        this.postLoginErrorMessage = element(by.css('form[name=loginForm] .alert-message'));
+
+        this.go = function () {
+            utils.getWhileWait('/');
+        };
+
+        this.login = function (username, password) {
+            this.loginModal.click();
+            this.userInput.sendKeys(username);
+            this.passwordInput.sendKeys(password);
+            this.loginButton.click();
+        };
     };
 
     module.exports = new LoginPage();
 }());
-
-

@@ -1,6 +1,8 @@
 (function () {
     'use strict';
 
+    var EC = require('protractor').ExpectedConditions;
+
     // ---
     // Test utils.
     // ---
@@ -40,5 +42,10 @@
             .then(function () {
                 that.waitForDeferredAngular();
             });
-    }
+    };
+
+    exports
+        .waitToShow = function (element) {
+        browser.wait(EC.presenceOf(element), 5000);
+    };
 }());
