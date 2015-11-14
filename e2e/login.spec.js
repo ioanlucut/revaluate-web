@@ -3,32 +3,32 @@
 
     describe('The login view', function () {
         var page,
-            EC = protractor.ExpectedConditions,
             utils = require('./utils');
 
         beforeEach(function () {
-            utils.getWhileWait('/');
-
             page = require('./login.po');
+            page.go();
         });
 
-        it('it should fill the required field and login', function () {
-            page.logInButton.click();
-            page.userName.sendKeys('deve2e@revaluate.io');
-            page.password.sendKeys('deve2e@revaluate.io');
+        afterEach(function () {
+            browser.executeScript('window.sessionStorage.clear();');
+            browser.executeScript('window.localStorage.clear();');
+        });
 
-            page
-                .loginSubmitButton
-                .click();
+        it('it should fill the required field and login, and be redirected to /expenses', function () {
+            page.login('deve2e@revaluate.io', 'deve2e@revaluate.io');
 
             utils.waitForDeferredAngular();
-            browser.wait(EC.presenceOf(page.greeting), 5000);
-            browser.wait(EC.presenceOf(page.addExpense), 5000);
-            page.expensePriceInput.sendKeys('125.22');
-            page
-                .addExpense
-                .click();
-            expect(page.expenseErrors.isPresent()).toBeTruthy();
+            expect(browser.getCurrentUrl()).toContain('expenses');
+        });
+
+        it('it should fill the required field and login, but fail due to invalid credentials', function () {
+            page.login('deve2e@revaluate.io', 'wrongPassword');
+
+            utils.waitForDeferredAngular();
+            utils.waitToShow(page.postLoginErrorMessage);
+            expect(browser.getCurrentUrl()).not.toContain('expenses');
+            expect(page.postLoginErrorMessage.getText()).toBe('Your email or password are wrong. Please try again.');
         });
     });
 }());
