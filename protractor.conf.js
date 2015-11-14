@@ -1,6 +1,7 @@
 'use strict';
 
-var paths = require('./.yo-rc.json')['generator-gulp-angular'].props.paths;
+var paths = require('./.yo-rc.json')['generator-gulp-angular'].props.paths,
+    utils = require('./e2e/utils');
 
 // An example configuration file.
 exports.config = {
@@ -33,41 +34,17 @@ exports.config = {
     },
 
     onPrepare: function () {
-        var TIMEOUT = 10000,
-            environment = browser.params.env || 'local-dev',
-            myConfig = require('./gulp/app.config.' + environment + '.json'),
-            uri = myConfig.ENV.frontEndUri;
+        var environment = browser.params.env || 'local-dev',
+            myConfig = require('./gulp/app.config.' + environment + '.json');
+        browser.baseUrl = myConfig.ENV.frontEndUri;
 
-        browser.baseUrl = uri;
+        // implicit and page load timeouts
+        browser.manage().timeouts().pageLoadTimeout(10000);
+        browser.manage().timeouts().implicitlyWait(5000);
+        browser.manage().window().setSize(1440, 900);
 
-        function waitForDeferredAngular() {
-            return browser.driver
-                .wait(function () {
-                    return element(by.css('.deferred-bootstrap-loading'))
-                        .then(function () {
-                            return browser.driver
-                                .wait(function () {
-                                    return element(by.css('.deferred-bootstrap-error'))
-                                        .then(function (el) {
-                                            // errors during bootstrap, fail
-                                            return false;
-                                        }, function (err) {
-                                            // no errors, loading done and no errors found
-                                            return true;
-                                        });
-                                });
-                        }, function () {
-                            // It has probably already bootstrapped, we just got to the party late
-                            return true;
-                        });
-                }, TIMEOUT);
-        }
-
-        return browser.driver
-            .get(uri)
-            .then(function () {
-                return waitForDeferredAngular();
-            });
+        // for non-angular page
+        browser.ignoreSynchronization = true;
     }
 
 };
