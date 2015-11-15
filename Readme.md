@@ -56,3 +56,10 @@
 * `heroku ps:restart --app revaluate-api-prod`
 * `heroku config:set JAVA_OTPS='-Xmx768m -Xms768m -Xss512k -XX:+UseCompressedOops' --app revaluate-api-prod`
 * `heroku logs -t -n 300 --app revaluate-api-prod`
+
+# Protractor useful commands
+* `gulp protractor-quick --protractorTests=true` Does not compile everything again and it is faster.
+* `gulp protractor --protractorTests=true` Standard command.
+* `gulp serve:e2e --protractorTests=true` Debug with the auto bootstrap of angular set.
+* `./e2e.sh` Standard command alias.
+* `./e2e.sh` Standard command alias.

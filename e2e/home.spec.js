@@ -16,12 +16,12 @@
             expect(page.mainTitle.getText()).toBe('Change the way you spend your money');
         });
 
-        xit('should open the account modal', function () {
+        it('should open the account modal', function () {
             page.logInButton.click();
             expect(page.accountGreeting.getText()).toContain('Welcome!');
         });
 
-        xit('should open the account modal', function () {
+        it('should open the account modal', function () {
             page.signUpButton.click();
             expect(page.accountGreeting.getText()).toContain('Let\'s get you started!');
         });
