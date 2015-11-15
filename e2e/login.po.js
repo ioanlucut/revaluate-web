@@ -18,7 +18,7 @@
             this.loginModal.click();
             this.userInput.sendKeys(username);
             this.passwordInput.sendKeys(password);
-            this.loginButton.click();
+            return this.loginButton.click()
         };
     };
 

@@ -8,7 +8,7 @@
     // ---
     exports
         .waitForDeferredAngular = function () {
-        var TIMEOUT = 10000;
+        var TIMEOUT = 2000;
 
         return browser.driver
             .wait(function () {
@@ -34,18 +34,28 @@
 
     exports
         .getWhileWait = function (uri) {
-        var that = this;
-
         return browser
             .driver
-            .get(browser.baseUrl + uri)
-            .then(function () {
-                that.waitForDeferredAngular();
-            });
+            .get(browser.baseUrl + uri);
     };
 
     exports
         .waitToShow = function (element) {
         browser.wait(EC.presenceOf(element), 5000);
     };
+
+    exports
+        .urlChangedAndContains = function (expectedUrl) {
+        function urlWasChanged(url) {
+            return function () {
+                return browser
+                    .getCurrentUrl()
+                    .then(function (actualUrl) {
+                        return _.contains(actualUrl, url);
+                    });
+            };
+        }
+
+        browser.wait(urlWasChanged(expectedUrl), 5000);
+    }
 }());

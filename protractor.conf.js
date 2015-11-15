@@ -14,6 +14,8 @@ exports.config = {
         'browserName': 'chrome'
     },
 
+    rootElement: '[ng-app]',
+
     // The params object will be passed directly to the Protractor instance,
     // and can be accessed from your test as browser.params. It is an arbitrary
     // object and can contain anything you may need in your test.
@@ -38,13 +40,10 @@ exports.config = {
             myConfig = require('./gulp/app.config.' + environment + '.json');
         browser.baseUrl = myConfig.ENV.frontEndUri;
 
-        // implicit and page load timeouts
-        browser.manage().timeouts().pageLoadTimeout(10000);
-        browser.manage().timeouts().implicitlyWait(5000);
+        browser.manage().timeouts().pageLoadTimeout(60000);
+        browser.manage().timeouts().implicitlyWait(10000);
+        browser.manage().timeouts().setScriptTimeout(40000);
         browser.manage().window().setSize(1440, 900);
-
-        // for non-angular page
-        browser.ignoreSynchronization = true;
     }
 
 };
