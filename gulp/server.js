@@ -2,7 +2,7 @@
 
 var gulp = require('gulp');
 var browserSync = require('browser-sync');
-var modRewrite  = require('connect-modrewrite');
+var modRewrite = require('connect-modrewrite');
 var browserSyncSpa = require('browser-sync-spa');
 
 var util = require('util');
@@ -15,7 +15,7 @@ module.exports = function (options) {
         browser = browser === undefined ? 'default' : browser;
 
         var routes = null;
-        if ( baseDir === options.src || (util.isArray(baseDir) && baseDir.indexOf(options.src) !== -1) ) {
+        if (baseDir === options.src || (util.isArray(baseDir) && baseDir.indexOf(options.src) !== -1)) {
             routes = {
                 '/bower_components': 'bower_components'
             };
@@ -26,7 +26,7 @@ module.exports = function (options) {
             routes: routes
         };
 
-        if ( middleware.length > 0 ) {
+        if (middleware.length > 0) {
             server.middleware = middleware;
         }
 
@@ -53,6 +53,15 @@ module.exports = function (options) {
 
     gulp.task('serve:dist', ['config', 'build'], function () {
         browserSyncInit(options.dist);
+    });
+
+    // ---
+    // Doesn't require config and inject.
+    // Assumes no one has changed the angular app.
+    // Is faster.
+    // ---
+    gulp.task('serve:e2e-quick', [], function () {
+        browserSyncInit([options.tmp + '/serve', options.src], []);
     });
 
     gulp.task('serve:e2e', ['config', 'inject'], function () {

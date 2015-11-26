@@ -6,6 +6,7 @@ var $ = require('gulp-load-plugins')();
 
 var wiredep = require('wiredep').stream;
 var _ = require('lodash');
+var argv = require('yargs').argv;
 
 module.exports = function (options) {
     gulp.task('inject', ['scripts', 'styles'], function () {
@@ -28,13 +29,23 @@ module.exports = function (options) {
             return '<link rel="stylesheet" href="' + filepath + '" async></script>';
         };
 
-        var injectScripts = gulp.src([
-            options.src + '/app/**/*.js',
-            options.src + '/vendor/**/*.js',
-            '!' + options.src + '/app/**/*.spec.js',
-            '!' + options.src + '/app/**/*test.js',
-            '!' + options.src + '/app/**/*.mock.js'
-        ])
+        var injectScripts,
+            injectScriptsSrc = [
+                options.src + '/app/**/*.js',
+                options.src + '/vendor/**/*.js',
+                '!' + options.src + '/app/**/*.spec.js',
+                '!' + options.src + '/app/**/*test.js',
+                '!' + options.src + '/app/**/*.mock.js'
+            ];
+
+        if (argv && argv.protractorTests) {
+            injectScriptsSrc.push('!' + options.src + '/app/**/revaluate-app-bootstrapper.js');
+        } else {
+            injectScriptsSrc.push('!' + options.src + '/app/**/revaluate-app-bootstrapper-auto.js');
+        }
+
+        injectScripts = gulp
+            .src(injectScriptsSrc)
             .pipe($.angularFilesort()).on('error', options.errorHandler('AngularFilesort'));
 
         var injectOptions = {
