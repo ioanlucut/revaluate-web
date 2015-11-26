@@ -35,7 +35,8 @@ module.exports = function (config) {
         },
 
         exclude: [
-            '**/*bootstrapper.js'
+            '**/*bootstrapper.js',
+            '**/*bootstrapper-auto.js'
         ],
 
         browserify: {
