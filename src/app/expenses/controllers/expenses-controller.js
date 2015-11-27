@@ -76,6 +76,20 @@
             return vm.expenses.length === 0 && vm.temporaryExpenses.length === 0;
         };
 
+        this.updateNoOfExpenses = function () {
+            $scope.$emit('updateUserStats', { args: { countExpenses: vm.expensesQueryResponse.totalSize } });
+        };
+
+        // ---
+        // Actual implementation.
+        // ---
+
+        this.updateNoOfExpenses();
+
+        // ---
+        // Private functions.
+        // ---
+
         function loadMoreExpenses() {
             if (vm.isUpdatingListLayout || vm.isNoMoreExpensesToBeLoaded()) {
                 return;
@@ -164,7 +178,6 @@
 
             if (expenseExistsInList) {
                 removeExpenseFromGroupedExpenses(vm.expenses, args.expense);
-
             } else {
                 _.remove(vm.temporaryExpenses, 'id', args.expense.id);
             }
