@@ -44,16 +44,16 @@ module
         deployTask(argv.env || 'localhost');
     });
 
-    gulp.task('deploy:dev', ['build:dev'], function () {
+    gulp.task('deploy:local-dev', function () {
+        deployTask(argv.env || 'local-dev');
+    });
+
+    gulp.task('deploy:dev', function () {
         deployTask(argv.env || 'development');
     });
 
     gulp.task('deploy:dev-only', function () {
         deployTask(argv.env || 'development');
-    });
-
-    gulp.task('deploy:local-dev', function () {
-        deployTask(argv.env || 'local-dev');
     });
 
     gulp.task('deploy:prod', function () {

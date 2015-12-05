@@ -12,7 +12,9 @@
     "serve": "gulp serve",
     "serve:dist": "gulp serve:dist",
     "build:dev": "gulp build:dev",
+    "deploy:dev": "gulp deploy:dev",
     "build:prod": "gulp build:prod",
+    "deploy:prod": "gulp deploy:prod",
     "e2e": "gulp protractor --protractorTests=true",
     "e2eq": "gulp protractor-quick --protractorTests=true"
   },

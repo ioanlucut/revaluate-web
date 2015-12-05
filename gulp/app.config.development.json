@@ -16,7 +16,7 @@
         "isMaintenanceMode": false,
         "AWS": {
             "params": {
-                "Bucket": "revaluate-web-dev"
+                "Bucket": "revaluate-web-prod"
             },
             "accessKeyId": "AKIAJIPPTKHKJD2XFEBA",
             "secretAccessKey": "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"
