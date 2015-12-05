@@ -2,7 +2,9 @@
 
 var gulp = require('gulp'),
     cloudfront = require("gulp-cloudfront"),
+    RevAll = require('gulp-rev-all'),
     awspublish = require('gulp-awspublish'),
+    _ = require('lodash'),
     argv = require('yargs').argv,
     environment,
     myConfig,
@@ -16,6 +18,7 @@ var gulp = require('gulp'),
         };
 
         return gulp.src('dist/**/*.*')
+            .pipe(new RevAll().revision())
             // gzip, Set Content-Encoding headers and add .gz extension
             .pipe(awspublish.gzip())
             // publisher will add Content-Length, Content-Type and headers specified above
@@ -26,7 +29,13 @@ var gulp = require('gulp'),
             .pipe(publisher.cache())
             // print upload updates to console
             .pipe(awspublish.reporter())
-            .pipe(cloudfront(myConfig.ENV.AWS));
+            .pipe(cloudfront(_.extend({}, {
+                "key": myConfig.ENV.AWS.accessKeyId,
+                "secret": myConfig.ENV.AWS.secretAccessKey,
+                "bucket": myConfig.ENV.AWS.params.Bucket,
+                "region": myConfig.ENV.AWS.region,
+                "distributionId": myConfig.ENV.AWS.distributionId
+            })));
     };
 
 module
