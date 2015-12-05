@@ -1,37 +1,32 @@
 'use strict';
 
 var gulp = require('gulp'),
-    $ = require('gulp-load-plugins')({
-        pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
-    }),
+    cloudfront = require("gulp-cloudfront"),
     awspublish = require('gulp-awspublish'),
     argv = require('yargs').argv,
     environment,
     myConfig,
     publisher,
     headers,
-    nonIndexFilter,
     deployTask = function (environment) {
         myConfig = require('./app.config.' + environment + '.json');
         publisher = awspublish.create(myConfig.ENV.AWS);
         headers = {
             'Cache-Control': 'max-age=315360000, no-transform, public'
         };
-        nonIndexFilter = $.filter(['**/*', '!**/*.html']);
 
         return gulp.src('dist/**/*.*')
             // gzip, Set Content-Encoding headers and add .gz extension
-            .pipe(nonIndexFilter)
-            .pipe(awspublish.gzip({ ext: '.gz' }))
-            .pipe(nonIndexFilter.restore())
+            .pipe(awspublish.gzip())
             // publisher will add Content-Length, Content-Type and headers specified above
             // If not specified it will set x-amz-acl to public-read by default
             .pipe(publisher.publish(headers))
             // create a cache file to speed up consecutive uploads
-            .pipe(publisher.sync())
+            /*.pipe(publisher.sync())*/
             .pipe(publisher.cache())
             // print upload updates to console
-            .pipe(awspublish.reporter());
+            .pipe(awspublish.reporter())
+            .pipe(cloudfront(myConfig.ENV.AWS));
     };
 
 module
