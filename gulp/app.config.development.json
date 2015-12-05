@@ -16,7 +16,7 @@
         "isMaintenanceMode": false,
         "AWS": {
             "params": {
-                "Bucket": "revaluate-web-dev"
+                "Bucket": "revaluate-web-prod"
             },
             "accessKeyId": "AKIA_REDACTED",
             "secretAccessKey": "REDACTED"
