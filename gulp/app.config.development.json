@@ -13,6 +13,13 @@
         "redirectUri": "http://dev.revaluate.io",
         "frontEndUri": "http://dev.revaluate.io",
         "isProduction": false,
-        "isMaintenanceMode": false
+        "isMaintenanceMode": false,
+        "AWS": {
+            "params": {
+                "Bucket": "revaluate-web-dev"
+            },
+            "accessKeyId": "AKIA_REDACTED",
+            "secretAccessKey": "REDACTED"
+        }
     }
 }

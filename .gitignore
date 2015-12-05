@@ -11,3 +11,4 @@ firebase-debug.log
 .DS_Store
 revaluate-app-config.js
 src/app/revaluate-app/config/revaluate-app-config.js
+.awspublish-*
