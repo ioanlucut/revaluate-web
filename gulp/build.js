@@ -91,8 +91,19 @@ module.exports = function (options) {
         $.del([options.dist + '/', options.tmp + '/'], done);
     });
 
-    gulp.task('build', ['html', 'fonts', 'config', 'other']);
-    gulp.task('build:local', ['html', 'fonts', 'config:local', 'other']);
-    gulp.task('build:dev', ['html', 'fonts', 'config:dev', 'other']);
-    gulp.task('build:prod', ['html', 'fonts', 'config:prod', 'other']);
+    gulp.task('build', ['clean'], function () {
+        gulp.start(['html', 'fonts', 'config', 'other']);
+    });
+
+    gulp.task('build:local', ['clean'], function () {
+        gulp.start(['html', 'fonts', 'config:local', 'other']);
+    });
+
+    gulp.task('build:dev', ['clean'], function () {
+        gulp.start(['html', 'fonts', 'config:dev', 'other']);
+    });
+
+    gulp.task('build:prod', ['clean'], function () {
+        gulp.start(['html', 'fonts', 'config:prod', 'other']);
+    });
 };
