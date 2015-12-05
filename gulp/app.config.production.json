@@ -13,6 +13,13 @@
         "redirectUri": "https://www.revaluate.io",
         "frontEndUri": "https://www.revaluate.io",
         "isProduction": true,
-        "isMaintenanceMode": false
+        "isMaintenanceMode": false,
+        "AWS": {
+            "params": {
+                "Bucket": "revaluate-web-prod"
+            },
+            "accessKeyId": "AKIAJIPPTKHKJD2XFEBA",
+            "secretAccessKey": "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"
+        }
     }
 }
