@@ -18,7 +18,9 @@
                 "Bucket": "revaluate-web-prod"
             },
             "accessKeyId": "AKIAJIPPTKHKJD2XFEBA",
-            "secretAccessKey": "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"
+            "secretAccessKey": "mD3A61f11VWybPL9laLMF1rS7+oBpdcP2/G3me9C",
+            "distributionId": "E20NR4VDPE1BSZ",
+            "region": "us-west-2"
         }
     }
 }
