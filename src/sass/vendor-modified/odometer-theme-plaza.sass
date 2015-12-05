@@ -1,0 +1,23 @@
+@import mixins
+
+$themeName: "odometer-theme-plaza"
+$digitPadding: .03em
+
++spinning-odometer($themeName)
+
+.odometer.odometer-auto-theme, .odometer#{"." + $themeName}
+    +border-radius(.15em)
+    background-color: #f0f8ff
+    font-family: inherit
+    font-weight: 100
+    padding: 0 .12em
+    font-size: 1.2em
+    background-size: 16px 16px
+
+    .odometer-digit
+        +border-radius(.1em)
+        padding: 0 $digitPadding
+        color: white
+
+        .odometer-digit-inner
+            left: $digitPadding
