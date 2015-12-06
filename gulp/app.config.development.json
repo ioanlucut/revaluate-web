@@ -15,12 +15,12 @@
         "isMaintenanceMode": false,
         "AWS": {
             "params": {
-                "Bucket": "revaluate-web-prod"
+                "Bucket": "revaluate-web-dev"
             },
             "accessKeyId": "AKIAJIPPTKHKJD2XFEBA",
             "secretAccessKey": "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",
-            "distributionId": "E20NR4VDPE1BSZ",
-            "region": "us-west-2"
+            "distributionId": "ERW9BPTV31HLX",
+            "region": "us-east-1"
         },
         "CDN_DOMAIN": "d2l41wngd03v97.cloudfront.net"
     }
