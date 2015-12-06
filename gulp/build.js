@@ -3,10 +3,11 @@
 var gulp = require('gulp');
 var imagemin = require('gulp-imagemin');
 var pngquant = require('imagemin-pngquant');
-
+var argv = require('yargs').argv;
 var $ = require('gulp-load-plugins')({
     pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
 });
+var environment = argv.env || 'local-dev';
 
 module.exports = function (options) {
     gulp.task('partials', function () {
@@ -96,14 +97,17 @@ module.exports = function (options) {
     });
 
     gulp.task('build:local', ['clean'], function () {
+        environment = argv.env || 'local';
         gulp.start(['html', 'fonts', 'config:local', 'other']);
     });
 
     gulp.task('build:dev', ['clean'], function () {
+        environment = argv.env || 'development';
         gulp.start(['html', 'fonts', 'config:dev', 'other']);
     });
 
     gulp.task('build:prod', ['clean'], function () {
+        environment = argv.env || 'production';
         gulp.start(['html', 'fonts', 'config:prod', 'other']);
     });
 };
