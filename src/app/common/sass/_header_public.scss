@@ -17,7 +17,7 @@
 
 .header-public__brand__logo {
     @include size(40px 40px);
-    background: url("../assets/img/logo.svg") no-repeat top left;
+    background: url("/assets/img/logo.svg") no-repeat top left;
     background-size: contain;
     position: absolute;
     display: block;

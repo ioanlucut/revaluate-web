@@ -22,6 +22,7 @@
             "secretAccessKey": "mD3A61f11VWybPL9laLMF1rS7+oBpdcP2/G3me9C",
             "distributionId": "E20NR4VDPE1BSZ",
             "region": "us-west-2"
-        }
+        },
+        "CDN_DOMAIN": "d2l41wngd03v97.cloudfront.net"
     }
 }
