@@ -8,7 +8,7 @@ function isOnlyChange(event) {
 }
 
 module.exports = function (options) {
-    gulp.task('watch', ['inject'], function () {
+    gulp.task('watch', ['scripts:watch', 'inject'], function () {
 
         gulp.watch([options.src + '/*.html', 'bower.json'], ['inject']);
 
@@ -17,7 +17,7 @@ module.exports = function (options) {
             options.src + '/app/**/*.scss',
             options.src + '/sass/**/*.scss'
         ], function (event) {
-            if ( isOnlyChange(event) ) {
+            if (isOnlyChange(event)) {
                 gulp.start('styles');
             } else {
                 gulp.start('inject');
@@ -25,7 +25,7 @@ module.exports = function (options) {
         });
 
         gulp.watch(options.src + '/app/**/*.js', function (event) {
-            if ( isOnlyChange(event) ) {
+            if (isOnlyChange(event)) {
                 gulp.start('scripts');
             } else {
                 gulp.start('inject');
