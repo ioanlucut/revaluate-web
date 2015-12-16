@@ -97,7 +97,7 @@
                 var insightsBarData, insightsBarColors, insightLineSeries;
 
                 insightsBarData = _.map(insightsMonthly.totalPerCategoryInsightsDTOs, function (totalPerCategoryInsightDTO) {
-                    return [totalPerCategoryInsightDTO.totalAmount];
+                    return totalPerCategoryInsightDTO.totalAmount;
                 });
 
                 insightsBarColors = _.map(insightsMonthly.totalPerCategoryInsightsDTOs, _.bind(function (totalPerCategoryInsightDTO) {

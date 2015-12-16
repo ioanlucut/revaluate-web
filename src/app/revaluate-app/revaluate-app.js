@@ -39,6 +39,7 @@
             'snap',
             'ajoslin.promise-tracker',
             'ui.bootstrap.accordion',
+            'angular-chartist',
             'duScroll'
         ])
         .config(function ($locationProvider, $translateProvider, ChartJsProvider, CacheFactoryProvider, gravatarServiceProvider, ngToastProvider) {

@@ -37,15 +37,22 @@
         </div>
 
         <div ng-if="vm.activeChart === vm.INSIGHTS_CHARTS.BAR" class="insights__chart__bar" fade-out-in fade-when="vm.loadTracker.active()">
-            <canvas id="bar"
-                    class="chart chart-bar"
-                    data="vm.barInsightsPrepared.insightsBarData"
-                    series="vm.barInsightsPrepared.insightsBarSeries"
-                    legend="false"
-                    options="vm.barOptions"
-                    labels="vm.barInsightsPrepared.insightsBarLabels"
-                    colours="vm.barInsightsPrepared.insightsBarColors">
-            </canvas>
+            <!--<canvas id="bar"-->
+                    <!--class="chart chart-bar"-->
+                    <!--data="vm.barInsightsPrepared.insightsBarData"-->
+                    <!--series="vm.barInsightsPrepared.insightsBarSeries"-->
+                    <!--legend="false"-->
+                    <!--options="vm.barOptions"-->
+                    <!--labels="vm.barInsightsPrepared.insightsBarLabels"-->
+                    <!--colours="vm.barInsightsPrepared.insightsBarColors">-->
+            <!--</canvas>-->
+
+            <chartist class="ct-chart"
+                      chartist-data="vm.barInsightsPreparedChartNew"
+                      chartist-chart-options="vm.barInsightsPreparedChartOptionsNew"
+                      chartist-events="vm.barInsightsPreparedChartEventsNew"
+                      chartist-chart-type="Bar"></chartist>
+
         </div>
 
         <div ng-if="vm.activeChart === vm.INSIGHTS_CHARTS.DOUGHNUT" class="insights__chart__doughnut" fade-out-in fade-when="vm.loadTracker.active()">

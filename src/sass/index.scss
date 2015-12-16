@@ -83,6 +83,10 @@
 @import "components/toggle";
 @import "components/selectize";
 // ---
+// Chartize Components.
+// ---
+@import "../../bower_components/chartist/dist/scss/chartist";
+// ---
 // Revaluate styles.
 // ---
 @import "../app/common/sass/common";

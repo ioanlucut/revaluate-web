@@ -87,7 +87,26 @@
             // Computed information and methods.
             // ---
             vm.barInsightsPrepared = InsightsGenerator
-                .generateMonthlyBar(vm.insightsMonthly);
+                .generateMonthlyBar(vm.insightsMonthly)
+            vm.barInsightsPreparedChartNew = {
+                series: vm.barInsightsPrepared.insightsBarData,
+                labels: vm.barInsightsPrepared.insightsBarSeries
+            };
+            vm.barInsightsPreparedChartOptionsNew = {
+                distributeSeries: true,
+                axisX: {
+                    offset: 60
+                },
+            };
+            vm.barInsightsPreparedChartEventsNew = {
+                draw: function eventHandler(data) {
+                    if (data.type === 'bar') {
+                        data.element.attr({
+                            style: 'stroke: ' + vm.barInsightsPrepared.insightsBarColors[data.seriesIndex].fillColor
+                        });
+                    }
+                }
+            };
 
             vm.donutInsightsPrepared = InsightsGenerator
                 .generateMonthlyDonut(vm.insightsMonthly);
