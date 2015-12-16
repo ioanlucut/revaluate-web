@@ -39,22 +39,22 @@
         <div ng-if="vm.activeChart === vm.INSIGHTS_CHARTS.BAR" class="insights__chart__bar" fade-out-in fade-when="vm.loadTracker.active()">
             <canvas id="bar"
                     class="chart chart-bar"
-                    data="vm.barInsightsPrepared.insightsBarData"
-                    series="vm.barInsightsPrepared.insightsBarSeries"
-                    legend="false"
-                    options="vm.barOptions"
-                    labels="vm.barInsightsPrepared.insightsBarLabels"
-                    colours="vm.barInsightsPrepared.insightsBarColors">
+                    chart-data="vm.barInsightsPrepared.insightsBarData"
+                    chart-series="vm.barInsightsPrepared.insightsBarSeries"
+                    chart-legend="false"
+                    chart-options="vm.barOptions"
+                    chart-labels="vm.barInsightsPrepared.insightsBarLabels"
+                    chart-colours="vm.barInsightsPrepared.insightsBarColors">
             </canvas>
         </div>
 
         <div ng-if="vm.activeChart === vm.INSIGHTS_CHARTS.DOUGHNUT" class="insights__chart__doughnut" fade-out-in fade-when="vm.loadTracker.active()">
             <canvas class="chart chart-doughnut"
-                    data="vm.donutInsightsPrepared.insightsDonutData"
-                    labels="vm.donutInsightsPrepared.insightsDonutLabels"
-                    legend="false"
-                    options="vm.donutChartOptions"
-                    colours="vm.donutInsightsPrepared.insightsDonutColors">
+                    chart-data="vm.donutInsightsPrepared.insightsDonutData"
+                    chart-labels="vm.donutInsightsPrepared.insightsDonutLabels"
+                    chart-legend="false"
+                    chart-options="vm.donutChartOptions"
+                    chart-colours="vm.donutInsightsPrepared.insightsDonutColors">
             </canvas>
         </div>
 
