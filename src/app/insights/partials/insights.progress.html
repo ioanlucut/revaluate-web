@@ -36,12 +36,12 @@
 
         <canvas id="line"
                 class="chart chart-line"
-                data="vm.insightLineData"
-                series="vm.insightLineSeries"
-                legend="false"
-                options="vm.lineOptions"
-                colours="vm.insightLineColors"
-                labels="vm.insightLabels"
+                chart-data="vm.insightLineData"
+                chart-series="vm.insightLineSeries"
+                chart-legend="false"
+                chart-options="vm.lineOptions"
+                chart-colours="vm.insightLineColors"
+                chart-labels="vm.insightLabels"
                 ng-if="! vm.isMinimumNumberOfAllowedUnselectedCategoriesExceeded()">
         </canvas>
 
