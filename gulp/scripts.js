@@ -4,6 +4,7 @@ var gulp = require('gulp');
 var browserSync = require('browser-sync');
 
 var $ = require('gulp-load-plugins')();
+var BowerWebpackPlugin = require("bower-webpack-plugin");
 
 module.exports = function (options) {
     function webpack(watch, callback) {
@@ -11,9 +12,10 @@ module.exports = function (options) {
             watch: watch,
             module: {
                 preLoaders: [{ test: /\.js$/, exclude: /node_modules/, loader: 'jshint-loader' }],
-                loaders: [{ test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' }]
+                loaders: [{ test: /\.js$/, exclude: /node_modules/, loaders: ['ng-annotate', 'babel-loader'] }]
             },
-            output: { filename: 'index.js' }
+            output: { filename: 'index.js' },
+            plugins: [new BowerWebpackPlugin()]
         };
 
         if (watch) {
