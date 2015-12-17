@@ -12,7 +12,6 @@
             },
             INFO: {
                 messages: [
-                    'Few more steps!',
                     'Hey! Great start so far!',
                     'Looking good!',
                     'Just keep doing what you\'re doing',
