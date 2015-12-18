@@ -19,7 +19,7 @@
 
 .side__menu__user__name {
     color: $gray-dark-3;
-    font-size: $font-size-larger;
+    font-size: $font-size-base;
 }
 
 .side__menu__user__email {
@@ -34,7 +34,7 @@
         background-color: $white;
         height: 50px;
         line-height: 47px;
-        font-size: $font-size-larger;
+        font-size: $font-size-base;
         margin: 1px 0;
         color: $gray-medium;
         position: relative;
@@ -50,7 +50,7 @@
     }
 
     .side__menu__icon {
-        font-size: $font-size-larger;
+        font-size: $font-size-base;
         color: $gray-light-1;
         position: absolute;
         top: 3px;

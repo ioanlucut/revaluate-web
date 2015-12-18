@@ -1,25 +1,20 @@
 // Typography
 $base-font-family: "proxima-nova", "Arial", sans-serif;
-//$font-family-serif: "museo-slab", "Arial", serif;
-$heading-font-family: $base-font-family;
+$heading-font-family: "azo-sans-uber", "Arial", sans-serif;
 
 // Font Sizes
-$font-size-base: 15.4px;
-$font-size-small: 12px;
-$font-size-large: 16.4px;
-$font-size-larger: 18px;
-$font-size-largest: 20px;
-$font-size-h1: 32px;
-$font-size-h2: 24px;
-$font-size-h3: 20px;
+$font-size-base: 12pt;
+$font-size-small: 9pt;
 
-$font-size-table: 13px;
+$font-size-h1: 60pt;
+$font-size-h2: 48pt;
+$font-size-h3: 18pt;
+$font-size-h4: 12pt;
 
 // Font Weights
-$font-weight-light: 300;
-$font-weight-regular: 400;
-$font-weight-medium: 500;
-$font-weight-bold: 700;
+$font-weight-regular: 300;
+$font-weight-bold: 800;
+$font-weight-heading: 400;
 
 // Line height
 $base-line-height: 1.5;
@@ -48,7 +43,6 @@ $goal-select-height: 35px;
 $add-category-form-height: 40px;
 $category-select-width: 100%;
 $category-select-height: 35px;
-
 
 $selectize-dropdown-height: 45px;
 

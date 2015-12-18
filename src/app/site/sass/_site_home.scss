@@ -11,7 +11,7 @@
     padding: 25px 10px 20px 10px;
     color: $gray-medium;
     font-size: 22px;
-    font-weight: $font-weight-light;
+    font-weight: $font-weight-regular;
     font-family: $base-font-family;
     text-align: left;
     width: 50%;
@@ -86,7 +86,7 @@
         @include omega(3n);
 
         h3 {
-            font-size: $font-size-largest;
+            font-size: $font-size-base;
             font-weight: $font-weight-regular;
         }
 
