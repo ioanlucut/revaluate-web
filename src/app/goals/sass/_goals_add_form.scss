@@ -118,11 +118,11 @@
             .selectize-input {
                 @include border-radius($base-border-radius);
                 line-height: 38px !important;
-                //font-size: $font-size-larger; //font-size of the selected element ----- DON'T REMOVE
+                //font-size: $font-size-base; //font-size of the selected element ----- DON'T REMOVE
 
                 & > input {
                     height: 40px;
-                    //font-size: $font-size-larger; //font-size of the placeholder ----- DON'T REMOVE
+                    //font-size: $font-size-base; //font-size of the placeholder ----- DON'T REMOVE
                     @include border-radius($base-border-radius);
                 }
             }
