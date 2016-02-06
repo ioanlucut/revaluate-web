@@ -1,18 +1,15 @@
-(function () {
-    'use strict';
+'use strict';
 
-    /* Friendly date filter */
+export default angular
+    .module('revaluate.common')
+    .filter('friendlyDate', function () {
+        return function (date) {
 
-    angular
-        .module('revaluate.common')
-        .filter('friendlyDate', function () {
-            return function (date) {
+            if ( !_.isDate(date) ) {
+                date = moment(date).toDate();
+            }
 
-                if (!_.isDate(date)) {
-                    date = moment(date).toDate();
-                }
-
-                return moment(date).calendar();
-            };
-        });
-}());
+            return moment(date).calendar();
+        };
+    })
+    .name;

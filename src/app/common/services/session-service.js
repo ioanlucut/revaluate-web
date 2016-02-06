@@ -1,11 +1,10 @@
-(function () {
-    'use strict';
+'use strict';
 
-    /**
-     * Session service which encapsulates the whole logic account related to the Local storage which contains currently logged in user.
-     */
-    angular
-        .module('revaluate.common')
+/**
+ * Session service which encapsulates the whole logic account related to the Local storage which contains currently logged in user.
+ */
+export default angular
+    .module('revaluate.common')
     .service('SessionService', function ($localStorage) {
 
         /**
@@ -71,5 +70,5 @@
             delete $localStorage[jwtTokenKey];
         };
 
-    });
-}());
+    })
+    .name;

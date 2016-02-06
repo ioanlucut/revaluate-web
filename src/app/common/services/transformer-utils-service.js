@@ -1,11 +1,10 @@
-(function () {
-    'use strict';
+'use strict';
 
-    /**
-     * Transformer utils service.
-     */
-    angular
-        .module('revaluate.common')
+/**
+ * Transformer utils service.
+ */
+export default angular
+    .module('revaluate.common')
     .service('TransformerUtils', function () {
 
         /**
@@ -29,5 +28,5 @@
 
             return _.uniq(recipients, 'email');
         };
-    });
-}());
+    })
+    .name;

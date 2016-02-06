@@ -1,4 +1,4 @@
-angular.module("config", [])
+export default angular.module("config", [])
 
 .constant("ENV", {
 	"name": "local-dev",
@@ -17,4 +17,4 @@ angular.module("config", [])
 	"isMaintenanceMode": false
 })
 
-;
+.name;

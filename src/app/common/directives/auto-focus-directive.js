@@ -1,31 +1,28 @@
-(function () {
-    'use strict';
+'use strict';
 
-    /* Auto focus */
+export default angular
+    .module('revaluate.common')
+    .directive('autoFocus', function ($timeout) {
+        return {
+            restrict: 'A',
+            link: function (scope, el, attrs) {
+                if ( !attrs.autoFocus ) {
 
-    angular
-        .module('revaluate.common')
-        .directive('autoFocus', function ($timeout) {
-            return {
-                restrict: 'A',
-                link: function (scope, el, attrs) {
-                    if (!attrs.autoFocus) {
+                    $timeout(function () {
+                        el.focus();
+                    });
+                } else {
 
-                        $timeout(function () {
-                            el.focus();
-                        });
-                    } else {
-
-                        // Watch the specified model, and auto-focus the element when the model is "true"
-                        scope.$watch(attrs.autoFocus, function (val) {
-                            if (val === true) {
-                                $timeout(function () {
-                                    el.focus();
-                                });
-                            }
-                        });
-                    }
+                    // Watch the specified model, and auto-focus the element when the model is "true"
+                    scope.$watch(attrs.autoFocus, function (val) {
+                        if ( val === true ) {
+                            $timeout(function () {
+                                el.focus();
+                            });
+                        }
+                    });
                 }
-            };
-        });
-}());
+            }
+        };
+    })
+    .name;

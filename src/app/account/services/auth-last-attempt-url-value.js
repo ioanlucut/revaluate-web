@@ -1,7 +1,6 @@
-(function () {
-    'use strict';
+'use strict';
 
-    angular
-        .module('revaluate.account')
-        .value('redirectToUrlAfterLogin', { url: undefined });
-}());
+export default angular
+    .module('revaluate.account')
+    .value('redirectToUrlAfterLogin', { url: undefined })
+    .name;

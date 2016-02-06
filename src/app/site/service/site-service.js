@@ -1,15 +1,14 @@
-(function () {
-    'use strict';
+'use strict';
 
-    function SiteService($http) {
+function SiteService($http) {
 
-        this.fetchInstant = function () {
-            return $http
-                .get(URLTo.api('appstats/fetchInstant'));
-        };
-    }
+    this.fetchInstant = function () {
+        return $http
+            .get(URLTo.api('appstats/fetchInstant'));
+    };
+}
 
-    angular
-        .module('revaluate.goals')
-        .service('SiteService', SiteService);
-}());
+export default angular
+    .module('revaluate.goals')
+    .service('SiteService', SiteService)
+    .name;

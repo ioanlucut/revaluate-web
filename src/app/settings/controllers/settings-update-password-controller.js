@@ -1,80 +1,78 @@
-(function () {
-    'use strict';
+'use strict';
 
-    /**
-     * Update password controller.
-     */
-    angular
-        .module('revaluate.settings')
-        .controller('SettingsUpdatePasswordController', function ($scope, ALERTS_EVENTS, $timeout, AuthService, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {
+/**
+ * Update password controller.
+ */
+export default angular
+    .module('revaluate.settings')
+    .controller('SettingsUpdatePasswordController', function ($scope, ALERTS_EVENTS, $timeout, AuthService, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {
 
+        var vm = this;
 
-            var vm = this;
+        var TIMEOUT_PENDING = 300;
 
-            var TIMEOUT_PENDING = 300;
+        /**
+         * Alert identifier
+         */
+        vm.alertId = ALERTS_CONSTANTS.updatePassword;
 
-            /**
-             * Alert identifier
-             */
-            vm.alertId = ALERTS_CONSTANTS.updatePassword;
+        /**
+         * Initial update password data.
+         */
+        var initialUpdatePasswordData = {
+            oldPassword: '',
+            newPassword: '',
+            newPasswordConfirmation: ''
+        };
 
-            /**
-             * Initial update password data.
-             */
-            var initialUpdatePasswordData = {
-                oldPassword: '',
-                newPassword: '',
-                newPasswordConfirmation: ''
-            };
+        /**
+         * Update password user information.
+         * @type {{oldPassword: string, newPassword: string, newPasswordConfirmation: string}}
+         */
+        vm.updatePasswordData = angular.copy(initialUpdatePasswordData);
 
-            /**
-             * Update password user information.
-             * @type {{oldPassword: string, newPassword: string, newPasswordConfirmation: string}}
-             */
-            vm.updatePasswordData = angular.copy(initialUpdatePasswordData);
+        /**
+         * Update password data functionality.
+         */
+        vm.updatePassword = function () {
+            if ( !(vm.updatePasswordForm.$valid && !vm.isRequestPending) ) {
+                return;
+            }
 
-            /**
-             * Update password data functionality.
-             */
-            vm.updatePassword = function () {
-                if (!(vm.updatePasswordForm.$valid && !vm.isRequestPending)) {
-                    return;
-                }
+            if ( vm.updatePasswordData.newPassword !== vm.updatePasswordData.newPasswordConfirmation ) {
+                $scope.$emit(ALERTS_EVENTS.DANGER, {
+                    message: 'Your new password should match the new confirmation password.',
+                    alertId: vm.alertId
+                });
 
-                if (vm.updatePasswordData.newPassword !== vm.updatePasswordData.newPasswordConfirmation) {
+                return;
+            }
+
+            vm.isRequestPending = true;
+
+            AuthService
+                .updatePassword(vm.updatePasswordData.oldPassword, vm.updatePasswordData.newPassword, vm.updatePasswordData.newPasswordConfirmation)
+                .then(function () {
+
+                    $timeout(function () {
+                        vm.isRequestPending = false;
+                        $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated');
+                    }, TIMEOUT_PENDING);
+                })
+                .catch(function () {
+                    /* If bad feedback from server */
+                    vm.badPostSubmitResponse = true;
+                    vm.isRequestPending = false;
+
                     $scope.$emit(ALERTS_EVENTS.DANGER, {
-                        message: 'Your new password should match the new confirmation password.',
+                        message: 'Error. Please try again.',
                         alertId: vm.alertId
                     });
-
-                    return;
-                }
-
-                vm.isRequestPending = true;
-
-                AuthService
-                    .updatePassword(vm.updatePasswordData.oldPassword, vm.updatePasswordData.newPassword, vm.updatePasswordData.newPasswordConfirmation)
-                    .then(function () {
-
-                        $timeout(function () {
-                            vm.isRequestPending = false;
-                            $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated');
-                        }, TIMEOUT_PENDING);
-                    })
-                    .catch(function () {
-                        /* If bad feedback from server */
-                        vm.badPostSubmitResponse = true;
-                        vm.isRequestPending = false;
-
-                        $scope.$emit(ALERTS_EVENTS.DANGER, {
-                            message: 'Error. Please try again.',
-                            alertId: vm.alertId
-                        });
-                    })
-                    .finally(function () {
-                        vm.updatePasswordForm.$setPristine();
-                        vm.updatePasswordData = angular.copy(initialUpdatePasswordData);
-                    });
-            };
-        });
-}());
+                })
+                .finally(function () {
+                    vm.updatePasswordForm.$setPristine();
+                    vm.updatePasswordData = angular.copy(initialUpdatePasswordData);
+                });
+        };
+    })
+    .name;

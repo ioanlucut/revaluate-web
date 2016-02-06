@@ -1,8 +1,7 @@
-(function () {
-    'use strict';
+'use strict';
 
-    angular
-        .module('revaluate.common')
+export default angular
+    .module('revaluate.common')
     .service('JWTHelper', function () {
 
         this.urlBase64Decode = function (str) {
@@ -69,5 +68,5 @@
             /*jshint validthis: true */
             return !(d.valueOf() > new Date().valueOf());
         };
-    });
-}());
+    })
+    .name;

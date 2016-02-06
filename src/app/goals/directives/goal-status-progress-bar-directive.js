@@ -1,80 +1,79 @@
-(function () {
-    'use strict';
+'use strict';
 
-    function GoalStatusProgressBarController($scope, $rootScope, GoalProgressTypeService) {
-        var vm = this;
+function GoalStatusProgressBarController($scope, $rootScope, GoalProgressTypeService) {
+    var vm = this;
 
-        /**
-         * Current user.
-         */
-        vm.user = $rootScope.currentUser;
+    /**
+     * Current user.
+     */
+    vm.user = $rootScope.currentUser;
 
-        /**
-         * Goals on current month.
-         */
-        vm.isCurrentMonthSelected = moment().isSame(moment(vm.goal.endDate), 'month');
+    /**
+     * Goals on current month.
+     */
+    vm.isCurrentMonthSelected = moment().isSame(moment(vm.goal.endDate), 'month');
+
+    // ---
+    // Initially, prepare data with this information.
+    // ---
+    prepareData(vm.goal);
+
+    function prepareData(goal) {
+        var noOfDaysInMonth, currentDay;
 
         // ---
-        // Initially, prepare data with this information.
+        // Target value of the goal.
         // ---
-        prepareData(vm.goal);
+        vm.targetValue = goal.value;
 
-        function prepareData(goal) {
-            var noOfDaysInMonth, currentDay;
+        // ---
+        // The current value of the goal.
+        // ---
+        vm.currentValue = goal.goalStatus.currentValue;
 
-            // ---
-            // Target value of the goal.
-            // ---
-            vm.targetValue = goal.value;
+        // ---
+        // The type of the progress bar goal.
+        // ---
+        vm.type = GoalProgressTypeService.computeProgressBarType(goal);
 
-            // ---
-            // The current value of the goal.
-            // ---
-            vm.currentValue = goal.goalStatus.currentValue;
+        /**
+         * If warning should be shown
+         */
+        vm.showWarning = (vm.type === 'danger' || vm.type === 'warning');
 
-            // ---
-            // The type of the progress bar goal.
-            // ---
-            vm.type = GoalProgressTypeService.computeProgressBarType(goal);
-
-            /**
-             * If warning should be shown
-             */
-            vm.showWarning = (vm.type === 'danger' || vm.type === 'warning');
-
-            // ---
-            // Compute the today position.
-            // ---
-            noOfDaysInMonth = daysInMonth();
-            currentDay = moment().date();
-            vm.todayPosition = ((100 / noOfDaysInMonth) * currentDay) - ((100 / noOfDaysInMonth) / 2);
-        }
-
-        function daysInMonth() {
-            return new Date(moment().year(), moment().month() + 1, 0).getDate();
-        }
-
-        $scope.$watch(function () {
-            return vm.goal;
-        }, function (newGoal) {
-            prepareData(newGoal);
-        });
+        // ---
+        // Compute the today position.
+        // ---
+        noOfDaysInMonth = daysInMonth();
+        currentDay = moment().date();
+        vm.todayPosition = ((100 / noOfDaysInMonth) * currentDay) - ((100 / noOfDaysInMonth) / 2);
     }
 
-    angular
-        .module('revaluate.goals')
-        .directive('goalStatusProgressBar', function () {
-            return {
-                restrict: 'E',
-                scope: {
-                    goal: '='
-                },
-                controller: GoalStatusProgressBarController,
-                bindToController: true,
-                controllerAs: 'vm',
-                templateUrl: '/app/goals/partials/goal-status-progress-bar-directive.tpl.html',
-                link: function () {
-                }
-            };
-        });
-}());
+    function daysInMonth() {
+        return new Date(moment().year(), moment().month() + 1, 0).getDate();
+    }
+
+    $scope.$watch(function () {
+        return vm.goal;
+    }, function (newGoal) {
+        prepareData(newGoal);
+    });
+}
+
+export default angular
+    .module('revaluate.goals')
+    .directive('goalStatusProgressBar', function () {
+        return {
+            restrict: 'E',
+            scope: {
+                goal: '='
+            },
+            controller: GoalStatusProgressBarController,
+            bindToController: true,
+            controllerAs: 'vm',
+            templateUrl: '/app/goals/partials/goal-status-progress-bar-directive.tpl.html',
+            link: function () {
+            }
+        };
+    })
+    .name;
