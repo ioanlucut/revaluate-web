@@ -1,169 +1,168 @@
-(function () {
-    'use strict';
+'use strict';
 
-    function DatePickerMonthlyController() {
+function DatePickerMonthlyController() {
 
-        var vm = this,
-            MONTH = 'month';
+    var vm = this,
+        MONTH = 'month';
 
-        /**
-         * Checks if the date should be disabled.
-         */
-        vm.shouldDateBeDisabled = shouldDateBeDisabled;
+    /**
+     * Checks if the date should be disabled.
+     */
+    vm.shouldDateBeDisabled = shouldDateBeDisabled;
 
-        /**
-         * Open date picker
-         */
-        vm.openDatePicker = openDatePicker;
+    /**
+     * Open date picker
+     */
+    vm.openDatePicker = openDatePicker;
 
-        /**
-         * Exposed data.
-         */
-        vm.data = _.extend({}, { yearMonthDate: vm.dateModel });
+    /**
+     * Exposed data.
+     */
+    vm.data = _.extend({}, { yearMonthDate: vm.dateModel });
 
-        /**
-         * On date change do perform what needed.
-         */
-        vm.onChange = function () {
-            doPerform(vm.data.yearMonthDate);
-        };
+    /**
+     * On date change do perform what needed.
+     */
+    vm.onChange = function () {
+        doPerform(vm.data.yearMonthDate);
+    };
 
-        /**
-         * If can load previous month
-         */
-        vm.canLoadPrevMonth = canLoadPrevMonth;
+    /**
+     * If can load previous month
+     */
+    vm.canLoadPrevMonth = canLoadPrevMonth;
 
-        /**
-         * If can load next month
-         */
-        vm.canLoadNextMonth = canLoadNextMonth;
+    /**
+     * If can load next month
+     */
+    vm.canLoadNextMonth = canLoadNextMonth;
 
-        /**
-         * Go to previous month
-         */
-        vm.prevMonth = function () {
-            moveToTheNextMonthUsing(function (failedCandidateAsMoment) {
-                if (failedCandidateAsMoment.month() === 0) {
-                    return failedCandidateAsMoment.subtract(1, 'years').set('month', 11);
-                }
-
-                return failedCandidateAsMoment.subtract(1, MONTH);
-            });
-        };
-
-        /**
-         * Go to next month
-         */
-        vm.nextMonth = function () {
-            moveToTheNextMonthUsing(function (failedCandidateAsMoment) {
-
-                if (failedCandidateAsMoment.month() === 11) {
-                    return failedCandidateAsMoment.add(1, 'years').set('month', 0);
-                }
-
-                return failedCandidateAsMoment.add(1, MONTH);
-            });
-        };
-
-        function moveToTheNextMonthUsing(momentRetryCallback) {
-            vm.data.yearMonthDate = getMonthRecursivelyWith(vm.data.yearMonthDate, momentRetryCallback);
-
-            doPerform(vm.data.yearMonthDate);
-        }
-
-        function getMonthRecursivelyWith(of, momentRetryCallback) {
-            var prevMonthCandidate = momentRetryCallback(moment(of)),
-                prevMonthCandidateAsDate = prevMonthCandidate.toDate(),
-                prevMonthCandidateYear = prevMonthCandidate.year(),
-                prevMonthCandidateMonthOfYear = prevMonthCandidate.month() + 1;
-
-            if (prevMonthCandidateYear < 2000 || prevMonthCandidateYear > 2040) {
-
-                return prevMonthCandidateAsDate;
+    /**
+     * Go to previous month
+     */
+    vm.prevMonth = function () {
+        moveToTheNextMonthUsing(function (failedCandidateAsMoment) {
+            if ( failedCandidateAsMoment.month() === 0 ) {
+                return failedCandidateAsMoment.subtract(1, 'years').set('month', 11);
             }
 
-            if (_.some(_.result(vm.monthsPerYearsStatistics, prevMonthCandidateYear), function (entry) {
-                    return entry === prevMonthCandidateMonthOfYear;
-                })) {
-                return prevMonthCandidateAsDate;
+            return failedCandidateAsMoment.subtract(1, MONTH);
+        });
+    };
+
+    /**
+     * Go to next month
+     */
+    vm.nextMonth = function () {
+        moveToTheNextMonthUsing(function (failedCandidateAsMoment) {
+
+            if ( failedCandidateAsMoment.month() === 11 ) {
+                return failedCandidateAsMoment.add(1, 'years').set('month', 0);
             }
 
-            return getMonthRecursivelyWith(prevMonthCandidateAsDate, momentRetryCallback);
-        }
+            return failedCandidateAsMoment.add(1, MONTH);
+        });
+    };
 
-        function doPerform(yearMonthDate) {
-            vm.dateModel = angular.copy(yearMonthDate);
+    function moveToTheNextMonthUsing(momentRetryCallback) {
+        vm.data.yearMonthDate = getMonthRecursivelyWith(vm.data.yearMonthDate, momentRetryCallback);
 
-            vm.performOnPrevOrNext({ yearMonthDate: vm.dateModel });
-        }
-
-        function shouldDateBeDisabled(date) {
-            var currentDate = moment(date),
-                currentYear = currentDate.year(),
-                currentMonthOfYear = currentDate.month() + 1;
-
-            return !_.some(_.result(vm.monthsPerYearsStatistics, currentYear), function (entry) {
-                return entry === currentMonthOfYear;
-            });
-        }
-
-        function openDatePicker($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
-
-            vm.datePickerOpened = true;
-        }
-
-        function canLoadPrevMonth() {
-            var currentDate = moment(vm.data.yearMonthDate),
-                currentYear = currentDate.year();
-
-            return _.some(_.keys(vm.monthsPerYearsStatistics), function (keyEntry) {
-                if (_.parseInt(keyEntry) === _.parseInt(currentYear)) {
-                    return _.some(vm.monthsPerYearsStatistics[keyEntry], function (month) {
-                        return _.lt(_.parseInt(month), _.parseInt(currentDate.month() + 1));
-                    });
-                }
-
-                return _.lte(_.parseInt(keyEntry), _.parseInt(currentYear));
-            });
-        }
-
-        function canLoadNextMonth() {
-            var currentDate = moment(vm.data.yearMonthDate),
-                currentYear = currentDate.year();
-
-            return _.some(_.keys(vm.monthsPerYearsStatistics), function (keyEntry) {
-                if (_.parseInt(keyEntry) === _.parseInt(currentYear)) {
-                    return _.some(vm.monthsPerYearsStatistics[keyEntry], function (month) {
-                        return _.gt(_.parseInt(month), _.parseInt(currentDate.month() + 1));
-                    });
-                }
-
-                return _.gte(_.parseInt(keyEntry), _.parseInt(currentYear));
-            });
-        }
-
+        doPerform(vm.data.yearMonthDate);
     }
 
-    angular
-        .module('revaluate.common')
-        .directive('datePickerMonthly', function () {
-            return {
-                restrict: 'E',
-                scope: {
-                    dateModel: '=',
-                    monthsPerYearsStatistics: '=',
-                    performOnPrevOrNext: '&',
-                    loadTracker: '=',
-                    showLeftRightArrows: '='
-                },
-                controller: DatePickerMonthlyController,
-                bindToController: true,
-                controllerAs: 'vm',
-                templateUrl: '/app/common/partials/date-picker-monthly-directive.tpl.html',
-                link: function () {
-                }
-            };
+    function getMonthRecursivelyWith(of, momentRetryCallback) {
+        var prevMonthCandidate = momentRetryCallback(moment(of)),
+            prevMonthCandidateAsDate = prevMonthCandidate.toDate(),
+            prevMonthCandidateYear = prevMonthCandidate.year(),
+            prevMonthCandidateMonthOfYear = prevMonthCandidate.month() + 1;
+
+        if ( prevMonthCandidateYear < 2000 || prevMonthCandidateYear > 2040 ) {
+
+            return prevMonthCandidateAsDate;
+        }
+
+        if ( _.some(_.result(vm.monthsPerYearsStatistics, prevMonthCandidateYear), function (entry) {
+                return entry === prevMonthCandidateMonthOfYear;
+            }) ) {
+            return prevMonthCandidateAsDate;
+        }
+
+        return getMonthRecursivelyWith(prevMonthCandidateAsDate, momentRetryCallback);
+    }
+
+    function doPerform(yearMonthDate) {
+        vm.dateModel = angular.copy(yearMonthDate);
+
+        vm.performOnPrevOrNext({ yearMonthDate: vm.dateModel });
+    }
+
+    function shouldDateBeDisabled(date) {
+        var currentDate = moment(date),
+            currentYear = currentDate.year(),
+            currentMonthOfYear = currentDate.month() + 1;
+
+        return !_.some(_.result(vm.monthsPerYearsStatistics, currentYear), function (entry) {
+            return entry === currentMonthOfYear;
         });
-}());
+    }
+
+    function openDatePicker($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        vm.datePickerOpened = true;
+    }
+
+    function canLoadPrevMonth() {
+        var currentDate = moment(vm.data.yearMonthDate),
+            currentYear = currentDate.year();
+
+        return _.some(_.keys(vm.monthsPerYearsStatistics), function (keyEntry) {
+            if ( _.parseInt(keyEntry) === _.parseInt(currentYear) ) {
+                return _.some(vm.monthsPerYearsStatistics[keyEntry], function (month) {
+                    return _.lt(_.parseInt(month), _.parseInt(currentDate.month() + 1));
+                });
+            }
+
+            return _.lte(_.parseInt(keyEntry), _.parseInt(currentYear));
+        });
+    }
+
+    function canLoadNextMonth() {
+        var currentDate = moment(vm.data.yearMonthDate),
+            currentYear = currentDate.year();
+
+        return _.some(_.keys(vm.monthsPerYearsStatistics), function (keyEntry) {
+            if ( _.parseInt(keyEntry) === _.parseInt(currentYear) ) {
+                return _.some(vm.monthsPerYearsStatistics[keyEntry], function (month) {
+                    return _.gt(_.parseInt(month), _.parseInt(currentDate.month() + 1));
+                });
+            }
+
+            return _.gte(_.parseInt(keyEntry), _.parseInt(currentYear));
+        });
+    }
+
+}
+
+export default angular
+    .module('revaluate.common')
+    .directive('datePickerMonthly', function () {
+        return {
+            restrict: 'E',
+            scope: {
+                dateModel: '=',
+                monthsPerYearsStatistics: '=',
+                performOnPrevOrNext: '&',
+                loadTracker: '=',
+                showLeftRightArrows: '='
+            },
+            controller: DatePickerMonthlyController,
+            bindToController: true,
+            controllerAs: 'vm',
+            templateUrl: '/app/common/partials/date-picker-monthly-directive.tpl.html',
+            link: function () {
+            }
+        };
+    })
+    .name;

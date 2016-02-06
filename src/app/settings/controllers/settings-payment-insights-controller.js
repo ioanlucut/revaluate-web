@@ -1,92 +1,89 @@
-(function () {
-    'use strict';
+'use strict';
+export default angular
+    .module('revaluate.settings')
+    .controller('SettingsPaymentInsightsController', function ($q, $scope, $state, $rootScope, $timeout, $http, paymentInsights, ALERTS_EVENTS, AUTH_URLS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, AUTH_EVENTS) {
 
-    angular
-        .module('revaluate.settings')
-        .controller('SettingsPaymentInsightsController', function ($q, $scope, $state, $rootScope, $timeout, $http, paymentInsights, ALERTS_EVENTS, AUTH_URLS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, AUTH_EVENTS) {
+        var vm = this;
 
+        var TIMEOUT_PENDING = 300;
 
-            var vm = this;
+        /**
+         * Alert identifier
+         */
+        vm.alertId = ALERTS_CONSTANTS.paymentProfile;
 
-            var TIMEOUT_PENDING = 300;
+        /**
+         * Current user.
+         */
+        vm.user = $rootScope.currentUser;
 
-            /**
-             * Alert identifier
-             */
-            vm.alertId = ALERTS_CONSTANTS.paymentProfile;
+        // ---
+        // Payment insights got from server.
+        // ---
+        vm.paymentInsights = paymentInsights;
 
-            /**
-             * Current user.
-             */
-            vm.user = $rootScope.currentUser;
+        // ---
+        // Is payment method defined ?.
+        // ---
+        vm.isPaymentMethodDefined = vm.paymentInsights.paymentMethodDTOs && vm.paymentInsights.paymentMethodDTOs.length > 0;
 
-            // ---
-            // Payment insights got from server.
-            // ---
-            vm.paymentInsights = paymentInsights;
+        // ---
+        // Remove payment method.
+        // ---
+        vm.performRemovePayment = function () {
+            if ( !vm.isRequestPending ) {
 
-            // ---
-            // Is payment method defined ?.
-            // ---
-            vm.isPaymentMethodDefined = vm.paymentInsights.paymentMethodDTOs && vm.paymentInsights.paymentMethodDTOs.length > 0;
+                // Show the loading bar
+                vm.isRequestPending = true;
 
-            // ---
-            // Remove payment method.
-            // ---
-            vm.performRemovePayment = function () {
-                if (!vm.isRequestPending) {
+                return $http
+                    .delete(URLTo.api(AUTH_URLS.removePaymentMethod), {})
+                    .then(function (response) {
 
-                    // Show the loading bar
-                    vm.isRequestPending = true;
+                        // ---
+                        // Update user with subscription status.
+                        // ---
+                        vm
+                            .user
+                            .setSubscriptionStatusAsAndReload(response.data.userSubscriptionStatus);
+                        $rootScope
+                            .$broadcast(AUTH_EVENTS.refreshUser, {});
 
-                    return $http
-                        .delete(URLTo.api(AUTH_URLS.removePaymentMethod), {})
-                        .then(function (response) {
-
-                            // ---
-                            // Update user with subscription status.
-                            // ---
-                            vm
-                                .user
-                                .setSubscriptionStatusAsAndReload(response.data.userSubscriptionStatus);
-                            $rootScope
-                                .$broadcast(AUTH_EVENTS.refreshUser, {});
-
-                            $scope.$emit(ALERTS_EVENTS.SUCCESS, 'You\'ve successfully removed payment method!');
-                            $timeout(function () {
-                                vm.isRequestPending = false;
-
-                                // ---
-                                // If successful, go to expenses.
-                                // ---
-                                $state.go('expenses.regular');
-                            }, TIMEOUT_PENDING);
-                        })
-                        .catch(function (response) {
-                            /* If bad feedback from server */
-                            vm.badPostSubmitResponse = true;
+                        $scope.$emit(ALERTS_EVENTS.SUCCESS, 'You\'ve successfully removed payment method!');
+                        $timeout(function () {
                             vm.isRequestPending = false;
 
                             // ---
-                            // Show errors.
+                            // If successful, go to expenses.
                             // ---
-                            var errors = response.data;
-                            if (_.isArray(errors)) {
-                                $scope.$emit(ALERTS_EVENTS.DANGER, {
-                                    message: errors.join('\n'),
-                                    alertId: vm.alertId
-                                });
-                            }                          else {
-                                $scope.$emit(ALERTS_EVENTS.DANGER, {
-                                    message: 'Ups, something went wrong.',
-                                    alertId: vm.alertId
-                                });
-                            }
-                        });
+                            $state.go('expenses.regular');
+                        }, TIMEOUT_PENDING);
+                    })
+                    .catch(function (response) {
+                        /* If bad feedback from server */
+                        vm.badPostSubmitResponse = true;
+                        vm.isRequestPending = false;
 
-                }
+                        // ---
+                        // Show errors.
+                        // ---
+                        var errors = response.data;
+                        if ( _.isArray(errors) ) {
+                            $scope.$emit(ALERTS_EVENTS.DANGER, {
+                                message: errors.join('\n'),
+                                alertId: vm.alertId
+                            });
+                        } else {
+                            $scope.$emit(ALERTS_EVENTS.DANGER, {
+                                message: 'Ups, something went wrong.',
+                                alertId: vm.alertId
+                            });
+                        }
+                    });
 
-            };
+            }
 
-        });
-}());
+        };
+
+    })
+    .name;

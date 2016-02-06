@@ -13,6 +13,7 @@ var configTask = function () {
             constants: myConfig,
             stream: true,
             name: 'config',
+            templatePath: './gulp/tpls/constant.tpl.ejs',
             dest: '/config/config.js'
         })
         .pipe(gulp.dest('src/app'));

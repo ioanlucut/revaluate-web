@@ -1,6 +1,5 @@
-(function () {
-    'use strict';
+'use strict';
 
-    angular
-        .module('revaluate.contact', []);
-}());
+export default angular
+    .module('revaluate.contact', [])
+    .name;

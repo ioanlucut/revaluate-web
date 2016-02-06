@@ -1,26 +1,25 @@
-(function () {
-    'use strict';
+'use strict';
 
-    angular
-        .module('revaluate.account')
-        .controller('ValidatePasswordResetTokenInvalidController', function ($scope, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE) {
+export default angular
+    .module('revaluate.account')
+    .controller('ValidatePasswordResetTokenInvalidController', function ($scope, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE) {
 
-            /**
-             * Flag which tells if user is currently authenticated while coming to this page.
-             */
-            $scope.isUserAuthenticated = AuthService.isAuthenticated();
+        /**
+         * Flag which tells if user is currently authenticated while coming to this page.
+         */
+        $scope.isUserAuthenticated = AuthService.isAuthenticated();
 
-            /**
-             * Continues to reset password page. (try again functionality)
-             */
-            $scope.continueToResetPassword = function () {
-                if ($scope.isUserAuthenticated) {
-                    AuthService.logout();
-                }
+        /**
+         * Continues to reset password page. (try again functionality)
+         */
+        $scope.continueToResetPassword = function () {
+            if ($scope.isUserAuthenticated) {
+                AuthService.logout();
+            }
 
-                ProfileFormToggle.setState(ACCOUNT_FORM_STATE.forgotPassword);
-                StatesHandler.goToLogin();
-            };
+            ProfileFormToggle.setState(ACCOUNT_FORM_STATE.forgotPassword);
+            StatesHandler.goToLogin();
+        };
 
-        });
-}());
+    })
+    .name;

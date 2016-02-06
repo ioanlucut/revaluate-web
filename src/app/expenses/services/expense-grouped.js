@@ -1,28 +1,27 @@
-(function () {
-    'use strict';
+'use strict';
 
-    function ExpenseGroupedFactory() {
+function ExpenseGroupedFactory() {
+
+    /**
+     * Expense grouped class.
+     */
+    function ExpenseGrouped(data) {
 
         /**
-         * Expense grouped class.
+         * The expenses.
          */
-        function ExpenseGrouped(data) {
+        this.expenseDTOs = data.expenseDTOs;
 
-            /**
-             * The expenses.
-             */
-            this.expenseDTOs = data.expenseDTOs;
-
-            /**
-             * The expense description.
-             */
-            this.localDate = data.localDate;
-        }
-
-        return ExpenseGrouped;
+        /**
+         * The expense description.
+         */
+        this.localDate = data.localDate;
     }
 
-    angular
-        .module('revaluate.expenses')
-        .factory('ExpenseGrouped', ExpenseGroupedFactory);
-}());
+    return ExpenseGrouped;
+}
+
+export default angular
+    .module('revaluate.expenses')
+    .factory('ExpenseGrouped', ExpenseGroupedFactory)
+    .name;

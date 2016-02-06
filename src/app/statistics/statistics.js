@@ -1,8 +1,6 @@
-(function () {
-    'use strict';
-
-    angular
-        .module('revaluate.statistics', [
-            'revaluate.common'
-        ]);
-}());
+'use strict';
+export default angular
+    .module('revaluate.statistics', [
+        'revaluate.common'
+    ])
+    .name;

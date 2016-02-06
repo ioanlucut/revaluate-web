@@ -1,21 +1,20 @@
-(function () {
-    'use strict';
+'use strict';
 
-    /**
-     * Logout controller responsible for user logout action.
-     */
-    angular
-        .module('revaluate.account')
-        .controller('LogoutController', function ($scope, $timeout, StatesHandler, AuthService) {
+/**
+ * Logout controller responsible for user logout action.
+ */
+export default angular
+    .module('revaluate.account')
+    .controller('LogoutController', function ($scope, $timeout, StatesHandler, AuthService) {
 
-            var vm = this;
+        var vm = this;
 
-            vm.logOut = function () {
-                $timeout(function () {
-                    AuthService.logout();
-                    StatesHandler.goHome();
-                });
-            };
+        vm.logOut = function () {
+            $timeout(function () {
+                AuthService.logout();
+                StatesHandler.goHome();
+            });
+        };
 
-        });
-}());
+    })
+    .name;

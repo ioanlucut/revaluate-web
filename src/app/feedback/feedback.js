@@ -1,6 +1,5 @@
-(function () {
-    'use strict';
+'use strict';
 
-    angular
-        .module('revaluate.feedback', []);
-}());
+export default angular
+    .module('revaluate.feedback', [])
+    .name;
