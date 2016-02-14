@@ -12,16 +12,6 @@
         },
         "redirectUri": "http://dev.revaluate.io",
         "isProduction": false,
-        "isMaintenanceMode": false,
-        "AWS": {
-            "params": {
-                "Bucket": "revaluate-web-dev"
-            },
-            "accessKeyId": "AKIAJIPPTKHKJD2XFEBA",
-            "secretAccessKey": "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",
-            "distributionId": "ERW9BPTV31HLX",
-            "region": "us-east-1"
-        },
-        "CDN_DOMAIN": "d2l41wngd03v97.cloudfront.net"
+        "isMaintenanceMode": false
     }
 }
