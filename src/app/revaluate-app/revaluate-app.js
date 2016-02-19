@@ -82,8 +82,7 @@
             // ---
             $translateProvider.translations('en', ({
                 'HOME': {
-                    'TITLE_TEXT': 'Change the way you spend your money',
-                    'DESCRIPTION_TEXT': 'Simplify your personal finance management'
+                    'TITLE_TEXT': 'Don\'t give up on the things you love.'
                 },
                 'PROFILE_PICTURE': {
                     'OAUTH_FACEBOOK': 'Synced from Facebook',
