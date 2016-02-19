@@ -3,13 +3,13 @@ $base-font-family: "proxima-nova", "Arial", sans-serif;
 $heading-font-family: "azo-sans-uber", "Arial", sans-serif;
 
 // Font Sizes
-$font-size-base: 12pt;
-$font-size-small: 9pt;
+$font-size-base: 16px;
+$font-size-small: 12px;
 
-$font-size-h1: 60pt;
-$font-size-h2: 48pt;
-$font-size-h3: 18pt;
-$font-size-h4: 12pt;
+$font-size-h1: 80px;
+$font-size-h2: 64px;
+$font-size-h3: 24px;
+$font-size-h4: 16px;
 
 // Font Weights
 $font-weight-regular: 300;
@@ -47,7 +47,7 @@ $category-select-height: 35px;
 $selectize-dropdown-height: 45px;
 
 // Other Sizes
-$base-border-radius: 3px;
+$base-border-radius: 5px;
 $base-spacing: $base-line-height * 1em;
 $small-spacing: $base-spacing / 2;
 $base-z-index: 0;
@@ -71,16 +71,16 @@ $color-brand-1: #222d53;
 $color-brand-2: #d8a66b;
 
 $color-brand-3: #cf6977;
-$color-brand-3: #6cacae;
-$color-brand-3: #d66d20;
-$color-brand-3: #c8d4e9;
-$color-brand-3: #f5f5f5;
+$color-brand-4: #6cacae;
+$color-brand-5: #d66d20;
+$color-brand-6: #c8d4e9;
+$color-brand-7: #f5f5f5;
 
-$brand-primary: #22A7F0;
+$brand-primary: $color-brand-1;
 $brand-primary-light: lighten($brand-primary, 40%);
 $brand-primary-dark: darken($brand-primary, 25%);
 
-$brand-secondary: #ED4B4C;
+$brand-secondary: $color-brand-2;
 $brand-secondary-light: lighten($brand-secondary, 10%);
 $brand-secondary-dark: darken($brand-secondary, 25%);
 
@@ -108,12 +108,12 @@ $brand-warning-dark: darken($brand-warning, 20%);
 $brand-warning-light: lighten($brand-warning, 31%);
 
 $header-background-color: $white;
-$landing-page: #363b48;
+$landing-page: $color-brand-1;
 
-$color-purple: #967FA8;
-$color-green: #03C9A9;
-$color-blue: #36AAFB;
-$color-red: #EE8687;
+//$color-purple: #967FA8;
+//$color-green: #03C9A9;
+//$color-blue: #36AAFB;
+//$color-red: #EE8687;
 
 $social-facebook-color: #3b5998;
 $social-google-color: #d34636;
@@ -126,9 +126,9 @@ $close-text-shadow: 0 1px 0 #fff !default;
 
 // Font Colors
 $base-background-color: #fff;
-$base-font-color: $black;
-$heading-font-color: $black;
-$action-color: $brand-primary;
+$base-font-color: $color-brand-1;
+$heading-font-color: $color-brand-1;
+$action-color: $color-brand-3;
 
 // Border
 $base-border-color: $gray-light-1;

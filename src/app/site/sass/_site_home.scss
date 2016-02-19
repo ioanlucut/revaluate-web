@@ -1,46 +1,17 @@
-.home__title {
-    padding: 90px 10px 5px 10px;
-    font-size: 48px;
-    font-weight: $font-weight-bold;
-    color: $gray-dark-3;
-    width: 50%;
-    text-align: left;
+.site__home__title {
+    padding: 175px 10px 5px 10px;
+    font-size: 70px;
+    color: $white;
 }
 
-.home__description {
-    padding: 25px 10px 20px 10px;
-    color: $gray-medium;
-    font-size: 22px;
-    font-weight: $font-weight-regular;
-    font-family: $base-font-family;
-    text-align: left;
-    width: 50%;
-}
-
-.home__section__start__btn {
-    @include btn-big($color-blue);
-    width: 250px;
-    height: 60px;
-    font-size: $font-size-large;
-}
-
-.home__section__tour-screenmain {
-    @include fadeInRight($delay: 0.4s);
-    position: absolute;
-    left: 45%;
-    top: 100px;
-    width: 1077px;
-}
-
-.home__section__tour-arrow {
+.site__home__section__tour-arrow {
     width: 100%;
     max-width: 100%;
     position: absolute;
     bottom: -30px;
     text-align: center;
     font-size: 50px;
-    padding-bottom: 0;
-    color: $gray-light-1;
+    padding-bottom: 30px;
     @include fadeInDown($delay: 1.2s);
 }
 
@@ -48,196 +19,129 @@
 // ----------------------------
 
 .site__container__section__feature {
-    float: left;
-    width: 50%;
-    height: 450px;
-    text-align: center;
-    padding: 40px;
-
-    .site__container__section__feature__img {
-        margin: 0 auto;
-        width: 400px;
-        height: 200px;
-        @include border-radius($base-border-radius);
-    }
-
-    .site__container__section__feature__title {
-        font-size: 22px;
-        //font-weight: $font-weight-bold;
-        margin-top: 15px;
-        margin-bottom: 15px;
-    }
-
-    .site__container__section__feature__description {
-        font-size: $font-size-large;
-        padding: 5px 90px;
-        color: $gray-medium;
-    }
-}
-
-.site__container__section__cards {
     @include clearfix();
     padding: 0;
 
     li {
         margin: 0;
-        padding: 20px 10px;
+        padding: 20px 40px;
         @include span-columns(4);
         @include omega(3n);
 
         h3 {
+            font-family: $base-font-family;
             font-size: $font-size-base;
-            font-weight: $font-weight-regular;
+            font-weight: $font-weight-bold;
+            text-transform: uppercase;
         }
 
         div:first-child {
-            @include border-radius(50%);
-            width: 150px;
-            height: 150px;
+            width: 65px;
+            height: 65px;
             margin: 0 auto 10px auto;
         }
-
-        div:last-child {
-            color: $gray-medium;
-            font-size: $font-size-large;
-            padding: 10px 40px;
-        }
     }
 
-    .icon__calendar {
-        background: url("../assets/img/home/calendar.svg") no-repeat top left;
+    .circle_icon__01 {
+        background: url("../assets/img/home/circle_icon_01_@2x.png") no-repeat top left;
         background-size: contain;
     }
 
-    .icon__debts {
-        background: url("../assets/img/home/debts.svg") no-repeat top left;
+    .circle_icon__02 {
+        background: url("../assets/img/home/circle_icon_02_@2x.png") no-repeat top left;
         background-size: contain;
     }
 
-    .icon__split {
-        background: url("../assets/img/home/split.svg") no-repeat top left;
+    .circle_icon__03 {
+        background: url("../assets/img/home/circle_icon_03_@2x.png") no-repeat top left;
         background-size: contain;
     }
 
-    .icon__simple {
-        background: url("../assets/img/home/simple.svg") no-repeat top left;
+    .circle_icon__04 {
+        background: url("../assets/img/home/circle_icon_04_@2x.png") no-repeat top left;
         background-size: contain;
     }
 
-    .icon__personal {
-        background: url("../assets/img/home/personal.svg") no-repeat top left;
+    .circle_icon__05 {
+        background: url("../assets/img/home/circle_icon_05_@2x.png") no-repeat top left;
         background-size: contain;
     }
 
-    .icon__secure {
-        background: url("../assets/img/home/secure.svg") no-repeat top left;
+    .circle_icon__06 {
+        background: url("../assets/img/home/circle_icon_06_@2x.png") no-repeat top left;
         background-size: contain;
     }
-
 }
 
-// Call to action button
-// -------------------------
+// Cards
+// ----------------------------
 
-.home__action-btn {
-    @include btn($brand-primary);
-    @include size(320px 70px);
-    box-shadow: 0 3px 0 darken($brand-primary, 15%);
-    line-height: 1.2;
-    @include transition-property(all);
-    @include transition-duration(.2s);
+.site__container__section__card__img,
+.site__container__section__card__motiv {
+    float: left;
+    padding: 20px;
+    width: 50%;
+    height: 300px;
 }
 
-.home__action-btn--label {
-    font-size: 24px;
-    text-transform: uppercase;
-}
+.site__container__section__card__img {
 
-.home__action-btn--pricing {
-    font-size: 14px;
-    font-weight: $font-weight-regular;
-}
-
-.home__action-btn--info {
-    padding: 3px 10px;
-    font-size: 12px;
-    color: $gray-medium;
-}
-
-.body__feedback-section {
-    @include fadeIn(1s);
-    @include border-radius(50%);
-    background-color: $gray-medium;
-    box-shadow: 0 0 15px rgba(10, 10, 10, 0.5);
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 50px;
-    height: 50px;
-    padding-top: 2px;
-    font-size: 29px;
-    text-align: center;
-    color: $black;
-    z-index: 9999;
-
-    &:hover {
-        background-color: $brand-info;
+    button {
+        @include btn($white);
+        color: $color-brand-1;
+        margin-top: 118px;
+        width: 140px;
     }
+}
 
-    a {
-        display: block;
-        width: 100%;
+.site__container__section__card__img--1 {
+    background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url("../assets/img/home/card_img_01.jpg");
+    background-size: cover;
+}
+
+.site__container__section__card__img--2 {
+    background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url("../assets/img/home/card_img_02.jpg");
+    background-size: cover;
+}
+
+.site__container__section__card__img--3 {
+    background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url("../assets/img/home/card_img_03.jpg");
+    background-size: cover;
+}
+
+.site__container__section__card__motiv {
+    .site__container__section__card__motiv__text,
+    .site__container__section__card__motiv__icons {
+        width: 50%;
         height: 100%;
-        color: $white;
-        @include border-radius(50%);
-        padding-top: 5px;
+        float: left;
+    }
+
+    .site__container__section__card__motiv__text {
+        padding: 0 50px 0 0;
+        text-align: left;
+        text-transform: uppercase;
+        font-family: $heading-font-family;
+        font-size: 36px;
+        line-height: 42px;
+    }
+
+    .site__container__section__card__motiv__text--alignright {
+        text-align: right;
+        padding: 0 0 0 50px;
+    }
+
+    .site__container__section__card__motiv__icons {
+
     }
 }
 
-.body__loading, .body__maintenance {
-    display: none;
-}
+// Overrides
+// -----------------------------
 
-.deferred-bootstrap-loading {
+#section__0 {
 
-    .body__loading {
+    .fp-tableCell {
         display: block;
-        position: absolute;
-        width: 150px;
-        height: 50px;
-        top: 50%;
-        left: 50%;
-        margin-left: -50px;
-        margin-top: -25px;
-        font-weight: bold;
-        font-size: 1.8em;
-        z-index: 9998;
-    }
-
-    .body__loading__spinner-loading {
-        position: absolute;
-        left: 0;
-        right: 0;
-        margin-left: auto;
-        margin-right: auto;
-        top: -40px;
-        z-index: 9999;
-    }
-}
-
-.deferred-bootstrap-error {
-
-    .body__maintenance {
-        display: block;
-        position: absolute;
-        width: 500px;
-        top: 50%;
-        left: 50%;
-        margin-left: -250px;
-        margin-top: -25px;
-        font-weight: bold;
-        font-size: 1.8em;
-        z-index: 9999;
-        text-align: center;
     }
 }
