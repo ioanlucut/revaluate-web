@@ -1,63 +1,63 @@
 (function () {
-    'use strict';
+  'use strict';
 
-    function IntegrationFactory() {
+  function IntegrationFactory() {
+
+    /**
+     * App integration factory function.
+     */
+    function appIntegration(data) {
+
+      return _.extend({}, {
 
         /**
-         * App integration factory function.
+         * The goal id.
          */
-        function appIntegration(data) {
+        id: data.id,
 
-            return _.extend({}, {
+        /**
+         * The appIntegrationType.
+         */
+        appIntegrationType: data.appIntegrationType,
 
-                /**
-                 * The goal id.
-                 */
-                id: data.id,
+        /**
+         * The appIntegrationScopeType
+         */
+        appIntegrationScopeType: data.appIntegrationScopeType,
 
-                /**
-                 * The appIntegrationType.
-                 */
-                appIntegrationType: data.appIntegrationType,
+        /**
+         * The slack user id
+         */
+        slackUserId: data.slackUserId,
 
-                /**
-                 * The appIntegrationScopeType
-                 */
-                appIntegrationScopeType: data.appIntegrationScopeType,
+        /**
+         * The slack team id
+         */
+        slackTeamId: data.slackTeamId,
 
-                /**
-                 * The slack user id
-                 */
-                slackUserId: data.slackUserId,
+        /**
+         * The slack team name
+         */
+        slackTeamName: data.slackTeamName,
 
-                /**
-                 * The slack team id
-                 */
-                slackTeamId: data.slackTeamId,
+        /**
+         * Created date of the goal.
+         */
+        createdDate: data.createdDate,
 
-                /**
-                 * The slack team name
-                 */
-                slackTeamName: data.slackTeamName,
-
-                /**
-                 * Created date of the goal.
-                 */
-                createdDate: data.createdDate,
-
-                /**
-                 * Created date of the goal.
-                 */
-                modifiedData: data.modifiedData
-            });
-        }
-
-        return {
-            build: appIntegration
-        };
+        /**
+         * Created date of the goal.
+         */
+        modifiedData: data.modifiedData,
+      });
     }
 
-    angular
-        .module('revaluate.integrations')
-        .factory('Integration', IntegrationFactory);
+    return {
+      build: appIntegration,
+    };
+  }
+
+  angular
+    .module('revaluate.integrations')
+    .factory('Integration', IntegrationFactory);
 }());
