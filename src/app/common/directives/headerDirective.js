@@ -1,16 +1,16 @@
 (function () {
-    'use strict';
+  'use strict';
 
-    angular
-        .module('revaluate.common')
-        .directive('header', function () {
-            return {
-                restrict: 'A',
-                templateUrl: '/app/common/partials/headerDirective.tpl.html',
-                controller: 'HeaderController',
-                controllerAs: 'vm',
-                link: function () {
-                }
-            };
-        });
+  angular
+    .module('revaluate.common')
+    .directive('header', function () {
+      return {
+        restrict: 'A',
+        templateUrl: '/app/common/partials/headerDirective.tpl.html',
+        controller: 'HeaderController',
+        controllerAs: 'vm',
+        link: function () {
+        },
+      };
+    });
 }());

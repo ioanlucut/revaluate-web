@@ -1,49 +1,49 @@
 (function () {
-    'use strict';
+  'use strict';
 
-    angular
-        .module('revaluate.feedback')
-        .factory('Feedback', function (FeedbackService) {
+  angular
+    .module('revaluate.feedback')
+    .factory('Feedback', function (FeedbackService) {
 
-            /**
-             * Feedback class.
-             * @constructor
-             */
-            function Feedback() {
+      /**
+       * Feedback class.
+       * @constructor
+       */
+      function Feedback() {
 
-                /**
-                 * Represents the DTO model of the Feedback.
-                 */
-                this.model = {
+        /**
+         * Represents the DTO model of the Feedback.
+         */
+        this.model = {
 
-                    /**
-                     * Feedback subject
-                     */
-                    subject: '',
+          /**
+           * Feedback subject
+           */
+          subject: '',
 
-                    /**
-                     * Feedback message
-                     */
-                    message: ''
-                };
+          /**
+           * Feedback message
+           */
+          message: '',
+        };
 
-                /**
-                 * Sends a Feedback.
-                 * @returns {*}
-                 */
-                this.send = function () {
-                    return FeedbackService.sendFeedback(this);
-                };
-            }
+        /**
+         * Sends a Feedback.
+         * @returns {*}
+         */
+        this.send = function () {
+          return FeedbackService.sendFeedback(this);
+        };
+      }
 
-            /**
-             * Builds a Feedback.
-             * @returns {Feedback}
-             */
-            Feedback.build = function () {
-                return new Feedback();
-            };
+      /**
+       * Builds a Feedback.
+       * @returns {Feedback}
+       */
+      Feedback.build = function () {
+        return new Feedback();
+      };
 
-            return Feedback;
-        });
+      return Feedback;
+    });
 }());
