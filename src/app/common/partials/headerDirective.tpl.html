@@ -1,0 +1,5 @@
+<!--Show header while user is authenticated-->
+<div ng-if="vm.showAppHeader" ng-include src="'/app/common/partials/headerDirectiveApp.tpl.html'"></div>
+
+<!--Show header while user is not authenticated-->
+<div ng-if="! vm.showAppHeader" ng-include src="'/app/common/partials/headerDirectivePublic.tpl.html'"></div>

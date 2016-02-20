@@ -18,7 +18,7 @@
                 .state({
                     name: 'settings',
                     url: '/account/settings',
-                    templateUrl: '/app/settings/partials/settings.abstract.html',
+                    templateUrl: '/app/settings/partials/settingsAbstract.html',
                     abstract: true
                 })
 
@@ -28,7 +28,7 @@
                 .state({
                     name: 'settings.profile',
                     url: '/profile',
-                    templateUrl: '/app/settings/partials/settings.profile.html',
+                    templateUrl: '/app/settings/partials/settingsProfile.html',
                     controller: 'SettingsProfileController',
                     controllerAs: 'vm',
                     isPaymentMissingUnrestrictedPage: true,
@@ -43,14 +43,14 @@
                 .state({
                     name: 'settings.payment',
                     url: '/payment',
-                    templateUrl: '/app/settings/partials/settings.payment.abstract.html',
+                    templateUrl: '/app/settings/partials/settingsPaymentAbstract.html',
                     abstract: true
                 })
 
                 .state({
                     name: 'settings.payment.add',
                     url: '/add',
-                    templateUrl: '/app/settings/partials/settings.payment.add.html',
+                    templateUrl: '/app/settings/partials/settingsPaymentAdd.html',
                     controller: 'SettingsPaymentMethodAddController',
                     controllerAs: 'vm',
                     isPaymentMissingUnrestrictedPage: true,
@@ -69,7 +69,7 @@
                                 .then(function (response) {
                                     if (response.data.paymentStatusDefined) {
 
-                                        $state.go('settings.payment.insights');
+                                        $state.go('settingsPaymentInsights');
                                     }
 
                                     return response.data.paymentStatusDefined;
@@ -84,7 +84,7 @@
                 .state({
                     name: 'settings.payment.method',
                     url: '/method',
-                    templateUrl: '/app/settings/partials/settings.payment.method.update.html',
+                    templateUrl: '/app/settings/partials/settingsPaymentMethodUpdate.html',
                     controller: 'SettingsEditPaymentMethodController',
                     controllerAs: 'vm',
                     isPaymentMissingUnrestrictedPage: true,
@@ -116,7 +116,7 @@
                 .state({
                     name: 'settings.payment.customer',
                     url: '/customer',
-                    templateUrl: '/app/settings/partials/settings.payment.customer.html',
+                    templateUrl: '/app/settings/partials/settingsPaymentCustomer.html',
                     controller: 'SettingsPaymentCustomerController',
                     isPaymentMissingUnrestrictedPage: true,
                     resolve: {
@@ -138,7 +138,7 @@
 
                 .state('settings.payment.insights', {
                     url: '/insights',
-                    templateUrl: '/app/settings/partials/settings.payment.insights.html',
+                    templateUrl: '/app/settings/partials/settingsPaymentInsights.html',
                     controller: 'SettingsPaymentInsightsController',
                     controllerAs: 'vm',
                     isPaymentMissingUnrestrictedPage: true,
@@ -167,15 +167,15 @@
                     isPaymentMissingUnrestrictedPage: true,
                     views: {
                         '': {
-                            templateUrl: '/app/settings/partials/settings.admin.abstract.html'
+                            templateUrl: '/app/settings/partials/settingsAdminAbstract.html'
                         },
                         'updatePassword@settings.admin': {
-                            templateUrl: '/app/settings/partials/settings.admin.updatePassword.html',
+                            templateUrl: '/app/settings/partials/settingsAdminUpdatePassword.html',
                             controller: 'SettingsUpdatePasswordController',
                             controllerAs: 'vm'
                         },
                         'cancelAccount@settings.admin': {
-                            templateUrl: '/app/settings/partials/settings.admin.cancelAccount.html',
+                            templateUrl: '/app/settings/partials/settingsAdminCancelAccount.html',
                             controller: 'SettingsCancelAccountController',
                             controllerAs: 'vm'
                         }
@@ -192,10 +192,10 @@
                     isPaymentMissingUnrestrictedPage: true,
                     views: {
                         '': {
-                            templateUrl: '/app/settings/partials/settings.preferences.abstract.html'
+                            templateUrl: '/app/settings/partials/settingsPreferencesAbstract.html'
                         },
                         'updateCurrency@settings.preferences': {
-                            templateUrl: '/app/settings/partials/settings.preferences.updateCurrency.html',
+                            templateUrl: '/app/settings/partials/settingsPreferencesUpdateCurrency.html',
                             controller: 'SettingsPreferencesCurrencyController',
                             controllerAs: 'vm'
                         }
@@ -209,7 +209,7 @@
                 // ---
                 .state('setup', {
                     url: '/setup',
-                    templateUrl: '/app/settings/partials/settings.setup.registration.html',
+                    templateUrl: '/app/settings/partials/settingsSetupRegistration.html',
                     controller: 'SettingsSetUpRegistrationController',
                     controllerAs: 'vm',
                     title: 'Settings setup - revaluate',

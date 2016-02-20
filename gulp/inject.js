@@ -39,9 +39,9 @@ module.exports = function (options) {
       ];
 
     if (argv && argv.protractorTests) {
-      injectScriptsSrc.push('!' + options.src + '/app/**/revaluate-app-bootstrapper.js');
+      injectScriptsSrc.push('!' + options.src + '/app/**/revaluateAppBootstrapper.js');
     } else {
-      injectScriptsSrc.push('!' + options.src + '/app/**/revaluate-app-bootstrapper-auto.js');
+      injectScriptsSrc.push('!' + options.src + '/app/**/revaluateAppBootstrapperAuto.js');
     }
 
     injectScripts = gulp
