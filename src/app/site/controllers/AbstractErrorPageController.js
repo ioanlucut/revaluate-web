@@ -1,25 +1,25 @@
 (function () {
-    'use strict';
+  'use strict';
 
-    /**
-     * Abstract error page controller.
-     */
-    angular
-        .module('revaluate.common')
-        .controller('AbstractErrorPageController', function ($scope, StatesHandler) {
+  /**
+   * Abstract error page controller.
+   */
+  angular
+    .module('revaluate.common')
+    .controller('AbstractErrorPageController', function ($scope, StatesHandler) {
 
-            /**
-             * Track event.
-             */
-            $scope.trackErrorEvent = function (event) {
-                $scope.$broadcast('trackEvent', event);
-            };
+      /**
+       * Track event.
+       */
+      $scope.trackErrorEvent = function (event) {
+        $scope.$broadcast('trackEvent', event);
+      };
 
-            /**
-             * Continues to home page.
-             */
-            $scope.goToHomePage = function () {
-                StatesHandler.goHome();
-            };
-        });
+      /**
+       * Continues to home page.
+       */
+      $scope.goToHomePage = function () {
+        StatesHandler.goHome();
+      };
+    });
 }());

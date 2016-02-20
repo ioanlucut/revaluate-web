@@ -1,29 +1,29 @@
 (function () {
-    'use strict';
+  'use strict';
 
-    /* Feedback modal */
+  /* Feedback modal */
 
-    angular
-        .module('revaluate.feedback')
-        .service('FeedbackModalService', function ($modal) {
+  angular
+    .module('revaluate.feedback')
+    .service('FeedbackModalService', function ($modal) {
 
-            /**
-             * Feedback modal instance.
-             * @type {null}
-             */
-            this.modalInstance = null;
+      /**
+       * Feedback modal instance.
+       * @type {null}
+       */
+      this.modalInstance = null;
 
-            /**
-             * Define feedback modal object.
-             */
-            this.open = function () {
+      /**
+       * Define feedback modal object.
+       */
+      this.open = function () {
 
-                this.modalInstance = $modal.open({
-                    templateUrl: '/app/feedback/partials/feedbackModal.html',
-                    controller: 'FeedbackModalController',
-                    windowClass: 'modal-feedback'
-                });
-            };
-
+        this.modalInstance = $modal.open({
+          templateUrl: '/app/feedback/partials/feedbackModal.html',
+          controller: 'FeedbackModalController',
+          windowClass: 'modal-feedback',
         });
+      };
+
+    });
 }());

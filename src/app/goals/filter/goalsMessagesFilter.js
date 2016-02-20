@@ -1,12 +1,12 @@
 (function () {
-    'use strict';
+  'use strict';
 
-    angular
-        .module('revaluate.goals')
-        .filter('goalMessage', function () {
-            return function (goalMessage, userName) {
+  angular
+    .module('revaluate.goals')
+    .filter('goalMessage', function () {
+      return function (goalMessage, userName) {
 
-                return goalMessage.format(userName);
-            };
-        });
+        return goalMessage.format(userName);
+      };
+    });
 }());

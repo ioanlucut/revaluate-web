@@ -1,15 +1,15 @@
 (function () {
-    'use strict';
+  'use strict';
 
-    angular
-        .module('revaluate.common')
-        .directive('layzrInitializer', function () {
-            return {
-                restrict: 'A',
-                link: function () {
+  angular
+    .module('revaluate.common')
+    .directive('layzrInitializer', function () {
+      return {
+        restrict: 'A',
+        link: function () {
 
-                    new Layzr();
-                }
-            };
-        });
+          new Layzr();
+        },
+      };
+    });
 }());
