@@ -17,7 +17,7 @@
                 .state({
                     name: 'insights',
                     url: '/insights',
-                    templateUrl: '/app/insights/partials/insights.abstract.html',
+                    templateUrl: '/app/insights/partials/insightsAbstract.html',
                     abstract: true
                 })
 
@@ -27,7 +27,7 @@
                 .state({
                     name: 'insights.monthly',
                     url: '/monthly',
-                    templateUrl: '/app/insights/partials/insights.monthly.html',
+                    templateUrl: '/app/insights/partials/insightsMonthly.html',
                     controller: 'InsightsMonthlyController',
                     controllerAs: 'vm',
                     resolve: {
@@ -53,7 +53,7 @@
                 .state({
                     name: 'insights.overview',
                     url: '/overview',
-                    templateUrl: '/app/insights/partials/insights.overview.html',
+                    templateUrl: '/app/insights/partials/insightsOverview.html',
                     controller: 'InsightsOverviewController',
                     controllerAs: 'vm',
                     resolve: {
@@ -79,7 +79,7 @@
                 .state({
                     name: 'insights.progress',
                     url: '/progress',
-                    templateUrl: '/app/insights/partials/insights.progress.html',
+                    templateUrl: '/app/insights/partials/insightsProgress.html',
                     controller: 'InsightsProgressController',
                     controllerAs: 'vm',
                     resolve: {
