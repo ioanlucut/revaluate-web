@@ -14,7 +14,7 @@ var configTask = function () {
       stream: true,
       name: 'config',
     })
-    .pipe($.rename('revaluate-app-config.js'))
+    .pipe($.rename('revaluateAppConfig.js'))
     .pipe(gulp.dest('src/app/config'));
 };
 

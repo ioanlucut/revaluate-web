@@ -1,0 +1,49 @@
+<form name="contactForm" ng-submit="sendContactAndClose(contactForm)" novalidate focus-first-error>
+
+    <div class="contact-modal__header">Tell us something</div>
+
+    <div class="contact-modal__form__close">
+        <button type="button" class="close" ng-click="dismissContactModal()" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+
+    <div class="modal-body" ng-if="! isSending && ! isSent">
+
+        <!-- Form group -->
+        <div class="form-group-input" ng-class="{'has-error': contactForm.$submitted && contactForm.name.$invalid}">
+            <div class="form-group-input__message" ng-if="contactForm.name.$invalid && contactForm.$submitted">Please tell us your name.</div>
+            <input class="form-group-input__input" type="text" name="name" placeholder="Name" ng-model="contact.model.name" auto-focus required />
+        </div>
+
+        <!-- Email input -->
+        <div class="form-group-input" ng-class="{'has-error': contactForm.$submitted && contactForm.email.$invalid}">
+            <!-- Error messages -->
+            <div class="form-group-input__message" ng-class="{'has-error': contactForm.email.$invalid && contactForm.$submitted}" ng-messages="contactForm.email.$error" ng-if="contactForm.$submitted">
+                <div ng-message="required">Please add your email address.</div>
+                <div ng-message="validEmail">Missed a letter? It looks like an invalid email address.</div>
+            </div>
+            <input class="form-group-input__input" type="email" name="email" placeholder="Email" ng-model="contact.model.email" required valid-email />
+        </div>
+
+        <div class="form-group-input" ng-class="{'has-error': contactForm.$submitted && contactForm.message.$invalid}">
+            <div class="form-group-input__message" ng-if="contactForm.message.$invalid && contactForm.$submitted">Please add a message.</div>
+            <textarea class="form-group-input__input" rows="6" name="message" ng-model="contact.model.message" placeholder="Your message" required></textarea>
+        </div>
+
+    </div>
+
+    <div class="modal-body" ng-if="isSending">
+        <div class="sending-status">Sending your message...</div>
+    </div>
+
+    <div class="modal-body" ng-if="isSent">
+        <div class="sending-status">Thanks! We'll get back to you.</div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="modal-footer__cancelbtn" type="button" ng-click="dismissContactModal()">Cancel</button>
+        <button class="modal-footer__sendbtn" type="submit" ng-disabled="isSending || isSent">Send</button>
+    </div>
+
+</form>
