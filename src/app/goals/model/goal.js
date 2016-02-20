@@ -1,73 +1,73 @@
 (function () {
-    'use strict';
+  'use strict';
 
-    function GoalFactory(GoalStatus) {
+  function GoalFactory(GoalStatus) {
+
+    /**
+     * Goal status factory function.
+     */
+    function goal(data) {
+
+      return _.extend({}, {
 
         /**
-         * Goal status factory function.
+         * The goal id.
          */
-        function goal(data) {
+        id: data.id,
 
-            return _.extend({}, {
+        /**
+         * The goal category.
+         */
+        category: data.category,
 
-                /**
-                 * The goal id.
-                 */
-                id: data.id,
+        /**
+         * The goal target (LESS,MORE).
+         */
+        goalTarget: data.goalTarget,
 
-                /**
-                 * The goal category.
-                 */
-                category: data.category,
+        /**
+         * The goal value
+         */
+        value: data.value,
 
-                /**
-                 * The goal target (LESS,MORE).
-                 */
-                goalTarget: data.goalTarget,
+        /**
+         * Start date of the goal.
+         */
+        startDate: data.startDate,
 
-                /**
-                 * The goal value
-                 */
-                value: data.value,
+        /**
+         * End date of the goal.
+         */
+        endDate: data.endDate,
 
-                /**
-                 * Start date of the goal.
-                 */
-                startDate: data.startDate,
+        /**
+         * Created date of the goal.
+         */
+        createdDate: data.createdDate,
 
-                /**
-                 * End date of the goal.
-                 */
-                endDate: data.endDate,
+        /**
+         * Created date of the goal.
+         */
+        modifiedData: data.modifiedData,
 
-                /**
-                 * Created date of the goal.
-                 */
-                createdDate: data.createdDate,
+        /**
+         * Goal status
+         */
+        goalStatus: data.goalStatusDTO && GoalStatus.build(data.goalStatusDTO),
 
-                /**
-                 * Created date of the goal.
-                 */
-                modifiedData: data.modifiedData,
-
-                /**
-                 * Goal status
-                 */
-                goalStatus: data.goalStatusDTO && GoalStatus.build(data.goalStatusDTO),
-
-                /**
-                 * The year month of this goal.
-                 */
-                yearMonthDate: data.yearMonthDate
-            });
-        }
-
-        return {
-            build: goal
-        };
+        /**
+         * The year month of this goal.
+         */
+        yearMonthDate: data.yearMonthDate,
+      });
     }
 
-    angular
-        .module('revaluate.goals')
-        .factory('Goal', GoalFactory);
+    return {
+      build: goal,
+    };
+  }
+
+  angular
+    .module('revaluate.goals')
+    .factory('Goal', GoalFactory);
 }());
