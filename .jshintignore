@@ -1,5 +1,5 @@
 node_modules
-src/app/revaluate-app/config/revaluate-app-config.js
+src/app/config/revaluate-app-config.js
 src/app/intercom/service/intercom-utils-service.js
 src/app/account/services/oauth2-service.js
 src/app/common/services/jwt-helper-service.js
