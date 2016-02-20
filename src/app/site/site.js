@@ -20,7 +20,7 @@
                 .state('home', {
                     url: '/',
                     templateUrl: '/app/site/partials/home.html',
-                    title: 'Change the way you spend your money - Revaluate',
+                    title: 'Don\'t give up on the things you love! - Revaluate',
                     controller: 'HomePageController',
                     stateEventName: USER_ACTIVITY_EVENTS.homePage,
                     pageId: 'home',
@@ -29,7 +29,7 @@
                 .state('pricing', {
                     url: '/pricing',
                     templateUrl: '/app/site/partials/pricing.html',
-                    title: 'Change the way you spend your money - Revaluate',
+                    title: 'Don\'t give up on the things you love! - Revaluate',
                     stateEventName: USER_ACTIVITY_EVENTS.pricingPage,
                     pageId: 'pricing',
                     isPublicPage: true

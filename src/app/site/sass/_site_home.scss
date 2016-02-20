@@ -110,11 +110,15 @@
 }
 
 .site__container__section__card__motiv {
+    @include clearfix();
+
     .site__container__section__card__motiv__text,
     .site__container__section__card__motiv__icons {
         width: 50%;
         height: 100%;
         float: left;
+
+        //border: solid 1px red;
     }
 
     .site__container__section__card__motiv__text {
@@ -126,15 +130,100 @@
         line-height: 42px;
     }
 
-    .site__container__section__card__motiv__text--alignright {
+    .site__container__section__card__motiv__text--right {
         text-align: right;
         padding: 0 0 0 50px;
     }
 
     .site__container__section__card__motiv__icons {
+        @include clearfix();
 
+        div {
+            float: left;
+            width: 100%;
+            height: 43%;
+            text-align: center;
+            margin-bottom: 15px;
+            position: relative;
+
+            span {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                text-transform: uppercase;
+                font-weight: bold;
+                font-size: $font-size-small;
+            }
+        }
+
+        .icon__01 {
+            background: url("../assets/img/home/icon_01_@2x.png") no-repeat top center;
+            background-size: 50%;
+        }
+
+        .icon__02 {
+            background: url("../assets/img/home/icon_02_@2x.png") no-repeat top center;
+            background-size: 50%;
+        }
+
+        .icon__03 {
+            background: url("../assets/img/home/icon_03_@2x.png") no-repeat top center;
+            background-size: 50%;
+        }
+
+        .icon__04 {
+            background: url("../assets/img/home/icon_04_@2x.png") no-repeat top center;
+            background-size: 50%;
+        }
+
+        .icon__05 {
+            background: url("../assets/img/home/icon_05_@2x.png") no-repeat top center;
+            background-size: 50%;
+        }
+
+        .icon__06 {
+            background: url("../assets/img/home/icon_06_@2x.png") no-repeat top center;
+            background-size: 50%;
+        }
+
+        .icon__07 {
+            background: url("../assets/img/home/icon_07_@2x.png") no-repeat top center;
+            background-size: 50%;
+        }
+
+        .icon__08 {
+            background: url("../assets/img/home/icon_08_@2x.png") no-repeat top center;
+            background-size: 50%;
+        }
+
+        .icon__09 {
+            background: url("../assets/img/home/icon_09_@2x.png") no-repeat top center;
+            background-size: 50%;
+        }
+
+        .icon__10 {
+            background: url("../assets/img/home/icon_10_@2x.png") no-repeat top center;
+            background-size: 50%;
+        }
+
+        .icon__11 {
+            background: url("../assets/img/home/icon_11_@2x.png") no-repeat top center;
+            background-size: 50%;
+        }
+
+        .icon__12 {
+            background: url("../assets/img/home/icon_12_@2x.png") no-repeat top center;
+            background-size: 50%;
+        }
+
+        .icon__13 {
+            background: url("../assets/img/home/icon_13_@2x.png") no-repeat top center;
+            background-size: 50%;
+        }
     }
 }
+
 
 // Overrides
 // -----------------------------
