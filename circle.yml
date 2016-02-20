@@ -1,3 +1,6 @@
+machine:
+  node:
+    version: 5.0.0
 test:
   override:
     - npm test
@@ -8,21 +11,18 @@ deployment:
     - ruby -v
     - gem install sass
     - npm run-script build:dev
-    - npm install -g divshot-cli
-    - divshot push development --token "${DIVSHOT_TOKEN}"
+    - npm run-script deploy:dev
   master:
     branch: master
     commands:
     - ruby -v
     - gem install sass
     - npm run-script build:dev
-    - npm install -g divshot-cli
-    - divshot push staging --token "${DIVSHOT_TOKEN}"
+    - npm run-script deploy:dev
   production:
     branch: production
     commands:
     - ruby -v
     - gem install sass
     - npm run-script build:prod
-    - npm install -g divshot-cli
-    - divshot push production --token "${DIVSHOT_TOKEN}"
+    - npm run-script deploy:prod

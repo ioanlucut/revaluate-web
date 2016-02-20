@@ -28,6 +28,7 @@ module.exports = function (options) {
             });
     }
 
+    gulp.task('protractor-quick', ['serve:e2e-quick'], runProtractor);
     gulp.task('protractor', ['protractor:src']);
     gulp.task('protractor:src', ['serve:e2e', 'webdriver-update'], runProtractor);
     gulp.task('protractor:dist', ['serve:e2e-dist', 'webdriver-update'], runProtractor);

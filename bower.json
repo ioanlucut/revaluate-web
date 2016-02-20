@@ -19,7 +19,7 @@
         "braintree-angular": "~1.2.6",
         "angular-gravatar": "~0.3.1",
         "angular-ui-select": "git@github.com:ioanlucut/ui-select.git#5c247c7d21d6a55c499a8073b5b00e90e55df42e",
-        "angular-chart.js": "~0.7.2",
+        "angular-chart.js": "~0.8.8",
         "angular-payments": "*",
         "angular-translate": "~2.7.2",
         "angular-bootstrap": "~0.13.0",

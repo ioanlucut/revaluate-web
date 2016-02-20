@@ -4,7 +4,7 @@
 exports
     .mockAppConfig = function ($provide) {
 
-    $provide.constant('APP_CONFIG', {
+        $provide.constant('APP_CONFIG', {
         "SETUP_MIN_CATEGORIES_TO_SELECT": 3,
         "PREDEFINED_CATEGORIES": ["Bills", "Food"],
         "CURRENCIES": [{
@@ -27,4 +27,4 @@ exports
             "priority": 2
         }]
     });
-};
+    };
