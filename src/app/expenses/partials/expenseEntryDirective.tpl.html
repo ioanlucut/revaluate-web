@@ -1,0 +1,107 @@
+<!--Display expense-->
+<div class="expenses__list__entry__section" ng-if="! showContent" ng-class="vm.expense.marked ? 'expenses__list__entry__section--bulk-marked' : ''" ng-click="toggleContent();">
+
+    <!--Actions on expense-->
+    <div class="expenses__list__entry__section__select icon-checkbox-square-unchecked-1" ng-if="! vm.expense.marked" ng-click="vm.toggleMark();$event.stopPropagation();"></div>
+    <div class="expenses__list__entry__section__select icon-checkbox-square-1" ng-if="vm.expense.marked" ng-click="vm.toggleMark();$event.stopPropagation();"></div>
+
+    <!--Expense category-->
+    <div class="expenses__list__entry__section__category">
+        <div class="expenses__list__entry__section__category__icon" ng-style="{'border-color': vm.expense.category.color.color, 'background-color': '#fff'}"></div>
+        <div class="expenses__list__entry__section__category__label" ng-bind-html="vm.expense.category.name"></div>
+    </div>
+
+    <!-- Expense price -->
+    <div class="expenses__list__entry__section__price">
+        <span ng-bind-html="vm.expense.value | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
+    </div>
+
+    <!--Expense description-->
+    <div class="expenses__list__entry__section__details" ng-bind-html="vm.expense.description"></div>
+
+    <!--Expense date-->
+    <div ng-if="showDateDetails" class="expenses__list__entry__section__date">{{vm.expense.spentDate | friendlyDate}}</div>
+</div>
+
+<!-- Display expense in edit mode -->
+<div class="expense__edit__form" ng-if="showContent">
+
+    <form name="vm.expenseForm" ng-submit="vm.expenseForm.$valid ? vm.updateExpense() : ''" novalidate focus-first-error>
+
+        <!-- Form groups -->
+        <div class="expense__edit__form__price" ng-class="{'has-error': vm.expenseForm.$submitted && (vm.expenseForm.value.$invalid || vm.badPostSubmitResponse)}">
+            <input class="expense__edit__form__price__input" ng-disabled="vm.updateTracker.active()" type="text" name="value" placeholder="0,00" maxlength="18" ng-model="vm.shownExpense.value" format-price format="number" required valid-price />
+            <span class="expense__edit__form__price__currency">{{vm.user.model.currency.symbol}}</span>
+
+            <!-- Error messages -->
+            <div class="form-group-input__message" ng-class="{'has-error': vm.expenseForm.value.$invalid && vm.expenseForm.$submitted}" ng-messages="vm.expenseForm.value.$error" ng-if="vm.expenseForm.$submitted">
+                <div ng-message="required">Please add a price.</div>
+                <div ng-message="validPrice">Price is invalid</div>
+            </div>
+        </div>
+
+        <!-- Form group -->
+        <div class="expense__edit__form__category" ng-class="{'has-error': vm.expenseForm.$submitted && (vm.expenseForm.category.$invalid || vm.badPostSubmitResponse)}">
+
+            <ui-select name="category" ng-disabled="vm.updateTracker.active()" class="category-select__input" ng-style="{'background':$select.selected.color.color}" required ng-model="vm.category.selected" theme="selectize">
+                <ui-select-match ng-style="{'background':$select.selected.color.color}" placeholder="Select a category">{{$select.selected.name}}</ui-select-match>
+                <ui-select-choices repeat="categoryEntry in vm.categories | orderObjectBy : 'name' : false | filter:{name:$select.search} track by categoryEntry.id">
+                    <span class="category__color__preview" ng-style="{'background':categoryEntry.color.color}">C</span>
+                    <span ng-bind-html="categoryEntry.name | highlight: $select.search"></span>
+                </ui-select-choices>
+            </ui-select>
+
+            <!-- Error messages -->
+            <div class="form-group-input__message" ng-class="{'has-error': vm.expenseForm.category.$invalid && vm.expenseForm.$submitted}" ng-messages="vm.expenseForm.category.$error" ng-if="vm.expenseForm.$submitted">
+                <div ng-message="required">Please add a category.</div>
+            </div>
+        </div>
+
+        <!-- Description input -->
+        <div class="expense__edit__form__details" ng-class="{'has-error': vm.expenseForm.$submitted && (vm.expenseForm.description.$invalid || vm.badPostSubmitResponse)}">
+            <input class="expense__edit__form__details__input" ng-disabled="vm.updateTracker.active()" type="text" name="description" ng-maxlength="100" maxlength="100" placeholder="Add details (optional)" ng-model="vm.shownExpense.description" escape-html />
+
+            <!-- Error messages -->
+            <div class="form-group-input__message" ng-class="{'has-error': vm.expenseForm.description.$invalid && vm.expenseForm.$submitted}" ng-messages="vm.expenseForm.description.$error" ng-if="vm.expenseForm.$submitted">
+                <div ng-message="maxlength">Hmm. Too long.</div>
+            </div>
+        </div>
+
+        <!-- Date input -->
+        <div class="expense__edit__form__date" ng-class="{'has-error': vm.expenseForm.spentDate.$invalid && vm.expenseForm.$submitted}">
+
+            <!--Hidden input of the expense chosen date-->
+            <input type="hidden" name="spentDate" ng-model="vm.shownExpense.spentDate" required valid-date />
+
+            <!--Expense date picker-->
+            <div class="expense__edit__form__date__input">
+                <button ng-click="vm.openDatePicker($event)" type="button"
+                        class="expense__edit__form__date__input__btn"
+                        datepicker-popup is-open="vm.datePickerStatus.opened"
+                        ng-disabled="vm.updateTracker.active()"
+                        min-date="vm.minDate"
+                        max-date="vm.maxDate"
+                        ng-model="vm.shownExpense.spentDate"
+                        datepicker-options="{startingDay:1,showWeeks:false}">
+                    {{vm.shownExpense.spentDate | friendlyDate}}
+                </button>
+            </div>
+
+            <!--Error messages-->
+            <div class="form-group-input__message" ng-class="{'has-error': vm.expenseForm.spentDate.$invalid && vm.expenseForm.$submitted}" ng-messages="vm.expenseForm.spentDate.$error" ng-if="vm.expenseForm.$submitted">
+                <div ng-message="required">Please add a date.</div>
+                <div ng-message="validDate">Date should be in the past.</div>
+            </div>
+        </div>
+
+        <!-- Button container -->
+        <div class="expense__edit__form__submit__cancel">
+            <button class="expense__edit__form__cancelbtn" type="button" ng-click="cancel();">Discard changes</button>
+        </div>
+
+        <div class="expense__edit__form__submit__save">
+            <button ng-disabled="vm.updateTracker.active()" class="expense__edit__form__savebtn" type="submit">{{vm.updateTracker.active() ? 'Saving' : 'Save'}}</button>
+        </div>
+    </form>
+
+</div>

@@ -1,20 +1,20 @@
 (function () {
-    'use strict';
+  'use strict';
 
-    /**
-     * Main site module declaration including ui templates.
-     */
-    angular
-        .module('revaluate.site', [
-            'revaluate.common'
-        ])
-        .config(function ($stateProvider, $urlRouterProvider, USER_ACTIVITY_EVENTS) {
+  /**
+   * Main site module declaration including ui templates.
+   */
+  angular
+    .module('revaluate.site', [
+      'revaluate.common',
+    ])
+    .config(function ($stateProvider, $urlRouterProvider, USER_ACTIVITY_EVENTS) {
 
-            // Otherwise
-            $urlRouterProvider.otherwise('/404');
+      // Otherwise
+      $urlRouterProvider.otherwise('/404');
 
-            // Home
-            $stateProvider
+      // Home
+      $stateProvider
 
                 // Home page
                 .state('home', {

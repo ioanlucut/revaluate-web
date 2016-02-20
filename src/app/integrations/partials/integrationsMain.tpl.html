@@ -1,0 +1,111 @@
+<!-- Integrations main section -->
+<div class="settings__box settings__box--selectable">
+
+    <!-- Integrations small section -->
+    <div class="settings__box__section--large">
+
+        <!-- Title -->
+        <h1 class="settings__title">Integrations</h1>
+
+        <!-- Integrations activated by the user -->
+        <div class="integrations__list">
+            <h2 class="integrations__list__header">Your active integrations</h2>
+
+            <!--Empty list-->
+            <div class="integrations__list__entry" ng-show="vm.integrations.length === 0">No active integrations</div>
+
+            <div class="integrations__list__entry" ng-repeat="integration in vm.integrations track by integration.id">
+                <img class="integrations__list__entry__logo" src="/assets/img/logo_slack.png" />
+
+                <div class="integrations__list__entry__name">Slack</div>
+                <div class="integrations__list__entry__authorized">Authorized for team: {{integration.slackTeamName}}</div>
+                <div class="integrations__list__entry__action integrations__list__entry__action--disconnect">
+                    <button type="button" ng-disabled="vm.deleteTracker.active()" ng-click="vm.deleteIntegration(integration)">{{vm.deleteTracker.active() ? 'Disconnecting..' : 'Disconnect'}}</button>
+                </div>
+            </div>
+
+            <div class="">
+                <span>See available Slack commands here:</span>
+                <a href="https://medium.com/revaluate-help/slack-commands-for-revaluate-a0f58c0295d7" target="_blank">Slack commands for Revaluate</a>
+            </div>
+
+        </div>
+
+        <!-- List of available integrations -->
+        <div class="integrations__list">
+            <h2 class="integrations__list__header">Add new integration</h2>
+
+            <div class="integrations__list__entry integrations__list__entry--new">
+                <div class="integrations__list__entry__row">
+                    <img class="integrations__list__entry__logo" src="/assets/img/logo_slack.png" />
+
+                    <div class="integrations__list__entry__name">Slack</div>
+                </div>
+
+                <!-- Accordion component -->
+                <accordion>
+                    <accordion-group is-open="vm.accordionStatus.isOpen">
+
+                        <!-- Accordion component -->
+                        <accordion-heading>
+                            <div class="integrations__list__entry__action">
+                                <button type="button">Add Integration</button>
+                            </div>
+                        </accordion-heading>
+
+                        <div class="integrations__list__entry__tutorial">
+                            <div class="integrations__list__entry__tutorial__intro">
+                                Slack is the communication tool for modern teams.<br>
+                                <span>Slack limitation: In order to connect Revaluate to Slack you need to have integrations permission for your user.</span>
+                            </div>
+
+                            <div class="integrations__list__entry__tutorial__step__title">1: Authorize Revaluate in your Slack team (this needs to be done by each member from their Revaluate account):</div>
+                            <div class="integrations__list__entry__connect">
+                                <a href="javascript:void(0)" ng-click="vm.addIntegrationOf('slack')">
+                                    <img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x">
+                                </a>
+                            </div>
+
+                            <div class="integrations__list__entry__tutorial__step__title">2: Add a slash command in Slack (this needs to be done only by a team member):</div>
+
+                            <ul class="integrations__list__entry__tutorial__step__description">
+                                <li><span>Step 1:</span> Go to your Slack account to add a
+                                    <a href="https://slack.com/services/new/slash-commands" target="_blank">new slash command</a>.
+                                </li>
+                                <li><span>Step 2:</span> In the <strong>Choose a Command</strong> input, add
+                                    <code>/revaluate</code></li>
+
+                                <li><span>Step 3:</span> Click on the
+                                    <strong>Add Slash Command Integration</strong> button.
+                                </li>
+                                <li><span>Step 4:</span> In the new loaded screen, go to
+                                    <strong>Integration Settings</strong> section.
+                                </li>
+                                <li><span>Step 5:</span> Add the following information in the input fields:
+                                    <ul>
+                                        <li>URL: <code>https://revaluate-api-prod.herokuapp.com/slack</code></li>
+                                        <li>Method: <code>GET</code></li>
+
+                                        <li>Autocomplete Help Text:
+                                            <ul>
+                                                <li> Description: <code>Manage expenses with Revaluate</code></li>
+                                                <li> Usage hint:
+                                                    <code>[command] - “/revaluate help” for additional info</code></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li><span>Step 6:</span> Click <strong>Save Integration</strong>.</li>
+                            </ul>
+
+                        </div>
+                    </accordion-group>
+                </accordion>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

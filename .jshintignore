@@ -1,8 +1,9 @@
 node_modules
-src/app/config/revaluate-app-config.js
-src/app/intercom/service/intercom-utils-service.js
-src/app/account/services/oauth2-service.js
-src/app/common/services/jwt-helper-service.js
-src/app/insights/services/insights-generator.js
+src/app/config/revaluateAppConfig.js
+src/app/intercom/service/IntercomUtilsService.js
+src/app/account/services/Oauth2Service.js
+src/app/common/services/JwtHelperService.js
+src/app/insights/services/InsightsGenerator.js
 src/**/*_test.js
 src/**/*hello.slack.js
+src/app/common/services/MixpanelUtilsService.js
