@@ -6,37 +6,38 @@ var argv = require('yargs').argv;
 var environment = argv.env || 'local-dev';
 
 var configTask = function () {
-    var myConfig = require('./app.config.' + environment + '.json');
+  var myConfig = require('./app.config.' + environment + '.json');
 
-    return $.ngConstant({
-        constants: myConfig,
-        stream: true,
-        name: 'config',
-        dest: '/revaluate-app/config/revaluate-app-config.js'
+  return $
+    .ngConstant({
+      constants: myConfig,
+      stream: true,
+      name: 'config',
     })
-        .pipe(gulp.dest('src/app'));
+    .pipe($.rename('revaluate-app-config.js'))
+    .pipe(gulp.dest('src/app/config'));
 };
 
 module.exports = function () {
-    gulp.task('config', configTask);
+  gulp.task('config', configTask);
 
-    gulp.task('config:local', function () {
-        environment = argv.env || 'localhost';
-        configTask();
-    });
+  gulp.task('config:local', function () {
+    environment = argv.env || 'localhost';
+    configTask();
+  });
 
-    gulp.task('config:dev', function () {
-        environment = argv.env || 'development';
-        configTask();
-    });
+  gulp.task('config:dev', function () {
+    environment = argv.env || 'development';
+    configTask();
+  });
 
-    gulp.task('config:local-dev', function () {
-        environment = argv.env || 'local-dev';
-        configTask();
-    });
+  gulp.task('config:local-dev', function () {
+    environment = argv.env || 'local-dev';
+    configTask();
+  });
 
-    gulp.task('config:prod', function () {
-        environment = argv.env || 'production';
-        configTask();
-    });
+  gulp.task('config:prod', function () {
+    environment = argv.env || 'production';
+    configTask();
+  });
 };
