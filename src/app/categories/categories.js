@@ -15,7 +15,7 @@
         .state({
           name: 'settings.categories',
           url: '/categories',
-          templateUrl: '/app/categories/partials/categories.html',
+          templateUrl: '/app/categories/categories/categories.html',
           controller: 'CategoriesController',
           controllerAs: 'vm',
           isPaymentMissingUnrestrictedPage: true,

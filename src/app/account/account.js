@@ -20,7 +20,7 @@
       // Login page
         .state('account', {
           url: '/account',
-          controller: 'LoginController',
+          controller: 'AccountLoginController',
           templateUrl: '/app/site/partials/home.html',
           title: 'Login - Revaluate',
           stateEventName: USER_ACTIVITY_EVENTS.account,
@@ -32,7 +32,7 @@
           url: '/account/logout',
           controller: 'AutoLogoutController',
           controllerAs: 'vm',
-          templateUrl: '/app/account/partials/logout.html',
+          templateUrl: '/app/account/logout/logout.html',
           title: 'Logout - Revaluate',
           stateEventName: USER_ACTIVITY_EVENTS.accountLogout,
           isPublicPage: true,
@@ -47,7 +47,7 @@
         .state({
           name: 'account:validatePasswordResetToken',
           url: '/account/reset-password',
-          templateUrl: '/app/account/partials/ValidatePasswordResetTokenAbstract.html',
+          templateUrl: '/app/account/components/validatePasswordResetTokenAbstract/validatePasswordResetTokenAbstract.html',
           abstract: true,
         })
 
@@ -55,7 +55,7 @@
         .state({
           name: 'account:validatePasswordResetToken.valid',
           url: '/{email}/{token}',
-          templateUrl: '/app/account/partials/validatePasswordResetTokenValid.html',
+          templateUrl: '/app/account/components/validatePasswordResetTokenAbstract/validatePasswordResetTokenValid.html',
           controller: 'ValidatePasswordResetTokenController',
           resolve: {
             validateTokenResult: function ($stateParams, $q, AuthService, $state) {
@@ -85,7 +85,7 @@
         .state({
           name: 'account:validatePasswordResetToken.invalid',
           url: '/invalid-token',
-          templateUrl: '/app/account/partials/validatePasswordResetTokenInvalid.html',
+          templateUrl: '/app/account/components/validatePasswordResetTokenAbstract/validatePasswordResetTokenInvalid.html',
           controller: 'ValidatePasswordResetTokenInvalidController',
           title: 'Reset password - Revaluate',
           stateEventName: USER_ACTIVITY_EVENTS.accountValidatePasswordResetTokenInvalid,
@@ -101,7 +101,7 @@
         .state({
           name: 'account:confirmationEmail',
           url: '/account/confirm-email',
-          templateUrl: '/app/account/partials/emailConfirmationResendAbstract.html',
+          templateUrl: '/app/account/emailConfirmationResend/emailConfirmationResendAbstract.html',
           abstract: true,
         })
 
@@ -109,7 +109,7 @@
         .state({
           name: 'account:confirmationEmail.valid',
           url: '/{email}/{token}',
-          templateUrl: '/app/account/partials/emailConfirmationResendValid.html',
+          templateUrl: '/app/account/emailConfirmationResend/emailConfirmationResendValid.html',
           resolve: {
             validateTokenResult: function (AuthService, $rootScope, $stateParams, $q, $state, AUTH_EVENTS) {
               var deferred = $q.defer();
@@ -149,7 +149,7 @@
         .state({
           name: 'account:confirmationEmail.invalid',
           url: '/invalid-token',
-          templateUrl: '/app/account/partials/emailConfirmationResendInvalid.html',
+          templateUrl: '/app/account/emailConfirmationResend/emailConfirmationResendInvalid.html',
           title: 'Invalid confirmation email token - Revaluate',
           stateEventName: USER_ACTIVITY_EVENTS.accountConfirmationEmailInvalid,
           isPublicPage: true,

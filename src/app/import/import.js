@@ -12,14 +12,14 @@
         .state({
           name: 'settings.import',
           url: '/import',
-          templateUrl: '/app/import/partials/settingsImportAbstract.html',
+          templateUrl: '/app/import/expenses-import/importAbstract.html',
           abstract: true,
         })
 
         .state({
           name: 'settings.import.choose',
           url: '/choose',
-          templateUrl: '/app/import/partials/settingsImportChoose.html',
+          templateUrl: '/app/import/expenses-import/importChoose.html',
           isPaymentMissingUnrestrictedPage: true,
           stateEventName: USER_ACTIVITY_EVENTS.settingsImportChoose,
           title: 'Expenses import choose - Revaluate',
@@ -28,7 +28,7 @@
         .state({
           name: 'settings.import.import',
           url: '/{type}',
-          templateUrl: '/app/import/partials/settingsImportImport.html',
+          templateUrl: '/app/import/expenses-import/importImport.html',
           controller: 'ExpensesImportController',
           isPaymentMissingUnrestrictedPage: true,
           resolve: {
