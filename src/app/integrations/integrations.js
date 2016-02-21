@@ -16,14 +16,14 @@
         .state({
           name: 'settings.integrations',
           url: '/integrations',
-          templateUrl: '/app/integrations/partials/integrationsAbstract.tpl.html',
+          templateUrl: '/app/integrations/integrations/integrationsAbstract.tpl.html',
           abstract: true,
         })
 
         .state({
           name: 'settings.integrations.main',
           url: '/main',
-          templateUrl: '/app/integrations/partials/integrationsMain.tpl.html',
+          templateUrl: '/app/integrations/integrations/integrationsMain.tpl.html',
           controller: 'IntegrationsMainController',
           controllerAs: 'vm',
           resolve: {

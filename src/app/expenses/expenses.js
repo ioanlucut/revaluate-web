@@ -17,7 +17,7 @@
 
         .state('expenses', {
           url: '/expenses',
-          templateUrl: '/app/expenses/partials/expensesAbstract.tpl.html',
+          templateUrl: '/app/expenses/expenses/expensesAbstract.tpl.html',
           abstract: true,
         })
 
@@ -26,7 +26,7 @@
           url: '',
           views: {
             expensesContentView: {
-              templateUrl: '/app/expenses/partials/expensesContent.tpl.html',
+              templateUrl: '/app/expenses/expenses/expensesContent.tpl.html',
               controller: 'ExpensesController',
               controllerAs: 'expensesVm',
               resolve: {
@@ -40,7 +40,7 @@
               },
             },
             'expenses__daily__insights__content@expenses.regular': {
-              templateUrl: '/app/expenses/partials/monthlyDailyInsights.tpl.html',
+              templateUrl: '/app/expenses/monthlyDailyInsights/monthlyDailyInsights.tpl.html',
               controller: 'MonthlyDailyInsightsController',
               controllerAs: 'vm',
               resolve: {
@@ -53,7 +53,7 @@
               },
             },
             'expenses__goals__content@expenses.regular': {
-              templateUrl: '/app/expenses/partials/monthlyGoals.tpl.html',
+              templateUrl: '/app/expenses/monthlyGoals/monthlyGoals.tpl.html',
               controller: 'MonthlyGoalsController',
               controllerAs: 'vm',
               resolve: {
