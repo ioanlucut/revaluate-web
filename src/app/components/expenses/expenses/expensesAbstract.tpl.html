@@ -1,0 +1,29 @@
+<div header class="view-container__header"></div>
+
+<div class="view-container__content">
+
+    <!--Trial period countdown-->
+    <div ng-if="currentUser.showTrialRemainingDays()">
+        <div ng-include src="'/app/common/common/partials/trialPeriodCountdown.html'"></div>
+    </div>
+
+    <!--Account confirmation alert-->
+    <div ng-if="! currentUser.model.emailConfirmed">
+        <div ng-include src="'/app/components/account/emailConfirmationResend/emailConfirmationResendTemplate.html'"></div>
+    </div>
+
+    <!-- Flash messages. -->
+    <div flash-messages flash="flash" identifier-id="generalError"></div>
+
+    <!-- Flash messages. -->
+    <div flash-messages flash="flash" identifier-id="{{alertId}}"></div>
+
+    <!--Small hook-->
+    <greeter greet="greet"></greeter>
+
+    <!--Normal expenses content-->
+    <div ui-view="expensesContentView"></div>
+
+</div>
+
+<div footer class="view-container__footer"></div>

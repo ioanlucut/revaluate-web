@@ -1,0 +1,12 @@
+/* Import sub-modules */
+@import "settings/settingsCommon";
+@import "settings/settingsCommonResponsive";
+@import "settingsProfile/settingsProfile";
+@import "cancelAccountConfirmation/cancelAccountConfirmationDirective";
+@import "settingsPreferences/settingsPreferences";
+@import "settingsPayment/settingsPayment";
+@import "settingsPayment/settingsPaymentAdd";
+@import "settingsSetupRegistration/signupSetup";
+@import "settingsSetupRegistration/signupSetupResponsive";
+@import "settingsSetupRegistration/signupSetupCategories";
+@import "settingsSetupRegistration/signupSetupCategoriesResponsive";
