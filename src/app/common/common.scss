@@ -1,0 +1,18 @@
+/* Import sub-modules */
+@import "common/sass/layout";
+// The submodules for the landingpage
+@import "header/headerPublic";
+@import "header/headerPublicResponsive";
+@import "header/headerPublicSide";
+@import "footer/footerHome";
+@import "footer/footerHomeResponsive";
+// Submodules of the main application
+@import "header/headerApp";
+@import "header/headerAppResponsive";
+@import "header/headerAppSide";
+@import "header/headerAppSideResponsive";
+@import "footer/footerApp";
+
+@import "common/sass/components/perfect-scrollbar";
+@import "common/sass/components/datepicker";
+@import "common/sass/components/datepickerResponsive";
