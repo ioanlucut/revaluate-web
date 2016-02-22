@@ -86,7 +86,7 @@
 // Revaluate styles.
 // ---
 @import "../app/common/sass/common";
-@import "../app/site/sass/site";
+@import "../app/site/site";
 @import "../app/account/sass/account";
 @import "../app/expenses/sass/expenses";
 @import "../app/categories/sass/categories";
@@ -95,5 +95,5 @@
 @import "../app/integrations/integrations/integrations";
 @import "../app/settings/sass/settings";
 @import "../app/import/expenses-import/import";
-@import "../app/feedback/sass/feedback";
+@import "../app/feedback/feedback/feedback";
 @import "../app/contact/contact/contact";

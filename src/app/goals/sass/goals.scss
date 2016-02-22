@@ -1,14 +1,14 @@
 /* Import sub-modules */
 @import "components/datepicker";
 @import "components/datepickerResponsive";
-@import "goalsAddForm";
-@import "goalsAddFormResponsive";
+@import "../goalAdd/goalsAddForm";
+@import "../goalAdd/goalsAddFormResponsive";
 @import "goalsControls";
 @import "goalsControlsResponsive";
-@import "goalsList";
-@import "goalsListResponsive";
-@import "goalsListEntry";
-@import "goalsListEntryResponsive";
+@import "../goalsList/goalsList";
+@import "../goalsList/goalsListResponsive";
+@import "../goalsDisplayEntry/goalsListEntry";
+@import "../goalsDisplayEntry/goalsListEntryResponsive";
 @import "goalsEditForm";
 @import "goalsEditFormResponsive";
 @import "goalsEmpty";

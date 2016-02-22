@@ -120,7 +120,7 @@
         controller: AddGoalController,
         bindToController: true,
         controllerAs: 'vm',
-        templateUrl: '/app/goals/partials/goalAddDirective.tpl.html',
+        templateUrl: '/app/goals/goalAdd/goalAddDirective.tpl.html',
         link: function () {
         },
       };

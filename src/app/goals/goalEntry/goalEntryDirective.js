@@ -133,7 +133,7 @@
         controller: GoalEntryController,
         bindToController: true,
         controllerAs: 'vm',
-        templateUrl: '/app/goals/partials/goalEntryDirective.tpl.html',
+        templateUrl: '/app/goals/goalEntry/goalEntryDirective.tpl.html',
         link: function (scope, el, attrs, vm) {
           var GOAL_INPUT_SELECTOR = '.goal__form__price__input';
 

@@ -6,7 +6,7 @@
    */
   angular
     .module('revaluate.expensesImport')
-    .controller('ExpensesImportController', function ($q, $scope, $rootScope, $timeout, IMPORT_PARSE_ANALYSE_URLS, importType, FileUploader, ImportService, ExpensesImport, StatesHandler, SessionService, AUTH_EVENTS, ALERTS_EVENTS, categories, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, APP_CONFIG) {
+    .controller('ImportExpensesController', function ($q, $scope, $rootScope, $timeout, IMPORT_PARSE_ANALYSE_URLS, importType, FileUploader, ImportService, ExpensesImport, StatesHandler, SessionService, AUTH_EVENTS, ALERTS_EVENTS, categories, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, APP_CONFIG) {
 
       // ---
       // Configure uploader.

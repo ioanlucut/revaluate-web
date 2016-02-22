@@ -19,7 +19,7 @@
       // Home page
         .state('home', {
           url: '/',
-          templateUrl: '/app/site/partials/home.html',
+          templateUrl: '/app/site/home/home.html',
           title: 'Change the way you spend your money - Revaluate',
           controller: 'HomePageController',
           stateEventName: USER_ACTIVITY_EVENTS.homePage,
@@ -28,7 +28,7 @@
         })
         .state('pricing', {
           url: '/pricing',
-          templateUrl: '/app/site/partials/pricing.html',
+          templateUrl: '/app/site/pricing/pricing.html',
           title: 'Change the way you spend your money - Revaluate',
           stateEventName: USER_ACTIVITY_EVENTS.pricingPage,
           pageId: 'pricing',
@@ -36,7 +36,7 @@
         })
         .state('privacy', {
           url: '/privacy',
-          templateUrl: '/app/site/partials/privacy.html',
+          templateUrl: '/app/site/privacy/privacy.html',
           title: 'Privacy - Revaluate',
           stateEventName: USER_ACTIVITY_EVENTS.privacyPage,
           pageId: 'privacy',
@@ -44,14 +44,14 @@
         })
         .state('terms', {
           url: '/terms',
-          templateUrl: '/app/site/partials/terms.html',
+          templateUrl: '/app/site/terms/terms.html',
           title: 'Terms of Use - Revaluate',
           pageId: 'terms',
           isPublicPage: true,
         })
         .state('404', {
           url: '/404',
-          templateUrl: '/app/site/partials/404.html',
+          templateUrl: '/app/site/error/404/404.html',
           controller: 'Error404PageController',
           title: 'Hmm... looks like a 404',
           stateEventName: USER_ACTIVITY_EVENTS.error404,
@@ -59,7 +59,7 @@
         })
         .state('500', {
           url: '/500',
-          templateUrl: '/app/site/partials/500.html',
+          templateUrl: '/app/site/error/500/500.html',
           controller: 'Error500PageController',
           title: 'Oops... You found a 500',
           stateEventName: USER_ACTIVITY_EVENTS.error500,

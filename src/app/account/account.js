@@ -21,7 +21,7 @@
         .state('account', {
           url: '/account',
           controller: 'AccountLoginController',
-          templateUrl: '/app/site/partials/home.html',
+          templateUrl: '/app/site/home/home.html',
           title: 'Login - Revaluate',
           stateEventName: USER_ACTIVITY_EVENTS.account,
           isPublicPage: true,
