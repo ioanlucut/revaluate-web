@@ -19,7 +19,7 @@
       this.open = function () {
 
         this.modalInstance = $modal.open({
-          templateUrl: '/app/feedback/partials/feedbackModal.html',
+          templateUrl: '/app/feedback/feedbackModal/feedbackModal.html',
           controller: 'FeedbackModalController',
           windowClass: 'modal-feedback',
         });

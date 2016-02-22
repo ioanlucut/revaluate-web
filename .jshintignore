@@ -1,7 +1,7 @@
 node_modules
 src/app/config/revaluateAppConfig.js
 src/app/intercom/intercom/IntercomUtilsService.js
-src/app/account/socialConnect/Oauth2Service.js
+src/app/account/socialConnect/SocialConnectService.js
 src/app/common/services/JwtHelperService.js
 src/app/insights/insights/InsightsGenerator.js
 src/**/*_test.js

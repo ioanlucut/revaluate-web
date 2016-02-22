@@ -20,7 +20,7 @@
         controller: GoalsDisplayEntryController,
         bindToController: true,
         controllerAs: 'vm',
-        templateUrl: '/app/goals/partials/goalsDisplayEntryDirective.tpl.html',
+        templateUrl: '/app/goals/goalsDisplayEntry/goalsDisplayEntryDirective.tpl.html',
         link: function () {
         },
       };

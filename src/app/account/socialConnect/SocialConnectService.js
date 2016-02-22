@@ -3,7 +3,7 @@
 
   angular
     .module('revaluate.account')
-    .service('OAuth2Service', function (ENV, OAUTH2_URLS, OAUTH2_SCOPE, $q) {
+    .service('SocialConnectService', function (ENV, OAUTH2_URLS, OAUTH2_SCOPE, $q) {
 
       // ---
       // Initialize HELLO.

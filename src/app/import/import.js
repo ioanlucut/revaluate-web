@@ -29,7 +29,7 @@
           name: 'settings.import.import',
           url: '/{type}',
           templateUrl: '/app/import/expenses-import/importImport.html',
-          controller: 'ExpensesImportController',
+          controller: 'ImportExpensesController',
           isPaymentMissingUnrestrictedPage: true,
           resolve: {
             categories: function (CategoryService) {

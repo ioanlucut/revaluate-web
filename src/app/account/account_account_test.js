@@ -49,7 +49,7 @@
       expect($state.current.url).toBe('/account');
       expect($state.current.name).toBe('account');
       expect($state.current.controller).toBe('AccountLoginController');
-      expect($state.current.templateUrl).toBe('/app/site/partials/home.html');
+      expect($state.current.templateUrl).toBe('/app/site/home/home.html');
       expect($state.current.title).toBe('Login - Revaluate');
       expect($state.current.isPublicPage).toBeTruthy();
       expect($state.current.stateEventName).toBe(USER_ACTIVITY_EVENTS.account);

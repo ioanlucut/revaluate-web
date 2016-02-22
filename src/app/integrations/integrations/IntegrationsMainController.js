@@ -3,7 +3,7 @@
 
   angular
     .module('revaluate.integrations')
-    .controller('IntegrationsMainController', function ($scope, $rootScope, INTEGRATIONS_CONSTANTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, ENV, OAuth2Service, StatesHandler, IntegrationsService, promiseTracker, integrations) {
+    .controller('IntegrationsMainController', function ($scope, $rootScope, INTEGRATIONS_CONSTANTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, ENV, SocialConnectService, StatesHandler, IntegrationsService, promiseTracker, integrations) {
 
       var vm = this;
 
@@ -59,7 +59,7 @@
       }
 
       function addIntegrationOf(provider) {
-        OAuth2Service
+        SocialConnectService
           .connectWithAppGet(provider)
           .then(function (profile) {
             createOauthEntryWith(profile, vm.addTracker);

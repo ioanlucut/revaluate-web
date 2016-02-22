@@ -66,7 +66,7 @@
         controller: GoalDailyStatusController,
         bindToController: true,
         controllerAs: 'vm',
-        templateUrl: '/app/goals/partials/goalDailyStatusDirective.tpl.html',
+        templateUrl: '/app/goals/goalDailyStatus/goalDailyStatusDirective.tpl.html',
         link: function () {
         },
       };

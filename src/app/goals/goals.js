@@ -17,14 +17,14 @@
 
         .state('goals', {
           url: '/goals',
-          templateUrl: '/app/goals/partials/goalsAbstract.html',
+          templateUrl: '/app/goals/goals/goalsAbstract.html',
           abstract: true,
         })
 
         // Regular case
         .state('goals.regular', {
           url: '',
-          templateUrl: '/app/goals/partials/goalsContent.tpl.html',
+          templateUrl: '/app/goals/goals/goalsContent.tpl.html',
           controller: 'GoalsController',
           resolve: {
             monthsPerYearsStatistics: function (StatisticService) {

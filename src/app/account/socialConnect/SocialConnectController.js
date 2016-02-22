@@ -3,7 +3,7 @@
 
   angular
     .module('revaluate.account')
-    .controller('SocialConnectController', function ($rootScope, $scope, $q, $timeout, OAuth2Service, ALERTS_EVENTS, ALERTS_CONSTANTS, StatesHandler, User, APP_CONFIG, AuthService) {
+    .controller('SocialConnectController', function ($rootScope, $scope, $q, $timeout, SocialConnectService, ALERTS_EVENTS, ALERTS_CONSTANTS, StatesHandler, User, APP_CONFIG, AuthService) {
 
       var vm = this;
 
@@ -20,7 +20,7 @@
 
           vm.isRequestPending = true;
 
-          OAuth2Service
+          SocialConnectService
             .connect(provider)
             .then(function (response) {
               var userType = _.find(APP_CONFIG.USER_TYPES, function (userTypeEntry) {

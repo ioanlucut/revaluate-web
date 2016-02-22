@@ -43,7 +43,7 @@
         controller: GoalListController,
         bindToController: true,
         controllerAs: 'vm',
-        templateUrl: '/app/goals/partials/goalsListDirective.tpl.html',
+        templateUrl: '/app/goals/goalsList/goalsListDirective.tpl.html',
         link: function (scope, el, attrs) {
 
           scope.reverseOrder = attrs.sort === 'desc';

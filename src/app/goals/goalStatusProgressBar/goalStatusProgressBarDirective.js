@@ -73,7 +73,7 @@
         controller: GoalStatusProgressBarController,
         bindToController: true,
         controllerAs: 'vm',
-        templateUrl: '/app/goals/partials/goalStatusProgressBarDirective.tpl.html',
+        templateUrl: '/app/goals/goalStatusProgressBar/goalStatusProgressBarDirective.tpl.html',
         link: function () {
         },
       };
