@@ -1,0 +1,16 @@
+/* Import sub-modules */
+@import "common/sass/components/datepicker";
+@import "common/sass/components/datepickerResponsive";
+@import "goalAdd/goalsAddForm";
+@import "goalAdd/goalsAddFormResponsive";
+@import "goalEntry/goalsControls";
+@import "goalEntry/goalsControlsResponsive";
+@import "goalsList/goalsList";
+@import "goalsList/goalsListResponsive";
+@import "goalsDisplayEntry/goalsListEntry";
+@import "goalsDisplayEntry/goalsListEntryResponsive";
+@import "goalEntry/goalsEditForm";
+@import "goalEntry/goalsEditFormResponsive";
+@import "goals/goalsEmpty";
+
+@import "goalsList/expensesGoalsList";
