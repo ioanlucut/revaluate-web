@@ -26,3 +26,10 @@ deployment:
     - gem install sass
     - npm run-script build:prod
     - npm run-script deploy:prod
+  feat:
+    branch: feat/design
+    commands:
+    - ruby -v
+    - gem install sass
+    - npm run-script build:dev
+    - npm run-script deploy:dev
