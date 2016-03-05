@@ -1,15 +1,13 @@
 export default
 
-  angular
-    .module('revaluate.common')
-    .provider('JWTInterceptor', function () {
+  function () {
 
-      this.authHeader = 'Authorization';
-      this.authPrefix = 'Bearer ';
+    this.authHeader = 'Authorization';
+    this.authPrefix = 'Bearer ';
 
-      var config = this;
+    var config = this;
 
-      this.$get = function ($q, $injector, $rootScope, SessionService) {
+    this.$get = function ($q, $injector, $rootScope, SessionService) {
         return {
           request: function (request) {
             if (request.skipAuthorization) {
@@ -40,5 +38,5 @@ export default
           },
         };
       };
-    });
+  }
 

@@ -1,8 +1,6 @@
 export default
 
-  angular
-    .module('revaluate.common')
-    .directive('scrollTo', function () {
+  function () {
       return {
         restrict: 'A',
         link: function (scope, el, attrs) {
@@ -14,5 +12,5 @@ export default
           });
         },
       };
-    });
+    }
 

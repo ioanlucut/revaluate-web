@@ -1,6 +1,4 @@
-export default angular
-  .module('revaluate.common')
-  .constant('STATES', {
+export default {
     home: 'home',
     integrations: 'settings.integrations.main',
     profile: 'profile',
@@ -10,4 +8,4 @@ export default angular
     addPayment: 'settings.payment.add',
     insightsPayment: 'settings.payment.insights',
     account: 'account',
-  });
+  };

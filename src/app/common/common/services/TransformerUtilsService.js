@@ -3,17 +3,15 @@ export default
   /**
    * Transformer utils service.
    */
-  angular
-    .module('revaluate.common')
-    .service('TransformerUtils', function () {
+  function () {
 
-      /**
-       * Copies keys from a sourceObject to a targetObject, except given skipKeys.
-       * @param sourceObject
-       * @param targetObject
-       * @param skipKeys
-       */
-      this.copyKeysFromTo = function (sourceObject, targetObject, skipKeys) {
+    /**
+     * Copies keys from a sourceObject to a targetObject, except given skipKeys.
+     * @param sourceObject
+     * @param targetObject
+     * @param skipKeys
+     */
+    this.copyKeysFromTo = function (sourceObject, targetObject, skipKeys) {
         _.each(_.keys(sourceObject), function (key) {
           if (!(skipKeys && _.contains(skipKeys, key))) {
             targetObject[key] = sourceObject[key];
@@ -21,12 +19,12 @@ export default
         });
       };
 
-      /**
-       * Sanitize recipients (remove duplicates).
-       */
-      this.sanitizeRecipients = function (recipients) {
+    /**
+     * Sanitize recipients (remove duplicates).
+     */
+    this.sanitizeRecipients = function (recipients) {
 
-        return _.uniq(recipients, 'email');
-      };
-    });
+      return _.uniq(recipients, 'email');
+    };
+  }
 

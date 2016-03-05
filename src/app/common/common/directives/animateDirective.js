@@ -1,8 +1,6 @@
 export default
 
-  angular
-    .module('revaluate.common')
-    .directive('animate', function () {
+  function () {
       return {
         restrict: 'A',
         link: function (scope, el, attrs) {
@@ -18,5 +16,5 @@ export default
           });
         },
       };
-    });
+    }
 

@@ -1,8 +1,6 @@
 export default
 
-  angular
-    .module('revaluate.common')
-    .directive('submitOn', function ($timeout) {
+  function ($timeout) {
       return {
         link: function (scope, elm, attrs) {
           scope.$on(attrs.submitOn, function () {
@@ -12,5 +10,5 @@ export default
           });
         },
       };
-    });
+    }
 

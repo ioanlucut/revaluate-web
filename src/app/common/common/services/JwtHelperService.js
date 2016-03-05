@@ -1,10 +1,8 @@
 export default
 
-  angular
-    .module('revaluate.common')
-    .service('JWTHelper', function () {
+  function () {
 
-      this.urlBase64Decode = function (str) {
+    this.urlBase64Decode = function (str) {
         var output = str.replace('-', '+').replace('_', '/');
         switch (output.length % 4) {
           case 0:
@@ -32,7 +30,7 @@ export default
         return window.atob(output);
       };
 
-      this.decodeToken = function (token) {
+    this.decodeToken = function (token) {
         var parts = token.split('.');
 
         if (parts.length !== 3) {
@@ -47,7 +45,7 @@ export default
         return JSON.parse(decoded);
       };
 
-      this.getTokenExpirationDate = function (token) {
+    this.getTokenExpirationDate = function (token) {
         var decoded;
         decoded = this.decodeToken(token);
 
@@ -61,7 +59,7 @@ export default
         return d;
       };
 
-      this.isTokenExpired = function (token) {
+    this.isTokenExpired = function (token) {
         var d = this.getTokenExpirationDate(token);
 
         if (!d) {
@@ -72,5 +70,5 @@ export default
         /*jshint validthis: true */
         return !(d.valueOf() > new Date().valueOf());
       };
-    });
+  }
 

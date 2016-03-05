@@ -1,8 +1,6 @@
 export default
 
-  angular
-    .module('revaluate.common')
-    .directive('header', function () {
+  function () {
       return {
         restrict: 'A',
         templateUrl: '/app/common/header/headerDirective.tpl.html',
@@ -11,5 +9,5 @@ export default
         link: function () {
         },
       };
-    });
+    }
 

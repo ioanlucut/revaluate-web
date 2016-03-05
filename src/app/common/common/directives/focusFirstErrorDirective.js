@@ -2,9 +2,7 @@ export default
 
   /* Focus the first erroneous input on form submit */
 
-  angular
-    .module('revaluate.common')
-    .directive('focusFirstError', function () {
+  function () {
       return {
         restrict: 'A',
         link: function (scope, el, attrs) {
@@ -16,5 +14,5 @@ export default
           });
         },
       };
-    });
+    }
 

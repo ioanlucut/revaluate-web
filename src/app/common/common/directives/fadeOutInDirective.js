@@ -1,8 +1,6 @@
 export default
 
-  angular
-    .module('revaluate.common')
-    .directive('fadeOutIn', function () {
+  function () {
       return {
         restrict: 'A',
         link: function (scope, el, attrs) {
@@ -23,5 +21,5 @@ export default
           });
         },
       };
-    });
+    }
 

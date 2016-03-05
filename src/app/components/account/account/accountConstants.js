@@ -18,7 +18,8 @@ angular
     sessionTimeout: 'auth-session-timeout',
     notAuthenticated: 'auth-not-authenticated',
     notAuthorized: 'auth-not-authorized',
-  }).constant('AUTH_MODAL', {
+  })
+  .constant('AUTH_MODAL', {
     close: 'close',
   })
   .constant('AUTH_URLS', {

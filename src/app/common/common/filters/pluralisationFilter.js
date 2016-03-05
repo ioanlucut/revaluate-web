@@ -1,8 +1,6 @@
 export default
 
-  angular
-    .module('revaluate.common')
-    .filter('pluralisationFilter', function () {
+  function () {
       return function (value, text, textPluralised) {
         var MIN_PLURALISATION_VALUE = 1,
           valueAsInt = parseInt(value, 10);
@@ -13,5 +11,5 @@ export default
 
         return text;
       };
-    });
+    }
 

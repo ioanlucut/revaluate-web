@@ -3,9 +3,7 @@ export default
   /**
    * Header directive responsible for header common template.
    */
-  angular
-    .module('revaluate.common')
-    .directive('flashMessages', function () {
+  function () {
       return {
         scope: {
           flash: '=',
@@ -16,5 +14,5 @@ export default
         link: function () {
         },
       };
-    });
+    }
 
