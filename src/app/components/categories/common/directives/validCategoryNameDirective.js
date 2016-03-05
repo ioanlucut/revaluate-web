@@ -3,9 +3,7 @@ export default
   /**
    * Directive responsible for checking of a category name is valid.
    */
-  angular
-    .module('revaluate.categories')
-    .directive('validCategoryName', function () {
+  function () {
       return {
         require: 'ngModel',
         link: function (scope, el, attr, ngModel) {
@@ -19,5 +17,5 @@ export default
           };
         },
       };
-    });
+    }
 
