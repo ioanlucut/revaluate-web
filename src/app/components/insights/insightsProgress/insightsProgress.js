@@ -16,6 +16,3 @@ function InsightsProgressFactory(InsightsAbstract) {
     build: insightsProgress,
   };
 }
-
-InsightsProgressFactory;
-
