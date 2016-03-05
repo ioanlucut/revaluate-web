@@ -2,27 +2,25 @@ export default
 
   /* Feedback modal */
 
-  angular
-    .module('revaluate.feedback')
-    .service('FeedbackModalService', function ($modal) {
+  function ($modal) {
 
-      /**
-       * Feedback modal instance.
-       * @type {null}
-       */
-      this.modalInstance = null;
+    /**
+     * Feedback modal instance.
+     * @type {null}
+     */
+    this.modalInstance = null;
 
-      /**
-       * Define feedback modal object.
-       */
-      this.open = function () {
+    /**
+     * Define feedback modal object.
+     */
+    this.open = function () {
 
-        this.modalInstance = $modal.open({
+      this.modalInstance = $modal.open({
           templateUrl: '/app/components/feedback/feedbackModal/feedbackModal.html',
           controller: 'FeedbackModalController',
           windowClass: 'modal-feedback',
         });
-      };
+    };
 
-    });
+  }
 
