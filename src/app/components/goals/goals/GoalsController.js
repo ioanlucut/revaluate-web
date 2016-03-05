@@ -168,7 +168,3 @@ export default
 
   }
 
-  angular
-    .module('revaluate.goals')
-    .controller('GoalsController', GoalsController);
-

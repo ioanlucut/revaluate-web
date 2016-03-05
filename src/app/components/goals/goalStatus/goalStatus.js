@@ -19,7 +19,3 @@ export default
     };
   }
 
-  angular
-    .module('revaluate.goals')
-    .factory('GoalStatus', GoalStatusFactory);
-

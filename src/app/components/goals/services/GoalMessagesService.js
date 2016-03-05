@@ -13,8 +13,3 @@ export default
       return getRandomized(messagesOfType);
     };
   }
-
-  angular
-    .module('revaluate.goals')
-    .service('GoalMessagesService', GoalMessagesService);
-

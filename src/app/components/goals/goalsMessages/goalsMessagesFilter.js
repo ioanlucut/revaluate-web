@@ -1,11 +1,9 @@
 export default
 
-  angular
-    .module('revaluate.goals')
-    .filter('goalMessage', function () {
+  function () {
       return function (goalMessage, userName) {
 
         return goalMessage.format(userName);
       };
-    });
+    }
 
