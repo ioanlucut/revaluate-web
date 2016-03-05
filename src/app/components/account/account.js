@@ -1,4 +1,34 @@
+import accountFormStateConstants from './account/accountFormStateConstants';
+import authEventsConstants from './account/authEventsConstants';
+import authModalConstants from './account/authModalConstants';
+import authUrlsConstants from './account/authUrlsConstants';
+import userSubscriptionStatusConstants from './account/userSubscriptionStatusConstants';
+import socialConnectConstants from './socialConnect/socialConnectConstants';
+
+import authTokenHeaderConstants from './account/authTokenHeaderConstants';
+import strongPasswordDirective from './directives/strongPasswordDirective';
+import uniqueEmailDirective from './directives/uniqueEmailDirective';
+import validEmailDirective from './directives/validEmailDirective';
+import LogoutAutoController from './logout/LogoutAutoController';
+import LogoutController from './logout/LogoutController';
+import ProfileFormToggleService from './profile/ProfileFormToggleService';
+import profileFormToggleDirective from './profile/profileFormToggleDirective';
+import SignUpController from './signUp/SignUpController';
+import User from './user/User';
+import UserService from './user/UserService';
+import userConstants from './user/userConstants';
+import SocialConnectController from './socialConnect/SocialConnectController';
+import SocialConnectService from './socialConnect/SocialConnectService';
+import socialConnectOauthConstants from './socialConnect/socialConnectOauthConstants';
+import ValidatePasswordResetTokenController from './validatePasswordResetToken/ValidatePasswordResetTokenController';
+import ValidatePasswordResetTokenInvalidController from './validatePasswordResetToken/ValidatePasswordResetTokenInvalidController';
+import EmailConfirmationResendController from './emailConfirmationResend/EmailConfirmationResendController';
+import AccountLoginController from './accountModal/AccountLoginController';
+import accountModal from './accountModal/AccountModal';
+import accountModalDirective from './accountModal/accountModalDirective';
+import accountModalToggleDirective from './accountModal/accountModalToggleDirective';
 import accountModalCloseDirective from './accountModal/accountModalCloseDirective/accountModalCloseDirective';
+
 import auth from './auth/auth';
 
 /**
@@ -10,7 +40,36 @@ export default angular
     'revaluate.categories',
     auth.name,
   ])
+  .constant('ACCOUNT_FORM_STATE', accountFormStateConstants)
+  .constant('AUTH_EVENTS', authEventsConstants)
+  .constant('AUTH_MODAL', authModalConstants)
+  .constant('AUTH_URLS', authUrlsConstants)
+  .constant('USER_SUBSCRIPTION_STATUS', userSubscriptionStatusConstants)
+  .constant('OAUTH2_URLS', socialConnectConstants)
+  .constant('AUTH_TOKEN_HEADER', authTokenHeaderConstants)
   .directive('accountModalClose', accountModalCloseDirective)
+  .directive('strongPassword', strongPasswordDirective)
+  .directive('uniqueEmail', uniqueEmailDirective)
+  .directive('validEmail', validEmailDirective)
+  .controller('LogoutController', LogoutAutoController)
+  .controller('LogoutController', LogoutController)
+  .service('ProfileFormToggle', ProfileFormToggleService)
+  .directive('profileFormToggle', profileFormToggleDirective)
+  .controller('SignUpController', SignUpController)
+  .factory('User', User)
+  .service('UserService', UserService)
+  .constant('USER_URLS', userConstants)
+  .controller('SocialConnectController', SocialConnectController)
+  .service('SocialConnectService', SocialConnectService)
+  .constant('OAUTH2_SCOPE', socialConnectOauthConstants)
+  .controller('ValidatePasswordResetTokenController', ValidatePasswordResetTokenController)
+  .controller('ValidatePasswordResetTokenInvalidController', ValidatePasswordResetTokenInvalidController)
+  .controller('EmailConfirmationResendController', EmailConfirmationResendController)
+  .controller('AccountLoginController', AccountLoginController)
+  .service('AccountModal', accountModal)
+  .directive('accountModal', accountModalDirective)
+  .directive('accountModalToggle', accountModalToggleDirective)
+
   .config(function ($stateProvider, $httpProvider, USER_ACTIVITY_EVENTS) {
 
     // Register AuthInterceptor
@@ -123,7 +182,7 @@ export default angular
                 // ---
                 // Update user if logged in.
                 // ---
-                if ( AuthService.isAuthenticated() ) {
+                if (AuthService.isAuthenticated()) {
                   $rootScope
                     .currentUser
                     .setEmailConfirmedAndReload();

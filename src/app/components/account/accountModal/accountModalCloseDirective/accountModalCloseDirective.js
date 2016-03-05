@@ -3,7 +3,7 @@ export default function (AccountModal) {
 
   return {
     restrict: 'A',
-    templateUrl: './accountModalCloseDirective.tpl.html',
+    templateUrl: '/app/components/account/accountModal/accountModalCloseDirective/accountModalCloseDirective.tpl.html',
     link: function (scope, el) {
       el.on('click', function () {
         AccountModal.close();

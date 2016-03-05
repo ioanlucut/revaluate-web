@@ -1,180 +1,178 @@
 export default
 
-angular
+function (SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
+  return {
 
-  .factory('User', function (SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
-    return {
+    $new: function () {
 
-      $new: function () {
+      return {
 
-        return {
-
-          /**
-           * User model (DTO)
-           */
-          model: {
-            id: '',
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-            timezone: '',
-            initiated: false,
-            createdDate: '',
-            endTrialDate: '',
-            userSubscriptionStatus: '',
-            emailConfirmed: false,
-            connectedViaOauth: false,
-            currency: {
-              symbol: '',
-            },
-            oAuthData: {
-              picture: '',
-            },
+        /**
+         * User model (DTO)
+         */
+        model: {
+          id: '',
+          firstName: '',
+          lastName: '',
+          email: '',
+          password: '',
+          timezone: '',
+          initiated: false,
+          createdDate: '',
+          endTrialDate: '',
+          userSubscriptionStatus: '',
+          emailConfirmed: false,
+          connectedViaOauth: false,
+          currency: {
+            symbol: '',
           },
-
-          /**
-           * Is user already authenticated
-           */
-          isAuthenticated: function () {
-
-            return !_.isUndefined(SessionService.sessionExists());
+          oAuthData: {
+            picture: '',
           },
+        },
 
-          isConnectedViaOauth: function () {
-            return this.model.connectedViaOauth;
-          },
+        /**
+         * Is user already authenticated
+         */
+        isAuthenticated: function () {
 
-          /**
-           * Is user already initiated
-           */
-          isInitiated: function () {
-            return this.isAuthenticated() && this.model.initiated;
-          },
+          return !_.isUndefined(SessionService.sessionExists());
+        },
 
-          getTrialRemainingDays: function () {
-            var difference = moment(this.model.endTrialDate).diff(moment(), 'days');
-            if ( difference < 0 ) {
+        isConnectedViaOauth: function () {
+          return this.model.connectedViaOauth;
+        },
 
-              return 0;
-            }
+        /**
+         * Is user already initiated
+         */
+        isInitiated: function () {
+          return this.isAuthenticated() && this.model.initiated;
+        },
 
-            return difference;
-          },
+        getTrialRemainingDays: function () {
+          var difference = moment(this.model.endTrialDate).diff(moment(), 'days');
+          if (difference < 0) {
 
-          showTrialRemainingDays: function () {
-            var trialRemainingDays = this.getTrialRemainingDays();
+            return 0;
+          }
 
-            return trialRemainingDays > 0 && trialRemainingDays <= 5;
-          },
+          return difference;
+        },
 
-          isTrialPeriodExpired: function () {
+        showTrialRemainingDays: function () {
+          var trialRemainingDays = this.getTrialRemainingDays();
 
-            return false;
-            /*return (this.model.userSubscriptionStatus === USER_SUBSCRIPTION_STATUS.TRIAL && this.getTrialRemainingDays() === 0) || this.model.userSubscriptionStatus === USER_SUBSCRIPTION_STATUS.TRIAL_EXPIRED;*/
-          },
+          return trialRemainingDays > 0 && trialRemainingDays <= 5;
+        },
 
-          /**
-           * Loads a user from local storage.
-           */
-          loadFromSession: function () {
+        isTrialPeriodExpired: function () {
 
-            return this.loadFrom(SessionService.getData() || {});
-          },
+          return false;
+          /*return (this.model.userSubscriptionStatus === USER_SUBSCRIPTION_STATUS.TRIAL && this.getTrialRemainingDays() === 0) || this.model.userSubscriptionStatus === USER_SUBSCRIPTION_STATUS.TRIAL_EXPIRED;*/
+        },
 
-          /**
-           * Loads a user from given data.
-           */
-          loadFrom: function (data) {
-            TransformerUtils.copyKeysFromTo(data, this.model);
+        /**
+         * Loads a user from local storage.
+         */
+        loadFromSession: function () {
 
-            return this;
-          },
+          return this.loadFrom(SessionService.getData() || {});
+        },
 
-          /**
-           * Set email as confirmed
-           */
-          setEmailConfirmedAndReload: function () {
-            this.loadFrom({ emailConfirmed: true });
-            this.saveToSession();
-          },
+        /**
+         * Loads a user from given data.
+         */
+        loadFrom: function (data) {
+          TransformerUtils.copyKeysFromTo(data, this.model);
 
-          /**
-           * Update subscription status
-           */
-          setSubscriptionStatusAsAndReload: function (status) {
-            this.loadFrom({ userSubscriptionStatus: status });
-            this.saveToSession();
-          },
+          return this;
+        },
 
-          /**
-           * Saves a user to local storage.
-           */
-          saveToSession: function () {
-            var sessionData = {};
-            TransformerUtils.copyKeysFromTo(this.model, sessionData, ['password']);
-            SessionService.setData(sessionData);
+        /**
+         * Set email as confirmed
+         */
+        setEmailConfirmedAndReload: function () {
+          this.loadFrom({ emailConfirmed: true });
+          this.saveToSession();
+        },
 
-            return this;
-          },
+        /**
+         * Update subscription status
+         */
+        setSubscriptionStatusAsAndReload: function (status) {
+          this.loadFrom({ userSubscriptionStatus: status });
+          this.saveToSession();
+        },
 
-          /**
-           * Creates a user account with given fromData.
-           */
-          create: function (fromData) {
-            var toBeCreated = {};
-            TransformerUtils.copyKeysFromTo(fromData, toBeCreated);
+        /**
+         * Saves a user to local storage.
+         */
+        saveToSession: function () {
+          var sessionData = {};
+          TransformerUtils.copyKeysFromTo(this.model, sessionData, ['password']);
+          SessionService.setData(sessionData);
 
-            return this.createAccount(toBeCreated);
-          },
+          return this;
+        },
 
-          /**
-           * Creates the account.
-           */
-          createAccount: function (account) {
-            return $http
-              .post(URLTo.api(AUTH_URLS.create), account, { skipAuthorization: true })
-              .then(function (response) {
-                return response.data;
-              });
-          },
+        /**
+         * Creates a user account with given fromData.
+         */
+        create: function (fromData) {
+          var toBeCreated = {};
+          TransformerUtils.copyKeysFromTo(fromData, toBeCreated);
 
-          /**
-           * Updates account details of this user.
-           */
-          updateAccountDetails: function (fromData) {
-            var toBeSaved = {};
-            TransformerUtils.copyKeysFromTo(fromData, toBeSaved);
+          return this.createAccount(toBeCreated);
+        },
 
-            return $http
-              .put(URLTo.api(AUTH_URLS.updateAccountDetails), toBeSaved);
-          },
+        /**
+         * Creates the account.
+         */
+        createAccount: function (account) {
+          return $http
+            .post(URLTo.api(AUTH_URLS.create), account, { skipAuthorization: true })
+            .then(function (response) {
+              return response.data;
+            });
+        },
 
-          /**
-           * Updates initiated status of this user.
-           */
-          updateInitiatedStatus: function (fromData) {
-            var toBeSaved = {};
-            TransformerUtils.copyKeysFromTo(fromData, toBeSaved);
+        /**
+         * Updates account details of this user.
+         */
+        updateAccountDetails: function (fromData) {
+          var toBeSaved = {};
+          TransformerUtils.copyKeysFromTo(fromData, toBeSaved);
 
-            return $http
-              .put(URLTo.api(AUTH_URLS.updateInitiatedStatus), toBeSaved);
-          },
+          return $http
+            .put(URLTo.api(AUTH_URLS.updateAccountDetails), toBeSaved);
+        },
 
-          /**
-           * Update account user currency
-           */
-          updateCurrency: function (fromData) {
-            var toBeSaved = {};
-            TransformerUtils.copyKeysFromTo(fromData, toBeSaved);
+        /**
+         * Updates initiated status of this user.
+         */
+        updateInitiatedStatus: function (fromData) {
+          var toBeSaved = {};
+          TransformerUtils.copyKeysFromTo(fromData, toBeSaved);
 
-            return $http
-              .put(URLTo.api(AUTH_URLS.updateCurrency), toBeSaved);
-          },
+          return $http
+            .put(URLTo.api(AUTH_URLS.updateInitiatedStatus), toBeSaved);
+        },
 
-        };
-      },
+        /**
+         * Update account user currency
+         */
+        updateCurrency: function (fromData) {
+          var toBeSaved = {};
+          TransformerUtils.copyKeysFromTo(fromData, toBeSaved);
 
-    };
-  });
+          return $http
+            .put(URLTo.api(AUTH_URLS.updateCurrency), toBeSaved);
+        },
+
+      };
+    },
+
+  };
+}
 
