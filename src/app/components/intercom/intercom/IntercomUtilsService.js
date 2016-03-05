@@ -1,8 +1,6 @@
 export default
 
-  angular
-    .module('revaluate.intercom')
-    .service('IntercomUtilsService', function ($intercom, AuthService, $rootScope) {
+  function ($intercom, AuthService, $rootScope) {
 
       this.bootIntercom = function (user, args) {
 
@@ -43,5 +41,5 @@ export default
           user_id: '' + user.model.id,
         };
       };
-    });
+    }
 
