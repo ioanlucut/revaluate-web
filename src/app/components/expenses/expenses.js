@@ -1,3 +1,21 @@
+import ExpenseGroupedTransformerService from './expenseGrouped/ExpenseGroupedTransformerService';
+import expenseGrouped from './expenseGrouped/expenseGrouped';
+import ExpenseService from './expense/ExpenseService';
+import ExpenseTransformerService from './expense/ExpenseTransformerService';
+import expenseAddDirective from './expenseAdd/expenseAddDirective';
+import ExpensesController from './expenses/ExpensesController';
+import expensesEventsConstants from './expenses/expensesEventsConstants';
+import expensesUrlsConstants from './expenses/expensesUrlsConstants';
+import expensesListDirective from './expensesList/expensesListDirective';
+import expenseEntryDirective from './expenseEntry/expenseEntryDirective';
+import expensesOfCategoryDirective from './expensesOfCategory/expensesOfCategoryDirective';
+import GreeterService from './greeter/GreeterService';
+import greeterConstants from './greeter/greeterConstants';
+import greeterDirective from './greeter/greeterDirective';
+import greeterFilter from './greeter/greeterFilter';
+import MonthlyDailyInsightsController from './monthlyDailyInsights/MonthlyDailyInsightsController';
+import MonthlyGoalsController from './monthlyGoals/MonthlyGoalsController';
+
 /**
  * Main site module declaration including ui templates.
  */
@@ -8,6 +26,24 @@ export default angular
     'revaluate.goals',
     'revaluate.statistics',
   ])
+  .service('ExpenseGroupedTransformerService', ExpenseGroupedTransformerService)
+  .factory('ExpenseGrouped', expenseGrouped)
+  .service('ExpenseService', ExpenseService)
+  .service('ExpenseTransformerService', ExpenseTransformerService)
+  .directive('expenseAdd', expenseAddDirective)
+  .controller('ExpensesController', ExpensesController)
+  .constant('EXPENSE_EVENTS', expensesEventsConstants)
+  .constant('EXPENSE_URLS', expensesUrlsConstants)
+  .directive('expensesList', expensesListDirective)
+  .directive('expenseEntry', expenseEntryDirective)
+  .directive('expensesOfCategory', expensesOfCategoryDirective)
+  .service('GreeterService', GreeterService)
+  .constant('GREETER_CONSTANTS', greeterConstants)
+  .directive('greeter', greeterDirective)
+  .filter('greets', greeterFilter)
+  .controller('MonthlyDailyInsightsController', MonthlyDailyInsightsController)
+  .controller('MonthlyGoalsController', MonthlyGoalsController)
+  .factory('Expense', expense)
   .config(function ($stateProvider, USER_ACTIVITY_EVENTS) {
 
     $stateProvider

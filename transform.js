@@ -24,7 +24,7 @@ function clearTempFile() {
 let map = new Map();
 let imports = new Map();
 
-dir.files('./src/app/components/contact', function (err, files) {
+dir.files('./src/app/components/expenses', function (err, files) {
   if ( err ) throw err;
 
   files = files.filter(function (file) {

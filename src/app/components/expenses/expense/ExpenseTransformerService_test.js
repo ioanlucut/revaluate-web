@@ -1,26 +1,26 @@
 export default
 
-  // ---
-  // Utilities.
-  // ---
-  var testUtils = require('helpers/tests');
+// ---
+// Utilities.
+// ---
+var testUtils = require('helpers/tests');
 
-  describe('ExpenseTransformerService', function () {
+describe('ExpenseTransformerService', function () {
 
-    // Inject app
-    beforeEach(function () {
+  // Inject app
+  beforeEach(function () {
 
-      // ---
-      // Provide APP_CONFIG.
-      // ---
-      angular.mock.module(testUtils.mockAppConfig);
+    // ---
+    // Provide APP_CONFIG.
+    // ---
+    angular.mock.module(testUtils.mockAppConfig);
 
-      angular.mock.module('revaluate');
-    });
-
-    it('Should inject the service', inject(function (ExpenseTransformerService) {
-      expect(ExpenseTransformerService).toBeTruthy();
-    }));
-
+    angular.mock.module('revaluate');
   });
+
+  it('Should inject the service', inject(function (ExpenseTransformerService) {
+    expect(ExpenseTransformerService).toBeTruthy();
+  }));
+
+});
 
