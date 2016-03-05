@@ -1,6 +1,2 @@
-export default
-
-  angular
-    .module('revaluate.settings')
-    .value('clientTokenPath', URLTo.api('payment/fetchToken'));
+export default URLTo.api('payment/fetchToken');
 
