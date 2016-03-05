@@ -1,3 +1,4 @@
+import expenseFactory from './expense/expense';
 import ExpenseGroupedTransformerService from './expenseGrouped/ExpenseGroupedTransformerService';
 import expenseGrouped from './expenseGrouped/expenseGrouped';
 import ExpenseService from './expense/ExpenseService';
@@ -43,7 +44,7 @@ export default angular
   .filter('greets', greeterFilter)
   .controller('MonthlyDailyInsightsController', MonthlyDailyInsightsController)
   .controller('MonthlyGoalsController', MonthlyGoalsController)
-  .factory('Expense', expense)
+  .factory('Expense', expenseFactory)
   .config(function ($stateProvider, USER_ACTIVITY_EVENTS) {
 
     $stateProvider
