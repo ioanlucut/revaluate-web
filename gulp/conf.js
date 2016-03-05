@@ -12,10 +12,10 @@ var gutil = require('gulp-util');
  *  The main paths of your project handle these with care
  */
 exports.paths = {
-    src: 'src',
-    dist: 'dist',
-    tmp: '.tmp',
-    e2e: 'e2e'
+  src: 'src',
+  dist: 'dist',
+  tmp: '.tmp',
+  e2e: 'e2e',
 };
 
 /**
@@ -24,36 +24,36 @@ exports.paths = {
  *  to inject css preprocessor deps and js files in karma
  */
 exports.wiredep = {
-    exclude: [/\/bootstrap\.js$/, /\/bootstrap-sass\/.*\.js/, /\/bootstrap\.css/],
-    overrides: {
-        "angular-promise-tracker": {
-            "main": ["./promise-tracker.js", "./promise-tracker-http-interceptor.js"]
-        },
-        "accounting.js": {
-            "main": "./accounting.js"
-        },
-        "hello": {
-            "main": "./dist/hello.all.js"
-        }
+  exclude: [/\/bootstrap\.js$/, /\/bootstrap-sass\/.*\.js/, /\/bootstrap\.css/],
+  overrides: {
+    'angular-promise-tracker': {
+      main: ['./promise-tracker.js', './promise-tracker-http-interceptor.js'],
     },
-    fileTypes: {
-        html: {
-            replace: {
-                js: '<script src="/{{filePath}}"></script>'
-            }
-        }
+    'accounting.js': {
+      main: './accounting.js',
     },
-    directory: 'bower_components'
+    hello: {
+      main: './dist/hello.all.js',
+    },
+  },
+  fileTypes: {
+    html: {
+      replace: {
+        js: '<script src="/{{filePath}}"></script>',
+      },
+    },
+  },
+  directory: 'bower_components',
 };
 
 /**
  *  Common implementation for an error handler of a Gulp plugin
  */
 exports.errorHandler = function (title) {
-    'use strict';
+  'use strict';
 
-    return function (err) {
-        gutil.log(gutil.colors.red('[' + title + ']'), err.toString());
-        this.emit('end');
-    };
+  return function (err) {
+    gutil.log(gutil.colors.red('[' + title + ']'), err.toString());
+    this.emit('end');
+  };
 };
