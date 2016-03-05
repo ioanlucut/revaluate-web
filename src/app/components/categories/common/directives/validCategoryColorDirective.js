@@ -3,9 +3,7 @@ export default
   /**
    * Directive responsible for checking of a category color is valid hex value.
    */
-  angular
-    .module('revaluate.categories')
-    .directive('validCategoryColor', function () {
+  function () {
       return {
         require: 'ngModel',
         link: function (scope, el, attr, ngModel) {
@@ -19,5 +17,5 @@ export default
           };
         },
       };
-    });
+    }
 

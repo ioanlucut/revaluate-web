@@ -24,7 +24,7 @@ function clearTempFile() {
 let map = new Map();
 let imports = new Map();
 
-dir.files('./src/app/components/account', function (err, files) {
+dir.files('./src/app/components/categories', function (err, files) {
   if ( err ) throw err;
 
   files = files.filter(function (file) {
@@ -39,7 +39,7 @@ dir.files('./src/app/components/account', function (err, files) {
     let importNameWithoutExtension = importName.replace('.js', '');
     const importValue = 'import ' + importNameWithoutExtension + ' from ' + '\'' + path + '\'';
 
-    const contentRegex = /(angular)(.*[\s\S]*)(module.*)(.*[\s\S]*)((provider|directive|factory|filter|service|value|constant|controller)\('\w+', )(.*[\s\S]*)((\);)?)/g;
+    const contentRegex = /(angular)(.*[\s\S]*)(module.*)(.*[\s\S]*)((provider|directive|factory|filter|service|value|constant|controller)\('\w+', )(.*[\s\S]*)(\);)/g;
     const contentRegexResult = contentRegex.exec(content);
     if ( !contentRegexResult ) {
       return;

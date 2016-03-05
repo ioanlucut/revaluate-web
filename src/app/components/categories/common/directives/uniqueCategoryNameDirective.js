@@ -1,8 +1,6 @@
 export default
 
-  angular
-    .module('revaluate.categories')
-    .directive('uniqueCategoryName', function ($q, CategoryService) {
+  function ($q, CategoryService) {
       return {
         require: 'ngModel',
         scope: {
@@ -35,5 +33,5 @@ export default
 
         },
       };
-    });
+    }
 
