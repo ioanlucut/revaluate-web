@@ -1,53 +1,51 @@
 export default
 
-  angular
-    .module('revaluate.contact')
-    .factory('Contact', function (ContactService) {
+  function (ContactService) {
+
+    /**
+     * Contact class.
+     * @constructor
+     */
+    function Contact() {
 
       /**
-       * Contact class.
-       * @constructor
+       * Represents the DTO model of the Contact.
        */
-      function Contact() {
+      this.model = {
 
         /**
-         * Represents the DTO model of the Contact.
+         * Name
          */
-        this.model = {
-
-          /**
-           * Name
-           */
-          name: '',
-
-          /**
-           * Contact email
-           */
-          email: '',
-
-          /**
-           * Contact message
-           */
-          message: '',
-        };
+        name: '',
 
         /**
-         * Sends a Contact.
-         * @returns {*}
+         * Contact email
          */
-        this.send = function () {
+        email: '',
+
+        /**
+         * Contact message
+         */
+        message: '',
+      };
+
+      /**
+       * Sends a Contact.
+       * @returns {*}
+       */
+      this.send = function () {
           return ContactService.sendContact(this);
         };
-      }
+    }
 
-      /**
-       * Builds a Contact.
-       * @returns {Contact}
-       */
-      Contact.build = function () {
+    /**
+     * Builds a Contact.
+     * @returns {Contact}
+     */
+    Contact.build = function () {
         return new Contact();
       };
 
-      return Contact;
-    });
+    return Contact;
+  }
 
