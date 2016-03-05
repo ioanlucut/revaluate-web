@@ -1,39 +1,37 @@
 export default
 
-  angular
-    .module('revaluate.common')
-    .controller('HomePageController', function (APP_STATS, AUTH_EVENTS, SiteService, $scope, $interval, AuthService) {
-      var currentUpdateAppStatsPromise,
-        INTERVAL_DELAY = 60000; // POOL every 1 minute
+function (APP_STATS, AUTH_EVENTS, SiteService, $scope, $interval, AuthService) {
+  var currentUpdateAppStatsPromise,
+    INTERVAL_DELAY = 60000; // POOL every 1 minute
 
-      this.isUserAuthenticated = AuthService.isAuthenticated();
+  this.isUserAuthenticated = AuthService.isAuthenticated();
 
-      if (!this.isUserAuthenticated) {
-        currentUpdateAppStatsPromise = $interval(updateAppStats, INTERVAL_DELAY);
-      }
+  if (!this.isUserAuthenticated) {
+    currentUpdateAppStatsPromise = $interval(updateAppStats, INTERVAL_DELAY);
+  }
 
-      $scope.$on('$destroy', function () {
-        cancelUpdateAppStatsPromise();
+  $scope.$on('$destroy', function () {
+    cancelUpdateAppStatsPromise();
+  });
+
+  // ---
+  // private methods.
+  // ---
+
+  function cancelUpdateAppStatsPromise() {
+    if (currentUpdateAppStatsPromise) {
+      $interval.cancel(currentUpdateAppStatsPromise);
+
+      currentUpdateAppStatsPromise = null;
+    }
+  }
+
+  function updateAppStats() {
+    SiteService
+      .fetchInstant()
+      .then(function (response) {
+        $scope.$broadcast('update-app-stats', { appStats: response.data });
       });
-
-      // ---
-      // private methods.
-      // ---
-
-      function cancelUpdateAppStatsPromise() {
-        if (currentUpdateAppStatsPromise) {
-          $interval.cancel(currentUpdateAppStatsPromise);
-
-          currentUpdateAppStatsPromise = null;
-        }
-      }
-
-      function updateAppStats() {
-        SiteService
-          .fetchInstant()
-          .then(function (response) {
-            $scope.$broadcast('update-app-stats', { appStats: response.data });
-          });
-      }
-    });
+  }
+}
 

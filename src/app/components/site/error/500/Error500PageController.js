@@ -1,20 +1,12 @@
-export default
+export default function ($scope, $controller, USER_ACTIVITY_EVENTS) {
 
   /**
-   * 500 page controller.
+   * Inherit from this controller
    */
-  angular
-    .module('revaluate.common')
-    .controller('Error500PageController', function ($scope, $controller, USER_ACTIVITY_EVENTS) {
+  $controller('AbstractErrorPageController', { $scope: $scope });
 
-      /**
-       * Inherit from this controller
-       */
-      $controller('AbstractErrorPageController', { $scope: $scope });
-
-      /**
-       * Track error event
-       */
-      $scope.trackErrorEvent(USER_ACTIVITY_EVENTS.error500);
-    });
-
+  /**
+   * Track error event
+   */
+  $scope.trackErrorEvent(USER_ACTIVITY_EVENTS.error500);
+}
