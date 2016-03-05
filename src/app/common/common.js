@@ -4,6 +4,7 @@ import alertsConstants from './common/constants/alertsConstants';
 import alertsEventsConstants from './common/constants/alertsEventsConstants';
 import errorConstants from './common/constants/errorConstants';
 import unisonConstants from './unison/unisonConstants';
+import unisonBreakpointsConstants from './unison/unisonBreakpointsConstants';
 import datePickerMonthlyDirective from './datePickerMonthly/datePickerMonthlyDirective';
 import flashMessagesDirective from './flashMessage/flashMessagesDirective';
 import footerDirective from './footer/footerDirective';
@@ -73,6 +74,7 @@ export default angular
   .constant('ALERTS_EVENTS', alertsEventsConstants)
   .constant('ERROR_INTERCEPTOR', errorConstants)
   .constant('UNISON_EVENTS', unisonConstants)
+  .constant('UNISON_BREAKPOINTS', unisonBreakpointsConstants)
   .controller('HeaderController', HeaderController)
   .directive('datePickerMonthly', datePickerMonthlyDirective)
   .directive('flashMessages', flashMessagesDirective)

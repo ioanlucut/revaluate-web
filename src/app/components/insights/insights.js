@@ -32,9 +32,9 @@ export default angular
   .factory('InsightsAbstract', insightsAbstract)
   .controller('InsightsMonthlyController', InsightsMonthlyController)
   .factory('InsightsMonthly', insightsMonthly)
-  .controller('InsightsAbstractController', InsightsOverviewController)
+  .controller('InsightsOverviewController', InsightsOverviewController)
   .factory('InsightsOverview', insightsOverview)
-  .controller('InsightsAbstractController', InsightsProgressController)
+  .controller('InsightsProgressController', InsightsProgressController)
   .factory('InsightsProgress', insightsProgress)
   .directive('insightsEmptyStateToggle', insightsEmptyStateToggleDirective)
   .config(function ($stateProvider, USER_ACTIVITY_EVENTS) {

@@ -1,6 +1,4 @@
-export default
-
-function MonthlyDailyInsightsController(EXPENSE_EVENTS, USER_ACTIVITY_EVENTS, ALERTS_EVENTS, $controller, $scope, $rootScope, $filter, InsightsGenerator, DatesUtils, InsightsService, promiseTracker, insightsDaily) {
+export default function MonthlyDailyInsightsController(EXPENSE_EVENTS, USER_ACTIVITY_EVENTS, ALERTS_EVENTS, $controller, $scope, $rootScope, $filter, InsightsGenerator, DatesUtils, InsightsService, promiseTracker, insightsDaily) {
 
   var vm = this;
 
@@ -124,9 +122,9 @@ function MonthlyDailyInsightsController(EXPENSE_EVENTS, USER_ACTIVITY_EVENTS, AL
   });
 
   function tryToReloadIfNecessary(args) {
-    if (args.expense) {
+    if ( args.expense ) {
       reloadIfRequired(args.expense);
-    } else if (args.expenses) {
+    } else if ( args.expenses ) {
       _.each(args.expenses, function (expenseCandidate) {
         reloadIfRequired(expenseCandidate);
       });
@@ -136,7 +134,7 @@ function MonthlyDailyInsightsController(EXPENSE_EVENTS, USER_ACTIVITY_EVENTS, AL
   function reloadIfRequired(expense) {
     var isSameMonth = moment().isSame(moment(expense.spentDate), 'month');
 
-    if (isSameMonth) {
+    if ( isSameMonth ) {
       vm.loadInsights();
     }
   }
