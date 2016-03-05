@@ -1,10 +1,8 @@
 export default
 
-  angular
-    .module('revaluate.statistics')
-    .service('StatisticTransformerService', function (Statistics) {
+  function (Statistics) {
 
-      this.statisticApiResponseTransformer = function (responseData) {
+    this.statisticApiResponseTransformer = function (responseData) {
         function buildStatistic(data) {
           return new Statistics(data);
         }
@@ -15,5 +13,5 @@ export default
           return buildStatistic(responseData.data);
         }
       };
-    });
+  }
 
