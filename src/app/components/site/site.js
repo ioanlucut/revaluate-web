@@ -1,5 +1,11 @@
 import commonModule from './../../common/common';
 
+import HomePageController from './home/HomePageController';
+import AbstractErrorPageController from './error/AbstractErrorPageController';
+import Error404PageController from './error/404/Error404PageController';
+import Error500PageController from './error/500/Error500PageController';
+import SiteService from './home/SiteService';
+
 /**
  * Main site module declaration including ui templates.
  */
@@ -7,6 +13,11 @@ export default angular
   .module('revaluate.site', [
     commonModule.name,
   ])
+  .controller('HomePageController', HomePageController)
+  .controller('AbstractErrorPageController', AbstractErrorPageController)
+  .controller('AbstractErrorPageController', Error404PageController)
+  .controller('AbstractErrorPageController', Error500PageController)
+  .service('SiteService', SiteService)
   .config(function ($stateProvider, $urlRouterProvider, USER_ACTIVITY_EVENTS) {
 
     // Otherwise
