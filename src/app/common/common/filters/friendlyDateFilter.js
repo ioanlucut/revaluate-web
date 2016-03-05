@@ -2,9 +2,7 @@ export default
 
   /* Friendly date filter */
 
-  angular
-    .module('revaluate.common')
-    .filter('friendlyDate', function () {
+  function () {
       return function (date) {
 
         if (!_.isDate(date)) {
@@ -13,5 +11,5 @@ export default
 
         return moment(date).calendar();
       };
-    });
+    }
 

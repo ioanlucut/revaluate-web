@@ -3,14 +3,12 @@ export default
   /**
    * Header directive responsible for header common template.
    */
-  angular
-    .module('revaluate.common')
-    .directive('footerHome', function () {
+  function () {
       return {
         restrict: 'A',
         templateUrl: '/app/common/footer/footerHomeDirective.tpl.html',
         link: function () {
         },
       };
-    });
+    }
 

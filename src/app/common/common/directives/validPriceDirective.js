@@ -1,8 +1,6 @@
 export default
 
-  angular
-    .module('revaluate.common')
-    .directive('validPrice', function () {
+  function () {
       return {
         require: 'ngModel',
         scope: {
@@ -21,5 +19,5 @@ export default
           };
         },
       };
-    });
+    }
 

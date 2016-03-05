@@ -36,16 +36,17 @@ dir.files('./src/app/common', function (err, files) {
     var content = fs.readFileSync(path);
     const importNameRegexExp = /(\/(?=[^/]*$))(.*js)/g;
     const importName = importNameRegexExp.exec(path)[2];
-    const importValue = 'import ' + importName.replace('.js', '') + ' from ' + '\'' + path + '\'';
+    let importNameWithoutExtension = importName.replace('.js', '');
+    const importValue = 'import ' + importNameWithoutExtension + ' from ' + '\'' + path + '\'';
 
-    const contentRegex = /(angular)(.*[\s\S]*)(module.*)(.*[\s\S]*)((directive|factory|filter|service|value|constant|controller)\('\w+', )(.*[\s\S]*)(\);)/g;
+    const contentRegex = /(angular)(.*[\s\S]*)(module.*)(.*[\s\S]*)((provider|directive|factory|filter|service|value|constant|controller)\('\w+', )(.*[\s\S]*)(\);)/g;
     const contentRegexResult = contentRegex.exec(content);
     if ( !contentRegexResult ) {
       return;
     }
 
     const module = contentRegexResult[3];
-    const declarationModuleValue = contentRegexResult[5] + importName.replace('.js', '') + ')';
+    const declarationModuleValue = contentRegexResult[5] + importNameWithoutExtension + ')';
     if ( map.get(module) == null ) {
       map.set(module, []);
     }
@@ -58,6 +59,10 @@ dir.files('./src/app/common', function (err, files) {
 
     console.log('---------');
     var result = content.toString().replace(contentRegex, '$7');
+    /* if ( result.indexOf('export default') > -1 ) {
+     result = 'export default ' + result.replace('export default', '').trim();
+     }*/
+    console.log(result);
     console.log('---------end');
 
     fs.writeFile(path, result, 'utf8', function (err) {

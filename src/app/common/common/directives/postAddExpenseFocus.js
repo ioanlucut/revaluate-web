@@ -1,8 +1,6 @@
 export default
 
-  angular
-    .module('revaluate.common')
-    .directive('postAddExpenseFocus', function ($timeout, EXPENSE_EVENTS) {
+  function ($timeout, EXPENSE_EVENTS) {
       return {
         restrict: 'A',
         link: function (scope, el) {
@@ -21,5 +19,5 @@ export default
             .$on(EXPENSE_EVENTS.isUpdated, focus);
         },
       };
-    });
+    }
 

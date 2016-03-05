@@ -1,4 +1,4 @@
-const USER_ACTIVITY_EVENTS = {
+export default {
   homePage: 'Home page',
   pricingPage: 'Pricing page',
   privacyPage: 'Privacy page',
@@ -60,5 +60,3 @@ const USER_ACTIVITY_EVENTS = {
   error404: 'error-404',
   error500: 'error-500',
 };
-
-export default USER_ACTIVITY_EVENTS;

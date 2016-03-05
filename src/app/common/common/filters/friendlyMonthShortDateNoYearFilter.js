@@ -1,8 +1,6 @@
 export default
 
-  angular
-    .module('revaluate.common')
-    .filter('friendlyMonthShortDateNoYear', function () {
+  function () {
       return function (date) {
 
         if (!_.isDate(date)) {
@@ -11,5 +9,5 @@ export default
 
         return moment(date).format('MMM');
       };
-    });
+    }
 

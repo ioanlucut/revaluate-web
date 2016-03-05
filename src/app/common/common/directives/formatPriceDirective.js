@@ -1,8 +1,6 @@
 export default
 
-  angular
-    .module('revaluate.common')
-    .directive('formatPrice', function () {
+  function () {
       return {
         require: 'ngModel',
         link: function (scope, elm, attrs, ctrl) {
@@ -42,5 +40,5 @@ export default
 
         },
       };
-    });
+    }
 

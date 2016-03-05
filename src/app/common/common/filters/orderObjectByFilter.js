@@ -1,9 +1,7 @@
 export default
 
   // See https://github.com/fmquaglia/ngOrderObjectB
-  angular
-    .module('revaluate.common')
-    .filter('orderObjectBy', function () {
+  function () {
       return function (items, field, reverse) {
         var filtered = [];
         angular.forEach(items, function (item) {
@@ -33,5 +31,5 @@ export default
 
         return filtered;
       };
-    });
+    }
 

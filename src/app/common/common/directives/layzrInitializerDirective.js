@@ -1,8 +1,6 @@
 export default
 
-  angular
-    .module('revaluate.common')
-    .directive('layzrInitializer', function () {
+  function () {
       return {
         restrict: 'A',
         link: function () {
@@ -10,5 +8,5 @@ export default
           new Layzr();
         },
       };
-    });
+    }
 

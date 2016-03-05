@@ -1,8 +1,6 @@
 export default
 
-  angular
-    .module('revaluate.common')
-    .directive('unisonListener', function (UNISON_BREAKPOINTS, UNISON_EVENTS) {
+  function (UNISON_BREAKPOINTS, UNISON_EVENTS) {
       return {
         restrict: 'E',
         link: function (scope) {
@@ -23,5 +21,5 @@ export default
             });
         },
       };
-    });
+    }
 

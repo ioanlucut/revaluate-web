@@ -2,9 +2,7 @@ export default
 
   /* Auto focus */
 
-  angular
-    .module('revaluate.common')
-    .directive('autoFocus', function ($timeout) {
+  function ($timeout) {
       return {
         restrict: 'A',
         link: function (scope, el, attrs) {
@@ -26,5 +24,5 @@ export default
           }
         },
       };
-    });
+    }
 

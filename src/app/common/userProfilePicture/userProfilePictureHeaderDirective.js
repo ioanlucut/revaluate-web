@@ -1,8 +1,6 @@
 export default
 
-  angular
-    .module('revaluate.common')
-    .directive('userProfilePictureHeader', function () {
+  function () {
       return {
         restrict: 'E',
         scope: {},
@@ -21,5 +19,5 @@ export default
         link: function () {
         },
       };
-    });
+    }
 

@@ -1,8 +1,6 @@
 export default
 
-  angular
-    .module('revaluate.common')
-    .directive('escapeHtml', function () {
+  function () {
       return {
         require: '?ngModel',
         link: function (scope, elem, attrs, ctrl) {
@@ -20,5 +18,5 @@ export default
           });
         },
       };
-    });
+    }
 

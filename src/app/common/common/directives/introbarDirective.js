@@ -1,8 +1,6 @@
 export default
 
-  angular
-    .module('revaluate.common')
-    .directive('introBarListener', function ($timeout) {
+  function ($timeout) {
       return {
         restrict: 'A',
         controller: function ($scope, $rootScope, $state, $timeout, StatesHandler, AuthService, AUTH_EVENTS) {
@@ -43,5 +41,5 @@ export default
 
         },
       };
-    });
+    }
 

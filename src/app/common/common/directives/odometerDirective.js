@@ -1,8 +1,6 @@
 export default
 
-  angular
-    .module('revaluate.common')
-    .directive('odometer', function (APP_STATS) {
+  function (APP_STATS) {
         var defaults = {
           value: APP_STATS.EXPENSES_COUNTS,
           format: '(,ddd)',
@@ -25,5 +23,4 @@ export default
           },
         };
       }
-    );
 

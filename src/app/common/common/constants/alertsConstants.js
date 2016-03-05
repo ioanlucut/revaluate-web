@@ -1,6 +1,4 @@
-export default angular
-  .module('revaluate.common')
-  .constant('ALERTS_CONSTANTS', {
+export default {
     login: 'login',
     signUp: 'signUp',
     signUpConfirm: 'signUpConfirm',
@@ -26,4 +24,4 @@ export default angular
     cancelAccount: 'cancelAccount',
     preferences: 'preferences',
     import: 'import',
-  });
+  };

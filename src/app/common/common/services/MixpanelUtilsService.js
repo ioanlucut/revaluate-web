@@ -1,10 +1,8 @@
 export default
 
-  angular
-    .module('revaluate.common')
-    .service('MixpanelUtilsService', function ($window, ENV) {
+  function ($window, ENV) {
 
-      this.bootMixpanel = function (user) {
+    this.bootMixpanel = function (user) {
         this.initMixpanel();
 
         // ---
@@ -14,19 +12,19 @@ export default
         $window.mixpanel.people.set(this.getMixpanelUser(user));
       };
 
-      this.initMixpanel = function () {
+    this.initMixpanel = function () {
         $window.mixpanel.init(ENV.mixPanelId);
       };
 
-      this.updateMixpanel = function (user) {
+    this.updateMixpanel = function (user) {
 
-        // ---
-        // Update mixpanel.
-        // ---
-        mixpanel.people.set(this.getMixpanelUser(user));
-      };
+      // ---
+      // Update mixpanel.
+      // ---
+      mixpanel.people.set(this.getMixpanelUser(user));
+    };
 
-      this.getMixpanelUser = function (user) {
+    this.getMixpanelUser = function (user) {
         return {
           $email: user.model.email,
           $last_name: user.model.lastName,
@@ -34,5 +32,5 @@ export default
           $created: moment(user.model.createdDate).format('YYYY-MM-DDTHH:mm:ss'),
         };
       };
-    });
+  }
 

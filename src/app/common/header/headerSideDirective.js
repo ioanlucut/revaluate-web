@@ -1,8 +1,6 @@
 export default
 
-  angular
-    .module('revaluate.common')
-    .directive('headerSide', function () {
+  function () {
       return {
         restrict: 'AE',
         templateUrl: '/app/common/header/headerSideDirective.tpl.html',
@@ -11,5 +9,5 @@ export default
         link: function () {
         },
       };
-    });
+    }
 

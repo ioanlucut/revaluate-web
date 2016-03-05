@@ -1,8 +1,6 @@
 export default
 
-  angular
-    .module('revaluate.common')
-    .directive('validDate', function () {
+  function () {
       return {
         require: 'ngModel',
         scope: {
@@ -19,5 +17,5 @@ export default
           };
         },
       };
-    });
+    }
 
