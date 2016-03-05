@@ -1,24 +1,22 @@
 export default
 
-  angular
-    .module('revaluate.feedback')
-    .controller('FeedbackModalController', function ($scope, FeedbackModalService, Feedback, $timeout) {
+  function ($scope, FeedbackModalService, Feedback, $timeout) {
 
-      var TIMEOUT = 1500;
+    var TIMEOUT = 1500;
 
-      /**
-       * Feedback.
-       */
-      $scope.feedback = new Feedback();
+    /**
+     * Feedback.
+     */
+    $scope.feedback = new Feedback();
 
-      /**
-       * Flags during the lifetime of the feedback.
-       * @type {boolean}
-       */
-      $scope.isSending = false;
-      $scope.isSent = false;
+    /**
+     * Flags during the lifetime of the feedback.
+     * @type {boolean}
+     */
+    $scope.isSending = false;
+    $scope.isSent = false;
 
-      $scope.openFeedbackModal = function () {
+    $scope.openFeedbackModal = function () {
         FeedbackModalService.open();
 
         /**
@@ -33,10 +31,10 @@ export default
           );
       };
 
-      /**
-       * Dismiss the create/update modal.
-       */
-      $scope.dismissFeedbackModal = function () {
+    /**
+     * Dismiss the create/update modal.
+     */
+    $scope.dismissFeedbackModal = function () {
         FeedbackModalService
           .modalInstance
           .dismiss('cancel');
@@ -44,11 +42,11 @@ export default
         $scope.isModalOpened = false;
       };
 
-      /**
-       * Sends the feedback.
-       * @param feedbackForm
-       */
-      $scope.sendFeedbackAndClose = function (feedbackForm) {
+    /**
+     * Sends the feedback.
+     * @param feedbackForm
+     */
+    $scope.sendFeedbackAndClose = function (feedbackForm) {
         if (feedbackForm.$valid && !$scope.isSending) {
 
           // Is sending feedback
@@ -79,5 +77,5 @@ export default
         }
       };
 
-    });
+  }
 

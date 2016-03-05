@@ -1,8 +1,6 @@
 export default
 
-  angular
-    .module('revaluate.feedback')
-    .directive('feedback', function ($rootScope, AuthService, AUTH_EVENTS, $timeout) {
+  function ($rootScope, AuthService, AUTH_EVENTS, $timeout) {
       return {
         restrict: 'A',
         templateUrl: '/app/components/feedback/feedback/feedbackDirective.tpl.html',
@@ -32,5 +30,5 @@ export default
           });
         },
       };
-    });
+    }
 
