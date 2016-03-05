@@ -1,23 +1,18 @@
 export default
 
-  function InsightsDailyFactory(InsightsAbstract) {
+function InsightsDailyFactory(InsightsAbstract) {
 
-    /**
-     * Daily expenses factory function.
-     */
-    function insightsDaily(data) {
+  /**
+   * Daily expenses factory function.
+   */
+  function insightsDaily(data) {
 
-      return _.extend(InsightsAbstract.build(data), {
-        totalPerDayDTOs: data.totalPerDayDTOs,
-      });
-    }
-
-    return {
-      build: insightsDaily,
-    };
+    return _.extend(InsightsAbstract.build(data), {
+      totalPerDayDTOs: data.totalPerDayDTOs,
+    });
   }
 
-  angular
-    .module('revaluate.insights')
-    .factory('InsightsDaily', InsightsDailyFactory);
-
+  return {
+    build: insightsDaily,
+  };
+}

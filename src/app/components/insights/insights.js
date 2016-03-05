@@ -1,9 +1,42 @@
+import InsightsGenerator from './insights/InsightsGenerator';
+import InsightsService from './insights/InsightsService';
+import InsightsTransformerService from './insights/InsightsTransformerService';
+import insightsConstants from './insights/insightsConstants';
+import insightsIntervalConstants from './insights/insightsIntervalConstants';
+import insightsChartsConstants from './insights/insightsChartsConstants';
+import insightsDaily from './insightsDaily/insightsDaily';
+import InsightsAbstractController from './insightsAbstract/InsightsAbstractController';
+import insightsAbstract from './insightsAbstract/insightsAbstract';
+import InsightsMonthlyController from './insightsMonthly/InsightsMonthlyController';
+import insightsMonthly from './insightsMonthly/insightsMonthly';
+import InsightsOverviewController from './insightsOverview/InsightsOverviewController';
+import insightsOverview from './insightsOverview/insightsOverview';
+import InsightsProgressController from './insightsProgress/InsightsProgressController';
+import insightsProgress from './insightsProgress/insightsProgress';
+import insightsEmptyStateToggleDirective from './insightsEmptyState/insightsEmptyStateToggleDirective';
+
 export default angular
   .module('revaluate.insights', [
     'revaluate.common',
     'revaluate.categories',
     'revaluate.expenses',
   ])
+  .service('InsightsGenerator', InsightsGenerator)
+  .service('InsightsService', InsightsService)
+  .service('InsightsTransformerService', InsightsTransformerService)
+  .constant('INSIGHTS_URLS', insightsConstants)
+  .constant('INSIGHTS_INTERVAL', insightsIntervalConstants)
+  .constant('INSIGHTS_CHARTS', insightsChartsConstants)
+  .factory('InsightsDaily', insightsDaily)
+  .controller('InsightsAbstractController', InsightsAbstractController)
+  .factory('InsightsAbstract', insightsAbstract)
+  .controller('InsightsMonthlyController', InsightsMonthlyController)
+  .factory('InsightsMonthly', insightsMonthly)
+  .controller('InsightsAbstractController', InsightsOverviewController)
+  .factory('InsightsOverview', insightsOverview)
+  .controller('InsightsAbstractController', InsightsProgressController)
+  .factory('InsightsProgress', insightsProgress)
+  .directive('insightsEmptyStateToggle', insightsEmptyStateToggleDirective)
   .config(function ($stateProvider, USER_ACTIVITY_EVENTS) {
 
     $stateProvider

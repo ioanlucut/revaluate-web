@@ -1,23 +1,21 @@
 export default
 
-  function InsightsProgressFactory(InsightsAbstract) {
+function InsightsProgressFactory(InsightsAbstract) {
 
-    /**
-     * Progress factory function.
-     */
-    function insightsProgress(data) {
+  /**
+   * Progress factory function.
+   */
+  function insightsProgress(data) {
 
-      return _.extend(InsightsAbstract.build(data), {
-        insightsMonthlyDTO: data.insightsMonthlyDTO,
-      });
-    }
-
-    return {
-      build: insightsProgress,
-    };
+    return _.extend(InsightsAbstract.build(data), {
+      insightsMonthlyDTO: data.insightsMonthlyDTO,
+    });
   }
 
-  angular
-    .module('revaluate.insights')
-    .factory('InsightsProgress', InsightsProgressFactory);
+  return {
+    build: insightsProgress,
+  };
+}
+
+InsightsProgressFactory;
 
