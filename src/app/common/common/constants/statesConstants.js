@@ -10,12 +10,4 @@ export default angular
     addPayment: 'settings.payment.add',
     insightsPayment: 'settings.payment.insights',
     account: 'account',
-  })
-  .constant('ACCESS_LEVEL', {
-    forLoggedUser: 'forLoggedUser',
-    forGuestUser: 'forGuestUser',
-  })
-  .constant('ERROR_INTERCEPTOR', {
-    status500: 'status500',
-    status402: 'status402',
   });

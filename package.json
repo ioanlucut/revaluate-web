@@ -88,27 +88,5 @@
     },
     "engines": {
         "node": ">=0.10.0"
-    },
-    "config": {
-      /*  "ghooks": {
-            "pre-commit": "npm test",
-            "prepare-commit-msg": "prepare-commit-msg-angular $2 $3",
-            "commit-msg": "validate-commit-msg"
-        },*/
-        "validate-commit-msg": {
-            "types": [
-                "feat",
-                "fix",
-                "docs",
-                "style",
-                "refactor",
-                "perf",
-                "test",
-                "chore",
-                "revert",
-                "custom"
-            ],
-            "warnOnFail": false
-        }
     }
 }
