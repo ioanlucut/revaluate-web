@@ -1,24 +1,22 @@
 export default
 
-  angular
-    .module('revaluate.contact')
-    .controller('ContactModalController', function ($scope, ContactModalService, Contact, $timeout) {
+  function ($scope, ContactModalService, Contact, $timeout) {
 
-      var TIMEOUT = 1500;
+    var TIMEOUT = 1500;
 
-      /**
-       * Contact.
-       */
-      $scope.contact = new Contact();
+    /**
+     * Contact.
+     */
+    $scope.contact = new Contact();
 
-      /**
-       * Flags during the lifetime of the contact.
-       * @type {boolean}
-       */
-      $scope.isSending = false;
-      $scope.isSent = false;
+    /**
+     * Flags during the lifetime of the contact.
+     * @type {boolean}
+     */
+    $scope.isSending = false;
+    $scope.isSent = false;
 
-      $scope.openContactModal = function () {
+    $scope.openContactModal = function () {
         ContactModalService.open();
 
         /**
@@ -33,10 +31,10 @@ export default
           );
       };
 
-      /**
-       * Dismiss the create/update modal.
-       */
-      $scope.dismissContactModal = function () {
+    /**
+     * Dismiss the create/update modal.
+     */
+    $scope.dismissContactModal = function () {
         ContactModalService
           .modalInstance
           .dismiss('cancel');
@@ -44,11 +42,11 @@ export default
         $scope.isModalOpened = false;
       };
 
-      /**
-       * Sends the contact.
-       * @param contactForm
-       */
-      $scope.sendContactAndClose = function (contactForm) {
+    /**
+     * Sends the contact.
+     * @param contactForm
+     */
+    $scope.sendContactAndClose = function (contactForm) {
         if (contactForm.$valid && !$scope.isSending) {
 
           // Is sending contact
@@ -79,5 +77,5 @@ export default
         }
       };
 
-    });
+  }
 
