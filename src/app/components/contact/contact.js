@@ -1,8 +1,8 @@
-import ContactController from 'src/app/components/contact/contact/ContactController';
-import ContactMessage from 'src/app/components/contact/contact/ContactMessage';
-import ContactService from 'src/app/components/contact/contact/ContactService';
-import contactConstants from 'src/app/components/contact/contact/contactConstants';
-import ContactModalService from 'src/app/components/contact/contactModal/ContactModalService';
+import ContactController from './contact/ContactController';
+import ContactMessage from './contact/ContactMessage';
+import ContactService from './contact/ContactService';
+import contactConstants from './contact/contactConstants';
+import ContactModalService from './contactModal/ContactModalService';
 
 export default angular
   .module('revaluate.contact', [])
