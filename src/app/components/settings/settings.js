@@ -1,3 +1,15 @@
+import settingsConstants from './settings/settingsConstants';
+import SettingsAdminUpdatePasswordController from './settingsAdmin/SettingsAdminUpdatePasswordController';
+import SettingsCancelAccountController from './cancelAccountConfirmation/SettingsCancelAccountController';
+import cancelAccountConfirmationDirective from './cancelAccountConfirmation/cancelAccountConfirmationDirective';
+import SettingsPaymentCustomerController from './settingsPayment/SettingsPaymentCustomerController';
+import SettingsPaymentInsightsController from './settingsPayment/SettingsPaymentInsightsController';
+import SettingsPaymentMethodAddController from './settingsPayment/SettingsPaymentMethodAddController';
+import SettingsPaymentMethodController from './settingsPayment/SettingsPaymentMethodController';
+import SettingsPreferencesCurrencyController from './settingsPreferences/SettingsPreferencesCurrencyController';
+import SettingsProfileController from './settingsProfile/SettingsProfileController';
+import SettingsSetupRegistrationController from './settingsSetupRegistration/SettingsSetupRegistrationController';
+
 /**
  * Main settings module declaration including ui templates.
  */
@@ -5,6 +17,17 @@ export default angular
   .module('revaluate.settings', [
     'revaluate.account',
   ])
+  .value('clientTokenPath', settingsConstants)
+  .controller('SettingsAdminUpdatePasswordController', SettingsAdminUpdatePasswordController)
+  .controller('SettingsCancelAccountController', SettingsCancelAccountController)
+  .directive('cancelAccountConfirmation', cancelAccountConfirmationDirective)
+  .controller('SettingsPaymentCustomerController', SettingsPaymentCustomerController)
+  .controller('SettingsPaymentInsightsController', SettingsPaymentInsightsController)
+  .controller('SettingsPaymentMethodAddController', SettingsPaymentMethodAddController)
+  .controller('SettingsEditPaymentMethodController', SettingsPaymentMethodController)
+  .controller('SettingsPreferencesCurrencyController', SettingsPreferencesCurrencyController)
+  .controller('SettingsProfileController', SettingsProfileController)
+  .controller('SettingsSetUpRegistrationController', SettingsSetupRegistrationController)
   .config(function ($stateProvider, USER_ACTIVITY_EVENTS) {
 
     $stateProvider
@@ -64,7 +87,7 @@ export default angular
             return $http
               .get(URLTo.api(AUTH_URLS.isPaymentStatusDefined))
               .then(function (response) {
-                if ( response.data.paymentStatusDefined ) {
+                if (response.data.paymentStatusDefined) {
 
                   $state.go('settings.payment.insights');
                 }
