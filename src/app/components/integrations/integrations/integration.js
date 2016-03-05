@@ -1,62 +1,60 @@
 export default
 
-  function IntegrationFactory() {
+function IntegrationFactory() {
 
-    /**
-     * App integration factory function.
-     */
-    function appIntegration(data) {
+  /**
+   * App integration factory function.
+   */
+  function appIntegration(data) {
 
-      return _.extend({}, {
+    return _.extend({}, {
 
-        /**
-         * The goal id.
-         */
-        id: data.id,
+      /**
+       * The goal id.
+       */
+      id: data.id,
 
-        /**
-         * The appIntegrationType.
-         */
-        appIntegrationType: data.appIntegrationType,
+      /**
+       * The appIntegrationType.
+       */
+      appIntegrationType: data.appIntegrationType,
 
-        /**
-         * The appIntegrationScopeType
-         */
-        appIntegrationScopeType: data.appIntegrationScopeType,
+      /**
+       * The appIntegrationScopeType
+       */
+      appIntegrationScopeType: data.appIntegrationScopeType,
 
-        /**
-         * The slack user id
-         */
-        slackUserId: data.slackUserId,
+      /**
+       * The slack user id
+       */
+      slackUserId: data.slackUserId,
 
-        /**
-         * The slack team id
-         */
-        slackTeamId: data.slackTeamId,
+      /**
+       * The slack team id
+       */
+      slackTeamId: data.slackTeamId,
 
-        /**
-         * The slack team name
-         */
-        slackTeamName: data.slackTeamName,
+      /**
+       * The slack team name
+       */
+      slackTeamName: data.slackTeamName,
 
-        /**
-         * Created date of the goal.
-         */
-        createdDate: data.createdDate,
+      /**
+       * Created date of the goal.
+       */
+      createdDate: data.createdDate,
 
-        /**
-         * Created date of the goal.
-         */
-        modifiedData: data.modifiedData,
-      });
-    }
-
-    return {
-      build: appIntegration,
-    };
+      /**
+       * Created date of the goal.
+       */
+      modifiedData: data.modifiedData,
+    });
   }
 
-  angular
-    .module('revaluate.integrations')
-    .factory('Integration', IntegrationFactory);
+  return {
+    build: appIntegration,
+  };
+}
+
+IntegrationFactory;
 

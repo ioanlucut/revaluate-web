@@ -1,7 +1,18 @@
+import IntegrationsMainController from './integrations/IntegrationsMainController';
+import IntegrationsService from './integrations/IntegrationsService';
+import IntegrationsTransformerService from './integrations/IntegrationsTransformerService';
+import integration from './integrations/integration';
+import integrationsConstants from './integrations/integrationsConstants';
+
 export default angular
   .module('revaluate.integrations', [
     'revaluate.common',
   ])
+  .controller('IntegrationsMainController', IntegrationsMainController)
+  .service('IntegrationsService', IntegrationsService)
+  .service('IntegrationsTransformerService', IntegrationsTransformerService)
+  .factory('Integration', integration)
+  .constant('INTEGRATIONS_CONSTANTS', integrationsConstants)
   .config(function ($stateProvider) {
 
     $stateProvider
