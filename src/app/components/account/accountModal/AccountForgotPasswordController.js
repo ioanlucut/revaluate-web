@@ -22,7 +22,7 @@ angular
      * Request password reset functionality.
      */
     $scope.requestPasswordReset = function () {
-      if ( $scope.forgotPasswordForm.$valid ) {
+      if ($scope.forgotPasswordForm.$valid) {
         AuthService
           .requestPasswordReset($scope.forgotPasswordData.email)
           .then(function () {

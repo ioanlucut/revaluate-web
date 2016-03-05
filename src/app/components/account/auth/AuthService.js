@@ -135,13 +135,13 @@ export default function ($rootScope, $q, $http, $location, redirectToUrlAfterLog
   };
 
   this.saveAttemptUrl = function () {
-    if ( $location.path().toLowerCase() !== '/account' ) {
+    if ($location.path().toLowerCase() !== '/account') {
       redirectToUrlAfterLogin.url = $location.path();
     }
   };
 
   this.redirectToAttemptedUrl = function () {
-    if ( redirectToUrlAfterLogin.url ) {
+    if (redirectToUrlAfterLogin.url) {
       $location.path(redirectToUrlAfterLogin.url);
 
       redirectToUrlAfterLogin.url = undefined;

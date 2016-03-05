@@ -3,8 +3,7 @@ export default
 /**
  * Login controller responsible for user login actions.
  */
-angular
-  .controller('AccountLoginController', function ($scope, ALERTS_EVENTS, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountModal, StatesHandler, $timeout) {
+  function ($scope, ALERTS_EVENTS, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountModal, StatesHandler, $timeout) {
 
     /**
      * Alert identifier
@@ -14,7 +13,7 @@ angular
     /**
      * If not opened, open it.
      */
-    if ( !AccountModal.isOpen ) {
+    if (!AccountModal.isOpen) {
       AccountModal.openWithState(ACCOUNT_FORM_STATE.login);
     }
 
@@ -22,44 +21,44 @@ angular
      * Login user information.
      */
     $scope.loginData = {
-      email: '',
-      password: '',
-    };
+    email: '',
+    password: '',
+  };
 
     /**
      * Login functionality.
      */
     $scope.login = function (loginData) {
-      if ( $scope.loginForm.$valid && !$scope.isRequestPending ) {
+    if ($scope.loginForm.$valid && !$scope.isRequestPending) {
 
-        // Show the loading bar
-        $scope.isRequestPending = true;
-        $scope.isWaitingForCloseEvent = false;
+      // Show the loading bar
+      $scope.isRequestPending = true;
+      $scope.isWaitingForCloseEvent = false;
 
-        AuthService
-          .login(loginData.email, loginData.password)
-          .then(function () {
+      AuthService
+        .login(loginData.email, loginData.password)
+        .then(function () {
 
-            $scope.isWaitingForCloseEvent = true;
-            StatesHandler.goToExpenses(function () {
-              $timeout(function () {
-                $scope.isWaitingForCloseEvent = false;
-              }, 1000);
-            });
-          })
-          .catch(function () {
-            /* If bad feedback from server */
-            $scope.badPostSubmitResponse = true;
-
-            $scope.$emit(ALERTS_EVENTS.DANGER, {
-              message: 'Your email or password are wrong. Please try again.',
-              alertId: $scope.alertId,
-            });
-          })
-          .finally(function () {
-            $scope.isRequestPending = false;
+          $scope.isWaitingForCloseEvent = true;
+          StatesHandler.goToExpenses(function () {
+            $timeout(function () {
+              $scope.isWaitingForCloseEvent = false;
+            }, 1000);
           });
-      }
-    };
-  });
+        })
+        .catch(function () {
+          /* If bad feedback from server */
+          $scope.badPostSubmitResponse = true;
+
+          $scope.$emit(ALERTS_EVENTS.DANGER, {
+            message: 'Your email or password are wrong. Please try again.',
+            alertId: $scope.alertId,
+          });
+        })
+        .finally(function () {
+          $scope.isRequestPending = false;
+        });
+    }
+  };
+  }
 
