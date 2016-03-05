@@ -20,7 +20,3 @@ export default
     return Statistics;
   }
 
-  angular
-    .module('revaluate.statistics')
-    .factory('Statistics', StatisticsFactory);
-
