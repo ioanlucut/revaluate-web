@@ -1,12 +1,10 @@
 export default
 
-  angular
-    .module('revaluate.goals')
-    .service('GoalTransformerService', function (Goal, DatesUtils) {
+  function (Goal, DatesUtils) {
 
-      this.goalApiRequestTransformer = function (requestData) {
+    this.goalApiRequestTransformer = function (requestData) {
 
-        function buildGoalPayload(data) {
+      function buildGoalPayload(data) {
           var newly = _.extend(data, {
             startDate: DatesUtils.formatStartOfMonthInclusive(data.startDate),
             endDate: DatesUtils.formatEndOfMonthExclusive(data.endDate),
@@ -15,14 +13,14 @@ export default
           return _.omit(newly, ['modifiedDate', 'createdDate', 'yearMonthDate', 'marked']);
         }
 
-        if (_.isArray(requestData)) {
-          return _.map(requestData, buildGoalPayload);
-        } else {
-          return buildGoalPayload(requestData);
-        }
-      };
+      if (_.isArray(requestData)) {
+        return _.map(requestData, buildGoalPayload);
+      } else {
+        return buildGoalPayload(requestData);
+      }
+    };
 
-      this.goalApiResponseTransformer = function (responseData) {
+    this.goalApiResponseTransformer = function (responseData) {
         function buildGoal(data) {
           return Goal.build(_.extend(data, {
             startDate: toDate(data.startDate),
@@ -43,5 +41,5 @@ export default
           return buildGoal(responseData.data);
         }
       };
-    });
+  }
 

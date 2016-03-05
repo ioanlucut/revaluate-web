@@ -69,7 +69,3 @@ export default
 
   }
 
-  angular
-    .module('revaluate.goals')
-    .service('GoalProgressTypeService', GoalProgressTypeService);
-

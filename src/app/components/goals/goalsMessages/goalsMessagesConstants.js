@@ -1,8 +1,6 @@
 export default
 
-  angular
-    .module('revaluate.goals')
-    .constant('GOALS_MESSAGES_CONSTANTS', {
+  {
       SUCCESS: {
         messages: [
           'OMG, I really made it.',
@@ -32,5 +30,5 @@ export default
           'Don\'t be to hard on yourself. You\'ll do better next time',
         ],
       },
-    });
+    };
 

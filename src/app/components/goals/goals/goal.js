@@ -65,8 +65,3 @@ export default
       build: goal,
     };
   }
-
-  angular
-    .module('revaluate.goals')
-    .factory('Goal', GoalFactory);
-

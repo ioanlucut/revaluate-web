@@ -1,8 +1,6 @@
 export default
 
-  angular
-    .module('revaluate.goals')
-    .directive('uniqueCategoryPerGoal', function ($q, GoalService, DatesUtils) {
+  function ($q, GoalService, DatesUtils) {
       return {
         require: 'ngModel',
         scope: {
@@ -67,5 +65,5 @@ export default
           };
         },
       };
-    });
+    }
 

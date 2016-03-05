@@ -1,3 +1,23 @@
+import goalAddDirective from './goalAdd/goalAddDirective';
+import goalDailyStatusDirective from './goalDailyStatus/goalDailyStatusDirective';
+import goalEntryDirective from './goalEntry/goalEntryDirective';
+import goalStatus from './goalStatus/goalStatus';
+import goalStatusProgressBarDirective from './goalStatusProgressBar/goalStatusProgressBarDirective';
+import GoalService from './goals/GoalService';
+import GoalsController from './goals/GoalsController';
+import goal from './goals/goal';
+import goalsEventsConstants from './goals/goalsEventsConstants';
+import goalsUrlsConstants from './goals/goalsUrlsConstants';
+import goalsDisplayEntryDirective from './goalsDisplayEntry/goalsDisplayEntryDirective';
+import goalsListDirective from './goalsList/goalsListDirective';
+import GoalMessagesService from './services/GoalMessagesService';
+import GoalProgressTypeService from './services/GoalProgressTypeService';
+import GoalTransformerService from './services/GoalTransformerService';
+import goalsMessagesConstants from './goalsMessages/goalsMessagesConstants';
+import goalsMessagesFilter from './goalsMessages/goalsMessagesFilter';
+import uniqueCategoryPerGoalDirective from './common/directives/uniqueCategoryPerGoalDirective';
+import goalTargetFilter from './common/filter/goalTargetFilter';
+
 /**
  * Main site module declaration including ui templates.
  */
@@ -8,6 +28,25 @@ export default angular
     'revaluate.insights',
     'revaluate.statistics',
   ])
+  .directive('goalAdd', goalAddDirective)
+  .directive('goalDailyStatus', goalDailyStatusDirective)
+  .directive('goalEntry', goalEntryDirective)
+  .factory('GoalStatus', goalStatus)
+  .directive('goalStatusProgressBar', goalStatusProgressBarDirective)
+  .service('GoalService', GoalService)
+  .controller('GoalsController', GoalsController)
+  .factory('Goal', goal)
+  .constant('GOAL_EVENTS', goalsEventsConstants)
+  .constant('GOAL_URLS', goalsUrlsConstants)
+  .directive('goalsDisplayEntry', goalsDisplayEntryDirective)
+  .service('GoalMessagesService', GoalMessagesService)
+  .directive('goalsList', goalsListDirective)
+  .service('GoalProgressTypeService', GoalProgressTypeService)
+  .service('GoalTransformerService', GoalTransformerService)
+  .constant('GOALS_MESSAGES_CONSTANTS', goalsMessagesConstants)
+  .filter('goalMessage', goalsMessagesFilter)
+  .directive('uniqueCategoryPerGoal', uniqueCategoryPerGoalDirective)
+  .filter('goalTarget', goalTargetFilter)
   .config(function ($stateProvider, USER_ACTIVITY_EVENTS) {
 
     $stateProvider
