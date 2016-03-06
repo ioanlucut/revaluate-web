@@ -1,4 +1,4 @@
-export default   function (CATEGORY_EVENTS, CategoryColorService, $timeout, $animate) {
+function colorPickerDirective(CATEGORY_EVENTS, CategoryColorService, $timeout, $animate) {
   return {
     restrict: 'A',
     replace: true,
@@ -51,3 +51,4 @@ export default   function (CATEGORY_EVENTS, CategoryColorService, $timeout, $ani
   };
 }
 
+export default colorPickerDirective;

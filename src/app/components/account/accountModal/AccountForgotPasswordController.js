@@ -1,14 +1,14 @@
 /**
  * Forgot password controller responsible for user forgot password action.
  */
-export default function ($state,
-                         $scope,
-                         ALERTS_EVENTS,
-                         ALERTS_CONSTANTS,
-                         AuthService,
-                         AUTH_EVENTS,
-                         ACCOUNT_FORM_STATE,
-                         AccountModal) {
+function AccountForgotPasswordController($state,
+                                         $scope,
+                                         ALERTS_EVENTS,
+                                         ALERTS_CONSTANTS,
+                                         AuthService,
+                                         AUTH_EVENTS,
+                                         ACCOUNT_FORM_STATE,
+                                         AccountModal) {
 
   /**
    * Alert identifier
@@ -26,7 +26,7 @@ export default function ($state,
    * Request password reset functionality.
    */
   $scope.requestPasswordReset = () => {
-    if ( $scope.forgotPasswordForm.$valid ) {
+    if ($scope.forgotPasswordForm.$valid) {
       AuthService
         .requestPasswordReset($scope.forgotPasswordData.email)
         .then(() => {
@@ -44,3 +44,5 @@ export default function ($state,
     }
   };
 }
+
+export default AccountForgotPasswordController;

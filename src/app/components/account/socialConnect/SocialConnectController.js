@@ -1,6 +1,4 @@
-export default
-
-function ($rootScope, $scope, $q, $timeout, SocialConnectService, ALERTS_EVENTS, ALERTS_CONSTANTS, StatesHandler, User, APP_CONFIG, AuthService) {
+function SocialConnectController($rootScope, $scope, $q, $timeout, SocialConnectService, ALERTS_EVENTS, ALERTS_CONSTANTS, StatesHandler, User, APP_CONFIG, AuthService) {
 
   var vm = this;
 
@@ -60,3 +58,4 @@ function ($rootScope, $scope, $q, $timeout, SocialConnectService, ALERTS_EVENTS,
 
 }
 
+export default SocialConnectController;

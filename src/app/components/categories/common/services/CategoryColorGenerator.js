@@ -1,4 +1,4 @@
-export default function () {
+function CategoryColorGenerator() {
 
   return {
     randomizedColor: function (colors) {
@@ -8,3 +8,4 @@ export default function () {
   };
 }
 
+export default CategoryColorGenerator;

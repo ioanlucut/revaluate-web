@@ -1,6 +1,4 @@
-export default
-
-function ($q, $timeout, UserService) {
+function uniqueEmailDirective($q, $timeout, UserService) {
   return {
     require: 'ngModel',
     scope: {
@@ -40,3 +38,4 @@ function ($q, $timeout, UserService) {
   };
 }
 
+export default uniqueEmailDirective;

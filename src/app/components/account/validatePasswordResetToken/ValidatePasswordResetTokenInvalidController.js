@@ -1,6 +1,4 @@
-export default
-
-function ($scope, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE) {
+function ValidatePasswordResetTokenInvalidController($scope, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE) {
 
   /**
    * Flag which tells if user is currently authenticated while coming to this page.
@@ -21,3 +19,4 @@ function ($scope, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_ST
 
 }
 
+export default ValidatePasswordResetTokenInvalidController;

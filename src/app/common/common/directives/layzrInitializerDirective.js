@@ -1,12 +1,11 @@
-export default
+function layzrInitializerDirective() {
+  return {
+    restrict: 'A',
+    link: function () {
 
-  function () {
-      return {
-        restrict: 'A',
-        link: function () {
+      new Layzr();
+    },
+  };
+}
 
-          new Layzr();
-        },
-      };
-    }
-
+export default layzrInitializerDirective;

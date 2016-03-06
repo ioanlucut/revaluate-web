@@ -1,6 +1,4 @@
-export default
-
-function ($rootScope, GREETER_CONSTANTS) {
+function GreeterService($rootScope, GREETER_CONSTANTS) {
 
   function getRandomized(greeterDayTime) {
 
@@ -22,3 +20,4 @@ function ($rootScope, GREETER_CONSTANTS) {
   };
 }
 
+export default GreeterService;

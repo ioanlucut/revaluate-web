@@ -7,7 +7,7 @@ var recast = require('recast');
 // ---
 // On every subdir, iterate over files.
 // ---
-const BASE_PATH = 'src/app/common/';
+const BASE_PATH = 'src/app/components/';
 
 dir.files('./../' + BASE_PATH, function (err, files) {
   if ( err ) throw err;
@@ -23,14 +23,14 @@ dir.files('./../' + BASE_PATH, function (err, files) {
     const importName = importNameRegexExp.exec(path)[2];
     let importNameWithoutExtension = importName.replace('.js', '');
 
-    const contentRegex = /(function \()/g;
+    const contentRegex = /(function \()/;
     const contentRegexResult = contentRegex.exec(content);
     if ( !contentRegexResult ) {
       return;
     }
 
     let result = content.toString().replace(contentRegex, 'function ' + importNameWithoutExtension + '(');
-    let output = result + '\n' + 'export default ' + importNameWithoutExtension + ';';
+    let output = result + 'export default ' + importNameWithoutExtension + ';';
 
     fs.writeFile(path, output, 'utf8', function (err) {
       if ( err ) return console.log(err);

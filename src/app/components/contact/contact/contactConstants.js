@@ -1,6 +1,6 @@
 export default
 
-  {
-      contact: 'contact',
-    };
+{
+  contact: 'contact',
+};
 

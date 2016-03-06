@@ -1,4 +1,4 @@
-export default function (Category) {
+function CategoryTransformerService(Category) {
 
   // ---
   // Name should be always upper case.
@@ -32,3 +32,4 @@ export default function (Category) {
   };
 }
 
+export default CategoryTransformerService;

@@ -1,15 +1,14 @@
-export default
+/* Friendly date filter */
 
-  /* Friendly date filter */
+function friendlyDateFilter() {
+  return function (date) {
 
-  function () {
-      return function (date) {
-
-        if (!_.isDate(date)) {
-          date = moment(date).toDate();
-        }
-
-        return moment(date).calendar();
-      };
+    if (!_.isDate(date)) {
+      date = moment(date).toDate();
     }
 
+    return moment(date).calendar();
+  };
+}
+
+export default friendlyDateFilter;

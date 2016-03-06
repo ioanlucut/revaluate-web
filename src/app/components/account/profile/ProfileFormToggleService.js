@@ -1,9 +1,7 @@
-export default
-
 /**
  * Profile form toggle responsible to keep the state of the current displayed update profile form.
  */
-  function (ACCOUNT_FORM_STATE) {
+function ProfileFormToggleService(ACCOUNT_FORM_STATE) {
   this.state = ACCOUNT_FORM_STATE.updateProfile;
 
   this.setState = function (state) {
@@ -11,3 +9,4 @@ export default
   };
 }
 
+export default ProfileFormToggleService;

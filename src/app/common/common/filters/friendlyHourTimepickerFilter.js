@@ -1,11 +1,10 @@
-export default
+/* Friendly date filter */
 
-  /* Friendly date filter */
+function friendlyHourTimepickerFilter() {
+  return function (date) {
 
-  function () {
-      return function (date) {
+    return moment(date).format('hh:mm A');
+  };
+}
 
-        return moment(date).format('hh:mm A');
-      };
-    }
-
+export default friendlyHourTimepickerFilter;

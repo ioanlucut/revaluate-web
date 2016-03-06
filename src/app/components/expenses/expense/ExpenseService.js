@@ -1,6 +1,4 @@
-export default
-
-function (EXPENSE_URLS, $q, $http, DatesUtils, ExpenseGroupedTransformerService, ExpenseTransformerService) {
+function ExpenseService(EXPENSE_URLS, $q, $http, DatesUtils, ExpenseGroupedTransformerService, ExpenseTransformerService) {
 
   this.createExpense = function (expense, tracker) {
     return $http
@@ -54,3 +52,4 @@ function (EXPENSE_URLS, $q, $http, DatesUtils, ExpenseGroupedTransformerService,
 
 }
 
+export default ExpenseService;

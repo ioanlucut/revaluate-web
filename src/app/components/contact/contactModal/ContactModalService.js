@@ -1,26 +1,25 @@
-export default
+/* Contact modal */
 
-  /* Contact modal */
+function ContactModalService($modal) {
 
-  function ($modal) {
+  /**
+   * Contact modal instance.
+   * @type {null}
+   */
+  this.modalInstance = null;
 
-    /**
-     * Contact modal instance.
-     * @type {null}
-     */
-    this.modalInstance = null;
+  /**
+   * Define contact modal object.
+   */
+  this.open = function () {
 
-    /**
-     * Define contact modal object.
-     */
-    this.open = function () {
+    this.modalInstance = $modal.open({
+      templateUrl: '/app/components/contact/contactModal/contactModal.html',
+      controller: 'ContactModalController',
+      windowClass: 'modalContact',
+    });
+  };
 
-      this.modalInstance = $modal.open({
-          templateUrl: '/app/components/contact/contactModal/contactModal.html',
-          controller: 'ContactModalController',
-          windowClass: 'modalContact',
-        });
-    };
+}
 
-  }
-
+export default ContactModalService;

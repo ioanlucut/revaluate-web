@@ -1,9 +1,7 @@
-export default
-
 /**
  * Directive responsible for checking of a password is strong enough.
  */
-  function () {
+function strongPasswordDirective() {
   return {
     require: 'ngModel',
     link: function (scope, el, attr, ngModel) {
@@ -25,3 +23,4 @@ export default
   };
 }
 
+export default strongPasswordDirective;

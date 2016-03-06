@@ -1,7 +1,7 @@
 /**
  * Authentication service interceptor used to listen to server responses.
  */
-export default function ($rootScope, $q, AUTH_EVENTS) {
+function AuthInterceptorService($rootScope, $q, AUTH_EVENTS) {
   return {
 
     /**
@@ -26,3 +26,4 @@ export default function ($rootScope, $q, AUTH_EVENTS) {
 
 };
 
+export default AuthInterceptorService;

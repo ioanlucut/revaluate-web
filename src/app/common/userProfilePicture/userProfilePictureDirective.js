@@ -1,23 +1,22 @@
-export default
+function userProfilePictureDirective() {
+  return {
+    restrict: 'E',
+    scope: {},
+    controller: function ($scope, $rootScope) {
+      var vm = this;
 
-  function () {
-      return {
-        restrict: 'E',
-        scope: {},
-        controller: function ($scope, $rootScope) {
-          var vm = this;
+      /**
+       * Current user.
+       */
+      vm.user = $rootScope.currentUser;
+    },
 
-          /**
-           * Current user.
-           */
-          vm.user = $rootScope.currentUser;
-        },
+    bindToController: true,
+    controllerAs: 'vm',
+    templateUrl: '/app/common/userProfilePicture/userProfilePictureDirective.tpl.html',
+    link: function () {
+    },
+  };
+}
 
-        bindToController: true,
-        controllerAs: 'vm',
-        templateUrl: '/app/common/userProfilePicture/userProfilePictureDirective.tpl.html',
-        link: function () {
-        },
-      };
-    }
-
+export default userProfilePictureDirective;

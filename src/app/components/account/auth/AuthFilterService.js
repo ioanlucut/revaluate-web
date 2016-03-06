@@ -1,7 +1,7 @@
 /**
  * Authentication service filter used to redirect user to the home page if it is already logged in.
  */
-export default function (AuthService, StatesHandler, User, STATES, flash, ALERTS_EVENTS, ALERTS_CONSTANTS) {
+function AuthFilterService(AuthService, StatesHandler, User, STATES, flash, ALERTS_EVENTS, ALERTS_CONSTANTS) {
 
   return function (event, toState) {
     if (
@@ -41,5 +41,6 @@ export default function (AuthService, StatesHandler, User, STATES, flash, ALERTS
       StatesHandler.goToAddPayment();
     }
   };
-
 };
+
+export default AuthFilterService;

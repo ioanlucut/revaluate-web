@@ -1,6 +1,4 @@
-export default
-
-function (Expense) {
+function ExpenseTransformerService(Expense) {
 
   this.expenseApiRequestTransformer = function (requestData) {
 
@@ -38,3 +36,4 @@ function (Expense) {
   };
 }
 
+export default ExpenseTransformerService;

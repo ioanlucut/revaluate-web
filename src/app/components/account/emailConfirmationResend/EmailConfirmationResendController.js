@@ -1,6 +1,4 @@
-export default
-
-function ($scope, $rootScope, $timeout, ALERTS_EVENTS, AuthService, StatesHandler, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {
+function EmailConfirmationResendController($scope, $rootScope, $timeout, ALERTS_EVENTS, AuthService, StatesHandler, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {
 
   var TIMEOUT_PENDING = 300;
 
@@ -47,3 +45,4 @@ function ($scope, $rootScope, $timeout, ALERTS_EVENTS, AuthService, StatesHandle
 
 }
 
+export default EmailConfirmationResendController;

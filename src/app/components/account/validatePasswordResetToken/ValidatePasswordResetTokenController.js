@@ -1,6 +1,4 @@
-export default
-
-function ($scope, $timeout, ALERTS_EVENTS, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult, ALERTS_CONSTANTS) {
+function ValidatePasswordResetTokenController($scope, $timeout, ALERTS_EVENTS, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult, ALERTS_CONSTANTS) {
 
   /**
    * Alert identifier
@@ -54,3 +52,4 @@ function ($scope, $timeout, ALERTS_EVENTS, AuthService, StatesHandler, ProfileFo
 
 }
 
+export default ValidatePasswordResetTokenController;

@@ -1,4 +1,4 @@
-export default function (CATEGORY_URLS, $q, $http, CategoryTransformerService) {
+function CategoryService(CATEGORY_URLS, $q, $http, CategoryTransformerService) {
 
   this.createCategory = function (category, tracker) {
     return $http
@@ -68,3 +68,4 @@ export default function (CATEGORY_URLS, $q, $http, CategoryTransformerService) {
   };
 }
 
+export default CategoryService;

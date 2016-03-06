@@ -1,14 +1,11 @@
-export default
-
-function MonthlyGoalsController(
-  EXPENSE_EVENTS,
-  ALERTS_EVENTS,
-  USER_ACTIVITY_EVENTS,
-  $scope,
-  DatesUtils,
-  promiseTracker,
-  GoalService,
-  goals) {
+function MonthlyGoalsController(EXPENSE_EVENTS,
+                                ALERTS_EVENTS,
+                                USER_ACTIVITY_EVENTS,
+                                $scope,
+                                DatesUtils,
+                                promiseTracker,
+                                GoalService,
+                                goals) {
   const vm = this;
 
   /**
@@ -83,3 +80,5 @@ function MonthlyGoalsController(
     }
   }
 }
+
+export default MonthlyGoalsController;
