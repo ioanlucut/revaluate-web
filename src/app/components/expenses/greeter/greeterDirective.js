@@ -1,6 +1,4 @@
-export default
-
-function ($rootScope, $timeout) {
+function greeterDirective($rootScope, $timeout) {
   return {
     restrict: 'E',
     scope: {
@@ -23,3 +21,4 @@ function ($rootScope, $timeout) {
   };
 }
 
+export default greeterDirective;

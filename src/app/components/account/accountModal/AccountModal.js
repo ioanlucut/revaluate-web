@@ -1,4 +1,4 @@
-export default function ($rootScope, $timeout, AUTH_MODAL) {
+function AccountModal($rootScope, $timeout, AUTH_MODAL) {
 
   // By default the modal is closed
   this.isOpen = false;
@@ -37,3 +37,4 @@ export default function ($rootScope, $timeout, AUTH_MODAL) {
   }, this));
 }
 
+export default AccountModal;

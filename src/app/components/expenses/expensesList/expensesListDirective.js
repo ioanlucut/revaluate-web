@@ -1,7 +1,7 @@
 function ExpenseListController() {
 }
 
-export default function () {
+function expensesListDirective() {
   return {
     restrict: 'A',
     replace: true,
@@ -20,3 +20,4 @@ export default function () {
   };
 }
 
+export default expensesListDirective;

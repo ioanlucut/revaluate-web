@@ -1,9 +1,8 @@
-export default
+function currencysNoSymbolFilter($filter) {
+  return function (num, symbol, fractionSize) {
 
-  function ($filter) {
-        return function (num, symbol, fractionSize) {
+    return $filter('currency')(num, '', fractionSize);
+  };
+}
 
-          return $filter('currency')(num, '', fractionSize);
-        };
-      }
-
+export default currencysNoSymbolFilter;

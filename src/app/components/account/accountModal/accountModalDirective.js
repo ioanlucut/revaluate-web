@@ -1,8 +1,6 @@
-export default
-
 /* Account modal */
 
-function ($rootScope, $animate, ACCOUNT_FORM_STATE, AccountModal) {
+function accountModalDirective($rootScope, $animate, ACCOUNT_FORM_STATE, AccountModal) {
   return {
     restrict: 'A',
     templateUrl: '/app/components/account/accountModal/accountModal.html',
@@ -29,3 +27,4 @@ function ($rootScope, $animate, ACCOUNT_FORM_STATE, AccountModal) {
   };
 }
 
+export default accountModalDirective;

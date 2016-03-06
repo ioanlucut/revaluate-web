@@ -1,7 +1,7 @@
 export default {
-    INFO: 'INFO',
-    SUCCESS: 'SUCCESS',
-    WARNING: 'WARNING',
-    DANGER: 'DANGER',
-    CLEAR: 'CLEAR',
-  };
+  INFO: 'INFO',
+  SUCCESS: 'SUCCESS',
+  WARNING: 'WARNING',
+  DANGER: 'DANGER',
+  CLEAR: 'CLEAR',
+};

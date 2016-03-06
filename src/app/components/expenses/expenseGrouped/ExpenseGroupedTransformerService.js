@@ -1,6 +1,4 @@
-export default
-
-function (ExpenseTransformerService, Expense, ExpenseGrouped) {
+function ExpenseGroupedTransformerService(ExpenseTransformerService, Expense, ExpenseGrouped) {
 
   this.expenseGroupedApiResponseTransformer = function (responseData) {
     function toExpensesGrouped(queryResponse) {
@@ -23,3 +21,4 @@ function (ExpenseTransformerService, Expense, ExpenseGrouped) {
   };
 }
 
+export default ExpenseGroupedTransformerService;

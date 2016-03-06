@@ -1,13 +1,12 @@
-export default
+function friendlyMonthDateNoYearFilter() {
+  return function (date) {
 
-  function () {
-      return function (date) {
-
-        if (!_.isDate(date)) {
-          date = moment(new Date(date));
-        }
-
-        return moment(date).format('MMMM');
-      };
+    if (!_.isDate(date)) {
+      date = moment(new Date(date));
     }
 
+    return moment(date).format('MMMM');
+  };
+}
+
+export default friendlyMonthDateNoYearFilter;

@@ -1,6 +1,4 @@
-export default
-
-function ($http, $q, USER_URLS) {
+function UserService($http, $q, USER_URLS) {
 
   /**
    * The list of already verified email addresses.
@@ -55,3 +53,4 @@ function ($http, $q, USER_URLS) {
   };
 }
 
+export default UserService;

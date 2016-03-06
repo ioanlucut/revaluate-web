@@ -1,6 +1,4 @@
-export default
-
-function ExpenseGroupedFactory() {
+function expenseGroupedFactory() {
 
   /**
    * Expense grouped class.
@@ -20,3 +18,5 @@ function ExpenseGroupedFactory() {
 
   return ExpenseGrouped;
 }
+
+export default expenseGroupedFactory;

@@ -1,14 +1,11 @@
-export default
-
-function CategoriesController(
-  ALERTS_EVENTS,
-  CATEGORY_EVENTS,
-  USER_ACTIVITY_EVENTS,
-  APP_CONFIG,
-  ALERTS_CONSTANTS,
-  $rootScope,
-  $scope,
-  categories) {
+function CategoriesController(ALERTS_EVENTS,
+                              CATEGORY_EVENTS,
+                              USER_ACTIVITY_EVENTS,
+                              APP_CONFIG,
+                              ALERTS_CONSTANTS,
+                              $rootScope,
+                              $scope,
+                              categories) {
 
   const vm = this;
 

@@ -27,4 +27,4 @@ export default {
     name: 'usn-x-large',
     chartBarWidth: 195,
   },
-}
+};

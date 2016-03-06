@@ -97,7 +97,7 @@ function ExpenseEntryController(EXPENSE_EVENTS, APP_CONFIG, $rootScope, ExpenseS
 
 }
 
-export default function (EXPENSE_EVENTS, $rootScope, $timeout) {
+function expenseEntryDirective(EXPENSE_EVENTS, $rootScope, $timeout) {
   return {
     restrict: 'A',
     scope: {
@@ -165,3 +165,4 @@ export default function (EXPENSE_EVENTS, $rootScope, $timeout) {
   };
 }
 
+export default expenseEntryDirective;

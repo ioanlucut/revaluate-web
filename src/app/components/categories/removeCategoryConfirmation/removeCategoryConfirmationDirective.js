@@ -1,8 +1,6 @@
-export default
-
 /* Auto focus */
 
-function ($timeout) {
+function removeCategoryConfirmationDirective($timeout) {
   return {
     restrict: 'A',
     transclude: true,
@@ -68,3 +66,4 @@ function ($timeout) {
   };
 }
 
+export default removeCategoryConfirmationDirective;

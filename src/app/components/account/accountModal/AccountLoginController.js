@@ -1,34 +1,32 @@
-export default
-
 /**
  * Login controller responsible for user login actions.
  */
-  function ($scope, ALERTS_EVENTS, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountModal, StatesHandler, $timeout) {
+function AccountLoginController($scope, ALERTS_EVENTS, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountModal, StatesHandler, $timeout) {
 
-    /**
-     * Alert identifier
-     */
-    $scope.alertId = ALERTS_CONSTANTS.login;
+  /**
+   * Alert identifier
+   */
+  $scope.alertId = ALERTS_CONSTANTS.login;
 
-    /**
-     * If not opened, open it.
-     */
-    if (!AccountModal.isOpen) {
-      AccountModal.openWithState(ACCOUNT_FORM_STATE.login);
-    }
+  /**
+   * If not opened, open it.
+   */
+  if (!AccountModal.isOpen) {
+    AccountModal.openWithState(ACCOUNT_FORM_STATE.login);
+  }
 
-    /**
-     * Login user information.
-     */
-    $scope.loginData = {
+  /**
+   * Login user information.
+   */
+  $scope.loginData = {
     email: '',
     password: '',
   };
 
-    /**
-     * Login functionality.
-     */
-    $scope.login = function (loginData) {
+  /**
+   * Login functionality.
+   */
+  $scope.login = function (loginData) {
     if ($scope.loginForm.$valid && !$scope.isRequestPending) {
 
       // Show the loading bar
@@ -60,5 +58,6 @@ export default
         });
     }
   };
-  }
+}
 
+export default AccountLoginController;

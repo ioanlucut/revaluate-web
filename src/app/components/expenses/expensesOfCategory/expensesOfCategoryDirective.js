@@ -112,7 +112,7 @@ function ExpensesOfCategoryController(ALERTS_EVENTS, $scope, $rootScope, $timeou
 
 }
 
-export default function () {
+function expensesOfCategoryDirective() {
   return {
     restrict: 'E',
     scope: {
@@ -128,3 +128,4 @@ export default function () {
   };
 }
 
+export default expensesOfCategoryDirective;

@@ -1,4 +1,4 @@
-export default function (ENV, OAUTH2_URLS, OAUTH2_SCOPE, $q) {
+function SocialConnectService(ENV, OAUTH2_URLS, OAUTH2_SCOPE, $q) {
 
   // ---
   // Initialize HELLO.
@@ -62,3 +62,4 @@ export default function (ENV, OAUTH2_URLS, OAUTH2_SCOPE, $q) {
   };
 }
 
+export default SocialConnectService;

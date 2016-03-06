@@ -1,18 +1,17 @@
-export default
+/* Focus the first erroneous input on form submit */
 
-  /* Focus the first erroneous input on form submit */
+function focusFirstErrorDirective() {
+  return {
+    restrict: 'A',
+    link: function (scope, el, attrs) {
 
-  function () {
-      return {
-        restrict: 'A',
-        link: function (scope, el, attrs) {
+      var errorSelector = attrs.focusFirstError || '.has-error input';
 
-          var errorSelector = attrs.focusFirstError || '.has-error input';
+      el.on('submit', function () {
+        el.find(errorSelector).first().focus();
+      });
+    },
+  };
+}
 
-          el.on('submit', function () {
-            el.find(errorSelector).first().focus();
-          });
-        },
-      };
-    }
-
+export default focusFirstErrorDirective;

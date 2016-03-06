@@ -1,6 +1,6 @@
 export default
 
-  {
-      feedback: 'account/sendFeedback',
-    };
+{
+  feedback: 'account/sendFeedback',
+};
 

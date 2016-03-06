@@ -1,16 +1,15 @@
-export default function ExpensesController(
-  EXPENSE_EVENTS,
-  ALERTS_EVENTS,
-  USER_ACTIVITY_EVENTS,
-  ALERTS_CONSTANTS,
-  APP_CONFIG,
-  $scope,
-  $rootScope,
-  $timeout,
-  promiseTracker,
-  ExpenseService,
-  expensesQueryResponse,
-  categories) {
+function ExpensesController(EXPENSE_EVENTS,
+                            ALERTS_EVENTS,
+                            USER_ACTIVITY_EVENTS,
+                            ALERTS_CONSTANTS,
+                            APP_CONFIG,
+                            $scope,
+                            $rootScope,
+                            $timeout,
+                            promiseTracker,
+                            ExpenseService,
+                            expensesQueryResponse,
+                            categories) {
 
   const vm = this, INFINITE_SCROLL_EXPENSES_OFFSET = 50, INFINITE_SCROLL_TIMEOUT = 1500;
 
@@ -72,7 +71,7 @@ export default function ExpensesController(
   /**
    * Is no more expenses to be loaded
    */
-  this.isNoMoreExpensesToBeLoaded = function() {
+  this.isNoMoreExpensesToBeLoaded = function () {
     return this.expensesQueryResponse.currentSize === this.expensesQueryResponse.totalSize;
   };
 
@@ -234,3 +233,5 @@ export default function ExpensesController(
   });
 
 }
+
+export default ExpensesController;

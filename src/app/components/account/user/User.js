@@ -1,6 +1,4 @@
-export default
-
-function (SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
+function User(SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
   return {
 
     $new: function () {
@@ -176,3 +174,4 @@ function (SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
   };
 }
 
+export default User;

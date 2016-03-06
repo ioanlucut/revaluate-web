@@ -1,8 +1,6 @@
-export default
-
 /* Account modal toggle */
 
-function (AccountModal) {
+function accountModalToggleDirective(AccountModal) {
   return {
     restrict: 'A',
     link: function (scope, el, attrs) {
@@ -13,3 +11,4 @@ function (AccountModal) {
   };
 }
 
+export default accountModalToggleDirective;

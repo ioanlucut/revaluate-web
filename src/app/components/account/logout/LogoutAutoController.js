@@ -1,16 +1,15 @@
-export default
-
 /**
  * Logout controller responsible for user logout action.
  */
-  function ($scope, $timeout, $controller) {
+function LogoutAutoController($scope, $timeout, $controller) {
 
-    var
-      TIMEOUT = 1500,
-      vm = $controller('LogoutController', { $scope: $scope });
+  var
+    TIMEOUT = 1500,
+    vm = $controller('LogoutController', { $scope: $scope });
 
-    $timeout(function () {
+  $timeout(function () {
     vm.logOut();
   }, TIMEOUT);
-  }
+}
 
+export default LogoutAutoController;

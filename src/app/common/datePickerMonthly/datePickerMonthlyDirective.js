@@ -144,7 +144,7 @@ function DatePickerMonthlyController() {
 
 }
 
-export default function () {
+function datePickerMonthlyDirective() {
   return {
     restrict: 'E',
     scope: {
@@ -163,3 +163,4 @@ export default function () {
   };
 }
 
+export default datePickerMonthlyDirective;

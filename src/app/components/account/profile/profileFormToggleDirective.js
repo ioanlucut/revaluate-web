@@ -1,9 +1,7 @@
-export default
-
 /**
  * Directive responsible for switching update profile forms between them.
  */
-  function (ProfileFormToggle, ACCOUNT_FORM_STATE) {
+function profileFormToggleDirective(ProfileFormToggle, ACCOUNT_FORM_STATE) {
   return {
     restrict: 'A',
     link: function (scope) {
@@ -18,3 +16,4 @@ export default
   };
 }
 
+export default profileFormToggleDirective;

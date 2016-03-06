@@ -1,13 +1,12 @@
-export default
+function friendlyMonthDayFilter() {
+  return function (date) {
 
-  function () {
-      return function (date) {
-
-        if (!_.isDate(date)) {
-          date = moment(new Date(date));
-        }
-
-        return moment(date).format('D');
-      };
+    if (!_.isDate(date)) {
+      date = moment(new Date(date));
     }
 
+    return moment(date).format('D');
+  };
+}
+
+export default friendlyMonthDayFilter;

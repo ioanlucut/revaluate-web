@@ -1,6 +1,4 @@
-export default
-
-function ($rootScope, $scope, $timeout, ALERTS_EVENTS, ALERTS_CONSTANTS, StatesHandler, User, AuthService, USER_ACTIVITY_EVENTS, APP_CONFIG) {
+function SignUpController($rootScope, $scope, $timeout, ALERTS_EVENTS, ALERTS_CONSTANTS, StatesHandler, User, AuthService, USER_ACTIVITY_EVENTS, APP_CONFIG) {
 
   /**
    * Alert identifier
@@ -62,3 +60,4 @@ function ($rootScope, $scope, $timeout, ALERTS_EVENTS, ALERTS_CONSTANTS, StatesH
 
 }
 
+export default SignUpController;

@@ -80,7 +80,7 @@ function AddExpenseController(EXPENSE_EVENTS, APP_CONFIG, $scope, $rootScope, Ex
 
 }
 
-export default function () {
+function expenseAddDirective() {
   return {
     restrict: 'A',
     scope: {
@@ -95,3 +95,4 @@ export default function () {
   };
 }
 
+export default expenseAddDirective;
