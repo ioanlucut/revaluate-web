@@ -12,7 +12,7 @@ export default angular
   .service('ImportService', ImportService)
   .service('ImportTransformerService', ImportTransformerService)
   .factory('ExpensesImport', importObj)
-  .constant('IMPORT_TYPES', importConstants)
+  .constant('IMPORT_CONSTANTS', importConstants)
   .config(($stateProvider, USER_ACTIVITY_EVENTS) => {
 
     $stateProvider
@@ -44,11 +44,11 @@ export default angular
             return CategoryService.getAllCategories();
           },
 
-          importType($q, $stateParams, IMPORT_TYPES, $state) {
+          importType($q, $stateParams, IMPORT_CONSTANTS, $state) {
             const deferred = $q.defer();
 
-            if (IMPORT_TYPES[$stateParams.type]) {
-              deferred.resolve(IMPORT_TYPES[$stateParams.type]);
+            if (IMPORT_CONSTANTS.IMPORT_TYPES[$stateParams.type]) {
+              deferred.resolve(IMPORT_CONSTANTS.IMPORT_TYPES[$stateParams.type]);
             } else {
               $state.go('404');
             }
