@@ -2,7 +2,7 @@ export default  function ($q,
                           $scope,
                           $rootScope,
                           $timeout,
-                          IMPORT_PARSE_ANALYSE_URLS,
+                          IMPORT_CONSTANTS,
                           importType,
                           FileUploader,
                           ImportService,
@@ -84,7 +84,7 @@ export default  function ($q,
   // Define uploader.
   // ---
   const uploader = $scope.uploader = new FileUploader({
-    url: URLTo.api(IMPORT_PARSE_ANALYSE_URLS[importType]),
+    url: URLTo.api(IMPORT_CONSTANTS.IMPORT_PARSE_ANALYSE_URLS[importType]),
     headers: {
       Authorization: `Bearer ${SessionService.getJwtToken()}`,
     },
