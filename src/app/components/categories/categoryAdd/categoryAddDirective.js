@@ -32,7 +32,7 @@ function AddCategoryController(CATEGORY_EVENTS, $scope, promiseTracker, Category
   function saveCategory() {
     CategoryService
       .createCategory(vm.category, vm.saveTracker)
-      .then(function categoryAddDirective(createdCategory) {
+      .then(function (createdCategory) {
         $scope.$emit(CATEGORY_EVENTS.isCreated, { category: createdCategory });
         vm.initOrResetAddCategory();
       })
@@ -44,7 +44,7 @@ function AddCategoryController(CATEGORY_EVENTS, $scope, promiseTracker, Category
 
 }
 
-export default function ($rootScope, promiseTracker, Category, CategoryService, CategoryColorService, CATEGORY_EVENTS) {
+function categoryAddDirective($rootScope, promiseTracker, Category, CategoryService, CategoryColorService, CATEGORY_EVENTS) {
   return {
     restrict: 'A',
     scope: {

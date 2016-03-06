@@ -4,7 +4,7 @@
 function strongPasswordDirective() {
   return {
     require: 'ngModel',
-    link: function (scope, el, attr, ngModel) {
+    link(scope, el, attr, ngModel) {
 
       /**
        * Check whether a password is strong enough.
@@ -16,9 +16,7 @@ function strongPasswordDirective() {
         return !!password && password.length >= 7;
       }
 
-      ngModel.$validators.strongPassword = function (password) {
-        return isStrongPassword(password);
-      };
+      ngModel.$validators.strongPassword = password => isStrongPassword(password);
     },
   };
 }

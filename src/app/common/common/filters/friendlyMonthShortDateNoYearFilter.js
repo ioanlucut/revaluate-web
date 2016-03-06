@@ -1,5 +1,5 @@
 function friendlyMonthShortDateNoYearFilter() {
-  return function (date) {
+  return date => {
 
     if (!_.isDate(date)) {
       date = moment(new Date(date));

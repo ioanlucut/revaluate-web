@@ -9,7 +9,7 @@ function flashMessagesDirective() {
     },
     restrict: 'A',
     templateUrl: '/app/common/flashMessage/flashMessagesDirective.tpl.html',
-    link: function () {
+    link() {
     },
   };
 }

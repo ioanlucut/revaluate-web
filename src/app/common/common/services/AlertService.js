@@ -1,46 +1,34 @@
 // or just use "success", "info", "warning" or "danger" shortcut methods:
 function AlertService(ngToast) {
 
-  this.addMessage = function (message) {
-    return ngToast.create(message);
-  };
+  this.addMessage = message => ngToast.create(message);
 
-  this.addMessageWithSettings = function (className, content) {
-    return ngToast.create({
-      className: className,
-      content: content,
-    });
-  };
+  this.addMessageWithSettings = (className, content) => ngToast.create({
+    className,
+    content,
+  });
 
-  this.addSuccess = function (content) {
-    return ngToast.success({
-      content: content,
-    });
-  };
+  this.addSuccess = content => ngToast.success({
+    content,
+  });
 
-  this.addInfo = function (content) {
-    return ngToast.info({
-      content: content,
-    });
-  };
+  this.addInfo = content => ngToast.info({
+    content,
+  });
 
-  this.addWarning = function (content) {
-    return ngToast.warning({
-      content: content,
-    });
-  };
+  this.addWarning = content => ngToast.warning({
+    content,
+  });
 
-  this.addDanger = function (content) {
-    return ngToast.danger({
-      content: content,
-    });
-  };
+  this.addDanger = content => ngToast.danger({
+    content,
+  });
 
-  this.dismissMessage = function (toast) {
+  this.dismissMessage = toast => {
     ngToast.dismiss(toast);
   };
 
-  this.dismissAll = function () {
+  this.dismissAll = () => {
     ngToast.dismiss();
   };
 

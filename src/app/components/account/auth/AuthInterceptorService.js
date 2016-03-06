@@ -7,7 +7,7 @@ function AuthInterceptorService($rootScope, $q, AUTH_EVENTS) {
     /**
      * Response error interceptor.
      */
-    responseError: function (response) {
+    responseError(response) {
       if (response.status === 401) {
         $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated, response);
       }

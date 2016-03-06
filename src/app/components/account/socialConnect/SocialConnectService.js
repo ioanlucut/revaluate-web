@@ -16,22 +16,22 @@ function SocialConnectService(ENV, OAUTH2_URLS, OAUTH2_SCOPE, $q) {
   /**
    * Connect with provided provider
    */
-  this.connect = function (provider) {
-    var deferred = $q.defer();
+  this.connect = provider => {
+    const deferred = $q.defer();
 
     hello(provider)
-      .login({ scope: OAUTH2_SCOPE }, function () {
+      .login({ scope: OAUTH2_SCOPE }, () => {
 
         hello(provider)
           .api(provider === 'google' ? '/me' : '/me?fields=id,first_name,last_name,email,locale,verified,picture')
-          .then(function (me) {
+          .then(me => {
             deferred.resolve({
               firstName: me.first_name,
               lastName: me.last_name,
               email: me.email,
               picture: me.picture,
             });
-          }, function (response) {
+          }, response => {
 
             deferred.reject(response);
           });
@@ -43,23 +43,17 @@ function SocialConnectService(ENV, OAUTH2_URLS, OAUTH2_SCOPE, $q) {
   /**
    * Connect with app to integrate and get profile.
    */
-  this.connectWithAppGet = function (provider) {
-    return hello(provider)
-      .login({ scope: 'identify', response_type: 'code' })
-      .then(function (authCallResponse) {
-        return hello(provider)
-          .api('/me')
-          .then(function (me) {
-            return {
-              accessToken: authCallResponse.authResponse.access_token,
-              scopes: authCallResponse.authResponse.scope,
-              userId: me.user_id,
-              teamId: me.team_id,
-              teamName: me.team,
-            };
-          });
-      });
-  };
+  this.connectWithAppGet = provider => hello(provider)
+    .login({ scope: 'identify', response_type: 'code' })
+    .then(authCallResponse => hello(provider)
+    .api('/me')
+    .then(me => ({
+    accessToken: authCallResponse.authResponse.access_token,
+    scopes: authCallResponse.authResponse.scope,
+    userId: me.user_id,
+    teamId: me.team_id,
+    teamName: me.team,
+  })));
 }
 
 export default SocialConnectService;

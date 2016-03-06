@@ -1,10 +1,10 @@
 function postAddExpenseFocus($timeout, EXPENSE_EVENTS) {
   return {
     restrict: 'A',
-    link: function (scope, el) {
+    link(scope, el) {
 
       function focus() {
-        $timeout(function () {
+        $timeout(() => {
           el.focus();
         });
       }

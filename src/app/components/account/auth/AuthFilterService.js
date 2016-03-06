@@ -1,9 +1,14 @@
 /**
  * Authentication service filter used to redirect user to the home page if it is already logged in.
  */
-function AuthFilterService(AuthService, StatesHandler, User, STATES, flash, ALERTS_EVENTS, ALERTS_CONSTANTS) {
+function AuthFilterService(
+  AuthService,
+  StatesHandler,
+  User,
+  flash,
+  ALERTS_CONSTANTS) {
 
-  return function (event, toState) {
+  return (event, toState) => {
     if (
       (toState.url === '/account' || toState.name === 'home') && AuthService.isAuthenticated()) {
 

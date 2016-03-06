@@ -1,14 +1,13 @@
 /**
  * Forgot password controller responsible for user forgot password action.
  */
-function AccountForgotPasswordController($state,
-                                         $scope,
-                                         ALERTS_EVENTS,
-                                         ALERTS_CONSTANTS,
-                                         AuthService,
-                                         AUTH_EVENTS,
-                                         ACCOUNT_FORM_STATE,
-                                         AccountModal) {
+function AccountForgotPasswordController(
+  $scope,
+  ALERTS_EVENTS,
+  ALERTS_CONSTANTS,
+  AuthService,
+  ACCOUNT_FORM_STATE,
+  AccountModal) {
 
   /**
    * Alert identifier

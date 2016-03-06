@@ -1,4 +1,13 @@
-function ValidatePasswordResetTokenController($scope, $timeout, ALERTS_EVENTS, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult, ALERTS_CONSTANTS) {
+function ValidatePasswordResetTokenController(
+  $scope,
+  $timeout,
+  ALERTS_EVENTS,
+  AuthService,
+  StatesHandler,
+  ProfileFormToggle,
+  ACCOUNT_FORM_STATE,
+  validateTokenResult,
+  ALERTS_CONSTANTS) {
 
   /**
    * Alert identifier
@@ -20,25 +29,25 @@ function ValidatePasswordResetTokenController($scope, $timeout, ALERTS_EVENTS, A
    * Reset password data functionality.
    * @param resetPasswordData
    */
-  $scope.resetPassword = function (resetPasswordData) {
+  $scope.resetPassword = resetPasswordData => {
     if ($scope.resetPasswordForm.$valid) {
 
       AuthService
         .resetPasswordWithToken(resetPasswordData.email, resetPasswordData.password, resetPasswordData.passwordConfirmation, resetPasswordData.token)
-        .then(function () {
+        .then(() => {
           $scope.successfullyReseted = true;
           ProfileFormToggle.setState(ACCOUNT_FORM_STATE.resetPasswordSuccessfully);
 
           // Log in the user, and forward it to the expenses page.
           AuthService
             .login(resetPasswordData.email, resetPasswordData.password)
-            .then(function () {
-              $timeout(function () {
+            .then(() => {
+              $timeout(() => {
                 StatesHandler.goToExpenses();
               }, 1500);
             });
         })
-        .catch(function () {
+        .catch(() => {
           /* If bad feedback from server */
           $scope.badPostSubmitResponse = true;
 

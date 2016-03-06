@@ -1,12 +1,11 @@
 function formatPriceDirective() {
   return {
     require: 'ngModel',
-    link: function (scope, elm, attrs, ctrl) {
-      var DEFAULT_DECIMALS = 2,
-        decimals = (!_.isUndefined(attrs.decimals) && _.isNumber(_.parseInt(attrs.decimals))) ? _.parseInt(attrs.decimals) : DEFAULT_DECIMALS;
+    link(scope, elm, attrs, ctrl) {
+      const DEFAULT_DECIMALS = 2, decimals = (!_.isUndefined(attrs.decimals) && _.isNumber(_.parseInt(attrs.decimals))) ? _.parseInt(attrs.decimals) : DEFAULT_DECIMALS;
 
       elm
-        .bind('blur', function () {
+        .bind('blur', () => {
           if (!ctrl.$modelValue) {
             return;
           }
@@ -15,7 +14,7 @@ function formatPriceDirective() {
           ctrl.$render();
         });
 
-      ctrl.$formatters.push(function (value) {
+      ctrl.$formatters.push(value => {
         if (_.isUndefined(value) || _.isNaN(value)) {
           return null;
         }
@@ -23,7 +22,7 @@ function formatPriceDirective() {
         return asViewValue(value);
       });
 
-      ctrl.$parsers.push(function (inputValue) {
+      ctrl.$parsers.push(inputValue => {
         if (_.isUndefined(inputValue) || _.isNaN(inputValue)) {
           return null;
         }

@@ -3,8 +3,8 @@
 function accountModalToggleDirective(AccountModal) {
   return {
     restrict: 'A',
-    link: function (scope, el, attrs) {
-      el.on('click', function () {
+    link(scope, el, attrs) {
+      el.on('click', () => {
         AccountModal.openWithState(attrs.accountModalToggle);
       });
     },

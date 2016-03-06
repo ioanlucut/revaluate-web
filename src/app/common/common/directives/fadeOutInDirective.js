@@ -1,12 +1,10 @@
 function fadeOutInDirective() {
   return {
     restrict: 'A',
-    link: function (scope, el, attrs) {
-      var FADE_DURATION = 500,
-        FADE_IN_OPACITY_VALUE = 1,
-        FADE_OUT_OPACITY_VALUE = 0.5;
+    link(scope, el, attrs) {
+      const FADE_DURATION = 500, FADE_IN_OPACITY_VALUE = 1, FADE_OUT_OPACITY_VALUE = 0.5;
 
-      scope.$watch(attrs.fadeWhen, function (val, valOld) {
+      scope.$watch(attrs.fadeWhen, (val, valOld) => {
         if (_.isUndefined(val) && _.isUndefined(valOld)) {
           return;
         }

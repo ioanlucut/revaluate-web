@@ -1,12 +1,12 @@
 function escapeHtmlDirective() {
   return {
     require: '?ngModel',
-    link: function (scope, elem, attrs, ctrl) {
+    link(scope, elem, attrs, ctrl) {
       if (!ctrl) {
         return;
       }
 
-      ctrl.$parsers.unshift(function (value) {
+      ctrl.$parsers.unshift(value => {
         if (value === '' || value === null || value === undefined) {
           // null means that there is no value which is fine
           return null;

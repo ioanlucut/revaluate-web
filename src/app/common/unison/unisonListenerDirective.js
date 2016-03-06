@@ -1,10 +1,10 @@
 function unisonListenerDirective(UNISON_BREAKPOINTS, UNISON_EVENTS) {
   return {
     restrict: 'E',
-    link: function (scope) {
+    link(scope) {
 
       Unison
-        .on('change', function (bp) {
+        .on('change', bp => {
           switch (bp.name) {
             case UNISON_BREAKPOINTS.USN_X_SMALL.name:
             case UNISON_BREAKPOINTS.USN_SMALL.name:

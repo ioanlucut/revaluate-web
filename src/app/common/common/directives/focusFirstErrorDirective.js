@@ -3,11 +3,11 @@
 function focusFirstErrorDirective() {
   return {
     restrict: 'A',
-    link: function (scope, el, attrs) {
+    link(scope, el, attrs) {
 
-      var errorSelector = attrs.focusFirstError || '.has-error input';
+      const errorSelector = attrs.focusFirstError || '.has-error input';
 
-      el.on('submit', function () {
+      el.on('submit', () => {
         el.find(errorSelector).first().focus();
       });
     },

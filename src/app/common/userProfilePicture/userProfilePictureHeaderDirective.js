@@ -2,8 +2,8 @@ function userProfilePictureHeaderDirective() {
   return {
     restrict: 'E',
     scope: {},
-    controller: function ($scope, $rootScope) {
-      var userProfileVm = this;
+    controller($scope, $rootScope) {
+      const userProfileVm = this;
 
       /**
        * Current user.
@@ -14,7 +14,7 @@ function userProfilePictureHeaderDirective() {
     bindToController: true,
     controllerAs: 'userProfileVm',
     templateUrl: '/app/common/userProfilePicture/userProfilePictureHeaderDirective.tpl.html',
-    link: function () {
+    link() {
     },
   };
 }

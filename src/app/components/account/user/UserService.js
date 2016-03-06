@@ -15,29 +15,29 @@ function UserService($http, $q, USER_URLS) {
    */
   this.isUnique = function (email) {
     // Create deferred
-    var deferred = $q.defer();
+    const deferred = $q.defer();
 
     if (!_.isUndefined(this.uniqueEmailCache[email])) {
 
       // Use the value from cache
       deferred.resolve({
         isUnique: this.uniqueEmailCache[email],
-        email: email,
+        email,
       });
     } else {
       $http
-        .get(URLTo.api(USER_URLS.userUnique), { params: { email: email } })
+        .get(URLTo.api(USER_URLS.userUnique), { params: { email } })
         .then(_.bind(function (response) {
           this.uniqueEmailCache[email] = response.data.isUniqueEmail;
           deferred.resolve({
             isUnique: response.data.isUniqueEmail,
-            email: email,
+            email,
           });
         }, this))
-        .catch(function () {
+        .catch(() => {
           deferred.resolve({
             isUnique: false,
-            email: email,
+            email,
           });
         });
     }

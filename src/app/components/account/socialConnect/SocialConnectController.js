@@ -1,6 +1,17 @@
-function SocialConnectController($rootScope, $scope, $q, $timeout, SocialConnectService, ALERTS_EVENTS, ALERTS_CONSTANTS, StatesHandler, User, APP_CONFIG, AuthService) {
+function SocialConnectController(
+  $rootScope,
+  $scope,
+  $q,
+  $timeout,
+  SocialConnectService,
+  ALERTS_EVENTS,
+  ALERTS_CONSTANTS,
+  StatesHandler,
+  User,
+  APP_CONFIG,
+  AuthService) {
 
-  var vm = this;
+  const vm = this;
 
   /**
    * Alert identifier
@@ -10,22 +21,20 @@ function SocialConnectController($rootScope, $scope, $q, $timeout, SocialConnect
   /*
    * Connect functionality.
    */
-  vm.connectWith = function (provider) {
+  vm.connectWith = provider => {
     if (!vm.isRequestPending) {
 
       vm.isRequestPending = true;
 
       SocialConnectService
         .connect(provider)
-        .then(function (response) {
-          var userType = _.find(APP_CONFIG.USER_TYPES, function (userTypeEntry) {
-            return userTypeEntry.indexOf(provider.toUpperCase()) > -1;
-          });
+        .then(response => {
+          const userType = _.find(APP_CONFIG.USER_TYPES, userTypeEntry => userTypeEntry.indexOf(provider.toUpperCase()) > -1);
 
           return AuthService
             .connectViaOauth(response.email,
               _.extend(response, {
-                userType: userType,
+                userType,
                 currency: {
                   currencyCode: 'EUR',
                 },
@@ -35,7 +44,7 @@ function SocialConnectController($rootScope, $scope, $q, $timeout, SocialConnect
                 },
               });
         })
-        .then(function () {
+        .then(() => {
           vm.isRequestPending = false;
           $scope.$emit(ALERTS_EVENTS.CLEAR, {
             alertId: vm.alertId,
@@ -43,7 +52,7 @@ function SocialConnectController($rootScope, $scope, $q, $timeout, SocialConnect
 
           StatesHandler.goToExpenses();
         })
-        .catch(function (response) {
+        .catch(response => {
           /* If bad feedback from server */
           vm.badPostSubmitResponse = true;
           vm.isRequestPending = false;

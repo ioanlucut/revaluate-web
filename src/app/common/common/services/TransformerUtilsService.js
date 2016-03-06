@@ -9,8 +9,8 @@ function TransformerUtilsService() {
    * @param targetObject
    * @param skipKeys
    */
-  this.copyKeysFromTo = function (sourceObject, targetObject, skipKeys) {
-    _.each(_.keys(sourceObject), function (key) {
+  this.copyKeysFromTo = (sourceObject, targetObject, skipKeys) => {
+    _.each(_.keys(sourceObject), key => {
       if (!(skipKeys && _.contains(skipKeys, key))) {
         targetObject[key] = sourceObject[key];
       }
@@ -20,10 +20,7 @@ function TransformerUtilsService() {
   /**
    * Sanitize recipients (remove duplicates).
    */
-  this.sanitizeRecipients = function (recipients) {
-
-    return _.uniq(recipients, 'email');
-  };
+  this.sanitizeRecipients = recipients => _.uniq(recipients, 'email');
 }
 
 export default TransformerUtilsService;

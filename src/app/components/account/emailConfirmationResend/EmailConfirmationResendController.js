@@ -1,6 +1,14 @@
-function EmailConfirmationResendController($scope, $rootScope, $timeout, ALERTS_EVENTS, AuthService, StatesHandler, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {
+function EmailConfirmationResendController(
+  $scope,
+  $rootScope,
+  $timeout,
+  ALERTS_EVENTS,
+  AuthService,
+  StatesHandler,
+  ACCOUNT_FORM_STATE,
+  ALERTS_CONSTANTS) {
 
-  var TIMEOUT_PENDING = 300;
+  const TIMEOUT_PENDING = 300;
 
   /**
    * Alert identifier
@@ -12,11 +20,11 @@ function EmailConfirmationResendController($scope, $rootScope, $timeout, ALERTS_
    */
   $scope.user = $rootScope.currentUser;
 
-  var sendConfirmationEmailData = {
+  const sendConfirmationEmailData = {
     email: $scope.user.model.email,
   };
 
-  $scope.sendConfirmationEmail = function (sendConfirmationEmailForm) {
+  $scope.sendConfirmationEmail = sendConfirmationEmailForm => {
     if (sendConfirmationEmailForm.$valid && !$scope.isRequestPending) {
 
       // Show the loading bar
@@ -24,13 +32,13 @@ function EmailConfirmationResendController($scope, $rootScope, $timeout, ALERTS_
 
       AuthService
         .requestConfirmationEmail(sendConfirmationEmailData.email)
-        .then(function () {
-          $timeout(function () {
+        .then(() => {
+          $timeout(() => {
             $scope.isRequestPending = false;
             $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Sent');
           }, TIMEOUT_PENDING);
         })
-        .catch(function () {
+        .catch(() => {
           /* If bad feedback from server */
           $scope.badPostSubmitResponse = true;
           $scope.isRequestPending = false;

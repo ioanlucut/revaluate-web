@@ -1,7 +1,16 @@
 /**
  * Login controller responsible for user login actions.
  */
-function AccountLoginController($scope, ALERTS_EVENTS, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountModal, StatesHandler, $timeout) {
+function AccountLoginController(
+  $scope,
+  ALERTS_EVENTS,
+  ALERTS_CONSTANTS,
+  AuthService,
+  AUTH_EVENTS,
+  ACCOUNT_FORM_STATE,
+  AccountModal,
+  StatesHandler,
+  $timeout) {
 
   /**
    * Alert identifier
@@ -26,7 +35,7 @@ function AccountLoginController($scope, ALERTS_EVENTS, ALERTS_CONSTANTS, AuthSer
   /**
    * Login functionality.
    */
-  $scope.login = function (loginData) {
+  $scope.login = loginData => {
     if ($scope.loginForm.$valid && !$scope.isRequestPending) {
 
       // Show the loading bar
@@ -35,16 +44,16 @@ function AccountLoginController($scope, ALERTS_EVENTS, ALERTS_CONSTANTS, AuthSer
 
       AuthService
         .login(loginData.email, loginData.password)
-        .then(function () {
+        .then(() => {
 
           $scope.isWaitingForCloseEvent = true;
-          StatesHandler.goToExpenses(function () {
-            $timeout(function () {
+          StatesHandler.goToExpenses(() => {
+            $timeout(() => {
               $scope.isWaitingForCloseEvent = false;
             }, 1000);
           });
         })
-        .catch(function () {
+        .catch(() => {
           /* If bad feedback from server */
           $scope.badPostSubmitResponse = true;
 
@@ -53,7 +62,7 @@ function AccountLoginController($scope, ALERTS_EVENTS, ALERTS_CONSTANTS, AuthSer
             alertId: $scope.alertId,
           });
         })
-        .finally(function () {
+        .finally(() => {
           $scope.isRequestPending = false;
         });
     }

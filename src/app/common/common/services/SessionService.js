@@ -8,15 +8,15 @@ function SessionService($localStorage) {
    *
    * @type {string}
    */
-  var sessionDataKey = 'auth_session_data';
-  var jwtTokenKey = 'auth_jwt_token';
+  const sessionDataKey = 'auth_session_data';
+  const jwtTokenKey = 'auth_jwt_token';
 
   /**
    * Create session.
    *
    * @param data
    */
-  this.create = function (data, jwtToken) {
+  this.create = function(data, jwtToken) {
     this.setData(data);
     this.setJwtToken(jwtToken);
   };
@@ -26,7 +26,7 @@ function SessionService($localStorage) {
    *
    * @param data
    */
-  this.setData = function (data) {
+  this.setData = data => {
 
     $localStorage[sessionDataKey] = angular.toJson(data);
   };
@@ -34,34 +34,28 @@ function SessionService($localStorage) {
   /**
    * Return the session data.
    */
-  this.getData = function () {
-    return angular.fromJson($localStorage[sessionDataKey]);
-  };
+  this.getData = () => angular.fromJson($localStorage[sessionDataKey]);
 
   /**
    * Set the token data.
    *
    * @param data
    */
-  this.setJwtToken = function (data) {
+  this.setJwtToken = data => {
     $localStorage[jwtTokenKey] = angular.toJson(data);
   };
 
   /**
    * Return the session data.
    */
-  this.getJwtToken = function () {
-    return angular.fromJson($localStorage[jwtTokenKey]);
-  };
+  this.getJwtToken = () => angular.fromJson($localStorage[jwtTokenKey]);
 
-  this.sessionExists = function () {
-    return $localStorage[sessionDataKey] && $localStorage[jwtTokenKey];
-  };
+  this.sessionExists = () => $localStorage[sessionDataKey] && $localStorage[jwtTokenKey];
 
   /**
    * Destroy session.
    */
-  this.destroy = function () {
+  this.destroy = () => {
     delete $localStorage[sessionDataKey];
     delete $localStorage[jwtTokenKey];
   };

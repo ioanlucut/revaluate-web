@@ -30,7 +30,7 @@ function CategoryEntryController(CATEGORY_EVENTS, $scope, $rootScope, promiseTra
   function updateCategory() {
     CategoryService
       .updateCategory(vm.categoryEntry, vm.updateTracker)
-      .then(function categoryEntryDirective(updatedCategory) {
+      .then(function (updatedCategory) {
         $rootScope.$broadcast(CATEGORY_EVENTS.isUpdated, { category: _.extend(vm.categoryEntry, updatedCategory) });
       })
       .catch(function () {
@@ -52,7 +52,7 @@ function CategoryEntryController(CATEGORY_EVENTS, $scope, $rootScope, promiseTra
   }
 }
 
-export default function ($rootScope, promiseTracker, CategoryService, CATEGORY_EVENTS) {
+function categoryEntryDirective($rootScope, promiseTracker, CategoryService, CATEGORY_EVENTS) {
   return {
     restrict: 'A',
     scope: {
