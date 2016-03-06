@@ -70,7 +70,7 @@ export default angular
   .directive('accountModal', accountModalDirective)
   .directive('accountModalToggle', accountModalToggleDirective)
 
-  .config(function ($stateProvider, $httpProvider, USER_ACTIVITY_EVENTS) {
+  .config(($stateProvider, $httpProvider, USER_ACTIVITY_EVENTS) => {
 
     // Register AuthInterceptor
     $httpProvider.interceptors.push('AuthInterceptor');
@@ -119,16 +119,16 @@ export default angular
         templateUrl: '/app/components/account/components/validatePasswordResetTokenAbstract/validatePasswordResetTokenValid.html',
         controller: 'ValidatePasswordResetTokenController',
         resolve: {
-          validateTokenResult: function ($stateParams, $q, AuthService, $state) {
-            var deferred = $q.defer();
+          validateTokenResult($stateParams, $q, AuthService, $state) {
+            const deferred = $q.defer();
 
             AuthService
               .validatePasswordResetToken($stateParams.email, $stateParams.token)
-              .then(function (response) {
+              .then(response => {
                 deferred.resolve({ email: $stateParams.email, token: $stateParams.token });
                 return response;
               })
-              .catch(function (response) {
+              .catch(response => {
 
                 $state.go('account:validatePasswordResetToken.invalid');
                 return response;
@@ -172,12 +172,12 @@ export default angular
         url: '/{email}/{token}',
         templateUrl: '/app/components/account/emailConfirmationResend/emailConfirmationResendValid.html',
         resolve: {
-          validateTokenResult: function (AuthService, $rootScope, $stateParams, $q, $state, AUTH_EVENTS) {
-            var deferred = $q.defer();
+          validateTokenResult(AuthService, $rootScope, $stateParams, $q, $state, AUTH_EVENTS) {
+            const deferred = $q.defer();
 
             AuthService
               .validateConfirmationEmailToken($stateParams.email, $stateParams.token)
-              .then(function (response) {
+              .then(response => {
 
                 // ---
                 // Update user if logged in.
@@ -192,7 +192,7 @@ export default angular
                 deferred.resolve({});
                 return response;
               })
-              .catch(function (response) {
+              .catch(response => {
 
                 $state.go('account:confirmationEmail.invalid');
                 return response;
@@ -217,7 +217,7 @@ export default angular
       });
   })
 
-  .run(function ($rootScope, AuthFilter) {
+  .run(($rootScope, AuthFilter) => {
 
     // Setup route filters
     $rootScope.$on('$stateChangeStart', AuthFilter);

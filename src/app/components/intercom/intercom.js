@@ -6,7 +6,7 @@ export default angular
     'config',
   ])
   .service('IntercomUtilsService', IntercomUtilsService)
-  .config(function ($intercomProvider, ENV) {
+  .config(($intercomProvider, ENV) => {
     $intercomProvider
       .appID(ENV.intercomAppId);
     $intercomProvider

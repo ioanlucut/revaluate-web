@@ -1,8 +1,17 @@
 export default
 
-function InsightsAbstractController(UNISON_BREAKPOINTS, UNISON_EVENTS, $scope, $timeout, $rootScope, $filter, monthsPerYearsStatistics, resizeOnUpdate, getChartSetSize) {
+function InsightsAbstractController(
+  UNISON_BREAKPOINTS,
+  UNISON_EVENTS,
+  $scope,
+  $timeout,
+  $rootScope,
+  $filter,
+  monthsPerYearsStatistics,
+  resizeOnUpdate,
+  getChartSetSize) {
 
-  var vm = this;
+  const vm = this;
 
   /**
    * Month constant
@@ -40,23 +49,23 @@ function InsightsAbstractController(UNISON_BREAKPOINTS, UNISON_EVENTS, $scope, $
   // ---
   function getDefaultChartOptions() {
     return {
-      scaleLabel: function (label) {
+      scaleLabel(label) {
         return formatChartValue(label);
       },
 
-      multiTooltipTemplate: function (label) {
-        return label.datasetLabel + ' ' + formatChartValue(label);
+      multiTooltipTemplate(label) {
+        return `${label.datasetLabel} ${formatChartValue(label)}`;
       },
 
-      tooltipTemplate: function (label) {
-        return label.label + ' ' + formatChartValue(label);
+      tooltipTemplate(label) {
+        return `${label.label} ${formatChartValue(label)}`;
       },
     };
   }
 
   function formatChartValue(price) {
 
-    return $filter('currency')(price.value.toString(), '', vm.user.model.currency.fractionSize) + ' ' + vm.user.model.currency.symbol;
+    return `${$filter('currency')(price.value.toString(), '', vm.user.model.currency.fractionSize)} ${vm.user.model.currency.symbol}`;
   }
 
   // ---
@@ -67,26 +76,23 @@ function InsightsAbstractController(UNISON_BREAKPOINTS, UNISON_EVENTS, $scope, $
   // Updates bar data sets spacing values options (we do not want to have too fat bars - e.g. if there is only one column)
   // ---
   function adjustResizeChartOptionsAndSpacing(currentBreakpoint, chartSetSize) {
-    var breakpoint, numberOfSets, spacing;
+    let breakpoint, numberOfSets, spacing;
 
     if (!resizeOnUpdate) {
       return;
     }
 
-    breakpoint = _.find(UNISON_BREAKPOINTS, function (breakPointEntry) {
-      return breakPointEntry.name === currentBreakpoint;
-    });
+    breakpoint = _.find(UNISON_BREAKPOINTS, breakPointEntry => breakPointEntry.name === currentBreakpoint);
 
     if (breakpoint) {
       numberOfSets = chartSetSize || getChartSetSize();
-      spacing =
-        numberOfSets === 1 ? Math.floor(breakpoint.chartBarWidth * 1.5)
-          : Math.floor(breakpoint.chartBarWidth / numberOfSets);
+      spacing = numberOfSets === 1 ? Math.floor(breakpoint.chartBarWidth * 1.5)
+        : Math.floor(breakpoint.chartBarWidth / numberOfSets);
 
       // ---
       // Update spacing.
       // ---
-      $timeout(function () {
+      $timeout(() => {
         vm.barOptions = angular.extend(vm.barOptions, {
           barValueSpacing: spacing,
           barDatasetSpacing: spacing,
@@ -100,7 +106,7 @@ function InsightsAbstractController(UNISON_BREAKPOINTS, UNISON_EVENTS, $scope, $
   // Listen for the resize events.
   // ---
   $scope
-    .$on(UNISON_EVENTS.USN_FIRE, function (event, args) {
+    .$on(UNISON_EVENTS.USN_FIRE, (event, args) => {
       adjustResizeChartOptionsAndSpacing(args);
     });
 
@@ -108,7 +114,7 @@ function InsightsAbstractController(UNISON_BREAKPOINTS, UNISON_EVENTS, $scope, $
   // Listen for the chart reloaded event.
   // ---
   $scope
-    .$on('chartsLoaded', function (event, args) {
+    .$on('chartsLoaded', (event, args) => {
       adjustResizeChartOptionsAndSpacing(Unison.fetch.now().name, args.size);
     });
 }

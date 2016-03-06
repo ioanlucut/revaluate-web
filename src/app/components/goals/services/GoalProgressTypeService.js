@@ -1,10 +1,10 @@
 export default
 
   function GoalProgressTypeService() {
-    var THRESHOLD = 10;
+    const THRESHOLD = 10;
 
     function getMinMaxThreshold(of) {
-      var result = (THRESHOLD / 100) * of;
+      const result = (THRESHOLD / 100) * of;
 
       return {
         min: of - result,
@@ -12,15 +12,8 @@ export default
       };
     }
 
-    this.computeProgressBarType = function (goal) {
-      var currentValue = goal.goalStatus.currentValue,
-        targetValue = goal.value,
-        type = goal.goalTarget,
-        LEVEL_SUCCESS = 'success',
-        LEVEL_INFO = 'info',
-        LEVEL_WARNING = 'warning',
-        LEVEL_DANGER = 'danger',
-        thresholdTarget = getMinMaxThreshold(targetValue);
+    this.computeProgressBarType = goal => {
+      const currentValue = goal.goalStatus.currentValue, targetValue = goal.value, type = goal.goalTarget, LEVEL_SUCCESS = 'success', LEVEL_INFO = 'info', LEVEL_WARNING = 'warning', LEVEL_DANGER = 'danger', thresholdTarget = getMinMaxThreshold(targetValue);
 
       // 0, -10, 10
 

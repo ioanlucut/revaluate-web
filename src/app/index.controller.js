@@ -1,6 +1,26 @@
-'use strict';
-
-export default function IndexController(flash, $location, GreeterService, AlertService, $rootScope, $scope, $state, $timeout, $log, ALERTS_EVENTS, AuthService, AccountModal, IntercomUtilsService, MixpanelUtilsService, User, StatesHandler, AUTH_EVENTS, ALERTS_CONSTANTS, AUTH_MODAL, ERROR_INTERCEPTOR, ENV, APP_CONFIG) {
+export default function IndexController(
+  flash,
+  $location,
+  GreeterService,
+  AlertService,
+  $rootScope,
+  $scope,
+  $state,
+  $timeout,
+  $log,
+  ALERTS_EVENTS,
+  AuthService,
+  AccountModal,
+  IntercomUtilsService,
+  MixpanelUtilsService,
+  User,
+  StatesHandler,
+  AUTH_EVENTS,
+  ALERTS_CONSTANTS,
+  AUTH_MODAL,
+  ERROR_INTERCEPTOR,
+  ENV,
+  APP_CONFIG) {
 
   /**
    * Save the state on root scope
@@ -43,7 +63,7 @@ export default function IndexController(flash, $location, GreeterService, AlertS
    * Listen to login success event. If user is properly logged in,
    * then retrieve its profile this from cookie used for persistence.
    */
-  $scope.$on(AUTH_EVENTS.loginSuccess, function () {
+  $scope.$on(AUTH_EVENTS.loginSuccess, () => {
     $rootScope.currentUser = User.$new().loadFromSession();
     AuthService.redirectToAttemptedUrl();
 
@@ -67,7 +87,7 @@ export default function IndexController(flash, $location, GreeterService, AlertS
   /**
    * Sometimes we need to refresh the user from the local storage.
    */
-  $scope.$on(AUTH_EVENTS.refreshUser, function (event, args) {
+  $scope.$on(AUTH_EVENTS.refreshUser, (event, args) => {
     $rootScope.currentUser = User.$new().loadFromSession();
 
     // ---
@@ -90,7 +110,7 @@ export default function IndexController(flash, $location, GreeterService, AlertS
   /**
    * Listen to the session timeout event
    */
-  $scope.$on(AUTH_EVENTS.sessionTimeout, function () {
+  $scope.$on(AUTH_EVENTS.sessionTimeout, () => {
     if ( !ENV.isProduction ) {
       $log.log('Session timed out.');
     }
@@ -101,7 +121,7 @@ export default function IndexController(flash, $location, GreeterService, AlertS
   /**
    * Listen to the not authenticated event
    */
-  $scope.$on(AUTH_EVENTS.notAuthenticated, function () {
+  $scope.$on(AUTH_EVENTS.notAuthenticated, () => {
     if ( !ENV.isProduction ) {
       $log.log('Not authenticated.');
     }
@@ -114,7 +134,7 @@ export default function IndexController(flash, $location, GreeterService, AlertS
   /**
    * Listen to the logout event
    */
-  $scope.$on(AUTH_EVENTS.logoutSuccess, function () {
+  $scope.$on(AUTH_EVENTS.logoutSuccess, () => {
     $rootScope.currentUser = User.$new();
     if ( !ENV.isProduction ) {
       $log.log('Logged out.');
@@ -124,7 +144,7 @@ export default function IndexController(flash, $location, GreeterService, AlertS
   /**
    * Track events.
    */
-  $rootScope.$on('trackEvent', function (event, args) {
+  $rootScope.$on('trackEvent', (event, args) => {
     if ( !ENV.isProduction ) {
       return;
     }
@@ -136,7 +156,7 @@ export default function IndexController(flash, $location, GreeterService, AlertS
   /**
    * Track update user events.
    */
-  $rootScope.$on('updateUserStats', function (event, args) {
+  $rootScope.$on('updateUserStats', (event, args) => {
     if ( !ENV.isProduction ) {
       return;
     }
@@ -147,7 +167,7 @@ export default function IndexController(flash, $location, GreeterService, AlertS
   /**
    * Track activity
    */
-  $rootScope.$on('$stateChangeSuccess', function (event, toState) {
+  $rootScope.$on('$stateChangeSuccess', (event, toState) => {
     if ( toState.stateEventName ) {
       $scope.$emit('trackEvent', toState.stateEventName);
     }
@@ -158,7 +178,7 @@ export default function IndexController(flash, $location, GreeterService, AlertS
     $rootScope.greet = GreeterService.greet();
   });
 
-  $rootScope.$on('$viewContentLoaded', function () {
+  $rootScope.$on('$viewContentLoaded', () => {
     // ---
     // Close login modal if everything is loaded.
     // ---
@@ -170,14 +190,14 @@ export default function IndexController(flash, $location, GreeterService, AlertS
   /**
    * Listen to the internal server error
    */
-  $scope.$on(ERROR_INTERCEPTOR.status500, function () {
+  $scope.$on(ERROR_INTERCEPTOR.status500, () => {
     $state.go('500');
   });
 
   /**
    * Listen to the payment required error
    */
-  $scope.$on(ERROR_INTERCEPTOR.status402, function () {
+  $scope.$on(ERROR_INTERCEPTOR.status402, () => {
 
     flash.to(ALERTS_CONSTANTS.generalError).error = 'Payment method required.';
   });
@@ -185,11 +205,11 @@ export default function IndexController(flash, $location, GreeterService, AlertS
   // ---
   // Alerts.
   // ---
-  $scope.$on(ALERTS_EVENTS.INFO, function (event, args) {
+  $scope.$on(ALERTS_EVENTS.INFO, (event, args) => {
     AlertService.addInfo(args);
   });
 
-  $scope.$on(ALERTS_EVENTS.DANGER, function (event, args) {
+  $scope.$on(ALERTS_EVENTS.DANGER, (event, args) => {
     if ( args.alertId ) {
       flash.to(args.alertId).error = args.message;
     } else {
@@ -197,21 +217,21 @@ export default function IndexController(flash, $location, GreeterService, AlertS
     }
   });
 
-  $scope.$on(ALERTS_EVENTS.CLEAR, function (event, args) {
+  $scope.$on(ALERTS_EVENTS.CLEAR, (event, args) => {
     if ( args.alertId ) {
       flash.to(args.alertId).error = '';
     }
   });
 
-  $scope.$on(ALERTS_EVENTS.WARNING, function (event, args) {
+  $scope.$on(ALERTS_EVENTS.WARNING, (event, args) => {
     AlertService.addWarning(args);
   });
 
-  $scope.$on(ALERTS_EVENTS.SUCCESS, function (event, args) {
+  $scope.$on(ALERTS_EVENTS.SUCCESS, (event, args) => {
     if ( args.alertId ) {
       flash.to(args.alertId).success = args.message;
     } else {
       AlertService.addSuccess(args);
     }
   });
-};
+}

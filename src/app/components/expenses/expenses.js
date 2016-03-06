@@ -45,7 +45,7 @@ export default angular
   .controller('MonthlyDailyInsightsController', MonthlyDailyInsightsController)
   .controller('MonthlyGoalsController', MonthlyGoalsController)
   .factory('Expense', expenseFactory)
-  .config(function ($stateProvider, USER_ACTIVITY_EVENTS) {
+  .config(($stateProvider, USER_ACTIVITY_EVENTS) => {
 
     $stateProvider
 
@@ -64,11 +64,11 @@ export default angular
             controller: 'ExpensesController',
             controllerAs: 'expensesVm',
             resolve: {
-              expensesQueryResponse: function (ExpenseService) {
+              expensesQueryResponse(ExpenseService) {
                 return ExpenseService.getAllExpensesGrouped(0, 50);
               },
 
-              categories: function (CategoryService) {
+              categories(CategoryService) {
                 return CategoryService.getAllCategories();
               },
             },
@@ -78,8 +78,8 @@ export default angular
             controller: 'MonthlyDailyInsightsController',
             controllerAs: 'vm',
             resolve: {
-              insightsDaily: function (DatesUtils, InsightsService) {
-                var period = DatesUtils.fromLastMonthsToNow(1);
+              insightsDaily(DatesUtils, InsightsService) {
+                const period = DatesUtils.fromLastMonthsToNow(1);
 
                 return InsightsService
                   .fetchDailyInsightsFromTo(period.from, period.to);
@@ -91,8 +91,8 @@ export default angular
             controller: 'MonthlyGoalsController',
             controllerAs: 'vm',
             resolve: {
-              goals: function (GoalService, DatesUtils) {
-                var period = DatesUtils.fromLastMonthsToNow(1);
+              goals(GoalService, DatesUtils) {
+                const period = DatesUtils.fromLastMonthsToNow(1);
 
                 return GoalService
                   .getAllGoalsFromTo(period.from, period.to);

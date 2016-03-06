@@ -47,7 +47,7 @@ export default angular
   .filter('goalMessage', goalsMessagesFilter)
   .directive('uniqueCategoryPerGoal', uniqueCategoryPerGoalDirective)
   .filter('goalTarget', goalTargetFilter)
-  .config(function ($stateProvider, USER_ACTIVITY_EVENTS) {
+  .config(($stateProvider, USER_ACTIVITY_EVENTS) => {
 
     $stateProvider
 
@@ -63,19 +63,19 @@ export default angular
         templateUrl: '/app/components/goals/goals/goalsContent.tpl.html',
         controller: 'GoalsController',
         resolve: {
-          monthsPerYearsStatistics: function (StatisticService) {
+          monthsPerYearsStatistics(StatisticService) {
             return StatisticService
               .fetchGoalsMonthsPerYearStatistics();
           },
 
-          goals: function (GoalService, DatesUtils) {
-            var period = DatesUtils.fromLastMonthsToNow(1);
+          goals(GoalService, DatesUtils) {
+            const period = DatesUtils.fromLastMonthsToNow(1);
 
             return GoalService
               .getAllGoalsFromTo(period.from, period.to);
           },
 
-          categories: function (CategoryService) {
+          categories(CategoryService) {
             return CategoryService.getAllCategories();
           },
         },

@@ -1,6 +1,18 @@
-export default function MonthlyDailyInsightsController(EXPENSE_EVENTS, USER_ACTIVITY_EVENTS, ALERTS_EVENTS, $controller, $scope, $rootScope, $filter, InsightsGenerator, DatesUtils, InsightsService, promiseTracker, insightsDaily) {
+export default function MonthlyDailyInsightsController(
+  EXPENSE_EVENTS,
+  USER_ACTIVITY_EVENTS,
+  ALERTS_EVENTS,
+  $controller,
+  $scope,
+  $rootScope,
+  $filter,
+  InsightsGenerator,
+  DatesUtils,
+  InsightsService,
+  promiseTracker,
+  insightsDaily) {
 
-  var vm = this;
+  const vm = this;
 
   /**
    * Insights current year
@@ -16,12 +28,12 @@ export default function MonthlyDailyInsightsController(EXPENSE_EVENTS, USER_ACTI
   // Inherit from parent controller.
   // ---
   angular.extend(this, $controller('InsightsAbstractController', {
-    $scope: $scope,
-    $rootScope: $rootScope,
-    $filter: $filter,
+    $scope,
+    $rootScope,
+    $filter,
     monthsPerYearsStatistics: null,
     resizeOnUpdate: false,
-    getChartSetSize: function () {
+    getChartSetSize() {
     },
   }));
 
@@ -29,15 +41,15 @@ export default function MonthlyDailyInsightsController(EXPENSE_EVENTS, USER_ACTI
   // Customize look.
   // ---
   vm.barOptions = angular.extend(vm.barOptions, {
-    scaleLabel: function (label) {
+    scaleLabel(label) {
       return vm.formatChartValue(label);
     },
 
-    multiTooltipTemplate: function (label) {
+    multiTooltipTemplate(label) {
       return vm.formatChartValue(label);
     },
 
-    tooltipTemplate: function (label) {
+    tooltipTemplate(label) {
       return vm.formatChartValue(label);
     },
 
@@ -70,12 +82,12 @@ export default function MonthlyDailyInsightsController(EXPENSE_EVENTS, USER_ACTI
   prepareDataForChart();
 
   function loadInsights() {
-    var period = DatesUtils
+    const period = DatesUtils
       .fromLastMonthsToNow(1);
 
     InsightsService
       .fetchDailyInsightsFromTo(period.from, period.to, vm.loadTracker)
-      .then(function (receivedInsight) {
+      .then(receivedInsight => {
         // ---
         // Update everything.
         // ---
@@ -84,7 +96,7 @@ export default function MonthlyDailyInsightsController(EXPENSE_EVENTS, USER_ACTI
         prepareDataForChart();
         $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.insightsDailyFetched);
       })
-      .catch(function () {
+      .catch(() => {
         vm.badPostSubmitResponse = true;
         $scope.$emit(ALERTS_EVENTS.DANGER, {
           message: 'Could not fetch insights.',
@@ -109,15 +121,15 @@ export default function MonthlyDailyInsightsController(EXPENSE_EVENTS, USER_ACTI
   // Reload chart if necessary upon delete/update/create..
   // ---
 
-  $scope.$on(EXPENSE_EVENTS.isCreated, function (event, args) {
+  $scope.$on(EXPENSE_EVENTS.isCreated, (event, args) => {
     tryToReloadIfNecessary(args);
   });
 
-  $scope.$on(EXPENSE_EVENTS.isDeleted, function (event, args) {
+  $scope.$on(EXPENSE_EVENTS.isDeleted, (event, args) => {
     tryToReloadIfNecessary(args);
   });
 
-  $scope.$on(EXPENSE_EVENTS.isUpdated, function (event, args) {
+  $scope.$on(EXPENSE_EVENTS.isUpdated, (event, args) => {
     tryToReloadIfNecessary(args);
   });
 
@@ -125,14 +137,14 @@ export default function MonthlyDailyInsightsController(EXPENSE_EVENTS, USER_ACTI
     if ( args.expense ) {
       reloadIfRequired(args.expense);
     } else if ( args.expenses ) {
-      _.each(args.expenses, function (expenseCandidate) {
+      _.each(args.expenses, expenseCandidate => {
         reloadIfRequired(expenseCandidate);
       });
     }
   }
 
   function reloadIfRequired(expense) {
-    var isSameMonth = moment().isSame(moment(expense.spentDate), 'month');
+    const isSameMonth = moment().isSame(moment(expense.spentDate), 'month');
 
     if ( isSameMonth ) {
       vm.loadInsights();

@@ -1,8 +1,23 @@
 export default
 
-function InsightsMonthlyController(USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS, ALERTS_EVENTS, $controller, $scope, promiseTracker, DatesUtils, $rootScope, $filter, $timeout, InsightsGenerator, InsightsService, insightsMonthly, monthsPerYearsStatistics) {
+function InsightsMonthlyController(
+  USER_ACTIVITY_EVENTS,
+  INSIGHTS_CHARTS,
+  ALERTS_CONSTANTS,
+  ALERTS_EVENTS,
+  $controller,
+  $scope,
+  promiseTracker,
+  DatesUtils,
+  $rootScope,
+  $filter,
+  $timeout,
+  InsightsGenerator,
+  InsightsService,
+  insightsMonthly,
+  monthsPerYearsStatistics) {
 
-  var vm = this;
+  const vm = this;
 
   /**
    * Alert identifier
@@ -33,11 +48,11 @@ function InsightsMonthlyController(USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS
   // Inherit from parent controller.
   // ---
   angular.extend(this, $controller('InsightsAbstractController', {
-    $scope: $scope,
-    $timeout: $timeout,
-    $rootScope: $rootScope,
-    $filter: $filter,
-    monthsPerYearsStatistics: monthsPerYearsStatistics,
+    $scope,
+    $timeout,
+    $rootScope,
+    $filter,
+    monthsPerYearsStatistics,
     resizeOnUpdate: true,
     getChartSetSize: function getChartSetSize() {
       return vm.barInsightsPrepared.insightsBarData.length;
@@ -57,7 +72,7 @@ function InsightsMonthlyController(USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS
   /**
    * Sets te active chart displayed with the given chart type.
    */
-  vm.setActiveChart = function (chartType) {
+  vm.setActiveChart = chartType => {
     vm.activeChart = chartType;
   };
 
@@ -98,7 +113,7 @@ function InsightsMonthlyController(USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS
    * Load insights
    */
   function loadInsight(ofYearMonthDate) {
-    var period;
+    let period;
 
     if (vm.loadTracker.active()) {
 
@@ -110,7 +125,7 @@ function InsightsMonthlyController(USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS
 
     InsightsService
       .fetchMonthlyInsightsFromTo(period.from, period.to, vm.loadTracker)
-      .then(function (receivedInsight) {
+      .then(receivedInsight => {
         vm.insightsMonthly = receivedInsight;
         prepareDataForChart();
 
@@ -122,7 +137,7 @@ function InsightsMonthlyController(USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS
         });
         $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.insightsFetched);
       })
-      .catch(function () {
+      .catch(() => {
         vm.badPostSubmitResponse = true;
         $scope.$emit(ALERTS_EVENTS.DANGER, {
           message: 'Could not fetch insights.',

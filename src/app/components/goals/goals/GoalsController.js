@@ -1,8 +1,21 @@
 export default
 
-  function GoalsController(GOAL_EVENTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, ALERTS_CONSTANTS, $scope, $rootScope, StatisticService, DatesUtils, promiseTracker, GoalService, monthsPerYearsStatistics, goals, categories) {
+  function GoalsController(
+    GOAL_EVENTS,
+    ALERTS_EVENTS,
+    USER_ACTIVITY_EVENTS,
+    ALERTS_CONSTANTS,
+    $scope,
+    $rootScope,
+    StatisticService,
+    DatesUtils,
+    promiseTracker,
+    GoalService,
+    monthsPerYearsStatistics,
+    goals,
+    categories) {
 
-    var vm = this;
+    const vm = this;
 
     /**
      * Alert identifier
@@ -60,7 +73,7 @@ export default
      * Load goals
      */
     function loadGoals(yearMonthDate) {
-      var period;
+      let period;
 
       if (vm.loadTracker.active()) {
 
@@ -72,7 +85,7 @@ export default
 
       GoalService
         .getAllGoalsFromTo(period.from, period.to, vm.loadTracker)
-        .then(function (receivedGoals) {
+        .then(receivedGoals => {
           vm.goals = receivedGoals;
 
           // ---
@@ -83,7 +96,7 @@ export default
           });
           $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.goalsFetched);
         })
-        .catch(function () {
+        .catch(() => {
           vm.badPostSubmitResponse = true;
           $scope.$emit(ALERTS_EVENTS.DANGER, {
             message: 'Could not fetch goals.',
@@ -99,7 +112,7 @@ export default
     function reloadMonthsPerYearsStatistics() {
       StatisticService
         .fetchGoalsMonthsPerYearStatistics(vm.updateStatisticsTracker)
-        .then(function (receivedMonthsPerYearsStatistics) {
+        .then(receivedMonthsPerYearsStatistics => {
           vm.monthsPerYearsStatistics = receivedMonthsPerYearsStatistics;
         });
     }
@@ -115,8 +128,8 @@ export default
     /**
      * On goal created, display a success message, and add goal to the list.
      */
-    $scope.$on(GOAL_EVENTS.isCreated, function (event, args) {
-      var isSameMonth = moment(vm.goalsData.yearMonthDate).isSame(moment(args.goal.yearMonthDate), 'month');
+    $scope.$on(GOAL_EVENTS.isCreated, (event, args) => {
+      const isSameMonth = moment(vm.goalsData.yearMonthDate).isSame(moment(args.goal.yearMonthDate), 'month');
 
       if (isSameMonth) {
         vm.goals.push(args.goal);
@@ -132,7 +145,7 @@ export default
     /**
      * On goal updated.
      */
-    $scope.$on(GOAL_EVENTS.isUpdated, function (event, args) {
+    $scope.$on(GOAL_EVENTS.isUpdated, (event, args) => {
       reloadMonthsPerYearsStatistics();
 
       _.remove(vm.goals, 'id', args.goal.id);
@@ -145,7 +158,7 @@ export default
     /**
      * On goal deleted, display a success message, and remove the goal from the list.
      */
-    $scope.$on(GOAL_EVENTS.isDeleted, function (event, args) {
+    $scope.$on(GOAL_EVENTS.isDeleted, (event, args) => {
       if (args.goal) {
         _.remove(vm.goals, 'id', args.goal.id);
         reloadMonthsPerYearsStatistics();
@@ -159,7 +172,7 @@ export default
     /**
      * On error occurred.
      */
-    $scope.$on(GOAL_EVENTS.isErrorOccurred, function (event, args) {
+    $scope.$on(GOAL_EVENTS.isErrorOccurred, (event, args) => {
       $scope.$emit(ALERTS_EVENTS.DANGER, {
         message: args.errorMessage,
         alertId: vm.alertId,

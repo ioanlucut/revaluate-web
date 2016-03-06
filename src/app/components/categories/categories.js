@@ -31,7 +31,7 @@ export default angular
   .directive('validCategoryColor', validCategoryColorDirective)
   .directive('validCategoryName', validCategoryNameDirective)
   .factory('Category', categoryFactory)
-  .config(function ($stateProvider, USER_ACTIVITY_EVENTS) {
+  .config(($stateProvider, USER_ACTIVITY_EVENTS) => {
 
     $stateProvider
 
@@ -46,7 +46,7 @@ export default angular
         controllerAs: 'vm',
         isPaymentMissingUnrestrictedPage: true,
         resolve: {
-          categories: function (CategoryService) {
+          categories(CategoryService) {
             return CategoryService.getAllCategories();
           },
         },

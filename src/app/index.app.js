@@ -1,5 +1,3 @@
-'use strict';
-
 require('./index.utils.js');
 
 import revaluateAppConfig from './config/revaluateAppConfig';
@@ -56,7 +54,7 @@ export default angular
     revaluateIntercom.name,
   ])
   .config(indexConfig)
-  .run(function (ENV) {
+  .run(ENV => {
     URLTo.apiBase(ENV.apiEndpoint);
   })
   .controller('IndexController', IndexController);

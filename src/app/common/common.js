@@ -122,18 +122,18 @@ export default angular
   .service('SessionService', SessionService)
   .service('StatesHandler', StatesHandlerService)
   .service('TransformerUtils', TransformerUtilsService)
-  .config(function ($httpProvider) {
+  .config($httpProvider => {
     $httpProvider.interceptors.push('JWTInterceptor');
     $httpProvider.interceptors.push('ErrorInterceptor');
   })
-  .run(function () {
+  .run(() => {
 
     /**
      * Callback function to check if the date should include year too.
      * @returns {string}
      */
     function callbackCalendarFormatter() {
-      var isSameYear = moment(moment().year()).isSame(this.year());
+      const isSameYear = moment(moment().year()).isSame(this.year());
 
       return isSameYear ? 'ddd, MMM D' : 'ddd, MMM D YYYY';
     }

@@ -37,7 +37,7 @@ export default angular
   .controller('InsightsProgressController', InsightsProgressController)
   .factory('InsightsProgress', insightsProgress)
   .directive('insightsEmptyStateToggle', insightsEmptyStateToggleDirective)
-  .config(function ($stateProvider, USER_ACTIVITY_EVENTS) {
+  .config(($stateProvider, USER_ACTIVITY_EVENTS) => {
 
     $stateProvider
 
@@ -61,14 +61,14 @@ export default angular
         controller: 'InsightsMonthlyController',
         controllerAs: 'vm',
         resolve: {
-          insightsMonthly: function (DatesUtils, InsightsService) {
-            var period = DatesUtils.fromLastMonthsToNow(1);
+          insightsMonthly(DatesUtils, InsightsService) {
+            const period = DatesUtils.fromLastMonthsToNow(1);
 
             return InsightsService
               .fetchMonthlyInsightsFromTo(period.from, period.to);
           },
 
-          monthsPerYearsStatistics: function (StatisticService) {
+          monthsPerYearsStatistics(StatisticService) {
             return StatisticService
               .fetchExpensesMonthsPerYearStatistics();
           },
@@ -87,14 +87,14 @@ export default angular
         controller: 'InsightsOverviewController',
         controllerAs: 'vm',
         resolve: {
-          insightsOverview: function (DatesUtils, InsightsService, INSIGHTS_INTERVAL) {
-            var period = DatesUtils.fromLastMonthsToNow(INSIGHTS_INTERVAL.HALF_YEAR);
+          insightsOverview(DatesUtils, InsightsService, INSIGHTS_INTERVAL) {
+            const period = DatesUtils.fromLastMonthsToNow(INSIGHTS_INTERVAL.HALF_YEAR);
 
             return InsightsService
               .fetchOverviewInsightsFromTo(period.from, period.to);
           },
 
-          monthsPerYearsStatistics: function (StatisticService) {
+          monthsPerYearsStatistics(StatisticService) {
             return StatisticService
               .fetchExpensesMonthsPerYearStatistics();
           },
@@ -113,19 +113,19 @@ export default angular
         controller: 'InsightsProgressController',
         controllerAs: 'vm',
         resolve: {
-          insightsProgress: function (DatesUtils, InsightsService, INSIGHTS_INTERVAL) {
-            var period = DatesUtils.fromLastMonthsToNow(INSIGHTS_INTERVAL.HALF_YEAR);
+          insightsProgress(DatesUtils, InsightsService, INSIGHTS_INTERVAL) {
+            const period = DatesUtils.fromLastMonthsToNow(INSIGHTS_INTERVAL.HALF_YEAR);
 
             return InsightsService
               .fetchProgressInsightsFromTo(period.from, period.to);
           },
 
-          monthsPerYearsStatistics: function (StatisticService) {
+          monthsPerYearsStatistics(StatisticService) {
             return StatisticService
               .fetchExpensesMonthsPerYearStatistics();
           },
 
-          categories: function (CategoryService) {
+          categories(CategoryService) {
             return CategoryService.getAllCategories();
           },
         },
