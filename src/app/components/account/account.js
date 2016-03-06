@@ -24,6 +24,7 @@ import ValidatePasswordResetTokenController from './validatePasswordResetToken/V
 import ValidatePasswordResetTokenInvalidController from './validatePasswordResetToken/ValidatePasswordResetTokenInvalidController';
 import EmailConfirmationResendController from './emailConfirmationResend/EmailConfirmationResendController';
 import AccountLoginController from './accountModal/AccountLoginController';
+import AccountForgotPasswordController from './accountModal/AccountForgotPasswordController';
 import accountModal from './accountModal/AccountModal';
 import accountModalDirective from './accountModal/accountModalDirective';
 import accountModalToggleDirective from './accountModal/accountModalToggleDirective';
@@ -66,6 +67,7 @@ export default angular
   .controller('ValidatePasswordResetTokenInvalidController', ValidatePasswordResetTokenInvalidController)
   .controller('EmailConfirmationResendController', EmailConfirmationResendController)
   .controller('AccountLoginController', AccountLoginController)
+  .controller('AccountForgotPasswordController', AccountForgotPasswordController)
   .service('AccountModal', accountModal)
   .directive('accountModal', accountModalDirective)
   .directive('accountModalToggle', accountModalToggleDirective)
