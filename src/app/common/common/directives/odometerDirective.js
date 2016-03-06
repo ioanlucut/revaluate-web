@@ -1,13 +1,13 @@
 function odometerDirective(APP_STATS) {
-  var defaults = {
+  const defaults = {
     value: APP_STATS.EXPENSES_COUNTS,
     format: '(,ddd)',
   };
 
   return {
     restrict: 'A',
-    link: function (scope, elm, attrs) {
-      var odometer, opts;
+    link(scope, elm, attrs) {
+      let odometer, opts;
 
       opts = scope.$eval(attrs.odometerOptions) || {};
       angular.extend(opts, defaults);
@@ -15,7 +15,7 @@ function odometerDirective(APP_STATS) {
 
       odometer = new Odometer(opts);
 
-      scope.$on('update-app-stats', function (event, args) {
+      scope.$on('update-app-stats', (event, args) => {
         odometer.update(_.parseInt(args.appStats.EXPENSES_COUNTS));
       });
     },

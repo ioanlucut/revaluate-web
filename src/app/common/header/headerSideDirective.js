@@ -4,7 +4,7 @@ function headerSideDirective() {
     templateUrl: '/app/common/header/headerSideDirective.tpl.html',
     controller: 'HeaderController',
     controllerAs: 'vm',
-    link: function () {
+    link() {
     },
   };
 }

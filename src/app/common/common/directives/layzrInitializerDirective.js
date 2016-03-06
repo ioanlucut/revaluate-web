@@ -1,7 +1,7 @@
 function layzrInitializerDirective() {
   return {
     restrict: 'A',
-    link: function () {
+    link() {
 
       new Layzr();
     },

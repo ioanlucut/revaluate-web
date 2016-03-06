@@ -1,7 +1,7 @@
 function highlightSearchFilter($sce) {
-  return function (text, phrase) {
+  return (text, phrase) => {
     if (phrase) {
-      text = text.replace(new RegExp('(' + phrase + ')', 'gi'), '<span class="expense__found--highlight">$1</span>');
+      text = text.replace(new RegExp(`(${phrase})`, 'gi'), '<span class="expense__found--highlight">$1</span>');
     }
 
     return $sce.trustAsHtml(text);

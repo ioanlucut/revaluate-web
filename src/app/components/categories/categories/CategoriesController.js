@@ -91,3 +91,4 @@ function CategoriesController(ALERTS_EVENTS,
 
 }
 
+export default CategoriesController;

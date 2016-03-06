@@ -1,8 +1,8 @@
 function submitOnDirective($timeout) {
   return {
-    link: function (scope, elm, attrs) {
-      scope.$on(attrs.submitOn, function () {
-        $timeout(function () {
+    link(scope, elm, attrs) {
+      scope.$on(attrs.submitOn, () => {
+        $timeout(() => {
           elm.trigger('submit');
         });
       });

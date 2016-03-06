@@ -4,7 +4,7 @@
 function validEmailDirective() {
   return {
     require: 'ngModel',
-    link: function (scope, el, attr, ngModel) {
+    link(scope, el, attr, ngModel) {
 
       /**
        * Check whether a string is a valid email address
@@ -16,9 +16,7 @@ function validEmailDirective() {
         return /[^\s@]+@[^\s@]+\.[^\s@]+/.test(email);
       }
 
-      ngModel.$validators.validEmail = function (email) {
-        return isValidEmail(email);
-      };
+      ngModel.$validators.validEmail = email => isValidEmail(email);
     },
   };
 }

@@ -4,7 +4,7 @@ function uniqueEmailDirective($q, $timeout, UserService) {
     scope: {
       ngModel: '=',
     },
-    link: function (scope, el, attr, ngModel) {
+    link(scope, el, attr, ngModel) {
 
       /**
        * Check whether a string is a valid email address.
@@ -17,14 +17,14 @@ function uniqueEmailDirective($q, $timeout, UserService) {
       }
 
       // Re-validate on change
-      scope.$watch('ngModel', function (value) {
+      scope.$watch('ngModel', value => {
 
         if (isValidEmail(value)) {
 
           // Set validity
           UserService
             .isUnique(value)
-            .then(function (data) {
+            .then(data => {
 
               // Make sure we are validating the latest value of the model (asynchronous responses)
               if (data.email === ngModel.$viewValue) {

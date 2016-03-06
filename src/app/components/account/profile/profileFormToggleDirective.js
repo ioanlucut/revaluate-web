@@ -4,7 +4,7 @@
 function profileFormToggleDirective(ProfileFormToggle, ACCOUNT_FORM_STATE) {
   return {
     restrict: 'A',
-    link: function (scope) {
+    link(scope) {
       scope.ProfileFormToggle = ProfileFormToggle;
       scope.ACCOUNT_FORM_STATE = ACCOUNT_FORM_STATE;
 

@@ -5,7 +5,7 @@ function footerDirective() {
   return {
     restrict: 'A',
     templateUrl: '/app/common/footer/footerDirective.tpl.html',
-    link: function () {
+    link() {
     },
   };
 }

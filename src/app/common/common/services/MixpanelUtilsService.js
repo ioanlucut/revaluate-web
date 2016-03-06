@@ -1,6 +1,6 @@
 function MixpanelUtilsService($window, ENV) {
 
-  this.bootMixpanel = function (user) {
+  this.bootMixpanel = function(user) {
     this.initMixpanel();
 
     // ---
@@ -10,11 +10,11 @@ function MixpanelUtilsService($window, ENV) {
     $window.mixpanel.people.set(this.getMixpanelUser(user));
   };
 
-  this.initMixpanel = function () {
+  this.initMixpanel = () => {
     $window.mixpanel.init(ENV.mixPanelId);
   };
 
-  this.updateMixpanel = function (user) {
+  this.updateMixpanel = function(user) {
 
     // ---
     // Update mixpanel.
@@ -22,14 +22,12 @@ function MixpanelUtilsService($window, ENV) {
     mixpanel.people.set(this.getMixpanelUser(user));
   };
 
-  this.getMixpanelUser = function (user) {
-    return {
-      $email: user.model.email,
-      $last_name: user.model.lastName,
-      $first_name: user.model.firstName,
-      $created: moment(user.model.createdDate).format('YYYY-MM-DDTHH:mm:ss'),
-    };
-  };
+  this.getMixpanelUser = user => ({
+    $email: user.model.email,
+    $last_name: user.model.lastName,
+    $first_name: user.model.firstName,
+    $created: moment(user.model.createdDate).format('YYYY-MM-DDTHH:mm:ss')
+  });
 }
 
 export default MixpanelUtilsService;

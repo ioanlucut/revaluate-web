@@ -1,7 +1,7 @@
 /* Friendly date filter */
 
 function friendlyDateFilter() {
-  return function (date) {
+  return date => {
 
     if (!_.isDate(date)) {
       date = moment(date).toDate();

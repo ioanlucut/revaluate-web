@@ -1,4 +1,14 @@
-function SignUpController($rootScope, $scope, $timeout, ALERTS_EVENTS, ALERTS_CONSTANTS, StatesHandler, User, AuthService, USER_ACTIVITY_EVENTS, APP_CONFIG) {
+function SignUpController(
+  $rootScope,
+  $scope,
+  $timeout,
+  ALERTS_EVENTS,
+  ALERTS_CONSTANTS,
+  StatesHandler,
+  User,
+  AuthService,
+  USER_ACTIVITY_EVENTS,
+  APP_CONFIG) {
 
   /**
    * Alert identifier
@@ -27,25 +37,25 @@ function SignUpController($rootScope, $scope, $timeout, ALERTS_EVENTS, ALERTS_CO
    * Sign up functionality.
    * @param signUpData
    */
-  $scope.signUp = function (signUpData) {
+  $scope.signUp = signUpData => {
     if ($scope.signUpForm.$valid && !$scope.isRequestPending) {
 
       $scope.isRequestPending = true;
 
       User.$new()
         .create(signUpData)
-        .then(function () {
+        .then(() => {
           $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.signUpCompleted);
 
           AuthService
             .login(signUpData.email, signUpData.password)
-            .then(function () {
+            .then(() => {
               $scope.isRequestPending = false;
 
               StatesHandler.goToSetUp();
             });
         })
-        .catch(function () {
+        .catch(() => {
           /* If bad feedback from server */
           $scope.badPostSubmitResponse = true;
           $scope.isRequestPending = false;

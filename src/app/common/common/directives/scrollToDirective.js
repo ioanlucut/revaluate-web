@@ -1,11 +1,14 @@
 function scrollToDirective() {
   return {
     restrict: 'A',
-    link: function (scope, el, attrs) {
-      el.on('click', function (e) {
+    link(scope, el, attrs) {
+      el.on('click', e => {
 
         $('html, body')
-          .animate({ scrollTop: $(attrs.scrollTo).offset().top }, parseInt(attrs.scrollSpeed) || 800);
+          .animate(
+          { scrollTop: $(attrs.scrollTo).offset().top },
+          parseInt(attrs.scrollSpeed) || 800
+        );
         e.preventDefault();
       });
     },

@@ -8,7 +8,7 @@ function ValidatePasswordResetTokenInvalidController($scope, AuthService, States
   /**
    * Continues to reset password page. (try again functionality)
    */
-  $scope.continueToResetPassword = function () {
+  $scope.continueToResetPassword = () => {
     if ($scope.isUserAuthenticated) {
       AuthService.logout();
     }

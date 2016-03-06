@@ -11,10 +11,10 @@ function ErrorInterceptorService($rootScope, $q, ERROR_INTERCEPTOR) {
      * @param response
      * @returns {*}
      */
-    responseError: function (response) {
+    responseError(response) {
 
-      var INTERNAL_SERVER_ERROR = 500;
-      var PAYMENT_REQUIRED = 402;
+      const INTERNAL_SERVER_ERROR = 500;
+      const PAYMENT_REQUIRED = 402;
 
       if (response.status === INTERNAL_SERVER_ERROR && !response.config.cache) {
         $rootScope.$broadcast(ERROR_INTERCEPTOR.status500, response);

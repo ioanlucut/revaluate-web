@@ -1,8 +1,8 @@
 // See https://github.com/fmquaglia/ngOrderObjectB
 function orderObjectByFilter() {
-  return function (items, field, reverse) {
-    var filtered = [];
-    angular.forEach(items, function (item) {
+  return (items, field, reverse) => {
+    const filtered = [];
+    angular.forEach(items, item => {
       filtered.push(item);
     });
 
@@ -10,14 +10,14 @@ function orderObjectByFilter() {
       return obj[i];
     }
 
-    filtered.sort(function (a, b) {
-      var comparator;
-      var reducedA = field.split('.').reduce(index, a);
-      var reducedB = field.split('.').reduce(index, b);
+    filtered.sort((a, b) => {
+      let comparator;
+      const reducedA = field.split('.').reduce(index, a);
+      const reducedB = field.split('.').reduce(index, b);
       if (reducedA === reducedB) {
         comparator = 0;
       } else {
-        comparator = (reducedA > reducedB ? 1 : -1);
+        comparator = reducedA > reducedB ? 1 : -1;
       }
 
       return comparator;

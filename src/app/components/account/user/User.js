@@ -1,7 +1,7 @@
 function User(SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
   return {
 
-    $new: function () {
+    $new() {
 
       return {
 
@@ -32,24 +32,24 @@ function User(SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
         /**
          * Is user already authenticated
          */
-        isAuthenticated: function () {
+        isAuthenticated() {
 
           return !_.isUndefined(SessionService.sessionExists());
         },
 
-        isConnectedViaOauth: function () {
+        isConnectedViaOauth() {
           return this.model.connectedViaOauth;
         },
 
         /**
          * Is user already initiated
          */
-        isInitiated: function () {
+        isInitiated() {
           return this.isAuthenticated() && this.model.initiated;
         },
 
-        getTrialRemainingDays: function () {
-          var difference = moment(this.model.endTrialDate).diff(moment(), 'days');
+        getTrialRemainingDays() {
+          const difference = moment(this.model.endTrialDate).diff(moment(), 'days');
           if (difference < 0) {
 
             return 0;
@@ -58,13 +58,13 @@ function User(SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
           return difference;
         },
 
-        showTrialRemainingDays: function () {
-          var trialRemainingDays = this.getTrialRemainingDays();
+        showTrialRemainingDays() {
+          const trialRemainingDays = this.getTrialRemainingDays();
 
           return trialRemainingDays > 0 && trialRemainingDays <= 5;
         },
 
-        isTrialPeriodExpired: function () {
+        isTrialPeriodExpired() {
 
           return false;
           /*return (this.model.userSubscriptionStatus === USER_SUBSCRIPTION_STATUS.TRIAL && this.getTrialRemainingDays() === 0) || this.model.userSubscriptionStatus === USER_SUBSCRIPTION_STATUS.TRIAL_EXPIRED;*/
@@ -73,7 +73,7 @@ function User(SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
         /**
          * Loads a user from local storage.
          */
-        loadFromSession: function () {
+        loadFromSession() {
 
           return this.loadFrom(SessionService.getData() || {});
         },
@@ -81,7 +81,7 @@ function User(SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
         /**
          * Loads a user from given data.
          */
-        loadFrom: function (data) {
+        loadFrom(data) {
           TransformerUtils.copyKeysFromTo(data, this.model);
 
           return this;
@@ -90,7 +90,7 @@ function User(SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
         /**
          * Set email as confirmed
          */
-        setEmailConfirmedAndReload: function () {
+        setEmailConfirmedAndReload() {
           this.loadFrom({ emailConfirmed: true });
           this.saveToSession();
         },
@@ -98,7 +98,7 @@ function User(SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
         /**
          * Update subscription status
          */
-        setSubscriptionStatusAsAndReload: function (status) {
+        setSubscriptionStatusAsAndReload(status) {
           this.loadFrom({ userSubscriptionStatus: status });
           this.saveToSession();
         },
@@ -106,8 +106,8 @@ function User(SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
         /**
          * Saves a user to local storage.
          */
-        saveToSession: function () {
-          var sessionData = {};
+        saveToSession() {
+          const sessionData = {};
           TransformerUtils.copyKeysFromTo(this.model, sessionData, ['password']);
           SessionService.setData(sessionData);
 
@@ -117,8 +117,8 @@ function User(SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
         /**
          * Creates a user account with given fromData.
          */
-        create: function (fromData) {
-          var toBeCreated = {};
+        create(fromData) {
+          const toBeCreated = {};
           TransformerUtils.copyKeysFromTo(fromData, toBeCreated);
 
           return this.createAccount(toBeCreated);
@@ -127,19 +127,17 @@ function User(SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
         /**
          * Creates the account.
          */
-        createAccount: function (account) {
+        createAccount(account) {
           return $http
             .post(URLTo.api(AUTH_URLS.create), account, { skipAuthorization: true })
-            .then(function (response) {
-              return response.data;
-            });
+            .then(response => response.data);
         },
 
         /**
          * Updates account details of this user.
          */
-        updateAccountDetails: function (fromData) {
-          var toBeSaved = {};
+        updateAccountDetails(fromData) {
+          const toBeSaved = {};
           TransformerUtils.copyKeysFromTo(fromData, toBeSaved);
 
           return $http
@@ -149,8 +147,8 @@ function User(SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
         /**
          * Updates initiated status of this user.
          */
-        updateInitiatedStatus: function (fromData) {
-          var toBeSaved = {};
+        updateInitiatedStatus(fromData) {
+          const toBeSaved = {};
           TransformerUtils.copyKeysFromTo(fromData, toBeSaved);
 
           return $http
@@ -160,8 +158,8 @@ function User(SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
         /**
          * Update account user currency
          */
-        updateCurrency: function (fromData) {
-          var toBeSaved = {};
+        updateCurrency(fromData) {
+          const toBeSaved = {};
           TransformerUtils.copyKeysFromTo(fromData, toBeSaved);
 
           return $http

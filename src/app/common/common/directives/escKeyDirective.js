@@ -1,8 +1,8 @@
 function escKeyDirective() {
-  return function (scope, element, attrs) {
-    element.bind('keydown keypress', function (event) {
+  return (scope, element, attrs) => {
+    element.bind('keydown keypress', event => {
       if (event.which === 27) { // 27 = esc key
-        scope.$apply(function () {
+        scope.$apply(() => {
           scope.$eval(attrs.escKey);
         });
 
