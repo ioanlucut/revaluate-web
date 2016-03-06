@@ -1,8 +1,19 @@
+import ImportExpensesController from './expenses-import/ImportExpensesController';
+import ImportService from './expenses-import/ImportService';
+import ImportTransformerService from './expenses-import/ImportTransformerService';
+import importObj from './expenses-import/import';
+import importConstants from './expenses-import/importConstants';
+
 export default angular
   .module('revaluate.expensesImport', [
     'revaluate.common',
   ])
-  .config(function ($stateProvider, USER_ACTIVITY_EVENTS) {
+  .controller('ImportExpensesController', ImportExpensesController)
+  .service('ImportService', ImportService)
+  .service('ImportTransformerService', ImportTransformerService)
+  .factory('ExpensesImport', importObj)
+  .constant('IMPORT_TYPES', importConstants)
+  .config(($stateProvider, USER_ACTIVITY_EVENTS) => {
 
     $stateProvider
 
@@ -29,14 +40,14 @@ export default angular
         controller: 'ImportExpensesController',
         isPaymentMissingUnrestrictedPage: true,
         resolve: {
-          categories: function (CategoryService) {
+          categories(CategoryService) {
             return CategoryService.getAllCategories();
           },
 
-          importType: function ($q, $stateParams, IMPORT_TYPES, $state) {
-            var deferred = $q.defer();
+          importType($q, $stateParams, IMPORT_TYPES, $state) {
+            const deferred = $q.defer();
 
-            if ( IMPORT_TYPES[$stateParams.type] ) {
+            if (IMPORT_TYPES[$stateParams.type]) {
               deferred.resolve(IMPORT_TYPES[$stateParams.type]);
             } else {
               $state.go('404');
