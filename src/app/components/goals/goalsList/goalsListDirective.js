@@ -1,5 +1,5 @@
 function GoalListController($timeout) {
-  var vm = this,
+  var _this = this,
     TIMEOUT = 200;
 
   /**
@@ -18,11 +18,11 @@ function GoalListController($timeout) {
   this.isUpdatingListLayout = false;
 
   function setSelectedOrderBy(by) {
-    vm.isUpdatingListLayout = !vm.isUpdatingListLayout;
+    _this.isUpdatingListLayout = !_this.isUpdatingListLayout;
 
     $timeout(function () {
-      vm.selectedOrderBy = by;
-      vm.isUpdatingListLayout = !vm.isUpdatingListLayout;
+      _this.selectedOrderBy = by;
+      _this.isUpdatingListLayout = !_this.isUpdatingListLayout;
     }, TIMEOUT);
   }
 }

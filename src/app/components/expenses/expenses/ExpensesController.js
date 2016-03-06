@@ -11,7 +11,7 @@ function ExpensesController(EXPENSE_EVENTS,
                             expensesQueryResponse,
                             categories) {
 
-  const vm = this, INFINITE_SCROLL_EXPENSES_OFFSET = 50, INFINITE_SCROLL_TIMEOUT = 1500;
+  const _this = this, INFINITE_SCROLL_EXPENSES_OFFSET = 50, INFINITE_SCROLL_TIMEOUT = 1500;
 
   /**
    * Alert identifier
@@ -78,12 +78,12 @@ function ExpensesController(EXPENSE_EVENTS,
   /**
    * Is overall transactions empty
    */
-  this.isOverallTransactionsEmpty = () => vm.expenses.length === 0 && vm.temporaryExpenses.length === 0;
+  this.isOverallTransactionsEmpty = () => _this.expenses.length === 0 && _this.temporaryExpenses.length === 0;
 
   this.updateNoOfExpenses = () => {
     $scope.$emit(
       'updateUserStats',
-      { args: { countExpenses: vm.expensesQueryResponse.totalSize } }
+      { args: { countExpenses: _this.expensesQueryResponse.totalSize } }
     );
   };
 
@@ -98,26 +98,26 @@ function ExpensesController(EXPENSE_EVENTS,
   // ---
 
   function loadMoreExpenses() {
-    if (vm.isUpdatingListLayout || vm.isNoMoreExpensesToBeLoaded()) {
+    if (_this.isUpdatingListLayout || _this.isNoMoreExpensesToBeLoaded()) {
       return;
     }
 
     this.isUpdatingListLayout = true;
 
     ExpenseService
-      .getAllExpensesGrouped(0, _.compose(_.flatten, _.map)(vm.expenses, 'expenseDTOs').length + INFINITE_SCROLL_EXPENSES_OFFSET)
+      .getAllExpensesGrouped(0, _.compose(_.flatten, _.map)(_this.expenses, 'expenseDTOs').length + INFINITE_SCROLL_EXPENSES_OFFSET)
       .then(response => {
-        vm.expensesQueryResponse = response;
-        vm.expenses = vm.expensesQueryResponse.groupedExpensesDTOList;
+        _this.expensesQueryResponse = response;
+        _this.expenses = _this.expensesQueryResponse.groupedExpensesDTOList;
 
         // ---
         // We did reload the whole list, therefore get rid of the temporary list.
         // ---
-        vm.temporaryExpenses = [];
+        _this.temporaryExpenses = [];
       })
       .finally(() => {
         $timeout(() => {
-          vm.isUpdatingListLayout = !vm.isUpdatingListLayout;
+          _this.isUpdatingListLayout = !_this.isUpdatingListLayout;
         }, INFINITE_SCROLL_TIMEOUT);
       });
   }
@@ -130,11 +130,11 @@ function ExpensesController(EXPENSE_EVENTS,
    * Get selected expenses for bulk action (marked===true)
    */
   function getSelectedExpensesForBulkAction() {
-    const flatMap = _.compose(_.flatten, _.map), expensesJoined = flatMap(vm.expenses, 'expenseDTOs');
+    const flatMap = _.compose(_.flatten, _.map), expensesJoined = flatMap(_this.expenses, 'expenseDTOs');
 
     return _.filter(
       _(expensesJoined)
-        .concat(vm.temporaryExpenses)
+        .concat(_this.temporaryExpenses)
         .value(), 'marked', true);
   }
 
@@ -153,7 +153,7 @@ function ExpensesController(EXPENSE_EVENTS,
     // Try to save them at once and if successfully, update the user.
     // ---
     ExpenseService
-      .bulkDelete(selectedForBulkDelete, vm.bulkDeleteTracker)
+      .bulkDelete(selectedForBulkDelete, _this.bulkDeleteTracker)
       .then(() => {
         $rootScope.$broadcast(EXPENSE_EVENTS.isDeleted, { expenses: selectedForBulkDelete });
       })
@@ -173,7 +173,7 @@ function ExpensesController(EXPENSE_EVENTS,
    * On expense created, display a success message, and add expense to the list.
    */
   $scope.$on(EXPENSE_EVENTS.isCreated, (event, args) => {
-    vm.temporaryExpenses.push(args.expense);
+    _this.temporaryExpenses.push(args.expense);
 
     $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.expenseCreated);
     $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Saved expense.');
@@ -183,15 +183,15 @@ function ExpensesController(EXPENSE_EVENTS,
    * On expense updated.
    */
   $scope.$on(EXPENSE_EVENTS.isUpdated, (event, args) => {
-    const expenseExistsInList = _.some(_.compose(_.flatten, _.map)(vm.expenses, 'expenseDTOs'), 'id', args.expense.id);
+    const expenseExistsInList = _.some(_.compose(_.flatten, _.map)(_this.expenses, 'expenseDTOs'), 'id', args.expense.id);
 
     if (expenseExistsInList) {
-      removeExpenseFromGroupedExpenses(vm.expenses, args.expense);
+      removeExpenseFromGroupedExpenses(_this.expenses, args.expense);
     } else {
-      _.remove(vm.temporaryExpenses, 'id', args.expense.id);
+      _.remove(_this.temporaryExpenses, 'id', args.expense.id);
     }
 
-    vm.temporaryExpenses.push(args.expense);
+    _this.temporaryExpenses.push(args.expense);
 
     $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated expense.');
     $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.expenseUpdated);
@@ -217,8 +217,8 @@ function ExpensesController(EXPENSE_EVENTS,
 
   function removeBulkExpenses(selectedForBulkDelete) {
     _.each(selectedForBulkDelete, selectedForBulkDeleteEntry => {
-      removeExpenseFromGroupedExpenses(vm.expenses, selectedForBulkDeleteEntry);
-      _.remove(vm.temporaryExpenses, 'id', selectedForBulkDeleteEntry.id);
+      removeExpenseFromGroupedExpenses(_this.expenses, selectedForBulkDeleteEntry);
+      _.remove(_this.temporaryExpenses, 'id', selectedForBulkDeleteEntry.id);
     });
   }
 
@@ -228,7 +228,7 @@ function ExpensesController(EXPENSE_EVENTS,
   $scope.$on(EXPENSE_EVENTS.isErrorOccurred, (event, args) => {
     $scope.$emit(ALERTS_EVENTS.DANGER, {
       message: args.errorMessage,
-      alertId: vm.alertId,
+      alertId: _this.alertId,
     });
   });
 

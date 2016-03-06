@@ -5,14 +5,14 @@ export default
  */
   function ($scope, ALERTS_EVENTS, $timeout, AuthService, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {
 
-    var vm = this;
+    var _this = this;
 
     var TIMEOUT_PENDING = 300;
 
     /**
      * Alert identifier
      */
-    vm.alertId = ALERTS_CONSTANTS.updatePassword;
+    _this.alertId = ALERTS_CONSTANTS.updatePassword;
 
     /**
      * Initial update password data.
@@ -27,49 +27,49 @@ export default
      * Update password user information.
      * @type {{oldPassword: string, newPassword: string, newPasswordConfirmation: string}}
      */
-    vm.updatePasswordData = angular.copy(initialUpdatePasswordData);
+    _this.updatePasswordData = angular.copy(initialUpdatePasswordData);
 
     /**
      * Update password data functionality.
      */
-    vm.updatePassword = function () {
-    if (!(vm.updatePasswordForm.$valid && !vm.isRequestPending)) {
+    _this.updatePassword = function () {
+    if (!(_this.updatePasswordForm.$valid && !_this.isRequestPending)) {
       return;
     }
 
-    if (vm.updatePasswordData.newPassword !== vm.updatePasswordData.newPasswordConfirmation) {
+    if (_this.updatePasswordData.newPassword !== _this.updatePasswordData.newPasswordConfirmation) {
       $scope.$emit(ALERTS_EVENTS.DANGER, {
         message: 'Your new password should match the new confirmation password.',
-        alertId: vm.alertId,
+        alertId: _this.alertId,
       });
 
       return;
     }
 
-    vm.isRequestPending = true;
+    _this.isRequestPending = true;
 
     AuthService
-      .updatePassword(vm.updatePasswordData.oldPassword, vm.updatePasswordData.newPassword, vm.updatePasswordData.newPasswordConfirmation)
+      .updatePassword(_this.updatePasswordData.oldPassword, _this.updatePasswordData.newPassword, _this.updatePasswordData.newPasswordConfirmation)
       .then(function () {
 
         $timeout(function () {
-          vm.isRequestPending = false;
+          _this.isRequestPending = false;
           $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated');
         }, TIMEOUT_PENDING);
       })
       .catch(function () {
         /* If bad feedback from server */
-        vm.badPostSubmitResponse = true;
-        vm.isRequestPending = false;
+        _this.badPostSubmitResponse = true;
+        _this.isRequestPending = false;
 
         $scope.$emit(ALERTS_EVENTS.DANGER, {
           message: 'Error. Please try again.',
-          alertId: vm.alertId,
+          alertId: _this.alertId,
         });
       })
       .finally(function () {
-        vm.updatePasswordForm.$setPristine();
-        vm.updatePasswordData = angular.copy(initialUpdatePasswordData);
+        _this.updatePasswordForm.$setPristine();
+        _this.updatePasswordData = angular.copy(initialUpdatePasswordData);
       });
   };
   }

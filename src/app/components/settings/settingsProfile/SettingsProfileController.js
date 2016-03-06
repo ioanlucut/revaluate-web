@@ -5,51 +5,51 @@ export default
  */
   function ($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, ALERTS_EVENTS, ALERTS_CONSTANTS) {
 
-    var vm = this;
+    var _this = this;
 
     /**
      * Alert identifier
      */
-    vm.alertId = ALERTS_CONSTANTS.updateProfile;
+    _this.alertId = ALERTS_CONSTANTS.updateProfile;
 
     /**
      * Current user.
      */
-    vm.user = $rootScope.currentUser;
+    _this.user = $rootScope.currentUser;
 
     /**
      * Initial profile data
      */
     function getInitialProfileData() {
     return {
-      firstName: vm.user.model.firstName,
-      lastName: vm.user.model.lastName,
+      firstName: _this.user.model.firstName,
+      lastName: _this.user.model.lastName,
     };
   }
 
     /**
      * Profile user information.
      */
-    vm.profileData = angular.copy(getInitialProfileData());
+    _this.profileData = angular.copy(getInitialProfileData());
 
     /**
      * Update profile functionality.
      */
-    vm.updateProfile = function () {
+    _this.updateProfile = function () {
 
-      if (vm.profileForm.$valid && !vm.isRequestPending) {
+      if (_this.profileForm.$valid && !_this.isRequestPending) {
 
         // Show the loading bar
-        vm.isRequestPending = true;
+        _this.isRequestPending = true;
 
         // Update the user
-        vm.user
-          .updateAccountDetails(vm.profileData)
+        _this.user
+          .updateAccountDetails(_this.profileData)
         .then(function (response) {
           // ---
           // Reload data with given response.
           // ---
-          vm.user
+          _this.user
             .loadFrom(response.data);
 
           // ---
@@ -61,21 +61,21 @@ export default
           // ---
           // Reset the profile data with possible new data.
           // ---
-          vm.profileData = angular.copy(getInitialProfileData());
+          _this.profileData = angular.copy(getInitialProfileData());
 
-          vm.profileForm.$setPristine();
+          _this.profileForm.$setPristine();
 
-          vm.isRequestPending = false;
+          _this.isRequestPending = false;
           $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated');
         })
         .catch(function () {
           /* If bad feedback from server */
-          vm.badPostSubmitResponse = true;
-          vm.isRequestPending = false;
+          _this.badPostSubmitResponse = true;
+          _this.isRequestPending = false;
 
           $scope.$emit(ALERTS_EVENTS.DANGER, {
             message: 'Ups, something went wrong.',
-            alertId: vm.alertId,
+            alertId: _this.alertId,
           });
         });
       }

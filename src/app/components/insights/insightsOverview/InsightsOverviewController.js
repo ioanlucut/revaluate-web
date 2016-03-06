@@ -3,22 +3,22 @@ export default function ($controller, $templateCache, $scope, $rootScope, $filte
   var TIMEOUT_DURATION = 150;
   var MONTHS = 'Months';
 
-  var vm = this;
+  var _this = this;
 
   /**
    * Alert identifier
    */
-  vm.alertId = ALERTS_CONSTANTS.insights;
+  _this.alertId = ALERTS_CONSTANTS.insights;
 
   /**
    * Insights interval
    */
-  vm.INSIGHTS_INTERVAL = INSIGHTS_INTERVAL;
+  _this.INSIGHTS_INTERVAL = INSIGHTS_INTERVAL;
 
   /**
    * Default insights overview.
    */
-  vm.insightsOverview = insightsOverview;
+  _this.insightsOverview = insightsOverview;
 
   // ---
   // Inherit from parent controller.
@@ -30,7 +30,7 @@ export default function ($controller, $templateCache, $scope, $rootScope, $filte
     monthsPerYearsStatistics: monthsPerYearsStatistics,
     resizeOnUpdate: true,
     getChartSetSize: function getChartSetSize() {
-      return vm.barInsightsPrepared.insightsBarData[0].length;
+      return _this.barInsightsPrepared.insightsBarData[0].length;
     },
   }));
 
@@ -41,21 +41,21 @@ export default function ($controller, $templateCache, $scope, $rootScope, $filte
     // ---
     // Computed information and methods.
     // ---
-    vm.barInsightsPrepared = InsightsGenerator
-      .generateOverviewBar(vm.insightsOverview);
+    _this.barInsightsPrepared = InsightsGenerator
+      .generateOverviewBar(_this.insightsOverview);
 
-    $scope.$emit('chartsLoaded', { size: vm.barInsightsPrepared.insightsBarData[0].length });
+    $scope.$emit('chartsLoaded', { size: _this.barInsightsPrepared.insightsBarData[0].length });
   }
 
   /**
    * Default interval
    */
-  vm.activeInterval = vm.INSIGHTS_INTERVAL.HALF_YEAR;
+  _this.activeInterval = _this.INSIGHTS_INTERVAL.HALF_YEAR;
 
   /**
    * Series (static)
    */
-  vm.insightLineSeries = [MONTHS];
+  _this.insightLineSeries = [MONTHS];
 
   // ---
   // Computed information and methods.
@@ -65,20 +65,20 @@ export default function ($controller, $templateCache, $scope, $rootScope, $filte
   /**
    * Load insights
    */
-  vm.loadInsights = function (insightsIntervalMonths) {
-    if (vm.isLoading) {
+  _this.loadInsights = function (insightsIntervalMonths) {
+    if (_this.isLoading) {
 
       return;
     }
 
-    vm.isLoading = true;
+    _this.isLoading = true;
 
     var period = DatesUtils
       .fromLastMonthsToNow(insightsIntervalMonths);
     InsightsService
       .fetchOverviewInsightsFromTo(period.from, period.to)
       .then(function (receivedInsight) {
-        vm.activeInterval = insightsIntervalMonths;
+        _this.activeInterval = insightsIntervalMonths;
 
         /**
          * Track event.
@@ -89,19 +89,19 @@ export default function ($controller, $templateCache, $scope, $rootScope, $filte
           // ---
           // Update everything.
           // ---
-          vm.insightsOverview = receivedInsight;
+          _this.insightsOverview = receivedInsight;
 
           prepareDataForChart();
-          vm.isLoading = false;
+          _this.isLoading = false;
         }, TIMEOUT_DURATION);
       })
       .catch(function () {
-        vm.badPostSubmitResponse = true;
-        vm.isLoading = false;
+        _this.badPostSubmitResponse = true;
+        _this.isLoading = false;
 
         $scope.$emit(ALERTS_EVENTS.DANGER, {
           message: 'Could not fetch insights.',
-          alertId: vm.alertId,
+          alertId: _this.alertId,
         });
       });
   };

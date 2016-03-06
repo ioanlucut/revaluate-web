@@ -3,12 +3,12 @@ function userProfilePictureDirective() {
     restrict: 'E',
     scope: {},
     controller($scope, $rootScope) {
-      const vm = this;
+      const _this = this;
 
       /**
        * Current user.
        */
-      vm.user = $rootScope.currentUser;
+      _this.user = $rootScope.currentUser;
     },
 
     bindToController: true,

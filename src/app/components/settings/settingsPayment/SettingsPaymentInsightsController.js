@@ -2,38 +2,38 @@ export default
 
 function ($q, $scope, $state, $rootScope, $timeout, $http, paymentInsights, ALERTS_EVENTS, AUTH_URLS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, AUTH_EVENTS) {
 
-  var vm = this;
+  var _this = this;
 
   var TIMEOUT_PENDING = 300;
 
   /**
    * Alert identifier
    */
-  vm.alertId = ALERTS_CONSTANTS.paymentProfile;
+  _this.alertId = ALERTS_CONSTANTS.paymentProfile;
 
   /**
    * Current user.
    */
-  vm.user = $rootScope.currentUser;
+  _this.user = $rootScope.currentUser;
 
   // ---
   // Payment insights got from server.
   // ---
-  vm.paymentInsights = paymentInsights;
+  _this.paymentInsights = paymentInsights;
 
   // ---
   // Is payment method defined ?.
   // ---
-  vm.isPaymentMethodDefined = vm.paymentInsights.paymentMethodDTOs && vm.paymentInsights.paymentMethodDTOs.length > 0;
+  _this.isPaymentMethodDefined = _this.paymentInsights.paymentMethodDTOs && _this.paymentInsights.paymentMethodDTOs.length > 0;
 
   // ---
   // Remove payment method.
   // ---
-  vm.performRemovePayment = function () {
-    if (!vm.isRequestPending) {
+  _this.performRemovePayment = function () {
+    if (!_this.isRequestPending) {
 
       // Show the loading bar
-      vm.isRequestPending = true;
+      _this.isRequestPending = true;
 
       return $http
         .delete(URLTo.api(AUTH_URLS.removePaymentMethod), {})
@@ -42,7 +42,7 @@ function ($q, $scope, $state, $rootScope, $timeout, $http, paymentInsights, ALER
           // ---
           // Update user with subscription status.
           // ---
-          vm
+          _this
             .user
             .setSubscriptionStatusAsAndReload(response.data.userSubscriptionStatus);
           $rootScope
@@ -50,7 +50,7 @@ function ($q, $scope, $state, $rootScope, $timeout, $http, paymentInsights, ALER
 
           $scope.$emit(ALERTS_EVENTS.SUCCESS, 'You\'ve successfully removed payment method!');
           $timeout(function () {
-            vm.isRequestPending = false;
+            _this.isRequestPending = false;
 
             // ---
             // If successful, go to expenses.
@@ -60,8 +60,8 @@ function ($q, $scope, $state, $rootScope, $timeout, $http, paymentInsights, ALER
         })
         .catch(function (response) {
           /* If bad feedback from server */
-          vm.badPostSubmitResponse = true;
-          vm.isRequestPending = false;
+          _this.badPostSubmitResponse = true;
+          _this.isRequestPending = false;
 
           // ---
           // Show errors.
@@ -70,12 +70,12 @@ function ($q, $scope, $state, $rootScope, $timeout, $http, paymentInsights, ALER
           if (_.isArray(errors)) {
             $scope.$emit(ALERTS_EVENTS.DANGER, {
               message: errors.join('\n'),
-              alertId: vm.alertId,
+              alertId: _this.alertId,
             });
           } else {
             $scope.$emit(ALERTS_EVENTS.DANGER, {
               message: 'Ups, something went wrong.',
-              alertId: vm.alertId,
+              alertId: _this.alertId,
             });
           }
         });

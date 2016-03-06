@@ -3,10 +3,10 @@
  */
 function LogoutAutoController($scope, $timeout, $controller) {
 
-  const TIMEOUT = 1500, vm = $controller('LogoutController', { $scope });
+  const TIMEOUT = 1500, _this = $controller('LogoutController', { $scope });
 
   $timeout(() => {
-    vm.logOut();
+    _this.logOut();
   }, TIMEOUT);
 }
 

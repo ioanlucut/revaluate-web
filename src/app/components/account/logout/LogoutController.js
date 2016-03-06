@@ -3,9 +3,9 @@
  */
 function LogoutController($scope, $timeout, StatesHandler, AuthService) {
 
-  const vm = this;
+  const _this = this;
 
-  vm.logOut = () => {
+  _this.logOut = () => {
     $timeout(() => {
       AuthService.logout();
       StatesHandler.goHome();

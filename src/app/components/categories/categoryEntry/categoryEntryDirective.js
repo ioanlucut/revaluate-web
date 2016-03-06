@@ -1,50 +1,50 @@
 function CategoryEntryController(CATEGORY_EVENTS, $scope, $rootScope, promiseTracker, CategoryService) {
 
-  var vm = this;
+  var _this = this;
 
   /**
    * Work with a copy - keep the master backup
    */
-  vm.categoryEntry = angular.copy($scope.category);
+  _this.categoryEntry = angular.copy($scope.category);
 
   /**
    * Create an updating tracker.
    */
-  vm.updateTracker = promiseTracker();
+  _this.updateTracker = promiseTracker();
 
   /**
    * Update the category.
    */
-  vm.updateCategory = updateCategory;
+  _this.updateCategory = updateCategory;
 
   /**
    * Create an deleting tracker.
    */
-  vm.deleteTracker = promiseTracker();
+  _this.deleteTracker = promiseTracker();
 
   /**
    * Delete category;
    */
-  vm.deleteCategory = deleteCategory;
+  _this.deleteCategory = deleteCategory;
 
   function updateCategory() {
     CategoryService
-      .updateCategory(vm.categoryEntry, vm.updateTracker)
+      .updateCategory(_this.categoryEntry, _this.updateTracker)
       .then(function (updatedCategory) {
-        $rootScope.$broadcast(CATEGORY_EVENTS.isUpdated, { category: _.extend(vm.categoryEntry, updatedCategory) });
+        $rootScope.$broadcast(CATEGORY_EVENTS.isUpdated, { category: _.extend(_this.categoryEntry, updatedCategory) });
       })
       .catch(function () {
-        vm.badPostSubmitResponse = true;
+        _this.badPostSubmitResponse = true;
         $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something went wrong.' });
       });
   }
 
   function deleteCategory() {
     CategoryService
-      .deleteCategory(vm.categoryEntry, vm.deleteTracker)
+      .deleteCategory(_this.categoryEntry, _this.deleteTracker)
       .then(function () {
-        vm.isSuccessfullyDeleted = true;
-        $rootScope.$broadcast(CATEGORY_EVENTS.isDeleted, { category: vm.categoryEntry });
+        _this.isSuccessfullyDeleted = true;
+        $rootScope.$broadcast(CATEGORY_EVENTS.isDeleted, { category: _this.categoryEntry });
       })
       .catch(function () {
         $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something went wrong.' });
@@ -63,7 +63,7 @@ function categoryEntryDirective($rootScope, promiseTracker, CategoryService, CAT
     controller: CategoryEntryController,
     controllerAs: 'vm',
     templateUrl: '/app/components/categories/categoryEntry/categoryEntryDirective.html',
-    link: function (scope, el, attrs, vm) {
+    link: function (scope, el, attrs, _this) {
 
       /**
        * Show block content
@@ -83,7 +83,7 @@ function categoryEntryDirective($rootScope, promiseTracker, CategoryService, CAT
       scope.cancel = function () {
         scope.toggleContent();
 
-        vm.categoryEntry = angular.copy(scope.category);
+        _this.categoryEntry = angular.copy(scope.category);
       };
 
       /**
@@ -96,8 +96,8 @@ function categoryEntryDirective($rootScope, promiseTracker, CategoryService, CAT
           // ---
           // Update the master category.
           // ---
-          scope.category = angular.copy(vm.categoryEntry);
-          vm.categoryEntry = angular.copy(scope.category);
+          scope.category = angular.copy(_this.categoryEntry);
+          _this.categoryEntry = angular.copy(scope.category);
         }
       });
 

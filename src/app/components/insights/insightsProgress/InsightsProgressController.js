@@ -1,38 +1,38 @@
 export default function (DatesUtils, $controller, $templateCache, $scope, $rootScope, $filter, $timeout, InsightsGenerator, ALERTS_EVENTS, INSIGHTS_INTERVAL, insightsProgress, monthsPerYearsStatistics, categories, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
 
   var TIMEOUT_DURATION = 150,
-    vm = this;
+    _this = this;
 
   /**
    * Alert identifier
    */
-  vm.alertId = ALERTS_CONSTANTS.insights;
+  _this.alertId = ALERTS_CONSTANTS.insights;
 
   /**
    * Insights interval
    */
-  vm.INSIGHTS_INTERVAL = INSIGHTS_INTERVAL;
+  _this.INSIGHTS_INTERVAL = INSIGHTS_INTERVAL;
 
   /**
    * Existing categories.
    */
-  vm.categories = categories;
+  _this.categories = categories;
 
   /**
    * Just make a copy of master categories
    */
-  vm.masterCategories = angular.copy(vm.categories);
+  _this.masterCategories = angular.copy(_this.categories);
 
   /**
    * Default insights progress.
    */
-  vm.insightsProgress = insightsProgress;
+  _this.insightsProgress = insightsProgress;
 
   /**
    * Default active interval selected.
    * @type {number}
    */
-  vm.activeInterval = vm.INSIGHTS_INTERVAL.HALF_YEAR;
+  _this.activeInterval = _this.INSIGHTS_INTERVAL.HALF_YEAR;
 
   // ---
   // Inherit from parent controller.
@@ -50,14 +50,14 @@ export default function (DatesUtils, $controller, $templateCache, $scope, $rootS
   // ---
   // Update the options.
   // ---
-  vm.lineOptions = _.extend(vm.barOptions, {
+  _this.lineOptions = _.extend(_this.barOptions, {
     datasetFill: false, animation: false, animationSteps: 30,
   });
 
   /**
    * Toggle category selection
    */
-  vm.toggleAndReloadInsights = function (category) {
+  _this.toggleAndReloadInsights = function (category) {
     category.selected = !category.selected;
 
     prepareDataForProgressChart();
@@ -67,28 +67,28 @@ export default function (DatesUtils, $controller, $templateCache, $scope, $rootS
    * Prepares data for progress chart
    */
   function prepareDataForProgressChart() {
-    if (vm.isMinimumNumberOfAllowedUnselectedCategoriesExceeded()) {
+    if (_this.isMinimumNumberOfAllowedUnselectedCategoriesExceeded()) {
       return;
     }
 
     var insightsPrepared = InsightsGenerator
-      .generate(vm.insightsProgress, getSelectedCategories());
+      .generate(_this.insightsProgress, getSelectedCategories());
 
-    vm.insightLineData = insightsPrepared.insightLineData;
-    vm.insightLabels = insightsPrepared.insightLabels;
-    vm.insightLineSeries = insightsPrepared.insightLineSeries;
-    vm.insightLineColors = insightsPrepared.insightLineColors;
+    _this.insightLineData = insightsPrepared.insightLineData;
+    _this.insightLabels = insightsPrepared.insightLabels;
+    _this.insightLineSeries = insightsPrepared.insightLineSeries;
+    _this.insightLineColors = insightsPrepared.insightLineColors;
 
-    vm.availableYearMonths = insightsPrepared.availableYearMonths;
-    vm.totalAmountPerMonths = insightsPrepared.totalAmountPerMonths;
+    _this.availableYearMonths = insightsPrepared.availableYearMonths;
+    _this.totalAmountPerMonths = insightsPrepared.totalAmountPerMonths;
   }
 
   function getSelectedCategories() {
-    return _.filter(vm.masterCategories, 'selected', true);
+    return _.filter(_this.masterCategories, 'selected', true);
   }
 
   function reloadAllCategoriesWithSelectedAs(status) {
-    _.each(vm.masterCategories, function (category) {
+    _.each(_this.masterCategories, function (category) {
       category.selected = status;
     });
 
@@ -101,18 +101,18 @@ export default function (DatesUtils, $controller, $templateCache, $scope, $rootS
   /**
    * At least one category should be selected
    */
-  vm.isMinimumNumberOfAllowedUnselectedCategoriesExceeded = function () {
+  _this.isMinimumNumberOfAllowedUnselectedCategoriesExceeded = function () {
     return getSelectedCategories().length === 0;
   };
 
-  vm.selectAll = function () {
-    if (getSelectedCategories().length < vm.masterCategories.length) {
+  _this.selectAll = function () {
+    if (getSelectedCategories().length < _this.masterCategories.length) {
 
       reloadAllCategoriesWithSelectedAs(true);
     }
   };
 
-  vm.clearAll = function () {
+  _this.clearAll = function () {
     if (getSelectedCategories().length > 0) {
 
       reloadAllCategoriesWithSelectedAs(false);
@@ -127,20 +127,20 @@ export default function (DatesUtils, $controller, $templateCache, $scope, $rootS
   /**
    * Load insights
    */
-  vm.loadInsights = function (insightsIntervalMonths) {
-    if (vm.isLoading) {
+  _this.loadInsights = function (insightsIntervalMonths) {
+    if (_this.isLoading) {
 
       return;
     }
 
-    vm.isLoading = true;
+    _this.isLoading = true;
     var period = DatesUtils
       .fromLastMonthsToNow(insightsIntervalMonths);
 
     InsightsService
       .fetchProgressInsightsFromTo(period.from, period.to)
       .then(function (receivedInsight) {
-        vm.activeInterval = insightsIntervalMonths;
+        _this.activeInterval = insightsIntervalMonths;
 
         /**
          * Track event.
@@ -151,23 +151,23 @@ export default function (DatesUtils, $controller, $templateCache, $scope, $rootS
           // ---
           // Update everything.
           // ---
-          vm.insightsProgress = receivedInsight;
+          _this.insightsProgress = receivedInsight;
 
           // ---
           // Computed information and methods.
           // ---
           prepareDataForProgressChart();
 
-          vm.isLoading = false;
+          _this.isLoading = false;
         }, TIMEOUT_DURATION);
       })
       .catch(function () {
-        vm.badPostSubmitResponse = true;
-        vm.isLoading = false;
+        _this.badPostSubmitResponse = true;
+        _this.isLoading = false;
 
         $scope.$emit(ALERTS_EVENTS.DANGER, {
           message: 'Could not fetch insights.',
-          alertId: vm.alertId,
+          alertId: _this.alertId,
         });
       });
   };

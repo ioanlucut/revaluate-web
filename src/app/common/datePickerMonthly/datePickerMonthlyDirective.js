@@ -1,43 +1,43 @@
 function DatePickerMonthlyController() {
 
-  const vm = this, MONTH = 'month';
+  const _this = this, MONTH = 'month';
 
   /**
    * Checks if the date should be disabled.
    */
-  vm.shouldDateBeDisabled = shouldDateBeDisabled;
+  _this.shouldDateBeDisabled = shouldDateBeDisabled;
 
   /**
    * Open date picker
    */
-  vm.openDatePicker = openDatePicker;
+  _this.openDatePicker = openDatePicker;
 
   /**
    * Exposed data.
    */
-  vm.data = _.extend({}, { yearMonthDate: vm.dateModel });
+  _this.data = _.extend({}, { yearMonthDate: _this.dateModel });
 
   /**
    * On date change do perform what needed.
    */
-  vm.onChange = () => {
-    doPerform(vm.data.yearMonthDate);
+  _this.onChange = () => {
+    doPerform(_this.data.yearMonthDate);
   };
 
   /**
    * If can load previous month
    */
-  vm.canLoadPrevMonth = canLoadPrevMonth;
+  _this.canLoadPrevMonth = canLoadPrevMonth;
 
   /**
    * If can load next month
    */
-  vm.canLoadNextMonth = canLoadNextMonth;
+  _this.canLoadNextMonth = canLoadNextMonth;
 
   /**
    * Go to previous month
    */
-  vm.prevMonth = () => {
+  _this.prevMonth = () => {
     moveToTheNextMonthUsing(failedCandidateAsMoment => {
       if (failedCandidateAsMoment.month() === 0) {
         return failedCandidateAsMoment.subtract(1, 'years').set('month', 11);
@@ -50,7 +50,7 @@ function DatePickerMonthlyController() {
   /**
    * Go to next month
    */
-  vm.nextMonth = () => {
+  _this.nextMonth = () => {
     moveToTheNextMonthUsing(failedCandidateAsMoment => {
 
       if (failedCandidateAsMoment.month() === 11) {
@@ -62,9 +62,9 @@ function DatePickerMonthlyController() {
   };
 
   function moveToTheNextMonthUsing(momentRetryCallback) {
-    vm.data.yearMonthDate = getMonthRecursivelyWith(vm.data.yearMonthDate, momentRetryCallback);
+    _this.data.yearMonthDate = getMonthRecursivelyWith(_this.data.yearMonthDate, momentRetryCallback);
 
-    doPerform(vm.data.yearMonthDate);
+    doPerform(_this.data.yearMonthDate);
   }
 
   function getMonthRecursivelyWith(of, momentRetryCallback) {
@@ -75,7 +75,7 @@ function DatePickerMonthlyController() {
       return prevMonthCandidateAsDate;
     }
 
-    if (_.some(_.result(vm.monthsPerYearsStatistics, prevMonthCandidateYear), entry => entry === prevMonthCandidateMonthOfYear)) {
+    if (_.some(_.result(_this.monthsPerYearsStatistics, prevMonthCandidateYear), entry => entry === prevMonthCandidateMonthOfYear)) {
 
       return prevMonthCandidateAsDate;
     }
@@ -84,30 +84,30 @@ function DatePickerMonthlyController() {
   }
 
   function doPerform(yearMonthDate) {
-    vm.dateModel = angular.copy(yearMonthDate);
+    _this.dateModel = angular.copy(yearMonthDate);
 
-    vm.performOnPrevOrNext({ yearMonthDate: vm.dateModel });
+    _this.performOnPrevOrNext({ yearMonthDate: _this.dateModel });
   }
 
   function shouldDateBeDisabled(date) {
     const currentDate = moment(date), currentYear = currentDate.year(), currentMonthOfYear = currentDate.month() + 1;
 
-    return !_.some(_.result(vm.monthsPerYearsStatistics, currentYear), entry => entry === currentMonthOfYear);
+    return !_.some(_.result(_this.monthsPerYearsStatistics, currentYear), entry => entry === currentMonthOfYear);
   }
 
   function openDatePicker($event) {
     $event.preventDefault();
     $event.stopPropagation();
 
-    vm.datePickerOpened = true;
+    _this.datePickerOpened = true;
   }
 
   function canLoadPrevMonth() {
-    const currentDate = moment(vm.data.yearMonthDate), currentYear = currentDate.year();
+    const currentDate = moment(_this.data.yearMonthDate), currentYear = currentDate.year();
 
-    return _.some(_.keys(vm.monthsPerYearsStatistics), keyEntry => {
+    return _.some(_.keys(_this.monthsPerYearsStatistics), keyEntry => {
       if (_.parseInt(keyEntry) === _.parseInt(currentYear)) {
-        return _.some(vm.monthsPerYearsStatistics[keyEntry], month => _.lt(_.parseInt(month), _.parseInt(currentDate.month() + 1)));
+        return _.some(_this.monthsPerYearsStatistics[keyEntry], month => _.lt(_.parseInt(month), _.parseInt(currentDate.month() + 1)));
       }
 
       return _.lte(_.parseInt(keyEntry), _.parseInt(currentYear));
@@ -115,11 +115,11 @@ function DatePickerMonthlyController() {
   }
 
   function canLoadNextMonth() {
-    const currentDate = moment(vm.data.yearMonthDate), currentYear = currentDate.year();
+    const currentDate = moment(_this.data.yearMonthDate), currentYear = currentDate.year();
 
-    return _.some(_.keys(vm.monthsPerYearsStatistics), keyEntry => {
+    return _.some(_.keys(_this.monthsPerYearsStatistics), keyEntry => {
       if (_.parseInt(keyEntry) === _.parseInt(currentYear)) {
-        return _.some(vm.monthsPerYearsStatistics[keyEntry], month => _.gt(_.parseInt(month), _.parseInt(currentDate.month() + 1)));
+        return _.some(_this.monthsPerYearsStatistics[keyEntry], month => _.gt(_.parseInt(month), _.parseInt(currentDate.month() + 1)));
       }
 
       return _.gte(_.parseInt(keyEntry), _.parseInt(currentYear));

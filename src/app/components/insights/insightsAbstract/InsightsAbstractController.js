@@ -11,36 +11,36 @@ function InsightsAbstractController(
   resizeOnUpdate,
   getChartSetSize) {
 
-  const vm = this;
+  const _this = this;
 
   /**
    * Month constant
    */
-  vm.MONTH = 'month';
+  _this.MONTH = 'month';
 
   /**
    * Current user.
    */
-  vm.user = $rootScope.currentUser;
+  _this.user = $rootScope.currentUser;
 
-  vm.formatChartValue = formatChartValue;
+  _this.formatChartValue = formatChartValue;
 
   /**
    * Insights months per years.
    */
-  vm.monthsPerYearsStatistics = monthsPerYearsStatistics;
+  _this.monthsPerYearsStatistics = monthsPerYearsStatistics;
 
   // ---
   // Specific bar chart options.
   // ---
-  vm.barOptions = angular.extend({}, getDefaultChartOptions());
+  _this.barOptions = angular.extend({}, getDefaultChartOptions());
 
   // ---
   // Specific donut chart options.
   // ---
-  vm
+  _this
     .donutChartOptions = angular.extend({}, getDefaultChartOptions());
-  vm
+  _this
     .donutChartOptions
     .legendTemplate = '<ul class="doughnut__chart__legend"><% for (var i=0; i<segments.length; i++){%><li class="doughnut__chart__legend__box"><span class="doughnut__chart__legend__box__color" style="background-color:<%=segments[i].fillColor%>"></span><span class="doughnut__chart__legend__box__label"><%if(segments[i].label){%><%=segments[i].label%><%}%></span></li><%}%></ul>';
 
@@ -65,7 +65,7 @@ function InsightsAbstractController(
 
   function formatChartValue(price) {
 
-    return `${$filter('currency')(price.value.toString(), '', vm.user.model.currency.fractionSize)} ${vm.user.model.currency.symbol}`;
+    return `${$filter('currency')(price.value.toString(), '', _this.user.model.currency.fractionSize)} ${_this.user.model.currency.symbol}`;
   }
 
   // ---
@@ -93,7 +93,7 @@ function InsightsAbstractController(
       // Update spacing.
       // ---
       $timeout(() => {
-        vm.barOptions = angular.extend(vm.barOptions, {
+        _this.barOptions = angular.extend(_this.barOptions, {
           barValueSpacing: spacing,
           barDatasetSpacing: spacing,
         });

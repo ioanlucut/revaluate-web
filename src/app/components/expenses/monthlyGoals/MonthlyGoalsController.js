@@ -6,22 +6,22 @@ function MonthlyGoalsController(EXPENSE_EVENTS,
                                 promiseTracker,
                                 GoalService,
                                 goals) {
-  const vm = this;
+  const _this = this;
 
   /**
    * Load insights
    */
-  vm.loadGoals = loadGoals;
+  _this.loadGoals = loadGoals;
 
   /**
    * Goals of this month
    */
-  vm.goals = goals;
+  _this.goals = goals;
 
   /**
    * Create a loading tracker.
    */
-  vm.loadTracker = promiseTracker();
+  _this.loadTracker = promiseTracker();
 
   /**
    * Load goals
@@ -31,17 +31,17 @@ function MonthlyGoalsController(EXPENSE_EVENTS,
       .fromLastMonthsToNow(1);
 
     GoalService
-      .getAllGoalsFromTo(period.from, period.to, vm.loadTracker)
+      .getAllGoalsFromTo(period.from, period.to, _this.loadTracker)
       .then(receivedGoals => {
-        vm.goals = receivedGoals;
+        _this.goals = receivedGoals;
 
         $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.goalsFetched);
       })
       .catch(() => {
-        vm.badPostSubmitResponse = true;
+        _this.badPostSubmitResponse = true;
         $scope.$emit(ALERTS_EVENTS.DANGER, {
           message: 'Could not fetch goals.',
-          alertId: vm.alertId,
+          alertId: _this.alertId,
         });
       });
   }
@@ -76,7 +76,7 @@ function MonthlyGoalsController(EXPENSE_EVENTS,
     const isSameMonth = moment().isSame(moment(expense.spentDate), 'month');
 
     if (isSameMonth) {
-      vm.loadGoals();
+      _this.loadGoals();
     }
   }
 }

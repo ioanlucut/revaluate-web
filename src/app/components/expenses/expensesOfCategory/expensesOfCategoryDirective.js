@@ -1,6 +1,6 @@
 function ExpensesOfCategoryController(ALERTS_EVENTS, $scope, $rootScope, $timeout, DatesUtils, ExpenseService, promiseTracker) {
 
-  var vm = this;
+  var _this = this;
 
   this.DEFAULT_EXPENSES_LIMIT = 50;
 
@@ -90,10 +90,10 @@ function ExpensesOfCategoryController(ALERTS_EVENTS, $scope, $rootScope, $timeou
       .getFromToOfMonthYear(this.monthYearDate);
 
     ExpenseService
-      .getAllExpensesOfCategory(vm.totalPerCategoryInsights.categoryDTO.id, period.from, period.to, vm.loadingTracker)
+      .getAllExpensesOfCategory(_this.totalPerCategoryInsights.categoryDTO.id, period.from, period.to, _this.loadingTracker)
       .then(function (expenses) {
-        vm.expensesOfThisCategory = expenses;
-        handleShowAllFunctionality(vm.expensesOfThisCategory);
+        _this.expensesOfThisCategory = expenses;
+        handleShowAllFunctionality(_this.expensesOfThisCategory);
       })
       .catch(function () {
         $scope.$emit(ALERTS_EVENTS.DANGER, {
@@ -106,8 +106,8 @@ function ExpensesOfCategoryController(ALERTS_EVENTS, $scope, $rootScope, $timeou
     // ---
     // If expenses length > length * 0,2.
     // ---
-    vm.displayShowAllButton = expensesOfThisCategory.length > vm.expensesLimit + vm.expensesLimit * 0.2;
-    vm.expensesLimit = vm.displayShowAllButton ? vm.expensesLimit : expensesOfThisCategory.length;
+    _this.displayShowAllButton = expensesOfThisCategory.length > _this.expensesLimit + _this.expensesLimit * 0.2;
+    _this.expensesLimit = _this.displayShowAllButton ? _this.expensesLimit : expensesOfThisCategory.length;
   }
 
 }

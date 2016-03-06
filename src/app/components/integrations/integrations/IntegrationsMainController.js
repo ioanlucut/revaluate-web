@@ -2,50 +2,50 @@ export default
 
 function ($scope, $rootScope, INTEGRATIONS_CONSTANTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, ENV, SocialConnectService, StatesHandler, IntegrationsService, promiseTracker, integrations) {
 
-  var vm = this;
+  var _this = this;
 
-  vm.user = $rootScope.currentUser;
+  _this.user = $rootScope.currentUser;
 
   /**
    * Available integrations
    */
-  vm.integrations = integrations;
+  _this.integrations = integrations;
 
   // ---
   // If new oauth integration is added.
   // ---
-  vm.redirectUri = INTEGRATIONS_CONSTANTS.returnUriFormat.format(ENV.redirectUri);
-  vm.state = JSON.stringify({ userId: vm.user.model.id });
-  vm.scope = 'identify';
+  _this.redirectUri = INTEGRATIONS_CONSTANTS.returnUriFormat.format(ENV.redirectUri);
+  _this.state = JSON.stringify({ userId: _this.user.model.id });
+  _this.scope = 'identify';
 
   /**
    * Create an deleting tracker.
    */
-  vm.deleteTracker = promiseTracker();
+  _this.deleteTracker = promiseTracker();
 
   /**
    * Create an add tracker.
    */
-  vm.addTracker = promiseTracker();
+  _this.addTracker = promiseTracker();
 
   /**
    * Delete category;
    */
-  vm.deleteIntegration = deleteIntegration;
+  _this.deleteIntegration = deleteIntegration;
 
   /*
    * Add integration functionality.
    */
-  vm.addIntegrationOf = addIntegrationOf;
+  _this.addIntegrationOf = addIntegrationOf;
 
   // ---
   // Private methods.
   // ---
   function deleteIntegration(entry) {
     IntegrationsService
-      .deleteIntegration(entry, vm.deleteTracker)
+      .deleteIntegration(entry, _this.deleteTracker)
       .then(function () {
-        _.remove(vm.integrations, 'id', entry.id);
+        _.remove(_this.integrations, 'id', entry.id);
 
         $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Deleted');
         $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.appIntegrationDeleted);
@@ -59,7 +59,7 @@ function ($scope, $rootScope, INTEGRATIONS_CONSTANTS, ALERTS_EVENTS, USER_ACTIVI
     SocialConnectService
       .connectWithAppGet(provider)
       .then(function (profile) {
-        createOauthEntryWith(profile, vm.addTracker);
+        createOauthEntryWith(profile, _this.addTracker);
         $scope.$apply();
       })
       .then(null, function () {
@@ -76,9 +76,9 @@ function ($scope, $rootScope, INTEGRATIONS_CONSTANTS, ALERTS_EVENTS, USER_ACTIVI
 
         $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Integration successfully added.');
 
-        _.remove(vm.integrations, 'id', addedIntegration.id);
-        vm.integrations.push(addedIntegration);
-        vm.accordionStatus.isOpen = false;
+        _.remove(_this.integrations, 'id', addedIntegration.id);
+        _this.integrations.push(addedIntegration);
+        _this.accordionStatus.isOpen = false;
       })
       .catch(function () {
         $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.appIntegrationFailed);
