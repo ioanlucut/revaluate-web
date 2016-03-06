@@ -30,7 +30,7 @@ let imports = new Map();
 // ---
 // On every subdir, iterate over files.
 // ---
-const BASE_PATH = 'src/app/components/insights';
+const BASE_PATH = 'src/app/common/common/interceptors';
 
 dir.files('./' + BASE_PATH, function (err, files) {
   if (err) throw err;
@@ -47,7 +47,7 @@ dir.files('./' + BASE_PATH, function (err, files) {
     let importNameWithoutExtension = importName.replace('.js', '');
     const importValue = 'import ' + importNameWithoutExtension + ' from ' + '\'' + path.replace(BASE_PATH, '.') + '\'';
 
-    const contentRegex = /(angular)(.*[\s\S]*)(module.*)(.*[\s\S]*)((provider|directive|factory|filter|service|value|constant|controller)\('\w+', )(.*[\s\S]*)(\);)/g;
+    const contentRegex = /(export default)(.*[\s\S]*?)(function)/g;
     const contentRegexResult = contentRegex.exec(content);
     if (!contentRegexResult) {
       return;
