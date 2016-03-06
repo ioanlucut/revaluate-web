@@ -15,7 +15,7 @@ export default
     goals,
     categories) {
 
-    const vm = this;
+    const _this = this;
 
     /**
      * Alert identifier
@@ -45,29 +45,29 @@ export default
     /**
      * Exposed goals data.
      */
-    vm.goalsData = {
+    _this.goalsData = {
       yearMonthDate: moment().toDate(),
     };
 
     /**
      * On date change do load goals
      */
-    vm.loadGoals = loadGoals;
+    _this.loadGoals = loadGoals;
 
     /**
      * Create a saving tracker.
      */
-    vm.loadTracker = promiseTracker();
+    _this.loadTracker = promiseTracker();
 
     /**
      * Create a saving tracker.
      */
-    vm.updateStatisticsTracker = promiseTracker();
+    _this.updateStatisticsTracker = promiseTracker();
 
     /**
      * Is maximum number of allowed goals exceeded. Depends on the type of user.
      */
-    vm.isMaximumNumberOfAllowedGoalsExceeded = isMaximumNumberOfAllowedGoalsExceeded;
+    _this.isMaximumNumberOfAllowedGoalsExceeded = isMaximumNumberOfAllowedGoalsExceeded;
 
     /**
      * Load goals
@@ -75,7 +75,7 @@ export default
     function loadGoals(yearMonthDate) {
       let period;
 
-      if (vm.loadTracker.active()) {
+      if (_this.loadTracker.active()) {
 
         return;
       }
@@ -84,41 +84,41 @@ export default
         .getFromToOfMonthYear(yearMonthDate);
 
       GoalService
-        .getAllGoalsFromTo(period.from, period.to, vm.loadTracker)
+        .getAllGoalsFromTo(period.from, period.to, _this.loadTracker)
         .then(receivedGoals => {
-          vm.goals = receivedGoals;
+          _this.goals = receivedGoals;
 
           // ---
           // If there was a previously error, just clear it.
           // ---
           $scope.$emit(ALERTS_EVENTS.CLEAR, {
-            alertId: vm.alertId,
+            alertId: _this.alertId,
           });
           $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.goalsFetched);
         })
         .catch(() => {
-          vm.badPostSubmitResponse = true;
+          _this.badPostSubmitResponse = true;
           $scope.$emit(ALERTS_EVENTS.DANGER, {
             message: 'Could not fetch goals.',
-            alertId: vm.alertId,
+            alertId: _this.alertId,
           });
         });
     }
 
     function isMaximumNumberOfAllowedGoalsExceeded() {
-      return vm.goals.length >= vm.categories.length;
+      return _this.goals.length >= _this.categories.length;
     }
 
     function reloadMonthsPerYearsStatistics() {
       StatisticService
-        .fetchGoalsMonthsPerYearStatistics(vm.updateStatisticsTracker)
+        .fetchGoalsMonthsPerYearStatistics(_this.updateStatisticsTracker)
         .then(receivedMonthsPerYearsStatistics => {
-          vm.monthsPerYearsStatistics = receivedMonthsPerYearsStatistics;
+          _this.monthsPerYearsStatistics = receivedMonthsPerYearsStatistics;
         });
     }
 
     function updateNoOfGoals() {
-      $scope.$emit('updateUserStats', { args: { countGoals: vm.goals.length } });
+      $scope.$emit('updateUserStats', { args: { countGoals: _this.goals.length } });
     }
 
     // ---
@@ -129,10 +129,10 @@ export default
      * On goal created, display a success message, and add goal to the list.
      */
     $scope.$on(GOAL_EVENTS.isCreated, (event, args) => {
-      const isSameMonth = moment(vm.goalsData.yearMonthDate).isSame(moment(args.goal.yearMonthDate), 'month');
+      const isSameMonth = moment(_this.goalsData.yearMonthDate).isSame(moment(args.goal.yearMonthDate), 'month');
 
       if (isSameMonth) {
-        vm.goals.push(args.goal);
+        _this.goals.push(args.goal);
       } else {
         reloadMonthsPerYearsStatistics();
       }
@@ -148,8 +148,8 @@ export default
     $scope.$on(GOAL_EVENTS.isUpdated, (event, args) => {
       reloadMonthsPerYearsStatistics();
 
-      _.remove(vm.goals, 'id', args.goal.id);
-      vm.goals.push(args.goal);
+      _.remove(_this.goals, 'id', args.goal.id);
+      _this.goals.push(args.goal);
 
       $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated');
       $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.goalUpdated);
@@ -160,7 +160,7 @@ export default
      */
     $scope.$on(GOAL_EVENTS.isDeleted, (event, args) => {
       if (args.goal) {
-        _.remove(vm.goals, 'id', args.goal.id);
+        _.remove(_this.goals, 'id', args.goal.id);
         reloadMonthsPerYearsStatistics();
       }
 
@@ -175,7 +175,7 @@ export default
     $scope.$on(GOAL_EVENTS.isErrorOccurred, (event, args) => {
       $scope.$emit(ALERTS_EVENTS.DANGER, {
         message: args.errorMessage,
-        alertId: vm.alertId,
+        alertId: _this.alertId,
       });
     });
 

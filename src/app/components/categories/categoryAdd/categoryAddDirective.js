@@ -1,43 +1,43 @@
 function AddCategoryController(CATEGORY_EVENTS, $scope, promiseTracker, Category, CategoryColorService, CategoryService) {
 
-  var vm = this;
+  var _this = this;
 
   /**
    * Create a saving tracker.
    */
-  vm.saveTracker = promiseTracker();
+  _this.saveTracker = promiseTracker();
 
-  vm.initOrResetAddCategory = initOrResetAddCategory;
+  _this.initOrResetAddCategory = initOrResetAddCategory;
 
   /**
    * Saves the category.
    */
-  vm.saveCategory = saveCategory;
+  _this.saveCategory = saveCategory;
 
   /**
    * Perform the first initialization.
    */
-  vm.initOrResetAddCategory();
+  _this.initOrResetAddCategory();
 
   function initOrResetAddCategory() {
-    vm.category = new Category({ color: CategoryColorService.randomizedColor(vm.colors) });
+    _this.category = new Category({ color: CategoryColorService.randomizedColor(_this.colors) });
 
-    if (vm.categoryForm) {
-      vm.categoryForm.$setPristine();
+    if (_this.categoryForm) {
+      _this.categoryForm.$setPristine();
     }
 
-    vm.badPostSubmitResponse = false;
+    _this.badPostSubmitResponse = false;
   }
 
   function saveCategory() {
     CategoryService
-      .createCategory(vm.category, vm.saveTracker)
+      .createCategory(_this.category, _this.saveTracker)
       .then(function (createdCategory) {
         $scope.$emit(CATEGORY_EVENTS.isCreated, { category: createdCategory });
-        vm.initOrResetAddCategory();
+        _this.initOrResetAddCategory();
       })
       .catch(function () {
-        vm.badPostSubmitResponse = true;
+        _this.badPostSubmitResponse = true;
         $scope.$emit(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something went wrong.' });
       });
   }

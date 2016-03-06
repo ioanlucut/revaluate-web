@@ -1,24 +1,24 @@
 function GoalDailyStatusController($rootScope, $filter, InsightsGenerator) {
 
-  var vm = this;
+  var _this = this;
 
   /**
    * Insights current year
    */
-  vm.currentYear = moment().year();
+  _this.currentYear = moment().year();
 
   /**
    * Current user.
    */
-  vm.user = $rootScope.currentUser;
+  _this.user = $rootScope.currentUser;
 
   // ---
   // Computed information.
   // ---
-  vm.barInsightsPrepared = InsightsGenerator
-    .generateDailyBar(vm.currentYear, vm.insightsDaily);
+  _this.barInsightsPrepared = InsightsGenerator
+    .generateDailyBar(_this.currentYear, _this.insightsDaily);
 
-  vm.barOptions = {
+  _this.barOptions = {
     scaleLabel: function (label) {
       return formatChartValue(label);
     },
@@ -47,7 +47,7 @@ function GoalDailyStatusController($rootScope, $filter, InsightsGenerator) {
   };
 
   function formatChartValue(price) {
-    return $filter('currency')(price.value.toString(), '', vm.user.model.currency.fractionSize) + ' ' + vm.user.model.currency.symbol;
+    return $filter('currency')(price.value.toString(), '', _this.user.model.currency.fractionSize) + ' ' + _this.user.model.currency.symbol;
   }
 
 }

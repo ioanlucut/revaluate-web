@@ -16,22 +16,22 @@ function SettingsSetUpRegistrationController(
   StatesHandler,
   Category) {
 
-  const vm = this;
+  const _this = this;
 
   /**
    * All given currencies.
    */
-  vm.currencies = APP_CONFIG.CURRENCIES;
+  _this.currencies = APP_CONFIG.CURRENCIES;
 
   /**
    * Alert identifier
    */
-  vm.alertId = ALERTS_CONSTANTS.signUpSetUp;
+  _this.alertId = ALERTS_CONSTANTS.signUpSetUp;
 
   /**
    * Current user.
    */
-  vm.user = $rootScope.currentUser;
+  _this.user = $rootScope.currentUser;
 
   // ---
   // Detected locale.
@@ -41,60 +41,60 @@ function SettingsSetUpRegistrationController(
   /**
    * Selected currency
    */
-  vm.currency = {};
+  _this.currency = {};
 
   // ---
   // Try to auto detect currency.
   // ---
-  vm.currency.selected = _.find(vm.currencies, currencyCandidate => currencyCandidate.currencyCode === detectedCodeKey);
+  _this.currency.selected = _.find(_this.currencies, currencyCandidate => currencyCandidate.currencyCode === detectedCodeKey);
 
   /**
    * Existing predefined colors.
    */
-  vm.colors = APP_CONFIG.ALL_COLORS;
+  _this.colors = APP_CONFIG.ALL_COLORS;
 
   /**
    * Existing predefined categories.
    */
-  vm.categories = APP_CONFIG.PREDEFINED_CATEGORIES;
+  _this.categories = APP_CONFIG.PREDEFINED_CATEGORIES;
 
   // ---
   // Populate predefined categories with colors.
   // ---
-  vm.categories = _.map(vm.categories, category => ({
+  _this.categories = _.map(_this.categories, category => ({
     name: category,
     selected: false,
-    color: vm.colors[vm.categories.indexOf(category)]
+    color: _this.colors[_this.categories.indexOf(category)]
   }));
 
   /**
    * Category to be added on the fly
    */
-  vm.categoryOnTheFly = '';
+  _this.categoryOnTheFly = '';
 
   /**
    * Show block content
    */
-  vm.showCategoryOnTheFlyInput = false;
+  _this.showCategoryOnTheFlyInput = false;
 
   /**
    * Toggle content
    */
-  vm.toggleContent = () => {
-    vm.showCategoryOnTheFlyInput = !vm.showCategoryOnTheFlyInput;
+  _this.toggleContent = () => {
+    _this.showCategoryOnTheFlyInput = !_this.showCategoryOnTheFlyInput;
   };
 
   /**
    * Trigger submit of the category on the fly nested form
    */
-  vm.triggerSubmit = () => {
+  _this.triggerSubmit = () => {
     $scope.$broadcast('category-add-on-the-fly-event');
   };
 
   /**
    * To be called when on blur.
    */
-  vm.cancelAddCategoryOnTheFly = () => {
+  _this.cancelAddCategoryOnTheFly = () => {
     resetCategoryOnTheFlyForm();
   };
 
@@ -102,41 +102,41 @@ function SettingsSetUpRegistrationController(
    * Reset the category on the fly
    */
   function resetCategoryOnTheFlyForm() {
-    vm.showCategoryOnTheFlyInput = false;
-    vm.categoryOnTheFly = '';
-    vm.setUpForm.categoryOnTheFlyForm.$setPristine();
-    vm.badPostSubmitResponse = false;
+    _this.showCategoryOnTheFlyInput = false;
+    _this.categoryOnTheFly = '';
+    _this.setUpForm.categoryOnTheFlyForm.$setPristine();
+    _this.badPostSubmitResponse = false;
 
     // ---
     // If there was a previously error, just clear it.
     // ---
     $scope.$emit(ALERTS_EVENTS.CLEAR, {
-      alertId: vm.alertId,
+      alertId: _this.alertId,
     });
   }
 
   /**
    * Add a custom category to existing ones (only if name is unique)
    */
-  vm.onSubmitted = $event => {
+  _this.onSubmitted = $event => {
     $event.stopPropagation();
 
-    vm.setUpForm.categoryOnTheFlyForm.$submitted = true;
-    if (vm.setUpForm.categoryOnTheFlyForm.$invalid) {
+    _this.setUpForm.categoryOnTheFlyForm.$submitted = true;
+    if (_this.setUpForm.categoryOnTheFlyForm.$invalid) {
       return;
     }
 
-    const result = _.some(vm.categories, category => category.name.toUpperCase() === vm.categoryOnTheFly.toUpperCase());
+    const result = _.some(_this.categories, category => category.name.toUpperCase() === _this.categoryOnTheFly.toUpperCase());
 
     if (result) {
       $scope.$emit(ALERTS_EVENTS.DANGER, {
         message: 'Category is not unique',
-        alertId: vm.alertId,
+        alertId: _this.alertId,
       });
     } else {
-      vm.categories.push({
-        name: vm.categoryOnTheFly,
-        color: CategoryColorService.randomizedColor(vm.colors),
+      _this.categories.push({
+        name: _this.categoryOnTheFly,
+        color: CategoryColorService.randomizedColor(_this.colors),
         selected: true,
       });
 
@@ -150,23 +150,23 @@ function SettingsSetUpRegistrationController(
   /**
    * Toggle category selection
    */
-  vm.toggleCategorySelection = index => {
-    vm.categories[index].selected = !vm.categories[index].selected;
+  _this.toggleCategorySelection = index => {
+    _this.categories[index].selected = !_this.categories[index].selected;
   };
 
   function getSelectedCategories() {
-    return _.filter(vm.categories, 'selected', true);
+    return _.filter(_this.categories, 'selected', true);
   }
 
-  vm.selectAll = () => {
+  _this.selectAll = () => {
 
-    if (getSelectedCategories().length < vm.categories.length) {
+    if (getSelectedCategories().length < _this.categories.length) {
 
       setAllCategoriesWithSelectedStatusOf(true);
     }
   };
 
-  vm.clearAll = () => {
+  _this.clearAll = () => {
 
     if (getSelectedCategories().length > 0) {
 
@@ -175,7 +175,7 @@ function SettingsSetUpRegistrationController(
   };
 
   function setAllCategoriesWithSelectedStatusOf(status) {
-    _.each(vm.categories, category => {
+    _.each(_this.categories, category => {
       category.selected = status;
     });
   }
@@ -183,22 +183,22 @@ function SettingsSetUpRegistrationController(
   /**
    * Is enough selected categories
    */
-  vm.isEnoughSelectedCategories = () => getSelectedCategories().length >= APP_CONFIG.SETUP_MIN_CATEGORIES_TO_SELECT;
+  _this.isEnoughSelectedCategories = () => getSelectedCategories().length >= APP_CONFIG.SETUP_MIN_CATEGORIES_TO_SELECT;
 
   /**
    * Update profile functionality.
    */
-  vm.setUp = () => {
+  _this.setUp = () => {
     let selectedCategories, selectedCategoriesToBeSaved, deferred, userProfileToBeUpdated;
 
-    if (vm.setUpForm.$invalid || vm.isSaving) {
+    if (_this.setUpForm.$invalid || _this.isSaving) {
 
       return;
     }
 
     selectedCategories = angular.copy(getSelectedCategories());
     userProfileToBeUpdated = {
-      currency: angular.copy(vm.currency.selected),
+      currency: angular.copy(_this.currency.selected),
       initiated: true,
     };
 
@@ -215,7 +215,7 @@ function SettingsSetUpRegistrationController(
     // ---
     // Flag is saving flag.
     // ---
-    vm.isSaving = true;
+    _this.isSaving = true;
 
     // ---
     // Try to save them at once and if successfully, update the user.
@@ -223,7 +223,7 @@ function SettingsSetUpRegistrationController(
     CategoryService
       .setupBulkCreateCategories(selectedCategoriesToBeSaved)
       .then(() => {
-        vm.user
+        _this.user
           .updateInitiatedStatus(userProfileToBeUpdated)
           .then(response => {
             deferred.resolve(response);
@@ -254,7 +254,7 @@ function SettingsSetUpRegistrationController(
         // ---
         // Show some feedback.
         // ---
-        vm.isSaving = false;
+        _this.isSaving = false;
         $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Set up successfully! Preparing expenses..');
 
         /**
@@ -263,12 +263,12 @@ function SettingsSetUpRegistrationController(
         StatesHandler.goToExpenses();
       })
       .catch(() => {
-        vm.badPostSubmitResponse = true;
-        vm.isSaving = false;
+        _this.badPostSubmitResponse = true;
+        _this.isSaving = false;
 
         $scope.$emit(ALERTS_EVENTS.DANGER, {
           message: 'Ups, something went wrong.',
-          alertId: vm.alertId,
+          alertId: _this.alertId,
         });
       });
   };

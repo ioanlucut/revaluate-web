@@ -17,32 +17,32 @@ function InsightsMonthlyController(
   insightsMonthly,
   monthsPerYearsStatistics) {
 
-  const vm = this;
+  const _this = this;
 
   /**
    * Alert identifier
    */
-  vm.alertId = ALERTS_CONSTANTS.insightsMonthly;
+  _this.alertId = ALERTS_CONSTANTS.insightsMonthly;
 
   /**
    * Current user.
    */
-  vm.user = $rootScope.currentUser;
+  _this.user = $rootScope.currentUser;
 
   /**
    * Fetch all types of insights charts
    */
-  vm.INSIGHTS_CHARTS = INSIGHTS_CHARTS;
+  _this.INSIGHTS_CHARTS = INSIGHTS_CHARTS;
 
   /**
    * Default insights loaded.
    */
-  vm.insightsMonthly = insightsMonthly;
+  _this.insightsMonthly = insightsMonthly;
 
   /**
    * Insights months per years.
    */
-  vm.monthsPerYearsStatistics = monthsPerYearsStatistics;
+  _this.monthsPerYearsStatistics = monthsPerYearsStatistics;
 
   // ---
   // Inherit from parent controller.
@@ -55,7 +55,7 @@ function InsightsMonthlyController(
     monthsPerYearsStatistics,
     resizeOnUpdate: true,
     getChartSetSize: function getChartSetSize() {
-      return vm.barInsightsPrepared.insightsBarData.length;
+      return _this.barInsightsPrepared.insightsBarData.length;
     },
   }));
 
@@ -67,31 +67,31 @@ function InsightsMonthlyController(
   /**
    * Default active chart
    */
-  vm.activeChart = vm.INSIGHTS_CHARTS.BAR;
+  _this.activeChart = _this.INSIGHTS_CHARTS.BAR;
 
   /**
    * Sets te active chart displayed with the given chart type.
    */
-  vm.setActiveChart = chartType => {
-    vm.activeChart = chartType;
+  _this.setActiveChart = chartType => {
+    _this.activeChart = chartType;
   };
 
   /**
    * Exposed insights data.
    */
-  vm.insightData = {
+  _this.insightData = {
     yearMonthDate: moment().toDate(),
   };
 
   /**
    * On date change do load insights
    */
-  vm.loadInsight = loadInsight;
+  _this.loadInsight = loadInsight;
 
   /**
    * Create a saving tracker.
    */
-  vm.loadTracker = promiseTracker();
+  _this.loadTracker = promiseTracker();
 
   /**
    * Prepares data for chart
@@ -100,13 +100,13 @@ function InsightsMonthlyController(
     // ---
     // Computed information and methods.
     // ---
-    vm.barInsightsPrepared = InsightsGenerator
-      .generateMonthlyBar(vm.insightsMonthly);
+    _this.barInsightsPrepared = InsightsGenerator
+      .generateMonthlyBar(_this.insightsMonthly);
 
-    vm.donutInsightsPrepared = InsightsGenerator
-      .generateMonthlyDonut(vm.insightsMonthly);
+    _this.donutInsightsPrepared = InsightsGenerator
+      .generateMonthlyDonut(_this.insightsMonthly);
 
-    $scope.$emit('chartsLoaded', { size: vm.barInsightsPrepared.insightsBarData.length });
+    $scope.$emit('chartsLoaded', { size: _this.barInsightsPrepared.insightsBarData.length });
   }
 
   /**
@@ -115,7 +115,7 @@ function InsightsMonthlyController(
   function loadInsight(ofYearMonthDate) {
     let period;
 
-    if (vm.loadTracker.active()) {
+    if (_this.loadTracker.active()) {
 
       return;
     }
@@ -124,24 +124,24 @@ function InsightsMonthlyController(
       .getFromToOfMonthYear(ofYearMonthDate);
 
     InsightsService
-      .fetchMonthlyInsightsFromTo(period.from, period.to, vm.loadTracker)
+      .fetchMonthlyInsightsFromTo(period.from, period.to, _this.loadTracker)
       .then(receivedInsight => {
-        vm.insightsMonthly = receivedInsight;
+        _this.insightsMonthly = receivedInsight;
         prepareDataForChart();
 
         // ---
         // If there was a previously error, just clear it.
         // ---
         $scope.$emit(ALERTS_EVENTS.CLEAR, {
-          alertId: vm.alertId,
+          alertId: _this.alertId,
         });
         $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.insightsFetched);
       })
       .catch(() => {
-        vm.badPostSubmitResponse = true;
+        _this.badPostSubmitResponse = true;
         $scope.$emit(ALERTS_EVENTS.DANGER, {
           message: 'Could not fetch insights.',
-          alertId: vm.alertId,
+          alertId: _this.alertId,
         });
       });
   }

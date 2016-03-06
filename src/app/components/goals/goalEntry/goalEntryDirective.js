@@ -1,6 +1,6 @@
 function GoalEntryController(GOAL_EVENTS, APP_CONFIG, $rootScope, GoalService, DatesUtils, Category, GoalProgressTypeService, GoalMessagesService, promiseTracker) {
 
-  var vm = this;
+  var _this = this;
 
   /**
    * Current user.
@@ -56,49 +56,49 @@ function GoalEntryController(GOAL_EVENTS, APP_CONFIG, $rootScope, GoalService, D
   /**
    * Create an updating tracker.
    */
-  vm.updateTracker = promiseTracker();
+  _this.updateTracker = promiseTracker();
 
   /**
    * Create an deleting tracker.
    */
-  vm.deleteTracker = promiseTracker();
+  _this.deleteTracker = promiseTracker();
 
   /**
    * Delete goal;
    */
-  vm.deleteGoal = deleteGoal;
+  _this.deleteGoal = deleteGoal;
 
   // ---
   // Just a message.
   // ---
-  vm.message = GoalMessagesService.getMessage(GoalProgressTypeService.computeProgressBarType(vm.shownGoal));
+  _this.message = GoalMessagesService.getMessage(GoalProgressTypeService.computeProgressBarType(_this.shownGoal));
 
   function updateGoal() {
     var period = DatesUtils
-      .getFromToOfMonthYear(vm.shownGoal.yearMonthDate);
+      .getFromToOfMonthYear(_this.shownGoal.yearMonthDate);
 
-    vm.shownGoal = _.extend(vm.shownGoal, {
-      category: angular.copy(vm.category.selected),
+    _this.shownGoal = _.extend(_this.shownGoal, {
+      category: angular.copy(_this.category.selected),
       startDate: period.from,
       endDate: period.to,
     });
 
     GoalService
-      .updateGoal(vm.shownGoal, vm.updateTracker)
+      .updateGoal(_this.shownGoal, _this.updateTracker)
       .then(function (updatedGoal) {
-        $rootScope.$broadcast(GOAL_EVENTS.isUpdated, { goal: _.extend(vm.shownGoal, updatedGoal) });
+        $rootScope.$broadcast(GOAL_EVENTS.isUpdated, { goal: _.extend(_this.shownGoal, updatedGoal) });
       })
       .catch(function () {
-        vm.badPostSubmitResponse = true;
+        _this.badPostSubmitResponse = true;
         $rootScope.$broadcast(GOAL_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something went wrong.' });
       });
   }
 
   function deleteGoal() {
     GoalService
-      .bulkDelete([vm.goal], vm.deleteTracker)
+      .bulkDelete([_this.goal], _this.deleteTracker)
       .then(function () {
-        $rootScope.$broadcast(GOAL_EVENTS.isDeleted, { goal: vm.goal });
+        $rootScope.$broadcast(GOAL_EVENTS.isDeleted, { goal: _this.goal });
       })
       .catch(function () {
         $rootScope.$broadcast(GOAL_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something went wrong.' });
@@ -109,12 +109,12 @@ function GoalEntryController(GOAL_EVENTS, APP_CONFIG, $rootScope, GoalService, D
     $event.preventDefault();
     $event.stopPropagation();
 
-    vm.datePickerStatus.opened = true;
+    _this.datePickerStatus.opened = true;
   }
 
   function discardChanges() {
-    vm.shownGoal = angular.copy(vm.goal);
-    vm.category = _.extend({}, { selected: new Category(vm.shownGoal.category) });
+    _this.shownGoal = angular.copy(_this.goal);
+    _this.category = _.extend({}, { selected: new Category(_this.shownGoal.category) });
   }
 }
 
@@ -129,7 +129,7 @@ export default function (GOAL_EVENTS, $rootScope, $timeout) {
     bindToController: true,
     controllerAs: 'vm',
     templateUrl: '/app/components/goals/goalEntry/goalEntryDirective.tpl.html',
-    link: function (scope, el, attrs, vm) {
+    link: function (scope, el, attrs, _this) {
       var GOAL_INPUT_SELECTOR = '.goal__form__price__input';
 
       /**
@@ -164,20 +164,20 @@ export default function (GOAL_EVENTS, $rootScope, $timeout) {
       scope.cancel = function () {
         scope.toggleContent();
 
-        vm.discardChanges();
+        _this.discardChanges();
       };
 
       /**
        * On goal updated/deleted - cancel edit mode.
        */
       $rootScope.$on(GOAL_EVENTS.isUpdated, function (event, args) {
-        if (vm.goal.id === args.goal.id) {
+        if (_this.goal.id === args.goal.id) {
 
           // ---
           // Now update the master goal, and remove the marked sign.
           // ---
-          vm.shownGoal.marked = false;
-          vm.goal = angular.copy(vm.shownGoal);
+          _this.shownGoal.marked = false;
+          _this.goal = angular.copy(_this.shownGoal);
 
           scope.cancel();
         }

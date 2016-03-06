@@ -11,20 +11,20 @@ function SocialConnectController(
   APP_CONFIG,
   AuthService) {
 
-  const vm = this;
+  const _this = this;
 
   /**
    * Alert identifier
    */
-  vm.alertId = ALERTS_CONSTANTS.oauthConnect;
+  _this.alertId = ALERTS_CONSTANTS.oauthConnect;
 
   /*
    * Connect functionality.
    */
-  vm.connectWith = provider => {
-    if (!vm.isRequestPending) {
+  _this.connectWith = provider => {
+    if (!_this.isRequestPending) {
 
-      vm.isRequestPending = true;
+      _this.isRequestPending = true;
 
       SocialConnectService
         .connect(provider)
@@ -45,21 +45,21 @@ function SocialConnectController(
               });
         })
         .then(() => {
-          vm.isRequestPending = false;
+          _this.isRequestPending = false;
           $scope.$emit(ALERTS_EVENTS.CLEAR, {
-            alertId: vm.alertId,
+            alertId: _this.alertId,
           });
 
           StatesHandler.goToExpenses();
         })
         .catch(response => {
           /* If bad feedback from server */
-          vm.badPostSubmitResponse = true;
-          vm.isRequestPending = false;
+          _this.badPostSubmitResponse = true;
+          _this.isRequestPending = false;
 
           $scope.$emit(ALERTS_EVENTS.DANGER, {
             message: response && response.status === 400 ? 'You can\'t connect with this email. This email is already registered but with a different provider.' : 'Ups, something went wrong.',
-            alertId: vm.alertId,
+            alertId: _this.alertId,
           });
         });
     }

@@ -5,7 +5,7 @@ export default
  */
   function ($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, ALERTS_EVENTS, ALERTS_CONSTANTS, APP_CONFIG) {
 
-    var vm = this;
+    var _this = this;
 
     /**
      * Saving timeout
@@ -16,26 +16,26 @@ export default
      * All given currencies.
      * @type {currencies|*}
      */
-    vm.currencies = APP_CONFIG.CURRENCIES;
+    _this.currencies = APP_CONFIG.CURRENCIES;
 
     /**
      * Alert identifier
      */
-    vm.alertId = ALERTS_CONSTANTS.preferences;
+    _this.alertId = ALERTS_CONSTANTS.preferences;
 
     /**
      * Current user.
      * @type {$rootScope.currentUser|*}
      */
-    vm.user = $rootScope.currentUser;
+    _this.user = $rootScope.currentUser;
 
     /**
      * Selected currency
      * @type {{}}
      */
-    vm.currency = {};
-    vm.currency.selected = _.find(vm.currencies, function (currencyCandidate) {
-    return currencyCandidate.currencyCode === vm.user.model.currency.currencyCode;
+    _this.currency = {};
+    _this.currency.selected = _.find(_this.currencies, function (currencyCandidate) {
+    return currencyCandidate.currencyCode === _this.user.model.currency.currencyCode;
   });
 
     /**
@@ -43,34 +43,34 @@ export default
      */
     function getInitialProfileData() {
     return {
-      currency: vm.currency.selected,
+      currency: _this.currency.selected,
     };
   }
 
     /**
      * Profile user information.
      */
-    vm.profileData = angular.copy(getInitialProfileData());
+    _this.profileData = angular.copy(getInitialProfileData());
 
     /**
      * Update profile functionality.
      */
-    vm.updatePreferences = function () {
-    if (vm.preferencesForm.$valid && !vm.isSaving) {
+    _this.updatePreferences = function () {
+    if (_this.preferencesForm.$valid && !_this.isSaving) {
 
       // Show the loading bar
-      vm.isSaving = true;
+      _this.isSaving = true;
 
-      vm.profileData.currency = angular.copy(vm.currency.selected || vm.currency);
+      _this.profileData.currency = angular.copy(_this.currency.selected || _this.currency);
 
       // Update the user
-      vm.user
-        .updateCurrency(vm.profileData)
+      _this.user
+        .updateCurrency(_this.profileData)
         .then(function (response) {
           // ---
           // Reload data with given response.
           // ---
-          vm.user
+          _this.user
             .loadFrom(response.data);
 
           // ---
@@ -82,24 +82,24 @@ export default
           // ---
           // Reset the profile data with possible new data.
           // ---
-          vm.profileData = angular.copy(getInitialProfileData());
+          _this.profileData = angular.copy(getInitialProfileData());
 
-          vm.preferencesForm.$setPristine();
+          _this.preferencesForm.$setPristine();
 
           $timeout(function () {
-            vm.isSaving = false;
+            _this.isSaving = false;
             $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated');
           }, TIMEOUT_PENDING);
 
         })
         .catch(function () {
           /* If bad feedback from server */
-          vm.badPostSubmitResponse = true;
-          vm.isSaving = false;
+          _this.badPostSubmitResponse = true;
+          _this.isSaving = false;
 
           $scope.$emit(ALERTS_EVENTS.DANGER, {
             message: 'Ups, something went wrong.',
-            alertId: vm.alertId,
+            alertId: _this.alertId,
           });
         });
     }

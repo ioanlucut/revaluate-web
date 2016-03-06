@@ -11,17 +11,17 @@ export default function MonthlyDailyInsightsController(EXPENSE_EVENTS,
                                                        promiseTracker,
                                                        insightsDaily) {
 
-  const vm = this;
+  const _this = this;
 
   /**
    * Insights current year
    */
-  vm.currentYear = moment().year();
+  _this.currentYear = moment().year();
 
   /**
    * Default insights daily.
    */
-  vm.insightsDaily = insightsDaily;
+  _this.insightsDaily = insightsDaily;
 
   // ---
   // Inherit from parent controller.
@@ -39,17 +39,17 @@ export default function MonthlyDailyInsightsController(EXPENSE_EVENTS,
   // ---
   // Customize look.
   // ---
-  vm.barOptions = angular.extend(vm.barOptions, {
+  _this.barOptions = angular.extend(_this.barOptions, {
     scaleLabel(label) {
-      return vm.formatChartValue(label);
+      return _this.formatChartValue(label);
     },
 
     multiTooltipTemplate(label) {
-      return vm.formatChartValue(label);
+      return _this.formatChartValue(label);
     },
 
     tooltipTemplate(label) {
-      return vm.formatChartValue(label);
+      return _this.formatChartValue(label);
     },
 
     scaleShowHorizontalLines: false,
@@ -68,12 +68,12 @@ export default function MonthlyDailyInsightsController(EXPENSE_EVENTS,
   /**
    * Load insights
    */
-  vm.loadInsights = loadInsights;
+  _this.loadInsights = loadInsights;
 
   /**
    * Create a saving tracker.
    */
-  vm.loadTracker = promiseTracker();
+  _this.loadTracker = promiseTracker();
 
   // ---
   // Computed information and methods.
@@ -85,18 +85,18 @@ export default function MonthlyDailyInsightsController(EXPENSE_EVENTS,
       .fromLastMonthsToNow(1);
 
     InsightsService
-      .fetchDailyInsightsFromTo(period.from, period.to, vm.loadTracker)
+      .fetchDailyInsightsFromTo(period.from, period.to, _this.loadTracker)
       .then(receivedInsight => {
         // ---
         // Update everything.
         // ---
-        vm.insightsDaily = receivedInsight;
+        _this.insightsDaily = receivedInsight;
 
         prepareDataForChart();
         $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.insightsDailyFetched);
       })
       .catch(() => {
-        vm.badPostSubmitResponse = true;
+        _this.badPostSubmitResponse = true;
         $scope.$emit(ALERTS_EVENTS.DANGER, {
           message: 'Could not fetch insights.',
         });
@@ -110,10 +110,10 @@ export default function MonthlyDailyInsightsController(EXPENSE_EVENTS,
     // ---
     // Computed information and methods.
     // ---
-    vm.barInsightsPrepared = InsightsGenerator
-      .generateDailyBar(vm.currentYear, vm.insightsDaily);
+    _this.barInsightsPrepared = InsightsGenerator
+      .generateDailyBar(_this.currentYear, _this.insightsDaily);
 
-    $scope.$emit('chartsLoaded', { size: vm.barInsightsPrepared.insightsBarData[0].length });
+    $scope.$emit('chartsLoaded', { size: _this.barInsightsPrepared.insightsBarData[0].length });
   }
 
   // ---
@@ -146,7 +146,7 @@ export default function MonthlyDailyInsightsController(EXPENSE_EVENTS,
     const isSameMonth = moment().isSame(moment(expense.spentDate), 'month');
 
     if (isSameMonth) {
-      vm.loadInsights();
+      _this.loadInsights();
     }
   }
 

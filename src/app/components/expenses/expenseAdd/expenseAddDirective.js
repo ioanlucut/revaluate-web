@@ -1,6 +1,6 @@
 function AddExpenseController(EXPENSE_EVENTS, APP_CONFIG, $scope, $rootScope, ExpenseService, Expense, promiseTracker) {
 
-  var vm = this;
+  var _this = this;
 
   /**
    * Current user.
@@ -38,35 +38,35 @@ function AddExpenseController(EXPENSE_EVENTS, APP_CONFIG, $scope, $rootScope, Ex
   this.initOrResetAddExpense();
 
   function initOrResetAddExpense() {
-    vm.expense = new Expense({
+    _this.expense = new Expense({
       spentDate: moment().toDate(),
     });
 
-    vm.category = {};
+    _this.category = {};
 
-    if (vm.expenseForm) {
-      vm.expenseForm.$setPristine();
+    if (_this.expenseForm) {
+      _this.expenseForm.$setPristine();
     }
 
-    vm.badPostSubmitResponse = false;
+    _this.badPostSubmitResponse = false;
 
     /**
      * Max date to create expense
      */
-    vm.datePickerMaxDate = moment().hours(0).minutes(0).seconds(0);
+    _this.datePickerMaxDate = moment().hours(0).minutes(0).seconds(0);
   }
 
   function saveExpense() {
     this.expense.category = angular.copy(this.category.selected);
 
     ExpenseService
-      .createExpense(this.expense, vm.saveTracker)
+      .createExpense(this.expense, _this.saveTracker)
       .then(function (createdExpense) {
         $rootScope.$broadcast(EXPENSE_EVENTS.isCreated, { expense: createdExpense });
-        vm.initOrResetAddExpense();
+        _this.initOrResetAddExpense();
       })
       .catch(function () {
-        vm.badPostSubmitResponse = true;
+        _this.badPostSubmitResponse = true;
         $scope.$emit(EXPENSE_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something went wrong.' });
       });
   }
@@ -75,7 +75,7 @@ function AddExpenseController(EXPENSE_EVENTS, APP_CONFIG, $scope, $rootScope, Ex
     $event.preventDefault();
     $event.stopPropagation();
 
-    vm.datePickerOpened = true;
+    _this.datePickerOpened = true;
   }
 
 }

@@ -1,6 +1,6 @@
 function AddGoalController(GOAL_EVENTS, APP_CONFIG, $scope, GoalService, DatesUtils, Goal, promiseTracker) {
 
-  var vm = this;
+  var _this = this;
 
   /**
    * Create a saving tracker.
@@ -58,40 +58,40 @@ function AddGoalController(GOAL_EVENTS, APP_CONFIG, $scope, GoalService, DatesUt
    * On goal created, we toggle content.
    */
   $scope.$on(GOAL_EVENTS.isCreated, function () {
-    vm.toggleContent();
+    _this.toggleContent();
   });
 
   function initOrResetAddGoalForm() {
-    vm.goal = Goal.build({
+    _this.goal = Goal.build({
       yearMonthDate: moment().toDate(),
-      goalTarget: _.first(vm.goalsTargets).value,
+      goalTarget: _.first(_this.goalsTargets).value,
     });
 
-    vm.category = {};
+    _this.category = {};
 
-    if (vm.goalForm) {
-      vm.goalForm.$setPristine();
+    if (_this.goalForm) {
+      _this.goalForm.$setPristine();
     }
 
-    vm.badPostSubmitResponse = false;
+    _this.badPostSubmitResponse = false;
   }
 
   function saveGoal() {
     var period = DatesUtils
-      .getFromToOfMonthYear(vm.goal.yearMonthDate);
+      .getFromToOfMonthYear(_this.goal.yearMonthDate);
 
     this.goal.category = angular.copy(this.category.selected);
     this.goal.startDate = period.from;
     this.goal.endDate = period.to;
 
     GoalService
-      .createGoal(this.goal, vm.saveTracker)
+      .createGoal(this.goal, _this.saveTracker)
       .then(function (createdGoal) {
         $scope.$emit(GOAL_EVENTS.isCreated, { goal: createdGoal });
-        vm.initOrResetAddGoalForm();
+        _this.initOrResetAddGoalForm();
       })
       .catch(function () {
-        vm.badPostSubmitResponse = true;
+        _this.badPostSubmitResponse = true;
         $scope.$emit(GOAL_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something went wrong.' });
       });
   }
@@ -100,7 +100,7 @@ function AddGoalController(GOAL_EVENTS, APP_CONFIG, $scope, GoalService, DatesUt
     $event.preventDefault();
     $event.stopPropagation();
 
-    vm.datePickerOpened = true;
+    _this.datePickerOpened = true;
   }
 
 }
