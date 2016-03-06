@@ -28,7 +28,7 @@ export default angular
   .controller('SettingsPreferencesCurrencyController', SettingsPreferencesCurrencyController)
   .controller('SettingsProfileController', SettingsProfileController)
   .controller('SettingsSetUpRegistrationController', SettingsSetupRegistrationController)
-  .config(function ($stateProvider, USER_ACTIVITY_EVENTS) {
+  .config(($stateProvider, USER_ACTIVITY_EVENTS) => {
 
     $stateProvider
 
@@ -75,18 +75,16 @@ export default angular
         controllerAs: 'vm',
         isPaymentMissingUnrestrictedPage: true,
         resolve: {
-          clientToken: function ($http, AUTH_URLS) {
+          clientToken($http, AUTH_URLS) {
             return $http
               .post(URLTo.api(AUTH_URLS.fetchPaymentToken))
-              .then(function (response) {
-                return response.data.clientToken;
-              });
+              .then(response => response.data.clientToken);
           },
 
-          paymentStatus: function ($http, AUTH_URLS, $state) {
+          paymentStatus($http, AUTH_URLS, $state) {
             return $http
               .get(URLTo.api(AUTH_URLS.isPaymentStatusDefined))
-              .then(function (response) {
+              .then(response => {
                 if (response.data.paymentStatusDefined) {
 
                   $state.go('settings.payment.insights');
@@ -109,21 +107,17 @@ export default angular
         controllerAs: 'vm',
         isPaymentMissingUnrestrictedPage: true,
         resolve: {
-          clientToken: function ($http, AUTH_URLS) {
+          clientToken($http, AUTH_URLS) {
             return $http
               .post(URLTo.api(AUTH_URLS.fetchPaymentToken))
-              .then(function (response) {
-                return response.data.clientToken;
-              });
+              .then(response => response.data.clientToken);
           },
 
-          paymentInsights: function ($http, $state, AUTH_URLS) {
+          paymentInsights($http, $state, AUTH_URLS) {
             return $http
               .get(URLTo.api(AUTH_URLS.fetchPaymentInsights))
-              .then(function (response) {
-                return response.data;
-              })
-              .catch(function () {
+              .then(response => response.data)
+              .catch(() => {
 
                 $state.go('settings.payment.add');
               });
@@ -140,13 +134,11 @@ export default angular
         controller: 'SettingsPaymentCustomerController',
         isPaymentMissingUnrestrictedPage: true,
         resolve: {
-          paymentInsights: function ($http, $state, AUTH_URLS) {
+          paymentInsights($http, $state, AUTH_URLS) {
             return $http
               .get(URLTo.api(AUTH_URLS.fetchPaymentInsights))
-              .then(function (response) {
-                return response.data;
-              })
-              .catch(function () {
+              .then(response => response.data)
+              .catch(() => {
 
                 $state.go('settings.payment.add');
               });
@@ -163,13 +155,11 @@ export default angular
         controllerAs: 'vm',
         isPaymentMissingUnrestrictedPage: true,
         resolve: {
-          paymentInsights: function ($http, $state, AUTH_URLS) {
+          paymentInsights($http, $state, AUTH_URLS) {
             return $http
               .get(URLTo.api(AUTH_URLS.fetchPaymentInsights))
-              .then(function (response) {
-                return response.data;
-              })
-              .catch(function () {
+              .then(response => response.data)
+              .catch(() => {
 
                 $state.go('settings.payment.add');
               });

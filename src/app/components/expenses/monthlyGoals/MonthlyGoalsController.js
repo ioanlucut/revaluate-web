@@ -1,7 +1,15 @@
 export default
 
-function MonthlyGoalsController(EXPENSE_EVENTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, $scope, DatesUtils, promiseTracker, GoalService, goals) {
-  var vm = this;
+function MonthlyGoalsController(
+  EXPENSE_EVENTS,
+  ALERTS_EVENTS,
+  USER_ACTIVITY_EVENTS,
+  $scope,
+  DatesUtils,
+  promiseTracker,
+  GoalService,
+  goals) {
+  const vm = this;
 
   /**
    * Load insights
@@ -22,17 +30,17 @@ function MonthlyGoalsController(EXPENSE_EVENTS, ALERTS_EVENTS, USER_ACTIVITY_EVE
    * Load goals
    */
   function loadGoals() {
-    var period = DatesUtils
+    const period = DatesUtils
       .fromLastMonthsToNow(1);
 
     GoalService
       .getAllGoalsFromTo(period.from, period.to, vm.loadTracker)
-      .then(function (receivedGoals) {
+      .then(receivedGoals => {
         vm.goals = receivedGoals;
 
         $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.goalsFetched);
       })
-      .catch(function () {
+      .catch(() => {
         vm.badPostSubmitResponse = true;
         $scope.$emit(ALERTS_EVENTS.DANGER, {
           message: 'Could not fetch goals.',
@@ -45,15 +53,15 @@ function MonthlyGoalsController(EXPENSE_EVENTS, ALERTS_EVENTS, USER_ACTIVITY_EVE
   // Reload if necessary upon delete/update/create..
   // ---
 
-  $scope.$on(EXPENSE_EVENTS.isCreated, function (event, args) {
+  $scope.$on(EXPENSE_EVENTS.isCreated, (event, args) => {
     tryToReloadIfNecessary(args);
   });
 
-  $scope.$on(EXPENSE_EVENTS.isDeleted, function (event, args) {
+  $scope.$on(EXPENSE_EVENTS.isDeleted, (event, args) => {
     tryToReloadIfNecessary(args);
   });
 
-  $scope.$on(EXPENSE_EVENTS.isUpdated, function (event, args) {
+  $scope.$on(EXPENSE_EVENTS.isUpdated, (event, args) => {
     tryToReloadIfNecessary(args);
   });
 
@@ -61,14 +69,14 @@ function MonthlyGoalsController(EXPENSE_EVENTS, ALERTS_EVENTS, USER_ACTIVITY_EVE
     if (args.expense) {
       reloadIfRequired(args.expense);
     } else if (args.expenses) {
-      _.each(args.expenses, function (expenseCandidate) {
+      _.each(args.expenses, expenseCandidate => {
         reloadIfRequired(expenseCandidate);
       });
     }
   }
 
   function reloadIfRequired(expense) {
-    var isSameMonth = moment().isSame(moment(expense.spentDate), 'month');
+    const isSameMonth = moment().isSame(moment(expense.spentDate), 'month');
 
     if (isSameMonth) {
       vm.loadGoals();

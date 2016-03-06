@@ -13,7 +13,7 @@ export default angular
   .service('IntegrationsTransformerService', IntegrationsTransformerService)
   .factory('Integration', integration)
   .constant('INTEGRATIONS_CONSTANTS', integrationsConstants)
-  .config(function ($stateProvider) {
+  .config($stateProvider => {
 
     $stateProvider
 
@@ -35,7 +35,7 @@ export default angular
         controller: 'IntegrationsMainController',
         controllerAs: 'vm',
         resolve: {
-          integrations: function (IntegrationsService) {
+          integrations(IntegrationsService) {
             return IntegrationsService
               .getAllIntegrations();
           },

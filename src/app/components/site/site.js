@@ -18,7 +18,7 @@ export default angular
   .controller('AbstractErrorPageController', Error404PageController)
   .controller('AbstractErrorPageController', Error500PageController)
   .service('SiteService', SiteService)
-  .config(function ($stateProvider, $urlRouterProvider, USER_ACTIVITY_EVENTS) {
+  .config(($stateProvider, $urlRouterProvider, USER_ACTIVITY_EVENTS) => {
 
     // Otherwise
     $urlRouterProvider.otherwise('/404');

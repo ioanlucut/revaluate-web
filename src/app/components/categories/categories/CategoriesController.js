@@ -1,8 +1,16 @@
 export default
 
-function CategoriesController(ALERTS_EVENTS, CATEGORY_EVENTS, USER_ACTIVITY_EVENTS, APP_CONFIG, ALERTS_CONSTANTS, $rootScope, $scope, categories) {
+function CategoriesController(
+  ALERTS_EVENTS,
+  CATEGORY_EVENTS,
+  USER_ACTIVITY_EVENTS,
+  APP_CONFIG,
+  ALERTS_CONSTANTS,
+  $rootScope,
+  $scope,
+  categories) {
 
-  var vm = this;
+  const vm = this;
 
   /**
    * Alert identifier
@@ -47,7 +55,7 @@ function CategoriesController(ALERTS_EVENTS, CATEGORY_EVENTS, USER_ACTIVITY_EVEN
   /**
    * On category created, display a success message, and add category to the list.
    */
-  $scope.$on(CATEGORY_EVENTS.isCreated, function (event, args) {
+  $scope.$on(CATEGORY_EVENTS.isCreated, (event, args) => {
     vm.categories.push(args.category);
 
     $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Saved');
@@ -58,7 +66,7 @@ function CategoriesController(ALERTS_EVENTS, CATEGORY_EVENTS, USER_ACTIVITY_EVEN
   /**
    * On category updated.
    */
-  $scope.$on(CATEGORY_EVENTS.isUpdated, function (event, args) {
+  $scope.$on(CATEGORY_EVENTS.isUpdated, (event, args) => {
     _.remove(vm.categories, 'id', args.category.id);
     vm.categories.push(args.category);
 
@@ -69,7 +77,7 @@ function CategoriesController(ALERTS_EVENTS, CATEGORY_EVENTS, USER_ACTIVITY_EVEN
   /**
    * On category deleted, display a success message, and remove the category from the list.
    */
-  $scope.$on(CATEGORY_EVENTS.isDeleted, function (event, args) {
+  $scope.$on(CATEGORY_EVENTS.isDeleted, (event, args) => {
     _.remove(vm.categories, 'id', args.category.id);
 
     $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Deleted');
@@ -77,7 +85,7 @@ function CategoriesController(ALERTS_EVENTS, CATEGORY_EVENTS, USER_ACTIVITY_EVEN
     updateNoOfCategories();
   });
 
-  $scope.$on(CATEGORY_EVENTS.isErrorOccurred, function (event, args) {
+  $scope.$on(CATEGORY_EVENTS.isErrorOccurred, (event, args) => {
     $scope.$emit(ALERTS_EVENTS.DANGER, {
       message: args.errorMessage,
       alertId: vm.alertId,

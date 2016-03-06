@@ -2,36 +2,31 @@ export default
 
   function GoalService(GOAL_URLS, $q, $http, DatesUtils, GoalTransformerService) {
 
-    this.createGoal = function (goal, tracker) {
+    this.createGoal = (goal, tracker) => $http
+      .post(URLTo.api(GOAL_URLS.create), GoalTransformerService.goalApiRequestTransformer(goal), { tracker })
+      .then(GoalTransformerService.goalApiResponseTransformer);
+
+    this.updateGoal = (goal, tracker) => {
+      const goalDto = GoalTransformerService.goalApiRequestTransformer(goal);
+
       return $http
-        .post(URLTo.api(GOAL_URLS.create), GoalTransformerService.goalApiRequestTransformer(goal), { tracker: tracker })
+        .put(URLTo.api(GOAL_URLS.update), goalDto, { tracker })
         .then(GoalTransformerService.goalApiResponseTransformer);
     };
 
-    this.updateGoal = function (goal, tracker) {
-      var goalDto = GoalTransformerService.goalApiRequestTransformer(goal);
-
-      return $http
-        .put(URLTo.api(GOAL_URLS.update), goalDto, { tracker: tracker })
-        .then(GoalTransformerService.goalApiResponseTransformer);
-    };
-
-    this.getAllGoalsFromTo = function (from, to, tracker) {
-      var fromFormatted = DatesUtils.formatDate(from),
-        toFormatted = DatesUtils.formatDateExpectedForEndOfMonth(to);
+    this.getAllGoalsFromTo = (from, to, tracker) => {
+      const fromFormatted = DatesUtils.formatDate(from), toFormatted = DatesUtils.formatDateExpectedForEndOfMonth(to);
 
       return $http
         .get(URLTo.api(GOAL_URLS.allGoalsFromTo, {
           ':from': fromFormatted,
           ':to': toFormatted,
-        }), { tracker: tracker })
+        }), { tracker })
         .then(GoalTransformerService.goalApiResponseTransformer);
     };
 
-    this.isUniqueCategoryPerGoalBetween = function (categoryCandidate, from, to) {
-      var fromFormatted = DatesUtils.formatDate(from),
-        toFormatted = DatesUtils.formatDateExpectedForEndOfMonth(to),
-        deferred = $q.defer();
+    this.isUniqueCategoryPerGoalBetween = (categoryCandidate, from, to) => {
+      const fromFormatted = DatesUtils.formatDate(from), toFormatted = DatesUtils.formatDateExpectedForEndOfMonth(to), deferred = $q.defer();
 
       $http
         .get(URLTo.api(GOAL_URLS.isUniqueCategoryPerGoalBetween, {
@@ -39,7 +34,7 @@ export default
           ':from': fromFormatted,
           ':to': toFormatted,
         }))
-        .then(function (response) {
+        .then(response => {
           if (!response.data.isUniqueGoalCategory) {
             deferred.reject();
           }
@@ -48,7 +43,7 @@ export default
             isUnique: response.data.isUniqueGoalCategory,
           });
         })
-        .catch(function () {
+        .catch(() => {
           deferred.reject();
         });
 
@@ -58,10 +53,8 @@ export default
     /**
      * Bulk delete action of a list of goals.
      */
-    this.bulkDelete = function (goals, tracker) {
-      return $http
-        .put(URLTo.api(GOAL_URLS.bulkDelete), GoalTransformerService.goalApiRequestTransformer(goals), { tracker: tracker });
-    };
+    this.bulkDelete = (goals, tracker) => $http
+      .put(URLTo.api(GOAL_URLS.bulkDelete), GoalTransformerService.goalApiRequestTransformer(goals), { tracker });
 
   }
 

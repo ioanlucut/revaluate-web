@@ -1,21 +1,19 @@
 export default
 
   function StatisticsFactory() {
+    class Statistics {
+      constructor(data) {
 
-    /**
-     * Statistics class.
-     */
-    function Statistics(data) {
+        /**
+         * The monthsPerYears.
+         */
+        this.monthsPerYears = data.monthsPerYears;
+      }
 
-      /**
-       * The monthsPerYears.
-       */
-      this.monthsPerYears = data.monthsPerYears;
+      isOverallTransactionsEmpty() {
+        return _.keys(this.monthsPerYears).length === 0;
+      }
     }
-
-    Statistics.prototype.isOverallTransactionsEmpty = function () {
-      return _.keys(this.monthsPerYears).length === 0;
-    };
 
     return Statistics;
   }

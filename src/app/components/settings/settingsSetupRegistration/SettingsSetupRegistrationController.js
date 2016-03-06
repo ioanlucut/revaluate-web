@@ -1,8 +1,22 @@
 export default
 
-function SettingsSetUpRegistrationController(ALERTS_EVENTS, APP_CONFIG, AUTH_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, $q, $scope, $rootScope, $timeout, CategoryService, CategoryColorService, SessionService, StatesHandler, Category) {
+function SettingsSetUpRegistrationController(
+  ALERTS_EVENTS,
+  APP_CONFIG,
+  AUTH_EVENTS,
+  ALERTS_CONSTANTS,
+  USER_ACTIVITY_EVENTS,
+  $q,
+  $scope,
+  $rootScope,
+  $timeout,
+  CategoryService,
+  CategoryColorService,
+  SessionService,
+  StatesHandler,
+  Category) {
 
-  var vm = this;
+  const vm = this;
 
   /**
    * All given currencies.
@@ -22,11 +36,7 @@ function SettingsSetUpRegistrationController(ALERTS_EVENTS, APP_CONFIG, AUTH_EVE
   // ---
   // Detected locale.
   // ---
-  var detectedLocale = window.navigator.userLanguage || window.navigator.language,
-    detectedLocaleFormatted = detectedLocale.replace(new RegExp('-', 'g'), '_'),
-    detectedCodeKey = _.findKey(APP_CONFIG.CURRENCIES_LOCALE_MAP, function (currencyLocaleMap) {
-      return currencyLocaleMap.indexOf(detectedLocaleFormatted) > -1;
-    });
+  const detectedLocale = window.navigator.userLanguage || window.navigator.language, detectedLocaleFormatted = detectedLocale.replace(new RegExp('-', 'g'), '_'), detectedCodeKey = _.findKey(APP_CONFIG.CURRENCIES_LOCALE_MAP, currencyLocaleMap => currencyLocaleMap.indexOf(detectedLocaleFormatted) > -1);
 
   /**
    * Selected currency
@@ -36,10 +46,7 @@ function SettingsSetUpRegistrationController(ALERTS_EVENTS, APP_CONFIG, AUTH_EVE
   // ---
   // Try to auto detect currency.
   // ---
-  vm.currency.selected = _.find(vm.currencies, function (currencyCandidate) {
-
-    return currencyCandidate.currencyCode === detectedCodeKey;
-  });
+  vm.currency.selected = _.find(vm.currencies, currencyCandidate => currencyCandidate.currencyCode === detectedCodeKey);
 
   /**
    * Existing predefined colors.
@@ -54,13 +61,11 @@ function SettingsSetUpRegistrationController(ALERTS_EVENTS, APP_CONFIG, AUTH_EVE
   // ---
   // Populate predefined categories with colors.
   // ---
-  vm.categories = _.map(vm.categories, function (category) {
-    return {
-      name: category,
-      selected: false,
-      color: vm.colors[vm.categories.indexOf(category)],
-    };
-  });
+  vm.categories = _.map(vm.categories, category => ({
+    name: category,
+    selected: false,
+    color: vm.colors[vm.categories.indexOf(category)]
+  }));
 
   /**
    * Category to be added on the fly
@@ -75,21 +80,21 @@ function SettingsSetUpRegistrationController(ALERTS_EVENTS, APP_CONFIG, AUTH_EVE
   /**
    * Toggle content
    */
-  vm.toggleContent = function () {
+  vm.toggleContent = () => {
     vm.showCategoryOnTheFlyInput = !vm.showCategoryOnTheFlyInput;
   };
 
   /**
    * Trigger submit of the category on the fly nested form
    */
-  vm.triggerSubmit = function () {
+  vm.triggerSubmit = () => {
     $scope.$broadcast('category-add-on-the-fly-event');
   };
 
   /**
    * To be called when on blur.
    */
-  vm.cancelAddCategoryOnTheFly = function () {
+  vm.cancelAddCategoryOnTheFly = () => {
     resetCategoryOnTheFlyForm();
   };
 
@@ -113,7 +118,7 @@ function SettingsSetUpRegistrationController(ALERTS_EVENTS, APP_CONFIG, AUTH_EVE
   /**
    * Add a custom category to existing ones (only if name is unique)
    */
-  vm.onSubmitted = function ($event) {
+  vm.onSubmitted = $event => {
     $event.stopPropagation();
 
     vm.setUpForm.categoryOnTheFlyForm.$submitted = true;
@@ -121,9 +126,7 @@ function SettingsSetUpRegistrationController(ALERTS_EVENTS, APP_CONFIG, AUTH_EVE
       return;
     }
 
-    var result = _.some(vm.categories, function (category) {
-      return category.name.toUpperCase() === vm.categoryOnTheFly.toUpperCase();
-    });
+    const result = _.some(vm.categories, category => category.name.toUpperCase() === vm.categoryOnTheFly.toUpperCase());
 
     if (result) {
       $scope.$emit(ALERTS_EVENTS.DANGER, {
@@ -147,7 +150,7 @@ function SettingsSetUpRegistrationController(ALERTS_EVENTS, APP_CONFIG, AUTH_EVE
   /**
    * Toggle category selection
    */
-  vm.toggleCategorySelection = function (index) {
+  vm.toggleCategorySelection = index => {
     vm.categories[index].selected = !vm.categories[index].selected;
   };
 
@@ -155,7 +158,7 @@ function SettingsSetUpRegistrationController(ALERTS_EVENTS, APP_CONFIG, AUTH_EVE
     return _.filter(vm.categories, 'selected', true);
   }
 
-  vm.selectAll = function () {
+  vm.selectAll = () => {
 
     if (getSelectedCategories().length < vm.categories.length) {
 
@@ -163,7 +166,7 @@ function SettingsSetUpRegistrationController(ALERTS_EVENTS, APP_CONFIG, AUTH_EVE
     }
   };
 
-  vm.clearAll = function () {
+  vm.clearAll = () => {
 
     if (getSelectedCategories().length > 0) {
 
@@ -172,7 +175,7 @@ function SettingsSetUpRegistrationController(ALERTS_EVENTS, APP_CONFIG, AUTH_EVE
   };
 
   function setAllCategoriesWithSelectedStatusOf(status) {
-    _.each(vm.categories, function (category) {
+    _.each(vm.categories, category => {
       category.selected = status;
     });
   }
@@ -180,18 +183,13 @@ function SettingsSetUpRegistrationController(ALERTS_EVENTS, APP_CONFIG, AUTH_EVE
   /**
    * Is enough selected categories
    */
-  vm.isEnoughSelectedCategories = function () {
-    return getSelectedCategories().length >= APP_CONFIG.SETUP_MIN_CATEGORIES_TO_SELECT;
-  };
+  vm.isEnoughSelectedCategories = () => getSelectedCategories().length >= APP_CONFIG.SETUP_MIN_CATEGORIES_TO_SELECT;
 
   /**
    * Update profile functionality.
    */
-  vm.setUp = function () {
-    var selectedCategories,
-      selectedCategoriesToBeSaved,
-      deferred,
-      userProfileToBeUpdated;
+  vm.setUp = () => {
+    let selectedCategories, selectedCategoriesToBeSaved, deferred, userProfileToBeUpdated;
 
     if (vm.setUpForm.$invalid || vm.isSaving) {
 
@@ -207,9 +205,7 @@ function SettingsSetUpRegistrationController(ALERTS_EVENTS, APP_CONFIG, AUTH_EVE
     // ---
     // We perform a bulk create.
     // ---
-    selectedCategoriesToBeSaved = _.map(selectedCategories, function (categoryDTO) {
-      return new Category(categoryDTO);
-    });
+    selectedCategoriesToBeSaved = _.map(selectedCategories, categoryDTO => new Category(categoryDTO));
 
     // ---
     // This is the final deferred to update the user.
@@ -226,26 +222,22 @@ function SettingsSetUpRegistrationController(ALERTS_EVENTS, APP_CONFIG, AUTH_EVE
     // ---
     CategoryService
       .setupBulkCreateCategories(selectedCategoriesToBeSaved)
-      .then(function () {
+      .then(() => {
         vm.user
           .updateInitiatedStatus(userProfileToBeUpdated)
-          .then(function (response) {
+          .then(response => {
             deferred.resolve(response);
           })
-          .catch(function (response) {
-            return deferred.reject(response);
-          });
+          .catch(response => deferred.reject(response));
       })
-      .catch(function (response) {
-        return deferred.reject(response);
-      });
+      .catch(response => deferred.reject(response));
 
     // ---
     // Wait for the final deferred.
     // ---
     deferred
       .promise
-      .then(function (response) {
+      .then(response => {
         // ---
         // We need to set the data and refresh the user.
         // ---
@@ -270,7 +262,7 @@ function SettingsSetUpRegistrationController(ALERTS_EVENTS, APP_CONFIG, AUTH_EVE
          */
         StatesHandler.goToExpenses();
       })
-      .catch(function () {
+      .catch(() => {
         vm.badPostSubmitResponse = true;
         vm.isSaving = false;
 

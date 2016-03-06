@@ -4,7 +4,15 @@ export default
  * Forgot password controller responsible for user forgot password action.
  */
 angular
-  .controller('AccountForgotPasswordController', function ($state, $scope, ALERTS_EVENTS, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountModal) {
+  .controller('AccountForgotPasswordController', (
+  $state,
+  $scope,
+  ALERTS_EVENTS,
+  ALERTS_CONSTANTS,
+  AuthService,
+  AUTH_EVENTS,
+  ACCOUNT_FORM_STATE,
+  AccountModal) => {
 
     /**
      * Alert identifier
@@ -21,14 +29,14 @@ angular
     /**
      * Request password reset functionality.
      */
-    $scope.requestPasswordReset = function () {
+    $scope.requestPasswordReset = () => {
       if ($scope.forgotPasswordForm.$valid) {
         AuthService
           .requestPasswordReset($scope.forgotPasswordData.email)
-          .then(function () {
+          .then(() => {
             AccountModal.setState(ACCOUNT_FORM_STATE.forgotPasswordEmailSent);
           })
-          .catch(function () {
+          .catch(() => {
             /* If bad feedback from server */
             $scope.badPostSubmitResponse = true;
 

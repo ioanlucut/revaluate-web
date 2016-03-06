@@ -7,8 +7,8 @@ export default
       return messagesOfType.messages[Math.floor(Math.random() * messagesOfType.messages.length)];
     }
 
-    this.getMessage = function (type) {
-      var messagesOfType = GOALS_MESSAGES_CONSTANTS[type.toUpperCase()];
+    this.getMessage = type => {
+      const messagesOfType = GOALS_MESSAGES_CONSTANTS[type.toUpperCase()];
 
       return getRandomized(messagesOfType);
     };

@@ -1,15 +1,11 @@
-(function () {
-  'use strict';
-
+((() => {
   // ---
   // Add String format prototype.
   // ---
   if ( !String.prototype.format ) {
-    String.prototype.format = function () {
-      var args = arguments;
-      return this.replace(/{(\d+)}/g, function (match, number) {
-        return typeof args[number] !== 'undefined' ? args[number] : match;
-      });
+    String.prototype.format = function() {
+      const args = arguments;
+      return this.replace(/{(\d+)}/g, (match, number) => typeof args[number] !== 'undefined' ? args[number] : match);
     };
   }
 
@@ -17,7 +13,7 @@
   // Add Object create function.
   // ---
   if ( typeof Object.create !== 'function' ) {
-    Object.create = function (o) {
+    Object.create = o => {
       function F() {
       }
 
@@ -54,4 +50,4 @@
     .APP_STATS_SKELETON = window.APP_STATS_SKELETON || {
       EXPENSES_COUNTS: 0,
     };
-}());
+})());

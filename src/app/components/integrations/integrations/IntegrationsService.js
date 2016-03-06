@@ -2,22 +2,16 @@ export default
 
 function IntegrationsService(INTEGRATIONS_CONSTANTS, IntegrationsTransformerService, $http) {
 
-  this.addIntegrationAs = function (profile, tracker) {
-    return $http
-      .post(URLTo.api(INTEGRATIONS_CONSTANTS.addIntegration), profile, { tracker: tracker })
-      .then(IntegrationsTransformerService.integrationApiResponseTransformer);
-  };
+  this.addIntegrationAs = (profile, tracker) => $http
+    .post(URLTo.api(INTEGRATIONS_CONSTANTS.addIntegration), profile, { tracker })
+    .then(IntegrationsTransformerService.integrationApiResponseTransformer);
 
-  this.getAllIntegrations = function (tracker) {
-    return $http
-      .get(URLTo.api(INTEGRATIONS_CONSTANTS.addIntegration), { tracker: tracker })
-      .then(IntegrationsTransformerService.integrationApiResponseTransformer);
-  };
+  this.getAllIntegrations = tracker => $http
+    .get(URLTo.api(INTEGRATIONS_CONSTANTS.addIntegration), { tracker })
+    .then(IntegrationsTransformerService.integrationApiResponseTransformer);
 
-  this.deleteIntegration = function (integration, tracker) {
-    return $http
-      .delete(URLTo.api(INTEGRATIONS_CONSTANTS.removeOauth, { ':id': integration.id }), { tracker: tracker });
-  };
+  this.deleteIntegration = (integration, tracker) => $http
+    .delete(URLTo.api(INTEGRATIONS_CONSTANTS.removeOauth, { ':id': integration.id }), { tracker });
 
 }
 

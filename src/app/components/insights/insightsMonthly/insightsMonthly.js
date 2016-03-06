@@ -17,15 +17,15 @@ function InsightsMonthlyFactory(InsightsAbstract) {
       // ---
       // Methods.
       // ---
-      isEmpty: function () {
+      isEmpty() {
         return this.totalPerCategoryInsightsDTOs.length === 0;
       },
 
-      isTransactionsEmpty: function () {
+      isTransactionsEmpty() {
         return this.numberOfTransactions === 0;
       },
 
-      isManyTransactions: function () {
+      isManyTransactions() {
         return this.numberOfTransactions > 5;
       },
     });
