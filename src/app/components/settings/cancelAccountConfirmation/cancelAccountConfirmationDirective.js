@@ -1,8 +1,6 @@
-export default
-
 /* Auto focus */
 
-function ($timeout) {
+function cancelAccountConfirmationDirective($timeout) {
   return {
     restrict: 'A',
     transclude: true,
@@ -58,3 +56,4 @@ function ($timeout) {
   };
 }
 
+export default cancelAccountConfirmationDirective;

@@ -1,6 +1,4 @@
-export default
-
-function ($filter) {
+function InsightsGenerator($filter) {
 
   this.generate = function (insightsProgress, masterCategories) {
     var availableYearMonths,
@@ -207,3 +205,4 @@ function ($filter) {
 
 }
 
+export default InsightsGenerator;

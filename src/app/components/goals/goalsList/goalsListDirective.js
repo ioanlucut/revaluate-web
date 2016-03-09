@@ -27,7 +27,7 @@ function GoalListController($timeout) {
   }
 }
 
-export default function () {
+function goalsListDirective() {
   return {
     restrict: 'A',
     replace: true,
@@ -46,3 +46,4 @@ export default function () {
   };
 }
 
+export default goalsListDirective;

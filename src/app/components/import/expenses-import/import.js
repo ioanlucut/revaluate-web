@@ -1,4 +1,4 @@
-export default function ($q, $http, ImportService, ImportTransformerService) {
+function importer($q, $http, ImportService, ImportTransformerService) {
 
   /**
    * ExpensesImport class.
@@ -47,3 +47,4 @@ export default function ($q, $http, ImportService, ImportTransformerService) {
   return ExpensesImport;
 }
 
+export default importer;

@@ -105,7 +105,7 @@ function AddGoalController(GOAL_EVENTS, APP_CONFIG, $scope, GoalService, DatesUt
 
 }
 
-export default function () {
+function goalAddDirective() {
   return {
     restrict: 'A',
     scope: {
@@ -121,3 +121,4 @@ export default function () {
   };
 }
 
+export default goalAddDirective;

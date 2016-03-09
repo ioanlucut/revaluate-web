@@ -1,9 +1,8 @@
-export default
+function goalsMessagesFilter() {
+  return function (goalMessage, userName) {
 
-  function () {
-      return function (goalMessage, userName) {
+    return goalMessage.format(userName);
+  };
+}
 
-        return goalMessage.format(userName);
-      };
-    }
-
+export default goalsMessagesFilter;

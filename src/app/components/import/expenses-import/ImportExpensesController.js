@@ -1,20 +1,20 @@
-export default  function ($q,
-                          $scope,
-                          $rootScope,
-                          $timeout,
-                          IMPORT_CONSTANTS,
-                          importType,
-                          FileUploader,
-                          ImportService,
-                          ExpensesImport,
-                          StatesHandler,
-                          SessionService,
-                          AUTH_EVENTS,
-                          ALERTS_EVENTS,
-                          categories,
-                          ALERTS_CONSTANTS,
-                          USER_ACTIVITY_EVENTS,
-                          APP_CONFIG) {
+function ImportExpensesController($q,
+                                  $scope,
+                                  $rootScope,
+                                  $timeout,
+                                  IMPORT_CONSTANTS,
+                                  importType,
+                                  FileUploader,
+                                  ImportService,
+                                  ExpensesImport,
+                                  StatesHandler,
+                                  SessionService,
+                                  AUTH_EVENTS,
+                                  ALERTS_EVENTS,
+                                  categories,
+                                  ALERTS_CONSTANTS,
+                                  USER_ACTIVITY_EVENTS,
+                                  APP_CONFIG) {
 
   // ---
   // Configure uploader.
@@ -257,3 +257,4 @@ export default  function ($q,
 
 }
 
+export default ImportExpensesController;

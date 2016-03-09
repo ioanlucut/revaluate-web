@@ -2,7 +2,6 @@
 
 let dir = require('node-dir');
 let fs = require('fs');
-var recast = require('recast');
 
 // ---
 // On every subdir, iterate over files.
@@ -10,7 +9,7 @@ var recast = require('recast');
 const BASE_PATH = 'src/app/components/';
 
 dir.files('./../' + BASE_PATH, function (err, files) {
-  if ( err ) throw err;
+  if (err) throw err;
 
   files = files.filter(function (file) {
     return file.indexOf('.js') > -1;
@@ -25,7 +24,7 @@ dir.files('./../' + BASE_PATH, function (err, files) {
 
     const contentRegex = /(function \()/;
     const contentRegexResult = contentRegex.exec(content);
-    if ( !contentRegexResult ) {
+    if (!contentRegexResult) {
       return;
     }
 
@@ -33,7 +32,7 @@ dir.files('./../' + BASE_PATH, function (err, files) {
     let output = result + 'export default ' + importNameWithoutExtension + ';';
 
     fs.writeFile(path, output, 'utf8', function (err) {
-      if ( err ) return console.log(err);
+      if (err) return console.log(err);
     });
 
   });

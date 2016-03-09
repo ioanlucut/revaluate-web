@@ -1,6 +1,4 @@
-export default
-
-function ($q, $scope, $rootScope, $timeout, USER_ACTIVITY_EVENTS, StatesHandler, IntercomUtilsService, AuthService, ALERTS_EVENTS, ALERTS_CONSTANTS) {
+function SettingsCancelAccountController($q, $scope, $rootScope, $timeout, USER_ACTIVITY_EVENTS, StatesHandler, IntercomUtilsService, AuthService, ALERTS_EVENTS, ALERTS_CONSTANTS) {
 
   var _this = this,
     TIMEOUT_PENDING = 1000;
@@ -64,3 +62,4 @@ function ($q, $scope, $rootScope, $timeout, USER_ACTIVITY_EVENTS, StatesHandler,
   };
 }
 
+export default SettingsCancelAccountController;

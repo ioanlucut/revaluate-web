@@ -1,38 +1,36 @@
-export default
-
 /**
  * Update password controller.
  */
-  function ($scope, ALERTS_EVENTS, $timeout, AuthService, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {
+function SettingsAdminUpdatePasswordController($scope, ALERTS_EVENTS, $timeout, AuthService, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {
 
-    var _this = this;
+  var _this = this;
 
-    var TIMEOUT_PENDING = 300;
+  var TIMEOUT_PENDING = 300;
 
-    /**
-     * Alert identifier
-     */
-    _this.alertId = ALERTS_CONSTANTS.updatePassword;
+  /**
+   * Alert identifier
+   */
+  _this.alertId = ALERTS_CONSTANTS.updatePassword;
 
-    /**
-     * Initial update password data.
-     */
-    var initialUpdatePasswordData = {
+  /**
+   * Initial update password data.
+   */
+  var initialUpdatePasswordData = {
     oldPassword: '',
     newPassword: '',
     newPasswordConfirmation: '',
   };
 
-    /**
-     * Update password user information.
-     * @type {{oldPassword: string, newPassword: string, newPasswordConfirmation: string}}
-     */
-    _this.updatePasswordData = angular.copy(initialUpdatePasswordData);
+  /**
+   * Update password user information.
+   * @type {{oldPassword: string, newPassword: string, newPasswordConfirmation: string}}
+   */
+  _this.updatePasswordData = angular.copy(initialUpdatePasswordData);
 
-    /**
-     * Update password data functionality.
-     */
-    _this.updatePassword = function () {
+  /**
+   * Update password data functionality.
+   */
+  _this.updatePassword = function () {
     if (!(_this.updatePasswordForm.$valid && !_this.isRequestPending)) {
       return;
     }
@@ -72,5 +70,6 @@ export default
         _this.updatePasswordData = angular.copy(initialUpdatePasswordData);
       });
   };
-  }
+}
 
+export default SettingsAdminUpdatePasswordController;

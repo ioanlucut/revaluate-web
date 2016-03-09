@@ -1,6 +1,4 @@
-export default
-
-function () {
+function insightsEmptyStateToggleDirective() {
   return {
     restrict: 'EA',
     transclude: true,
@@ -13,3 +11,4 @@ function () {
   };
 }
 
+export default insightsEmptyStateToggleDirective;

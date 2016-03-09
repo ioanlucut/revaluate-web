@@ -52,7 +52,7 @@ function GoalDailyStatusController($rootScope, $filter, InsightsGenerator) {
 
 }
 
-export default function () {
+function goalDailyStatusDirective() {
   return {
     restrict: 'E',
     scope: {
@@ -67,3 +67,4 @@ export default function () {
   };
 }
 
+export default goalDailyStatusDirective;

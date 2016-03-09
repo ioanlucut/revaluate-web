@@ -6,7 +6,7 @@ function GoalsDisplayEntryController($rootScope) {
   this.user = $rootScope.currentUser;
 }
 
-export default function () {
+function goalsDisplayEntryDirective() {
   return {
     restrict: 'A',
     scope: {
@@ -20,3 +20,5 @@ export default function () {
     },
   };
 }
+
+export default goalsDisplayEntryDirective;

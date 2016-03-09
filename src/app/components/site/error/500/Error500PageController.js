@@ -1,4 +1,4 @@
-export default function ($scope, $controller, USER_ACTIVITY_EVENTS) {
+function Error500PageController($scope, $controller, USER_ACTIVITY_EVENTS) {
 
   /**
    * Inherit from this controller
@@ -10,3 +10,5 @@ export default function ($scope, $controller, USER_ACTIVITY_EVENTS) {
    */
   $scope.trackErrorEvent(USER_ACTIVITY_EVENTS.error500);
 }
+
+export default Error500PageController;
