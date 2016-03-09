@@ -1,7 +1,7 @@
 function CategoryColorGenerator() {
 
   return {
-    randomizedColor: function (colors) {
+    randomizedColor(colors) {
 
       return colors[Math.floor(Math.random() * colors.length)];
     },

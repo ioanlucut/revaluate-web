@@ -7,31 +7,31 @@ function colorPickerDirective(CATEGORY_EVENTS, CategoryColorService, $timeout, $
       colors: '=',
     },
     templateUrl: '/app/components/categories/colorPicker/colorPickerDirective.tpl.html',
-    link: function (scope, elm) {
+    link(scope, elm) {
 
       // By default the popover is closed
       scope.isOpen = false;
 
       // Close the popover
-      scope.close = function () {
+      scope.close = () => {
         scope.isOpen = false;
       };
 
       // ---
       // Label element clicks toggles the picker.
       // ---
-      var label = elm.prev().prev().prev('label');
+      const label = elm.prev().prev().prev('label');
 
-      label.on('click', function () {
-        scope.$apply(function () {
+      label.on('click', () => {
+        scope.$apply(() => {
           scope.isOpen = !scope.isOpen;
         });
       });
 
-      var CLASS_OPEN = 'color-picker-box--open';
+      const CLASS_OPEN = 'color-picker-box--open';
 
       // Open or close the modal
-      scope.$watch('isOpen', function (isOpen, isOpenOld) {
+      scope.$watch('isOpen', (isOpen, isOpenOld) => {
         if (isOpen === true) {
           $animate.addClass(elm, CLASS_OPEN);
         } else if (isOpen === false && isOpenOld === true) {
@@ -42,7 +42,7 @@ function colorPickerDirective(CATEGORY_EVENTS, CategoryColorService, $timeout, $
       // ---
       // Select the color.
       // ---
-      scope.select = function (chosenColor) {
+      scope.select = chosenColor => {
         scope.categoryColor = angular.copy(chosenColor);
 
         scope.close();

@@ -1,11 +1,16 @@
 /**
  * Update password controller.
  */
-function SettingsAdminUpdatePasswordController($scope, ALERTS_EVENTS, $timeout, AuthService, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS) {
+function SettingsAdminUpdatePasswordController($scope,
+                                               ALERTS_EVENTS,
+                                               $timeout,
+                                               AuthService,
+                                               ACCOUNT_FORM_STATE,
+                                               ALERTS_CONSTANTS) {
 
-  var _this = this;
+  const _this = this;
 
-  var TIMEOUT_PENDING = 300;
+  const TIMEOUT_PENDING = 300;
 
   /**
    * Alert identifier
@@ -15,7 +20,7 @@ function SettingsAdminUpdatePasswordController($scope, ALERTS_EVENTS, $timeout, 
   /**
    * Initial update password data.
    */
-  var initialUpdatePasswordData = {
+  const initialUpdatePasswordData = {
     oldPassword: '',
     newPassword: '',
     newPasswordConfirmation: '',
@@ -30,7 +35,7 @@ function SettingsAdminUpdatePasswordController($scope, ALERTS_EVENTS, $timeout, 
   /**
    * Update password data functionality.
    */
-  _this.updatePassword = function () {
+  _this.updatePassword = () => {
     if (!(_this.updatePasswordForm.$valid && !_this.isRequestPending)) {
       return;
     }
@@ -48,14 +53,14 @@ function SettingsAdminUpdatePasswordController($scope, ALERTS_EVENTS, $timeout, 
 
     AuthService
       .updatePassword(_this.updatePasswordData.oldPassword, _this.updatePasswordData.newPassword, _this.updatePasswordData.newPasswordConfirmation)
-      .then(function () {
+      .then(() => {
 
-        $timeout(function () {
+        $timeout(() => {
           _this.isRequestPending = false;
           $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated');
         }, TIMEOUT_PENDING);
       })
-      .catch(function () {
+      .catch(() => {
         /* If bad feedback from server */
         _this.badPostSubmitResponse = true;
         _this.isRequestPending = false;
@@ -65,7 +70,7 @@ function SettingsAdminUpdatePasswordController($scope, ALERTS_EVENTS, $timeout, 
           alertId: _this.alertId,
         });
       })
-      .finally(function () {
+      .finally(() => {
         _this.updatePasswordForm.$setPristine();
         _this.updatePasswordData = angular.copy(initialUpdatePasswordData);
       });

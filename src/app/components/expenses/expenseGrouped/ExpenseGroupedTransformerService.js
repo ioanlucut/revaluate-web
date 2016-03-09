@@ -1,16 +1,14 @@
 function ExpenseGroupedTransformerService(ExpenseTransformerService, Expense, ExpenseGrouped) {
 
-  this.expenseGroupedApiResponseTransformer = function (responseData) {
+  this.expenseGroupedApiResponseTransformer = responseData => {
     function toExpensesGrouped(queryResponse) {
-      var groupedExpensesDTOList = _.map(queryResponse.groupedExpensesDTOList, function (expenseGroupedDtoEntry) {
-        return new ExpenseGrouped({
-          localDate: moment(expenseGroupedDtoEntry.localDate).toDate(),
-          expenseDTOs: ExpenseTransformerService.expenseApiResponseTransformer({ data: expenseGroupedDtoEntry.expenseDTOs }),
-        });
-      });
+      const groupedExpensesDTOList = _.map(queryResponse.groupedExpensesDTOList, expenseGroupedDtoEntry => new ExpenseGrouped({
+        localDate: moment(expenseGroupedDtoEntry.localDate).toDate(),
+        expenseDTOs: ExpenseTransformerService.expenseApiResponseTransformer({ data: expenseGroupedDtoEntry.expenseDTOs }),
+      }));
 
       return {
-        groupedExpensesDTOList: groupedExpensesDTOList,
+        groupedExpensesDTOList,
         currentPage: queryResponse.currentPage,
         currentSize: queryResponse.currentSize,
         totalSize: queryResponse.totalSize,

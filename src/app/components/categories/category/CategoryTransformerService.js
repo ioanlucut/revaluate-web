@@ -4,7 +4,7 @@ function CategoryTransformerService(Category) {
   // Name should be always upper case.
   // ---
 
-  this.categoryApiRequestTransformer = function (requestData) {
+  this.categoryApiRequestTransformer = requestData => {
 
     function buildCategoryPayload(data) {
       return _.merge(data, { name: data.name.toUpperCase() });
@@ -17,7 +17,7 @@ function CategoryTransformerService(Category) {
     }
   };
 
-  this.categoryApiResponseTransformer = function (responseData) {
+  this.categoryApiResponseTransformer = responseData => {
     function buildCategory(data) {
       return new Category(_.extend(data, {
         name: data.name.toUpperCase(),

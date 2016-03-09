@@ -1,8 +1,5 @@
 function goalsMessagesFilter() {
-  return function (goalMessage, userName) {
-
-    return goalMessage.format(userName);
-  };
+  return (goalMessage, userName) => goalMessage.format(userName);
 }
 
 export default goalsMessagesFilter;

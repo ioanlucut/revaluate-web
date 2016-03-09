@@ -40,9 +40,7 @@ function ContactMessage(ContactService) {
    * Builds a Contact.
    * @returns {Contact}
    */
-  Contact.build = function () {
-    return new Contact();
-  };
+  Contact.build = () => new Contact();
 
   return Contact;
 }

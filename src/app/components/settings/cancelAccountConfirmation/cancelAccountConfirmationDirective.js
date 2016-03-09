@@ -10,7 +10,7 @@ function cancelAccountConfirmationDirective($timeout) {
       cancel: '&',
     },
     templateUrl: '/app/components/settings/cancelAccountConfirmation/cancelAccountConfirmationDirective.html',
-    link: function (scope) {
+    link(scope) {
 
       /**
        * Show block content
@@ -27,7 +27,7 @@ function cancelAccountConfirmationDirective($timeout) {
       /**
        * Perform confirm.
        */
-      scope.doConfirm = function () {
+      scope.doConfirm = () => {
         if (scope.messageAcknowledged) {
           return;
         }
@@ -38,16 +38,16 @@ function cancelAccountConfirmationDirective($timeout) {
       /**
        * Toggle content
        */
-      scope.toggleContent = function () {
+      scope.toggleContent = () => {
         scope.showContent = !scope.showContent;
       };
 
       /**
        * Auto toggle
        */
-      scope.$watch('autoToggleWhen', function (val, valOld) {
+      scope.$watch('autoToggleWhen', (val, valOld) => {
         if (val === true && valOld === false) {
-          $timeout(function () {
+          $timeout(() => {
             scope.toggleContent();
           });
         }

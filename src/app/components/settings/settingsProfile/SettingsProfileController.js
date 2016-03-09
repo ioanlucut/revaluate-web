@@ -1,9 +1,17 @@
 /**
  * Profile controller responsible for user update profile action.
  */
-function SettingsProfileController($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, ALERTS_EVENTS, ALERTS_CONSTANTS) {
+function SettingsProfileController($q,
+                                   $scope,
+                                   $rootScope,
+                                   $timeout,
+                                   StatesHandler,
+                                   SessionService,
+                                   AUTH_EVENTS,
+                                   ALERTS_EVENTS,
+                                   ALERTS_CONSTANTS) {
 
-  var _this = this;
+  const _this = this;
 
   /**
    * Alert identifier
@@ -33,7 +41,7 @@ function SettingsProfileController($q, $scope, $rootScope, $timeout, StatesHandl
   /**
    * Update profile functionality.
    */
-  _this.updateProfile = function () {
+  _this.updateProfile = () => {
 
     if (_this.profileForm.$valid && !_this.isRequestPending) {
 
@@ -43,7 +51,7 @@ function SettingsProfileController($q, $scope, $rootScope, $timeout, StatesHandl
       // Update the user
       _this.user
         .updateAccountDetails(_this.profileData)
-        .then(function (response) {
+        .then(response => {
           // ---
           // Reload data with given response.
           // ---
@@ -66,7 +74,7 @@ function SettingsProfileController($q, $scope, $rootScope, $timeout, StatesHandl
           _this.isRequestPending = false;
           $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated');
         })
-        .catch(function () {
+        .catch(() => {
           /* If bad feedback from server */
           _this.badPostSubmitResponse = true;
           _this.isRequestPending = false;

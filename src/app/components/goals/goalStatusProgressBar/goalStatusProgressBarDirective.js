@@ -1,5 +1,5 @@
 function GoalStatusProgressBarController($scope, $rootScope, GoalProgressTypeService) {
-  var _this = this;
+  const _this = this;
 
   /**
    * Current user.
@@ -17,7 +17,7 @@ function GoalStatusProgressBarController($scope, $rootScope, GoalProgressTypeSer
   prepareData(_this.goal);
 
   function prepareData(goal) {
-    var noOfDaysInMonth, currentDay;
+    let noOfDaysInMonth, currentDay;
 
     // ---
     // Target value of the goal.
@@ -37,7 +37,7 @@ function GoalStatusProgressBarController($scope, $rootScope, GoalProgressTypeSer
     /**
      * If warning should be shown
      */
-    _this.showWarning = (_this.type === 'danger' || _this.type === 'warning');
+    _this.showWarning = _this.type === 'danger' || _this.type === 'warning';
 
     // ---
     // Compute the today position.
@@ -51,9 +51,7 @@ function GoalStatusProgressBarController($scope, $rootScope, GoalProgressTypeSer
     return new Date(moment().year(), moment().month() + 1, 0).getDate();
   }
 
-  $scope.$watch(function () {
-    return _this.goal;
-  }, function (newGoal) {
+  $scope.$watch(() => _this.goal, newGoal => {
 
     prepareData(newGoal);
   });
@@ -69,7 +67,7 @@ function goalStatusProgressBarDirective() {
     bindToController: true,
     controllerAs: 'vm',
     templateUrl: '/app/components/goals/goalStatusProgressBar/goalStatusProgressBarDirective.tpl.html',
-    link: function () {
+    link() {
     },
   };
 }

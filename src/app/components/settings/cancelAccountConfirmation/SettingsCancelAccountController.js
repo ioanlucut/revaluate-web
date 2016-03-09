@@ -1,7 +1,15 @@
-function SettingsCancelAccountController($q, $scope, $rootScope, $timeout, USER_ACTIVITY_EVENTS, StatesHandler, IntercomUtilsService, AuthService, ALERTS_EVENTS, ALERTS_CONSTANTS) {
+function SettingsCancelAccountController($q,
+                                         $scope,
+                                         $rootScope,
+                                         $timeout,
+                                         USER_ACTIVITY_EVENTS,
+                                         StatesHandler,
+                                         IntercomUtilsService,
+                                         AuthService,
+                                         ALERTS_EVENTS,
+                                         ALERTS_CONSTANTS) {
 
-  var _this = this,
-    TIMEOUT_PENDING = 1000;
+  const _this = this, TIMEOUT_PENDING = 1000;
 
   /**
    * Alert identifier
@@ -11,7 +19,7 @@ function SettingsCancelAccountController($q, $scope, $rootScope, $timeout, USER_
   /**
    * Cancel account functionality.
    */
-  _this.cancelAccount = function () {
+  _this.cancelAccount = () => {
 
     if (_this.isDeleting) {
       return;
@@ -21,7 +29,7 @@ function SettingsCancelAccountController($q, $scope, $rootScope, $timeout, USER_
 
     AuthService
       .cancelAccount()
-      .then(function () {
+      .then(() => {
 
         // ---
         // Mark this user as canceled in intercom.
@@ -37,7 +45,7 @@ function SettingsCancelAccountController($q, $scope, $rootScope, $timeout, USER_
         $scope.$emit(ALERTS_EVENTS.SUCCESS, 'We\'ve successfully deleted your account!');
         _this.isDeleting = false;
 
-        $timeout(function () {
+        $timeout(() => {
 
           // ---
           // We need to set the data and refresh the user.
@@ -49,7 +57,7 @@ function SettingsCancelAccountController($q, $scope, $rootScope, $timeout, USER_
         }, TIMEOUT_PENDING);
 
       })
-      .catch(function () {
+      .catch(() => {
         /* If bad feedback from server */
         _this.badPostSubmitResponse = true;
         _this.isDeleting = false;

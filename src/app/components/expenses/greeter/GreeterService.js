@@ -5,8 +5,8 @@ function GreeterService($rootScope, GREETER_CONSTANTS) {
     return greeterDayTime.greets[Math.floor(Math.random() * greeterDayTime.greets.length)];
   }
 
-  this.greet = function () {
-    var hour = moment().hour();
+  this.greet = () => {
+    const hour = moment().hour();
 
     if (hour > 0 && hour <= 6) {
       return getRandomized(GREETER_CONSTANTS.NIGHT);

@@ -1,8 +1,22 @@
-function SettingsPaymentMethodAddController($q, $scope, $state, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentStatus, ALERTS_EVENTS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, AUTH_EVENTS, USER_SUBSCRIPTION_STATUS) {
+function SettingsPaymentMethodAddController($q,
+                                            $scope,
+                                            $state,
+                                            $rootScope,
+                                            $timeout,
+                                            $http,
+                                            AUTH_URLS,
+                                            $braintree,
+                                            clientToken,
+                                            paymentStatus,
+                                            ALERTS_EVENTS,
+                                            ALERTS_CONSTANTS,
+                                            USER_ACTIVITY_EVENTS,
+                                            AUTH_EVENTS,
+                                            USER_SUBSCRIPTION_STATUS) {
 
-  var _this = this;
+  const _this = this;
 
-  var TIMEOUT_PENDING = 300;
+  const TIMEOUT_PENDING = 300;
 
   /**
    * Alert identifier
@@ -28,7 +42,7 @@ function SettingsPaymentMethodAddController($q, $scope, $state, $rootScope, $tim
   // Braintree client.
   // ---
   _this.client = new $braintree.api.Client({
-    clientToken: clientToken,
+    clientToken,
   });
 
   /**
@@ -70,7 +84,7 @@ function SettingsPaymentMethodAddController($q, $scope, $state, $rootScope, $tim
   // ---
   // On submit, add payment method.
   // ---
-  _this.addPaymentMethod = function () {
+  _this.addPaymentMethod = () => {
     if (_this.addPaymentMethodForm.$valid && !_this.isRequestPending) {
 
       // Show the loading bar
@@ -83,7 +97,7 @@ function SettingsPaymentMethodAddController($q, $scope, $state, $rootScope, $tim
         .tokenizeCard({
           number: _this.paymentData.cardNumber,
           expirationDate: _this.paymentData.cardExpirationDate,
-        }, function (err, nonce) {
+        }, (err, nonce) => {
 
           if (err) {
             $scope.$emit(ALERTS_EVENTS.DANGER, {
@@ -94,16 +108,16 @@ function SettingsPaymentMethodAddController($q, $scope, $state, $rootScope, $tim
             // ---
             // Update details with the received nonce.
             // ---
-            var paymentDetailsData = angular.copy(_this.paymentDetailsData);
+            const paymentDetailsData = angular.copy(_this.paymentDetailsData);
             paymentDetailsData.paymentNonceDetailsDTO.paymentMethodNonce = nonce;
 
             return $http
               .post(URLTo.api(AUTH_URLS.createCustomerWithPaymentMethodSubscribeToStandardPlan), paymentDetailsData)
-              .then(function (response) {
+              .then(response => {
                 // ---
                 // Update user with subscription status ACTIVE if subscription is also activated.
                 // ---
-                var paymentInsights = response.data;
+                const paymentInsights = response.data;
                 if (paymentInsights.subscriptionActive) {
                   _this
                     .user
@@ -119,7 +133,7 @@ function SettingsPaymentMethodAddController($q, $scope, $state, $rootScope, $tim
 
                 _this.addPaymentMethodForm.$setPristine();
 
-                $timeout(function () {
+                $timeout(() => {
                   _this.isRequestPending = false;
                   $scope.$emit(ALERTS_EVENTS.SUCCESS, 'We\'ve successfully saved your payment method!');
 
@@ -129,7 +143,7 @@ function SettingsPaymentMethodAddController($q, $scope, $state, $rootScope, $tim
                   $state.go('settings.payment.insights');
                 }, TIMEOUT_PENDING);
               })
-              .catch(function (response) {
+              .catch(response => {
                 /* If bad feedback from server */
                 _this.badPostSubmitResponse = true;
                 _this.isRequestPending = false;
@@ -137,7 +151,7 @@ function SettingsPaymentMethodAddController($q, $scope, $state, $rootScope, $tim
                 // ---
                 // Show errors.
                 // ---
-                var errors = response.data;
+                const errors = response.data;
                 if (_.isArray(errors)) {
                   $scope.$emit(ALERTS_EVENTS.DANGER, {
                     message: errors.join('\n'),

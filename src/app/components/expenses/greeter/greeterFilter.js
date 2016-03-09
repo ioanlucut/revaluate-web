@@ -1,8 +1,5 @@
 function greeterFilter() {
-  return function (greets, userName) {
-
-    return greets.format(userName);
-  };
+  return (greets, userName) => greets.format(userName);
 }
 
 export default greeterFilter;

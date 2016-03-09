@@ -5,14 +5,14 @@ function greeterDirective($rootScope, $timeout) {
       greet: '=',
     },
     templateUrl: '/app/components/expenses/greeter/greeterDirective.tpl.html',
-    link: function (scope, el) {
-      var TIMEOUT = 1000;
+    link(scope, el) {
+      const TIMEOUT = 1000;
 
       scope.user = $rootScope.currentUser;
 
-      scope.$on('$viewContentLoaded', function () {
+      scope.$on('$viewContentLoaded', () => {
         if (!el.is(':visible')) {
-          $timeout(function () {
+          $timeout(() => {
             el.show();
           }, TIMEOUT);
         }

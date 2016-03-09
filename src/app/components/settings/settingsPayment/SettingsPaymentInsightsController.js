@@ -1,8 +1,19 @@
-function SettingsPaymentInsightsController($q, $scope, $state, $rootScope, $timeout, $http, paymentInsights, ALERTS_EVENTS, AUTH_URLS, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS, AUTH_EVENTS) {
+function SettingsPaymentInsightsController($q,
+                                           $scope,
+                                           $state,
+                                           $rootScope,
+                                           $timeout,
+                                           $http,
+                                           paymentInsights,
+                                           ALERTS_EVENTS,
+                                           AUTH_URLS,
+                                           ALERTS_CONSTANTS,
+                                           USER_ACTIVITY_EVENTS,
+                                           AUTH_EVENTS) {
 
-  var _this = this;
+  const _this = this;
 
-  var TIMEOUT_PENDING = 300;
+  const TIMEOUT_PENDING = 300;
 
   /**
    * Alert identifier
@@ -27,7 +38,7 @@ function SettingsPaymentInsightsController($q, $scope, $state, $rootScope, $time
   // ---
   // Remove payment method.
   // ---
-  _this.performRemovePayment = function () {
+  _this.performRemovePayment = () => {
     if (!_this.isRequestPending) {
 
       // Show the loading bar
@@ -35,7 +46,7 @@ function SettingsPaymentInsightsController($q, $scope, $state, $rootScope, $time
 
       return $http
         .delete(URLTo.api(AUTH_URLS.removePaymentMethod), {})
-        .then(function (response) {
+        .then(response => {
 
           // ---
           // Update user with subscription status.
@@ -47,7 +58,7 @@ function SettingsPaymentInsightsController($q, $scope, $state, $rootScope, $time
             .$broadcast(AUTH_EVENTS.refreshUser, {});
 
           $scope.$emit(ALERTS_EVENTS.SUCCESS, 'You\'ve successfully removed payment method!');
-          $timeout(function () {
+          $timeout(() => {
             _this.isRequestPending = false;
 
             // ---
@@ -56,7 +67,7 @@ function SettingsPaymentInsightsController($q, $scope, $state, $rootScope, $time
             $state.go('expenses.regular');
           }, TIMEOUT_PENDING);
         })
-        .catch(function (response) {
+        .catch(response => {
           /* If bad feedback from server */
           _this.badPostSubmitResponse = true;
           _this.isRequestPending = false;
@@ -64,7 +75,7 @@ function SettingsPaymentInsightsController($q, $scope, $state, $rootScope, $time
           // ---
           // Show errors.
           // ---
-          var errors = response.data;
+          const errors = response.data;
           if (_.isArray(errors)) {
             $scope.$emit(ALERTS_EVENTS.DANGER, {
               message: errors.join('\n'),

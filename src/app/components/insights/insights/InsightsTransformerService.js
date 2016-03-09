@@ -1,30 +1,27 @@
 /**
  * InsightsMonthly transformer service which transforms a insights DTO model object to a insights business object.
  */
-function InsightsTransformerService($filter, $injector, InsightsMonthly, InsightsDaily, InsightsProgress, InsightsOverview) {
+function InsightsTransformerService($filter,
+                                    $injector,
+                                    InsightsMonthly,
+                                    InsightsDaily,
+                                    InsightsProgress,
+                                    InsightsOverview) {
 
-  this.insightsMonthlyApiResponseTransformer = function (responseData) {
-    return InsightsMonthly
-      .build(_.extend(responseData.data, {
-        from: moment(responseData.data.from).toDate(),
-        to: moment(responseData.data.from).toDate(),
-      }));
-  };
+  this.insightsMonthlyApiResponseTransformer = responseData => InsightsMonthly
+    .build(_.extend(responseData.data, {
+      from: moment(responseData.data.from).toDate(),
+      to: moment(responseData.data.from).toDate(),
+    }));
 
-  this.insightsOverviewApiResponseTransformer = function (responseData) {
-    return InsightsOverview
-      .build(responseData.data);
-  };
+  this.insightsOverviewApiResponseTransformer = responseData => InsightsOverview
+    .build(responseData.data);
 
-  this.insightsProgressApiResponseTransformer = function (responseData) {
-    return InsightsProgress
-      .build(responseData.data);
-  };
+  this.insightsProgressApiResponseTransformer = responseData => InsightsProgress
+    .build(responseData.data);
 
-  this.insightDailyApiResponseTransformer = function (responseData) {
-    return InsightsDaily
-      .build(responseData.data);
-  };
+  this.insightDailyApiResponseTransformer = responseData => InsightsDaily
+    .build(responseData.data);
 
 }
 

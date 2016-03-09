@@ -1,6 +1,14 @@
-function GoalEntryController(GOAL_EVENTS, APP_CONFIG, $rootScope, GoalService, DatesUtils, Category, GoalProgressTypeService, GoalMessagesService, promiseTracker) {
+function GoalEntryController(GOAL_EVENTS,
+                             APP_CONFIG,
+                             $rootScope,
+                             GoalService,
+                             DatesUtils,
+                             Category,
+                             GoalProgressTypeService,
+                             GoalMessagesService,
+                             promiseTracker) {
 
-  var _this = this;
+  const _this = this;
 
   /**
    * Current user.
@@ -74,7 +82,7 @@ function GoalEntryController(GOAL_EVENTS, APP_CONFIG, $rootScope, GoalService, D
   _this.message = GoalMessagesService.getMessage(GoalProgressTypeService.computeProgressBarType(_this.shownGoal));
 
   function updateGoal() {
-    var period = DatesUtils
+    const period = DatesUtils
       .getFromToOfMonthYear(_this.shownGoal.yearMonthDate);
 
     _this.shownGoal = _.extend(_this.shownGoal, {
@@ -85,23 +93,29 @@ function GoalEntryController(GOAL_EVENTS, APP_CONFIG, $rootScope, GoalService, D
 
     GoalService
       .updateGoal(_this.shownGoal, _this.updateTracker)
-      .then(function (updatedGoal) {
+      .then(updatedGoal => {
         $rootScope.$broadcast(GOAL_EVENTS.isUpdated, { goal: _.extend(_this.shownGoal, updatedGoal) });
       })
-      .catch(function () {
+      .catch(() => {
         _this.badPostSubmitResponse = true;
-        $rootScope.$broadcast(GOAL_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something went wrong.' });
+        $rootScope.$broadcast(
+          GOAL_EVENTS.isErrorOccurred,
+          { errorMessage: 'Ups, something went wrong.' }
+        );
       });
   }
 
   function deleteGoal() {
     GoalService
       .bulkDelete([_this.goal], _this.deleteTracker)
-      .then(function () {
+      .then(() => {
         $rootScope.$broadcast(GOAL_EVENTS.isDeleted, { goal: _this.goal });
       })
-      .catch(function () {
-        $rootScope.$broadcast(GOAL_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something went wrong.' });
+      .catch(() => {
+        $rootScope.$broadcast(
+          GOAL_EVENTS.isErrorOccurred,
+          { errorMessage: 'Ups, something went wrong.' }
+        );
       });
   }
 
@@ -129,8 +143,8 @@ function goalEntryDirective(GOAL_EVENTS, $rootScope, $timeout) {
     bindToController: true,
     controllerAs: 'vm',
     templateUrl: '/app/components/goals/goalEntry/goalEntryDirective.tpl.html',
-    link: function (scope, el, attrs, _this) {
-      var GOAL_INPUT_SELECTOR = '.goal__form__price__input';
+    link(scope, el, attrs, _this) {
+      const GOAL_INPUT_SELECTOR = '.goal__form__price__input';
 
       /**
        * If date details should be shown
@@ -145,14 +159,14 @@ function goalEntryDirective(GOAL_EVENTS, $rootScope, $timeout) {
       /**
        * Toggle content
        */
-      scope.toggleContent = function () {
+      scope.toggleContent = () => {
         scope.showContent = !scope.showContent;
 
         // ---
         // Auto focus price.
         // ---
         if (scope.showContent) {
-          $timeout(function () {
+          $timeout(() => {
             el.find(GOAL_INPUT_SELECTOR).focus();
           });
         }
@@ -161,7 +175,7 @@ function goalEntryDirective(GOAL_EVENTS, $rootScope, $timeout) {
       /**
        * Toggle and discard changes.
        */
-      scope.cancel = function () {
+      scope.cancel = () => {
         scope.toggleContent();
 
         _this.discardChanges();
@@ -170,7 +184,7 @@ function goalEntryDirective(GOAL_EVENTS, $rootScope, $timeout) {
       /**
        * On goal updated/deleted - cancel edit mode.
        */
-      $rootScope.$on(GOAL_EVENTS.isUpdated, function (event, args) {
+      $rootScope.$on(GOAL_EVENTS.isUpdated, (event, args) => {
         if (_this.goal.id === args.goal.id) {
 
           // ---

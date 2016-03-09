@@ -2,10 +2,10 @@ export default
 
 function GoalTransformerService(Goal, DatesUtils) {
 
-  this.goalApiRequestTransformer = function (requestData) {
+  this.goalApiRequestTransformer = requestData => {
 
     function buildGoalPayload(data) {
-      var newly = _.extend(data, {
+      const newly = _.extend(data, {
         startDate: DatesUtils.formatStartOfMonthInclusive(data.startDate),
         endDate: DatesUtils.formatEndOfMonthExclusive(data.endDate),
       });
@@ -20,7 +20,7 @@ function GoalTransformerService(Goal, DatesUtils) {
     }
   };
 
-  this.goalApiResponseTransformer = function (responseData) {
+  this.goalApiResponseTransformer = responseData => {
     function buildGoal(data) {
       return Goal.build(_.extend(data, {
         startDate: toDate(data.startDate),

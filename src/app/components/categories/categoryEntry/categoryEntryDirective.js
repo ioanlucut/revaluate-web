@@ -1,6 +1,6 @@
 function CategoryEntryController(CATEGORY_EVENTS, $scope, $rootScope, promiseTracker, CategoryService) {
 
-  var _this = this;
+  const _this = this;
 
   /**
    * Work with a copy - keep the master backup
@@ -30,24 +30,33 @@ function CategoryEntryController(CATEGORY_EVENTS, $scope, $rootScope, promiseTra
   function updateCategory() {
     CategoryService
       .updateCategory(_this.categoryEntry, _this.updateTracker)
-      .then(function (updatedCategory) {
-        $rootScope.$broadcast(CATEGORY_EVENTS.isUpdated, { category: _.extend(_this.categoryEntry, updatedCategory) });
+      .then(updatedCategory => {
+        $rootScope.$broadcast(
+          CATEGORY_EVENTS.isUpdated,
+          { category: _.extend(_this.categoryEntry, updatedCategory) }
+        );
       })
-      .catch(function () {
+      .catch(() => {
         _this.badPostSubmitResponse = true;
-        $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something went wrong.' });
+        $rootScope.$broadcast(
+          CATEGORY_EVENTS.isErrorOccurred,
+          { errorMessage: 'Ups, something went wrong.' }
+        );
       });
   }
 
   function deleteCategory() {
     CategoryService
       .deleteCategory(_this.categoryEntry, _this.deleteTracker)
-      .then(function () {
+      .then(() => {
         _this.isSuccessfullyDeleted = true;
         $rootScope.$broadcast(CATEGORY_EVENTS.isDeleted, { category: _this.categoryEntry });
       })
-      .catch(function () {
-        $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something went wrong.' });
+      .catch(() => {
+        $rootScope.$broadcast(
+          CATEGORY_EVENTS.isErrorOccurred,
+          { errorMessage: 'Ups, something went wrong.' }
+        );
       });
   }
 }
@@ -63,7 +72,7 @@ function categoryEntryDirective($rootScope, promiseTracker, CategoryService, CAT
     controller: CategoryEntryController,
     controllerAs: 'vm',
     templateUrl: '/app/components/categories/categoryEntry/categoryEntryDirective.html',
-    link: function (scope, el, attrs, _this) {
+    link(scope, el, attrs, _this) {
 
       /**
        * Show block content
@@ -73,14 +82,14 @@ function categoryEntryDirective($rootScope, promiseTracker, CategoryService, CAT
       /**
        * Toggle content
        */
-      scope.toggleContent = function () {
+      scope.toggleContent = () => {
         scope.showContent = !scope.showContent;
       };
 
       /**
        * Toggle and discard changes.
        */
-      scope.cancel = function () {
+      scope.cancel = () => {
         scope.toggleContent();
 
         _this.categoryEntry = angular.copy(scope.category);
@@ -89,7 +98,7 @@ function categoryEntryDirective($rootScope, promiseTracker, CategoryService, CAT
       /**
        * On category updated/deleted
        */
-      $rootScope.$on(CATEGORY_EVENTS.isUpdated, function (event, args) {
+      $rootScope.$on(CATEGORY_EVENTS.isUpdated, (event, args) => {
         if (scope.category.id === args.category.id) {
           scope.toggleContent();
 
@@ -101,7 +110,7 @@ function categoryEntryDirective($rootScope, promiseTracker, CategoryService, CAT
         }
       });
 
-      scope.$on(CATEGORY_EVENTS.isDeleted, function (event, args) {
+      scope.$on(CATEGORY_EVENTS.isDeleted, (event, args) => {
         if (scope.category.id === args.category.id) {
           scope.toggleContent();
         }

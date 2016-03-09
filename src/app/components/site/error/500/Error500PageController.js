@@ -3,7 +3,7 @@ function Error500PageController($scope, $controller, USER_ACTIVITY_EVENTS) {
   /**
    * Inherit from this controller
    */
-  $controller('AbstractErrorPageController', { $scope: $scope });
+  $controller('AbstractErrorPageController', { $scope });
 
   /**
    * Track error event
