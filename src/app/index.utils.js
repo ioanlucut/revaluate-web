@@ -2,8 +2,8 @@
   // ---
   // Add String format prototype.
   // ---
-  if ( !String.prototype.format ) {
-    String.prototype.format = function() {
+  if (!String.prototype.format) {
+    String.prototype.format = function () {
       const args = arguments;
       return this.replace(/{(\d+)}/g, (match, number) => typeof args[number] !== 'undefined' ? args[number] : match);
     };
@@ -12,7 +12,7 @@
   // ---
   // Add Object create function.
   // ---
-  if ( typeof Object.create !== 'function' ) {
+  if (typeof Object.create !== 'function') {
     Object.create = o => {
       function F() {
       }

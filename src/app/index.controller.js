@@ -1,26 +1,25 @@
-export default function IndexController(
-  flash,
-  $location,
-  GreeterService,
-  AlertService,
-  $rootScope,
-  $scope,
-  $state,
-  $timeout,
-  $log,
-  ALERTS_EVENTS,
-  AuthService,
-  AccountModal,
-  IntercomUtilsService,
-  MixpanelUtilsService,
-  User,
-  StatesHandler,
-  AUTH_EVENTS,
-  ALERTS_CONSTANTS,
-  AUTH_MODAL,
-  ERROR_INTERCEPTOR,
-  ENV,
-  APP_CONFIG) {
+function IndexController(flash,
+                         $location,
+                         GreeterService,
+                         AlertService,
+                         $rootScope,
+                         $scope,
+                         $state,
+                         $timeout,
+                         $log,
+                         ALERTS_EVENTS,
+                         AuthService,
+                         AccountModal,
+                         IntercomUtilsService,
+                         MixpanelUtilsService,
+                         User,
+                         StatesHandler,
+                         AUTH_EVENTS,
+                         ALERTS_CONSTANTS,
+                         AUTH_MODAL,
+                         ERROR_INTERCEPTOR,
+                         ENV,
+                         APP_CONFIG) {
 
   /**
    * Save the state on root scope
@@ -45,17 +44,17 @@ export default function IndexController(
   // ---
   // Bootstrap intercom & mixpanel.
   // ---
-  if ( AuthService.isAuthenticated() ) {
+  if (AuthService.isAuthenticated()) {
     IntercomUtilsService.bootIntercom($rootScope.currentUser);
 
-    if ( ENV.isProduction ) {
+    if (ENV.isProduction) {
       MixpanelUtilsService.bootMixpanel($rootScope.currentUser);
     }
   } else {
     MixpanelUtilsService.initMixpanel();
   }
 
-  if ( !ENV.isProduction ) {
+  if (!ENV.isProduction) {
     $log.log('Current user: ', $rootScope.currentUser.model);
   }
 
@@ -72,14 +71,14 @@ export default function IndexController(
     // ---
     IntercomUtilsService.bootIntercom($rootScope.currentUser, { featured: $location.search().ref });
 
-    if ( ENV.isProduction ) {
+    if (ENV.isProduction) {
       // ---
       // Bootstrap mixpanel people.
       // ---
       MixpanelUtilsService.bootMixpanel($rootScope.currentUser);
     }
 
-    if ( !ENV.isProduction ) {
+    if (!ENV.isProduction) {
       $log.log('Logged in: ', $rootScope.currentUser.model);
     }
   });
@@ -95,14 +94,14 @@ export default function IndexController(
     // ---
     $scope.$emit('updateUserStats', { args: args.intercomAttributes });
 
-    if ( ENV.isProduction ) {
+    if (ENV.isProduction) {
       // ---
       // Refresh intercom user.
       // ---
       MixpanelUtilsService.updateMixpanel($rootScope.currentUser);
     }
 
-    if ( !ENV.isProduction ) {
+    if (!ENV.isProduction) {
       $log.log('Refreshed user: ', $rootScope.currentUser.model);
     }
   });
@@ -111,7 +110,7 @@ export default function IndexController(
    * Listen to the session timeout event
    */
   $scope.$on(AUTH_EVENTS.sessionTimeout, () => {
-    if ( !ENV.isProduction ) {
+    if (!ENV.isProduction) {
       $log.log('Session timed out.');
     }
 
@@ -122,7 +121,7 @@ export default function IndexController(
    * Listen to the not authenticated event
    */
   $scope.$on(AUTH_EVENTS.notAuthenticated, () => {
-    if ( !ENV.isProduction ) {
+    if (!ENV.isProduction) {
       $log.log('Not authenticated.');
     }
 
@@ -136,7 +135,7 @@ export default function IndexController(
    */
   $scope.$on(AUTH_EVENTS.logoutSuccess, () => {
     $rootScope.currentUser = User.$new();
-    if ( !ENV.isProduction ) {
+    if (!ENV.isProduction) {
       $log.log('Logged out.');
     }
   });
@@ -145,7 +144,7 @@ export default function IndexController(
    * Track events.
    */
   $rootScope.$on('trackEvent', (event, args) => {
-    if ( !ENV.isProduction ) {
+    if (!ENV.isProduction) {
       return;
     }
 
@@ -157,7 +156,7 @@ export default function IndexController(
    * Track update user events.
    */
   $rootScope.$on('updateUserStats', (event, args) => {
-    if ( !ENV.isProduction ) {
+    if (!ENV.isProduction) {
       return;
     }
 
@@ -168,7 +167,7 @@ export default function IndexController(
    * Track activity
    */
   $rootScope.$on('$stateChangeSuccess', (event, toState) => {
-    if ( toState.stateEventName ) {
+    if (toState.stateEventName) {
       $scope.$emit('trackEvent', toState.stateEventName);
     }
 
@@ -182,7 +181,7 @@ export default function IndexController(
     // ---
     // Close login modal if everything is loaded.
     // ---
-    if ( AccountModal.isOpen ) {
+    if (AccountModal.isOpen) {
       $rootScope.$broadcast(AUTH_MODAL.close, {});
     }
   });
@@ -210,7 +209,7 @@ export default function IndexController(
   });
 
   $scope.$on(ALERTS_EVENTS.DANGER, (event, args) => {
-    if ( args.alertId ) {
+    if (args.alertId) {
       flash.to(args.alertId).error = args.message;
     } else {
       AlertService.addDanger(args);
@@ -218,7 +217,7 @@ export default function IndexController(
   });
 
   $scope.$on(ALERTS_EVENTS.CLEAR, (event, args) => {
-    if ( args.alertId ) {
+    if (args.alertId) {
       flash.to(args.alertId).error = '';
     }
   });
@@ -228,10 +227,12 @@ export default function IndexController(
   });
 
   $scope.$on(ALERTS_EVENTS.SUCCESS, (event, args) => {
-    if ( args.alertId ) {
+    if (args.alertId) {
       flash.to(args.alertId).success = args.message;
     } else {
       AlertService.addSuccess(args);
     }
   });
 }
+
+export default IndexController;

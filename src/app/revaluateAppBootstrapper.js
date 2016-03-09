@@ -1,4 +1,4 @@
 // ---
 // Starts the whole app.
 // ---
-require('./index.bootstrapper');
+require('./index.bootstrapper.js');

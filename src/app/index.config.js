@@ -1,8 +1,10 @@
-'use strict';
-
-export default function ($locationProvider, $translateProvider, ChartJsProvider, CacheFactoryProvider, gravatarServiceProvider, ngToastProvider) {
-  var MAIN_FONT,
-    MAIN_FONT_SIZE;
+function appConfig($locationProvider,
+                   $translateProvider,
+                   ChartJsProvider,
+                   CacheFactoryProvider,
+                   gravatarServiceProvider,
+                   ngToastProvider) {
+  let MAIN_FONT, MAIN_FONT_SIZE;
 
   angular
     .extend(CacheFactoryProvider.defaults, { maxAge: 15 * 60 * 1000 });
@@ -39,7 +41,7 @@ export default function ($locationProvider, $translateProvider, ChartJsProvider,
   // ---
   // Angular translations.
   // ---
-  $translateProvider.translations('en', ({
+  $translateProvider.translations('en', {
     HOME: {
       TITLE_TEXT: 'Change the way you spend your money',
       DESCRIPTION_TEXT: 'Simplify your personal finance management',
@@ -49,7 +51,7 @@ export default function ($locationProvider, $translateProvider, ChartJsProvider,
       OAUTH_GOOGLE: 'Synced from Google',
       SIGN_UP: 'Synced from Gravatar',
     },
-  }));
+  });
 
   $translateProvider.useSanitizeValueStrategy('sanitize');
 
@@ -217,3 +219,5 @@ export default function ($locationProvider, $translateProvider, ChartJsProvider,
     barDatasetSpacing: 5,
   });
 }
+
+export default appConfig;
