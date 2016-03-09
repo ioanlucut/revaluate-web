@@ -1,5 +1,5 @@
 {
-    "extends": "eslint:recommended",
+    "extends": "airbnb/base",
     "plugins": [
         "angular"
     ],
@@ -7,9 +7,6 @@
         "es6": true,
         "browser": true,
         "jasmine": true
-    },
-    "ecmaFeatures": {
-        "modules": true
     },
     "globals": {
         "deferredBootstrapper": false,
