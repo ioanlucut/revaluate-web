@@ -1,6 +1,6 @@
 function StatisticsTransformerService(Statistics) {
 
-  this.statisticApiResponseTransformer = function (responseData) {
+  this.statisticApiResponseTransformer = responseData => {
     function buildStatistic(data) {
       return new Statistics(data);
     }

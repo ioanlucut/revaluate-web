@@ -1,6 +1,12 @@
-function AddExpenseController(EXPENSE_EVENTS, APP_CONFIG, $scope, $rootScope, ExpenseService, Expense, promiseTracker) {
+function AddExpenseController(EXPENSE_EVENTS,
+                              APP_CONFIG,
+                              $scope,
+                              $rootScope,
+                              ExpenseService,
+                              Expense,
+                              promiseTracker) {
 
-  var _this = this;
+  const _this = this;
 
   /**
    * Current user.
@@ -61,13 +67,16 @@ function AddExpenseController(EXPENSE_EVENTS, APP_CONFIG, $scope, $rootScope, Ex
 
     ExpenseService
       .createExpense(this.expense, _this.saveTracker)
-      .then(function (createdExpense) {
+      .then(createdExpense => {
         $rootScope.$broadcast(EXPENSE_EVENTS.isCreated, { expense: createdExpense });
         _this.initOrResetAddExpense();
       })
-      .catch(function () {
+      .catch(() => {
         _this.badPostSubmitResponse = true;
-        $scope.$emit(EXPENSE_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something went wrong.' });
+        $scope.$emit(
+          EXPENSE_EVENTS.isErrorOccurred,
+          { errorMessage: 'Ups, something went wrong.' }
+        );
       });
   }
 
@@ -90,7 +99,7 @@ function expenseAddDirective() {
     bindToController: true,
     controllerAs: 'vm',
     templateUrl: '/app/components/expenses/expenseAdd/expenseAddDirective.tpl.html',
-    link: function () {
+    link() {
     },
   };
 }

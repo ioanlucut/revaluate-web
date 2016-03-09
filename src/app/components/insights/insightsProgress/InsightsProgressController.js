@@ -1,7 +1,22 @@
-function InsightsProgressController(DatesUtils, $controller, $templateCache, $scope, $rootScope, $filter, $timeout, InsightsGenerator, ALERTS_EVENTS, INSIGHTS_INTERVAL, insightsProgress, monthsPerYearsStatistics, categories, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
+function InsightsProgressController(DatesUtils,
+                                    $controller,
+                                    $templateCache,
+                                    $scope,
+                                    $rootScope,
+                                    $filter,
+                                    $timeout,
+                                    InsightsGenerator,
+                                    ALERTS_EVENTS,
+                                    INSIGHTS_INTERVAL,
+                                    insightsProgress,
+                                    monthsPerYearsStatistics,
+                                    categories,
+                                    InsightsService,
+                                    USER_ACTIVITY_EVENTS,
+                                    INSIGHTS_CHARTS,
+                                    ALERTS_CONSTANTS) {
 
-  var TIMEOUT_DURATION = 150,
-    _this = this;
+  const TIMEOUT_DURATION = 150, _this = this;
 
   /**
    * Alert identifier
@@ -38,12 +53,12 @@ function InsightsProgressController(DatesUtils, $controller, $templateCache, $sc
   // Inherit from parent controller.
   // ---
   angular.extend(this, $controller('InsightsAbstractController', {
-    $scope: $scope,
-    $rootScope: $rootScope,
-    $filter: $filter,
-    monthsPerYearsStatistics: monthsPerYearsStatistics,
+    $scope,
+    $rootScope,
+    $filter,
+    monthsPerYearsStatistics,
     resizeOnUpdate: false,
-    getChartSetSize: function () {
+    getChartSetSize() {
     },
   }));
 
@@ -57,7 +72,7 @@ function InsightsProgressController(DatesUtils, $controller, $templateCache, $sc
   /**
    * Toggle category selection
    */
-  _this.toggleAndReloadInsights = function (category) {
+  _this.toggleAndReloadInsights = category => {
     category.selected = !category.selected;
 
     prepareDataForProgressChart();
@@ -71,7 +86,7 @@ function InsightsProgressController(DatesUtils, $controller, $templateCache, $sc
       return;
     }
 
-    var insightsPrepared = InsightsGenerator
+    const insightsPrepared = InsightsGenerator
       .generate(_this.insightsProgress, getSelectedCategories());
 
     _this.insightLineData = insightsPrepared.insightLineData;
@@ -88,7 +103,7 @@ function InsightsProgressController(DatesUtils, $controller, $templateCache, $sc
   }
 
   function reloadAllCategoriesWithSelectedAs(status) {
-    _.each(_this.masterCategories, function (category) {
+    _.each(_this.masterCategories, category => {
       category.selected = status;
     });
 
@@ -101,18 +116,16 @@ function InsightsProgressController(DatesUtils, $controller, $templateCache, $sc
   /**
    * At least one category should be selected
    */
-  _this.isMinimumNumberOfAllowedUnselectedCategoriesExceeded = function () {
-    return getSelectedCategories().length === 0;
-  };
+  _this.isMinimumNumberOfAllowedUnselectedCategoriesExceeded = () => getSelectedCategories().length === 0;
 
-  _this.selectAll = function () {
+  _this.selectAll = () => {
     if (getSelectedCategories().length < _this.masterCategories.length) {
 
       reloadAllCategoriesWithSelectedAs(true);
     }
   };
 
-  _this.clearAll = function () {
+  _this.clearAll = () => {
     if (getSelectedCategories().length > 0) {
 
       reloadAllCategoriesWithSelectedAs(false);
@@ -127,19 +140,19 @@ function InsightsProgressController(DatesUtils, $controller, $templateCache, $sc
   /**
    * Load insights
    */
-  _this.loadInsights = function (insightsIntervalMonths) {
+  _this.loadInsights = insightsIntervalMonths => {
     if (_this.isLoading) {
 
       return;
     }
 
     _this.isLoading = true;
-    var period = DatesUtils
+    const period = DatesUtils
       .fromLastMonthsToNow(insightsIntervalMonths);
 
     InsightsService
       .fetchProgressInsightsFromTo(period.from, period.to)
-      .then(function (receivedInsight) {
+      .then(receivedInsight => {
         _this.activeInterval = insightsIntervalMonths;
 
         /**
@@ -147,7 +160,7 @@ function InsightsProgressController(DatesUtils, $controller, $templateCache, $sc
          */
         $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.insightsProgressFetched);
 
-        $timeout(function () {
+        $timeout(() => {
           // ---
           // Update everything.
           // ---
@@ -161,7 +174,7 @@ function InsightsProgressController(DatesUtils, $controller, $templateCache, $sc
           _this.isLoading = false;
         }, TIMEOUT_DURATION);
       })
-      .catch(function () {
+      .catch(() => {
         _this.badPostSubmitResponse = true;
         _this.isLoading = false;
 

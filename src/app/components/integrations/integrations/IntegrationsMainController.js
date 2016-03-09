@@ -1,6 +1,16 @@
-function IntegrationsMainController($scope, $rootScope, INTEGRATIONS_CONSTANTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, ENV, SocialConnectService, StatesHandler, IntegrationsService, promiseTracker, integrations) {
+function IntegrationsMainController($scope,
+                                    $rootScope,
+                                    INTEGRATIONS_CONSTANTS,
+                                    ALERTS_EVENTS,
+                                    USER_ACTIVITY_EVENTS,
+                                    ENV,
+                                    SocialConnectService,
+                                    StatesHandler,
+                                    IntegrationsService,
+                                    promiseTracker,
+                                    integrations) {
 
-  var _this = this;
+  const _this = this;
 
   _this.user = $rootScope.currentUser;
 
@@ -42,13 +52,13 @@ function IntegrationsMainController($scope, $rootScope, INTEGRATIONS_CONSTANTS, 
   function deleteIntegration(entry) {
     IntegrationsService
       .deleteIntegration(entry, _this.deleteTracker)
-      .then(function () {
+      .then(() => {
         _.remove(_this.integrations, 'id', entry.id);
 
         $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Deleted');
         $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.appIntegrationDeleted);
       })
-      .catch(function () {
+      .catch(() => {
         $scope.$emit(ALERTS_EVENTS.DANGER, 'Ups, something went wrong.');
       });
   }
@@ -56,11 +66,11 @@ function IntegrationsMainController($scope, $rootScope, INTEGRATIONS_CONSTANTS, 
   function addIntegrationOf(provider) {
     SocialConnectService
       .connectWithAppGet(provider)
-      .then(function (profile) {
+      .then(profile => {
         createOauthEntryWith(profile, _this.addTracker);
         $scope.$apply();
       })
-      .then(null, function () {
+      .then(null, () => {
         $scope.$emit(ALERTS_EVENTS.DANGER, 'Ups, something went wrong.');
         $scope.$apply();
       });
@@ -69,7 +79,7 @@ function IntegrationsMainController($scope, $rootScope, INTEGRATIONS_CONSTANTS, 
   function createOauthEntryWith(profile, tracker) {
     IntegrationsService
       .addIntegrationAs(profile, tracker)
-      .then(function (addedIntegration) {
+      .then(addedIntegration => {
         $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.appIntegrated);
 
         $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Integration successfully added.');
@@ -78,7 +88,7 @@ function IntegrationsMainController($scope, $rootScope, INTEGRATIONS_CONSTANTS, 
         _this.integrations.push(addedIntegration);
         _this.accordionStatus.isOpen = false;
       })
-      .catch(function () {
+      .catch(() => {
         $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.appIntegrationFailed);
 
         $scope.$emit(ALERTS_EVENTS.DANGER, 'Could not add integration.');

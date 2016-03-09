@@ -1,6 +1,5 @@
 function GoalListController($timeout) {
-  var _this = this,
-    TIMEOUT = 200;
+  const _this = this, TIMEOUT = 200;
 
   /**
    * Initial selected order by
@@ -20,7 +19,7 @@ function GoalListController($timeout) {
   function setSelectedOrderBy(by) {
     _this.isUpdatingListLayout = !_this.isUpdatingListLayout;
 
-    $timeout(function () {
+    $timeout(() => {
       _this.selectedOrderBy = by;
       _this.isUpdatingListLayout = !_this.isUpdatingListLayout;
     }, TIMEOUT);
@@ -39,7 +38,7 @@ function goalsListDirective() {
     bindToController: true,
     controllerAs: 'vm',
     templateUrl: '/app/components/goals/goalsList/goalsListDirective.tpl.html',
-    link: function (scope, el, attrs) {
+    link(scope, el, attrs) {
 
       scope.reverseOrder = attrs.sort === 'desc';
     },

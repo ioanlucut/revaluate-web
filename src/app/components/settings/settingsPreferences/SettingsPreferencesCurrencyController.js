@@ -1,14 +1,23 @@
 /**
  * Preferences controller responsible for user update preferences action.
  */
-function SettingsPreferencesCurrencyController($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, ALERTS_EVENTS, ALERTS_CONSTANTS, APP_CONFIG) {
+function SettingsPreferencesCurrencyController($q,
+                                               $scope,
+                                               $rootScope,
+                                               $timeout,
+                                               StatesHandler,
+                                               SessionService,
+                                               AUTH_EVENTS,
+                                               ALERTS_EVENTS,
+                                               ALERTS_CONSTANTS,
+                                               APP_CONFIG) {
 
-  var _this = this;
+  const _this = this;
 
   /**
    * Saving timeout
    */
-  var TIMEOUT_PENDING = 300;
+  const TIMEOUT_PENDING = 300;
 
   /**
    * All given currencies.
@@ -32,9 +41,7 @@ function SettingsPreferencesCurrencyController($q, $scope, $rootScope, $timeout,
    * @type {{}}
    */
   _this.currency = {};
-  _this.currency.selected = _.find(_this.currencies, function (currencyCandidate) {
-    return currencyCandidate.currencyCode === _this.user.model.currency.currencyCode;
-  });
+  _this.currency.selected = _.find(_this.currencies, currencyCandidate => currencyCandidate.currencyCode === _this.user.model.currency.currencyCode);
 
   /**
    * Initial profile data
@@ -53,7 +60,7 @@ function SettingsPreferencesCurrencyController($q, $scope, $rootScope, $timeout,
   /**
    * Update profile functionality.
    */
-  _this.updatePreferences = function () {
+  _this.updatePreferences = () => {
     if (_this.preferencesForm.$valid && !_this.isSaving) {
 
       // Show the loading bar
@@ -64,7 +71,7 @@ function SettingsPreferencesCurrencyController($q, $scope, $rootScope, $timeout,
       // Update the user
       _this.user
         .updateCurrency(_this.profileData)
-        .then(function (response) {
+        .then(response => {
           // ---
           // Reload data with given response.
           // ---
@@ -84,13 +91,13 @@ function SettingsPreferencesCurrencyController($q, $scope, $rootScope, $timeout,
 
           _this.preferencesForm.$setPristine();
 
-          $timeout(function () {
+          $timeout(() => {
             _this.isSaving = false;
             $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated');
           }, TIMEOUT_PENDING);
 
         })
-        .catch(function () {
+        .catch(() => {
           /* If bad feedback from server */
           _this.badPostSubmitResponse = true;
           _this.isSaving = false;

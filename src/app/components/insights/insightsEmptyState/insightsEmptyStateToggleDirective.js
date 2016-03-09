@@ -6,7 +6,7 @@ function insightsEmptyStateToggleDirective() {
       showEmptyState: '=',
     },
     templateUrl: '/app/components/insights/insightsEmptyState/insightsEmptyStateToggleDirective.tpl.html',
-    link: function () {
+    link() {
     },
   };
 }

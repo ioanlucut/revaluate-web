@@ -1,6 +1,14 @@
-function SettingsPaymentCustomerController($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, paymentInsights, ALERTS_EVENTS, ALERTS_CONSTANTS) {
+function SettingsPaymentCustomerController($q,
+                                           $scope,
+                                           $rootScope,
+                                           $timeout,
+                                           $http,
+                                           AUTH_URLS,
+                                           paymentInsights,
+                                           ALERTS_EVENTS,
+                                           ALERTS_CONSTANTS) {
 
-  var TIMEOUT_PENDING = 300;
+  const TIMEOUT_PENDING = 300;
 
   /**
    * Alert identifier
@@ -36,17 +44,17 @@ function SettingsPaymentCustomerController($q, $scope, $rootScope, $timeout, $ht
   // ---
   // UPDATE CUSTOMER RELATED
   // ---
-  $scope.updateCustomer = function () {
+  $scope.updateCustomer = () => {
     if ($scope.updateCustomerForm.$valid && !$scope.isRequestPending) {
 
       // Show the loading bar
       $scope.isRequestPending = true;
 
-      var paymentDetailsData = angular.copy($scope.paymentDetailsData);
+      const paymentDetailsData = angular.copy($scope.paymentDetailsData);
 
       return $http
         .put(URLTo.api(AUTH_URLS.updateCustomer), paymentDetailsData)
-        .then(function (response) {
+        .then(response => {
           $scope.paymentInsights = response.data;
 
           // ---
@@ -56,12 +64,12 @@ function SettingsPaymentCustomerController($q, $scope, $rootScope, $timeout, $ht
 
           $scope.updateCustomerForm.$setPristine();
 
-          $timeout(function () {
+          $timeout(() => {
             $scope.isRequestPending = false;
             $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated');
           }, TIMEOUT_PENDING);
         })
-        .catch(function (response) {
+        .catch(response => {
           /* If bad feedback from server */
           $scope.badPostSubmitResponse = true;
           $scope.isRequestPending = false;
@@ -69,7 +77,7 @@ function SettingsPaymentCustomerController($q, $scope, $rootScope, $timeout, $ht
           // ---
           // Show errors.
           // ---
-          var errors = response.data;
+          const errors = response.data;
           if (_.isArray(errors)) {
             $scope.$emit(ALERTS_EVENTS.DANGER, {
               message: errors.join('\n'),

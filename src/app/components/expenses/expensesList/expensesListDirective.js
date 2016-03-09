@@ -13,7 +13,7 @@ function expensesListDirective() {
     bindToController: true,
     controllerAs: 'vm',
     templateUrl: '/app/components/expenses/expensesList/expensesListDirective.tpl.html',
-    link: function (scope, el, attrs) {
+    link(scope, el, attrs) {
 
       scope.reverseOrder = attrs.sort === 'desc';
     },

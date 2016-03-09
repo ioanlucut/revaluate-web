@@ -1,6 +1,6 @@
 function FeedbackController($scope, FeedbackModalService, Feedback, $timeout) {
 
-  var TIMEOUT = 1500;
+  const TIMEOUT = 1500;
 
   /**
    * Feedback.
@@ -14,7 +14,7 @@ function FeedbackController($scope, FeedbackModalService, Feedback, $timeout) {
   $scope.isSending = false;
   $scope.isSent = false;
 
-  $scope.openFeedbackModal = function () {
+  $scope.openFeedbackModal = () => {
     FeedbackModalService.open();
 
     /**
@@ -23,16 +23,15 @@ function FeedbackController($scope, FeedbackModalService, Feedback, $timeout) {
     FeedbackModalService
       .modalInstance
       .opened
-      .then(function () {
-          $scope.isModalOpened = true;
-        }
-      );
+      .then(() => {
+        $scope.isModalOpened = true;
+      });
   };
 
   /**
    * Dismiss the create/update modal.
    */
-  $scope.dismissFeedbackModal = function () {
+  $scope.dismissFeedbackModal = () => {
     FeedbackModalService
       .modalInstance
       .dismiss('cancel');
@@ -44,7 +43,7 @@ function FeedbackController($scope, FeedbackModalService, Feedback, $timeout) {
    * Sends the feedback.
    * @param feedbackForm
    */
-  $scope.sendFeedbackAndClose = function (feedbackForm) {
+  $scope.sendFeedbackAndClose = feedbackForm => {
     if (feedbackForm.$valid && !$scope.isSending) {
 
       // Is sending feedback
@@ -53,10 +52,10 @@ function FeedbackController($scope, FeedbackModalService, Feedback, $timeout) {
       $scope
         .feedback
         .send()
-        .then(function () {
+        .then(() => {
           $scope.isSent = true;
 
-          $timeout(function () {
+          $timeout(() => {
             $scope.isSending = false;
             FeedbackModalService
               .modalInstance
@@ -64,11 +63,11 @@ function FeedbackController($scope, FeedbackModalService, Feedback, $timeout) {
           }, TIMEOUT);
 
         })
-        .catch(function () {
+        .catch(() => {
           $scope.isSending = false;
           alert('Something went wrong. Please try again.');
         })
-        .finally(function () {
+        .finally(() => {
           $scope.isModalOpened = false;
           $scope.isSending = false;
         });

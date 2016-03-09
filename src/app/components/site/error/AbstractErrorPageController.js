@@ -6,14 +6,14 @@ function AbstractErrorPageController($scope, StatesHandler) {
   /**
    * Track event.
    */
-  $scope.trackErrorEvent = function (event) {
+  $scope.trackErrorEvent = event => {
     $scope.$broadcast('trackEvent', event);
   };
 
   /**
    * Continues to home page.
    */
-  $scope.goToHomePage = function () {
+  $scope.goToHomePage = () => {
     StatesHandler.goHome();
   };
 }

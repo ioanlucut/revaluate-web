@@ -35,9 +35,7 @@ function feedbackMessage(FeedbackService) {
    * Builds a Feedback.
    * @returns {Feedback}
    */
-  Feedback.build = function () {
-    return new Feedback();
-  };
+  Feedback.build = () => new Feedback();
 
   return Feedback;
 }

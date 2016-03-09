@@ -16,7 +16,7 @@ function goalsDisplayEntryDirective() {
     bindToController: true,
     controllerAs: 'vm',
     templateUrl: '/app/components/goals/goalsDisplayEntry/goalsDisplayEntryDirective.tpl.html',
-    link: function () {
+    link() {
     },
   };
 }

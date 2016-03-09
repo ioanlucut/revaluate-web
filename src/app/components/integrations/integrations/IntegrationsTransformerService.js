@@ -1,6 +1,6 @@
 function IntegrationsTransformerService(Integration) {
 
-  this.integrationApiResponseTransformer = function (responseData) {
+  this.integrationApiResponseTransformer = responseData => {
     function buildIntegration(data) {
       return Integration.build(_.extend(data, {
         modifiedDate: toDate(data.modifiedDate),

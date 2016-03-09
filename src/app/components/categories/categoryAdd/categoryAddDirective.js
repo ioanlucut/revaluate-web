@@ -1,6 +1,11 @@
-function AddCategoryController(CATEGORY_EVENTS, $scope, promiseTracker, Category, CategoryColorService, CategoryService) {
+function AddCategoryController(CATEGORY_EVENTS,
+                               $scope,
+                               promiseTracker,
+                               Category,
+                               CategoryColorService,
+                               CategoryService) {
 
-  var _this = this;
+  const _this = this;
 
   /**
    * Create a saving tracker.
@@ -32,19 +37,27 @@ function AddCategoryController(CATEGORY_EVENTS, $scope, promiseTracker, Category
   function saveCategory() {
     CategoryService
       .createCategory(_this.category, _this.saveTracker)
-      .then(function (createdCategory) {
+      .then(createdCategory => {
         $scope.$emit(CATEGORY_EVENTS.isCreated, { category: createdCategory });
         _this.initOrResetAddCategory();
       })
-      .catch(function () {
+      .catch(() => {
         _this.badPostSubmitResponse = true;
-        $scope.$emit(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something went wrong.' });
+        $scope.$emit(
+          CATEGORY_EVENTS.isErrorOccurred,
+          { errorMessage: 'Ups, something went wrong.' }
+        );
       });
   }
 
 }
 
-function categoryAddDirective($rootScope, promiseTracker, Category, CategoryService, CategoryColorService, CATEGORY_EVENTS) {
+function categoryAddDirective($rootScope,
+                              promiseTracker,
+                              Category,
+                              CategoryService,
+                              CategoryColorService,
+                              CATEGORY_EVENTS) {
   return {
     restrict: 'A',
     scope: {
@@ -55,7 +68,7 @@ function categoryAddDirective($rootScope, promiseTracker, Category, CategoryServ
     bindToController: true,
     controllerAs: 'vm',
     templateUrl: '/app/components/categories/categoryAdd/categoryAddDirective.tpl.html',
-    link: function (scope) {
+    link(scope) {
 
       /**
        * Show block content
@@ -65,11 +78,11 @@ function categoryAddDirective($rootScope, promiseTracker, Category, CategoryServ
       /**
        * Toggle content
        */
-      scope.toggleContent = function () {
+      scope.toggleContent = () => {
         scope.showContent = !scope.showContent;
       };
 
-      scope.$on(CATEGORY_EVENTS.isCreated, function () {
+      scope.$on(CATEGORY_EVENTS.isCreated, () => {
         scope.toggleContent();
       });
     },

@@ -1,6 +1,12 @@
-function ExpensesOfCategoryController(ALERTS_EVENTS, $scope, $rootScope, $timeout, DatesUtils, ExpenseService, promiseTracker) {
+function ExpensesOfCategoryController(ALERTS_EVENTS,
+                                      $scope,
+                                      $rootScope,
+                                      $timeout,
+                                      DatesUtils,
+                                      ExpenseService,
+                                      promiseTracker) {
 
-  var _this = this;
+  const _this = this;
 
   this.DEFAULT_EXPENSES_LIMIT = 50;
 
@@ -80,7 +86,7 @@ function ExpensesOfCategoryController(ALERTS_EVENTS, $scope, $rootScope, $timeou
    * Load expenses of category
    */
   this.loadExpensesOfCategory = function () {
-    var period;
+    let period;
 
     if (this.isExpensesLoaded()) {
       return;
@@ -91,11 +97,11 @@ function ExpensesOfCategoryController(ALERTS_EVENTS, $scope, $rootScope, $timeou
 
     ExpenseService
       .getAllExpensesOfCategory(_this.totalPerCategoryInsights.categoryDTO.id, period.from, period.to, _this.loadingTracker)
-      .then(function (expenses) {
+      .then(expenses => {
         _this.expensesOfThisCategory = expenses;
         handleShowAllFunctionality(_this.expensesOfThisCategory);
       })
-      .catch(function () {
+      .catch(() => {
         $scope.$emit(ALERTS_EVENTS.DANGER, {
           message: 'Could not fetch expenses',
         });
@@ -123,7 +129,7 @@ function expensesOfCategoryDirective() {
 
     controllerAs: 'vm',
     templateUrl: '/app/components/expenses/expensesOfCategory/expensesOfCategoryDirective.tpl.html',
-    link: function () {
+    link() {
     },
   };
 }

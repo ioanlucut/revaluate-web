@@ -12,7 +12,7 @@ function removeCategoryConfirmationDirective($timeout) {
       cancel: '&',
     },
     templateUrl: '/app/components/categories/removeCategoryConfirmation/removeCategoryConfirmationDirective.tpl.html',
-    link: function (scope) {
+    link(scope) {
 
       /**
        * Show block content
@@ -29,7 +29,7 @@ function removeCategoryConfirmationDirective($timeout) {
       /**
        * Perform confirm.
        */
-      scope.doConfirm = function () {
+      scope.doConfirm = () => {
         if (scope.messageAcknowledged) {
           return;
         }
@@ -40,14 +40,14 @@ function removeCategoryConfirmationDirective($timeout) {
       /**
        * Toggle content
        */
-      scope.toggleConfirmationContent = function () {
+      scope.toggleConfirmationContent = () => {
         scope.showConfirmationContent = !scope.showConfirmationContent;
       };
 
       /**
        * Close and toggle content
        */
-      scope.closeAndToggle = function () {
+      scope.closeAndToggle = () => {
         scope.cancel();
         scope.toggleConfirmationContent();
       };
@@ -55,9 +55,9 @@ function removeCategoryConfirmationDirective($timeout) {
       /**
        * Auto toggle
        */
-      scope.$watch('autoToggleWhen', function (val, valOld) {
+      scope.$watch('autoToggleWhen', (val, valOld) => {
         if (val === true && valOld === false) {
-          $timeout(function () {
+          $timeout(() => {
             scope.toggleConfirmationContent();
           });
         }

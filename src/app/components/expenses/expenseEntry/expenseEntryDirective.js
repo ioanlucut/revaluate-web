@@ -1,6 +1,11 @@
-function ExpenseEntryController(EXPENSE_EVENTS, APP_CONFIG, $rootScope, ExpenseService, Category, promiseTracker) {
+function ExpenseEntryController(EXPENSE_EVENTS,
+                                APP_CONFIG,
+                                $rootScope,
+                                ExpenseService,
+                                Category,
+                                promiseTracker) {
 
-  var _this = this;
+  const _this = this;
 
   /**
    * Current user.
@@ -65,12 +70,18 @@ function ExpenseEntryController(EXPENSE_EVENTS, APP_CONFIG, $rootScope, ExpenseS
 
     ExpenseService
       .updateExpense(_this.shownExpense, _this.updateTracker)
-      .then(function (updatedExpense) {
-        $rootScope.$broadcast(EXPENSE_EVENTS.isUpdated, { expense: _.extend(_this.shownExpense, updatedExpense) });
+      .then(updatedExpense => {
+        $rootScope.$broadcast(
+          EXPENSE_EVENTS.isUpdated,
+          { expense: _.extend(_this.shownExpense, updatedExpense) }
+        );
       })
-      .catch(function () {
+      .catch(() => {
         _this.badPostSubmitResponse = true;
-        $rootScope.$broadcast(EXPENSE_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something went wrong.' });
+        $rootScope.$broadcast(
+          EXPENSE_EVENTS.isErrorOccurred,
+          { errorMessage: 'Ups, something went wrong.' }
+        );
       });
   }
 
@@ -108,8 +119,8 @@ function expenseEntryDirective(EXPENSE_EVENTS, $rootScope, $timeout) {
     bindToController: true,
     controllerAs: 'vm',
     templateUrl: '/app/components/expenses/expenseEntry/expenseEntryDirective.tpl.html',
-    link: function (scope, el, attrs, _this) {
-      var EXPENSE_INPUT_SELECTOR = '.expense__form__price__input';
+    link(scope, el, attrs, _this) {
+      const EXPENSE_INPUT_SELECTOR = '.expense__form__price__input';
 
       /**
        * If date details should be shown
@@ -124,14 +135,14 @@ function expenseEntryDirective(EXPENSE_EVENTS, $rootScope, $timeout) {
       /**
        * Toggle content
        */
-      scope.toggleContent = function () {
+      scope.toggleContent = () => {
         scope.showContent = !scope.showContent;
 
         // ---
         // Auto focus price.
         // ---
         if (scope.showContent) {
-          $timeout(function () {
+          $timeout(() => {
             el.find(EXPENSE_INPUT_SELECTOR).focus();
           });
         }
@@ -140,7 +151,7 @@ function expenseEntryDirective(EXPENSE_EVENTS, $rootScope, $timeout) {
       /**
        * Toggle and discard changes.
        */
-      scope.cancel = function () {
+      scope.cancel = () => {
         scope.toggleContent();
 
         _this.discardChanges();
@@ -149,7 +160,7 @@ function expenseEntryDirective(EXPENSE_EVENTS, $rootScope, $timeout) {
       /**
        * On expense updated/deleted - cancel edit mode.
        */
-      $rootScope.$on(EXPENSE_EVENTS.isUpdated, function (event, args) {
+      $rootScope.$on(EXPENSE_EVENTS.isUpdated, (event, args) => {
         if (_this.expense.id === args.expense.id) {
 
           // ---

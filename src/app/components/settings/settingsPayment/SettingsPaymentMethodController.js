@@ -1,8 +1,18 @@
-function SettingsPaymentMethodController($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentInsights, ALERTS_EVENTS, ALERTS_CONSTANTS) {
+function SettingsPaymentMethodController($q,
+                                         $scope,
+                                         $rootScope,
+                                         $timeout,
+                                         $http,
+                                         AUTH_URLS,
+                                         $braintree,
+                                         clientToken,
+                                         paymentInsights,
+                                         ALERTS_EVENTS,
+                                         ALERTS_CONSTANTS) {
 
-  var _this = this;
+  const _this = this;
 
-  var TIMEOUT_PENDING = 300;
+  const TIMEOUT_PENDING = 300;
 
   /**
    * Alert identifier
@@ -28,7 +38,7 @@ function SettingsPaymentMethodController($q, $scope, $rootScope, $timeout, $http
   // Braintree client.
   // ---
   _this.client = new $braintree.api.Client({
-    clientToken: clientToken,
+    clientToken,
   });
 
   /**
@@ -63,7 +73,7 @@ function SettingsPaymentMethodController($q, $scope, $rootScope, $timeout, $http
   // ---
   // UPDATE PAYMENT METHOD RELATED
   // ---
-  _this.updatePaymentMethod = function () {
+  _this.updatePaymentMethod = () => {
     if (_this.updatePaymentMethodForm.$valid && !_this.isRequestPending) {
 
       // Show the loading bar
@@ -76,7 +86,7 @@ function SettingsPaymentMethodController($q, $scope, $rootScope, $timeout, $http
         .tokenizeCard({
           number: _this.paymentData.cardNumber,
           expirationDate: _this.paymentData.cardExpirationDate,
-        }, function (err, nonce) {
+        }, (err, nonce) => {
 
           if (err) {
             $scope.$emit(ALERTS_EVENTS.DANGER, {
@@ -87,12 +97,12 @@ function SettingsPaymentMethodController($q, $scope, $rootScope, $timeout, $http
             // ---
             // Update details with the received nonce.
             // ---
-            var paymentDetailsData = angular.copy(_this.paymentDetailsData);
+            const paymentDetailsData = angular.copy(_this.paymentDetailsData);
             paymentDetailsData.paymentMethodNonce = nonce;
 
             return $http
               .put(URLTo.api(AUTH_URLS.updatePaymentMethod), paymentDetailsData)
-              .then(function () {
+              .then(() => {
 
                 // ---
                 // Reset the payment data with empty new data.
@@ -101,12 +111,12 @@ function SettingsPaymentMethodController($q, $scope, $rootScope, $timeout, $http
 
                 _this.updatePaymentMethodForm.$setPristine();
 
-                $timeout(function () {
+                $timeout(() => {
                   _this.isRequestPending = false;
                   $scope.$emit(ALERTS_EVENTS.SUCCESS, 'We\'ve successfully updated your payment method!');
                 }, TIMEOUT_PENDING);
               })
-              .catch(function (response) {
+              .catch(response => {
                 /* If bad feedback from server */
                 _this.badPostSubmitResponse = true;
                 _this.isRequestPending = false;
@@ -114,7 +124,7 @@ function SettingsPaymentMethodController($q, $scope, $rootScope, $timeout, $http
                 // ---
                 // Show errors.
                 // ---
-                var errors = response.data;
+                const errors = response.data;
                 if (_.isArray(errors)) {
                   $scope.$emit(ALERTS_EVENTS.DANGER, {
                     message: errors.join('\n'),

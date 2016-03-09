@@ -16,13 +16,13 @@ function IntercomUtilsService($intercom, AuthService, $rootScope) {
     $intercom.update(_.extend(this.getIntercomUser(user), args || {}));
   };
 
-  this.trackEvent = function (eventName) {
+  this.trackEvent = eventName => {
     if (AuthService.isAuthenticated()) {
 
       $intercom.trackEvent(eventName, {
         email: $rootScope.currentUser.model.email,
         created_at: moment().unix(),
-        user_id: '' + $rootScope.currentUser.model.id,
+        user_id: `${$rootScope.currentUser.model.id}`,
       });
     } else {
       $intercom.trackEvent(eventName, {
@@ -31,14 +31,12 @@ function IntercomUtilsService($intercom, AuthService, $rootScope) {
     }
   };
 
-  this.getIntercomUser = function (user) {
-    return {
-      email: user.model.email,
-      name: user.model.firstName + ' ' + user.model.lastName,
-      created_at: moment(user.model.createdDate).unix(),
-      user_id: '' + user.model.id,
-    };
-  };
+  this.getIntercomUser = user => ({
+    email: user.model.email,
+    name: `${user.model.firstName} ${user.model.lastName}`,
+    created_at: moment(user.model.createdDate).unix(),
+    user_id: `${user.model.id}`,
+  });
 }
 
 export default IntercomUtilsService;

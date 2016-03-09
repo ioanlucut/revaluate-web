@@ -1,6 +1,12 @@
-function AddGoalController(GOAL_EVENTS, APP_CONFIG, $scope, GoalService, DatesUtils, Goal, promiseTracker) {
+function AddGoalController(GOAL_EVENTS,
+                           APP_CONFIG,
+                           $scope,
+                           GoalService,
+                           DatesUtils,
+                           Goal,
+                           promiseTracker) {
 
-  var _this = this;
+  const _this = this;
 
   /**
    * Create a saving tracker.
@@ -57,7 +63,7 @@ function AddGoalController(GOAL_EVENTS, APP_CONFIG, $scope, GoalService, DatesUt
   /**
    * On goal created, we toggle content.
    */
-  $scope.$on(GOAL_EVENTS.isCreated, function () {
+  $scope.$on(GOAL_EVENTS.isCreated, () => {
     _this.toggleContent();
   });
 
@@ -77,7 +83,7 @@ function AddGoalController(GOAL_EVENTS, APP_CONFIG, $scope, GoalService, DatesUt
   }
 
   function saveGoal() {
-    var period = DatesUtils
+    const period = DatesUtils
       .getFromToOfMonthYear(_this.goal.yearMonthDate);
 
     this.goal.category = angular.copy(this.category.selected);
@@ -86,13 +92,16 @@ function AddGoalController(GOAL_EVENTS, APP_CONFIG, $scope, GoalService, DatesUt
 
     GoalService
       .createGoal(this.goal, _this.saveTracker)
-      .then(function (createdGoal) {
+      .then(createdGoal => {
         $scope.$emit(GOAL_EVENTS.isCreated, { goal: createdGoal });
         _this.initOrResetAddGoalForm();
       })
-      .catch(function () {
+      .catch(() => {
         _this.badPostSubmitResponse = true;
-        $scope.$emit(GOAL_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something went wrong.' });
+        $scope.$emit(
+          GOAL_EVENTS.isErrorOccurred,
+          { errorMessage: 'Ups, something went wrong.' }
+        );
       });
   }
 
@@ -116,7 +125,7 @@ function goalAddDirective() {
     bindToController: true,
     controllerAs: 'vm',
     templateUrl: '/app/components/goals/goalAdd/goalAddDirective.tpl.html',
-    link: function () {
+    link() {
     },
   };
 }

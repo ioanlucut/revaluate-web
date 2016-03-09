@@ -1,6 +1,6 @@
 function HomePageController(APP_STATS, AUTH_EVENTS, SiteService, $scope, $interval, AuthService) {
-  var currentUpdateAppStatsPromise,
-    INTERVAL_DELAY = 60000; // POOL every 1 minute
+  let currentUpdateAppStatsPromise;
+  const INTERVAL_DELAY = 60000;
 
   this.isUserAuthenticated = AuthService.isAuthenticated();
 
@@ -8,7 +8,7 @@ function HomePageController(APP_STATS, AUTH_EVENTS, SiteService, $scope, $interv
     currentUpdateAppStatsPromise = $interval(updateAppStats, INTERVAL_DELAY);
   }
 
-  $scope.$on('$destroy', function () {
+  $scope.$on('$destroy', () => {
     cancelUpdateAppStatsPromise();
   });
 
@@ -27,7 +27,7 @@ function HomePageController(APP_STATS, AUTH_EVENTS, SiteService, $scope, $interv
   function updateAppStats() {
     SiteService
       .fetchInstant()
-      .then(function (response) {
+      .then(response => {
         $scope.$broadcast('update-app-stats', { appStats: response.data });
       });
   }

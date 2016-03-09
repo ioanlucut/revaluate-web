@@ -1,9 +1,9 @@
 function ExpenseTransformerService(Expense) {
 
-  this.expenseApiRequestTransformer = function (requestData) {
+  this.expenseApiRequestTransformer = requestData => {
 
     function buildExpensePayload(data) {
-      var newly = _.extend(data, { spentDate: moment(data.spentDate).format('YYYY-MM-DDTHH:mm:ss.hhh') });
+      const newly = _.extend(data, { spentDate: moment(data.spentDate).format('YYYY-MM-DDTHH:mm:ss.hhh') });
 
       return _.omit(newly, ['modifiedDate', 'createdDate', 'marked']);
     }
@@ -15,7 +15,7 @@ function ExpenseTransformerService(Expense) {
     }
   };
 
-  this.expenseApiResponseTransformer = function (responseData) {
+  this.expenseApiResponseTransformer = responseData => {
     function buildExpense(data) {
       return new Expense(_.extend(data, {
         spentDate: toDate(data.spentDate),

@@ -1,9 +1,24 @@
-function InsightsOverviewController($controller, $templateCache, $scope, $rootScope, $filter, $timeout, InsightsGenerator, DatesUtils, ALERTS_EVENTS, INSIGHTS_INTERVAL, insightsOverview, monthsPerYearsStatistics, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
+function InsightsOverviewController($controller,
+                                    $templateCache,
+                                    $scope,
+                                    $rootScope,
+                                    $filter,
+                                    $timeout,
+                                    InsightsGenerator,
+                                    DatesUtils,
+                                    ALERTS_EVENTS,
+                                    INSIGHTS_INTERVAL,
+                                    insightsOverview,
+                                    monthsPerYearsStatistics,
+                                    InsightsService,
+                                    USER_ACTIVITY_EVENTS,
+                                    INSIGHTS_CHARTS,
+                                    ALERTS_CONSTANTS) {
 
-  var TIMEOUT_DURATION = 150;
-  var MONTHS = 'Months';
+  const TIMEOUT_DURATION = 150;
+  const MONTHS = 'Months';
 
-  var _this = this;
+  const _this = this;
 
   /**
    * Alert identifier
@@ -24,10 +39,10 @@ function InsightsOverviewController($controller, $templateCache, $scope, $rootSc
   // Inherit from parent controller.
   // ---
   angular.extend(this, $controller('InsightsAbstractController', {
-    $scope: $scope,
-    $rootScope: $rootScope,
-    $filter: $filter,
-    monthsPerYearsStatistics: monthsPerYearsStatistics,
+    $scope,
+    $rootScope,
+    $filter,
+    monthsPerYearsStatistics,
     resizeOnUpdate: true,
     getChartSetSize: function getChartSetSize() {
       return _this.barInsightsPrepared.insightsBarData[0].length;
@@ -44,7 +59,10 @@ function InsightsOverviewController($controller, $templateCache, $scope, $rootSc
     _this.barInsightsPrepared = InsightsGenerator
       .generateOverviewBar(_this.insightsOverview);
 
-    $scope.$emit('chartsLoaded', { size: _this.barInsightsPrepared.insightsBarData[0].length });
+    $scope.$emit(
+      'chartsLoaded',
+      { size: _this.barInsightsPrepared.insightsBarData[0].length }
+    );
   }
 
   /**
@@ -65,7 +83,7 @@ function InsightsOverviewController($controller, $templateCache, $scope, $rootSc
   /**
    * Load insights
    */
-  _this.loadInsights = function (insightsIntervalMonths) {
+  _this.loadInsights = insightsIntervalMonths => {
     if (_this.isLoading) {
 
       return;
@@ -73,11 +91,11 @@ function InsightsOverviewController($controller, $templateCache, $scope, $rootSc
 
     _this.isLoading = true;
 
-    var period = DatesUtils
+    const period = DatesUtils
       .fromLastMonthsToNow(insightsIntervalMonths);
     InsightsService
       .fetchOverviewInsightsFromTo(period.from, period.to)
-      .then(function (receivedInsight) {
+      .then(receivedInsight => {
         _this.activeInterval = insightsIntervalMonths;
 
         /**
@@ -85,7 +103,7 @@ function InsightsOverviewController($controller, $templateCache, $scope, $rootSc
          */
         $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.insightsOverviewFetched);
 
-        $timeout(function () {
+        $timeout(() => {
           // ---
           // Update everything.
           // ---
@@ -95,7 +113,7 @@ function InsightsOverviewController($controller, $templateCache, $scope, $rootSc
           _this.isLoading = false;
         }, TIMEOUT_DURATION);
       })
-      .catch(function () {
+      .catch(() => {
         _this.badPostSubmitResponse = true;
         _this.isLoading = false;
 

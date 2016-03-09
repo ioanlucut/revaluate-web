@@ -113,7 +113,10 @@ function MonthlyDailyInsightsController(EXPENSE_EVENTS,
     _this.barInsightsPrepared = InsightsGenerator
       .generateDailyBar(_this.currentYear, _this.insightsDaily);
 
-    $scope.$emit('chartsLoaded', { size: _this.barInsightsPrepared.insightsBarData[0].length });
+    $scope.$emit(
+      'chartsLoaded',
+      { size: _this.barInsightsPrepared.insightsBarData[0].length }
+    );
   }
 
   // ---

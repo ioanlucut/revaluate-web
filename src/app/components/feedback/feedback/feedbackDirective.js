@@ -2,8 +2,8 @@ function feedbackDirective($rootScope, AuthService, AUTH_EVENTS, $timeout) {
   return {
     restrict: 'A',
     templateUrl: '/app/components/feedback/feedback/feedbackDirective.tpl.html',
-    link: function (scope, el) {
-      var TIMEOUT = 2000;
+    link(scope, el) {
+      const TIMEOUT = 2000;
 
       scope.isUserAuthenticated = AuthService.isAuthenticated();
 
@@ -11,17 +11,17 @@ function feedbackDirective($rootScope, AuthService, AUTH_EVENTS, $timeout) {
        * Listen to login success event. If user is properly logged in,
        * then make sure we show the logged in contact form.
        */
-      scope.$on(AUTH_EVENTS.loginSuccess, function () {
+      scope.$on(AUTH_EVENTS.loginSuccess, () => {
         scope.isUserAuthenticated = true;
       });
 
-      scope.$on(AUTH_EVENTS.logoutSuccess, function () {
+      scope.$on(AUTH_EVENTS.logoutSuccess, () => {
         scope.isUserAuthenticated = false;
       });
 
-      scope.$on('$viewContentLoaded', function () {
+      scope.$on('$viewContentLoaded', () => {
         if (!el.is(':visible')) {
-          $timeout(function () {
+          $timeout(() => {
             el.show();
           }, TIMEOUT);
         }
