@@ -1,4 +1,4 @@
-export default function ($controller, $templateCache, $scope, $rootScope, $filter, $timeout, InsightsGenerator, DatesUtils, ALERTS_EVENTS, INSIGHTS_INTERVAL, insightsOverview, monthsPerYearsStatistics, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
+function InsightsOverviewController($controller, $templateCache, $scope, $rootScope, $filter, $timeout, InsightsGenerator, DatesUtils, ALERTS_EVENTS, INSIGHTS_INTERVAL, insightsOverview, monthsPerYearsStatistics, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
 
   var TIMEOUT_DURATION = 150;
   var MONTHS = 'Months';
@@ -107,3 +107,5 @@ export default function ($controller, $templateCache, $scope, $rootScope, $filte
   };
 
 }
+
+export default InsightsOverviewController;

@@ -1,6 +1,4 @@
-export default
-
-function (Integration) {
+function IntegrationsTransformerService(Integration) {
 
   this.integrationApiResponseTransformer = function (responseData) {
     function buildIntegration(data) {
@@ -22,3 +20,4 @@ function (Integration) {
   };
 }
 
+export default IntegrationsTransformerService;

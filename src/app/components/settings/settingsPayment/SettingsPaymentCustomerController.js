@@ -1,6 +1,4 @@
-export default
-
-function ($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, paymentInsights, ALERTS_EVENTS, ALERTS_CONSTANTS) {
+function SettingsPaymentCustomerController($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, paymentInsights, ALERTS_EVENTS, ALERTS_CONSTANTS) {
 
   var TIMEOUT_PENDING = 300;
 
@@ -89,3 +87,4 @@ function ($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, paymentInsights, A
 
 }
 
+export default SettingsPaymentCustomerController;

@@ -1,6 +1,4 @@
-export default
-
-function (APP_STATS, AUTH_EVENTS, SiteService, $scope, $interval, AuthService) {
+function HomePageController(APP_STATS, AUTH_EVENTS, SiteService, $scope, $interval, AuthService) {
   var currentUpdateAppStatsPromise,
     INTERVAL_DELAY = 60000; // POOL every 1 minute
 
@@ -35,3 +33,4 @@ function (APP_STATS, AUTH_EVENTS, SiteService, $scope, $interval, AuthService) {
   }
 }
 
+export default HomePageController;

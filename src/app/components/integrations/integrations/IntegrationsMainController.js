@@ -1,6 +1,4 @@
-export default
-
-function ($scope, $rootScope, INTEGRATIONS_CONSTANTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, ENV, SocialConnectService, StatesHandler, IntegrationsService, promiseTracker, integrations) {
+function IntegrationsMainController($scope, $rootScope, INTEGRATIONS_CONSTANTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, ENV, SocialConnectService, StatesHandler, IntegrationsService, promiseTracker, integrations) {
 
   var _this = this;
 
@@ -89,3 +87,4 @@ function ($scope, $rootScope, INTEGRATIONS_CONSTANTS, ALERTS_EVENTS, USER_ACTIVI
 
 }
 
+export default IntegrationsMainController;

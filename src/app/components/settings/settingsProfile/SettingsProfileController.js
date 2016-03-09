@@ -1,50 +1,48 @@
-export default
-
 /**
  * Profile controller responsible for user update profile action.
  */
-  function ($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, ALERTS_EVENTS, ALERTS_CONSTANTS) {
+function SettingsProfileController($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, ALERTS_EVENTS, ALERTS_CONSTANTS) {
 
-    var _this = this;
+  var _this = this;
 
-    /**
-     * Alert identifier
-     */
-    _this.alertId = ALERTS_CONSTANTS.updateProfile;
+  /**
+   * Alert identifier
+   */
+  _this.alertId = ALERTS_CONSTANTS.updateProfile;
 
-    /**
-     * Current user.
-     */
-    _this.user = $rootScope.currentUser;
+  /**
+   * Current user.
+   */
+  _this.user = $rootScope.currentUser;
 
-    /**
-     * Initial profile data
-     */
-    function getInitialProfileData() {
+  /**
+   * Initial profile data
+   */
+  function getInitialProfileData() {
     return {
       firstName: _this.user.model.firstName,
       lastName: _this.user.model.lastName,
     };
   }
 
-    /**
-     * Profile user information.
-     */
-    _this.profileData = angular.copy(getInitialProfileData());
+  /**
+   * Profile user information.
+   */
+  _this.profileData = angular.copy(getInitialProfileData());
 
-    /**
-     * Update profile functionality.
-     */
-    _this.updateProfile = function () {
+  /**
+   * Update profile functionality.
+   */
+  _this.updateProfile = function () {
 
-      if (_this.profileForm.$valid && !_this.isRequestPending) {
+    if (_this.profileForm.$valid && !_this.isRequestPending) {
 
-        // Show the loading bar
-        _this.isRequestPending = true;
+      // Show the loading bar
+      _this.isRequestPending = true;
 
-        // Update the user
-        _this.user
-          .updateAccountDetails(_this.profileData)
+      // Update the user
+      _this.user
+        .updateAccountDetails(_this.profileData)
         .then(function (response) {
           // ---
           // Reload data with given response.
@@ -78,8 +76,9 @@ export default
             alertId: _this.alertId,
           });
         });
-      }
-    };
+    }
+  };
 
-  }
+}
 
+export default SettingsProfileController;

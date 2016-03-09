@@ -1,7 +1,7 @@
 /**
  * ExpensesImport transformer service which transforms a expensesImport DTO model object to a expensesImport business object.
  */
-export default function ($injector, TransformerUtils) {
+function ImportTransformerService($injector, TransformerUtils) {
 
   /**
    * Converts a expensesImport business object model to a importDto object.
@@ -26,3 +26,4 @@ export default function ($injector, TransformerUtils) {
   };
 }
 
+export default ImportTransformerService;

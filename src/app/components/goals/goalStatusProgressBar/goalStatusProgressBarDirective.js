@@ -59,7 +59,7 @@ function GoalStatusProgressBarController($scope, $rootScope, GoalProgressTypeSer
   });
 }
 
-export default function () {
+function goalStatusProgressBarDirective() {
   return {
     restrict: 'E',
     scope: {
@@ -74,3 +74,4 @@ export default function () {
   };
 }
 
+export default goalStatusProgressBarDirective;

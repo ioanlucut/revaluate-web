@@ -1,4 +1,4 @@
-export default function accountModalCloseDirective(AccountModal) {
+function accountModalCloseDirective(AccountModal) {
   'ngInject';
 
   return {

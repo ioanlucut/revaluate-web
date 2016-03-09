@@ -1,15 +1,15 @@
-export default function MonthlyDailyInsightsController(EXPENSE_EVENTS,
-                                                       USER_ACTIVITY_EVENTS,
-                                                       ALERTS_EVENTS,
-                                                       $controller,
-                                                       $scope,
-                                                       $rootScope,
-                                                       $filter,
-                                                       InsightsGenerator,
-                                                       DatesUtils,
-                                                       InsightsService,
-                                                       promiseTracker,
-                                                       insightsDaily) {
+function MonthlyDailyInsightsController(EXPENSE_EVENTS,
+                                        USER_ACTIVITY_EVENTS,
+                                        ALERTS_EVENTS,
+                                        $controller,
+                                        $scope,
+                                        $rootScope,
+                                        $filter,
+                                        InsightsGenerator,
+                                        DatesUtils,
+                                        InsightsService,
+                                        promiseTracker,
+                                        insightsDaily) {
 
   const _this = this;
 
@@ -151,3 +151,5 @@ export default function MonthlyDailyInsightsController(EXPENSE_EVENTS,
   }
 
 }
+
+export default MonthlyDailyInsightsController;

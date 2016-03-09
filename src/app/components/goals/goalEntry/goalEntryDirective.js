@@ -118,7 +118,7 @@ function GoalEntryController(GOAL_EVENTS, APP_CONFIG, $rootScope, GoalService, D
   }
 }
 
-export default function (GOAL_EVENTS, $rootScope, $timeout) {
+function goalEntryDirective(GOAL_EVENTS, $rootScope, $timeout) {
   return {
     restrict: 'A',
     scope: {
@@ -186,3 +186,4 @@ export default function (GOAL_EVENTS, $rootScope, $timeout) {
   };
 }
 
+export default goalEntryDirective;

@@ -1,4 +1,4 @@
-export default function ExpenseFactory() {
+function ExpenseFactory() {
 
   /**
    * Expense class.
@@ -48,3 +48,5 @@ export default function ExpenseFactory() {
 
   return Expense;
 }
+
+export default ExpenseFactory;

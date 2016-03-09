@@ -1,6 +1,4 @@
-export default
-
-function ($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentInsights, ALERTS_EVENTS, ALERTS_CONSTANTS) {
+function SettingsPaymentMethodController($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentInsights, ALERTS_EVENTS, ALERTS_CONSTANTS) {
 
   var _this = this;
 
@@ -137,3 +135,4 @@ function ($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, $braintree, client
 
 }
 
+export default SettingsPaymentMethodController;

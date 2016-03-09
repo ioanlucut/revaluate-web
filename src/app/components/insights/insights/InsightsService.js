@@ -1,11 +1,9 @@
-export default
-
 /**
  * InsightsMonthly service which encapsulates the whole logic related to insights.
  */
-  function (INSIGHTS_URLS, $q, $http, $injector, InsightsDaily, InsightsTransformerService, DatesUtils) {
+function InsightsService(INSIGHTS_URLS, $q, $http, $injector, InsightsDaily, InsightsTransformerService, DatesUtils) {
 
-    this.fetchMonthlyInsightsFromTo = function (from, to, tracker) {
+  this.fetchMonthlyInsightsFromTo = function (from, to, tracker) {
     var fromFormatted = DatesUtils.formatDate(from),
       toFormatted = DatesUtils.formatDate(to);
 
@@ -17,7 +15,7 @@ export default
       .then(InsightsTransformerService.insightsMonthlyApiResponseTransformer);
   };
 
-    this.fetchOverviewInsightsFromTo = function (from, to) {
+  this.fetchOverviewInsightsFromTo = function (from, to) {
     var fromFormatted = DatesUtils.formatDate(from),
       toFormatted = DatesUtils.formatDate(to);
 
@@ -26,7 +24,7 @@ export default
       .then(InsightsTransformerService.insightsOverviewApiResponseTransformer);
   };
 
-    this.fetchProgressInsightsFromTo = function (from, to) {
+  this.fetchProgressInsightsFromTo = function (from, to) {
     var fromFormatted = DatesUtils.formatDate(from),
       toFormatted = DatesUtils.formatDate(to);
 
@@ -35,7 +33,7 @@ export default
       .then(InsightsTransformerService.insightsProgressApiResponseTransformer);
   };
 
-    this.fetchDailyInsightsFromTo = function (from, to, tracker) {
+  this.fetchDailyInsightsFromTo = function (from, to, tracker) {
     var fromFormatted = DatesUtils.formatDate(from),
       toFormatted = DatesUtils.formatDate(to);
 
@@ -46,5 +44,6 @@ export default
       }), { tracker: tracker })
       .then(InsightsTransformerService.insightDailyApiResponseTransformer);
   };
-  }
+}
 
+export default InsightsService;

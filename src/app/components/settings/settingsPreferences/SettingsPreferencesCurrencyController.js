@@ -1,61 +1,59 @@
-export default
-
 /**
  * Preferences controller responsible for user update preferences action.
  */
-  function ($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, ALERTS_EVENTS, ALERTS_CONSTANTS, APP_CONFIG) {
+function SettingsPreferencesCurrencyController($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, ALERTS_EVENTS, ALERTS_CONSTANTS, APP_CONFIG) {
 
-    var _this = this;
+  var _this = this;
 
-    /**
-     * Saving timeout
-     */
-    var TIMEOUT_PENDING = 300;
+  /**
+   * Saving timeout
+   */
+  var TIMEOUT_PENDING = 300;
 
-    /**
-     * All given currencies.
-     * @type {currencies|*}
-     */
-    _this.currencies = APP_CONFIG.CURRENCIES;
+  /**
+   * All given currencies.
+   * @type {currencies|*}
+   */
+  _this.currencies = APP_CONFIG.CURRENCIES;
 
-    /**
-     * Alert identifier
-     */
-    _this.alertId = ALERTS_CONSTANTS.preferences;
+  /**
+   * Alert identifier
+   */
+  _this.alertId = ALERTS_CONSTANTS.preferences;
 
-    /**
-     * Current user.
-     * @type {$rootScope.currentUser|*}
-     */
-    _this.user = $rootScope.currentUser;
+  /**
+   * Current user.
+   * @type {$rootScope.currentUser|*}
+   */
+  _this.user = $rootScope.currentUser;
 
-    /**
-     * Selected currency
-     * @type {{}}
-     */
-    _this.currency = {};
-    _this.currency.selected = _.find(_this.currencies, function (currencyCandidate) {
+  /**
+   * Selected currency
+   * @type {{}}
+   */
+  _this.currency = {};
+  _this.currency.selected = _.find(_this.currencies, function (currencyCandidate) {
     return currencyCandidate.currencyCode === _this.user.model.currency.currencyCode;
   });
 
-    /**
-     * Initial profile data
-     */
-    function getInitialProfileData() {
+  /**
+   * Initial profile data
+   */
+  function getInitialProfileData() {
     return {
       currency: _this.currency.selected,
     };
   }
 
-    /**
-     * Profile user information.
-     */
-    _this.profileData = angular.copy(getInitialProfileData());
+  /**
+   * Profile user information.
+   */
+  _this.profileData = angular.copy(getInitialProfileData());
 
-    /**
-     * Update profile functionality.
-     */
-    _this.updatePreferences = function () {
+  /**
+   * Update profile functionality.
+   */
+  _this.updatePreferences = function () {
     if (_this.preferencesForm.$valid && !_this.isSaving) {
 
       // Show the loading bar
@@ -105,5 +103,6 @@ export default
     }
   };
 
-  }
+}
 
+export default SettingsPreferencesCurrencyController;
