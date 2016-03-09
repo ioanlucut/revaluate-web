@@ -2,7 +2,7 @@
 
 let exec = require('child_process').exec;
 let dir = require('node-dir');
-const BASE_PATH = 'src/app/components';
+const BASE_PATH = 'src/app/x';
 let path = './' + BASE_PATH;
 
 dir.files(path, function (err, files) {
