@@ -22,7 +22,7 @@
         "bower-webpack-plugin": "^0.1.9",
         "browser-sync": "~2.9.11",
         "browser-sync-spa": "~1.0.3",
-        "chalk": "~0.5.1",
+        "chalk": "~1.1.1",
         "concat-stream": "~1.4.7",
         "connect-modrewrite": "^0.8.1",
         "del": "~2.0.2",
