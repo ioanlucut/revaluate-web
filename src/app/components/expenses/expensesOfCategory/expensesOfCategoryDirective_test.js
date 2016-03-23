@@ -1,9 +1,7 @@
-export default
-
 // ---
 // Utilities.
 // ---
-var testUtils = require('helpers/tests');
+import * as testUtils from './../../../../helpers/tests';
 
 describe('app/expenses/expensesOfCategory', function () {
 
@@ -209,7 +207,7 @@ describe('app/expenses/expensesOfCategory', function () {
         spentDate: '2015-08-18T19:41:51.077',
         createdDate: '2015-08-18T17:36:54.737',
         modifiedDate: '2015-08-18T17:36:54.737',
-      },]);
+      }, ]);
 
     elm = $compile('<expenses-of-category total-per-category-insights="totalPerCategory" month-year-date="yearMonthDate"></expenses-of-category>')(scope);
     scope.$digest();

@@ -1,9 +1,7 @@
-export default
-
 // ---
 // Utilities.
 // ---
-var testUtils = require('helpers/tests');
+import * as testUtils from './../../../helpers/tests';
 
 describe('app/account/logout', function () {
 

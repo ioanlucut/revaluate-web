@@ -51,8 +51,6 @@ module.exports = function (config) {
       moduleName: 'revaluate',
     },
 
-    logLevel: 'DEBUG',
-
     frameworks: ['jasmine'],
 
     browsers: ['PhantomJS'],
