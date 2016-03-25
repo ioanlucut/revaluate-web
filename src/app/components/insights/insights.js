@@ -38,6 +38,7 @@ export default angular
   .factory('InsightsProgress', insightsProgress)
   .directive('insightsEmptyStateToggle', insightsEmptyStateToggleDirective)
   .config(($stateProvider, USER_ACTIVITY_EVENTS) => {
+    'ngInject';
 
     $stateProvider
 

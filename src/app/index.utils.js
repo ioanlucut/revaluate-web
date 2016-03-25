@@ -45,9 +45,4 @@
       EXPENSES_ALLOWED_MIN_DATE: moment().year(2000),
       MAX_YEAR_TO_CREATE_GOAL: 2050,
     };
-
-  window
-    .APP_STATS_SKELETON = window.APP_STATS_SKELETON || {
-      EXPENSES_COUNTS: 0,
-    };
 })());

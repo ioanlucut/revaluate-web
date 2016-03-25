@@ -46,6 +46,7 @@ export default angular
   .controller('MonthlyGoalsController', MonthlyGoalsController)
   .factory('Expense', expenseFactory)
   .config(($stateProvider, USER_ACTIVITY_EVENTS) => {
+    'ngInject';
 
     $stateProvider
 

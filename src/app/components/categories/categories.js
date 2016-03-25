@@ -32,6 +32,7 @@ export default angular
   .directive('validCategoryName', validCategoryNameDirective)
   .factory('Category', categoryFactory)
   .config(($stateProvider, USER_ACTIVITY_EVENTS) => {
+    'ngInject';
 
     $stateProvider
 

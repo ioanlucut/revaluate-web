@@ -14,6 +14,7 @@ export default angular
   .factory('Integration', integration)
   .constant('INTEGRATIONS_CONSTANTS', integrationsConstants)
   .config($stateProvider => {
+    'ngInject';
 
     $stateProvider
 

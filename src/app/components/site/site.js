@@ -19,6 +19,7 @@ export default angular
   .controller('AbstractErrorPageController', Error500PageController)
   .service('SiteService', SiteService)
   .config(($stateProvider, $urlRouterProvider, USER_ACTIVITY_EVENTS) => {
+    'ngInject';
 
     // Otherwise
     $urlRouterProvider.otherwise('/404');

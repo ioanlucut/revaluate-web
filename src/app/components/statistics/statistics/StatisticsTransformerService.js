@@ -1,4 +1,5 @@
 function StatisticsTransformerService(Statistics) {
+  'ngInject';
 
   this.statisticApiResponseTransformer = responseData => {
     function buildStatistic(data) {

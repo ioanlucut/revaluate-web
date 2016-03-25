@@ -73,6 +73,7 @@ export default angular
   .directive('accountModalToggle', accountModalToggleDirective)
 
   .config(($stateProvider, $httpProvider, USER_ACTIVITY_EVENTS) => {
+    'ngInject';
 
     // Register AuthInterceptor
     $httpProvider.interceptors.push('AuthInterceptor');

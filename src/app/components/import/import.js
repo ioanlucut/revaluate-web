@@ -14,6 +14,7 @@ export default angular
   .factory('ExpensesImport', importObj)
   .constant('IMPORT_CONSTANTS', importConstants)
   .config(($stateProvider, USER_ACTIVITY_EVENTS) => {
+    'ngInject';
 
     $stateProvider
 

@@ -4,6 +4,8 @@ function appConfig($locationProvider,
                    CacheFactoryProvider,
                    gravatarServiceProvider,
                    ngToastProvider) {
+  'ngInject';
+
   let MAIN_FONT, MAIN_FONT_SIZE;
 
   angular

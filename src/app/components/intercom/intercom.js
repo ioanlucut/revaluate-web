@@ -1,4 +1,4 @@
-import IntercomUtilsService from './intercom/IntercomUtilsService'
+import IntercomUtilsService from './intercom/IntercomUtilsService';
 
 export default angular
   .module('revaluate.intercom', [
@@ -7,6 +7,7 @@ export default angular
   ])
   .service('IntercomUtilsService', IntercomUtilsService)
   .config(($intercomProvider, ENV) => {
+    'ngInject';
     $intercomProvider
       .appID(ENV.intercomAppId);
     $intercomProvider
