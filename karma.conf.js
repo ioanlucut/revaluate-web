@@ -47,8 +47,8 @@ module.exports = function (config) {
     autoWatch: false,
 
     ngHtml2JsPreprocessor: {
-      stripPrefix: conf.paths.src + '/',
-      moduleName: 'revaluate',
+      stripPrefix: conf.paths.src,
+      moduleName: 'revaluatePartials',
     },
 
     frameworks: ['jasmine'],

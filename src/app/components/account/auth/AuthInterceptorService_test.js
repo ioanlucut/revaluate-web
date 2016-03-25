@@ -11,7 +11,7 @@ describe('app/AuthInterceptor', function () {
     // ---
     // Load templates.
     // ---
-    angular.mock.module('gulpAngular');
+    angular.mock.module('revaluatePartials');
 
     // ---
     // Provide APP_CONFIG.
