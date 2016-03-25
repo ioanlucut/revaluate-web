@@ -29,6 +29,7 @@ export default angular
   .controller('SettingsProfileController', SettingsProfileController)
   .controller('SettingsSetUpRegistrationController', SettingsSetupRegistrationController)
   .config(($stateProvider, USER_ACTIVITY_EVENTS) => {
+    'ngInject';
 
     $stateProvider
 

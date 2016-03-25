@@ -20,6 +20,7 @@ function IndexController(flash,
                          ERROR_INTERCEPTOR,
                          ENV,
                          APP_CONFIG) {
+  'ngInject';
 
   /**
    * Save the state on root scope

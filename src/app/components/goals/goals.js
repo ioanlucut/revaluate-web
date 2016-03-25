@@ -48,6 +48,7 @@ export default angular
   .directive('uniqueCategoryPerGoal', uniqueCategoryPerGoalDirective)
   .filter('goalTarget', goalTargetFilter)
   .config(($stateProvider, USER_ACTIVITY_EVENTS) => {
+    'ngInject';
 
     $stateProvider
 

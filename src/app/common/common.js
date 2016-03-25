@@ -37,7 +37,6 @@ import formatPriceDirective from './common/directives/formatPriceDirective';
 import layzrInitializerDirective from './common/directives/layzrInitializerDirective';
 import introbarDirective from './common/directives/introbarDirective';
 import ngEnterDirective from './common/directives/ngEnterDirective';
-import odometerDirective from './common/directives/odometerDirective';
 import postAddExpenseFocus from './common/directives/postAddExpenseFocus';
 import scrollToDirective from './common/directives/scrollToDirective';
 import submitOnDirective from './common/directives/submitOnDirective';
@@ -75,6 +74,7 @@ export default angular
   .constant('ERROR_INTERCEPTOR', errorConstants)
   .constant('UNISON_EVENTS', unisonConstants)
   .constant('UNISON_BREAKPOINTS', unisonBreakpointsConstants)
+  .constant('APP_CONFIG', {})
   .controller('HeaderController', HeaderController)
   .directive('datePickerMonthly', datePickerMonthlyDirective)
   .directive('flashMessages', flashMessagesDirective)
@@ -107,7 +107,6 @@ export default angular
   .directive('layzrInitializer', layzrInitializerDirective)
   .directive('introBarListener', introbarDirective)
   .directive('ngEnter', ngEnterDirective)
-  .directive('odometer', odometerDirective)
   .directive('postAddExpenseFocus', postAddExpenseFocus)
   .directive('scrollTo', scrollToDirective)
   .directive('submitOn', submitOnDirective)
@@ -123,6 +122,8 @@ export default angular
   .service('StatesHandler', StatesHandlerService)
   .service('TransformerUtils', TransformerUtilsService)
   .config($httpProvider => {
+    'ngInject';
+
     $httpProvider.interceptors.push('JWTInterceptor');
     $httpProvider.interceptors.push('ErrorInterceptor');
   })

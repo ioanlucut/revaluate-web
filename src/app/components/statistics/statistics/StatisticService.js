@@ -1,7 +1,8 @@
 /**
  * Summaries service which encapsulates the whole logic related to statistics.
  */
-function StatisticService(STATISTIC_URLS, $q, $http, StatisticTransformerService) {
+function StatisticService(STATISTIC_URLS, $http, StatisticTransformerService) {
+  'ngInject';
 
   /**
    * Get all expense statistics of current user. They represents a map of expenses per years/months.
