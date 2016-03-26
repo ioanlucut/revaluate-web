@@ -1,4 +1,5 @@
 function ContactMessage(ContactService) {
+  'ngInject';
 
   /**
    * Contact class.

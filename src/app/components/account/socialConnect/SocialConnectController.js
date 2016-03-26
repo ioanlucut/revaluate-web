@@ -1,15 +1,11 @@
-function SocialConnectController(
-  $rootScope,
-  $scope,
-  $q,
-  $timeout,
-  SocialConnectService,
-  ALERTS_EVENTS,
-  ALERTS_CONSTANTS,
-  StatesHandler,
-  User,
-  APP_CONFIG,
-  AuthService) {
+function SocialConnectController($scope,
+                                 SocialConnectService,
+                                 ALERTS_EVENTS,
+                                 ALERTS_CONSTANTS,
+                                 StatesHandler,
+                                 APP_CONFIG,
+                                 AuthService) {
+  'ngInject';
 
   const _this = this;
 

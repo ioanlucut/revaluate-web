@@ -1,4 +1,6 @@
 function greeterDirective($rootScope, $timeout) {
+  'ngInject';
+
   return {
     restrict: 'E',
     scope: {

@@ -1,4 +1,6 @@
 function uniqueCategoryPerGoalDirective($q, GoalService, DatesUtils) {
+  'ngInject';
+
   return {
     require: 'ngModel',
     scope: {

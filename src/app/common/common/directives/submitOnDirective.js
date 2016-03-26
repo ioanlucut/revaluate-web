@@ -1,4 +1,6 @@
 function submitOnDirective($timeout) {
+  'ngInject';
+
   return {
     link(scope, elm, attrs) {
       scope.$on(attrs.submitOn, () => {

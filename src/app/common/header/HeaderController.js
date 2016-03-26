@@ -1,12 +1,12 @@
-function HeaderController(
-  $document,
-  $scope,
-  $rootScope,
-  $state,
-  $timeout,
-  StatesHandler,
-  AuthService,
-  AUTH_EVENTS) {
+function HeaderController($document,
+                          $scope,
+                          $rootScope,
+                          $state,
+                          $timeout,
+                          StatesHandler,
+                          AuthService,
+                          AUTH_EVENTS) {
+  'ngInject';
 
   /**
    * Save state to scope
@@ -47,17 +47,17 @@ function HeaderController(
   /**
    * We validate the show app header content after view is loaded.
    */
-  $scope.$on('$viewContentLoaded', _.bind(function() {
-    $timeout(_.bind(function() {
+  $scope.$on('$viewContentLoaded', _.bind(function () {
+    $timeout(_.bind(function () {
       this.showAppHeader = this.isUserAuthenticated;
     }, this));
   }, this));
 
-  $scope.$on(AUTH_EVENTS.loginSuccess, _.bind(function() {
+  $scope.$on(AUTH_EVENTS.loginSuccess, _.bind(function () {
     this.isUserAuthenticated = true;
   }, this));
 
-  $scope.$on(AUTH_EVENTS.logoutSuccess, _.bind(function() {
+  $scope.$on(AUTH_EVENTS.logoutSuccess, _.bind(function () {
     this.isUserAuthenticated = false;
   }, this));
 

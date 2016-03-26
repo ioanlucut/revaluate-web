@@ -1,4 +1,6 @@
-function uniqueEmailDirective($q, $timeout, UserService) {
+function uniqueEmailDirective(UserService) {
+  'ngInject';
+
   return {
     require: 'ngModel',
     scope: {

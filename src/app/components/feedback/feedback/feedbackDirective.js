@@ -1,4 +1,5 @@
-function feedbackDirective($rootScope, AuthService, AUTH_EVENTS, $timeout) {
+function feedbackDirective(AuthService, AUTH_EVENTS, $timeout) {
+  'ngInject';
   return {
     restrict: 'A',
     templateUrl: '/app/components/feedback/feedback/feedbackDirective.tpl.html',

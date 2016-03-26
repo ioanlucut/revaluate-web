@@ -1,6 +1,7 @@
 /* Contact modal */
 
 function ContactModalService($modal) {
+  'ngInject';
 
   /**
    * Contact modal instance.

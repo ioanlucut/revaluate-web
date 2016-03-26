@@ -1,13 +1,13 @@
-function AuthService(
-  $rootScope,
-  $q,
-  $http,
-  $location,
-  redirectToUrlAfterLogin,
-  SessionService,
-  AUTH_EVENTS,
-  AUTH_URLS,
-  AUTH_TOKEN_HEADER) {
+function AuthService($rootScope,
+                     $q,
+                     $http,
+                     $location,
+                     redirectToUrlAfterLogin,
+                     SessionService,
+                     AUTH_EVENTS,
+                     AUTH_URLS,
+                     AUTH_TOKEN_HEADER) {
+  'ngInject';
 
   /**
    * Is user already authenticated ?

@@ -6,6 +6,8 @@ function MonthlyGoalsController(EXPENSE_EVENTS,
                                 promiseTracker,
                                 GoalService,
                                 goals) {
+  'ngInject';
+
   const _this = this;
 
   /**

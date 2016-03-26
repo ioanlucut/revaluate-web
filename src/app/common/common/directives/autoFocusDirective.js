@@ -1,6 +1,8 @@
 /* Auto focus */
 
 function autoFocusDirective($timeout) {
+  'ngInject';
+
   return {
     restrict: 'A',
     link(scope, el, attrs) {

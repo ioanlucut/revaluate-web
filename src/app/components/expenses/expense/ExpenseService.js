@@ -1,9 +1,9 @@
 function ExpenseService(EXPENSE_URLS,
-                        $q,
                         $http,
                         DatesUtils,
                         ExpenseGroupedTransformerService,
                         ExpenseTransformerService) {
+  'ngInject';
 
   this.createExpense = (expense, tracker) => $http
     .post(URLTo.api(EXPENSE_URLS.create), ExpenseTransformerService.expenseApiRequestTransformer(expense), { tracker })

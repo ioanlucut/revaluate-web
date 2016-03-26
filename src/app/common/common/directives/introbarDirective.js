@@ -1,14 +1,13 @@
 function introbarDirective($timeout) {
+  'ngInject';
+
   return {
     restrict: 'A',
-    controller(
-      $scope,
-      $rootScope,
-      $state,
-      $timeout,
-      StatesHandler,
-      AuthService,
-      AUTH_EVENTS) {
+    controller($scope,
+               $rootScope,
+               AuthService,
+               AUTH_EVENTS) {
+      'ngInject';
 
       /**
        * Reference to the current user.
@@ -20,11 +19,11 @@ function introbarDirective($timeout) {
        */
       this.isUserAuthenticated = AuthService.isAuthenticated();
 
-      $scope.$on(AUTH_EVENTS.loginSuccess, _.bind(function() {
+      $scope.$on(AUTH_EVENTS.loginSuccess, _.bind(function () {
         this.isUserAuthenticated = true;
       }, this));
 
-      $scope.$on(AUTH_EVENTS.logoutSuccess, _.bind(function() {
+      $scope.$on(AUTH_EVENTS.logoutSuccess, _.bind(function () {
         this.isUserAuthenticated = false;
       }, this));
 

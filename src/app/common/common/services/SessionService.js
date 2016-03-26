@@ -2,6 +2,7 @@
  * Session service which encapsulates the whole logic account related to the Local storage which contains currently logged in user.
  */
 function SessionService($localStorage) {
+  'ngInject';
 
   /**
    * Local storage key for session data.
@@ -16,7 +17,7 @@ function SessionService($localStorage) {
    *
    * @param data
    */
-  this.create = function(data, jwtToken) {
+  this.create = function (data, jwtToken) {
     this.setData(data);
     this.setJwtToken(jwtToken);
   };

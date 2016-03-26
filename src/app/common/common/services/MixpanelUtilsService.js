@@ -1,6 +1,7 @@
 function MixpanelUtilsService($window, ENV) {
+  'ngInject';
 
-  this.bootMixpanel = function(user) {
+  this.bootMixpanel = function (user) {
     this.initMixpanel();
 
     // ---
@@ -14,7 +15,7 @@ function MixpanelUtilsService($window, ENV) {
     $window.mixpanel.init(ENV.mixPanelId);
   };
 
-  this.updateMixpanel = function(user) {
+  this.updateMixpanel = function (user) {
 
     // ---
     // Update mixpanel.
@@ -26,7 +27,7 @@ function MixpanelUtilsService($window, ENV) {
     $email: user.model.email,
     $last_name: user.model.lastName,
     $first_name: user.model.firstName,
-    $created: moment(user.model.createdDate).format('YYYY-MM-DDTHH:mm:ss')
+    $created: moment(user.model.createdDate).format('YYYY-MM-DDTHH:mm:ss'),
   });
 }
 

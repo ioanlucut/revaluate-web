@@ -1,4 +1,5 @@
 function feedbackMessage(FeedbackService) {
+  'ngInject';
 
   /**
    * Feedback class.

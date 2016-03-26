@@ -1,5 +1,4 @@
 function InsightsOverviewController($controller,
-                                    $templateCache,
                                     $scope,
                                     $rootScope,
                                     $filter,
@@ -12,8 +11,8 @@ function InsightsOverviewController($controller,
                                     monthsPerYearsStatistics,
                                     InsightsService,
                                     USER_ACTIVITY_EVENTS,
-                                    INSIGHTS_CHARTS,
                                     ALERTS_CONSTANTS) {
+  'ngInject';
 
   const TIMEOUT_DURATION = 150;
   const MONTHS = 'Months';

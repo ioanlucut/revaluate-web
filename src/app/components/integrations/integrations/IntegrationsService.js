@@ -1,6 +1,7 @@
 export default
 
 function IntegrationsService(INTEGRATIONS_CONSTANTS, IntegrationsTransformerService, $http) {
+  'ngInject';
 
   this.addIntegrationAs = (profile, tracker) => $http
     .post(URLTo.api(INTEGRATIONS_CONSTANTS.addIntegration), profile, { tracker })

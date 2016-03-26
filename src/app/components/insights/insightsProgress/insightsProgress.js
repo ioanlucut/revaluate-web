@@ -1,6 +1,7 @@
 export default
 
 function InsightsProgressFactory(InsightsAbstract) {
+  'ngInject';
 
   /**
    * Progress factory function.

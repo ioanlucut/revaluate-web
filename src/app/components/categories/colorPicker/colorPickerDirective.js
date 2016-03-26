@@ -1,4 +1,6 @@
-function colorPickerDirective(CATEGORY_EVENTS, CategoryColorService, $timeout, $animate) {
+function colorPickerDirective($animate) {
+  'ngInject';
+
   return {
     restrict: 'A',
     replace: true,

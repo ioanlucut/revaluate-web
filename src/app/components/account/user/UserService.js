@@ -1,4 +1,5 @@
 function UserService($http, $q, USER_URLS) {
+  'ngInject';
 
   /**
    * The list of already verified email addresses.

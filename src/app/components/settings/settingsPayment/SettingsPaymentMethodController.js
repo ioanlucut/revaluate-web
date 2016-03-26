@@ -9,6 +9,7 @@ function SettingsPaymentMethodController($q,
                                          paymentInsights,
                                          ALERTS_EVENTS,
                                          ALERTS_CONSTANTS) {
+  'ngInject';
 
   const _this = this;
 

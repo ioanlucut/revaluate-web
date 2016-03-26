@@ -1,4 +1,5 @@
-function GreeterService($rootScope, GREETER_CONSTANTS) {
+function GreeterService(GREETER_CONSTANTS) {
+  'ngInject';
 
   function getRandomized(greeterDayTime) {
 

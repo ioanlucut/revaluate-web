@@ -1,6 +1,7 @@
 export default
 
 function InsightsOverviewFactory(InsightsAbstract) {
+  'ngInject';
 
   /**
    * Overview factory function.

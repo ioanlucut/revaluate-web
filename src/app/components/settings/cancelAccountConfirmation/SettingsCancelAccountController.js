@@ -1,13 +1,12 @@
-function SettingsCancelAccountController($q,
-                                         $scope,
+function SettingsCancelAccountController($scope,
                                          $rootScope,
                                          $timeout,
                                          USER_ACTIVITY_EVENTS,
                                          StatesHandler,
-                                         IntercomUtilsService,
                                          AuthService,
                                          ALERTS_EVENTS,
                                          ALERTS_CONSTANTS) {
+  'ngInject';
 
   const _this = this, TIMEOUT_PENDING = 1000;
 

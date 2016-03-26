@@ -1,4 +1,5 @@
 function ContactController($scope, ContactModalService, Contact, $timeout) {
+  'ngInject';
 
   const TIMEOUT = 1500;
 

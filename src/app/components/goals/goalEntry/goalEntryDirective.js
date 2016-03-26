@@ -7,6 +7,7 @@ function GoalEntryController(GOAL_EVENTS,
                              GoalProgressTypeService,
                              GoalMessagesService,
                              promiseTracker) {
+  'ngInject';
 
   const _this = this;
 
@@ -133,6 +134,7 @@ function GoalEntryController(GOAL_EVENTS,
 }
 
 function goalEntryDirective(GOAL_EVENTS, $rootScope, $timeout) {
+  'ngInject';
   return {
     restrict: 'A',
     scope: {

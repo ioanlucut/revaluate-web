@@ -1,6 +1,7 @@
 export default
 
 function InsightsMonthlyFactory(InsightsAbstract) {
+  'ngInject';
 
   /**
    * Monthly factory function.

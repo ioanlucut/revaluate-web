@@ -1,4 +1,6 @@
-function User(SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
+function User(SessionService, TransformerUtils, $http, AUTH_URLS) {
+  'ngInject';
+
   return {
 
     $new() {

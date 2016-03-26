@@ -1,4 +1,5 @@
-function importer($q, $http, ImportService, ImportTransformerService) {
+function importer(ImportService, ImportTransformerService) {
+  'ngInject';
 
   /**
    * ExpensesImport class.

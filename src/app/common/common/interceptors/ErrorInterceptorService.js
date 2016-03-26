@@ -2,6 +2,7 @@
  * Error service interceptor used to listen to ajax server responses.
  */
 function ErrorInterceptorService($rootScope, $q, ERROR_INTERCEPTOR) {
+  'ngInject';
 
   return {
 

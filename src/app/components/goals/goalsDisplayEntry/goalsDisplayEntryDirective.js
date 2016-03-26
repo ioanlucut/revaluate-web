@@ -1,4 +1,5 @@
 function GoalsDisplayEntryController($rootScope) {
+  'ngInject';
 
   /**
    * Current user.

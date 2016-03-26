@@ -2,12 +2,10 @@
  * InsightsMonthly service which encapsulates the whole logic related to insights.
  */
 function InsightsService(INSIGHTS_URLS,
-                         $q,
                          $http,
-                         $injector,
-                         InsightsDaily,
                          InsightsTransformerService,
                          DatesUtils) {
+  'ngInject';
 
   this.fetchMonthlyInsightsFromTo = (from, to, tracker) => {
     const fromFormatted = DatesUtils.formatDate(from), toFormatted = DatesUtils.formatDate(to);

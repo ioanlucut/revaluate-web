@@ -2,6 +2,8 @@
  * Authentication service interceptor used to listen to server responses.
  */
 function AuthInterceptorService($rootScope, $q, AUTH_EVENTS) {
+  'ngInject';
+
   return {
 
     /**

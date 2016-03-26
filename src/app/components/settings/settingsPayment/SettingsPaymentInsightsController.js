@@ -10,6 +10,7 @@ function SettingsPaymentInsightsController($q,
                                            ALERTS_CONSTANTS,
                                            USER_ACTIVITY_EVENTS,
                                            AUTH_EVENTS) {
+  'ngInject';
 
   const _this = this;
 

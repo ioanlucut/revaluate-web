@@ -1,4 +1,6 @@
 function unisonListenerDirective(UNISON_BREAKPOINTS, UNISON_EVENTS) {
+  'ngInject';
+
   return {
     restrict: 'E',
     link(scope) {

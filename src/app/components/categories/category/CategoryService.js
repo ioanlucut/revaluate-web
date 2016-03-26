@@ -1,4 +1,5 @@
 function CategoryService(CATEGORY_URLS, $q, $http, CategoryTransformerService) {
+  'ngInject';
 
   this.createCategory = (category, tracker) => $http
     .post(URLTo.api(CATEGORY_URLS.create), CategoryTransformerService.categoryApiRequestTransformer(category), { tracker })

@@ -5,6 +5,7 @@ function JWTInterceptor() {
 
   const config = this;
 
+  /*@ngInject*/
   this.$get = ($q, $injector, $rootScope, SessionService) => ({
     request(request) {
       if (request.skipAuthorization) {
@@ -30,7 +31,7 @@ function JWTInterceptor() {
 
         return request;
       });
-    }
+    },
   });
 }
 

@@ -1,4 +1,6 @@
 function StatesHandlerService($state, $stateParams, STATES) {
+  'ngInject';
+
   function call(callback) {
     if (callback && typeof (callback) === 'function') {
       callback();

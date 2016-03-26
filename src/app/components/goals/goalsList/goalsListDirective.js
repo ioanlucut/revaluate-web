@@ -1,4 +1,6 @@
 function GoalListController($timeout) {
+  'ngInject';
+
   const _this = this, TIMEOUT = 200;
 
   /**

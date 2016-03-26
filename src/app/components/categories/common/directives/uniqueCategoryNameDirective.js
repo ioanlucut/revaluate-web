@@ -1,4 +1,6 @@
-function uniqueCategoryNameDirective($q, CategoryService) {
+function uniqueCategoryNameDirective(CategoryService) {
+  'ngInject';
+
   return {
     require: 'ngModel',
     scope: {

@@ -1,14 +1,14 @@
-function SignUpController(
-  $rootScope,
-  $scope,
-  $timeout,
-  ALERTS_EVENTS,
-  ALERTS_CONSTANTS,
-  StatesHandler,
-  User,
-  AuthService,
-  USER_ACTIVITY_EVENTS,
-  APP_CONFIG) {
+function SignUpController($rootScope,
+                          $scope,
+                          $timeout,
+                          ALERTS_EVENTS,
+                          ALERTS_CONSTANTS,
+                          StatesHandler,
+                          User,
+                          AuthService,
+                          USER_ACTIVITY_EVENTS,
+                          APP_CONFIG) {
+  'ngInject';
 
   /**
    * Alert identifier

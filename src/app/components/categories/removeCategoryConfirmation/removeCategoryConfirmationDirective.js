@@ -1,6 +1,8 @@
 /* Auto focus */
 
 function removeCategoryConfirmationDirective($timeout) {
+  'ngInject';
+
   return {
     restrict: 'A',
     transclude: true,

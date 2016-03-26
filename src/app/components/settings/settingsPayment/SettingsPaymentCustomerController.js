@@ -7,6 +7,7 @@ function SettingsPaymentCustomerController($q,
                                            paymentInsights,
                                            ALERTS_EVENTS,
                                            ALERTS_CONSTANTS) {
+  'ngInject';
 
   const TIMEOUT_PENDING = 300;
 

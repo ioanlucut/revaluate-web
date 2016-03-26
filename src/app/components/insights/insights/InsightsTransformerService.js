@@ -7,6 +7,7 @@ function InsightsTransformerService($filter,
                                     InsightsDaily,
                                     InsightsProgress,
                                     InsightsOverview) {
+  'ngInject';
 
   this.insightsMonthlyApiResponseTransformer = responseData => InsightsMonthly
     .build(_.extend(responseData.data, {
