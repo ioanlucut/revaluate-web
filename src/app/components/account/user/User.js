@@ -1,4 +1,4 @@
-function User(SessionService, TransformerUtils, $http, AUTH_URLS) {
+function User(SessionService, $http, AUTH_URLS) {
   'ngInject';
 
   return {
@@ -84,7 +84,7 @@ function User(SessionService, TransformerUtils, $http, AUTH_URLS) {
          * Loads a user from given data.
          */
         loadFrom(data) {
-          TransformerUtils.copyKeysFromTo(data, this.model);
+          _.merge(this.model, data);
 
           return this;
         },
@@ -110,7 +110,7 @@ function User(SessionService, TransformerUtils, $http, AUTH_URLS) {
          */
         saveToSession() {
           const sessionData = {};
-          TransformerUtils.copyKeysFromTo(this.model, sessionData, ['password']);
+          _.merge(sessionData, _.omit(this.model, ['password']));
           SessionService.setData(sessionData);
 
           return this;
@@ -121,7 +121,7 @@ function User(SessionService, TransformerUtils, $http, AUTH_URLS) {
          */
         create(fromData) {
           const toBeCreated = {};
-          TransformerUtils.copyKeysFromTo(fromData, toBeCreated);
+          _.merge(toBeCreated, fromData);
 
           return this.createAccount(toBeCreated);
         },
@@ -140,7 +140,7 @@ function User(SessionService, TransformerUtils, $http, AUTH_URLS) {
          */
         updateAccountDetails(fromData) {
           const toBeSaved = {};
-          TransformerUtils.copyKeysFromTo(fromData, toBeSaved);
+          _.merge(toBeSaved, fromData);
 
           return $http
             .put(URLTo.api(AUTH_URLS.updateAccountDetails), toBeSaved);
@@ -151,7 +151,7 @@ function User(SessionService, TransformerUtils, $http, AUTH_URLS) {
          */
         updateInitiatedStatus(fromData) {
           const toBeSaved = {};
-          TransformerUtils.copyKeysFromTo(fromData, toBeSaved);
+          _.merge(toBeSaved, fromData);
 
           return $http
             .put(URLTo.api(AUTH_URLS.updateInitiatedStatus), toBeSaved);
@@ -162,7 +162,7 @@ function User(SessionService, TransformerUtils, $http, AUTH_URLS) {
          */
         updateCurrency(fromData) {
           const toBeSaved = {};
-          TransformerUtils.copyKeysFromTo(fromData, toBeSaved);
+          _.merge(toBeSaved, fromData);
 
           return $http
             .put(URLTo.api(AUTH_URLS.updateCurrency), toBeSaved);

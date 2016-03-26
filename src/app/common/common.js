@@ -50,7 +50,6 @@ import JwtHelperService from './common/services/JwtHelperService';
 import MixpanelUtilsService from './common/services/MixpanelUtilsService';
 import SessionService from './common/services/SessionService';
 import StatesHandlerService from './common/services/StatesHandlerService';
-import TransformerUtilsService from './common/services/TransformerUtilsService';
 
 export default angular
   .module('revaluate.common', [
@@ -120,7 +119,6 @@ export default angular
   .service('MixpanelUtilsService', MixpanelUtilsService)
   .service('SessionService', SessionService)
   .service('StatesHandler', StatesHandlerService)
-  .service('TransformerUtils', TransformerUtilsService)
   .config($httpProvider => {
     'ngInject';
 
