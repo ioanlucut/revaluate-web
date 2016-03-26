@@ -18,14 +18,14 @@ function AuthService($rootScope,
     return $http
       .post(url, payload)
       .then(response => {
-
-        SessionService.create(_.extend(response.data, oAuthData), response.headers()[AUTH_TOKEN_HEADER]);
+        SessionService.create(
+          _.extend(response.data, oAuthData),
+          response.headers()[AUTH_TOKEN_HEADER]);
         $rootScope.$broadcast(AUTH_EVENTS.loginSuccess, response);
 
         return $q.when(response);
       })
       .catch(response => {
-
         SessionService.destroy();
         $rootScope.$broadcast(AUTH_EVENTS.loginFailed, response);
 
@@ -36,12 +36,14 @@ function AuthService($rootScope,
   /**
    * Login functionality
    */
-  this.login = (email, password) => connectWith(URLTo.api(AUTH_URLS.login), { email, password });
+  this.login = (email, password) =>
+    connectWith(URLTo.api(AUTH_URLS.login), { email, password });
 
   /**
    * Connect via oauth
    */
-  this.connectViaOauth = (email, payload, oAuthData) => connectWith(URLTo.api(AUTH_URLS.connectViaOauth, { ':email': email }), payload, oAuthData);
+  this.connectViaOauth = (email, payload, oAuthData) =>
+    connectWith(URLTo.api(AUTH_URLS.connectViaOauth, { ':email': email }), payload, oAuthData);
 
   /**
    * Logout functionality
@@ -62,7 +64,10 @@ function AuthService($rootScope,
     .then(response => response.data);
 
   this.validateConfirmationEmailToken = (email, token) => $http
-    .post(URLTo.api(AUTH_URLS.validateConfirmationEmailToken, { ':email': email, ':token': token }), {
+    .post(URLTo.api(AUTH_URLS.validateConfirmationEmailToken, {
+      ':email': email,
+      ':token': token,
+    }), {
       skipAuthorization: true,
     })
     .then(response => response.data);
@@ -71,35 +76,31 @@ function AuthService($rootScope,
    * Reset password with token.
    */
   this.resetPasswordWithToken = (email, password, passwordConfirmation, token) => $http
-    .post(URLTo.api(AUTH_URLS.resetPasswordWithToken, { ':email': email, ':token': token }),
-      {
-        password,
-        passwordConfirmation,
-      },
-      {
-        skipAuthorization: true,
-      })
+    .post(URLTo.api(AUTH_URLS.resetPasswordWithToken, { ':email': email, ':token': token }), {
+      password,
+      passwordConfirmation,
+    }, {
+      skipAuthorization: true,
+    })
     .then(response => response.data);
 
   /**
    * Validate password reset token.
    */
   this.validatePasswordResetToken = (email, token) => $http
-    .post(URLTo.api(AUTH_URLS.validatePasswordResetToken, { ':email': email, ':token': token }),
-      {
-        skipAuthorization: true,
-      }).then(response => response.data);
+    .post(URLTo.api(AUTH_URLS.validatePasswordResetToken, { ':email': email, ':token': token }), {
+      skipAuthorization: true,
+    }).then(response => response.data);
 
   /**
    * Update password.
    */
   this.updatePassword = (oldPassword, newPassword, newPasswordConfirmation) => $http
-    .put(URLTo.api(AUTH_URLS.updatePassword),
-      {
-        oldPassword,
-        newPassword,
-        newPasswordConfirmation,
-      })
+    .put(URLTo.api(AUTH_URLS.updatePassword), {
+      oldPassword,
+      newPassword,
+      newPasswordConfirmation,
+    })
     .then(response => response.data);
 
   /**
@@ -122,6 +123,6 @@ function AuthService($rootScope,
       redirectToUrlAfterLogin.url = undefined;
     }
   };
-};
+}
 
 export default AuthService;
