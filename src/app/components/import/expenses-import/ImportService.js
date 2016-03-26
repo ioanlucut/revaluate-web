@@ -1,22 +1,17 @@
-(function () {
-  'use strict';
+/**
+ * ExpensesImport service which encapsulates the whole logic related to expensesImport.
+ */
+function ImportService(IMPORT_CONSTANTS, $http, ImportTransformerService) {
+  'ngInject';
 
-  /**
-   * ExpensesImport service which encapsulates the whole logic related to expensesImport.
-   */
-  angular
-    .module('revaluate.expensesImport')
-    .service('ImportService', function (IMPORT_URLS, $http, ImportTransformerService) {
+  this.importExpenses = (importType, expensesImport) => $http
+    .post(URLTo.api(IMPORT_CONSTANTS.IMPORT_URLS[importType]), ImportTransformerService.toImportDto(expensesImport))
+    .then(response => {
+      ImportTransformerService.toImport(response.data, expensesImport);
 
-      this.importExpenses = function (importType, expensesImport) {
-        return $http
-          .post(URLTo.api(IMPORT_URLS[importType]), ImportTransformerService.toImportDto(expensesImport))
-          .then(function (response) {
-            ImportTransformerService.toImport(response.data, expensesImport);
-
-            return response;
-          });
-      };
-
+      return response;
     });
-}());
+
+}
+
+export default ImportService;

@@ -1,18 +1,16 @@
-(function () {
-  'use strict';
+/* Account modal toggle */
 
-  /* Account modal toggle */
+function accountModalToggleDirective(AccountModal) {
+  'ngInject';
 
-  angular
-    .module('revaluate.account')
-    .directive('accountModalToggle', function (AccountModal) {
-      return {
-        restrict: 'A',
-        link: function (scope, el, attrs) {
-          el.on('click', function () {
-            AccountModal.openWithState(attrs.accountModalToggle);
-          });
-        },
-      };
-    });
-}());
+  return {
+    restrict: 'A',
+    link(scope, el, attrs) {
+      el.on('click', () => {
+        AccountModal.openWithState(attrs.accountModalToggle);
+      });
+    },
+  };
+}
+
+export default accountModalToggleDirective;

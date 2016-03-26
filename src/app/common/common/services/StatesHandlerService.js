@@ -1,62 +1,59 @@
-(function () {
-  'use strict';
+function StatesHandlerService($state, $stateParams, STATES) {
+  'ngInject';
 
-  angular
-    .module('revaluate.common')
-    .service('StatesHandler', function ($state, $stateParams, STATES) {
+  function call(callback) {
+    if (callback && typeof (callback) === 'function') {
+      callback();
+    }
+  }
 
-      function call(callback) {
-        if (callback && typeof (callback) === 'function') {
-          callback();
-        }
-      }
+  this.goToProfile = function () {
+    this.go(STATES.profile);
+  };
 
-      this.goToProfile = function () {
-        this.go(STATES.profile);
-      };
+  this.goToSetUp = function () {
+    this.go(STATES.setUp);
+  };
 
-      this.goToSetUp = function () {
-        this.go(STATES.setUp);
-      };
+  this.goToAddPayment = function () {
+    this.go(STATES.addPayment);
+  };
 
-      this.goToAddPayment = function () {
-        this.go(STATES.addPayment);
-      };
+  this.goToLogin = function () {
+    this.go(STATES.account);
+  };
 
-      this.goToLogin = function () {
-        this.go(STATES.account);
-      };
+  this.goToResetPassword = function () {
+    this.go(STATES.account);
+  };
 
-      this.goToResetPassword = function () {
-        this.go(STATES.account);
-      };
+  this.go = state => {
+    $state.go(state);
+  };
 
-      this.go = function (state) {
-        $state.go(state);
-      };
+  this.goToExpenses = function (callback) {
+    this.go(STATES.expenses);
 
-      this.goToExpenses = function (callback) {
-        this.go(STATES.expenses);
+    call(callback);
+  };
 
-        call(callback);
-      };
+  this.goHome = function (callback) {
+    this.go(STATES.home);
 
-      this.goHome = function (callback) {
-        this.go(STATES.home);
+    call(callback);
+  };
 
-        call(callback);
-      };
+  this.goToIntegrations = function () {
+    this.go(STATES.integrations);
+  };
 
-      this.goToIntegrations = function () {
-        this.go(STATES.integrations);
-      };
-
-      this.refreshCurrentState = function () {
-        $state.transitionTo($state.current, $stateParams, {
-          reload: true,
-          inherit: false,
-          notify: true,
-        });
-      };
+  this.refreshCurrentState = () => {
+    $state.transitionTo($state.current, $stateParams, {
+      reload: true,
+      inherit: false,
+      notify: true,
     });
-}());
+  };
+}
+
+export default StatesHandlerService;

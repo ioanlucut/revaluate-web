@@ -1,19 +1,15 @@
-(function () {
-  'use strict';
+function accountModalCloseDirective(AccountModal) {
+  'ngInject';
 
-  /* Account modal toggle */
+  return {
+    restrict: 'A',
+    templateUrl: '/app/components/account/accountModal/accountModalCloseDirective/accountModalCloseDirective.tpl.html',
+    link(scope, el) {
+      el.on('click', () => {
+        AccountModal.close();
+      });
+    },
+  };
+};
 
-  angular
-    .module('revaluate.account')
-    .directive('accountModalClose', function (AccountModal) {
-      return {
-        restrict: 'A',
-        templateUrl: '/app/components/account/accountModal/accountModalCloseDirective/accountModalCloseDirective.tpl.html',
-        link: function (scope, el) {
-          el.on('click', function () {
-            AccountModal.close();
-          });
-        },
-      };
-    });
-}());
+export default accountModalCloseDirective;

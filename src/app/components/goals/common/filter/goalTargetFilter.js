@@ -1,12 +1,7 @@
-(function () {
-  'use strict';
+function goalTargetFilter(APP_CONFIG) {
+  'ngInject';
 
-  angular
-    .module('revaluate.goals')
-    .filter('goalTarget', function (APP_CONFIG) {
-      return function (actual) {
+  return actual => _.find(APP_CONFIG.GOALS_TARGETS, 'value', actual).label;
+}
 
-        return _.find(APP_CONFIG.GOALS_TARGETS, 'value', actual).label;
-      };
-    });
-}());
+export default goalTargetFilter;

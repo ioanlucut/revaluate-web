@@ -1,31 +1,29 @@
-(function () {
-  'use strict';
+/* Auto focus */
 
-  /* Auto focus */
+function autoFocusDirective($timeout) {
+  'ngInject';
 
-  angular
-    .module('revaluate.common')
-    .directive('autoFocus', function ($timeout) {
-      return {
-        restrict: 'A',
-        link: function (scope, el, attrs) {
-          if (!attrs.autoFocus) {
+  return {
+    restrict: 'A',
+    link(scope, el, attrs) {
+      if (!attrs.autoFocus) {
 
-            $timeout(function () {
+        $timeout(() => {
+          el.focus();
+        });
+      } else {
+
+        // Watch the specified model, and auto-focus the element when the model is "true"
+        scope.$watch(attrs.autoFocus, val => {
+          if (val === true) {
+            $timeout(() => {
               el.focus();
             });
-          } else {
-
-            // Watch the specified model, and auto-focus the element when the model is "true"
-            scope.$watch(attrs.autoFocus, function (val) {
-              if (val === true) {
-                $timeout(function () {
-                  el.focus();
-                });
-              }
-            });
           }
-        },
-      };
-    });
-}());
+        });
+      }
+    },
+  };
+}
+
+export default autoFocusDirective;

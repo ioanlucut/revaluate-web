@@ -1,15 +1,11 @@
-(function () {
-  'use strict';
+function layzrInitializerDirective() {
+  return {
+    restrict: 'A',
+    link() {
 
-  angular
-    .module('revaluate.common')
-    .directive('layzrInitializer', function () {
-      return {
-        restrict: 'A',
-        link: function () {
+      new Layzr();
+    },
+  };
+}
 
-          new Layzr();
-        },
-      };
-    });
-}());
+export default layzrInitializerDirective;

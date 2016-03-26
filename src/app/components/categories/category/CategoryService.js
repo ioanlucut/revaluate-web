@@ -1,75 +1,61 @@
-(function () {
-  'use strict';
+function CategoryService(CATEGORY_URLS, $q, $http, CategoryTransformerService) {
+  'ngInject';
 
-  angular
-    .module('revaluate.categories')
-    .service('CategoryService', function (CATEGORY_URLS, $q, $http, CategoryTransformerService) {
+  this.createCategory = (category, tracker) => $http
+    .post(URLTo.api(CATEGORY_URLS.create), CategoryTransformerService.categoryApiRequestTransformer(category), { tracker })
+    .then(CategoryTransformerService.categoryApiResponseTransformer);
 
-      this.createCategory = function (category, tracker) {
-        return $http
-          .post(URLTo.api(CATEGORY_URLS.create), CategoryTransformerService.categoryApiRequestTransformer(category), { tracker: tracker })
-          .then(CategoryTransformerService.categoryApiResponseTransformer);
-      };
+  this.updateCategory = (category, tracker) => {
+    const categoryDto = CategoryTransformerService.categoryApiRequestTransformer(category);
 
-      this.updateCategory = function (category, tracker) {
-        var categoryDto = CategoryTransformerService.categoryApiRequestTransformer(category);
+    return $http
+      .put(URLTo.api(CATEGORY_URLS.update), categoryDto, { tracker })
+      .then(CategoryTransformerService.categoryApiResponseTransformer);
+  };
 
-        return $http
-          .put(URLTo.api(CATEGORY_URLS.update), categoryDto, { tracker: tracker })
-          .then(CategoryTransformerService.categoryApiResponseTransformer);
-      };
+  this.deleteCategory = (category, tracker) => $http
+    .delete(URLTo.api(CATEGORY_URLS.delete, { ':id': category.id }), { tracker });
 
-      this.deleteCategory = function (category, tracker) {
+  this.getAllCategories = () => $http
+    .get(URLTo.api(CATEGORY_URLS.allCategories))
+    .then(CategoryTransformerService.categoryApiResponseTransformer);
 
-        return $http
-          .delete(URLTo.api(CATEGORY_URLS.delete, { ':id': category.id }), { tracker: tracker });
-      };
+  /**
+   * Bulk create action of a list of categories.
+   */
+  this.setupBulkCreateCategories = categories => $http
+    .post(URLTo.api(CATEGORY_URLS.setupBulkCreateCategories), CategoryTransformerService.categoryApiRequestTransformer(categories))
+    .then(CategoryTransformerService.categoryApiResponseTransformer);
 
-      this.getAllCategories = function () {
-        return $http
-          .get(URLTo.api(CATEGORY_URLS.allCategories))
-          .then(CategoryTransformerService.categoryApiResponseTransformer);
-      };
+  /**
+   * Bulk delete action of a list of categories.
+   */
+  this.bulkDelete = categories => $http
+    .put(URLTo.api(CATEGORY_URLS.bulkDelete), CategoryTransformerService.categoryApiRequestTransformer(categories));
 
-      /**
-       * Bulk create action of a list of categories.
-       */
-      this.setupBulkCreateCategories = function (categories) {
-        return $http
-          .post(URLTo.api(CATEGORY_URLS.setupBulkCreateCategories), CategoryTransformerService.categoryApiRequestTransformer(categories))
-          .then(CategoryTransformerService.categoryApiResponseTransformer);
-      };
+  /**
+   * Check if a category name is unique.
+   */
+  this.isUnique = function (name) {
+    const deferred = $q.defer();
 
-      /**
-       * Bulk delete action of a list of categories.
-       */
-      this.bulkDelete = function (categories) {
-        return $http
-          .put(URLTo.api(CATEGORY_URLS.bulkDelete), CategoryTransformerService.categoryApiRequestTransformer(categories));
-      };
+    $http
+      .get(URLTo.api(CATEGORY_URLS.isUnique), { params: { name } })
+      .then(_.bind(response => {
+        deferred.resolve({
+          isUnique: response.data.isUniqueCategory,
+          name,
+        });
+      }, this))
+      .catch(() => {
+        deferred.resolve({
+          isUnique: false,
+          name,
+        });
+      });
 
-      /**
-       * Check if a category name is unique.
-       */
-      this.isUnique = function (name) {
-        var deferred = $q.defer();
+    return deferred.promise;
+  };
+}
 
-        $http
-          .get(URLTo.api(CATEGORY_URLS.isUnique), { params: { name: name } })
-          .then(_.bind(function (response) {
-            deferred.resolve({
-              isUnique: response.data.isUniqueCategory,
-              name: name,
-            });
-          }, this))
-          .catch(function () {
-            deferred.resolve({
-              isUnique: false,
-              name: name,
-            });
-          });
-
-        return deferred.promise;
-      };
-    });
-}());
+export default CategoryService;

@@ -1,13 +1,7 @@
-(function () {
-  'use strict';
+function currencysNoSymbolFilter($filter) {
+  'ngInject';
 
-  angular
-    .module('revaluate.common')
-    .filter('currencysNoSymbol', function ($filter) {
-        return function (num, symbol, fractionSize) {
+  return (num, symbol, fractionSize) => $filter('currency')(num, '', fractionSize);
+}
 
-          return $filter('currency')(num, '', fractionSize);
-        };
-      }
-    );
-}());
+export default currencysNoSymbolFilter;

@@ -1,49 +1,44 @@
-(function () {
-  'use strict';
+function feedbackMessage(FeedbackService) {
+  'ngInject';
 
-  angular
-    .module('revaluate.feedback')
-    .factory('Feedback', function (FeedbackService) {
+  /**
+   * Feedback class.
+   * @constructor
+   */
+  function Feedback() {
 
-      /**
-       * Feedback class.
-       * @constructor
-       */
-      function Feedback() {
-
-        /**
-         * Represents the DTO model of the Feedback.
-         */
-        this.model = {
-
-          /**
-           * Feedback subject
-           */
-          subject: '',
-
-          /**
-           * Feedback message
-           */
-          message: '',
-        };
-
-        /**
-         * Sends a Feedback.
-         * @returns {*}
-         */
-        this.send = function () {
-          return FeedbackService.sendFeedback(this);
-        };
-      }
+    /**
+     * Represents the DTO model of the Feedback.
+     */
+    this.model = {
 
       /**
-       * Builds a Feedback.
-       * @returns {Feedback}
+       * Feedback subject
        */
-      Feedback.build = function () {
-        return new Feedback();
-      };
+      subject: '',
 
-      return Feedback;
-    });
-}());
+      /**
+       * Feedback message
+       */
+      message: '',
+    };
+
+    /**
+     * Sends a Feedback.
+     * @returns {*}
+     */
+    this.send = function () {
+      return FeedbackService.sendFeedback(this);
+    };
+  }
+
+  /**
+   * Builds a Feedback.
+   * @returns {Feedback}
+   */
+  Feedback.build = () => new Feedback();
+
+  return Feedback;
+}
+
+export default feedbackMessage;
