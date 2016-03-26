@@ -1,45 +1,41 @@
-(function () {
-  'use strict';
+function AccountModal($rootScope, $timeout, AUTH_MODAL) {
+  'ngInject';
 
-  /* Account modal */
-  angular
-    .module('revaluate.account')
-    .service('AccountModal', function ($rootScope, $timeout, AUTH_MODAL) {
+  // By default the modal is closed
+  this.isOpen = false;
+  this.state = null;
 
-      // By default the modal is closed
+  // Open the modal
+  this.open = function () {
+    $timeout(_.bind(function () {
+      this.isOpen = true;
+    }, this));
+  };
+
+  // Close the modal
+  this.close = function () {
+    $timeout(_.bind(function () {
       this.isOpen = false;
-      this.state = null;
+    }, this));
+  };
 
-      // Open the modal
-      this.open = function () {
-        $timeout(_.bind(function () {
-          this.isOpen = true;
-        }, this));
-      };
+  // Set state
+  this.setState = function (state) {
+    $timeout(_.bind(function () {
+      this.state = state;
+    }, this));
+  };
 
-      // Close the modal
-      this.close = function () {
-        $timeout(_.bind(function () {
-          this.isOpen = false;
-        }, this));
-      };
+  // Open with state
+  this.openWithState = function (state) {
+    this.setState(state);
+    this.open();
+  };
 
-      // Set state
-      this.setState = function (state) {
-        $timeout(_.bind(function () {
-          this.state = state;
-        }, this));
-      };
+  // Listen to the login event
+  $rootScope.$on(AUTH_MODAL.close, _.bind(function () {
+    this.close();
+  }, this));
+}
 
-      // Open with state
-      this.openWithState = function (state) {
-        this.setState(state);
-        this.open();
-      };
-
-      // Listen to the login event
-      $rootScope.$on(AUTH_MODAL.close, _.bind(function () {
-        this.close();
-      }, this));
-    });
-}());
+export default AccountModal;

@@ -1,13 +1,7 @@
-(function () {
-  'use strict';
+function currencysFilter($filter) {
+  'ngInject';
 
-  angular
-    .module('revaluate.common')
-    .filter('currencys', function ($filter) {
-        return function (num, symbol, fractionSize) {
+  return (num, symbol, fractionSize) => `${$filter('currency')(num, '', fractionSize)}<span class="currency__symbol">${symbol}</span>`;
+}
 
-          return $filter('currency')(num, '', fractionSize) + '<span class="currency__symbol">' + symbol + '</span>';
-        };
-      }
-    );
-}());
+export default currencysFilter;

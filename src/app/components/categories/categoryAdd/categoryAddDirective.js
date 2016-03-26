@@ -1,83 +1,90 @@
-(function () {
-  'use strict';
+function AddCategoryController(CATEGORY_EVENTS,
+                               $scope,
+                               promiseTracker,
+                               Category,
+                               CategoryColorService,
+                               CategoryService) {
+  'ngInject';
 
-  function AddCategoryController(CATEGORY_EVENTS, $scope, promiseTracker, Category, CategoryColorService, CategoryService) {
+  const _this = this;
 
-    var vm = this;
+  /**
+   * Create a saving tracker.
+   */
+  _this.saveTracker = promiseTracker();
 
-    /**
-     * Create a saving tracker.
-     */
-    vm.saveTracker = promiseTracker();
+  _this.initOrResetAddCategory = initOrResetAddCategory;
 
-    vm.initOrResetAddCategory = initOrResetAddCategory;
+  /**
+   * Saves the category.
+   */
+  _this.saveCategory = saveCategory;
 
-    /**
-     * Saves the category.
-     */
-    vm.saveCategory = saveCategory;
+  /**
+   * Perform the first initialization.
+   */
+  _this.initOrResetAddCategory();
 
-    /**
-     * Perform the first initialization.
-     */
-    vm.initOrResetAddCategory();
+  function initOrResetAddCategory() {
+    _this.category = new Category({ color: CategoryColorService.randomizedColor(_this.colors) });
 
-    function initOrResetAddCategory() {
-      vm.category = new Category({ color: CategoryColorService.randomizedColor(vm.colors) });
-
-      if (vm.categoryForm) {
-        vm.categoryForm.$setPristine();
-      }
-
-      vm.badPostSubmitResponse = false;
+    if (_this.categoryForm) {
+      _this.categoryForm.$setPristine();
     }
 
-    function saveCategory() {
-      CategoryService
-        .createCategory(vm.category, vm.saveTracker)
-        .then(function (createdCategory) {
-          $scope.$emit(CATEGORY_EVENTS.isCreated, { category: createdCategory });
-          vm.initOrResetAddCategory();
-        })
-        .catch(function () {
-          vm.badPostSubmitResponse = true;
-          $scope.$emit(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something went wrong.' });
-        });
-    }
-
+    _this.badPostSubmitResponse = false;
   }
 
-  angular
-    .module('revaluate.categories')
-    .directive('categoryAdd', function ($rootScope, promiseTracker, Category, CategoryService, CategoryColorService, CATEGORY_EVENTS) {
-      return {
-        restrict: 'A',
-        scope: {
-          colors: '=',
-          isMaximumNumberOfAllowedCategoriesExceeded: '&',
-        },
-        controller: AddCategoryController,
-        bindToController: true,
-        controllerAs: 'vm',
-        templateUrl: '/app/components/categories/categoryAdd/categoryAddDirective.tpl.html',
-        link: function (scope) {
+  function saveCategory() {
+    CategoryService
+      .createCategory(_this.category, _this.saveTracker)
+      .then(createdCategory => {
+        $scope.$emit(CATEGORY_EVENTS.isCreated, { category: createdCategory });
+        _this.initOrResetAddCategory();
+      })
+      .catch(() => {
+        _this.badPostSubmitResponse = true;
+        $scope.$emit(
+          CATEGORY_EVENTS.isErrorOccurred,
+          { errorMessage: 'Ups, something went wrong.' }
+        );
+      });
+  }
 
-          /**
-           * Show block content
-           */
-          scope.showContent = false;
+}
 
-          /**
-           * Toggle content
-           */
-          scope.toggleContent = function () {
-            scope.showContent = !scope.showContent;
-          };
+function categoryAddDirective(CATEGORY_EVENTS) {
+  'ngInject';
 
-          scope.$on(CATEGORY_EVENTS.isCreated, function () {
-            scope.toggleContent();
-          });
-        },
+  return {
+    restrict: 'A',
+    scope: {
+      colors: '=',
+      isMaximumNumberOfAllowedCategoriesExceeded: '&',
+    },
+    controller: AddCategoryController,
+    bindToController: true,
+    controllerAs: 'vm',
+    templateUrl: '/app/components/categories/categoryAdd/categoryAddDirective.tpl.html',
+    link(scope) {
+
+      /**
+       * Show block content
+       */
+      scope.showContent = false;
+
+      /**
+       * Toggle content
+       */
+      scope.toggleContent = () => {
+        scope.showContent = !scope.showContent;
       };
-    });
-}());
+
+      scope.$on(CATEGORY_EVENTS.isCreated, () => {
+        scope.toggleContent();
+      });
+    },
+  };
+}
+
+export default categoryAddDirective;

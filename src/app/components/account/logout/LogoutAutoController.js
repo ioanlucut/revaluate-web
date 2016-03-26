@@ -1,19 +1,14 @@
-(function () {
-  'use strict';
+/**
+ * Logout controller responsible for user logout action.
+ */
+function LogoutAutoController($scope, $timeout, $controller) {
+  'ngInject';
 
-  /**
-   * Logout controller responsible for user logout action.
-   */
-  angular
-    .module('revaluate.account')
-    .controller('LogoutAutoController', function ($scope, $timeout, $controller) {
+  const TIMEOUT = 1500, _this = $controller('LogoutController', { $scope });
 
-      var
-        TIMEOUT = 1500,
-        vm = $controller('LogoutController', { $scope: $scope });
+  $timeout(() => {
+    _this.logOut();
+  }, TIMEOUT);
+}
 
-      $timeout(function () {
-        vm.logOut();
-      }, TIMEOUT);
-    });
-}());
+export default LogoutAutoController;

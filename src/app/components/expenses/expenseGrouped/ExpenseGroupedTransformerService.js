@@ -1,28 +1,23 @@
-(function () {
-  'use strict';
+function ExpenseGroupedTransformerService(ExpenseTransformerService, ExpenseGrouped) {
+  'ngInject';
 
-  angular
-    .module('revaluate.expenses')
-    .service('ExpenseGroupedTransformerService', function (ExpenseTransformerService, Expense, ExpenseGrouped) {
+  this.expenseGroupedApiResponseTransformer = responseData => {
+    function toExpensesGrouped(queryResponse) {
+      const groupedExpensesDTOList = _.map(queryResponse.groupedExpensesDTOList, expenseGroupedDtoEntry => new ExpenseGrouped({
+        localDate: moment(expenseGroupedDtoEntry.localDate).toDate(),
+        expenseDTOs: ExpenseTransformerService.expenseApiResponseTransformer({ data: expenseGroupedDtoEntry.expenseDTOs }),
+      }));
 
-      this.expenseGroupedApiResponseTransformer = function (responseData) {
-        function toExpensesGrouped(queryResponse) {
-          var groupedExpensesDTOList = _.map(queryResponse.groupedExpensesDTOList, function (expenseGroupedDtoEntry) {
-            return new ExpenseGrouped({
-              localDate: moment(expenseGroupedDtoEntry.localDate).toDate(),
-              expenseDTOs: ExpenseTransformerService.expenseApiResponseTransformer({ data: expenseGroupedDtoEntry.expenseDTOs }),
-            });
-          });
-
-          return {
-            groupedExpensesDTOList: groupedExpensesDTOList,
-            currentPage: queryResponse.currentPage,
-            currentSize: queryResponse.currentSize,
-            totalSize: queryResponse.totalSize,
-          };
-        }
-
-        return toExpensesGrouped(responseData.data);
+      return {
+        groupedExpensesDTOList,
+        currentPage: queryResponse.currentPage,
+        currentSize: queryResponse.currentSize,
+        totalSize: queryResponse.totalSize,
       };
-    });
-}());
+    }
+
+    return toExpensesGrouped(responseData.data);
+  };
+}
+
+export default ExpenseGroupedTransformerService;

@@ -1,12 +1,5 @@
-(function () {
-  'use strict';
+function greeterFilter() {
+  return (greets, userName) => greets.format(userName);
+}
 
-  angular
-    .module('revaluate.expenses')
-    .filter('greets', function () {
-      return function (greets, userName) {
-
-        return greets.format(userName);
-      };
-    });
-}());
+export default greeterFilter;

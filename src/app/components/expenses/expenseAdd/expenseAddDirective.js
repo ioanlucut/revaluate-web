@@ -1,102 +1,108 @@
-(function () {
-  'use strict';
+function AddExpenseController(EXPENSE_EVENTS,
+                              APP_CONFIG,
+                              $scope,
+                              $rootScope,
+                              ExpenseService,
+                              Expense,
+                              promiseTracker) {
+  'ngInject';
 
-  function AddExpenseController(EXPENSE_EVENTS, APP_CONFIG, $scope, $rootScope, ExpenseService, Expense, promiseTracker) {
+  const _this = this;
 
-    var vm = this;
+  /**
+   * Current user.
+   */
+  this.user = $rootScope.currentUser;
 
-    /**
-     * Current user.
-     */
-    this.user = $rootScope.currentUser;
+  /**
+   * Create a saving tracker.
+   */
+  this.saveTracker = promiseTracker();
 
-    /**
-     * Create a saving tracker.
-     */
-    this.saveTracker = promiseTracker();
+  /**
+   * Initialize or reset the add expense form
+   */
+  this.initOrResetAddExpense = initOrResetAddExpense;
 
-    /**
-     * Initialize or reset the add expense form
-     */
-    this.initOrResetAddExpense = initOrResetAddExpense;
+  /**
+   * The save expense functionality
+   */
+  this.saveExpense = saveExpense;
 
-    /**
-     * The save expense functionality
-     */
-    this.saveExpense = saveExpense;
+  /**
+   * Open date picker
+   */
+  this.openDatePicker = openDatePicker;
 
-    /**
-     * Open date picker
-     */
-    this.openDatePicker = openDatePicker;
+  /**
+   * Minimum date to create expense.
+   */
+  this.datePickerMinDate = angular.copy(APP_CONFIG.EXPENSES_ALLOWED_MIN_DATE);
 
-    /**
-     * Minimum date to create expense.
-     */
-    this.datePickerMinDate = angular.copy(APP_CONFIG.EXPENSES_ALLOWED_MIN_DATE);
+  /**
+   * Perform the first initialization.
+   */
+  this.initOrResetAddExpense();
 
-    /**
-     * Perform the first initialization.
-     */
-    this.initOrResetAddExpense();
+  function initOrResetAddExpense() {
+    _this.expense = new Expense({
+      spentDate: moment().toDate(),
+    });
 
-    function initOrResetAddExpense() {
-      vm.expense = new Expense({
-        spentDate: moment().toDate(),
-      });
+    _this.category = {};
 
-      vm.category = {};
-
-      if (vm.expenseForm) {
-        vm.expenseForm.$setPristine();
-      }
-
-      vm.badPostSubmitResponse = false;
-
-      /**
-       * Max date to create expense
-       */
-      vm.datePickerMaxDate = moment().hours(0).minutes(0).seconds(0);
+    if (_this.expenseForm) {
+      _this.expenseForm.$setPristine();
     }
 
-    function saveExpense() {
-      this.expense.category = angular.copy(this.category.selected);
+    _this.badPostSubmitResponse = false;
 
-      ExpenseService
-        .createExpense(this.expense, vm.saveTracker)
-        .then(function (createdExpense) {
-          $rootScope.$broadcast(EXPENSE_EVENTS.isCreated, { expense: createdExpense });
-          vm.initOrResetAddExpense();
-        })
-        .catch(function () {
-          vm.badPostSubmitResponse = true;
-          $scope.$emit(EXPENSE_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something went wrong.' });
-        });
-    }
-
-    function openDatePicker($event) {
-      $event.preventDefault();
-      $event.stopPropagation();
-
-      vm.datePickerOpened = true;
-    }
-
+    /**
+     * Max date to create expense
+     */
+    _this.datePickerMaxDate = moment().hours(0).minutes(0).seconds(0);
   }
 
-  angular
-    .module('revaluate.expenses')
-    .directive('expenseAdd', function () {
-      return {
-        restrict: 'A',
-        scope: {
-          categories: '=',
-        },
-        controller: AddExpenseController,
-        bindToController: true,
-        controllerAs: 'vm',
-        templateUrl: '/app/components/expenses/expenseAdd/expenseAddDirective.tpl.html',
-        link: function () {
-        },
-      };
-    });
-}());
+  function saveExpense() {
+    this.expense.category = angular.copy(this.category.selected);
+
+    ExpenseService
+      .createExpense(this.expense, _this.saveTracker)
+      .then(createdExpense => {
+        $rootScope.$broadcast(EXPENSE_EVENTS.isCreated, { expense: createdExpense });
+        _this.initOrResetAddExpense();
+      })
+      .catch(() => {
+        _this.badPostSubmitResponse = true;
+        $scope.$emit(
+          EXPENSE_EVENTS.isErrorOccurred,
+          { errorMessage: 'Ups, something went wrong.' }
+        );
+      });
+  }
+
+  function openDatePicker($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    _this.datePickerOpened = true;
+  }
+
+}
+
+function expenseAddDirective() {
+  return {
+    restrict: 'A',
+    scope: {
+      categories: '=',
+    },
+    controller: AddExpenseController,
+    bindToController: true,
+    controllerAs: 'vm',
+    templateUrl: '/app/components/expenses/expenseAdd/expenseAddDirective.tpl.html',
+    link() {
+    },
+  };
+}
+
+export default expenseAddDirective;

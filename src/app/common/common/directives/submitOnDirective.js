@@ -1,17 +1,15 @@
-(function () {
-  'use strict';
+function submitOnDirective($timeout) {
+  'ngInject';
 
-  angular
-    .module('revaluate.common')
-    .directive('submitOn', function ($timeout) {
-      return {
-        link: function (scope, elm, attrs) {
-          scope.$on(attrs.submitOn, function () {
-            $timeout(function () {
-              elm.trigger('submit');
-            });
-          });
-        },
-      };
-    });
-}());
+  return {
+    link(scope, elm, attrs) {
+      scope.$on(attrs.submitOn, () => {
+        $timeout(() => {
+          elm.trigger('submit');
+        });
+      });
+    },
+  };
+}
+
+export default submitOnDirective;

@@ -1,117 +1,125 @@
-(function () {
-  'use strict';
+function CategoryEntryController(CATEGORY_EVENTS, $scope, $rootScope, promiseTracker, CategoryService) {
+  'ngInject';
 
-  function CategoryEntryController(CATEGORY_EVENTS, $scope, $rootScope, promiseTracker, CategoryService) {
+  const _this = this;
 
-    var vm = this;
+  /**
+   * Work with a copy - keep the master backup
+   */
+  _this.categoryEntry = angular.copy($scope.category);
 
-    /**
-     * Work with a copy - keep the master backup
-     */
-    vm.categoryEntry = angular.copy($scope.category);
+  /**
+   * Create an updating tracker.
+   */
+  _this.updateTracker = promiseTracker();
 
-    /**
-     * Create an updating tracker.
-     */
-    vm.updateTracker = promiseTracker();
+  /**
+   * Update the category.
+   */
+  _this.updateCategory = updateCategory;
 
-    /**
-     * Update the category.
-     */
-    vm.updateCategory = updateCategory;
+  /**
+   * Create an deleting tracker.
+   */
+  _this.deleteTracker = promiseTracker();
 
-    /**
-     * Create an deleting tracker.
-     */
-    vm.deleteTracker = promiseTracker();
+  /**
+   * Delete category;
+   */
+  _this.deleteCategory = deleteCategory;
 
-    /**
-     * Delete category;
-     */
-    vm.deleteCategory = deleteCategory;
-
-    function updateCategory() {
-      CategoryService
-        .updateCategory(vm.categoryEntry, vm.updateTracker)
-        .then(function (updatedCategory) {
-          $rootScope.$broadcast(CATEGORY_EVENTS.isUpdated, { category: _.extend(vm.categoryEntry, updatedCategory) });
-        })
-        .catch(function () {
-          vm.badPostSubmitResponse = true;
-          $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something went wrong.' });
-        });
-    }
-
-    function deleteCategory() {
-      CategoryService
-        .deleteCategory(vm.categoryEntry, vm.deleteTracker)
-        .then(function () {
-          vm.isSuccessfullyDeleted = true;
-          $rootScope.$broadcast(CATEGORY_EVENTS.isDeleted, { category: vm.categoryEntry });
-        })
-        .catch(function () {
-          $rootScope.$broadcast(CATEGORY_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something went wrong.' });
-        });
-    }
+  function updateCategory() {
+    CategoryService
+      .updateCategory(_this.categoryEntry, _this.updateTracker)
+      .then(updatedCategory => {
+        $rootScope.$broadcast(
+          CATEGORY_EVENTS.isUpdated,
+          { category: _.extend(_this.categoryEntry, updatedCategory) }
+        );
+      })
+      .catch(() => {
+        _this.badPostSubmitResponse = true;
+        $rootScope.$broadcast(
+          CATEGORY_EVENTS.isErrorOccurred,
+          { errorMessage: 'Ups, something went wrong.' }
+        );
+      });
   }
 
-  angular
-    .module('revaluate.categories')
-    .directive('categoryEntry', function ($rootScope, promiseTracker, CategoryService, CATEGORY_EVENTS) {
-      return {
-        restrict: 'A',
-        scope: {
-          category: '=',
-          colors: '=',
-          isMinimumNumberOfAllowedCategoriesExceeded: '&',
-        },
-        controller: CategoryEntryController,
-        controllerAs: 'vm',
-        templateUrl: '/app/components/categories/categoryEntry/categoryEntryDirective.html',
-        link: function (scope, el, attrs, vm) {
+  function deleteCategory() {
+    CategoryService
+      .deleteCategory(_this.categoryEntry, _this.deleteTracker)
+      .then(() => {
+        _this.isSuccessfullyDeleted = true;
+        $rootScope.$broadcast(CATEGORY_EVENTS.isDeleted, { category: _this.categoryEntry });
+      })
+      .catch(() => {
+        $rootScope.$broadcast(
+          CATEGORY_EVENTS.isErrorOccurred,
+          { errorMessage: 'Ups, something went wrong.' }
+        );
+      });
+  }
+}
 
-          /**
-           * Show block content
-           */
-          scope.showContent = false;
+function categoryEntryDirective($rootScope, CATEGORY_EVENTS) {
+  'ngInject';
 
-          /**
-           * Toggle content
-           */
-          scope.toggleContent = function () {
-            scope.showContent = !scope.showContent;
-          };
+  return {
+    restrict: 'A',
+    scope: {
+      category: '=',
+      colors: '=',
+      isMinimumNumberOfAllowedCategoriesExceeded: '&',
+    },
+    controller: CategoryEntryController,
+    controllerAs: 'vm',
+    templateUrl: '/app/components/categories/categoryEntry/categoryEntryDirective.html',
+    link(scope, el, attrs, _this) {
 
-          /**
-           * Toggle and discard changes.
-           */
-          scope.cancel = function () {
-            scope.toggleContent();
+      /**
+       * Show block content
+       */
+      scope.showContent = false;
 
-            vm.categoryEntry = angular.copy(scope.category);
-          };
-
-          /**
-           * On category updated/deleted
-           */
-          $rootScope.$on(CATEGORY_EVENTS.isUpdated, function (event, args) {
-            if (scope.category.id === args.category.id) {
-              scope.toggleContent();
-
-              // ---
-              // Update the master category.
-              // ---
-              scope.category = angular.copy(vm.categoryEntry);
-              vm.categoryEntry = angular.copy(scope.category);
-            }
-          });
-
-          scope.$on(CATEGORY_EVENTS.isDeleted, function (event, args) {
-            if (scope.category.id === args.category.id) {
-              scope.toggleContent();
-            }
-          });
-        },
+      /**
+       * Toggle content
+       */
+      scope.toggleContent = () => {
+        scope.showContent = !scope.showContent;
       };
-    });
-}());
+
+      /**
+       * Toggle and discard changes.
+       */
+      scope.cancel = () => {
+        scope.toggleContent();
+
+        _this.categoryEntry = angular.copy(scope.category);
+      };
+
+      /**
+       * On category updated/deleted
+       */
+      $rootScope.$on(CATEGORY_EVENTS.isUpdated, (event, args) => {
+        if (scope.category.id === args.category.id) {
+          scope.toggleContent();
+
+          // ---
+          // Update the master category.
+          // ---
+          scope.category = angular.copy(_this.categoryEntry);
+          _this.categoryEntry = angular.copy(scope.category);
+        }
+      });
+
+      scope.$on(CATEGORY_EVENTS.isDeleted, (event, args) => {
+        if (scope.category.id === args.category.id) {
+          scope.toggleContent();
+        }
+      });
+    },
+  };
+}
+
+export default categoryEntryDirective;

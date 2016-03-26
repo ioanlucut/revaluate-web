@@ -18,6 +18,7 @@
         <link rel="apple-touch-icon" sizes="152x152" href="/assets/img/favicons/apple-touch-icon-152x152.png">
         <link rel="icon" type="image/png" href="/assets/img/favicons/apple-touch-icon-196x196.png" sizes="196x196">
         <title ng-bind="$state.current.title" class="ng-binding">Change the way you spend your money - Revaluate</title>
+        <base href="/">
 
         <!-- Typekit import -->
         <script src="https://use.typekit.net/tnp6cqt.js"></script>
@@ -45,8 +46,8 @@
             Please check our <a href="http://status.revaluate.io" target="_blank">status page</a> for updates on the service.
         </div>
 
-        <!--&lt;!&ndash; Feedback &ndash;&gt;-->
-        <!--<div feedback style="display: none;"></div>-->
+        <!-- Feedback -->
+        <div feedback style="display: none;"></div>
 
         <!-- Toast template -->
         <toast></toast>
@@ -82,7 +83,7 @@
         <!-- endbower -->
         <!-- endbuild -->
 
-        <!-- build:js({.tmp/serve,.tmp/partials,src}) /assets/scripts/app.js defer -->
+        <!-- build:js({.tmp/serve,.tmp/partials}) /assets/scripts/app.js defer -->
         <!-- inject:js -->
         <!-- js files will be automatically insert here -->
         <!-- endinject -->

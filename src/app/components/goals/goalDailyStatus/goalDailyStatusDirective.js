@@ -1,74 +1,71 @@
-(function () {
-  'use strict';
+function GoalDailyStatusController($rootScope, $filter, InsightsGenerator) {
+  'ngInject';
 
-  function GoalDailyStatusController($rootScope, $filter, InsightsGenerator) {
+  const _this = this;
 
-    var vm = this;
+  /**
+   * Insights current year
+   */
+  _this.currentYear = moment().year();
 
-    /**
-     * Insights current year
-     */
-    vm.currentYear = moment().year();
+  /**
+   * Current user.
+   */
+  _this.user = $rootScope.currentUser;
 
-    /**
-     * Current user.
-     */
-    vm.user = $rootScope.currentUser;
+  // ---
+  // Computed information.
+  // ---
+  _this.barInsightsPrepared = InsightsGenerator
+    .generateDailyBar(_this.currentYear, _this.insightsDaily);
 
-    // ---
-    // Computed information.
-    // ---
-    vm.barInsightsPrepared = InsightsGenerator
-      .generateDailyBar(vm.currentYear, vm.insightsDaily);
+  _this.barOptions = {
+    scaleLabel(label) {
+      return formatChartValue(label);
+    },
 
-    vm.barOptions = {
-      scaleLabel: function (label) {
-        return formatChartValue(label);
-      },
+    multiTooltipTemplate(label) {
+      return formatChartValue(label);
+    },
 
-      multiTooltipTemplate: function (label) {
-        return formatChartValue(label);
-      },
+    tooltipTemplate(label) {
+      return formatChartValue(label);
+    },
 
-      tooltipTemplate: function (label) {
-        return formatChartValue(label);
-      },
+    scaleShowHorizontalLines: false,
+    scaleShowVerticalLines: false,
+    scaleShowLabels: false,
+    scaleShowGridLines: false,
+    showScale: true,
+    scaleFontSize: 10,
+    tooltipFontSize: 12,
+    tooltipTitleFontSize: 12,
+    tooltipYPadding: 10,
+    tooltipXPadding: 10,
+    barValueSpacing: 2,
+    maintainAspectRatio: false,
+    responsive: true,
+  };
 
-      scaleShowHorizontalLines: false,
-      scaleShowVerticalLines: false,
-      scaleShowLabels: false,
-      scaleShowGridLines: false,
-      showScale: true,
-      scaleFontSize: 10,
-      tooltipFontSize: 12,
-      tooltipTitleFontSize: 12,
-      tooltipYPadding: 10,
-      tooltipXPadding: 10,
-      barValueSpacing: 2,
-      maintainAspectRatio: false,
-      responsive: true,
-    };
-
-    function formatChartValue(price) {
-      return $filter('currency')(price.value.toString(), '', vm.user.model.currency.fractionSize) + ' ' + vm.user.model.currency.symbol;
-    }
-
+  function formatChartValue(price) {
+    return `${$filter('currency')(price.value.toString(), '', _this.user.model.currency.fractionSize)} ${_this.user.model.currency.symbol}`;
   }
 
-  angular
-    .module('revaluate.goals')
-    .directive('goalDailyStatus', function () {
-      return {
-        restrict: 'E',
-        scope: {
-          insightsDaily: '=',
-        },
-        controller: GoalDailyStatusController,
-        bindToController: true,
-        controllerAs: 'vm',
-        templateUrl: '/app/components/goals/goalDailyStatus/goalDailyStatusDirective.tpl.html',
-        link: function () {
-        },
-      };
-    });
-}());
+}
+
+function goalDailyStatusDirective() {
+  return {
+    restrict: 'E',
+    scope: {
+      insightsDaily: '=',
+    },
+    controller: GoalDailyStatusController,
+    bindToController: true,
+    controllerAs: 'vm',
+    templateUrl: '/app/components/goals/goalDailyStatus/goalDailyStatusDirective.tpl.html',
+    link() {
+    },
+  };
+}
+
+export default goalDailyStatusDirective;

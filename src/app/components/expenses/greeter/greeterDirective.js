@@ -1,28 +1,26 @@
-(function () {
-  'use strict';
+function greeterDirective($rootScope, $timeout) {
+  'ngInject';
 
-  angular
-    .module('revaluate.expenses')
-    .directive('greeter', function ($rootScope, $timeout) {
-      return {
-        restrict: 'E',
-        scope: {
-          greet: '=',
-        },
-        templateUrl: '/app/components/expenses/greeter/greeterDirective.tpl.html',
-        link: function (scope, el) {
-          var TIMEOUT = 1000;
+  return {
+    restrict: 'E',
+    scope: {
+      greet: '=',
+    },
+    templateUrl: '/app/components/expenses/greeter/greeterDirective.tpl.html',
+    link(scope, el) {
+      const TIMEOUT = 1000;
 
-          scope.user = $rootScope.currentUser;
+      scope.user = $rootScope.currentUser;
 
-          scope.$on('$viewContentLoaded', function () {
-            if (!el.is(':visible')) {
-              $timeout(function () {
-                el.show();
-              }, TIMEOUT);
-            }
-          });
-        },
-      };
-    });
-}());
+      scope.$on('$viewContentLoaded', () => {
+        if (!el.is(':visible')) {
+          $timeout(() => {
+            el.show();
+          }, TIMEOUT);
+        }
+      });
+    },
+  };
+}
+
+export default greeterDirective;

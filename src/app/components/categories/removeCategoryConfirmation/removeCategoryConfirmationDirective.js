@@ -1,73 +1,71 @@
-(function () {
-  'use strict';
+/* Auto focus */
 
-  /* Auto focus */
+function removeCategoryConfirmationDirective($timeout) {
+  'ngInject';
 
-  angular
-    .module('revaluate.categories')
-    .directive('removeCategoryConfirmation', function ($timeout) {
-      return {
-        restrict: 'A',
-        transclude: true,
-        scope: {
-          category: '=',
-          autoToggleWhen: '=',
-          progressTracker: '=',
-          confirm: '&',
-          cancel: '&',
-        },
-        templateUrl: '/app/components/categories/removeCategoryConfirmation/removeCategoryConfirmationDirective.tpl.html',
-        link: function (scope) {
+  return {
+    restrict: 'A',
+    transclude: true,
+    scope: {
+      category: '=',
+      autoToggleWhen: '=',
+      progressTracker: '=',
+      confirm: '&',
+      cancel: '&',
+    },
+    templateUrl: '/app/components/categories/removeCategoryConfirmation/removeCategoryConfirmationDirective.tpl.html',
+    link(scope) {
 
-          /**
-           * Show block content
-           * @type {boolean}
-           */
-          scope.showConfirmationContent = false;
+      /**
+       * Show block content
+       * @type {boolean}
+       */
+      scope.showConfirmationContent = false;
 
-          /**
-           * Is message acknowledge
-           * @type {boolean}
-           */
-          scope.messageAcknowledged = false;
+      /**
+       * Is message acknowledge
+       * @type {boolean}
+       */
+      scope.messageAcknowledged = false;
 
-          /**
-           * Perform confirm.
-           */
-          scope.doConfirm = function () {
-            if (scope.messageAcknowledged) {
-              return;
-            }
+      /**
+       * Perform confirm.
+       */
+      scope.doConfirm = () => {
+        if (scope.messageAcknowledged) {
+          return;
+        }
 
-            scope.confirm();
-          };
-
-          /**
-           * Toggle content
-           */
-          scope.toggleConfirmationContent = function () {
-            scope.showConfirmationContent = !scope.showConfirmationContent;
-          };
-
-          /**
-           * Close and toggle content
-           */
-          scope.closeAndToggle = function () {
-            scope.cancel();
-            scope.toggleConfirmationContent();
-          };
-
-          /**
-           * Auto toggle
-           */
-          scope.$watch('autoToggleWhen', function (val, valOld) {
-            if (val === true && valOld === false) {
-              $timeout(function () {
-                scope.toggleConfirmationContent();
-              });
-            }
-          });
-        },
+        scope.confirm();
       };
-    });
-}());
+
+      /**
+       * Toggle content
+       */
+      scope.toggleConfirmationContent = () => {
+        scope.showConfirmationContent = !scope.showConfirmationContent;
+      };
+
+      /**
+       * Close and toggle content
+       */
+      scope.closeAndToggle = () => {
+        scope.cancel();
+        scope.toggleConfirmationContent();
+      };
+
+      /**
+       * Auto toggle
+       */
+      scope.$watch('autoToggleWhen', (val, valOld) => {
+        if (val === true && valOld === false) {
+          $timeout(() => {
+            scope.toggleConfirmationContent();
+          });
+        }
+      });
+    },
+  };
+}
+
+export default removeCategoryConfirmationDirective;

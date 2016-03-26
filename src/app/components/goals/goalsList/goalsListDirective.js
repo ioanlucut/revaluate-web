@@ -1,53 +1,50 @@
-(function () {
-  'use strict';
+function GoalListController($timeout) {
+  'ngInject';
 
-  function GoalListController($timeout) {
-    var vm = this,
-      TIMEOUT = 200;
+  const _this = this, TIMEOUT = 200;
 
-    /**
-     * Initial selected order by
-     */
-    this.selectedOrderBy = 'createdDate';
+  /**
+   * Initial selected order by
+   */
+  this.selectedOrderBy = 'createdDate';
 
-    /**
-     * Sets the selected order by
-     */
-    this.setSelectedOrderBy = setSelectedOrderBy;
+  /**
+   * Sets the selected order by
+   */
+  this.setSelectedOrderBy = setSelectedOrderBy;
 
-    /**
-     * Is loading more goals flag.
-     */
-    this.isUpdatingListLayout = false;
+  /**
+   * Is loading more goals flag.
+   */
+  this.isUpdatingListLayout = false;
 
-    function setSelectedOrderBy(by) {
-      vm.isUpdatingListLayout = !vm.isUpdatingListLayout;
+  function setSelectedOrderBy(by) {
+    _this.isUpdatingListLayout = !_this.isUpdatingListLayout;
 
-      $timeout(function () {
-        vm.selectedOrderBy = by;
-        vm.isUpdatingListLayout = !vm.isUpdatingListLayout;
-      }, TIMEOUT);
-    }
+    $timeout(() => {
+      _this.selectedOrderBy = by;
+      _this.isUpdatingListLayout = !_this.isUpdatingListLayout;
+    }, TIMEOUT);
   }
+}
 
-  angular
-    .module('revaluate.goals')
-    .directive('goalsList', function () {
-      return {
-        restrict: 'A',
-        replace: true,
-        scope: {
-          goals: '=',
-          categories: '=',
-        },
-        controller: GoalListController,
-        bindToController: true,
-        controllerAs: 'vm',
-        templateUrl: '/app/components/goals/goalsList/goalsListDirective.tpl.html',
-        link: function (scope, el, attrs) {
+function goalsListDirective() {
+  return {
+    restrict: 'A',
+    replace: true,
+    scope: {
+      goals: '=',
+      categories: '=',
+    },
+    controller: GoalListController,
+    bindToController: true,
+    controllerAs: 'vm',
+    templateUrl: '/app/components/goals/goalsList/goalsListDirective.tpl.html',
+    link(scope, el, attrs) {
 
-          scope.reverseOrder = attrs.sort === 'desc';
-        },
-      };
-    });
-}());
+      scope.reverseOrder = attrs.sort === 'desc';
+    },
+  };
+}
+
+export default goalsListDirective;

@@ -1,7 +1,2 @@
-(function () {
-  'use strict';
+export default URLTo.api('payment/fetchToken');
 
-  angular
-    .module('revaluate.settings')
-    .value('clientTokenPath', URLTo.api('payment/fetchToken'));
-}());

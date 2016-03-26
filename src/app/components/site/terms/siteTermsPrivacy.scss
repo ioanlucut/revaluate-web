@@ -1,15 +1,14 @@
 .site__container__section__terms {
-  @include border-radius($base-border-radius);
-  margin: 15px auto;
-  padding: 30px;
-  text-align: justify;
+    @include border-radius($base-border-radius);
+    margin: 15px auto;
+    padding: 30px;
+    text-align: justify;
 
+    p {
+        line-height: 2;
+    }
 
-  p {
-    line-height: 2;
-  }
-
-  h3 {
-    margin-top: 20px;
-  }
+    h3 {
+        margin-top: 20px;
+    }
 }

@@ -1,65 +1,66 @@
-(function () {
-  'use strict';
+function SocialConnectController($scope,
+                                 SocialConnectService,
+                                 ALERTS_EVENTS,
+                                 ALERTS_CONSTANTS,
+                                 StatesHandler,
+                                 APP_CONFIG,
+                                 AuthService) {
+  'ngInject';
 
-  angular
-    .module('revaluate.account')
-    .controller('SocialConnectController', function ($rootScope, $scope, $q, $timeout, SocialConnectService, ALERTS_EVENTS, ALERTS_CONSTANTS, StatesHandler, User, APP_CONFIG, AuthService) {
+  const _this = this;
 
-      var vm = this;
+  /**
+   * Alert identifier
+   */
+  _this.alertId = ALERTS_CONSTANTS.oauthConnect;
 
-      /**
-       * Alert identifier
-       */
-      vm.alertId = ALERTS_CONSTANTS.oauthConnect;
+  /*
+   * Connect functionality.
+   */
+  _this.connectWith = provider => {
+    if (!_this.isRequestPending) {
 
-      /*
-       * Connect functionality.
-       */
-      vm.connectWith = function (provider) {
-        if (!vm.isRequestPending) {
+      _this.isRequestPending = true;
 
-          vm.isRequestPending = true;
+      SocialConnectService
+        .connect(provider)
+        .then(response => {
+          const userType = _.find(APP_CONFIG.USER_TYPES, userTypeEntry => userTypeEntry.indexOf(provider.toUpperCase()) > -1);
 
-          SocialConnectService
-            .connect(provider)
-            .then(function (response) {
-              var userType = _.find(APP_CONFIG.USER_TYPES, function (userTypeEntry) {
-                return userTypeEntry.indexOf(provider.toUpperCase()) > -1;
+          return AuthService
+            .connectViaOauth(response.email,
+              _.extend(response, {
+                userType,
+                currency: {
+                  currencyCode: 'EUR',
+                },
+              }), {
+                oAuthData: {
+                  picture: response.picture,
+                },
               });
+        })
+        .then(() => {
+          _this.isRequestPending = false;
+          $scope.$emit(ALERTS_EVENTS.CLEAR, {
+            alertId: _this.alertId,
+          });
 
-              return AuthService
-                .connectViaOauth(response.email,
-                  _.extend(response, {
-                    userType: userType,
-                    currency: {
-                      currencyCode: 'EUR',
-                    },
-                  }), {
-                    oAuthData: {
-                      picture: response.picture,
-                    },
-                  });
-            })
-            .then(function () {
-              vm.isRequestPending = false;
-              $scope.$emit(ALERTS_EVENTS.CLEAR, {
-                alertId: vm.alertId,
-              });
+          StatesHandler.goToExpenses();
+        })
+        .catch(response => {
+          /* If bad feedback from server */
+          _this.badPostSubmitResponse = true;
+          _this.isRequestPending = false;
 
-              StatesHandler.goToExpenses();
-            })
-            .catch(function (response) {
-              /* If bad feedback from server */
-              vm.badPostSubmitResponse = true;
-              vm.isRequestPending = false;
+          $scope.$emit(ALERTS_EVENTS.DANGER, {
+            message: response && response.status === 400 ? 'You can\'t connect with this email. This email is already registered but with a different provider.' : 'Ups, something went wrong.',
+            alertId: _this.alertId,
+          });
+        });
+    }
+  };
 
-              $scope.$emit(ALERTS_EVENTS.DANGER, {
-                message: response && response.status === 400 ? 'You can\'t connect with this email. This email is already registered but with a different provider.' : 'Ups, something went wrong.',
-                alertId: vm.alertId,
-              });
-            });
-        }
-      };
+}
 
-    });
-}());
+export default SocialConnectController;
