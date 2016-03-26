@@ -1,16 +1,71 @@
 'use strict';
 
+var path = require('path');
 var gulp = require('gulp');
+var conf = require('./conf');
+
 var browserSync = require('browser-sync');
+var webpack = require('webpack-stream');
 
 var $ = require('gulp-load-plugins')();
+var BowerWebpackPlugin = require('bower-webpack-plugin');
 
-module.exports = function (options) {
-  gulp.task('scripts', function () {
-    return gulp.src([options.src + '/vendor/**/*.js', options.src + '/app/**/*.js'])
-      .pipe($.jshint())
-      .pipe($.jshint.reporter('jshint-stylish'))
-      .pipe(browserSync.reload({ stream: true }))
-      .pipe($.size());
-  });
-};
+function webpackWrapper(watch, test, callback) {
+  var webpackOptions = {
+    watch: watch,
+    module: {
+      preLoaders: [{ test: /\.js$/, exclude: /node_modules/, loader: 'eslint-loader' }],
+      loaders: [{ test: /\.js$/, exclude: /node_modules/, loaders: ['ng-annotate', 'babel-loader'] }],
+    },
+    output: { filename: 'index.module.js' },
+    plugins: [new BowerWebpackPlugin()],
+  };
+
+  if (watch) {
+    webpackOptions.devtool = 'inline-source-map';
+  }
+
+  var webpackChangeHandler = function (err, stats) {
+    if (err) {
+      conf.errorHandler('Webpack')(err);
+    }
+
+    $.util.log(stats.toString({
+      colors: $.util.colors.supportsColor,
+      chunks: false,
+      hash: false,
+      version: false,
+    }));
+    browserSync.reload();
+    if (watch) {
+      watch = false;
+      callback();
+    }
+  };
+
+  var sources = [path.join(conf.paths.src, '/app/index.module.js')];
+  if (test) {
+    sources.push(path.join(conf.paths.src, '/app/**/*.spec.js'));
+    sources.push(path.join(conf.paths.src, '/app/**/*_test.js'));
+  }
+
+  return gulp.src(sources)
+    .pipe(webpack(webpackOptions, null, webpackChangeHandler))
+    .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve/app')));
+}
+
+gulp.task('scripts', function () {
+  return webpackWrapper(false, false);
+});
+
+gulp.task('scripts:watch', ['scripts'], function (callback) {
+  return webpackWrapper(true, false, callback);
+});
+
+gulp.task('scripts:test', function () {
+  return webpackWrapper(false, true);
+});
+
+gulp.task('scripts:test-watch', ['scripts'], function (callback) {
+  return webpackWrapper(true, true, callback);
+});

@@ -1,26 +1,24 @@
-(function () {
-  'use strict';
+function userProfilePictureHeaderDirective() {
+  return {
+    restrict: 'E',
+    scope: {},
+    controller($scope, $rootScope) {
+      'ngInject';
 
-  angular
-    .module('revaluate.common')
-    .directive('userProfilePictureHeader', function () {
-      return {
-        restrict: 'E',
-        scope: {},
-        controller: function ($scope, $rootScope) {
-          var userProfileVm = this;
+      const userProfileVm = this;
 
-          /**
-           * Current user.
-           */
-          userProfileVm.user = $rootScope.currentUser;
-        },
+      /**
+       * Current user.
+       */
+      userProfileVm.user = $rootScope.currentUser;
+    },
 
-        bindToController: true,
-        controllerAs: 'userProfileVm',
-        templateUrl: '/app/common/userProfilePicture/userProfilePictureHeaderDirective.tpl.html',
-        link: function () {
-        },
-      };
-    });
-}());
+    bindToController: true,
+    controllerAs: 'userProfileVm',
+    templateUrl: '/app/common/userProfilePicture/userProfilePictureHeaderDirective.tpl.html',
+    link() {
+    },
+  };
+}
+
+export default userProfilePictureHeaderDirective;

@@ -1,88 +1,89 @@
-(function () {
-  'use strict';
+/**
+ * Profile controller responsible for user update profile action.
+ */
+function SettingsProfileController($scope,
+                                   $rootScope,
+                                   AUTH_EVENTS,
+                                   ALERTS_EVENTS,
+                                   ALERTS_CONSTANTS) {
+  'ngInject';
+
+  const _this = this;
 
   /**
-   * Profile controller responsible for user update profile action.
+   * Alert identifier
    */
-  angular
-    .module('revaluate.settings')
-    .controller('SettingsProfileController', function ($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, ALERTS_EVENTS, ALERTS_CONSTANTS) {
+  _this.alertId = ALERTS_CONSTANTS.updateProfile;
 
-      var vm = this;
+  /**
+   * Current user.
+   */
+  _this.user = $rootScope.currentUser;
 
-      /**
-       * Alert identifier
-       */
-      vm.alertId = ALERTS_CONSTANTS.updateProfile;
+  /**
+   * Initial profile data
+   */
+  function getInitialProfileData() {
+    return {
+      firstName: _this.user.model.firstName,
+      lastName: _this.user.model.lastName,
+    };
+  }
 
-      /**
-       * Current user.
-       */
-      vm.user = $rootScope.currentUser;
+  /**
+   * Profile user information.
+   */
+  _this.profileData = angular.copy(getInitialProfileData());
 
-      /**
-       * Initial profile data
-       */
-      function getInitialProfileData() {
-        return {
-          firstName: vm.user.model.firstName,
-          lastName: vm.user.model.lastName,
-        };
-      }
+  /**
+   * Update profile functionality.
+   */
+  _this.updateProfile = () => {
 
-      /**
-       * Profile user information.
-       */
-      vm.profileData = angular.copy(getInitialProfileData());
+    if (_this.profileForm.$valid && !_this.isRequestPending) {
 
-      /**
-       * Update profile functionality.
-       */
-      vm.updateProfile = function () {
+      // Show the loading bar
+      _this.isRequestPending = true;
 
-        if (vm.profileForm.$valid && !vm.isRequestPending) {
+      // Update the user
+      _this.user
+        .updateAccountDetails(_this.profileData)
+        .then(response => {
+          // ---
+          // Reload data with given response.
+          // ---
+          _this.user
+            .loadFrom(response.data);
 
-          // Show the loading bar
-          vm.isRequestPending = true;
+          // ---
+          // We need to set the data and refresh the user.
+          // ---
+          SessionService.setData(response.data);
+          $rootScope.$broadcast(AUTH_EVENTS.refreshUser, response);
 
-          // Update the user
-          vm.user
-            .updateAccountDetails(vm.profileData)
-            .then(function (response) {
-              // ---
-              // Reload data with given response.
-              // ---
-              vm.user
-                .loadFrom(response.data);
+          // ---
+          // Reset the profile data with possible new data.
+          // ---
+          _this.profileData = angular.copy(getInitialProfileData());
 
-              // ---
-              // We need to set the data and refresh the user.
-              // ---
-              SessionService.setData(response.data);
-              $rootScope.$broadcast(AUTH_EVENTS.refreshUser, response);
+          _this.profileForm.$setPristine();
 
-              // ---
-              // Reset the profile data with possible new data.
-              // ---
-              vm.profileData = angular.copy(getInitialProfileData());
+          _this.isRequestPending = false;
+          $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated');
+        })
+        .catch(() => {
+          /* If bad feedback from server */
+          _this.badPostSubmitResponse = true;
+          _this.isRequestPending = false;
 
-              vm.profileForm.$setPristine();
+          $scope.$emit(ALERTS_EVENTS.DANGER, {
+            message: 'Ups, something went wrong.',
+            alertId: _this.alertId,
+          });
+        });
+    }
+  };
 
-              vm.isRequestPending = false;
-              $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated');
-            })
-            .catch(function () {
-              /* If bad feedback from server */
-              vm.badPostSubmitResponse = true;
-              vm.isRequestPending = false;
+}
 
-              $scope.$emit(ALERTS_EVENTS.DANGER, {
-                message: 'Ups, something went wrong.',
-                alertId: vm.alertId,
-              });
-            });
-        }
-      };
-
-    });
-}());
+export default SettingsProfileController;

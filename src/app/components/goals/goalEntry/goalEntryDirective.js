@@ -1,193 +1,205 @@
-(function () {
-  'use strict';
+function GoalEntryController(GOAL_EVENTS,
+                             APP_CONFIG,
+                             $rootScope,
+                             GoalService,
+                             DatesUtils,
+                             Category,
+                             GoalProgressTypeService,
+                             GoalMessagesService,
+                             promiseTracker) {
+  'ngInject';
 
-  function GoalEntryController(GOAL_EVENTS, APP_CONFIG, $rootScope, GoalService, DatesUtils, Category, GoalProgressTypeService, GoalMessagesService, promiseTracker) {
+  const _this = this;
 
-    var vm = this;
+  /**
+   * Current user.
+   */
+  this.user = $rootScope.currentUser;
 
-    /**
-     * Current user.
-     */
-    this.user = $rootScope.currentUser;
+  /**
+   * Minimum date to create goal.
+   */
+  this.minDate = moment();
 
-    /**
-     * Minimum date to create goal.
-     */
-    this.minDate = moment();
+  /**
+   * Max date to create goal
+   */
+  this.maxDate = moment().year(APP_CONFIG.MAX_YEAR_TO_CREATE_GOAL);
 
-    /**
-     * Max date to create goal
-     */
-    this.maxDate = moment().year(APP_CONFIG.MAX_YEAR_TO_CREATE_GOAL);
+  /**
+   * Keep the master backup. Work only with shownGoal.
+   */
+  this.shownGoal = angular.copy(this.goal);
 
-    /**
-     * Keep the master backup. Work only with shownGoal.
-     */
-    this.shownGoal = angular.copy(this.goal);
+  /**
+   * Goals targets available
+   */
+  this.goalsTargets = APP_CONFIG.GOALS_TARGETS;
 
-    /**
-     * Goals targets available
-     */
-    this.goalsTargets = APP_CONFIG.GOALS_TARGETS;
+  /**
+   * Selected category
+   */
+  this.category = _.extend({}, { selected: new Category(this.shownGoal.category) });
 
-    /**
-     * Selected category
-     */
-    this.category = _.extend({}, { selected: new Category(this.shownGoal.category) });
+  /**
+   * We need an object in the scope as this model is changed by the
+   * datePicker and we want to see those changes. Remember '.' notation.
+   */
+  this.datePickerStatus = {};
 
-    /**
-     * We need an object in the scope as this model is changed by the
-     * datePicker and we want to see those changes. Remember '.' notation.
-     */
-    this.datePickerStatus = {};
+  /**
+   * Update the goal.
+   */
+  this.updateGoal = updateGoal;
 
-    /**
-     * Update the goal.
-     */
-    this.updateGoal = updateGoal;
+  /**
+   * Open date picker
+   */
+  this.openDatePicker = openDatePicker;
 
-    /**
-     * Open date picker
-     */
-    this.openDatePicker = openDatePicker;
+  /**
+   * Discard changes
+   */
+  this.discardChanges = discardChanges;
 
-    /**
-     * Discard changes
-     */
-    this.discardChanges = discardChanges;
+  /**
+   * Create an updating tracker.
+   */
+  _this.updateTracker = promiseTracker();
 
-    /**
-     * Create an updating tracker.
-     */
-    vm.updateTracker = promiseTracker();
+  /**
+   * Create an deleting tracker.
+   */
+  _this.deleteTracker = promiseTracker();
 
-    /**
-     * Create an deleting tracker.
-     */
-    vm.deleteTracker = promiseTracker();
+  /**
+   * Delete goal;
+   */
+  _this.deleteGoal = deleteGoal;
 
-    /**
-     * Delete goal;
-     */
-    vm.deleteGoal = deleteGoal;
+  // ---
+  // Just a message.
+  // ---
+  _this.message = GoalMessagesService.getMessage(GoalProgressTypeService.computeProgressBarType(_this.shownGoal));
 
-    // ---
-    // Just a message.
-    // ---
-    vm.message = GoalMessagesService.getMessage(GoalProgressTypeService.computeProgressBarType(vm.shownGoal));
+  function updateGoal() {
+    const period = DatesUtils
+      .getFromToOfMonthYear(_this.shownGoal.yearMonthDate);
 
-    function updateGoal() {
-      var period = DatesUtils
-        .getFromToOfMonthYear(vm.shownGoal.yearMonthDate);
+    _this.shownGoal = _.extend(_this.shownGoal, {
+      category: angular.copy(_this.category.selected),
+      startDate: period.from,
+      endDate: period.to,
+    });
 
-      vm.shownGoal = _.extend(vm.shownGoal, {
-        category: angular.copy(vm.category.selected),
-        startDate: period.from,
-        endDate: period.to,
+    GoalService
+      .updateGoal(_this.shownGoal, _this.updateTracker)
+      .then(updatedGoal => {
+        $rootScope.$broadcast(GOAL_EVENTS.isUpdated, { goal: _.extend(_this.shownGoal, updatedGoal) });
+      })
+      .catch(() => {
+        _this.badPostSubmitResponse = true;
+        $rootScope.$broadcast(
+          GOAL_EVENTS.isErrorOccurred,
+          { errorMessage: 'Ups, something went wrong.' }
+        );
       });
-
-      GoalService
-        .updateGoal(vm.shownGoal, vm.updateTracker)
-        .then(function (updatedGoal) {
-          $rootScope.$broadcast(GOAL_EVENTS.isUpdated, { goal: _.extend(vm.shownGoal, updatedGoal) });
-        })
-        .catch(function () {
-          vm.badPostSubmitResponse = true;
-          $rootScope.$broadcast(GOAL_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something went wrong.' });
-        });
-    }
-
-    function deleteGoal() {
-      GoalService
-        .bulkDelete([vm.goal], vm.deleteTracker)
-        .then(function () {
-          $rootScope.$broadcast(GOAL_EVENTS.isDeleted, { goal: vm.goal });
-        })
-        .catch(function () {
-          $rootScope.$broadcast(GOAL_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something went wrong.' });
-        });
-    }
-
-    function openDatePicker($event) {
-      $event.preventDefault();
-      $event.stopPropagation();
-
-      vm.datePickerStatus.opened = true;
-    }
-
-    function discardChanges() {
-      vm.shownGoal = angular.copy(vm.goal);
-      vm.category = _.extend({}, { selected: new Category(vm.shownGoal.category) });
-    }
   }
 
-  angular
-    .module('revaluate.goals')
-    .directive('goalEntry', function (GOAL_EVENTS, $rootScope, $timeout) {
-      return {
-        restrict: 'A',
-        scope: {
-          categories: '=',
-          goal: '=',
-        },
-        controller: GoalEntryController,
-        bindToController: true,
-        controllerAs: 'vm',
-        templateUrl: '/app/components/goals/goalEntry/goalEntryDirective.tpl.html',
-        link: function (scope, el, attrs, vm) {
-          var GOAL_INPUT_SELECTOR = '.goal__form__price__input';
+  function deleteGoal() {
+    GoalService
+      .bulkDelete([_this.goal], _this.deleteTracker)
+      .then(() => {
+        $rootScope.$broadcast(GOAL_EVENTS.isDeleted, { goal: _this.goal });
+      })
+      .catch(() => {
+        $rootScope.$broadcast(
+          GOAL_EVENTS.isErrorOccurred,
+          { errorMessage: 'Ups, something went wrong.' }
+        );
+      });
+  }
 
-          /**
-           * If date details should be shown
-           */
-          scope.showDateDetails = !_.isUndefined(attrs.showDateDetails);
+  function openDatePicker($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
 
-          /**
-           * Show block content
-           */
-          scope.showContent = false;
+    _this.datePickerStatus.opened = true;
+  }
 
-          /**
-           * Toggle content
-           */
-          scope.toggleContent = function () {
-            scope.showContent = !scope.showContent;
+  function discardChanges() {
+    _this.shownGoal = angular.copy(_this.goal);
+    _this.category = _.extend({}, { selected: new Category(_this.shownGoal.category) });
+  }
+}
 
-            // ---
-            // Auto focus price.
-            // ---
-            if (scope.showContent) {
-              $timeout(function () {
-                el.find(GOAL_INPUT_SELECTOR).focus();
-              });
-            }
-          };
+function goalEntryDirective(GOAL_EVENTS, $rootScope, $timeout) {
+  'ngInject';
+  return {
+    restrict: 'A',
+    scope: {
+      categories: '=',
+      goal: '=',
+    },
+    controller: GoalEntryController,
+    bindToController: true,
+    controllerAs: 'vm',
+    templateUrl: '/app/components/goals/goalEntry/goalEntryDirective.tpl.html',
+    link(scope, el, attrs, _this) {
+      const GOAL_INPUT_SELECTOR = '.goal__form__price__input';
 
-          /**
-           * Toggle and discard changes.
-           */
-          scope.cancel = function () {
-            scope.toggleContent();
+      /**
+       * If date details should be shown
+       */
+      scope.showDateDetails = !_.isUndefined(attrs.showDateDetails);
 
-            vm.discardChanges();
-          };
+      /**
+       * Show block content
+       */
+      scope.showContent = false;
 
-          /**
-           * On goal updated/deleted - cancel edit mode.
-           */
-          $rootScope.$on(GOAL_EVENTS.isUpdated, function (event, args) {
-            if (vm.goal.id === args.goal.id) {
+      /**
+       * Toggle content
+       */
+      scope.toggleContent = () => {
+        scope.showContent = !scope.showContent;
 
-              // ---
-              // Now update the master goal, and remove the marked sign.
-              // ---
-              vm.shownGoal.marked = false;
-              vm.goal = angular.copy(vm.shownGoal);
-
-              scope.cancel();
-            }
+        // ---
+        // Auto focus price.
+        // ---
+        if (scope.showContent) {
+          $timeout(() => {
+            el.find(GOAL_INPUT_SELECTOR).focus();
           });
-        },
+        }
       };
-    });
-}());
+
+      /**
+       * Toggle and discard changes.
+       */
+      scope.cancel = () => {
+        scope.toggleContent();
+
+        _this.discardChanges();
+      };
+
+      /**
+       * On goal updated/deleted - cancel edit mode.
+       */
+      $rootScope.$on(GOAL_EVENTS.isUpdated, (event, args) => {
+        if (_this.goal.id === args.goal.id) {
+
+          // ---
+          // Now update the master goal, and remove the marked sign.
+          // ---
+          _this.shownGoal.marked = false;
+          _this.goal = angular.copy(_this.shownGoal);
+
+          scope.cancel();
+        }
+      });
+    },
+  };
+}
+
+export default goalEntryDirective;

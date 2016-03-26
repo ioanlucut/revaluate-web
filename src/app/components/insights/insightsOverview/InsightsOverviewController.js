@@ -1,115 +1,128 @@
-(function () {
-  'use strict';
+function InsightsOverviewController($controller,
+                                    $scope,
+                                    $rootScope,
+                                    $filter,
+                                    $timeout,
+                                    InsightsGenerator,
+                                    DatesUtils,
+                                    ALERTS_EVENTS,
+                                    INSIGHTS_INTERVAL,
+                                    insightsOverview,
+                                    monthsPerYearsStatistics,
+                                    InsightsService,
+                                    USER_ACTIVITY_EVENTS,
+                                    ALERTS_CONSTANTS) {
+  'ngInject';
 
-  angular
-    .module('revaluate.insights')
-    .controller('InsightsOverviewController', function ($controller, $templateCache, $scope, $rootScope, $filter, $timeout, InsightsGenerator, DatesUtils, ALERTS_EVENTS, INSIGHTS_INTERVAL, insightsOverview, monthsPerYearsStatistics, InsightsService, USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS) {
+  const TIMEOUT_DURATION = 150;
+  const MONTHS = 'Months';
 
-      var TIMEOUT_DURATION = 150;
-      var MONTHS = 'Months';
+  const _this = this;
 
-      var vm = this;
+  /**
+   * Alert identifier
+   */
+  _this.alertId = ALERTS_CONSTANTS.insights;
 
-      /**
-       * Alert identifier
-       */
-      vm.alertId = ALERTS_CONSTANTS.insights;
+  /**
+   * Insights interval
+   */
+  _this.INSIGHTS_INTERVAL = INSIGHTS_INTERVAL;
 
-      /**
-       * Insights interval
-       */
-      vm.INSIGHTS_INTERVAL = INSIGHTS_INTERVAL;
+  /**
+   * Default insights overview.
+   */
+  _this.insightsOverview = insightsOverview;
 
-      /**
-       * Default insights overview.
-       */
-      vm.insightsOverview = insightsOverview;
+  // ---
+  // Inherit from parent controller.
+  // ---
+  angular.extend(this, $controller('InsightsAbstractController', {
+    $scope,
+    $rootScope,
+    $filter,
+    monthsPerYearsStatistics,
+    resizeOnUpdate: true,
+    getChartSetSize: function getChartSetSize() {
+      return _this.barInsightsPrepared.insightsBarData[0].length;
+    },
+  }));
 
-      // ---
-      // Inherit from parent controller.
-      // ---
-      angular.extend(this, $controller('InsightsAbstractController', {
-        $scope: $scope,
-        $rootScope: $rootScope,
-        $filter: $filter,
-        monthsPerYearsStatistics: monthsPerYearsStatistics,
-        resizeOnUpdate: true,
-        getChartSetSize: function getChartSetSize() {
-          return vm.barInsightsPrepared.insightsBarData[0].length;
-        },
-      }));
+  /**
+   * Prepares data for chart
+   */
+  function prepareDataForChart() {
+    // ---
+    // Computed information and methods.
+    // ---
+    _this.barInsightsPrepared = InsightsGenerator
+      .generateOverviewBar(_this.insightsOverview);
 
-      /**
-       * Prepares data for chart
-       */
-      function prepareDataForChart() {
-        // ---
-        // Computed information and methods.
-        // ---
-        vm.barInsightsPrepared = InsightsGenerator
-          .generateOverviewBar(vm.insightsOverview);
+    $scope.$emit(
+      'chartsLoaded',
+      { size: _this.barInsightsPrepared.insightsBarData[0].length }
+    );
+  }
 
-        $scope.$emit('chartsLoaded', { size: vm.barInsightsPrepared.insightsBarData[0].length });
-      }
+  /**
+   * Default interval
+   */
+  _this.activeInterval = _this.INSIGHTS_INTERVAL.HALF_YEAR;
 
-      /**
-       * Default interval
-       */
-      vm.activeInterval = vm.INSIGHTS_INTERVAL.HALF_YEAR;
+  /**
+   * Series (static)
+   */
+  _this.insightLineSeries = [MONTHS];
 
-      /**
-       * Series (static)
-       */
-      vm.insightLineSeries = [MONTHS];
+  // ---
+  // Computed information and methods.
+  // ---
+  prepareDataForChart();
 
-      // ---
-      // Computed information and methods.
-      // ---
-      prepareDataForChart();
+  /**
+   * Load insights
+   */
+  _this.loadInsights = insightsIntervalMonths => {
+    if (_this.isLoading) {
 
-      /**
-       * Load insights
-       */
-      vm.loadInsights = function (insightsIntervalMonths) {
-        if (vm.isLoading) {
+      return;
+    }
 
-          return;
-        }
+    _this.isLoading = true;
 
-        vm.isLoading = true;
+    const period = DatesUtils
+      .fromLastMonthsToNow(insightsIntervalMonths);
+    InsightsService
+      .fetchOverviewInsightsFromTo(period.from, period.to)
+      .then(receivedInsight => {
+        _this.activeInterval = insightsIntervalMonths;
 
-        var period = DatesUtils
-          .fromLastMonthsToNow(insightsIntervalMonths);
-        InsightsService
-          .fetchOverviewInsightsFromTo(period.from, period.to)
-          .then(function (receivedInsight) {
-            vm.activeInterval = insightsIntervalMonths;
+        /**
+         * Track event.
+         */
+        $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.insightsOverviewFetched);
 
-            /**
-             * Track event.
-             */
-            $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.insightsOverviewFetched);
+        $timeout(() => {
+          // ---
+          // Update everything.
+          // ---
+          _this.insightsOverview = receivedInsight;
 
-            $timeout(function () {
-              // ---
-              // Update everything.
-              // ---
-              vm.insightsOverview = receivedInsight;
+          prepareDataForChart();
+          _this.isLoading = false;
+        }, TIMEOUT_DURATION);
+      })
+      .catch(() => {
+        _this.badPostSubmitResponse = true;
+        _this.isLoading = false;
 
-              prepareDataForChart();
-              vm.isLoading = false;
-            }, TIMEOUT_DURATION);
-          })
-          .catch(function () {
-            vm.badPostSubmitResponse = true;
-            vm.isLoading = false;
+        $scope.$emit(ALERTS_EVENTS.DANGER, {
+          message: 'Could not fetch insights.',
+          alertId: _this.alertId,
+        });
+      });
+  };
 
-            $scope.$emit(ALERTS_EVENTS.DANGER, {
-              message: 'Could not fetch insights.',
-              alertId: vm.alertId,
-            });
-          });
-      };
+}
 
-    });
-}());
+export default InsightsOverviewController;

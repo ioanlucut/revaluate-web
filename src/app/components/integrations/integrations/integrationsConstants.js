@@ -1,11 +1,8 @@
-(function () {
-  'use strict';
+export default
 
-  angular
-    .module('revaluate.integrations')
-    .constant('INTEGRATIONS_CONSTANTS', {
-      addIntegration: 'oauth',
-      removeOauth: 'oauth/:id',
-      returnUriFormat: '{0}/account/settings/integrations/authorized',
-    });
-}());
+{
+  addIntegration: 'oauth',
+  removeOauth: 'oauth/:id',
+  returnUriFormat: '{0}/account/settings/integrations/authorized',
+};
+

@@ -1,15 +1,11 @@
-(function () {
-  'use strict';
+function CategoryColorGenerator() {
 
-  angular
-    .module('revaluate.categories')
-    .service('CategoryColorService', function () {
+  return {
+    randomizedColor(colors) {
 
-      return {
-        randomizedColor: function (colors) {
+      return colors[Math.floor(Math.random() * colors.length)];
+    },
+  };
+}
 
-          return colors[Math.floor(Math.random() * colors.length)];
-        },
-      };
-    });
-}());
+export default CategoryColorGenerator;

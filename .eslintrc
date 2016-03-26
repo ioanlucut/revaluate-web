@@ -1,0 +1,44 @@
+{
+  "extends": "airbnb/base",
+  "plugins": [
+    "angular"
+  ],
+  "ecmaFeatures": {
+    "modules": true
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "jasmine": true
+  },
+  "globals": {
+    "deferredBootstrapper": false,
+    "document": false,
+    "angular": false,
+    "require": false,
+    "_": false,
+    "$": false,
+    "URLTo": false,
+    "jasmine": false,
+    "moment": false,
+    "window": false,
+    "inject": false,
+    "module": false,
+    "describe": false,
+    "spyOn": false,
+    "$provide": false,
+    "it": false,
+    "mixpanel": false,
+    "before": false,
+    "beforeEach": false,
+    "after": false,
+    "afterEach": false,
+    "expect": false,
+    "Unison": false,
+    "alert": false,
+    "Layzr": false,
+    "hello": false,
+    "accounting": false,
+    "Odometer": false
+  }
+}

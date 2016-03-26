@@ -1,142 +1,149 @@
-(function () {
-  'use strict';
+function SettingsPaymentMethodController($q,
+                                         $scope,
+                                         $rootScope,
+                                         $timeout,
+                                         $http,
+                                         AUTH_URLS,
+                                         $braintree,
+                                         clientToken,
+                                         paymentInsights,
+                                         ALERTS_EVENTS,
+                                         ALERTS_CONSTANTS) {
+  'ngInject';
 
-  angular
-    .module('revaluate.settings')
-    .controller('SettingsEditPaymentMethodController', function ($q, $scope, $rootScope, $timeout, $http, AUTH_URLS, $braintree, clientToken, paymentInsights, ALERTS_EVENTS, ALERTS_CONSTANTS) {
+  const _this = this;
 
-      var vm = this;
+  const TIMEOUT_PENDING = 300;
 
-      var TIMEOUT_PENDING = 300;
+  /**
+   * Alert identifier
+   */
+  _this.alertId = ALERTS_CONSTANTS.paymentProfile;
 
-      /**
-       * Alert identifier
-       */
-      vm.alertId = ALERTS_CONSTANTS.paymentProfile;
+  /**
+   * Current user.
+   */
+  _this.user = $rootScope.currentUser;
 
-      /**
-       * Current user.
-       */
-      vm.user = $rootScope.currentUser;
+  // ---
+  // Braintree client token got from server.
+  // ---
+  _this.clientToken = clientToken;
 
-      // ---
-      // Braintree client token got from server.
-      // ---
-      vm.clientToken = clientToken;
+  // ---
+  // Payment status.
+  // ---
+  _this.paymentInsights = paymentInsights;
 
-      // ---
-      // Payment status.
-      // ---
-      vm.paymentInsights = paymentInsights;
+  // ---
+  // Braintree client.
+  // ---
+  _this.client = new $braintree.api.Client({
+    clientToken,
+  });
 
-      // ---
-      // Braintree client.
-      // ---
-      vm.client = new $braintree.api.Client({
-        clientToken: clientToken,
-      });
+  /**
+   * Initial payment data
+   */
+  function getInitialPaymentData() {
+    return {
+      cardNumber: '',
+      cardExpirationDate: '',
+    };
+  }
 
-      /**
-       * Initial payment data
-       */
-      function getInitialPaymentData() {
-        return {
-          cardNumber: '',
-          cardExpirationDate: '',
-        };
-      }
+  /**
+   * Profile user information.
+   */
+  _this.paymentData = angular.copy(getInitialPaymentData());
 
-      /**
-       * Profile user information.
-       */
-      vm.paymentData = angular.copy(getInitialPaymentData());
+  /**
+   * Initial Payment details data
+   */
+  function getInitialPaymentDetailsData() {
+    return {
+      paymentMethodNonce: '',
+    };
+  }
 
-      /**
-       * Initial Payment details data
-       */
-      function getInitialPaymentDetailsData() {
-        return {
-          paymentMethodNonce: '',
-        };
-      }
+  /**
+   * Payment details data.
+   */
+  _this.paymentDetailsData = angular.copy(getInitialPaymentDetailsData());
 
-      /**
-       * Payment details data.
-       */
-      vm.paymentDetailsData = angular.copy(getInitialPaymentDetailsData());
+  // ---
+  // UPDATE PAYMENT METHOD RELATED
+  // ---
+  _this.updatePaymentMethod = () => {
+    if (_this.updatePaymentMethodForm.$valid && !_this.isRequestPending) {
 
-      // ---
-      // UPDATE PAYMENT METHOD RELATED
-      // ---
-      vm.updatePaymentMethod = function () {
-        if (vm.updatePaymentMethodForm.$valid && !vm.isRequestPending) {
+      // Show the loading bar
+      _this.isRequestPending = true;
 
-          // Show the loading bar
-          vm.isRequestPending = true;
+      // - Validate _this.paymentData
+      // - Make sure client is ready to use
+      _this
+        .client
+        .tokenizeCard({
+          number: _this.paymentData.cardNumber,
+          expirationDate: _this.paymentData.cardExpirationDate,
+        }, (err, nonce) => {
 
-          // - Validate vm.paymentData
-          // - Make sure client is ready to use
-          vm
-            .client
-            .tokenizeCard({
-              number: vm.paymentData.cardNumber,
-              expirationDate: vm.paymentData.cardExpirationDate,
-            }, function (err, nonce) {
-
-              if (err) {
-                $scope.$emit(ALERTS_EVENTS.DANGER, {
-                  message: err,
-                  alertId: vm.alertId,
-                });
-              } else {
-                // ---
-                // Update details with the received nonce.
-                // ---
-                var paymentDetailsData = angular.copy(vm.paymentDetailsData);
-                paymentDetailsData.paymentMethodNonce = nonce;
-
-                return $http
-                  .put(URLTo.api(AUTH_URLS.updatePaymentMethod), paymentDetailsData)
-                  .then(function () {
-
-                    // ---
-                    // Reset the payment data with empty new data.
-                    // ---
-                    vm.paymentData = angular.copy(getInitialPaymentData());
-
-                    vm.updatePaymentMethodForm.$setPristine();
-
-                    $timeout(function () {
-                      vm.isRequestPending = false;
-                      $scope.$emit(ALERTS_EVENTS.SUCCESS, 'We\'ve successfully updated your payment method!');
-                    }, TIMEOUT_PENDING);
-                  })
-                  .catch(function (response) {
-                    /* If bad feedback from server */
-                    vm.badPostSubmitResponse = true;
-                    vm.isRequestPending = false;
-
-                    // ---
-                    // Show errors.
-                    // ---
-                    var errors = response.data;
-                    if (_.isArray(errors)) {
-                      $scope.$emit(ALERTS_EVENTS.DANGER, {
-                        message: errors.join('\n'),
-                        alertId: vm.alertId,
-                      });
-                    } else {
-                      $scope.$emit(ALERTS_EVENTS.DANGER, {
-                        message: 'Ups, something went wrong.',
-                        alertId: vm.alertId,
-                      });
-                    }
-                  });
-              }
+          if (err) {
+            $scope.$emit(ALERTS_EVENTS.DANGER, {
+              message: err,
+              alertId: _this.alertId,
             });
-        }
+          } else {
+            // ---
+            // Update details with the received nonce.
+            // ---
+            const paymentDetailsData = angular.copy(_this.paymentDetailsData);
+            paymentDetailsData.paymentMethodNonce = nonce;
 
-      };
+            return $http
+              .put(URLTo.api(AUTH_URLS.updatePaymentMethod), paymentDetailsData)
+              .then(() => {
 
-    });
-}());
+                // ---
+                // Reset the payment data with empty new data.
+                // ---
+                _this.paymentData = angular.copy(getInitialPaymentData());
+
+                _this.updatePaymentMethodForm.$setPristine();
+
+                $timeout(() => {
+                  _this.isRequestPending = false;
+                  $scope.$emit(ALERTS_EVENTS.SUCCESS, 'We\'ve successfully updated your payment method!');
+                }, TIMEOUT_PENDING);
+              })
+              .catch(response => {
+                /* If bad feedback from server */
+                _this.badPostSubmitResponse = true;
+                _this.isRequestPending = false;
+
+                // ---
+                // Show errors.
+                // ---
+                const errors = response.data;
+                if (_.isArray(errors)) {
+                  $scope.$emit(ALERTS_EVENTS.DANGER, {
+                    message: errors.join('\n'),
+                    alertId: _this.alertId,
+                  });
+                } else {
+                  $scope.$emit(ALERTS_EVENTS.DANGER, {
+                    message: 'Ups, something went wrong.',
+                    alertId: _this.alertId,
+                  });
+                }
+              });
+          }
+        });
+    }
+
+  };
+
+}
+
+export default SettingsPaymentMethodController;

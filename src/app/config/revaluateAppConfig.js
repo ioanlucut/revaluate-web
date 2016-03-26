@@ -1,8 +1,8 @@
-angular.module("config", [])
+export default angular.module("config", [] )
 
 .constant("ENV", {
 	"name": "local-dev",
-	"apiEndpoint": "https://revaluate-api-dev.herokuapp.com",
+	"apiEndpoint": "https://revaluate-api-prod.herokuapp.com",
 	"mixPanelId": "216177bcdddef0cf2edd1650e63a3449",
 	"intercomAppId": "z2mfyywv",
 	"cacheResetKey": "a2jonsnow",
@@ -17,4 +17,4 @@ angular.module("config", [])
 	"isMaintenanceMode": false
 })
 
-;
+.name;

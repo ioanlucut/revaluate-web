@@ -1,16 +1,12 @@
-(function () {
-  'use strict';
+function friendlyMonthDayFilter() {
+  return date => {
 
-  angular
-    .module('revaluate.common')
-    .filter('friendlyMonthDay', function () {
-      return function (date) {
+    if (!_.isDate(date)) {
+      date = moment(new Date(date));
+    }
 
-        if (!_.isDate(date)) {
-          date = moment(new Date(date));
-        }
+    return moment(date).format('D');
+  };
+}
 
-        return moment(date).format('D');
-      };
-    });
-}());
+export default friendlyMonthDayFilter;

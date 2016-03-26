@@ -1,34 +1,29 @@
-(function () {
-  'use strict';
+/**
+ * Authentication service interceptor used to listen to server responses.
+ */
+function AuthInterceptorService($rootScope, $q, AUTH_EVENTS) {
+  'ngInject';
+  return {
 
-  /**
-   * Authentication service interceptor used to listen to server responses.
-   */
-  angular
-    .module('revaluate.account')
-    .factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS) {
+    /**
+     * Response error interceptor.
+     */
+    responseError(response) {
+      if (response.status === 401) {
+        $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated, response);
+      }
 
-      return {
+      if (response.status === 403) {
+        $rootScope.$broadcast(AUTH_EVENTS.notAuthorized, response);
+      }
 
-        /**
-         * Response error interceptor.
-         */
-        responseError: function (response) {
-          if (response.status === 401) {
-            $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated, response);
-          }
+      if (response.status === 419 || response.status === 440) {
+        $rootScope.$broadcast(AUTH_EVENTS.sessionTimeout, response);
+      }
 
-          if (response.status === 403) {
-            $rootScope.$broadcast(AUTH_EVENTS.notAuthorized, response);
-          }
+      return $q.reject(response);
+    },
+  };
+}
 
-          if (response.status === 419 || response.status === 440) {
-            $rootScope.$broadcast(AUTH_EVENTS.sessionTimeout, response);
-          }
-
-          return $q.reject(response);
-        },
-      };
-
-    });
-}());
+export default AuthInterceptorService;

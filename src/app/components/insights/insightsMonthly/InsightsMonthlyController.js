@@ -1,140 +1,149 @@
-(function () {
-  'use strict';
+export default
 
-  function InsightsMonthlyController(USER_ACTIVITY_EVENTS, INSIGHTS_CHARTS, ALERTS_CONSTANTS, ALERTS_EVENTS, $controller, $scope, promiseTracker, DatesUtils, $rootScope, $filter, $timeout, InsightsGenerator, InsightsService, insightsMonthly, monthsPerYearsStatistics) {
+function InsightsMonthlyController(USER_ACTIVITY_EVENTS,
+                                   INSIGHTS_CHARTS,
+                                   ALERTS_CONSTANTS,
+                                   ALERTS_EVENTS,
+                                   $controller,
+                                   $scope,
+                                   promiseTracker,
+                                   DatesUtils,
+                                   $rootScope,
+                                   $filter,
+                                   $timeout,
+                                   InsightsGenerator,
+                                   InsightsService,
+                                   insightsMonthly,
+                                   monthsPerYearsStatistics) {
+  'ngInject';
 
-    var vm = this;
+  const _this = this;
 
-    /**
-     * Alert identifier
-     */
-    vm.alertId = ALERTS_CONSTANTS.insightsMonthly;
+  /**
+   * Alert identifier
+   */
+  _this.alertId = ALERTS_CONSTANTS.insightsMonthly;
 
-    /**
-     * Current user.
-     */
-    vm.user = $rootScope.currentUser;
+  /**
+   * Current user.
+   */
+  _this.user = $rootScope.currentUser;
 
-    /**
-     * Fetch all types of insights charts
-     */
-    vm.INSIGHTS_CHARTS = INSIGHTS_CHARTS;
+  /**
+   * Fetch all types of insights charts
+   */
+  _this.INSIGHTS_CHARTS = INSIGHTS_CHARTS;
 
-    /**
-     * Default insights loaded.
-     */
-    vm.insightsMonthly = insightsMonthly;
+  /**
+   * Default insights loaded.
+   */
+  _this.insightsMonthly = insightsMonthly;
 
-    /**
-     * Insights months per years.
-     */
-    vm.monthsPerYearsStatistics = monthsPerYearsStatistics;
+  /**
+   * Insights months per years.
+   */
+  _this.monthsPerYearsStatistics = monthsPerYearsStatistics;
 
-    // ---
-    // Inherit from parent controller.
-    // ---
-    angular.extend(this, $controller('InsightsAbstractController', {
-      $scope: $scope,
-      $timeout: $timeout,
-      $rootScope: $rootScope,
-      $filter: $filter,
-      monthsPerYearsStatistics: monthsPerYearsStatistics,
-      resizeOnUpdate: true,
-      getChartSetSize: function getChartSetSize() {
-        return vm.barInsightsPrepared.insightsBarData.length;
-      },
-    }));
+  // ---
+  // Inherit from parent controller.
+  // ---
+  angular.extend(this, $controller('InsightsAbstractController', {
+    $scope,
+    $timeout,
+    $rootScope,
+    $filter,
+    monthsPerYearsStatistics,
+    resizeOnUpdate: true,
+    getChartSetSize: function getChartSetSize() {
+      return _this.barInsightsPrepared.insightsBarData.length;
+    },
+  }));
 
+  // ---
+  // Computed information and methods.
+  // ---
+  prepareDataForChart();
+
+  /**
+   * Default active chart
+   */
+  _this.activeChart = _this.INSIGHTS_CHARTS.BAR;
+
+  /**
+   * Sets te active chart displayed with the given chart type.
+   */
+  _this.setActiveChart = chartType => {
+    _this.activeChart = chartType;
+  };
+
+  /**
+   * Exposed insights data.
+   */
+  _this.insightData = {
+    yearMonthDate: moment().toDate(),
+  };
+
+  /**
+   * On date change do load insights
+   */
+  _this.loadInsight = loadInsight;
+
+  /**
+   * Create a saving tracker.
+   */
+  _this.loadTracker = promiseTracker();
+
+  /**
+   * Prepares data for chart
+   */
+  function prepareDataForChart() {
     // ---
     // Computed information and methods.
     // ---
-    prepareDataForChart();
+    _this.barInsightsPrepared = InsightsGenerator
+      .generateMonthlyBar(_this.insightsMonthly);
 
-    /**
-     * Default active chart
-     */
-    vm.activeChart = vm.INSIGHTS_CHARTS.BAR;
+    _this.donutInsightsPrepared = InsightsGenerator
+      .generateMonthlyDonut(_this.insightsMonthly);
 
-    /**
-     * Sets te active chart displayed with the given chart type.
-     */
-    vm.setActiveChart = function (chartType) {
-      vm.activeChart = chartType;
-    };
-
-    /**
-     * Exposed insights data.
-     */
-    vm.insightData = {
-      yearMonthDate: moment().toDate(),
-    };
-
-    /**
-     * On date change do load insights
-     */
-    vm.loadInsight = loadInsight;
-
-    /**
-     * Create a saving tracker.
-     */
-    vm.loadTracker = promiseTracker();
-
-    /**
-     * Prepares data for chart
-     */
-    function prepareDataForChart() {
-      // ---
-      // Computed information and methods.
-      // ---
-      vm.barInsightsPrepared = InsightsGenerator
-        .generateMonthlyBar(vm.insightsMonthly);
-
-      vm.donutInsightsPrepared = InsightsGenerator
-        .generateMonthlyDonut(vm.insightsMonthly);
-
-      $scope.$emit('chartsLoaded', { size: vm.barInsightsPrepared.insightsBarData.length });
-    }
-
-    /**
-     * Load insights
-     */
-    function loadInsight(ofYearMonthDate) {
-      var period;
-
-      if (vm.loadTracker.active()) {
-
-        return;
-      }
-
-      period = DatesUtils
-        .getFromToOfMonthYear(ofYearMonthDate);
-
-      InsightsService
-        .fetchMonthlyInsightsFromTo(period.from, period.to, vm.loadTracker)
-        .then(function (receivedInsight) {
-          vm.insightsMonthly = receivedInsight;
-          prepareDataForChart();
-
-          // ---
-          // If there was a previously error, just clear it.
-          // ---
-          $scope.$emit(ALERTS_EVENTS.CLEAR, {
-            alertId: vm.alertId,
-          });
-          $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.insightsFetched);
-        })
-        .catch(function () {
-          vm.badPostSubmitResponse = true;
-          $scope.$emit(ALERTS_EVENTS.DANGER, {
-            message: 'Could not fetch insights.',
-            alertId: vm.alertId,
-          });
-        });
-    }
-
+    $scope.$emit('chartsLoaded', { size: _this.barInsightsPrepared.insightsBarData.length });
   }
 
-  angular
-    .module('revaluate.insights')
-    .controller('InsightsMonthlyController', InsightsMonthlyController);
-}());
+  /**
+   * Load insights
+   */
+  function loadInsight(ofYearMonthDate) {
+    let period;
+
+    if (_this.loadTracker.active()) {
+
+      return;
+    }
+
+    period = DatesUtils
+      .getFromToOfMonthYear(ofYearMonthDate);
+
+    InsightsService
+      .fetchMonthlyInsightsFromTo(period.from, period.to, _this.loadTracker)
+      .then(receivedInsight => {
+        _this.insightsMonthly = receivedInsight;
+        prepareDataForChart();
+
+        // ---
+        // If there was a previously error, just clear it.
+        // ---
+        $scope.$emit(ALERTS_EVENTS.CLEAR, {
+          alertId: _this.alertId,
+        });
+        $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.insightsFetched);
+      })
+      .catch(() => {
+        _this.badPostSubmitResponse = true;
+        $scope.$emit(ALERTS_EVENTS.DANGER, {
+          message: 'Could not fetch insights.',
+          alertId: _this.alertId,
+        });
+      });
+  }
+
+}
