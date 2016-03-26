@@ -3,7 +3,6 @@
  */
 function AuthInterceptorService($rootScope, $q, AUTH_EVENTS) {
   'ngInject';
-
   return {
 
     /**
@@ -25,7 +24,6 @@ function AuthInterceptorService($rootScope, $q, AUTH_EVENTS) {
       return $q.reject(response);
     },
   };
-
-};
+}
 
 export default AuthInterceptorService;

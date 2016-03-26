@@ -1,5 +1,6 @@
 /**
- * ExpensesImport transformer service which transforms a expensesImport DTO model object to a expensesImport business object.
+ * ExpensesImport transformer service which transforms a expensesImport DTO
+ * model object to a expensesImport business object.
  */
 function ImportTransformerService($injector) {
   'ngInject';
@@ -8,10 +9,7 @@ function ImportTransformerService($injector) {
    * Converts a expensesImport business object model to a importDto object.
    */
   this.toImportDto = (expensesImport, skipKeys) => {
-    const importDto = {};
-    _.merge(importDto, _.omit(expensesImport.model, skipKeys));
-
-    return importDto;
+    return _.assign({}, _.omit(expensesImport.model, skipKeys));
   };
 
   /**

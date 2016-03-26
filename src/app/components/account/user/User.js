@@ -109,9 +109,7 @@ function User(SessionService, $http, AUTH_URLS) {
          * Saves a user to local storage.
          */
         saveToSession() {
-          const sessionData = {};
-          _.merge(sessionData, _.omit(this.model, ['password']));
-          SessionService.setData(sessionData);
+          SessionService.setData(_.assign({}, _.omit(this.model, ['password'])));
 
           return this;
         },
@@ -120,10 +118,7 @@ function User(SessionService, $http, AUTH_URLS) {
          * Creates a user account with given fromData.
          */
         create(fromData) {
-          const toBeCreated = {};
-          _.merge(toBeCreated, fromData);
-
-          return this.createAccount(toBeCreated);
+          return this.createAccount(_.assign({}, fromData));
         },
 
         /**
@@ -139,33 +134,24 @@ function User(SessionService, $http, AUTH_URLS) {
          * Updates account details of this user.
          */
         updateAccountDetails(fromData) {
-          const toBeSaved = {};
-          _.merge(toBeSaved, fromData);
-
           return $http
-            .put(URLTo.api(AUTH_URLS.updateAccountDetails), toBeSaved);
+            .put(URLTo.api(AUTH_URLS.updateAccountDetails), _.assign({}, fromData));
         },
 
         /**
          * Updates initiated status of this user.
          */
         updateInitiatedStatus(fromData) {
-          const toBeSaved = {};
-          _.merge(toBeSaved, fromData);
-
           return $http
-            .put(URLTo.api(AUTH_URLS.updateInitiatedStatus), toBeSaved);
+            .put(URLTo.api(AUTH_URLS.updateInitiatedStatus), _.assign({}, fromData));
         },
 
         /**
          * Update account user currency
          */
         updateCurrency(fromData) {
-          const toBeSaved = {};
-          _.merge(toBeSaved, fromData);
-
           return $http
-            .put(URLTo.api(AUTH_URLS.updateCurrency), toBeSaved);
+            .put(URLTo.api(AUTH_URLS.updateCurrency), _.assign({}, fromData));
         },
 
       };
