@@ -1,45 +1,38 @@
-(function () {
-  'use strict';
+function JWTInterceptor() {
 
-  angular
-    .module('revaluate.common')
-    .provider('JWTInterceptor', function () {
+  this.authHeader = 'Authorization';
+  this.authPrefix = 'Bearer ';
 
-      this.authHeader = 'Authorization';
-      this.authPrefix = 'Bearer ';
+  const config = this;
 
-      var config = this;
+  /*@ngInject*/
+  this.$get = ($q, $injector, $rootScope, SessionService) => ({
+    request(request) {
+      if (request.skipAuthorization) {
+        return request;
+      }
 
-      this.$get = function ($q, $injector, $rootScope, SessionService) {
-        return {
-          request: function (request) {
-            if (request.skipAuthorization) {
-              return request;
-            }
+      request.headers = request.headers || {};
 
-            request.headers = request.headers || {};
+      // Already has an Authorization header
+      if (request.headers[config.authHeader]) {
+        return request;
+      }
 
-            // Already has an Authorization header
-            if (request.headers[config.authHeader]) {
-              return request;
-            }
+      const tokenPromise = $q.when($injector.invoke(() => SessionService.getJwtToken(), this, {
 
-            var tokenPromise = $q.when($injector.invoke(function () {
-              return SessionService.getJwtToken();
-            }, this, {
+        config: request,
+      }));
 
-              config: request,
-            }));
+      return tokenPromise.then(token => {
+        if (token) {
+          request.headers[config.authHeader] = config.authPrefix + token;
+        }
 
-            return tokenPromise.then(function (token) {
-              if (token) {
-                request.headers[config.authHeader] = config.authPrefix + token;
-              }
+        return request;
+      });
+    },
+  });
+}
 
-              return request;
-            });
-          },
-        };
-      };
-    });
-}());
+export default JWTInterceptor;

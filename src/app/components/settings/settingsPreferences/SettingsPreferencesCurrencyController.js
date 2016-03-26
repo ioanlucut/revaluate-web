@@ -1,112 +1,114 @@
-(function () {
-  'use strict';
+/**
+ * Preferences controller responsible for user update preferences action.
+ */
+function SettingsPreferencesCurrencyController($scope,
+                                               $rootScope,
+                                               $timeout,
+                                               SessionService,
+                                               AUTH_EVENTS,
+                                               ALERTS_EVENTS,
+                                               ALERTS_CONSTANTS,
+                                               APP_CONFIG) {
+  'ngInject';
+
+  const _this = this;
 
   /**
-   * Preferences controller responsible for user update preferences action.
+   * Saving timeout
    */
-  angular
-    .module('revaluate.settings')
-    .controller('SettingsPreferencesCurrencyController', function ($q, $scope, $rootScope, $timeout, StatesHandler, SessionService, AUTH_EVENTS, ALERTS_EVENTS, ALERTS_CONSTANTS, APP_CONFIG) {
+  const TIMEOUT_PENDING = 300;
 
-      var vm = this;
+  /**
+   * All given currencies.
+   * @type {currencies|*}
+   */
+  _this.currencies = APP_CONFIG.CURRENCIES;
 
-      /**
-       * Saving timeout
-       */
-      var TIMEOUT_PENDING = 300;
+  /**
+   * Alert identifier
+   */
+  _this.alertId = ALERTS_CONSTANTS.preferences;
 
-      /**
-       * All given currencies.
-       * @type {currencies|*}
-       */
-      vm.currencies = APP_CONFIG.CURRENCIES;
+  /**
+   * Current user.
+   * @type {$rootScope.currentUser|*}
+   */
+  _this.user = $rootScope.currentUser;
 
-      /**
-       * Alert identifier
-       */
-      vm.alertId = ALERTS_CONSTANTS.preferences;
+  /**
+   * Selected currency
+   * @type {{}}
+   */
+  _this.currency = {};
+  _this.currency.selected = _.find(_this.currencies, currencyCandidate => currencyCandidate.currencyCode === _this.user.model.currency.currencyCode);
 
-      /**
-       * Current user.
-       * @type {$rootScope.currentUser|*}
-       */
-      vm.user = $rootScope.currentUser;
+  /**
+   * Initial profile data
+   */
+  function getInitialProfileData() {
+    return {
+      currency: _this.currency.selected,
+    };
+  }
 
-      /**
-       * Selected currency
-       * @type {{}}
-       */
-      vm.currency = {};
-      vm.currency.selected = _.find(vm.currencies, function (currencyCandidate) {
-        return currencyCandidate.currencyCode === vm.user.model.currency.currencyCode;
-      });
+  /**
+   * Profile user information.
+   */
+  _this.profileData = angular.copy(getInitialProfileData());
 
-      /**
-       * Initial profile data
-       */
-      function getInitialProfileData() {
-        return {
-          currency: vm.currency.selected,
-        };
-      }
+  /**
+   * Update profile functionality.
+   */
+  _this.updatePreferences = () => {
+    if (_this.preferencesForm.$valid && !_this.isSaving) {
 
-      /**
-       * Profile user information.
-       */
-      vm.profileData = angular.copy(getInitialProfileData());
+      // Show the loading bar
+      _this.isSaving = true;
 
-      /**
-       * Update profile functionality.
-       */
-      vm.updatePreferences = function () {
-        if (vm.preferencesForm.$valid && !vm.isSaving) {
+      _this.profileData.currency = angular.copy(_this.currency.selected || _this.currency);
 
-          // Show the loading bar
-          vm.isSaving = true;
+      // Update the user
+      _this.user
+        .updateCurrency(_this.profileData)
+        .then(response => {
+          // ---
+          // Reload data with given response.
+          // ---
+          _this.user
+            .loadFrom(response.data);
 
-          vm.profileData.currency = angular.copy(vm.currency.selected || vm.currency);
+          // ---
+          // We need to set the data and refresh the user.
+          // ---
+          SessionService.setData(response.data);
+          $rootScope.$broadcast(AUTH_EVENTS.refreshUser, response);
 
-          // Update the user
-          vm.user
-            .updateCurrency(vm.profileData)
-            .then(function (response) {
-              // ---
-              // Reload data with given response.
-              // ---
-              vm.user
-                .loadFrom(response.data);
+          // ---
+          // Reset the profile data with possible new data.
+          // ---
+          _this.profileData = angular.copy(getInitialProfileData());
 
-              // ---
-              // We need to set the data and refresh the user.
-              // ---
-              SessionService.setData(response.data);
-              $rootScope.$broadcast(AUTH_EVENTS.refreshUser, response);
+          _this.preferencesForm.$setPristine();
 
-              // ---
-              // Reset the profile data with possible new data.
-              // ---
-              vm.profileData = angular.copy(getInitialProfileData());
+          $timeout(() => {
+            _this.isSaving = false;
+            $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated');
+          }, TIMEOUT_PENDING);
 
-              vm.preferencesForm.$setPristine();
+        })
+        .catch(() => {
+          /* If bad feedback from server */
+          _this.badPostSubmitResponse = true;
+          _this.isSaving = false;
 
-              $timeout(function () {
-                vm.isSaving = false;
-                $scope.$emit(ALERTS_EVENTS.SUCCESS, 'Updated');
-              }, TIMEOUT_PENDING);
+          $scope.$emit(ALERTS_EVENTS.DANGER, {
+            message: 'Ups, something went wrong.',
+            alertId: _this.alertId,
+          });
+        });
+    }
+  };
 
-            })
-            .catch(function () {
-              /* If bad feedback from server */
-              vm.badPostSubmitResponse = true;
-              vm.isSaving = false;
+}
 
-              $scope.$emit(ALERTS_EVENTS.DANGER, {
-                message: 'Ups, something went wrong.',
-                alertId: vm.alertId,
-              });
-            });
-        }
-      };
-
-    });
-}());
+export default SettingsPreferencesCurrencyController;

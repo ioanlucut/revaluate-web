@@ -1,12 +1,5 @@
-(function () {
-  'use strict';
+function goalsMessagesFilter() {
+  return (goalMessage, userName) => goalMessage.format(userName);
+}
 
-  angular
-    .module('revaluate.goals')
-    .filter('goalMessage', function () {
-      return function (goalMessage, userName) {
-
-        return goalMessage.format(userName);
-      };
-    });
-}());
+export default goalsMessagesFilter;

@@ -1,53 +1,38 @@
-(function () {
-  'use strict';
+// or just use "success", "info", "warning" or "danger" shortcut methods:
+function AlertService(ngToast) {
+  'ngInject';
 
-  // or just use "success", "info", "warning" or "danger" shortcut methods:
-  angular
-    .module('revaluate.common')
-    .service('AlertService', function (ngToast) {
+  this.addMessage = message => ngToast.create(message);
 
-      this.addMessage = function (message) {
-        return ngToast.create(message);
-      };
+  this.addMessageWithSettings = (className, content) => ngToast.create({
+    className,
+    content,
+  });
 
-      this.addMessageWithSettings = function (className, content) {
-        return ngToast.create({
-          className: className,
-          content: content,
-        });
-      };
+  this.addSuccess = content => ngToast.success({
+    content,
+  });
 
-      this.addSuccess = function (content) {
-        return ngToast.success({
-          content: content,
-        });
-      };
+  this.addInfo = content => ngToast.info({
+    content,
+  });
 
-      this.addInfo = function (content) {
-        return ngToast.info({
-          content: content,
-        });
-      };
+  this.addWarning = content => ngToast.warning({
+    content,
+  });
 
-      this.addWarning = function (content) {
-        return ngToast.warning({
-          content: content,
-        });
-      };
+  this.addDanger = content => ngToast.danger({
+    content,
+  });
 
-      this.addDanger = function (content) {
-        return ngToast.danger({
-          content: content,
-        });
-      };
+  this.dismissMessage = toast => {
+    ngToast.dismiss(toast);
+  };
 
-      this.dismissMessage = function (toast) {
-        ngToast.dismiss(toast);
-      };
+  this.dismissAll = () => {
+    ngToast.dismiss();
+  };
 
-      this.dismissAll = function () {
-        ngToast.dismiss();
-      };
+}
 
-    });
-}());
+export default AlertService;

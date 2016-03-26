@@ -1,45 +1,43 @@
-(function () {
-  'use strict';
+function uniqueEmailDirective(UserService) {
+  'ngInject';
 
-  angular
-    .module('revaluate.account')
-    .directive('uniqueEmail', function ($q, $timeout, UserService) {
-      return {
-        require: 'ngModel',
-        scope: {
-          ngModel: '=',
-        },
-        link: function (scope, el, attr, ngModel) {
+  return {
+    require: 'ngModel',
+    scope: {
+      ngModel: '=',
+    },
+    link(scope, el, attr, ngModel) {
 
-          /**
-           * Check whether a string is a valid email address.
-           *
-           * @param email
-           * @returns {boolean}
-           */
-          function isValidEmail(email) {
-            return /[^\s@]+@[^\s@]+\.[^\s@]+/.test(email);
-          }
+      /**
+       * Check whether a string is a valid email address.
+       *
+       * @param email
+       * @returns {boolean}
+       */
+      function isValidEmail(email) {
+        return /[^\s@]+@[^\s@]+\.[^\s@]+/.test(email);
+      }
 
-          // Re-validate on change
-          scope.$watch('ngModel', function (value) {
+      // Re-validate on change
+      scope.$watch('ngModel', value => {
 
-            if (isValidEmail(value)) {
+        if (isValidEmail(value)) {
 
-              // Set validity
-              UserService
-                .isUnique(value)
-                .then(function (data) {
+          // Set validity
+          UserService
+            .isUnique(value)
+            .then(data => {
 
-                  // Make sure we are validating the latest value of the model (asynchronous responses)
-                  if (data.email === ngModel.$viewValue) {
-                    ngModel.$setValidity('uniqueEmail', data.isUnique);
-                  }
-                });
-            }
-          });
+              // Make sure we are validating the latest value of the model (asynchronous responses)
+              if (data.email === ngModel.$viewValue) {
+                ngModel.$setValidity('uniqueEmail', data.isUnique);
+              }
+            });
+        }
+      });
 
-        },
-      };
-    });
-}());
+    },
+  };
+}
+
+export default uniqueEmailDirective;

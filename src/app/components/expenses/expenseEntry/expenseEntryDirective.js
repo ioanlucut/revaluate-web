@@ -1,172 +1,181 @@
-(function () {
-  'use strict';
+function ExpenseEntryController(EXPENSE_EVENTS,
+                                APP_CONFIG,
+                                $rootScope,
+                                ExpenseService,
+                                Category,
+                                promiseTracker) {
+  'ngInject';
 
-  function ExpenseEntryController(EXPENSE_EVENTS, APP_CONFIG, $rootScope, ExpenseService, Category, promiseTracker) {
+  const _this = this;
 
-    var vm = this;
+  /**
+   * Current user.
+   */
+  this.user = $rootScope.currentUser;
 
-    /**
-     * Current user.
-     */
-    this.user = $rootScope.currentUser;
+  /**
+   * Minimum date to create expense.
+   */
+  this.minDate = angular.copy(APP_CONFIG.EXPENSES_ALLOWED_MIN_DATE);
 
-    /**
-     * Minimum date to create expense.
-     */
-    this.minDate = angular.copy(APP_CONFIG.EXPENSES_ALLOWED_MIN_DATE);
+  /**
+   * Keep the master backup. Work only with shownExpense.
+   */
+  this.shownExpense = angular.copy(this.expense);
 
-    /**
-     * Keep the master backup. Work only with shownExpense.
-     */
-    this.shownExpense = angular.copy(this.expense);
+  /**
+   * Selected category
+   */
+  this.category = _.extend({}, { selected: new Category(this.shownExpense.category) });
 
-    /**
-     * Selected category
-     */
-    this.category = _.extend({}, { selected: new Category(this.shownExpense.category) });
+  /**
+   * We need an object in the scope as this model is changed by the
+   * datePicker and we want to see those changes. Remember '.' notation.
+   */
+  this.datePickerStatus = {};
 
-    /**
-     * We need an object in the scope as this model is changed by the
-     * datePicker and we want to see those changes. Remember '.' notation.
-     */
-    this.datePickerStatus = {};
+  /**
+   * Max date to create expense
+   */
+  this.maxDate = moment().hours(0).minutes(0).seconds(0);
 
-    /**
-     * Max date to create expense
-     */
-    this.maxDate = moment().hours(0).minutes(0).seconds(0);
+  /**
+   * Update the expense.
+   */
+  this.updateExpense = updateExpense;
 
-    /**
-     * Update the expense.
-     */
-    this.updateExpense = updateExpense;
+  /**
+   * Toggle mark for bulk action
+   */
+  this.toggleMark = toggleMark;
 
-    /**
-     * Toggle mark for bulk action
-     */
-    this.toggleMark = toggleMark;
+  /**
+   * Open date picker
+   */
+  this.openDatePicker = openDatePicker;
 
-    /**
-     * Open date picker
-     */
-    this.openDatePicker = openDatePicker;
+  /**
+   * Discard changes
+   */
+  this.discardChanges = discardChanges;
 
-    /**
-     * Discard changes
-     */
-    this.discardChanges = discardChanges;
+  /**
+   * Create an updating tracker.
+   */
+  _this.updateTracker = promiseTracker();
 
-    /**
-     * Create an updating tracker.
-     */
-    vm.updateTracker = promiseTracker();
+  function updateExpense() {
+    _this.shownExpense = _.extend(_this.shownExpense, {
+      category: angular.copy(_this.category.selected),
+    });
 
-    function updateExpense() {
-      vm.shownExpense = _.extend(vm.shownExpense, {
-        category: angular.copy(vm.category.selected),
+    ExpenseService
+      .updateExpense(_this.shownExpense, _this.updateTracker)
+      .then(updatedExpense => {
+        $rootScope.$broadcast(
+          EXPENSE_EVENTS.isUpdated,
+          { expense: _.extend(_this.shownExpense, updatedExpense) }
+        );
+      })
+      .catch(() => {
+        _this.badPostSubmitResponse = true;
+        $rootScope.$broadcast(
+          EXPENSE_EVENTS.isErrorOccurred,
+          { errorMessage: 'Ups, something went wrong.' }
+        );
       });
-
-      ExpenseService
-        .updateExpense(vm.shownExpense, vm.updateTracker)
-        .then(function (updatedExpense) {
-          $rootScope.$broadcast(EXPENSE_EVENTS.isUpdated, { expense: _.extend(vm.shownExpense, updatedExpense) });
-        })
-        .catch(function () {
-          vm.badPostSubmitResponse = true;
-          $rootScope.$broadcast(EXPENSE_EVENTS.isErrorOccurred, { errorMessage: 'Ups, something went wrong.' });
-        });
-    }
-
-    function toggleMark() {
-      vm.expense.marked = !vm.expense.marked;
-
-      // ---
-      // We need this info also in the parent scope, so we synchronize the master too.
-      // ---
-      vm.shownExpense.marked = vm.expense.marked;
-    }
-
-    function openDatePicker($event) {
-      $event.preventDefault();
-      $event.stopPropagation();
-
-      vm.datePickerStatus.opened = true;
-    }
-
-    function discardChanges() {
-      vm.shownExpense = angular.copy(vm.expense);
-      vm.category = _.extend({}, { selected: new Category(vm.shownExpense.category) });
-    }
-
   }
 
-  angular
-    .module('revaluate.expenses')
-    .directive('expenseEntry', function (EXPENSE_EVENTS, $rootScope, $timeout) {
-      return {
-        restrict: 'A',
-        scope: {
-          categories: '=',
-          expense: '=',
-        },
-        controller: ExpenseEntryController,
-        bindToController: true,
-        controllerAs: 'vm',
-        templateUrl: '/app/components/expenses/expenseEntry/expenseEntryDirective.tpl.html',
-        link: function (scope, el, attrs, vm) {
-          var EXPENSE_INPUT_SELECTOR = '.expense__form__price__input';
+  function toggleMark() {
+    _this.expense.marked = !_this.expense.marked;
 
-          /**
-           * If date details should be shown
-           */
-          scope.showDateDetails = !_.isUndefined(attrs.showDateDetails);
+    // ---
+    // We need this info also in the parent scope, so we synchronize the master too.
+    // ---
+    _this.shownExpense.marked = _this.expense.marked;
+  }
 
-          /**
-           * Show block content
-           */
-          scope.showContent = false;
+  function openDatePicker($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
 
-          /**
-           * Toggle content
-           */
-          scope.toggleContent = function () {
-            scope.showContent = !scope.showContent;
+    _this.datePickerStatus.opened = true;
+  }
 
-            // ---
-            // Auto focus price.
-            // ---
-            if (scope.showContent) {
-              $timeout(function () {
-                el.find(EXPENSE_INPUT_SELECTOR).focus();
-              });
-            }
-          };
+  function discardChanges() {
+    _this.shownExpense = angular.copy(_this.expense);
+    _this.category = _.extend({}, { selected: new Category(_this.shownExpense.category) });
+  }
 
-          /**
-           * Toggle and discard changes.
-           */
-          scope.cancel = function () {
-            scope.toggleContent();
+}
 
-            vm.discardChanges();
-          };
+function expenseEntryDirective(EXPENSE_EVENTS, $rootScope, $timeout) {
+  'ngInject';
+  return {
+    restrict: 'A',
+    scope: {
+      categories: '=',
+      expense: '=',
+    },
+    controller: ExpenseEntryController,
+    bindToController: true,
+    controllerAs: 'vm',
+    templateUrl: '/app/components/expenses/expenseEntry/expenseEntryDirective.tpl.html',
+    link(scope, el, attrs, _this) {
+      const EXPENSE_INPUT_SELECTOR = '.expense__form__price__input';
 
-          /**
-           * On expense updated/deleted - cancel edit mode.
-           */
-          $rootScope.$on(EXPENSE_EVENTS.isUpdated, function (event, args) {
-            if (vm.expense.id === args.expense.id) {
+      /**
+       * If date details should be shown
+       */
+      scope.showDateDetails = !_.isUndefined(attrs.showDateDetails);
 
-              // ---
-              // Now update the master expense, and remove the marked sign.
-              // ---
-              vm.shownExpense.marked = false;
-              vm.expense = angular.copy(vm.shownExpense);
+      /**
+       * Show block content
+       */
+      scope.showContent = false;
 
-              scope.cancel();
-            }
+      /**
+       * Toggle content
+       */
+      scope.toggleContent = () => {
+        scope.showContent = !scope.showContent;
+
+        // ---
+        // Auto focus price.
+        // ---
+        if (scope.showContent) {
+          $timeout(() => {
+            el.find(EXPENSE_INPUT_SELECTOR).focus();
           });
-        },
+        }
       };
-    });
-}());
+
+      /**
+       * Toggle and discard changes.
+       */
+      scope.cancel = () => {
+        scope.toggleContent();
+
+        _this.discardChanges();
+      };
+
+      /**
+       * On expense updated/deleted - cancel edit mode.
+       */
+      $rootScope.$on(EXPENSE_EVENTS.isUpdated, (event, args) => {
+        if (_this.expense.id === args.expense.id) {
+
+          // ---
+          // Now update the master expense, and remove the marked sign.
+          // ---
+          _this.shownExpense.marked = false;
+          _this.expense = angular.copy(_this.shownExpense);
+
+          scope.cancel();
+        }
+      });
+    },
+  };
+}
+
+export default expenseEntryDirective;

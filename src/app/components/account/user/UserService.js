@@ -1,60 +1,57 @@
-(function () {
-  'use strict';
+function UserService($http, $q, USER_URLS) {
+  'ngInject';
 
-  angular
-    .module('revaluate.account')
-    .service('UserService', function ($http, $q, USER_URLS) {
+  /**
+   * The list of already verified email addresses.
+   *
+   * @type {{}}
+   */
+  this.uniqueEmailCache = {};
 
-      /**
-       * The list of already verified email addresses.
-       *
-       * @type {{}}
-       */
-      this.uniqueEmailCache = {};
+  /**
+   * Check if an email address is unique.
+   *
+   * @param email
+   * @returns {*}
+   */
+  this.isUnique = function (email) {
+    // Create deferred
+    const deferred = $q.defer();
 
-      /**
-       * Check if an email address is unique.
-       *
-       * @param email
-       * @returns {*}
-       */
-      this.isUnique = function (email) {
-        // Create deferred
-        var deferred = $q.defer();
+    if (!_.isUndefined(this.uniqueEmailCache[email])) {
 
-        if (!_.isUndefined(this.uniqueEmailCache[email])) {
-
-          // Use the value from cache
+      // Use the value from cache
+      deferred.resolve({
+        isUnique: this.uniqueEmailCache[email],
+        email,
+      });
+    } else {
+      $http
+        .get(URLTo.api(USER_URLS.userUnique), { params: { email } })
+        .then(_.bind(function (response) {
+          this.uniqueEmailCache[email] = response.data.isUniqueEmail;
           deferred.resolve({
-            isUnique: this.uniqueEmailCache[email],
-            email: email,
+            isUnique: response.data.isUniqueEmail,
+            email,
           });
-        } else {
-          $http
-            .get(URLTo.api(USER_URLS.userUnique), { params: { email: email } })
-            .then(_.bind(function (response) {
-              this.uniqueEmailCache[email] = response.data.isUniqueEmail;
-              deferred.resolve({
-                isUnique: response.data.isUniqueEmail,
-                email: email,
-              });
-            }, this))
-            .catch(function () {
-              deferred.resolve({
-                isUnique: false,
-                email: email,
-              });
-            });
-        }
+        }, this))
+        .catch(() => {
+          deferred.resolve({
+            isUnique: false,
+            email,
+          });
+        });
+    }
 
-        return deferred.promise;
-      };
+    return deferred.promise;
+  };
 
-      /**
-       * Reset the unique email cache.
-       */
-      this.resetUniqueEmailCache = function () {
-        this.uniqueEmailCache = {};
-      };
-    });
-}());
+  /**
+   * Reset the unique email cache.
+   */
+  this.resetUniqueEmailCache = function () {
+    this.uniqueEmailCache = {};
+  };
+}
+
+export default UserService;

@@ -1,12 +1,6 @@
-(function () {
-  'use strict';
-
-  function StatisticsFactory() {
-
-    /**
-     * Statistics class.
-     */
-    function Statistics(data) {
+export default function StatisticsFactory() {
+  class Statistics {
+    constructor(data) {
 
       /**
        * The monthsPerYears.
@@ -14,14 +8,11 @@
       this.monthsPerYears = data.monthsPerYears;
     }
 
-    Statistics.prototype.isOverallTransactionsEmpty = function () {
+    isOverallTransactionsEmpty() {
       return _.keys(this.monthsPerYears).length === 0;
-    };
-
-    return Statistics;
+    }
   }
 
-  angular
-    .module('revaluate.statistics')
-    .factory('Statistics', StatisticsFactory);
-}());
+  return Statistics;
+}
+

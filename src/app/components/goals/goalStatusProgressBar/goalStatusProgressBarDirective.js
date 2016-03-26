@@ -1,81 +1,77 @@
-(function () {
-  'use strict';
+function GoalStatusProgressBarController($scope, $rootScope, GoalProgressTypeService) {
+  'ngInject';
 
-  function GoalStatusProgressBarController($scope, $rootScope, GoalProgressTypeService) {
-    var vm = this;
+  const _this = this;
 
-    /**
-     * Current user.
-     */
-    vm.user = $rootScope.currentUser;
+  /**
+   * Current user.
+   */
+  _this.user = $rootScope.currentUser;
 
-    /**
-     * Goals on current month.
-     */
-    vm.isCurrentMonthSelected = moment().isSame(moment(vm.goal.endDate), 'month');
+  /**
+   * Goals on current month.
+   */
+  _this.isCurrentMonthSelected = moment().isSame(moment(_this.goal.endDate), 'month');
+
+  // ---
+  // Initially, prepare data with this information.
+  // ---
+  prepareData(_this.goal);
+
+  function prepareData(goal) {
+    let noOfDaysInMonth, currentDay;
 
     // ---
-    // Initially, prepare data with this information.
+    // Target value of the goal.
     // ---
-    prepareData(vm.goal);
+    _this.targetValue = goal.value;
 
-    function prepareData(goal) {
-      var noOfDaysInMonth, currentDay;
+    // ---
+    // The current value of the goal.
+    // ---
+    _this.currentValue = goal.goalStatus.currentValue;
 
-      // ---
-      // Target value of the goal.
-      // ---
-      vm.targetValue = goal.value;
+    // ---
+    // The type of the progress bar goal.
+    // ---
+    _this.type = GoalProgressTypeService.computeProgressBarType(goal);
 
-      // ---
-      // The current value of the goal.
-      // ---
-      vm.currentValue = goal.goalStatus.currentValue;
+    /**
+     * If warning should be shown
+     */
+    _this.showWarning = _this.type === 'danger' || _this.type === 'warning';
 
-      // ---
-      // The type of the progress bar goal.
-      // ---
-      vm.type = GoalProgressTypeService.computeProgressBarType(goal);
-
-      /**
-       * If warning should be shown
-       */
-      vm.showWarning = (vm.type === 'danger' || vm.type === 'warning');
-
-      // ---
-      // Compute the today position.
-      // ---
-      noOfDaysInMonth = daysInMonth();
-      currentDay = moment().date();
-      vm.todayPosition = ((100 / noOfDaysInMonth) * currentDay) - ((100 / noOfDaysInMonth) / 2);
-    }
-
-    function daysInMonth() {
-      return new Date(moment().year(), moment().month() + 1, 0).getDate();
-    }
-
-    $scope.$watch(function () {
-      return vm.goal;
-    }, function (newGoal) {
-
-      prepareData(newGoal);
-    });
+    // ---
+    // Compute the today position.
+    // ---
+    noOfDaysInMonth = daysInMonth();
+    currentDay = moment().date();
+    _this.todayPosition = ((100 / noOfDaysInMonth) * currentDay) - ((100 / noOfDaysInMonth) / 2);
   }
 
-  angular
-    .module('revaluate.goals')
-    .directive('goalStatusProgressBar', function () {
-      return {
-        restrict: 'E',
-        scope: {
-          goal: '=',
-        },
-        controller: GoalStatusProgressBarController,
-        bindToController: true,
-        controllerAs: 'vm',
-        templateUrl: '/app/components/goals/goalStatusProgressBar/goalStatusProgressBarDirective.tpl.html',
-        link: function () {
-        },
-      };
-    });
-}());
+  function daysInMonth() {
+    return new Date(moment().year(), moment().month() + 1, 0).getDate();
+  }
+
+  $scope.$watch(() => _this.goal, newGoal => {
+
+    prepareData(newGoal);
+  });
+}
+
+function goalStatusProgressBarDirective() {
+  return {
+    restrict: 'E',
+    scope: {
+      goal: '=',
+    },
+    controller: GoalStatusProgressBarController,
+    bindToController: true,
+    controllerAs: 'vm',
+    templateUrl: '/app/components/goals/goalStatusProgressBar/goalStatusProgressBarDirective.tpl.html',
+    link() {
+    },
+  };
+}
+
+export default goalStatusProgressBarDirective;

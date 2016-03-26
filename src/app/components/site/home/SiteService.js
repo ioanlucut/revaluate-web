@@ -1,15 +1,8 @@
-(function () {
-  'use strict';
+export default
 
-  function SiteService($http) {
+function SiteService($http) {
+  'ngInject';
 
-    this.fetchInstant = function () {
-      return $http
-        .get(URLTo.api('appstats/fetchInstant'));
-    };
-  }
-
-  angular
-    .module('revaluate.goals')
-    .service('SiteService', SiteService);
-}());
+  this.fetchInstant = () => $http
+    .get(URLTo.api('appstats/fetchInstant'));
+}

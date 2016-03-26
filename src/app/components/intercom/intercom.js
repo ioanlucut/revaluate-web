@@ -1,15 +1,15 @@
-(function () {
-  'use strict';
+import IntercomUtilsService from './intercom/IntercomUtilsService';
 
-  angular
-    .module('revaluate.intercom', [
-      'ngIntercom',
-      'config',
-    ])
-    .config(function ($intercomProvider, ENV) {
-      $intercomProvider
-        .appID(ENV.intercomAppId);
-      $intercomProvider
-        .asyncLoading(true);
-    });
-}());
+export default angular
+  .module('revaluate.intercom', [
+    'ngIntercom',
+    'config',
+  ])
+  .service('IntercomUtilsService', IntercomUtilsService)
+  .config(($intercomProvider, ENV) => {
+    'ngInject';
+    $intercomProvider
+      .appID(ENV.intercomAppId);
+    $intercomProvider
+      .asyncLoading(true);
+  });

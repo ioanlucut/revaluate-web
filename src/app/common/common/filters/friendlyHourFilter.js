@@ -1,14 +1,7 @@
-(function () {
-  'use strict';
+/* Friendly date filter */
 
-  /* Friendly date filter */
+function friendlyHourFilter() {
+  return date => moment(date).format('h:mm A');
+}
 
-  angular
-    .module('revaluate.common')
-    .filter('friendlyHour', function () {
-      return function (date) {
-
-        return moment(date).format('h:mm A');
-      };
-    });
-}());
+export default friendlyHourFilter;

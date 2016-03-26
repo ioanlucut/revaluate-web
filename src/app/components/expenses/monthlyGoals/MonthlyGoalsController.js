@@ -1,83 +1,86 @@
-(function () {
-  'use strict';
+function MonthlyGoalsController(EXPENSE_EVENTS,
+                                ALERTS_EVENTS,
+                                USER_ACTIVITY_EVENTS,
+                                $scope,
+                                DatesUtils,
+                                promiseTracker,
+                                GoalService,
+                                goals) {
+  'ngInject';
 
-  function MonthlyGoalsController(EXPENSE_EVENTS, ALERTS_EVENTS, USER_ACTIVITY_EVENTS, $scope, DatesUtils, promiseTracker, GoalService, goals) {
-    var vm = this;
+  const _this = this;
 
-    /**
-     * Load insights
-     */
-    vm.loadGoals = loadGoals;
+  /**
+   * Load insights
+   */
+  _this.loadGoals = loadGoals;
 
-    /**
-     * Goals of this month
-     */
-    vm.goals = goals;
+  /**
+   * Goals of this month
+   */
+  _this.goals = goals;
 
-    /**
-     * Create a loading tracker.
-     */
-    vm.loadTracker = promiseTracker();
+  /**
+   * Create a loading tracker.
+   */
+  _this.loadTracker = promiseTracker();
 
-    /**
-     * Load goals
-     */
-    function loadGoals() {
-      var period = DatesUtils
-        .fromLastMonthsToNow(1);
+  /**
+   * Load goals
+   */
+  function loadGoals() {
+    const period = DatesUtils
+      .fromLastMonthsToNow(1);
 
-      GoalService
-        .getAllGoalsFromTo(period.from, period.to, vm.loadTracker)
-        .then(function (receivedGoals) {
-          vm.goals = receivedGoals;
+    GoalService
+      .getAllGoalsFromTo(period.from, period.to, _this.loadTracker)
+      .then(receivedGoals => {
+        _this.goals = receivedGoals;
 
-          $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.goalsFetched);
-        })
-        .catch(function () {
-          vm.badPostSubmitResponse = true;
-          $scope.$emit(ALERTS_EVENTS.DANGER, {
-            message: 'Could not fetch goals.',
-            alertId: vm.alertId,
-          });
+        $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.goalsFetched);
+      })
+      .catch(() => {
+        _this.badPostSubmitResponse = true;
+        $scope.$emit(ALERTS_EVENTS.DANGER, {
+          message: 'Could not fetch goals.',
+          alertId: _this.alertId,
         });
-    }
+      });
+  }
 
-    // ---
-    // Reload if necessary upon delete/update/create..
-    // ---
+  // ---
+  // Reload if necessary upon delete/update/create..
+  // ---
 
-    $scope.$on(EXPENSE_EVENTS.isCreated, function (event, args) {
-      tryToReloadIfNecessary(args);
-    });
+  $scope.$on(EXPENSE_EVENTS.isCreated, (event, args) => {
+    tryToReloadIfNecessary(args);
+  });
 
-    $scope.$on(EXPENSE_EVENTS.isDeleted, function (event, args) {
-      tryToReloadIfNecessary(args);
-    });
+  $scope.$on(EXPENSE_EVENTS.isDeleted, (event, args) => {
+    tryToReloadIfNecessary(args);
+  });
 
-    $scope.$on(EXPENSE_EVENTS.isUpdated, function (event, args) {
-      tryToReloadIfNecessary(args);
-    });
+  $scope.$on(EXPENSE_EVENTS.isUpdated, (event, args) => {
+    tryToReloadIfNecessary(args);
+  });
 
-    function tryToReloadIfNecessary(args) {
-      if (args.expense) {
-        reloadIfRequired(args.expense);
-      } else if (args.expenses) {
-        _.each(args.expenses, function (expenseCandidate) {
-          reloadIfRequired(expenseCandidate);
-        });
-      }
-    }
-
-    function reloadIfRequired(expense) {
-      var isSameMonth = moment().isSame(moment(expense.spentDate), 'month');
-
-      if (isSameMonth) {
-        vm.loadGoals();
-      }
+  function tryToReloadIfNecessary(args) {
+    if (args.expense) {
+      reloadIfRequired(args.expense);
+    } else if (args.expenses) {
+      _.each(args.expenses, expenseCandidate => {
+        reloadIfRequired(expenseCandidate);
+      });
     }
   }
 
-  angular
-    .module('revaluate.expenses')
-    .controller('MonthlyGoalsController', MonthlyGoalsController);
-}());
+  function reloadIfRequired(expense) {
+    const isSameMonth = moment().isSame(moment(expense.spentDate), 'month');
+
+    if (isSameMonth) {
+      _this.loadGoals();
+    }
+  }
+}
+
+export default MonthlyGoalsController;
