@@ -1,9 +1,9 @@
 // ---
 // Import the app.
 // ---
-import './index.app.js';
+import './indexApp.js';
 
 // ---
 // Starts the whole app.
 // ---
-import './index.bootstrapper.js';
+import './indexBootstrapper.js';

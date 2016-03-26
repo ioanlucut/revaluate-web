@@ -5,6 +5,9 @@ export default deferredBootstrapper
   .bootstrap({
     element: document.documentElement,
     module: 'revaluate',
+    bootstrapConfig: {
+      strictDi: true
+    },
     injectorModules: ['config', 'angular-cache'],
     resolve: {
       APP_CONFIG: ['ENV', '$http', '$q', 'CacheFactory', (ENV, $http, $q, CacheFactory) => {
@@ -33,16 +36,6 @@ export default deferredBootstrapper
           .get(URLTo.api(APP_CONFIG_RESOURCE_URL), { cache: appCache })
           .then(response => angular
             .extend(window.APP_CONFIG_SKELETON, response.data));
-      },
-      ],
-      APP_STATS: ['ENV', '$http', (ENV, $http) => {
-        const STATS_RESOURCE_URL = `appstats/fetch?${ENV.name}&${ENV.cacheResetKey}`;
-
-        return $http
-          .get(URLTo.api(STATS_RESOURCE_URL))
-          .then(response => angular
-            .extend(window.APP_STATS_SKELETON, response.data))
-          .catch(() => window.APP_STATS_SKELETON);
       },
       ],
     },
