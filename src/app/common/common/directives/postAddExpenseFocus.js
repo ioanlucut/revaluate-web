@@ -1,4 +1,6 @@
 function postAddExpenseFocus($timeout, EXPENSE_EVENTS) {
+  'ngInject';
+
   return {
     restrict: 'A',
     link(scope, el) {

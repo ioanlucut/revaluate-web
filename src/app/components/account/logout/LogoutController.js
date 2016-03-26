@@ -1,7 +1,8 @@
 /**
  * Logout controller responsible for user logout action.
  */
-function LogoutController($scope, $timeout, StatesHandler, AuthService) {
+function LogoutController($timeout, StatesHandler, AuthService) {
+  'ngInject';
 
   const _this = this;
 

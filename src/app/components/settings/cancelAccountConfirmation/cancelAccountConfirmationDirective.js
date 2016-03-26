@@ -1,6 +1,8 @@
 /* Auto focus */
 
 function cancelAccountConfirmationDirective($timeout) {
+  'ngInject';
+
   return {
     restrict: 'A',
     transclude: true,

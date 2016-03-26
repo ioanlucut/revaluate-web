@@ -1,6 +1,7 @@
 /* Feedback modal */
 
 function FeedbackModalService($modal) {
+  'ngInject';
 
   /**
    * Feedback modal instance.

@@ -1,4 +1,5 @@
 function CategoryTransformerService(Category) {
+  'ngInject';
 
   // ---
   // Name should be always upper case.

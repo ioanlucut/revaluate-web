@@ -1,4 +1,5 @@
 function FeedbackController($scope, FeedbackModalService, Feedback, $timeout) {
+  'ngInject';
 
   const TIMEOUT = 1500;
 

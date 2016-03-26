@@ -3,6 +3,8 @@ function userProfilePictureDirective() {
     restrict: 'E',
     scope: {},
     controller($scope, $rootScope) {
+      'ngInject';
+
       const _this = this;
 
       /**

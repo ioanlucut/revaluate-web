@@ -1,16 +1,15 @@
 /**
  * Login controller responsible for user login actions.
  */
-function AccountLoginController(
-  $scope,
-  ALERTS_EVENTS,
-  ALERTS_CONSTANTS,
-  AuthService,
-  AUTH_EVENTS,
-  ACCOUNT_FORM_STATE,
-  AccountModal,
-  StatesHandler,
-  $timeout) {
+function AccountLoginController($scope,
+                                ALERTS_EVENTS,
+                                ALERTS_CONSTANTS,
+                                AuthService,
+                                ACCOUNT_FORM_STATE,
+                                AccountModal,
+                                StatesHandler,
+                                $timeout) {
+  'ngInject';
 
   /**
    * Alert identifier

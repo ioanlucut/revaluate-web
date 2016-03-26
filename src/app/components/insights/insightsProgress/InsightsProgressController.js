@@ -15,6 +15,7 @@ function InsightsProgressController(DatesUtils,
                                     USER_ACTIVITY_EVENTS,
                                     INSIGHTS_CHARTS,
                                     ALERTS_CONSTANTS) {
+  'ngInject';
 
   const TIMEOUT_DURATION = 150, _this = this;
 

@@ -1,4 +1,5 @@
 function InsightsGenerator($filter) {
+  'ngInject';
 
   this.generate = (insightsProgress, masterCategories) => {
     let availableYearMonths, totalAmountPerMonths, progressLineData, insightLineColors, insightLineSeries, insightLabels, insightLineData;

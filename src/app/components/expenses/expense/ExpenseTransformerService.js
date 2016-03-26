@@ -1,4 +1,5 @@
 function ExpenseTransformerService(Expense) {
+  'ngInject';
 
   this.expenseApiRequestTransformer = requestData => {
 

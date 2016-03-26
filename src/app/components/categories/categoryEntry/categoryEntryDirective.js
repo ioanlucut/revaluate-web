@@ -1,4 +1,5 @@
 function CategoryEntryController(CATEGORY_EVENTS, $scope, $rootScope, promiseTracker, CategoryService) {
+  'ngInject';
 
   const _this = this;
 

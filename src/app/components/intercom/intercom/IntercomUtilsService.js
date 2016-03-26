@@ -1,4 +1,5 @@
 function IntercomUtilsService($intercom, AuthService, $rootScope) {
+  'ngInject';
 
   this.bootIntercom = function (user, args) {
 

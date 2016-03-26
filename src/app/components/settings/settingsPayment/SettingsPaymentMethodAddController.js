@@ -1,5 +1,4 @@
-function SettingsPaymentMethodAddController($q,
-                                            $scope,
+function SettingsPaymentMethodAddController($scope,
                                             $state,
                                             $rootScope,
                                             $timeout,
@@ -10,9 +9,9 @@ function SettingsPaymentMethodAddController($q,
                                             paymentStatus,
                                             ALERTS_EVENTS,
                                             ALERTS_CONSTANTS,
-                                            USER_ACTIVITY_EVENTS,
                                             AUTH_EVENTS,
                                             USER_SUBSCRIPTION_STATUS) {
+  'ngInject';
 
   const _this = this;
 

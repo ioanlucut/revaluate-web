@@ -1,5 +1,6 @@
 // or just use "success", "info", "warning" or "danger" shortcut methods:
 function AlertService(ngToast) {
+  'ngInject';
 
   this.addMessage = message => ngToast.create(message);
 

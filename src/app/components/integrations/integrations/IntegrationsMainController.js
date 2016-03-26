@@ -5,10 +5,10 @@ function IntegrationsMainController($scope,
                                     USER_ACTIVITY_EVENTS,
                                     ENV,
                                     SocialConnectService,
-                                    StatesHandler,
                                     IntegrationsService,
                                     promiseTracker,
                                     integrations) {
+  'ngInject';
 
   const _this = this;
 

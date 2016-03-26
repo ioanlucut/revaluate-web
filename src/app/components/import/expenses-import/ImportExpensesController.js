@@ -1,5 +1,4 @@
-function ImportExpensesController($q,
-                                  $scope,
+function ImportExpensesController($scope,
                                   $rootScope,
                                   $timeout,
                                   IMPORT_CONSTANTS,
@@ -9,12 +8,12 @@ function ImportExpensesController($q,
                                   ExpensesImport,
                                   StatesHandler,
                                   SessionService,
-                                  AUTH_EVENTS,
                                   ALERTS_EVENTS,
                                   categories,
                                   ALERTS_CONSTANTS,
                                   USER_ACTIVITY_EVENTS,
                                   APP_CONFIG) {
+  'ngInject';
 
   // ---
   // Configure uploader.

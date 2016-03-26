@@ -1,4 +1,5 @@
 function ValidatePasswordResetTokenInvalidController($scope, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE) {
+  'ngInject';
 
   /**
    * Flag which tells if user is currently authenticated while coming to this page.

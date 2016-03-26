@@ -1,21 +1,21 @@
 export default
 
-function InsightsMonthlyController(
-  USER_ACTIVITY_EVENTS,
-  INSIGHTS_CHARTS,
-  ALERTS_CONSTANTS,
-  ALERTS_EVENTS,
-  $controller,
-  $scope,
-  promiseTracker,
-  DatesUtils,
-  $rootScope,
-  $filter,
-  $timeout,
-  InsightsGenerator,
-  InsightsService,
-  insightsMonthly,
-  monthsPerYearsStatistics) {
+function InsightsMonthlyController(USER_ACTIVITY_EVENTS,
+                                   INSIGHTS_CHARTS,
+                                   ALERTS_CONSTANTS,
+                                   ALERTS_EVENTS,
+                                   $controller,
+                                   $scope,
+                                   promiseTracker,
+                                   DatesUtils,
+                                   $rootScope,
+                                   $filter,
+                                   $timeout,
+                                   InsightsGenerator,
+                                   InsightsService,
+                                   insightsMonthly,
+                                   monthsPerYearsStatistics) {
+  'ngInject';
 
   const _this = this;
 

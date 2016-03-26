@@ -5,6 +5,7 @@ function ExpensesOfCategoryController(ALERTS_EVENTS,
                                       DatesUtils,
                                       ExpenseService,
                                       promiseTracker) {
+  'ngInject';
 
   const _this = this;
 

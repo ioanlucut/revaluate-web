@@ -1,4 +1,5 @@
 function AccountModal($rootScope, $timeout, AUTH_MODAL) {
+  'ngInject';
 
   // By default the modal is closed
   this.isOpen = false;

@@ -1,15 +1,12 @@
 /**
  * Profile controller responsible for user update profile action.
  */
-function SettingsProfileController($q,
-                                   $scope,
+function SettingsProfileController($scope,
                                    $rootScope,
-                                   $timeout,
-                                   StatesHandler,
-                                   SessionService,
                                    AUTH_EVENTS,
                                    ALERTS_EVENTS,
                                    ALERTS_CONSTANTS) {
+  'ngInject';
 
   const _this = this;
 

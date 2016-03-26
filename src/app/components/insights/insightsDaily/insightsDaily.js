@@ -1,6 +1,7 @@
 export default
 
 function InsightsDailyFactory(InsightsAbstract) {
+  'ngInject';
 
   /**
    * Daily expenses factory function.

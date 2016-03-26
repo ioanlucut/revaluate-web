@@ -1,16 +1,15 @@
 /**
  * Preferences controller responsible for user update preferences action.
  */
-function SettingsPreferencesCurrencyController($q,
-                                               $scope,
+function SettingsPreferencesCurrencyController($scope,
                                                $rootScope,
                                                $timeout,
-                                               StatesHandler,
                                                SessionService,
                                                AUTH_EVENTS,
                                                ALERTS_EVENTS,
                                                ALERTS_CONSTANTS,
                                                APP_CONFIG) {
+  'ngInject';
 
   const _this = this;
 

@@ -1,20 +1,20 @@
 export default
 
-function SettingsSetUpRegistrationController(
-  ALERTS_EVENTS,
-  APP_CONFIG,
-  AUTH_EVENTS,
-  ALERTS_CONSTANTS,
-  USER_ACTIVITY_EVENTS,
-  $q,
-  $scope,
-  $rootScope,
-  $timeout,
-  CategoryService,
-  CategoryColorService,
-  SessionService,
-  StatesHandler,
-  Category) {
+function SettingsSetUpRegistrationController(ALERTS_EVENTS,
+                                             APP_CONFIG,
+                                             AUTH_EVENTS,
+                                             ALERTS_CONSTANTS,
+                                             USER_ACTIVITY_EVENTS,
+                                             $q,
+                                             $scope,
+                                             $rootScope,
+                                             $timeout,
+                                             CategoryService,
+                                             CategoryColorService,
+                                             SessionService,
+                                             StatesHandler,
+                                             Category) {
+  'ngInject';
 
   const _this = this;
 
@@ -64,7 +64,7 @@ function SettingsSetUpRegistrationController(
   _this.categories = _.map(_this.categories, category => ({
     name: category,
     selected: false,
-    color: _this.colors[_this.categories.indexOf(category)]
+    color: _this.colors[_this.categories.indexOf(category)],
   }));
 
   /**

@@ -1,4 +1,5 @@
 function GoalDailyStatusController($rootScope, $filter, InsightsGenerator) {
+  'ngInject';
 
   const _this = this;
 

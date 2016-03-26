@@ -1,4 +1,5 @@
 function Error404PageController($scope, $controller, USER_ACTIVITY_EVENTS) {
+  'ngInject';
 
   /**
    * Inherit from this controller

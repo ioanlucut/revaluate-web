@@ -10,6 +10,7 @@ function MonthlyDailyInsightsController(EXPENSE_EVENTS,
                                         InsightsService,
                                         promiseTracker,
                                         insightsDaily) {
+  'ngInject';
 
   const _this = this;
 

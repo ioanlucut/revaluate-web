@@ -5,6 +5,7 @@ function AddExpenseController(EXPENSE_EVENTS,
                               ExpenseService,
                               Expense,
                               promiseTracker) {
+  'ngInject';
 
   const _this = this;
 

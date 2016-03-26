@@ -4,6 +4,7 @@ function AddCategoryController(CATEGORY_EVENTS,
                                Category,
                                CategoryColorService,
                                CategoryService) {
+  'ngInject';
 
   const _this = this;
 

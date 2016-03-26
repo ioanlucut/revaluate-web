@@ -1,12 +1,10 @@
-function EmailConfirmationResendController(
-  $scope,
-  $rootScope,
-  $timeout,
-  ALERTS_EVENTS,
-  AuthService,
-  StatesHandler,
-  ACCOUNT_FORM_STATE,
-  ALERTS_CONSTANTS) {
+function EmailConfirmationResendController($scope,
+                                           $rootScope,
+                                           $timeout,
+                                           ALERTS_EVENTS,
+                                           AuthService,
+                                           ALERTS_CONSTANTS) {
+  'ngInject';
 
   const TIMEOUT_PENDING = 300;
 

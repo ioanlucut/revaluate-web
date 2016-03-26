@@ -3,6 +3,8 @@ function userProfilePictureHeaderDirective() {
     restrict: 'E',
     scope: {},
     controller($scope, $rootScope) {
+      'ngInject';
+
       const userProfileVm = this;
 
       /**

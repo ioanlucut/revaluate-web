@@ -1,15 +1,15 @@
 export default
 
-function InsightsAbstractController(
-  UNISON_BREAKPOINTS,
-  UNISON_EVENTS,
-  $scope,
-  $timeout,
-  $rootScope,
-  $filter,
-  monthsPerYearsStatistics,
-  resizeOnUpdate,
-  getChartSetSize) {
+function InsightsAbstractController(UNISON_BREAKPOINTS,
+                                    UNISON_EVENTS,
+                                    $scope,
+                                    $timeout,
+                                    $rootScope,
+                                    $filter,
+                                    monthsPerYearsStatistics,
+                                    resizeOnUpdate,
+                                    getChartSetSize) {
+  'ngInject';
 
   const _this = this;
 

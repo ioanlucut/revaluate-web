@@ -5,6 +5,7 @@ function AddGoalController(GOAL_EVENTS,
                            DatesUtils,
                            Goal,
                            promiseTracker) {
+  'ngInject';
 
   const _this = this;
 

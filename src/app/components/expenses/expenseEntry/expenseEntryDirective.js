@@ -4,6 +4,7 @@ function ExpenseEntryController(EXPENSE_EVENTS,
                                 ExpenseService,
                                 Category,
                                 promiseTracker) {
+  'ngInject';
 
   const _this = this;
 
@@ -109,6 +110,7 @@ function ExpenseEntryController(EXPENSE_EVENTS,
 }
 
 function expenseEntryDirective(EXPENSE_EVENTS, $rootScope, $timeout) {
+  'ngInject';
   return {
     restrict: 'A',
     scope: {

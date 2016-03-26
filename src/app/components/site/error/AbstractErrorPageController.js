@@ -2,6 +2,7 @@
  * Abstract error page controller.
  */
 function AbstractErrorPageController($scope, StatesHandler) {
+  'ngInject';
 
   /**
    * Track event.

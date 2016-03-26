@@ -1,4 +1,5 @@
 function SocialConnectService(ENV, OAUTH2_URLS, OAUTH2_SCOPE, $q) {
+  'ngInject';
 
   // ---
   // Initialize HELLO.
@@ -46,14 +47,14 @@ function SocialConnectService(ENV, OAUTH2_URLS, OAUTH2_SCOPE, $q) {
   this.connectWithAppGet = provider => hello(provider)
     .login({ scope: 'identify', response_type: 'code' })
     .then(authCallResponse => hello(provider)
-    .api('/me')
-    .then(me => ({
-    accessToken: authCallResponse.authResponse.access_token,
-    scopes: authCallResponse.authResponse.scope,
-    userId: me.user_id,
-    teamId: me.team_id,
-    teamName: me.team,
-  })));
+      .api('/me')
+      .then(me => ({
+        accessToken: authCallResponse.authResponse.access_token,
+        scopes: authCallResponse.authResponse.scope,
+        userId: me.user_id,
+        teamId: me.team_id,
+        teamName: me.team,
+      })));
 }
 
 export default SocialConnectService;

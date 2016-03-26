@@ -1,4 +1,5 @@
 function IntegrationsTransformerService(Integration) {
+  'ngInject';
 
   this.integrationApiResponseTransformer = responseData => {
     function buildIntegration(data) {

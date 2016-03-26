@@ -10,6 +10,7 @@ function ExpensesController(EXPENSE_EVENTS,
                             ExpenseService,
                             expensesQueryResponse,
                             categories) {
+  'ngInject';
 
   const _this = this, INFINITE_SCROLL_EXPENSES_OFFSET = 50, INFINITE_SCROLL_TIMEOUT = 1500;
 

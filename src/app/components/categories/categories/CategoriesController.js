@@ -6,6 +6,7 @@ function CategoriesController(ALERTS_EVENTS,
                               $rootScope,
                               $scope,
                               categories) {
+  'ngInject';
 
   const _this = this;
 

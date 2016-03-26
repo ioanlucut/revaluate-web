@@ -5,8 +5,8 @@ function SettingsAdminUpdatePasswordController($scope,
                                                ALERTS_EVENTS,
                                                $timeout,
                                                AuthService,
-                                               ACCOUNT_FORM_STATE,
                                                ALERTS_CONSTANTS) {
+  'ngInject';
 
   const _this = this;
 

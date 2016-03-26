@@ -1,13 +1,13 @@
-function ValidatePasswordResetTokenController(
-  $scope,
-  $timeout,
-  ALERTS_EVENTS,
-  AuthService,
-  StatesHandler,
-  ProfileFormToggle,
-  ACCOUNT_FORM_STATE,
-  validateTokenResult,
-  ALERTS_CONSTANTS) {
+function ValidatePasswordResetTokenController($scope,
+                                              $timeout,
+                                              ALERTS_EVENTS,
+                                              AuthService,
+                                              StatesHandler,
+                                              ProfileFormToggle,
+                                              ACCOUNT_FORM_STATE,
+                                              validateTokenResult,
+                                              ALERTS_CONSTANTS) {
+  'ngInject';
 
   /**
    * Alert identifier

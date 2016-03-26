@@ -1,4 +1,5 @@
-function ExpenseGroupedTransformerService(ExpenseTransformerService, Expense, ExpenseGrouped) {
+function ExpenseGroupedTransformerService(ExpenseTransformerService, ExpenseGrouped) {
+  'ngInject';
 
   this.expenseGroupedApiResponseTransformer = responseData => {
     function toExpensesGrouped(queryResponse) {

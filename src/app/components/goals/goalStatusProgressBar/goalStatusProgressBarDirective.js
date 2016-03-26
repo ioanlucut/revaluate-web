@@ -1,4 +1,6 @@
 function GoalStatusProgressBarController($scope, $rootScope, GoalProgressTypeService) {
+  'ngInject';
+
   const _this = this;
 
   /**
