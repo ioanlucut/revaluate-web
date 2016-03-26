@@ -30,7 +30,7 @@
         "bourbon": "~4.2.1",
         "bitters": "~1.0.0",
         "neat": "~1.7.1",
-        "angular-deferred-bootstrap": "~0.1.7",
+        "angular-deferred-bootstrap": "~0.1.9",
         "angular-loading-bar": "~0.8.0",
         "angular-intercom": "~2.1.1",
         "Chart.js": "~1.0.2",

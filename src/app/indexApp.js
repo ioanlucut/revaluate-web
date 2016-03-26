@@ -1,4 +1,4 @@
-require('./index.utils.js');
+require('./indexUtils.js');
 
 import revaluateAppConfig from './config/revaluateAppConfig';
 import revaluateSite from './components/site/site';
@@ -14,8 +14,8 @@ import revaluateSettings from './components/settings/settings';
 import revaluateInsights from './components/insights/insights';
 import revaluateIntegrations from './components/integrations/integrations';
 import revaluateIntercom from './components/intercom/intercom';
-import indexConfig from './index.config';
-import IndexController from './index.controller';
+import indexConfig from './indexConfig.js';
+import IndexController from './indexController.js';
 
 export default angular
   .module('revaluate', [

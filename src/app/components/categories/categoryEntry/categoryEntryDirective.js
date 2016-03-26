@@ -62,7 +62,9 @@ function CategoryEntryController(CATEGORY_EVENTS, $scope, $rootScope, promiseTra
   }
 }
 
-function categoryEntryDirective($rootScope, promiseTracker, CategoryService, CATEGORY_EVENTS) {
+function categoryEntryDirective($rootScope, CATEGORY_EVENTS) {
+  'ngInject';
+
   return {
     restrict: 'A',
     scope: {

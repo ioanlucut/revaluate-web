@@ -53,12 +53,9 @@ function AddCategoryController(CATEGORY_EVENTS,
 
 }
 
-function categoryAddDirective($rootScope,
-                              promiseTracker,
-                              Category,
-                              CategoryService,
-                              CategoryColorService,
-                              CATEGORY_EVENTS) {
+function categoryAddDirective(CATEGORY_EVENTS) {
+  'ngInject';
+
   return {
     restrict: 'A',
     scope: {
