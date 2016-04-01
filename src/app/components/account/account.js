@@ -4,7 +4,6 @@ import authModalConstants from './account/authModalConstants';
 import authUrlsConstants from './account/authUrlsConstants';
 import userSubscriptionStatusConstants from './account/userSubscriptionStatusConstants';
 import socialConnectConstants from './socialConnect/socialConnectConstants';
-
 import authTokenHeaderConstants from './account/authTokenHeaderConstants';
 import strongPasswordDirective from './directives/strongPasswordDirective';
 import uniqueEmailDirective from './directives/uniqueEmailDirective';
@@ -29,7 +28,6 @@ import accountModal from './accountModal/AccountModal';
 import accountModalDirective from './accountModal/accountModalDirective';
 import accountModalToggleDirective from './accountModal/accountModalToggleDirective';
 import accountModalCloseDirective from './accountModal/accountModalCloseDirective/accountModalCloseDirective';
-
 import auth from './auth/auth';
 
 /**
