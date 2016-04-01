@@ -44,8 +44,8 @@
         <div class="expense__edit__form__category" ng-class="{'has-error': vm.expenseForm.$submitted && (vm.expenseForm.category.$invalid || vm.badPostSubmitResponse)}">
 
             <ui-select name="category" ng-disabled="vm.updateTracker.active()" class="category-select__input" ng-style="{'background':$select.selected.color.color}" required ng-model="vm.category.selected" theme="selectize">
-                <ui-select-match ng-style="{'background':$select.selected.color.color}" placeholder="Select a category">{{$select.selected.name}}</ui-select-match>
-                <ui-select-choices repeat="categoryEntry in vm.categories | orderObjectBy : 'name' : false | filter:{name:$select.search} track by categoryEntry.id">
+                <ui-select-match class="ui-select-match" ng-style="{'background':$select.selected.color.color}" placeholder="Select a category">{{$select.selected.name}}</ui-select-match>
+                <ui-select-choices class="ui-select-choices" repeat="categoryEntry in vm.categories | orderObjectBy : 'name' : false | filter:{name:$select.search} track by categoryEntry.id">
                     <span class="category__color__preview" ng-style="{'background':categoryEntry.color.color}">C</span>
                     <span ng-bind-html="categoryEntry.name | highlight: $select.search"></span>
                 </ui-select-choices>
