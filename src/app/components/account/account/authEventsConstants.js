@@ -1,9 +1,4 @@
-export default
-
-/**
- * Account related constants.
- */
-{
+export default {
   isLoggedIn: 'auth-is-logged-in',
   loginSuccess: 'auth-login-success',
   refreshUser: 'auth-refresh-user',

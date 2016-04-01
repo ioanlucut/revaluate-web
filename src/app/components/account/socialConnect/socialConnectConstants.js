@@ -1,9 +1,4 @@
-export default
-
-/**
- * Oauth2 related constants.
- */
-{
+export default {
   connect: 'oauth2/connect',
 };
 

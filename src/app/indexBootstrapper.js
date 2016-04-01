@@ -6,7 +6,7 @@ export default deferredBootstrapper
     element: document.documentElement,
     module: 'revaluate',
     bootstrapConfig: {
-      strictDi: true
+      strictDi: true,
     },
     injectorModules: ['config', 'angular-cache'],
     resolve: {

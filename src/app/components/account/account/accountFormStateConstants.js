@@ -1,9 +1,4 @@
-export default
-
-/**
- * Account related constants.
- */
-{
+export default {
   login: 'login',
   logout: 'logout',
   signUp: 'signUp',

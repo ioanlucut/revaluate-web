@@ -46,12 +46,6 @@ function UserService($http, $q, USER_URLS) {
     return deferred.promise;
   };
 
-  /**
-   * Reset the unique email cache.
-   */
-  this.resetUniqueEmailCache = function () {
-    this.uniqueEmailCache = {};
-  };
 }
 
 export default UserService;

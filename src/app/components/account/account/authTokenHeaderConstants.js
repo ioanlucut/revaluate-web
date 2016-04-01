@@ -1,7 +1,2 @@
-export default
-
-/**
- * Account related constants.
- */
-'authtoken';
+export default 'authtoken';
 

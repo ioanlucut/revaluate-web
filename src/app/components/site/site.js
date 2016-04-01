@@ -1,5 +1,4 @@
 import commonModule from './../../common/common';
-
 import HomePageController from './home/HomePageController';
 import AbstractErrorPageController from './error/AbstractErrorPageController';
 import Error404PageController from './error/404/Error404PageController';
