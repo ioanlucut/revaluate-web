@@ -90,19 +90,13 @@ function AddExpenseController(EXPENSE_EVENTS,
 
 }
 
-function expenseAddDirective() {
-  return {
-    restrict: 'A',
-    scope: {
-      categories: '=',
-    },
-    controller: AddExpenseController,
-    bindToController: true,
-    controllerAs: 'vm',
-    templateUrl: '/app/components/expenses/expenseAdd/expenseAddDirective.tpl.html',
-    link() {
-    },
-  };
-}
+let expenseAddComponent = {
+  restrict: 'A',
+  bindings: {
+    categories: '=',
+  },
+  controller: AddExpenseController,
+  templateUrl: '/app/components/expenses/expenseAdd/expenseAddComponent.tpl.html',
+};
 
-export default expenseAddDirective;
+export default expenseAddComponent;
