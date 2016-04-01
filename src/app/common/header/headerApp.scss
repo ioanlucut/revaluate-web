@@ -25,7 +25,7 @@
 
 .header__brand--logo {
     @include size($header-brand-logo-size $header-brand-logo-size);
-    background: url("/assets/img/logo.svg") no-repeat top left;
+    background: url("/assets/img/logo.png") no-repeat top left;
     background-size: contain;
     margin: 0 auto;
     display: block;
