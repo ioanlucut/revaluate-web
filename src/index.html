@@ -31,7 +31,8 @@
         <!-- endbuild -->
     </head>
 
-    <body class="body--{{$state.current.pageId}}" intro-bar-listener>
+    <body
+        ng-class="$state.current.isPublicPage ? 'body--public' : 'body--app'" intro-bar-listener>
 
         <div class="body__loading">
 

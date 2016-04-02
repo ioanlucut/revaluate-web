@@ -1,0 +1,13 @@
+snap-toggler {
+    display: none;
+    height: 40px;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    z-index: 99999999;
+}
+
+.snap-toggler {
+    @include btn-big($gray-medium);
+    text-transform: uppercase;
+}

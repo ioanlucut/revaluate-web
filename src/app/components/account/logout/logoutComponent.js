@@ -1,6 +1,3 @@
-/**
- * Logout controller responsible for user logout action.
- */
 function LogoutController($timeout, StatesHandler, AuthService) {
   'ngInject';
 
@@ -15,4 +12,13 @@ function LogoutController($timeout, StatesHandler, AuthService) {
 
 }
 
-export default LogoutController;
+const logoutComponent = {
+  bindings: {
+    className: '@',
+    title: '@',
+  },
+  controller: LogoutController,
+  templateUrl: '/app/components/account/logout/logoutComponent.tpl.html',
+};
+
+export default logoutComponent;

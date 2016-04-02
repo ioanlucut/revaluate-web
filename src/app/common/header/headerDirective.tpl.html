@@ -1,5 +1,27 @@
-<!--Show header while user is authenticated-->
-<div ng-if="vm.showAppHeader" ng-include src="'/app/common/header/headerDirectiveApp.tpl.html'"></div>
+<div class="header-public__wrapper">
 
-<!--Show header while user is not authenticated-->
-<div ng-if="! vm.showAppHeader" ng-include src="'/app/common/header/headerDirectivePublic.tpl.html'"></div>
+    <header class="header-public">
+
+        <div class="header-public__brand" href="javascript:void(0)" ui-sref="home" ui-sref-opts="{reload:true}">
+
+            <div class="header-public__brand_logo"></div>
+
+        </div>
+
+        <!--Menu snap toggler-->
+        <snap-toggler></snap-toggler>
+
+        <ul class="header-public__navigation">
+            <li>
+                <button class="header-public__navigation__loginbtn" account-modal-toggle="login">Log in</button>
+            </li>
+            <li>
+                <button class="header-public__navigation__signupbtn" account-modal-toggle="requestSignUpRegistration">
+                    Sign up
+                </button>
+            </li>
+        </ul>
+
+    </header>
+
+</div>

@@ -1,0 +1,146 @@
+sidebar {
+    z-index: 1000;
+    position: fixed;
+    left: $sidebar-width;
+    width: $sidebar-width;
+    height: 100%;
+    margin-left: -$sidebar-width;
+    overflow-y: auto;
+    border-right: 1px solid $gray-light-2;
+    background-color: $white;
+    @include fadeInDown(1s);
+}
+
+.sidebar__brand {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+}
+
+.sidebar__brand--responsive {
+    display: none;
+}
+
+.sidebar__brand--logo {
+    @include size($header-brand-logo-size $header-brand-logo-size);
+    background: url("/assets/img/logo.png") no-repeat center;
+    background-size: contain;
+    margin: 0 auto;
+    display: block;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.sidebar__brand--name {
+    @include brand-inline($black);
+    color: $white;
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: $font-weight-regular;
+    line-height: 45px;
+    padding-left: 5px;
+
+    &:hover {
+        color: $white;
+        cursor: pointer;
+    }
+}
+
+.sidebar__navigation {
+    padding: 0;
+
+    li {
+        @include user-select(none);
+        display: block;
+        height: $header-element-height;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        text-align: center;
+    }
+
+}
+
+@mixin sidebar__navigation__link--active() {
+    color: $white;
+    background-color: $color-brand-4;
+}
+
+.sidebar__navigation--active {
+
+    .sidebar__navigation__link {
+        @include sidebar__navigation__link--active;
+
+        &:hover {
+            color: $white;
+            background-color: darken($color-brand-4, 20%);
+        }
+    }
+}
+
+.sidebar__navigation__link {
+    display: block;
+    position: relative;
+    font-size: $font-size-base;
+    height: 100%;
+    color: $brand-primary;
+    font-weight: $font-weight-bold;
+    text-align: center;
+    border-radius: 0;
+    width: 100%;
+    line-height: 80px;
+
+    &:hover {
+        @include sidebar__navigation__link--active
+    }
+}
+
+.sidebar__user {
+    @include clearfix();
+    height: 100px;
+    padding: 30px;
+}
+
+.sidebar__user__picture {
+    float: left;
+    min-width: 60px;
+
+    img {
+        @include border-radius(50%);
+        width: 40px;
+        height: 40px;
+    }
+}
+
+.sidebar__user__name {
+    @include truncate();
+    float: left;
+    height: 40px;
+    line-height: 40px;
+    min-width: 140px;
+    font-weight: $font-weight-bold;
+}
+
+.sidebar__user__item {
+    float: right;
+    height: 40px;
+    line-height: 40px;
+    padding: 0;
+
+    a {
+        display: block;
+        height: 100%;
+        width: 100%;
+        padding: 5px 0;
+        font-size: 20px;
+        color: $gray-light-1;
+        text-align: center;
+        @include box-sizing(border-box);
+
+        &:hover {
+            color: darken($gray-medium, 5%);
+        }
+    }
+}
