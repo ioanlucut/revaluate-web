@@ -5,3 +5,9 @@
     background-color: $color;
     padding: 1px 5px;
 }
+
+@mixin goal-display-category-label() {
+    @include border-radius(2px);
+    text-transform: lowercase;
+    position: relative;
+}

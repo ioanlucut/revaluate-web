@@ -8,7 +8,7 @@ import GoalsController from './goals/GoalsController';
 import goal from './goals/goal';
 import goalsEventsConstants from './goals/goalsEventsConstants';
 import goalsUrlsConstants from './goals/goalsUrlsConstants';
-import goalsDisplayEntryDirective from './goalsDisplayEntry/goalsDisplayEntryDirective';
+import goalsDisplayEntry from './goalsDisplayEntry/goalsDisplayEntry';
 import goalsListDirective from './goalsList/goalsListDirective';
 import GoalMessagesService from './services/GoalMessagesService';
 import GoalProgressTypeService from './services/GoalProgressTypeService';
@@ -38,7 +38,7 @@ export default angular
   .factory('Goal', goal)
   .constant('GOAL_EVENTS', goalsEventsConstants)
   .constant('GOAL_URLS', goalsUrlsConstants)
-  .directive('goalsDisplayEntry', goalsDisplayEntryDirective)
+  .component('goalsDisplayEntry', goalsDisplayEntry)
   .service('GoalMessagesService', GoalMessagesService)
   .directive('goalsList', goalsListDirective)
   .service('GoalProgressTypeService', GoalProgressTypeService)
