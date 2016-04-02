@@ -1,5 +1,5 @@
 <!-- Add a new expense form -->
-<div class="expenses__form">
+<div class="expense-add">
 
     <form name="$ctrl.expenseForm" ng-submit="$ctrl.expenseForm.$valid ? $ctrl.saveExpense() : ''" novalidate focus-first-error>
 
@@ -7,9 +7,10 @@
         <div flash-messages flash="flash" identifier-id="{{$ctrl.alertId}}"></div>
 
         <!-- Form groups -->
-        <div class="expense__form__price" ng-class="{'has-error': $ctrl.expenseForm.$submitted && ($ctrl.expenseForm.value.$invalid || $ctrl.badPostSubmitResponse)}">
-            <input class="expense__form__price__input" ng-disabled="$ctrl.saveTracker.active()" type="text" name="value" placeholder="0.00" maxlength="18" ng-model="$ctrl.expense.value" format-price format="number" required valid-price auto-focus post-add-expense-focus />
-            <span class="expense__form__price__currency">{{$ctrl.user.model.currency.symbol}}</span>
+        <div class="expense-add__price" ng-class="{'has-error': $ctrl.expenseForm.$submitted && ($ctrl.expenseForm.value.$invalid || $ctrl.badPostSubmitResponse)}">
+            <input class="expense-add__price__input" ng-disabled="$ctrl.saveTracker.active()" type="text" name="value" placeholder="0.00" maxlength="18" ng-model="$ctrl.expense.value" format-price format="number" required valid-price auto-focus post-add-expense-focus />
+            <span class="expense-add__price__currency">{{$ctrl.user.model.currency.symbol}}</span>
+
             <!-- Error messages -->
             <div class="form-group-input__message" ng-class="{'has-error': $ctrl.expenseForm.value.$invalid && $ctrl.expenseForm.$submitted}" ng-messages="$ctrl.expenseForm.value.$error" ng-if="$ctrl.expenseForm.$submitted">
                 <div ng-message="required">Don't forget the price.</div>
@@ -18,7 +19,7 @@
         </div>
 
         <!-- Form group -->
-        <div class="expense__form__category" ng-class="{'has-error': $ctrl.expenseForm.$submitted && ($ctrl.expenseForm.category.$invalid || $ctrl.badPostSubmitResponse)}">
+        <div class="expense-add__category" ng-class="{'has-error': $ctrl.expenseForm.$submitted && ($ctrl.expenseForm.category.$invalid || $ctrl.badPostSubmitResponse)}">
 
             <ui-select ng-disabled="$ctrl.saveTracker.active()" name="category" class="category-select__input" ng-style="{'background':$select.selected.color.color}" required ng-model="$ctrl.category.selected" theme="selectize">
                 <ui-select-match class="ui-select-match" ng-style="{'background':$select.selected.color.color}" placeholder="Select a category">{{$select.selected.name}}</ui-select-match>
@@ -35,8 +36,8 @@
         </div>
 
         <!-- Description input -->
-        <div class="expense__form__details" ng-class="{'has-error': $ctrl.expenseForm.$submitted && ($ctrl.expenseForm.description.$invalid || $ctrl.badPostSubmitResponse)}">
-            <input class="expense__form__details__input" ng-disabled="$ctrl.saveTracker.active()" type="text" name="description" ng-maxlength="100" maxlength="100" placeholder="Add details (optional)" ng-model="$ctrl.expense.description" escape-html />
+        <div class="expense-add__details" ng-class="{'has-error': $ctrl.expenseForm.$submitted && ($ctrl.expenseForm.description.$invalid || $ctrl.badPostSubmitResponse)}">
+            <input class="expense-add__details__input" ng-disabled="$ctrl.saveTracker.active()" type="text" name="description" ng-maxlength="100" maxlength="100" placeholder="Add details (optional)" ng-model="$ctrl.expense.description" escape-html />
 
             <!-- Error messages -->
             <div class="form-group-input__message" ng-class="{'has-error': $ctrl.expenseForm.description.$invalid && $ctrl.expenseForm.$submitted}" ng-messages="$ctrl.expenseForm.description.$error" ng-if="$ctrl.expenseForm.$submitted">
@@ -45,15 +46,15 @@
         </div>
 
         <!-- Date input -->
-        <div class="expense__form__date" ng-class="{'has-error': $ctrl.expenseForm.spentDate.$invalid && $ctrl.expenseForm.$submitted}">
+        <div class="expense-add__date" ng-class="{'has-error': $ctrl.expenseForm.spentDate.$invalid && $ctrl.expenseForm.$submitted}">
 
             <!--Hidden input of the expense chosen date-->
             <input type="hidden" name="spentDate" ng-model="$ctrl.expense.spentDate" required valid-date />
 
             <!--Expense date picker-->
-            <div class="expense__form__date__input">
+            <div class="expense-add__date__input">
                 <button type="button"
-                        class="expense__form__date__input__btn"
+                        class="expense-add__date__input__btn"
                         ng-click="$ctrl.openDatePicker($event)"
                         ng-model="$ctrl.expense.spentDate"
                         ng-disabled="$ctrl.saveTracker.active()"
@@ -74,7 +75,7 @@
         </div>
 
         <!-- Button container -->
-        <div class="expense__form__submit__save">
+        <div class="expense-add__submit__save">
             <button ng-disabled="$ctrl.saveTracker.active()" class="expense__edit__form__savebtn" type="submit">{{$ctrl.saveTracker.active() ? 'Adding' : 'Add'}}</button>
         </div>
     </form>

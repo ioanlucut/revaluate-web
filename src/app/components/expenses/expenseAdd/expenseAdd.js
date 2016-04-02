@@ -12,37 +12,37 @@ function AddExpenseController(EXPENSE_EVENTS,
   /**
    * Current user.
    */
-  this.user = $rootScope.currentUser;
+  _this.user = $rootScope.currentUser;
 
   /**
    * Create a saving tracker.
    */
-  this.saveTracker = promiseTracker();
+  _this.saveTracker = promiseTracker();
 
   /**
    * Initialize or reset the add expense form
    */
-  this.initOrResetAddExpense = initOrResetAddExpense;
+  _this.initOrResetAddExpense = initOrResetAddExpense;
 
   /**
    * The save expense functionality
    */
-  this.saveExpense = saveExpense;
+  _this.saveExpense = saveExpense;
 
   /**
    * Open date picker
    */
-  this.openDatePicker = openDatePicker;
+  _this.openDatePicker = openDatePicker;
 
   /**
    * Minimum date to create expense.
    */
-  this.datePickerMinDate = angular.copy(APP_CONFIG.EXPENSES_ALLOWED_MIN_DATE);
+  _this.datePickerMinDate = angular.copy(APP_CONFIG.EXPENSES_ALLOWED_MIN_DATE);
 
   /**
    * Perform the first initialization.
    */
-  this.initOrResetAddExpense();
+  _this.initOrResetAddExpense();
 
   function initOrResetAddExpense() {
     _this.expense = new Expense({
@@ -64,10 +64,10 @@ function AddExpenseController(EXPENSE_EVENTS,
   }
 
   function saveExpense() {
-    this.expense.category = angular.copy(this.category.selected);
+    _this.expense.category = angular.copy(_this.category.selected);
 
     ExpenseService
-      .createExpense(this.expense, _this.saveTracker)
+      .createExpense(_this.expense, _this.saveTracker)
       .then(createdExpense => {
         $rootScope.$broadcast(EXPENSE_EVENTS.isCreated, { expense: createdExpense });
         _this.initOrResetAddExpense();
@@ -90,13 +90,13 @@ function AddExpenseController(EXPENSE_EVENTS,
 
 }
 
-let expenseAddComponent = {
+let expenseAdd = {
   restrict: 'A',
   bindings: {
     categories: '=',
   },
   controller: AddExpenseController,
-  templateUrl: '/app/components/expenses/expenseAdd/expenseAddComponent.tpl.html',
+  templateUrl: '/app/components/expenses/expenseAdd/expenseAdd.tpl.html',
 };
 
-export default expenseAddComponent;
+export default expenseAdd;
