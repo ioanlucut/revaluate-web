@@ -1,27 +1,27 @@
 @media (max-width: $screen-sm-min) {
 
-    .expenses__form {
+    .expense-add {
         padding: 0;
         margin: 5px auto 10px auto;
 
-        .expense__form__price__input,
-        .expense__form__category__input,
-        .expense__form__category .category-select__input .selectize-input,
-        .expense__form__details__input,
-        .expense__form__date__input {
+        .expense-add__price__input,
+        .expense-add__category__input,
+        .expense-add__category .category-select__input .selectize-input,
+        .expense-add__details__input,
+        .expense-add__date__input {
             border-width: 2px 2px;
             border-color: $add-expense-form-border-color;
             border-radius: 0;
         }
 
-        .expense__form__price__input,
-        .expense__form__price__input:focus {
+        .expense-add__price__input,
+        .expense-add__price__input:focus {
             border-right: solid 1px $gray-light-2;
             border-bottom: solid 1px $gray-light-2;
             border-top-left-radius: $border-radius-base;
         }
 
-        .expense__form__category .category-select__input .selectize-input {
+        .expense-add__category .category-select__input .selectize-input {
             border-width: 2px 2px 1px 0;
             border-left-color: $gray-light-2;
             border-bottom-color: $gray-light-2;
@@ -32,14 +32,14 @@
             }
         }
 
-        .expense__form__details__input,
-        .expense__form__details__input:focus {
+        .expense-add__details__input,
+        .expense-add__details__input:focus {
             border-right: solid 1px $gray-light-2;
             border-top: solid 0 $gray-light-2;
             border-bottom-left-radius: $base-border-radius;
         }
 
-        .expense__form__date__input {
+        .expense-add__date__input {
             border-left: solid 0 $gray-light-2;
             border-top: solid 0 $gray-light-2;
             border-bottom-right-radius: $base-border-radius;
@@ -49,13 +49,13 @@
     // Price input styling
     // ----------------------
 
-    .expense__form__price {
+    .expense-add__price {
         width: 50%;
 
-        .expense__form__price__input {
+        .expense-add__price__input {
         }
 
-        .expense__form__price__currency {
+        .expense-add__price__currency {
             border-width: 0;
         }
     }
@@ -63,7 +63,7 @@
     // Category input styling
     // ----------------------
 
-    .expense__form__category {
+    .expense-add__category {
         width: 50%;
 
         .category-select__input {
@@ -76,21 +76,21 @@
 
     // Details input styling
     // -------------------------
-    .expense__form__details {
+    .expense-add__details {
         width: 50%;
 
-        .expense__form__details__input {
+        .expense-add__details__input {
         }
     }
 
     // Date input styling
     // -------------------------
-    .expense__form__date {
+    .expense-add__date {
         width: 50%;
 
-        .expense__form__date__input {
+        .expense-add__date__input {
 
-            .expense__form__date__input__btn {
+            .expense-add__date__input__btn {
                 border-width: 0;
             }
         }
@@ -99,7 +99,7 @@
         }
     }
 
-    .expense__form__submit__save {
+    .expense-add__submit__save {
         width: 100%;
         margin-top: 2px;
 
@@ -108,7 +108,7 @@
         }
     }
 
-    .expense__form__submit__cancel {
+    .expense-add__submit__cancel {
         float: left;
         width: 100%;
 
@@ -119,40 +119,40 @@
 
 @media (max-width: $screen-xs-min) {
 
-    .expenses__form {
+    .expense-add {
         padding: 0;
         margin: 5px auto 10px auto;
 
-        .expense__form__price__input,
-        .expense__form__category__input,
-        .expense__form__category .category-select__input .selectize-input,
-        .expense__form__details__input,
-        .expense__form__date__input {
+        .expense-add__price__input,
+        .expense-add__category__input,
+        .expense-add__category .category-select__input .selectize-input,
+        .expense-add__details__input,
+        .expense-add__date__input {
             border-width: 2px 2px;
             border-color: $add-expense-form-border-color;
             border-radius: 0;
         }
 
-        .expense__form__price__input,
-        .expense__form__price__input:focus {
+        .expense-add__price__input,
+        .expense-add__price__input:focus {
             border-right: solid 2px $add-expense-form-border-color;
             border-bottom: solid 1px $gray-light-2;
             @include border-top-radius($base-border-radius);
         }
 
-        .expense__form__category .category-select__input .selectize-input {
+        .expense-add__category .category-select__input .selectize-input {
             border-width: 0 2px 1px 2px;
             border-bottom-color: $gray-light-2;
         }
 
-        .expense__form__details__input,
-        .expense__form__details__input:focus {
+        .expense-add__details__input,
+        .expense-add__details__input:focus {
             border-right: solid 2px $add-expense-form-border-color;
             border-top: solid 0 $gray-light-2;
             border-bottom: solid 1px $gray-light-2;
         }
 
-        .expense__form__date__input {
+        .expense-add__date__input {
             border-top: solid 0 $gray-light-2;
             @include border-bottom-radius($base-border-radius);
         }
@@ -161,20 +161,20 @@
     // Price input styling
     // ----------------------
 
-    .expense__form__price {
+    .expense-add__price {
         width: 100%;
 
-        .expense__form__price__input {
+        .expense-add__price__input {
         }
 
-        .expense__form__price__currency {
+        .expense-add__price__currency {
         }
     }
 
     // Category input styling
     // ----------------------
 
-    .expense__form__category {
+    .expense-add__category {
         width: 100%;
 
         .category-select__input {
@@ -186,19 +186,19 @@
 
     // Details input styling
     // -------------------------
-    .expense__form__details {
+    .expense-add__details {
         width: 100%;
 
-        .expense__form__details__input {
+        .expense-add__details__input {
         }
     }
 
     // Date input styling
     // -------------------------
-    .expense__form__date {
+    .expense-add__date {
         width: 100%;
 
-        .expense__form__date__input {
+        .expense-add__date__input {
 
             &:focus {
             }
@@ -211,13 +211,13 @@
         }
     }
 
-    .expense__form__submit__save {
+    .expense-add__submit__save {
 
         .expense__edit__form__savebtn {
         }
     }
 
-    .expense__form__submit__cancel {
+    .expense-add__submit__cancel {
 
         .expense__edit__form__cancelbtn {
         }
