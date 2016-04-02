@@ -13,12 +13,11 @@
         <div class="goals__list expenses__goals__list">
 
             <!--Goal list-->
-            <div class="goals__list__entry"
-                 ui-sref="goals.regular"
-                 ng-repeat="goal in vm.goals | orderObjectBy : 'createdDate' : reverseOrder track by goal.id"
-                 goals-display-entry
-                 goal="goal">
-            </div>
+            <goals-display-entry goal="goal"
+                                 class="goals__list__entry"
+                                 ui-sref="goals.regular"
+                                 ng-repeat="goal in vm.goals | orderObjectBy : 'createdDate' : reverseOrder track by goal.id">
+            </goals-display-entry>
 
             <!--Empty state-->
             <div class="goals__empty-state" ng-if="vm.goals.length === 0">

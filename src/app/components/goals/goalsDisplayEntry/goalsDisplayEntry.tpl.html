@@ -1,0 +1,26 @@
+<!--Display goal-->
+<section class="goals__display__entry">
+
+    <!--Goal status chart-->
+    <canvas id="doughnut"
+            class="chart chart-doughnut"
+            chart-data="$ctrl.data"
+            chart-options="$ctrl.donutChartOptions"
+            chart-colours="$ctrl.colors"
+            chart-labels="$ctrl.labels">
+    </canvas>
+
+    <div class="goals__display__entry_percent" ng-bind-html="$ctrl.percent | percentage:0"></div>
+
+    <section class="goals__display__entry__description">
+        Spend
+        <span class="goals__display__entry__description__target" ng-bind-html="$ctrl.goal.goalTarget | goalTarget"></span>
+        than
+        <span class="goals__display__entry__description__price" ng-bind-html="$ctrl.goal.value | currencys:$ctrl.user.model.currency.symbol:0"></span>
+        on
+        <span class="goals__display__entry__description__category__label" ng-bind-html="$ctrl.goal.category.name" ng-style="{'color': $ctrl.goal.category.color.color}"></span>
+        in
+        <span>{{($ctrl.goal.yearMonthDate | friendlyMonthDate)}}</span>
+    </section>
+
+</section>

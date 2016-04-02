@@ -28,6 +28,7 @@ import friendlyMonthShortDateNoYearFilter from './common/filters/friendlyMonthSh
 import friendlyMonthDayFilter from './common/filters/friendlyMonthDayFilter';
 import highlightSearchFilter from './common/filters/highlightSearchFilter';
 import orderObjectByFilter from './common/filters/orderObjectByFilter';
+import percentageFilter from './common/filters/percentageFilter';
 import pluralisationFilter from './common/filters/pluralisationFilter';
 import animateDirective from './common/directives/animateDirective';
 import autoFocusDirective from './common/directives/autoFocusDirective';
@@ -47,6 +48,7 @@ import validPriceDirective from './common/directives/validPriceDirective';
 import ErrorInterceptorService from './common/interceptors/ErrorInterceptorService';
 import JWTInterceptor from './common/interceptors/JWTInterceptor';
 import AlertService from './common/services/AlertService';
+import ColorsUtils from './common/services/ColorsUtils';
 import DatesUtilsService from './common/services/DatesUtilsService';
 import JwtHelperService from './common/services/JwtHelperService';
 import MixpanelUtilsService from './common/services/MixpanelUtilsService';
@@ -100,6 +102,7 @@ export default angular
   .filter('highlightSearch', highlightSearchFilter)
   .filter('orderObjectBy', orderObjectByFilter)
   .filter('pluralisationFilter', pluralisationFilter)
+  .filter('percentage', percentageFilter)
   .directive('animate', animateDirective)
   .directive('autoFocus', autoFocusDirective)
   .directive('escKey', escKeyDirective)
@@ -118,6 +121,7 @@ export default angular
   .factory('ErrorInterceptor', ErrorInterceptorService)
   .provider('JWTInterceptor', JWTInterceptor)
   .service('AlertService', AlertService)
+  .service('ColorsUtils', ColorsUtils)
   .service('DatesUtils', DatesUtilsService)
   .service('JWTHelper', JwtHelperService)
   .service('MixpanelUtilsService', MixpanelUtilsService)
