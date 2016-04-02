@@ -9,6 +9,8 @@ import datePickerMonthlyDirective from './datePickerMonthly/datePickerMonthlyDir
 import flashMessagesDirective from './flashMessage/flashMessagesDirective';
 import footerDirective from './footer/footerDirective';
 import footerHomeDirective from './footer/footerHomeDirective';
+import snapToggler from './snapToggler/snapToggler';
+import sidebarComponent from './sidebar/sidebarComponent';
 import HeaderController from './header/HeaderController';
 import headerDirective from './header/headerDirective';
 import headerSideDirective from './header/headerSideDirective';
@@ -80,6 +82,8 @@ export default angular
   .directive('footer', footerDirective)
   .directive('footerHome', footerHomeDirective)
   .directive('header', headerDirective)
+  .component('snapToggler', snapToggler)
+  .component('sidebar', sidebarComponent)
   .directive('headerSide', headerSideDirective)
   .directive('unisonListener', unisonListenerDirective)
   .directive('userProfilePicture', userProfilePictureDirective)

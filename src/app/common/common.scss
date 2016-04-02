@@ -1,5 +1,6 @@
 /* Import sub-modules */
 @import "common/sass/layout";
+@import "common/sass/layoutResponsive";
 // The submodules for the landingpage
 @import "header/headerPublic";
 @import "header/headerPublicResponsive";
@@ -7,8 +8,10 @@
 @import "footer/footerHome";
 @import "footer/footerHomeResponsive";
 // Submodules of the main application
-@import "header/headerApp";
-@import "header/headerAppResponsive";
+@import "snapToggler/snapToggler";
+@import "snapToggler/snapTogglerResponsive";
+@import "sidebar/sidebarComponent";
+@import "sidebar/sidebarComponentResponsive";
 @import "header/headerAppSide";
 @import "header/headerAppSideResponsive";
 @import "footer/footerApp";

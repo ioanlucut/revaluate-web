@@ -35,3 +35,10 @@
     -moz-hyphens: auto;
     hyphens: auto;
 }
+
+@mixin truncate($max:100px) {
+    max-width: $max;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

@@ -1,10 +1,9 @@
 .expenses__greeting {
     @include fadeInDown(1.2s);
 
-    padding: 10px 30px;
+    padding: 40px 30px 10px;
     color: $gray-dark-1;
     font-size: $font-size-base;
     font-weight: $font-weight-regular;
     text-align: center;
-    margin-top: 40px;
 }

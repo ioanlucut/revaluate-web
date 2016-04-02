@@ -8,8 +8,7 @@ import authTokenHeaderConstants from './account/authTokenHeaderConstants';
 import strongPasswordDirective from './directives/strongPasswordDirective';
 import uniqueEmailDirective from './directives/uniqueEmailDirective';
 import validEmailDirective from './directives/validEmailDirective';
-import LogoutAutoController from './logout/LogoutAutoController';
-import LogoutController from './logout/LogoutController';
+import logoutComponent from './logout/logoutComponent';
 import ProfileFormToggleService from './profile/ProfileFormToggleService';
 import profileFormToggleDirective from './profile/profileFormToggleDirective';
 import SignUpController from './signUp/SignUpController';
@@ -50,8 +49,7 @@ export default angular
   .directive('strongPassword', strongPasswordDirective)
   .directive('uniqueEmail', uniqueEmailDirective)
   .directive('validEmail', validEmailDirective)
-  .controller('LogoutController', LogoutAutoController)
-  .controller('LogoutController', LogoutController)
+  .component('logout', logoutComponent)
   .service('ProfileFormToggle', ProfileFormToggleService)
   .directive('profileFormToggle', profileFormToggleDirective)
   .controller('SignUpController', SignUpController)
@@ -86,17 +84,6 @@ export default angular
         templateUrl: '/app/components/site/home/home.html',
         title: 'Login - Revaluate',
         stateEventName: USER_ACTIVITY_EVENTS.account,
-        isPublicPage: true,
-      })
-
-      // Logout page
-      .state('account:logout', {
-        url: '/account/logout',
-        controller: 'LogoutAutoController',
-        controllerAs: 'vm',
-        templateUrl: '/app/components/account/logout/logout.html',
-        title: 'Logout - Revaluate',
-        stateEventName: USER_ACTIVITY_EVENTS.accountLogout,
         isPublicPage: true,
       })
 
