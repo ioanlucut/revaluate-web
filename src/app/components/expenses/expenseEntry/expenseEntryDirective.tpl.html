@@ -59,7 +59,7 @@
 
         <!-- Description input -->
         <div class="expense__edit__form__details" ng-class="{'has-error': vm.expenseForm.$submitted && (vm.expenseForm.description.$invalid || vm.badPostSubmitResponse)}">
-            <input class="expense__edit__form__details__input" ng-disabled="vm.updateTracker.active()" type="text" name="description" ng-maxlength="100" maxlength="100" placeholder="Add details (optional)" ng-model="vm.shownExpense.description" escape-html />
+            <input class="expense__edit__form__details__input" ng-disabled="vm.updateTracker.active()" type="text" name="description" ng-maxlength="100" maxlength="100" placeholder="Description" ng-model="vm.shownExpense.description" escape-html />
 
             <!-- Error messages -->
             <div class="form-group-input__message" ng-class="{'has-error': vm.expenseForm.description.$invalid && vm.expenseForm.$submitted}" ng-messages="vm.expenseForm.description.$error" ng-if="vm.expenseForm.$submitted">

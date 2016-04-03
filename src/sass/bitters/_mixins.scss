@@ -42,3 +42,13 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+@mixin input-placeholder-content($content:' ') {
+    &::-webkit-input-placeholder,
+    &:-moz-placeholder,
+    &::-moz-placeholder,
+    &:-ms-input-placeholder {
+        content: $content;
+        color: red;
+    }
+}

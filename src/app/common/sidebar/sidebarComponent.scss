@@ -7,7 +7,7 @@ sidebar {
     margin-left: -$sidebar-width;
     overflow-y: auto;
     border-right: 1px solid $gray-light-2;
-    background-color: $white;
+    background-color: $app-bg;
     @include fadeInDown(1s);
 }
 
