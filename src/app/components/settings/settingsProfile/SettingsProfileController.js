@@ -3,6 +3,7 @@
  */
 function SettingsProfileController($scope,
                                    $rootScope,
+                                   SessionService,
                                    AUTH_EVENTS,
                                    ALERTS_EVENTS,
                                    ALERTS_CONSTANTS) {
