@@ -19,6 +19,11 @@
 @import "bitters/base";
 @import "grid-settings";
 // ---
+// Font awesome.
+// ---
+$fa-font-path: "../../bower_components/font-awesome/fonts";
+@import "../../bower_components/font-awesome/scss/font-awesome";
+// ---
 // NEAT.
 // ---
 @import "../../bower_components/neat/app/assets/stylesheets/neat";

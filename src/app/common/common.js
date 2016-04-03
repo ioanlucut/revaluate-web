@@ -34,6 +34,7 @@ import animateDirective from './common/directives/animateDirective';
 import autoFocusDirective from './common/directives/autoFocusDirective';
 import escKeyDirective from './common/directives/escKeyDirective';
 import escapeHtmlDirective from './common/directives/escapeHtmlDirective';
+import clearPlaceholderDirective from './common/directives/clearPlaceholderDirective';
 import fadeOutInDirective from './common/directives/fadeOutInDirective';
 import focusFirstErrorDirective from './common/directives/focusFirstErrorDirective';
 import formatPriceDirective from './common/directives/formatPriceDirective';
@@ -107,6 +108,7 @@ export default angular
   .directive('autoFocus', autoFocusDirective)
   .directive('escKey', escKeyDirective)
   .directive('escapeHtml', escapeHtmlDirective)
+  .directive('clearPlaceholder', clearPlaceholderDirective)
   .directive('fadeOutIn', fadeOutInDirective)
   .directive('focusFirstError', focusFirstErrorDirective)
   .directive('formatPrice', formatPriceDirective)

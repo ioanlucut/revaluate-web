@@ -3,46 +3,41 @@ expense-add {
 }
 
 .expense-add {
-    @include clearfix();
-    width: 100%;
-    padding: 15px 150px 30px 150px;
-    margin: 10px auto 1px auto;
-    color: $black;
-    position: relative;
-    font-weight: $font-weight-regular;
     @include no-user-select();
+    @include border-radius(6px);
+    background-color: $white;
+    color: $black;
+    font-weight: $font-weight-regular;
+    margin: 0 auto;
+    max-width: $add-expense-form-max-width;
+    position: relative;
+    width: 100%;
 
-    .expense-add__price__input,
-    .expense-add__category .category-select__input .selectize-input,
-    .expense-add__details__input,
-    .expense-add__date__input {
-        @include border-radius(0);
-        border-style: solid;
-        border-width: $add-expense-form-border-width 0;
-        border-color: $add-expense-form-border-color transparent;
-        font-weight: $font-weight-regular;
-        margin: 0;
+    input {
+        border: 0;
+        padding: 0.75em 1em;
+    }
 
-        &:focus {
-            border-color: $brand-primary;
-            background-color: lighten($brand-primary, 35%);
-        }
+    i {
+        padding: 5px;
+    }
 
-        &[disabled] {
-            cursor: not-allowed;
-        }
+    form {
+        padding: 15px $add-expense-form-padding 0;
     }
 }
 
-.expense-add__price,
-.expense-add__category,
-.expense-add__details,
-.expense-add__date {
-    &.has-error {
+.expense-add__category .category-select__input .selectize-input,
+.expense-add__details__input,
+.expense-add__date__input {
+    margin: 0;
 
-        input {
+    &:focus {
+        background-color: lighten($gray-light-1, 35%);
+    }
 
-        }
+    &[disabled] {
+        cursor: not-allowed;
     }
 }
 
@@ -50,62 +45,70 @@ expense-add {
 // ----------------------
 
 .expense-add__price {
-    @include clearfix();
-    float: left;
     padding: 0;
-    width: 18%;
+    width: 100%;
     position: relative;
+    margin-bottom: 30px;
+    border-bottom: 1px solid $gray-light-1;
+}
 
-    .expense-add__price__input {
-        @include border-left-radius($border-radius-base);
-        border-left: solid $add-expense-form-border-width $add-expense-form-border-color;
-        border-right: solid 0 $gray-light-2;
-        height: $add-expense-form-height;
-        line-height: $add-expense-form-height;
-        text-align: right;
-        padding-right: 30px;
-        position: relative;
+input.expense-add__price__input {
+    @include placeholder {
+        color: $black;
     }
+    margin: 0;
+    height: $add-expense-price-height;
+    line-height: $add-expense-price-height;
+    font-size: $add-expense-price-font-size;
+    text-align: left;
+    position: relative;
+    padding: 15px;
 
-    .expense-add__price__currency {
-        height: $add-expense-form-height - 4px;
-        line-height: $add-expense-form-height - 4px;
-        position: absolute;
-        right: 0;
-        top: 2px;
-        padding: 0 10px;
-        color: $gray-medium;
-        font-weight: $font-weight-regular;
-        z-index: 999;
-        border-right: solid 1px $gray-light-3;
+    &:focus {
+        @include fadeInLeft(1s);
+        font-size: $add-expense-price-font-size-active;
+        text-align: center;
+
+        @include placeholder {
+            content: ' ';
+        }
     }
+}
+
+.expense-add__price__currency {
+    height: $add-expense-price-height - 4px;
+    line-height: $add-expense-price-height - 4px;
+    position: absolute;
+    right: 0;
+    top: 2px;
+    padding: 0 10px;
+    color: $gray-medium;
+    font-weight: $font-weight-regular;
+    z-index: 999;
 }
 
 // Category input styling
 // ----------------------
 
 .expense-add__category {
-    float: left;
-    padding: 0;
-    width: 30%;
-    position: relative;
     height: $add-expense-form-height;
+    margin-bottom: 10px;
+    padding: 0;
+    position: relative;
+    width: 100%;
 
     .category-select__input {
         height: $add-expense-form-height;
         background-color: $gray-light-3;
 
         .selectize-input {
-            @include border-radius(0);
-            border-width: $add-expense-form-border-width 0;
-            border-color: $add-expense-form-border-color;
             height: $add-expense-form-height;
             line-height: 48px !important;
+            background-color: $gray-light-3;
 
             & > input {
                 height: 48px;
-                border-right: solid 1px $gray-light-3;
-                @include border-radius(0);
+                @include border-radius(6px);
             }
         }
     }
@@ -122,46 +125,25 @@ expense-add {
 // Details input styling
 // -------------------------
 .expense-add__details {
-    float: left;
-    width: 26%;
+    margin-bottom: 10px;
     position: relative;
+    width: 100%;
+}
 
-    .expense-add__details__input {
-        height: $add-expense-form-height;
-    }
+input.expense-add__details__input {
+    @include border-radius(6px);
+    background-color: $gray-light-3;
+    font-family: $base-font-fa-family;
+    height: $add-expense-form-height;
 }
 
 // Date input styling
 // -------------------------
 .expense-add__date {
-    float: left;
     display: block;
-    width: 16%;
-    padding: 0;
+    width: 100%;
+    padding: 0 0 10px;
     position: relative;
-
-    .expense-add__date__input {
-        height: $add-expense-form-height;
-        text-align: right;
-
-        &:focus {
-            border: solid $add-expense-form-border-width $brand-primary;
-        }
-
-        .expense-add__date__input__btn {
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            background-color: $white;
-            border-left: solid 1px $gray-light-3;
-            @include border-radius(0);
-            @include transition(none);
-
-            &:focus {
-                background-color: lighten($brand-primary, 35%);
-            }
-        }
-    }
 
     & > .form-group-input__message {
         top: 0;
@@ -169,21 +151,38 @@ expense-add {
     }
 }
 
-.expense-add__submit__save {
-    float: left;
-    width: 10%;
+.expense-add__date__input {
     height: $add-expense-form-height;
+    text-align: right;
+}
 
-    .expense__edit__form__savebtn {
-        @include btn-block($brand-primary);
-        @include border-left-radius(0);
-        font-size: $font-size-base;
-        height: 100%;
+.expense-add__date__input__btn {
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    background-color: $gray-light-3;
+    @include border-radius(6px);
+    @include transition(none);
+
+    &:focus {
+        background-color: lighten($gray-light-3, 35%);
     }
 }
 
+// Submit
+// -------------------------
+.expense-add__submit__save {
+    @include btn-block($color-brand-3);
+    @include border-top-radius(0px);
+    @include border-bottom-radius(6px);
+    font-size: $font-size-base;
+    height: $add-expense-btn-height;
+    margin-right: -$add-expense-form-padding;
+    margin-left: -$add-expense-form-padding;
+    width: $add-expense-form-max-width;
+}
+
 .expense-add__submit__cancel {
-    float: left;
     width: 100%;
 
     .expense__edit__form__cancelbtn {

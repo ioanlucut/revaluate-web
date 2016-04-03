@@ -1,5 +1,6 @@
 // Typography
 $base-font-family: "proxima-nova", "Arial", sans-serif;
+$base-font-fa-family: 'proxima-nova', FontAwesome, sans-serif;
 $heading-font-family: "azo-sans-uber", "Arial", sans-serif;
 
 // Font Sizes
@@ -36,7 +37,6 @@ $footer-height: 50px;
 $footer__home-height: 150px;
 $settings-aside-width: 180px;
 
-$add-expense-form-height: 50px;
 $edit-expense-form-height: 50px;
 
 // Goals
@@ -52,7 +52,8 @@ $category-select-height: 35px;
 $selectize-dropdown-height: 45px;
 
 // Other Sizes
-$base-border-radius: 5px;
+$base-border-radius: 6px;
+$border-radius-base: $base-border-radius;
 $base-spacing: $base-line-height * 1em;
 $small-spacing: $base-spacing / 2;
 $base-z-index: 0;
@@ -146,3 +147,17 @@ $add-expense-form-border-color: $brand-primary;
 $add-expense-form-border-width: 1px;
 
 $add-goal-form-border-color: $gray-light-2;
+
+// LAYOUT
+// -------------------------
+$app-bg: $gray-light-3;
+
+// Add expense
+// -------------------------
+$add-expense-form-height: 50px;
+$add-expense-btn-height: 75px;
+$add-expense-price-height: 60px;
+$add-expense-price-font-size: 20px;
+$add-expense-price-font-size-active: 40px;
+$add-expense-form-max-width: 500px;
+$add-expense-form-padding: 50px;

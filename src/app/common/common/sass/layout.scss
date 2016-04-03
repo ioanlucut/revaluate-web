@@ -1,3 +1,10 @@
+.view-container {
+    min-height: 100%;
+    padding-bottom: $footer-height;
+    position: relative;
+    background-color: $app-bg;
+}
+
 .view-container__header {
     background-color: $white;
 }
@@ -45,7 +52,7 @@
     @include border-radius(3px);
     min-height: 500px;
     position: relative;
-    background-color: $white;
+    background-color: $app-bg;
     padding-top: 20px;
     padding-left: 15px;
     padding-right: 15px;
