@@ -54,9 +54,6 @@ function InsightsMonthlyController(USER_ACTIVITY_EVENTS,
     $filter,
     monthsPerYearsStatistics,
     resizeOnUpdate: true,
-    getChartSetSize: function getChartSetSize() {
-      return _this.barInsightsPrepared.insightsBarData.length;
-    },
   }));
 
   // ---

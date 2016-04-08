@@ -2,12 +2,13 @@ class ColorsUtils {
 
   getColour(colour) {
     return {
-      fillColor: this.rgba(colour, 0.9),
-      strokeColor: this.rgba(colour, 1),
-      pointColor: this.rgba(colour, 1),
-      pointStrokeColor: '#fff',
-      pointHighlightFill: '#fff',
-      pointHighlightStroke: this.rgba(colour, 0.1),
+      backgroundColor: this.rgba(colour, 0.9),
+      hoverBackgroundColor: this.rgba(colour, 1),
+      borderColor: this.rgba(colour, 1),
+      pointBackgroundColor: this.rgba(colour, 1),
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: this.rgba(colour, 0.8),
+      pointHoverBorderColor: this.rgba(colour, 0.5),
     };
   };
 

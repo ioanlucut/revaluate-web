@@ -59,15 +59,13 @@ function InsightsProgressController(DatesUtils,
     $filter,
     monthsPerYearsStatistics,
     resizeOnUpdate: false,
-    getChartSetSize() {
-    },
   }));
 
   // ---
   // Update the options.
   // ---
   _this.lineOptions = _.extend(_this.barOptions, {
-    datasetFill: false, animation: false, animationSteps: 30,
+    datasetFill: false,
   });
 
   /**

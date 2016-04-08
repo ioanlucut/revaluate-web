@@ -3,8 +3,6 @@ import statesConstants from './common/constants/statesConstants';
 import alertsConstants from './common/constants/alertsConstants';
 import alertsEventsConstants from './common/constants/alertsEventsConstants';
 import errorConstants from './common/constants/errorConstants';
-import unisonConstants from './unison/unisonConstants';
-import unisonBreakpointsConstants from './unison/unisonBreakpointsConstants';
 import datePickerMonthlyDirective from './datePickerMonthly/datePickerMonthlyDirective';
 import flashMessagesDirective from './flashMessage/flashMessagesDirective';
 import footerDirective from './footer/footerDirective';
@@ -14,7 +12,6 @@ import sidebarComponent from './sidebar/sidebarComponent';
 import HeaderController from './header/HeaderController';
 import headerDirective from './header/headerDirective';
 import headerSideDirective from './header/headerSideDirective';
-import unisonListenerDirective from './unison/unisonListenerDirective';
 import userProfilePictureDirective from './userProfilePicture/userProfilePictureDirective';
 import userProfilePictureHeaderDirective from './userProfilePicture/userProfilePictureHeaderDirective';
 import currencysFilter from './common/filters/currencysFilter';
@@ -76,8 +73,6 @@ export default angular
   .constant('ALERTS_CONSTANTS', alertsConstants)
   .constant('ALERTS_EVENTS', alertsEventsConstants)
   .constant('ERROR_INTERCEPTOR', errorConstants)
-  .constant('UNISON_EVENTS', unisonConstants)
-  .constant('UNISON_BREAKPOINTS', unisonBreakpointsConstants)
   .constant('APP_CONFIG', {})
   .controller('HeaderController', HeaderController)
   .directive('datePickerMonthly', datePickerMonthlyDirective)
@@ -88,7 +83,6 @@ export default angular
   .component('snapToggler', snapToggler)
   .component('sidebar', sidebarComponent)
   .directive('headerSide', headerSideDirective)
-  .directive('unisonListener', unisonListenerDirective)
   .directive('userProfilePicture', userProfilePictureDirective)
   .directive('userProfilePictureHeader', userProfilePictureHeaderDirective)
   .filter('currencys', currencysFilter)

@@ -4,29 +4,19 @@ function GoalsDisplayEntryController($rootScope, $scope, ColorsUtils, GoalProgre
   const _this = this;
 
   const GOAL_CHART_OPTIONS = {
-    //Boolean - Whether we should show a stroke on each segment
-    segmentShowStroke: true,
+    /*  //Boolean - Whether we should show a stroke on each segment
+     segmentShowStroke: true,
 
-    //String - The colour of each segment stroke
-    segmentStrokeColor: '#fff',
+     //String - The colour of each segment stroke
+     segmentStrokeColor: '#fff',*/
 
-    //Number - The width of each segment stroke
     segmentStrokeWidth: 1,
-
-    //Number - The percentage of the chart that we cut out of the middle
-    percentageInnerCutout: 90, // This is 0 for Pie charts
-
-    //Number - Amount of animation steps
-    animationSteps: 100,
-
-    //String - Animation easing effect
-    animationEasing: 'easeOutBounce',
-
-    //Boolean - Whether we animate the rotation of the Doughnut
-    animateRotate: true,
-
-    //Boolean - Whether we animate scaling the Doughnut from the centre
-    animateScale: false,
+    cutoutPercentage: 90, // This is 0 for Pie charts
+    animation: {
+      easing: 'easeOutBounce',
+      animateRotate: true,
+      animateScale: false,
+    },
   };
 
   _this.user = $rootScope.currentUser;
@@ -55,8 +45,10 @@ function GoalsDisplayEntryController($rootScope, $scope, ColorsUtils, GoalProgre
 
     _this.colors = [
       ColorsUtils.getColour(ColorsUtils.hexToRgb(_this.goal.category.color.color.substr(1))),
-      ColorsUtils.getColour(ColorsUtils.hexToRgb('#dddddd'.substr(1))),
+      ColorsUtils.getColour(ColorsUtils.hexToRgb('#6cacae'.substr(1))),
     ];
+
+    console.log(_this.colors)
 
     _this.labels = ['Current', 'Remains'];
     _this.data = [_this.currentValue, _this.targetValue - _this.currentValue];

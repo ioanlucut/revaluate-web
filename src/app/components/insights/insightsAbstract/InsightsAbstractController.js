@@ -1,14 +1,12 @@
 export default
 
-function InsightsAbstractController(UNISON_BREAKPOINTS,
-                                    UNISON_EVENTS,
-                                    $scope,
+function InsightsAbstractController($scope,
                                     $timeout,
                                     $rootScope,
                                     $filter,
                                     monthsPerYearsStatistics,
                                     resizeOnUpdate,
-                                    getChartSetSize) {
+                                    ChartJs) {
   'ngInject';
 
   const _this = this;
@@ -33,88 +31,93 @@ function InsightsAbstractController(UNISON_BREAKPOINTS,
   // ---
   // Specific bar chart options.
   // ---
-  _this.barOptions = angular.extend({}, getDefaultChartOptions());
+  _this.barOptions = _.merge({}, ChartJs.getOptions(), buildBarCustomizedOptions());
+  _this.barOptionsDifferentDataSets = _.merge({}, _this.barOptions, {
+    tooltips: {
+      callbacks: {
+        title: function (tooltipItems, data) {
+          return data.labels[tooltipItems[0].index];
+        },
+      },
+    },
+  });
 
   // ---
   // Specific donut chart options.
   // ---
   _this
-    .donutChartOptions = angular.extend({}, getDefaultChartOptions());
-  _this
-    .donutChartOptions
-    .legendTemplate = '<ul class="doughnut__chart__legend"><% for (var i=0; i<segments.length; i++){%><li class="doughnut__chart__legend__box"><span class="doughnut__chart__legend__box__color" style="background-color:<%=segments[i].fillColor%>"></span><span class="doughnut__chart__legend__box__label"><%if(segments[i].label){%><%=segments[i].label%><%}%></span></li><%}%></ul>';
+    .donutChartOptions = _.merge({}, ChartJs.getOptions(), buildDonutCustomizedOptions());
 
   // ---
   // Chart config options.
   // ---
-  function getDefaultChartOptions() {
+  function buildBarCustomizedOptions() {
     return {
-      scaleLabel(label) {
-        return formatChartValue(label);
-      },
+      tooltips: {
+        callbacks: {
+          title: function (tooltipItems, data) {
+            return data.datasets[tooltipItems[0].datasetIndex].label;
+          },
 
-      multiTooltipTemplate(label) {
-        return `${label.datasetLabel} ${formatChartValue(label)}`;
+          label: function (tooltipItem) {
+            return `${formatChartValue({ value: tooltipItem.yLabel })}`;
+          },
+        },
       },
+      scales: {
+        xAxes: [{
+          display: true,
+          gridLines: {
+            display: false,
+            offsetGridLines: true,
+          },
+          scaleLabel: {
+            show: false,
+            labelString: '',
+          },
+        },],
+        yAxes: [{
+          display: true,
+          gridLines: {
+            offsetGridLines: true,
+          },
+          scaleLabel: {
+            show: false,
+            labelString: '',
+          },
+          ticks: {
+            fontFamily: '\'proxima-nova\',\'Arial\', sans-serif',
+            beginAtZero: true,
+            suggestedMin: 0,
+            suggestedMax: 2,
+            callback: function (value) {
+              return formatChartValue({ value });
+            },
+          },
 
-      tooltipTemplate(label) {
-        return `${label.label} ${formatChartValue(label)}`;
+        },],
       },
     };
   }
+
+  function buildDonutCustomizedOptions() {
+    return {
+      tooltips: {
+        callbacks: {
+          title: function (tooltipItems, data) {
+            return data.labels[tooltipItems[0].index];
+          },
+
+          label: function (tooltipItem, data) {
+            return `${formatChartValue({ value: data.datasets[0].data[tooltipItem.index] })}`;
+          },
+        },
+      },
+    };
+  };
 
   function formatChartValue(price) {
 
     return `${$filter('currency')(price.value.toString(), '', _this.user.model.currency.fractionSize)} ${_this.user.model.currency.symbol}`;
   }
-
-  // ---
-  // RESPONSIVE RELATED.
-  // ---
-
-  // ---
-  // Updates bar data sets spacing values options (we do not want to have too fat bars - e.g. if there is only one column)
-  // ---
-  function adjustResizeChartOptionsAndSpacing(currentBreakpoint, chartSetSize) {
-    let breakpoint, numberOfSets, spacing;
-
-    if (!resizeOnUpdate) {
-      return;
-    }
-
-    breakpoint = _.find(UNISON_BREAKPOINTS, breakPointEntry => breakPointEntry.name === currentBreakpoint);
-
-    if (breakpoint) {
-      numberOfSets = chartSetSize || getChartSetSize();
-      spacing = numberOfSets === 1 ? Math.floor(breakpoint.chartBarWidth * 1.5)
-        : Math.floor(breakpoint.chartBarWidth / numberOfSets);
-
-      // ---
-      // Update spacing.
-      // ---
-      $timeout(() => {
-        _this.barOptions = angular.extend(_this.barOptions, {
-          barValueSpacing: spacing,
-          barDatasetSpacing: spacing,
-        });
-      });
-    }
-
-  }
-
-  // ---
-  // Listen for the resize events.
-  // ---
-  $scope
-    .$on(UNISON_EVENTS.USN_FIRE, (event, args) => {
-      adjustResizeChartOptionsAndSpacing(args);
-    });
-
-  // ---
-  // Listen for the chart reloaded event.
-  // ---
-  $scope
-    .$on('chartsLoaded', (event, args) => {
-      adjustResizeChartOptionsAndSpacing(Unison.fetch.now().name, args.size);
-    });
 }
