@@ -6,7 +6,7 @@ function appConfig($locationProvider,
                    ngToastProvider) {
   'ngInject';
 
-  let MAIN_FONT, MAIN_FONT_SIZE;
+  let MAIN_FONT;
 
   angular
     .extend(CacheFactoryProvider.defaults, { maxAge: 15 * 60 * 1000 });
@@ -69,7 +69,7 @@ function appConfig($locationProvider,
 
     animation: {
       duration: 1000,
-      easing: 'easeInOutExpo',
+      easing: 'easeOutExpo',
     },
 
     legend: {
