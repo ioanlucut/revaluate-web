@@ -1,4 +1,4 @@
-function InsightsGenerator($filter) {
+function InsightsGenerator($filter, ColorsUtils) {
   'ngInject';
 
   this.generate = (insightsProgress, masterCategories) => {
@@ -79,7 +79,7 @@ function InsightsGenerator($filter) {
     insightsBarData = _.map(insightsMonthly.totalPerCategoryInsightsDTOs, totalPerCategoryInsightDTO => [totalPerCategoryInsightDTO.totalAmount]);
 
     insightsBarColors = _.map(insightsMonthly.totalPerCategoryInsightsDTOs, _.bind(function (totalPerCategoryInsightDTO) {
-      return this.getColour(this.hexToRgb(totalPerCategoryInsightDTO.categoryDTO.color.color.substr(1)));
+      return ColorsUtils.getColour(ColorsUtils.hexToRgb(totalPerCategoryInsightDTO.categoryDTO.color.color.substr(1)));
     }, this));
 
     insightLineSeries = _.map(insightsMonthly.totalPerCategoryInsightsDTOs, totalPerCategoryInsightDTO => totalPerCategoryInsightDTO.categoryDTO.name);
@@ -121,7 +121,7 @@ function InsightsGenerator($filter) {
       insightsBarData: [insightsBarData],
       insightsBarSeries: 'Categories',
       insightsBarLabels,
-      insightsBarColors: [this.getColour(this.hexToRgb('#dddddd'.substr(1)))],
+      insightsBarColors: [ColorsUtils.getColour(ColorsUtils.hexToRgb('#dddddd'.substr(1)))],
     };
   };
 
@@ -141,29 +141,9 @@ function InsightsGenerator($filter) {
       insightsBarData: [insightsBarData],
       insightsBarSeries: 'Expenses',
       insightsBarLabels,
-      insightsBarColors: [this.getColour(this.hexToRgb('#dddddd'.substr(1)))],
+      insightsBarColors: [ColorsUtils.getColour(ColorsUtils.hexToRgb('#dddddd'.substr(1)))],
     };
   };
-
-  this.getColour = function (colour) {
-    return {
-      fillColor: this.rgba(colour, 0.9),
-      strokeColor: this.rgba(colour, 1),
-      pointColor: this.rgba(colour, 1),
-      pointStrokeColor: '#fff',
-      pointHighlightFill: '#fff',
-      pointHighlightStroke: this.rgba(colour, 0.1),
-    };
-  };
-
-  this.hexToRgb = hex => {
-    /*jshint validthis: true */
-    const bigint = parseInt(hex, 16), r = (bigint >> 16) & 255, g = (bigint >> 8) & 255, b = bigint & 255;
-
-    return [r, g, b];
-  };
-
-  this.rgba = (colour, alpha) => `rgba(${colour.concat(alpha).join(',')})`;
 
 }
 

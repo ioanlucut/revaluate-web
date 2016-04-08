@@ -33,8 +33,6 @@ function MonthlyDailyInsightsController(EXPENSE_EVENTS,
     $filter,
     monthsPerYearsStatistics: null,
     resizeOnUpdate: false,
-    getChartSetSize() {
-    },
   }));
 
   // ---
