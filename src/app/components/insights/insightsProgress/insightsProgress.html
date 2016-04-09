@@ -25,10 +25,7 @@
 
     <div class="insights__chart__bar" fade-out-in fade-when="vm.isLoading">
 
-        <div class="spinner insights__loading" ng-if="vm.isLoading">
-            <div class="double-bounce1"></div>
-            <div class="double-bounce2"></div>
-        </div>
+        <spinner class-name="insights__loading" is-loading="vm.isLoading"></spinner>
 
         <div class="insights__chart__bar__nocategory" ng-if="vm.isMinimumNumberOfAllowedUnselectedCategoriesExceeded()">
             Select at least 1 category.

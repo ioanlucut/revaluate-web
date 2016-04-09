@@ -4,10 +4,7 @@
 
     <div class="insights__chart__bar insights__chart__bar--small" fade-out-in fade-when="vm.loadTracker.active()">
 
-        <div class="spinner insights__loading" ng-if="vm.loadTracker.active()">
-            <div class="double-bounce1"></div>
-            <div class="double-bounce2"></div>
-        </div>
+        <spinner class-name="insights__loading" is-loading="vm.loadTracker.active()">
 
         <!--List of this month goals-->
         <div class="goals__list expenses__goals__list">

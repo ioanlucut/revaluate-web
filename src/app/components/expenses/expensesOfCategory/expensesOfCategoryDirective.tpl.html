@@ -5,10 +5,7 @@
 </div>
 
 <!--If is loading for the first time (until expenses are loaded)-->
-<div class="spinner expenses__list__category__loading" ng-if="vm.loadingTracker.active()">
-    <div class="double-bounce1"></div>
-    <div class="double-bounce2"></div>
-</div>
+<spinner class-name="expenses__list__category__loading" is-loading="vm.loadingTracker.active()">
 
 <!--If is loading for the first time (until expenses are loaded)-->
 <div class="expenses__list__category" ng-if="vm.isExpensesLoaded() && vm.expanded" fade-out-in fade-when="vm.loadingTracker.active()">

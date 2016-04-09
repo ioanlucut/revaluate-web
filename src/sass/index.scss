@@ -63,10 +63,6 @@ $fa-font-path: "../../bower_components/font-awesome/fonts";
 // Odometer
 // ---
 @import "vendor-modified/odometer-theme-plaza";
-// ---
-// Spinner
-// ---
-@import "vendor-modified/spinner";
 
 // ---
 // Fonts.
@@ -77,6 +73,11 @@ $fa-font-path: "../../bower_components/font-awesome/fonts";
 // Image sprites.
 // ---
 @import "img/_sprites.scss";
+// ---
+// Image sprites.
+// ---
+@import "img/_sprites.scss";
+@import '../../bower_components/spinkit/scss/spinkit';
 // ---
 // Revaluate Components.
 // ---
