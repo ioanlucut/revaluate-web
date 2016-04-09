@@ -1,7 +1,7 @@
 /**
  * Abstract error page controller.
  */
-function AbstractErrorPageController($scope, StatesHandler) {
+function AbstractErrorPageController($scope) {
   'ngInject';
 
   /**
@@ -9,13 +9,6 @@ function AbstractErrorPageController($scope, StatesHandler) {
    */
   $scope.trackErrorEvent = event => {
     $scope.$broadcast('trackEvent', event);
-  };
-
-  /**
-   * Continues to home page.
-   */
-  $scope.goToHomePage = () => {
-    StatesHandler.goHome();
   };
 }
 
