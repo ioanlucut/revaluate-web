@@ -9,6 +9,7 @@ function InsightsAbstractController($scope,
                                     ChartJs) {
   'ngInject';
 
+  const FONT_FAMILY = '\'proxima-nova\',\'Arial\', sans-serif';
   const _this = this;
 
   /**
@@ -75,6 +76,9 @@ function InsightsAbstractController($scope,
             show: false,
             labelString: '',
           },
+          ticks: {
+            fontFamily: FONT_FAMILY,
+          },
         },],
         yAxes: [{
           display: true,
@@ -86,7 +90,7 @@ function InsightsAbstractController($scope,
             labelString: '',
           },
           ticks: {
-            fontFamily: '\'proxima-nova\',\'Arial\', sans-serif',
+            fontFamily: FONT_FAMILY,
             beginAtZero: true,
             suggestedMin: 0,
             suggestedMax: 2,
