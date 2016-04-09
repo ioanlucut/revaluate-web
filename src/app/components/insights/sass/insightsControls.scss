@@ -80,8 +80,8 @@
         .insights__controls__chart-toggle__entry--active,
         .insights__controls__chart-toggle__entry--active:hover {
             color: $gray-dark-3;
-            background-color: $white;
             cursor: default;
+            font-weight: bold;
         }
     }
 }

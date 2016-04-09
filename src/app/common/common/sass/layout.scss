@@ -16,13 +16,14 @@
     padding: 0;
 
     li {
+        @include border-top-radius($base-border-radius);
         display: block;
         float: left;
         height: 55px;
-        @include border-top-radius($base-border-radius);
         text-align: center;
         margin: 0 40px 0 0;
         padding: 10px 0;
+        min-width: 70px;
 
         a {
             display: block;
@@ -39,7 +40,7 @@
     }
 
     .tab__active {
-        background-color: $white;
+        font-weight: bold;
 
         a {
             color: $black;
