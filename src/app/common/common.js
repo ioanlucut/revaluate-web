@@ -8,6 +8,7 @@ import flashMessagesDirective from './flashMessage/flashMessagesDirective';
 import footerDirective from './footer/footerDirective';
 import footerHomeDirective from './footer/footerHomeDirective';
 import snapToggler from './snapToggler/snapToggler';
+import spinnerComponent from './spinner/spinnerComponent';
 import sidebarComponent from './sidebar/sidebarComponent';
 import HeaderController from './header/HeaderController';
 import headerDirective from './header/headerDirective';
@@ -82,6 +83,7 @@ export default angular
   .directive('header', headerDirective)
   .component('snapToggler', snapToggler)
   .component('sidebar', sidebarComponent)
+  .component('spinner', spinnerComponent)
   .directive('headerSide', headerSideDirective)
   .directive('userProfilePicture', userProfilePictureDirective)
   .directive('userProfilePictureHeader', userProfilePictureHeaderDirective)
