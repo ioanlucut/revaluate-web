@@ -3,6 +3,17 @@ function GoalsDisplayEntryController($rootScope, $filter, $scope, ChartJs, Color
 
   const _this = this;
 
+  const MAX_PERCENT = 100;
+
+  const COLORS = {
+    success: '#13ca6d',
+    info: '#4FC1E9',
+    danger: '#ED5565',
+    warning: '#FFCE54',
+  };
+
+  const NEUTRAL_COLOR = '#dddddd';
+
   const GOAL_CHART_OPTIONS = {
     cutoutPercentage: 90,
     animation: {
@@ -13,7 +24,8 @@ function GoalsDisplayEntryController($rootScope, $filter, $scope, ChartJs, Color
     tooltips: {
       callbacks: {
         title: function (tooltipItems, data) {
-          return data.labels[tooltipItems[0].index];;
+          return data.labels[tooltipItems[0].index];
+          ;
         },
 
         label: function () {
@@ -27,11 +39,11 @@ function GoalsDisplayEntryController($rootScope, $filter, $scope, ChartJs, Color
   _this.donutChartOptions = _.merge({}, ChartJs.getOptions(), GOAL_CHART_OPTIONS);
 
   // ---
-  // Initially, prepare data with this information.
+  // Initial computation.
   // ---
-  prepareGoalData();
+  calculateGoalData();
 
-  function prepareGoalData() {
+  function calculateGoalData() {
     // ---
     // Target value of the goal.
     // ---
@@ -47,19 +59,35 @@ function GoalsDisplayEntryController($rootScope, $filter, $scope, ChartJs, Color
     // ---
     _this.type = GoalProgressTypeService.computeProgressBarType(_this.goal);
 
+    // ---
+    // Two datasets 1. VALUES; 2. DAYS.
+    // ---
+
     _this.colors = [
       ColorsUtils.getColour(ColorsUtils.hexToRgb(_this.goal.category.color.color.substr(1))),
-      ColorsUtils.getColour(ColorsUtils.hexToRgb('#dddddd'.substr(1))),
+      ColorsUtils.getColour(ColorsUtils.hexToRgb(NEUTRAL_COLOR.substr(1))),
     ];
 
-    _this.labels = [`${formatChartValue({ value: _this.currentValue })} spent.`, `Target: ${formatChartValue({ value: _this.targetValue })}`];
+    _this.labels = [
+      `${formatChartValue({ value: _this.currentValue })} spent.`,
+      `Target: ${formatChartValue({ value: _this.targetValue })}`,
+    ];
 
-    /**
-     * If warning should be shown
-     */
-    _this.showWarning = _this.type === 'danger' || _this.type === 'warning';
-    _this.percent = (_this.currentValue * 100) / _this.targetValue;
-    _this.data = [noDecimals(_this.percent), noDecimals(100 - _this.percent)];
+    // ---
+    // Compute the today position.
+    // ---
+    let noOfDaysInMonth = daysInMonth();
+    let currentDay = moment().date();
+    _this.todayInPercent = ((MAX_PERCENT / noOfDaysInMonth) * currentDay) - ((MAX_PERCENT / noOfDaysInMonth) / 2);
+    _this.percent = (_this.currentValue * MAX_PERCENT) / _this.targetValue;
+
+    _this.data = [
+      noDecimals(_this.percent), noDecimals(MAX_PERCENT - _this.percent),
+    ];
+  }
+
+  function daysInMonth() {
+    return new Date(moment().year(), moment().month() + 1, 0).getDate();
   }
 
   function formatChartValue(price) {
@@ -73,7 +101,7 @@ function GoalsDisplayEntryController($rootScope, $filter, $scope, ChartJs, Color
 
   $scope.$watch(() => _this.goal, newGoal => {
 
-    prepareGoalData(newGoal);
+    calculateGoalData(newGoal);
   });
 }
 
