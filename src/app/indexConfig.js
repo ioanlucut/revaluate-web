@@ -19,10 +19,12 @@ function appConfig($locationProvider,
   });
 
   // Enable html5 mode
-  $locationProvider.html5Mode({
-    enabled: true,
-    requireBase: false,
-  });
+  $locationProvider
+    .html5Mode({
+      enabled: true,
+      requireBase: false,
+    })
+    .hashPrefix('!');
 
   // ---
   // Gravatar configs.
