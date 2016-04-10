@@ -17,7 +17,6 @@ function ValidatePasswordResetTokenInvalidController($scope, AuthService, States
     ProfileFormToggle.setState(ACCOUNT_FORM_STATE.forgotPassword);
     StatesHandler.goToLogin();
   };
-
 }
 
 export default ValidatePasswordResetTokenInvalidController;

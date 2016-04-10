@@ -1,9 +1,8 @@
 /**
- * InsightsMonthly transformer service which transforms a insights DTO model object to a insights business object.
+ * InsightsMonthly transformer service which transforms a insights DTO
+ * model object to a insights business object.
  */
-function InsightsTransformerService($filter,
-                                    $injector,
-                                    InsightsMonthly,
+function InsightsTransformerService(InsightsMonthly,
                                     InsightsDaily,
                                     InsightsProgress,
                                     InsightsOverview) {
@@ -23,7 +22,6 @@ function InsightsTransformerService($filter,
 
   this.insightDailyApiResponseTransformer = responseData => InsightsDaily
     .build(responseData.data);
-
 }
 
 export default InsightsTransformerService;
