@@ -6,7 +6,6 @@ function importer(ImportService, ImportTransformerService) {
    * @constructor
    */
   function ExpensesImport() {
-
     /**
      * Represents the DTO model of the expensesImport.
      */

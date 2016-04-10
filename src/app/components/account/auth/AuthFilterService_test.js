@@ -3,12 +3,26 @@
 // ---
 import * as testUtils from '../../../../helpers/tests';
 
-describe('app/AuthFilter', function () {
+describe('app/AuthFilter', () => {
+  let $rootScope,
+    $state,
+    $injector,
+    $httpBackend,
+    $q,
+    ENV,
+    AUTH_URLS,
+    AccountModal,
+    DatesUtils,
+    InsightsService,
+    INSIGHTS_URLS,
+    GOAL_URLS,
+    EXPENSE_URLS,
+    CATEGORY_URLS,
+    STATES,
+    AuthServiceMock,
+    UserMock;
 
-  var $rootScope, $location, $state, $injector, $httpBackend, $q, ENV, AUTH_URLS, AccountModal, DatesUtils, InsightsService, INSIGHTS_URLS, GOAL_URLS, EXPENSE_URLS, CATEGORY_URLS, STATES, AuthServiceMock, UserMock;
-
-  beforeEach(function () {
-
+  beforeEach(() => {
     // ---
     // Load templates.
     // ---
@@ -22,20 +36,16 @@ describe('app/AuthFilter', function () {
     // ---
     // Just inject the angular.mock.module and define dependencies.
     // ---
-    angular.mock.module('revaluate', function ($provide) {
+    angular.mock.module('revaluate', ($provide) => {
       $provide.value('AuthService', AuthServiceMock = {});
       $provide.value('User', UserMock = {});
     });
 
-    inject(function (_$rootScope_, _$state_, _$location_, _$injector_, _$httpBackend_, _$q_, _ENV_, _AccountModal_, _DatesUtils_, _InsightsService_, _INSIGHTS_URLS_, _EXPENSE_URLS_, _GOAL_URLS_, _CATEGORY_URLS_, _STATES_, _AUTH_URLS_, $templateCache) {
-      var period,
-        fromFormatted,
-        toFormatted,
-        goalsToFormatted;
-
+    inject((_$rootScope_, _$state_, _$injector_, _$httpBackend_, _$q_, _ENV_,
+            _AccountModal_, _DatesUtils_, _InsightsService_, _INSIGHTS_URLS_, _EXPENSE_URLS_,
+            _GOAL_URLS_, _CATEGORY_URLS_, _STATES_, _AUTH_URLS_, $templateCache) => {
       $rootScope = _$rootScope_;
       $state = _$state_;
-      $location = _$location_;
       $injector = _$injector_;
       $httpBackend = _$httpBackend_;
       AccountModal = _AccountModal_;
@@ -55,12 +65,12 @@ describe('app/AuthFilter', function () {
       // We need add the template entry into the templateCache if we ever specify a templateUrl
       $templateCache.put('template.html', '');
 
-      period = DatesUtils.fromLastMonthsToNow(1);
-      fromFormatted = DatesUtils.formatDate(period.from);
-      toFormatted = DatesUtils.formatDate(period.to),
-        goalsToFormatted = DatesUtils.formatDateExpectedForEndOfMonth(period.to),
+      const period = DatesUtils.fromLastMonthsToNow(1);
+      const fromFormatted = DatesUtils.formatDate(period.from);
+      const toFormatted = DatesUtils.formatDate(period.to);
+      const goalsToFormatted = DatesUtils.formatDateExpectedForEndOfMonth(period.to);
 
-        $httpBackend.whenGET(URLTo.api('expenses/retrieve_grouped?page=0&size=50')).respond(200, []);
+      $httpBackend.whenGET(URLTo.api('expenses/retrieve_grouped?page=0&size=50')).respond(200, []);
       $httpBackend.whenGET(URLTo.api('statistics/expenses_months_per_years')).respond(200, []);
       $httpBackend.whenGET(URLTo.api('statistics/goals_months_per_years')).respond(200, []);
       $httpBackend.whenGET(URLTo.api(INSIGHTS_URLS.fetchDailyInsights, {
@@ -78,17 +88,17 @@ describe('app/AuthFilter', function () {
     });
   });
 
-  it('should redirect to expenses page a authenticated user', function () {
+  it('should redirect to expenses page a authenticated user', () => {
     AuthServiceMock.isAuthenticated = jasmine.createSpy('isAuthenticated').and.returnValue(true);
 
     UserMock.$new = jasmine.createSpy('$new').and.returnValue({
-      loadFromSession: function () {
+      loadFromSession() {
         return {
-          isInitiated: function () {
+          isInitiated() {
             return true;
           },
 
-          isTrialPeriodExpired: function () {
+          isTrialPeriodExpired() {
             return false;
           },
         };
@@ -105,17 +115,17 @@ describe('app/AuthFilter', function () {
     expect($state.current.name).toBe('expenses.regular');
   });
 
-  it('should redirect to non public page to account page', function () {
+  it('should redirect to non public page to account page', ()=> {
     AuthServiceMock.isAuthenticated = jasmine.createSpy('isAuthenticated').and.returnValue(false);
 
     UserMock.$new = jasmine.createSpy('$new').and.returnValue({
-      loadFromSession: function () {
+      loadFromSession() {
         return {
-          isInitiated: function () {
+          isInitiated() {
             return true;
           },
 
-          isTrialPeriodExpired: function () {
+          isTrialPeriodExpired() {
             return false;
           },
         };
@@ -139,17 +149,17 @@ describe('app/AuthFilter', function () {
     expect(AccountModal.isOpen).toBe(false);
   });
 
-  it('should not let user on the setup page once is initiated', function () {
+  it('should not let user on the setup page once is initiated', () => {
     AuthServiceMock.isAuthenticated = jasmine.createSpy('isAuthenticated').and.returnValue(true);
 
     UserMock.$new = jasmine.createSpy('$new').and.returnValue({
-      loadFromSession: function () {
+      loadFromSession() {
         return {
-          isInitiated: function () {
+          isInitiated() {
             return true;
           },
 
-          isTrialPeriodExpired: function () {
+          isTrialPeriodExpired() {
             return false;
           },
         };
@@ -166,17 +176,17 @@ describe('app/AuthFilter', function () {
     expect($state.current.name).toBe('expenses.regular');
   });
 
-  it('should not let user on other pages than setup and public pages if is NOT initiated', function () {
+  it('should not let user on other pages than setup and public pages if is NOT initiated', () => {
     AuthServiceMock.isAuthenticated = jasmine.createSpy('isAuthenticated').and.returnValue(true);
 
     UserMock.$new = jasmine.createSpy('$new').and.returnValue({
-      loadFromSession: function () {
+      loadFromSession() {
         return {
-          isInitiated: function () {
+          isInitiated() {
             return false;
           },
 
-          isTrialPeriodExpired: function () {
+          isTrialPeriodExpired() {
             return false;
           },
         };
@@ -188,19 +198,21 @@ describe('app/AuthFilter', function () {
     expect($state.current.name).toBe('setup');
   });
 
-  it('should not let user on other pages than settings.payment.add (if payment is not defined) / payment unrestricted pages if is NOT public page, and not isPaymentMissingUnrestrictedPage, and trial is expired', function () {
+  it('should not let user on other pages than settings.payment.add (if payment is not defined) ' +
+    '/ payment unrestricted pages if is NOT public page, and not isPaymentMissingUnrestrictedPage, ' +
+    'and trial is expired', () => {
     AuthServiceMock.isAuthenticated = jasmine.createSpy('isAuthenticated').and.returnValue(true);
     $httpBackend.whenPOST(URLTo.api(AUTH_URLS.fetchPaymentToken)).respond(200, []);
     $httpBackend.whenGET(URLTo.api(AUTH_URLS.isPaymentStatusDefined)).respond(200, { paymentStatusDefined: false });
 
     UserMock.$new = jasmine.createSpy('$new').and.returnValue({
-      loadFromSession: function () {
+      loadFromSession() {
         return {
-          isInitiated: function () {
+          isInitiated() {
             return true;
           },
 
-          isTrialPeriodExpired: function () {
+          isTrialPeriodExpired() {
             return true;
           },
         };
@@ -224,20 +236,22 @@ describe('app/AuthFilter', function () {
     expect($state.current.name).toBe(STATES.pricing);
   });
 
-  it('should not let user on other pages than settings.payment.add (if payment is not defined) / payment unrestricted pages if is NOT public page, and not isPaymentMissingUnrestrictedPage, and trial is expired', function () {
+  it('should not let user on other pages than settings.payment.add (if payment is not ' +
+    'defined) / payment unrestricted pages if is NOT public page, and not ' +
+    'isPaymentMissingUnrestrictedPage, and trial is expired', () => {
     AuthServiceMock.isAuthenticated = jasmine.createSpy('isAuthenticated').and.returnValue(true);
     $httpBackend.whenPOST(URLTo.api(AUTH_URLS.fetchPaymentToken)).respond(200, []);
     $httpBackend.whenGET(URLTo.api(AUTH_URLS.isPaymentStatusDefined)).respond(200, { paymentStatusDefined: true });
     $httpBackend.whenGET(URLTo.api(AUTH_URLS.fetchPaymentInsights)).respond(200, {});
 
     UserMock.$new = jasmine.createSpy('$new').and.returnValue({
-      loadFromSession: function () {
+      loadFromSession() {
         return {
-          isInitiated: function () {
+          isInitiated() {
             return true;
           },
 
-          isTrialPeriodExpired: function () {
+          isTrialPeriodExpired() {
             return true;
           },
         };
@@ -253,6 +267,5 @@ describe('app/AuthFilter', function () {
     $rootScope.$digest();
     expect($state.current.name).toBe('settings.payment.insights');
   });
-
 });
 

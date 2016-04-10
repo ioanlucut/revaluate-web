@@ -1,6 +1,5 @@
-function SignUpController($rootScope,
-                          $scope,
-                          $timeout,
+function SignUpController($scope,
+                          $q,
                           ALERTS_EVENTS,
                           ALERTS_CONSTANTS,
                           StatesHandler,
@@ -38,36 +37,36 @@ function SignUpController($rootScope,
    * @param signUpData
    */
   $scope.signUp = signUpData => {
-    if ($scope.signUpForm.$valid && !$scope.isRequestPending) {
-
-      $scope.isRequestPending = true;
-
-      User.$new()
-        .create(signUpData)
-        .then(() => {
-          $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.signUpCompleted);
-
-          AuthService
-            .login(signUpData.email, signUpData.password)
-            .then(() => {
-              $scope.isRequestPending = false;
-
-              StatesHandler.goToSetUp();
-            });
-        })
-        .catch(() => {
-          /* If bad feedback from server */
-          $scope.badPostSubmitResponse = true;
-          $scope.isRequestPending = false;
-
-          $scope.$emit(ALERTS_EVENTS.DANGER, {
-            message: 'Ups, something went wrong.',
-            alertId: $scope.alertId,
-          });
-        });
+    if (!($scope.signUpForm.$valid && !$scope.isRequestPending)) {
+      return $q.when();
     }
-  };
 
+    $scope.isRequestPending = true;
+    return User
+      .$new()
+      .create(signUpData)
+      .then(() => {
+        $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.signUpCompleted);
+
+        return AuthService
+          .login(signUpData.email, signUpData.password)
+          .then(() => {
+            $scope.isRequestPending = false;
+
+            StatesHandler.goToSetUp();
+          });
+      })
+      .catch(() => {
+        /* If bad feedback from server */
+        $scope.badPostSubmitResponse = true;
+        $scope.isRequestPending = false;
+
+        $scope.$emit(ALERTS_EVENTS.DANGER, {
+          message: 'Ups, something went wrong.',
+          alertId: $scope.alertId,
+        });
+      });
+  };
 }
 
 export default SignUpController;
