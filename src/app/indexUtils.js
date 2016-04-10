@@ -3,9 +3,9 @@
   // Add String format prototype.
   // ---
   if (!String.prototype.format) {
-    String.prototype.format = function () {
-      const args = arguments;
-      return this.replace(/{(\d+)}/g, (match, number) => typeof args[number] !== 'undefined' ? args[number] : match);
+    String.prototype.format = function format(...args) {
+      return this.replace(/{(\d+)}/g, (match, number) =>
+        typeof args[number] !== 'undefined' ? args[number] : match);
     };
   }
 

@@ -1,6 +1,5 @@
 function InsightsProgressController(DatesUtils,
                                     $controller,
-                                    $templateCache,
                                     $scope,
                                     $rootScope,
                                     $filter,
@@ -13,11 +12,11 @@ function InsightsProgressController(DatesUtils,
                                     categories,
                                     InsightsService,
                                     USER_ACTIVITY_EVENTS,
-                                    INSIGHTS_CHARTS,
                                     ALERTS_CONSTANTS) {
   'ngInject';
 
-  const TIMEOUT_DURATION = 150, _this = this;
+  const TIMEOUT_DURATION = 150;
+  const _this = this;
 
   /**
    * Alert identifier

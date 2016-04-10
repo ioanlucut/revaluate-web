@@ -1,5 +1,6 @@
 /**
- * Session service which encapsulates the whole logic account related to the Local storage which contains currently logged in user.
+ * Session service which encapsulates the whole logic account related
+ * to the Local storage which contains currently logged in user.
  */
 function SessionService($localStorage) {
   'ngInject';
@@ -28,7 +29,6 @@ function SessionService($localStorage) {
    * @param data
    */
   this.setData = data => {
-
     $localStorage[sessionDataKey] = angular.toJson(data);
   };
 
@@ -60,7 +60,6 @@ function SessionService($localStorage) {
     delete $localStorage[sessionDataKey];
     delete $localStorage[jwtTokenKey];
   };
-
 }
 
 export default SessionService;

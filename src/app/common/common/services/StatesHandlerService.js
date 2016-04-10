@@ -7,15 +7,15 @@ function StatesHandlerService($state, STATES) {
     }
   }
 
-  this.goToSetUp = function () {
+  this.goToSetUp = () => {
     this.go(STATES.setUp);
   };
 
-  this.goToAddPayment = function () {
+  this.goToAddPayment = () => {
     this.go(STATES.addPayment);
   };
 
-  this.goToLogin = function () {
+  this.goToLogin = () => {
     this.go(STATES.account);
   };
 
@@ -23,13 +23,13 @@ function StatesHandlerService($state, STATES) {
     $state.go(state);
   };
 
-  this.goToExpenses = function (callback) {
+  this.goToExpenses = (callback) => {
     this.go(STATES.expenses);
 
     call(callback);
   };
 
-  this.goHome = function (callback) {
+  this.goHome = (callback) => {
     this.go(STATES.home);
 
     call(callback);

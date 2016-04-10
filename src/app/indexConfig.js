@@ -6,8 +6,6 @@ function appConfig($locationProvider,
                    ngToastProvider) {
   'ngInject';
 
-  let MAIN_FONT;
-
   angular
     .extend(CacheFactoryProvider.defaults, { maxAge: 15 * 60 * 1000 });
 
@@ -62,7 +60,7 @@ function appConfig($locationProvider,
   // ---
   // Configure general chart settings.
   // ---
-  MAIN_FONT = '\'proxima-nova\',\'Arial\', sans-serif';
+  const MAIN_FONT = '\'proxima-nova\',\'Arial\', sans-serif';
 
   ChartJsProvider.setOptions({
     responsive: true,
