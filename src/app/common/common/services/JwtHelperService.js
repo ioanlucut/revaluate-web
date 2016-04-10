@@ -28,7 +28,7 @@ function JwtHelperService() {
     return window.atob(output);
   };
 
-  this.decodeToken = function(token) {
+  this.decodeToken = function (token) {
     const parts = token.split('.');
 
     if (parts.length !== 3) {
@@ -43,7 +43,7 @@ function JwtHelperService() {
     return JSON.parse(decoded);
   };
 
-  this.getTokenExpirationDate = function(token) {
+  this.getTokenExpirationDate = function (token) {
     let decoded;
     decoded = this.decodeToken(token);
 
@@ -57,7 +57,7 @@ function JwtHelperService() {
     return d;
   };
 
-  this.isTokenExpired = function(token) {
+  this.isTokenExpired = function (token) {
     const d = this.getTokenExpirationDate(token);
 
     if (!d) {
@@ -65,7 +65,6 @@ function JwtHelperService() {
     }
 
     // Token expired?
-    /*jshint validthis: true */
     return !(d.valueOf() > new Date().valueOf());
   };
 }

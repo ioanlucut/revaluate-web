@@ -1,51 +1,55 @@
 function InsightsGenerator($filter, ColorsUtils) {
   'ngInject';
 
-  this.generate = (insightsProgress, masterCategories) => {
-    let availableYearMonths, totalAmountPerMonths, progressLineData, insightLineColors, insightLineSeries, insightLabels, insightLineData;
-
+  this.generate = ({ insightsMonthlyDTO }, masterCategories) => {
     // ---
     // First, initialize all category models with yearMonth information.
     // ---
-    _.each(insightsProgress.insightsMonthlyDTO, insightsMonthlyDTOEntry => {
+    _.each(insightsMonthlyDTO, insightsMonthlyDTOEntry => {
       _.each(masterCategories, categoryEntry => {
         categoryEntry.yearMonth = categoryEntry.yearMonth || {};
-        categoryEntry.yearMonth[insightsMonthlyDTOEntry.yearMonth] = categoryEntry.yearMonth[insightsMonthlyDTOEntry.yearMonth] || 0;
+        categoryEntry.yearMonth[insightsMonthlyDTOEntry.yearMonth] =
+          categoryEntry.yearMonth[insightsMonthlyDTOEntry.yearMonth] || 0;
       });
     });
 
     // ---
     // Then just fill the data.
     // ---
-    _.each(insightsProgress.insightsMonthlyDTO, insightsMonthlyDTOEntry => {
+    _.each(insightsMonthlyDTO, insightsMonthlyDTOEntry => {
       _.each(
         insightsMonthlyDTOEntry.totalPerCategoryInsightsDTOs,
         totalPerCategoryInsightsEntry => {
-          const matchCategory = _.find(masterCategories, categoryEntry => categoryEntry.id === totalPerCategoryInsightsEntry.categoryDTO.id);
+          const matchCategory = _.find(masterCategories, categoryEntry =>
+          categoryEntry.id === totalPerCategoryInsightsEntry.categoryDTO.id);
 
           if (matchCategory) {
-            matchCategory.yearMonth[insightsMonthlyDTOEntry.yearMonth] = totalPerCategoryInsightsEntry.totalAmount;
+            matchCategory.yearMonth[insightsMonthlyDTOEntry.yearMonth] =
+              totalPerCategoryInsightsEntry.totalAmount;
           }
         }
       );
     });
 
-    availableYearMonths = _.map(insightsProgress.insightsMonthlyDTO, insightsMonthlyDTOEntry => insightsMonthlyDTOEntry.yearMonth);
+    const availableYearMonths = _.map(insightsMonthlyDTO, insightsMonthlyDTOEntry =>
+      insightsMonthlyDTOEntry.yearMonth);
 
     // ---
     // Total amount of categories per month.
     // ---
-    totalAmountPerMonths = _.reduce(insightsProgress.insightsMonthlyDTO, (result, insightsMonthlyDTOEntry) => {
-      result[insightsMonthlyDTOEntry.yearMonth] = insightsMonthlyDTOEntry.totalAmountSpent;
-      return result;
-    }, {});
+    const totalAmountPerMonths =
+      _.reduce(insightsMonthlyDTO, (result, insightsMonthlyDTOEntry) => {
+        result[insightsMonthlyDTOEntry.yearMonth] = insightsMonthlyDTOEntry.totalAmountSpent;
+        return result;
+      }, {});
 
     // ---
     // Represents the computed line data categorised.
     // ---
-    progressLineData = _.map(masterCategories, categoryEntry => {
-
-      const totalCategoryExpensesPerYearMonth = _.map(availableYearMonths, availableYearMonthEntry => categoryEntry.yearMonth[availableYearMonthEntry]);
+    const progressLineData = _.map(masterCategories, categoryEntry => {
+      const totalCategoryExpensesPerYearMonth =
+        _.map(availableYearMonths, availableYearMonthEntry =>
+          categoryEntry.yearMonth[availableYearMonthEntry]);
 
       return {
         totalCategoryExpensesPerYearMonth,
@@ -56,12 +60,14 @@ function InsightsGenerator($filter, ColorsUtils) {
     // ---
     // Computed information and methods.
     // ---
-    insightLineData = angular.copy(_.map(progressLineData, 'totalCategoryExpensesPerYearMonth'));
-    insightLabels = angular.copy(_.map(availableYearMonths, availableYearMonthsEntry => $filter('friendlyMonthShortDateNoYear')(availableYearMonthsEntry)));
-
-    insightLineSeries = angular.copy(_.map(progressLineData, progressLineDataEntry => progressLineDataEntry.categoryEntry.name));
-
-    insightLineColors = angular.copy(_.map(progressLineData, progressLineDataEntry => progressLineDataEntry.categoryEntry.color.color));
+    const insightLineData = angular.copy(
+      _.map(progressLineData, 'totalCategoryExpensesPerYearMonth'));
+    const insightLabels = angular.copy(_.map(availableYearMonths, availableYearMonthsEntry =>
+      $filter('friendlyMonthShortDateNoYear')(availableYearMonthsEntry)));
+    const insightLineSeries = angular.copy(_.map(progressLineData, progressLineDataEntry =>
+      progressLineDataEntry.categoryEntry.name));
+    const insightLineColors = angular.copy(_.map(progressLineData, progressLineDataEntry =>
+      progressLineDataEntry.categoryEntry.color.color));
 
     return {
       insightLineData,
@@ -73,16 +79,13 @@ function InsightsGenerator($filter, ColorsUtils) {
     };
   };
 
-  this.generateMonthlyBar = function (insightsMonthly) {
-    let insightsBarData, insightsBarColors, insightLineSeries;
-
-    insightsBarData = _.map(insightsMonthly.totalPerCategoryInsightsDTOs, totalPerCategoryInsightDTO => [totalPerCategoryInsightDTO.totalAmount]);
-
-    insightsBarColors = _.map(insightsMonthly.totalPerCategoryInsightsDTOs, _.bind(function (totalPerCategoryInsightDTO) {
-      return ColorsUtils.getColour(ColorsUtils.hexToRgb(totalPerCategoryInsightDTO.categoryDTO.color.color.substr(1)));
-    }, this));
-
-    insightLineSeries = _.map(insightsMonthly.totalPerCategoryInsightsDTOs, totalPerCategoryInsightDTO => totalPerCategoryInsightDTO.categoryDTO.name);
+  this.generateMonthlyBar = ({ totalPerCategoryInsightsDTOs }) => {
+    const insightsBarData = _.map(totalPerCategoryInsightsDTOs, totalPerCategoryInsightDTO =>
+      [totalPerCategoryInsightDTO.totalAmount]);
+    const insightsBarColors = _.map(totalPerCategoryInsightsDTOs, ({ categoryDTO: { color } }) =>
+      ColorsUtils.getColour(ColorsUtils.hexToRgb(color.color.substr(1))));
+    const insightLineSeries = _.map(totalPerCategoryInsightsDTOs, totalPerCategoryInsightDTO =>
+      totalPerCategoryInsightDTO.categoryDTO.name);
 
     return {
       insightsBarData,
@@ -92,14 +95,13 @@ function InsightsGenerator($filter, ColorsUtils) {
     };
   };
 
-  this.generateMonthlyDonut = insightsMonthly => {
-    let insightsDonutData, insightsDonutLabels, insightsDonutColors;
-
-    insightsDonutData = _.map(insightsMonthly.totalPerCategoryInsightsDTOs, totalPerCategoryInsightDTO => totalPerCategoryInsightDTO.totalAmount);
-
-    insightsDonutColors = _.map(insightsMonthly.totalPerCategoryInsightsDTOs, totalPerCategoryInsightDTO => totalPerCategoryInsightDTO.categoryDTO.color.color);
-
-    insightsDonutLabels = _.map(insightsMonthly.totalPerCategoryInsightsDTOs, totalPerCategoryInsightDTO => totalPerCategoryInsightDTO.categoryDTO.name);
+  this.generateMonthlyDonut = ({ totalPerCategoryInsightsDTOs }) => {
+    const insightsDonutData = _.map(totalPerCategoryInsightsDTOs, totalPerCategoryInsightDTO =>
+      totalPerCategoryInsightDTO.totalAmount);
+    const insightsDonutColors = _.map(totalPerCategoryInsightsDTOs, totalPerCategoryInsightDTO =>
+      totalPerCategoryInsightDTO.categoryDTO.color.color);
+    const insightsDonutLabels = _.map(totalPerCategoryInsightsDTOs, totalPerCategoryInsightDTO =>
+      totalPerCategoryInsightDTO.categoryDTO.name);
 
     return {
       insightsDonutData,
@@ -109,13 +111,11 @@ function InsightsGenerator($filter, ColorsUtils) {
     };
   };
 
-  this.generateOverviewBar = function (insightsOverview) {
-
-    let insightsBarLabels, insightsBarData;
-
-    insightsBarData = _.map(insightsOverview.insightsOverview, insightOverviewEntry => insightOverviewEntry.totalAmount);
-
-    insightsBarLabels = _.map(insightsOverview.insightsOverview, insightOverviewEntry => $filter('friendlyMonthDate')(insightOverviewEntry.yearMonth));
+  this.generateOverviewBar = ({ insightsOverview }) => {
+    const insightsBarData = _.map(insightsOverview, insightOverviewEntry =>
+      insightOverviewEntry.totalAmount);
+    const insightsBarLabels = _.map(insightsOverview, insightOverviewEntry =>
+      $filter('friendlyMonthDate')(insightOverviewEntry.yearMonth));
 
     return {
       insightsBarData: [insightsBarData],
@@ -125,13 +125,10 @@ function InsightsGenerator($filter, ColorsUtils) {
     };
   };
 
-  this.generateDailyBar = function (year, insightsDaily) {
-
-    let insightsBarLabels, insightsBarData;
-
-    insightsBarData = _.map(insightsDaily.totalPerDayDTOs, totalPerDayDTOEntry => totalPerDayDTOEntry.totalAmount);
-
-    insightsBarLabels = _.map(insightsDaily.totalPerDayDTOs, totalPerDayDTOEntry => {
+  this.generateDailyBar = (year, { totalPerDayDTOs }) => {
+    const insightsBarData = _.map(totalPerDayDTOs, totalPerDayDTOEntry =>
+      totalPerDayDTOEntry.totalAmount);
+    const insightsBarLabels = _.map(totalPerDayDTOs, totalPerDayDTOEntry => {
       const dateFromMonthDay = totalPerDayDTOEntry.monthDay.replace(/--/g, `${year}-`);
 
       return $filter('friendlyMonthDay')(dateFromMonthDay);
@@ -144,7 +141,6 @@ function InsightsGenerator($filter, ColorsUtils) {
       insightsBarColors: [ColorsUtils.getColour(ColorsUtils.hexToRgb('#dddddd'.substr(1)))],
     };
   };
-
 }
 
 export default InsightsGenerator;

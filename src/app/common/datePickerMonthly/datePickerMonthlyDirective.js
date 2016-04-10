@@ -1,6 +1,7 @@
 function DatePickerMonthlyController() {
 
-  const _this = this, MONTH = 'month';
+  const _this = this;
+  const MONTH = 'month';
 
   /**
    * Checks if the date should be disabled.
@@ -52,7 +53,6 @@ function DatePickerMonthlyController() {
    */
   _this.nextMonth = () => {
     moveToTheNextMonthUsing(failedCandidateAsMoment => {
-
       if (failedCandidateAsMoment.month() === 11) {
         return failedCandidateAsMoment.add(1, 'years').set('month', 0);
       }
@@ -62,21 +62,24 @@ function DatePickerMonthlyController() {
   };
 
   function moveToTheNextMonthUsing(momentRetryCallback) {
-    _this.data.yearMonthDate = getMonthRecursivelyWith(_this.data.yearMonthDate, momentRetryCallback);
+    _this.data.yearMonthDate =
+      getMonthRecursivelyWith(_this.data.yearMonthDate, momentRetryCallback);
 
     doPerform(_this.data.yearMonthDate);
   }
 
   function getMonthRecursivelyWith(of, momentRetryCallback) {
-    const prevMonthCandidate = momentRetryCallback(moment(of)), prevMonthCandidateAsDate = prevMonthCandidate.toDate(), prevMonthCandidateYear = prevMonthCandidate.year(), prevMonthCandidateMonthOfYear = prevMonthCandidate.month() + 1;
+    const prevMonthCandidate = momentRetryCallback(moment(of));
+    const prevMonthCandidateAsDate = prevMonthCandidate.toDate();
+    const prevMonthCandidateYear = prevMonthCandidate.year();
+    const prevMonthCandidateMonthOfYear = prevMonthCandidate.month() + 1;
 
     if (prevMonthCandidateYear < 2000 || prevMonthCandidateYear > 2040) {
-
       return prevMonthCandidateAsDate;
     }
 
-    if (_.some(_.result(_this.monthsPerYearsStatistics, prevMonthCandidateYear), entry => entry === prevMonthCandidateMonthOfYear)) {
-
+    if (_.some(_.result(_this.monthsPerYearsStatistics, prevMonthCandidateYear),
+        entry => entry === prevMonthCandidateMonthOfYear)) {
       return prevMonthCandidateAsDate;
     }
 
@@ -90,9 +93,12 @@ function DatePickerMonthlyController() {
   }
 
   function shouldDateBeDisabled(date) {
-    const currentDate = moment(date), currentYear = currentDate.year(), currentMonthOfYear = currentDate.month() + 1;
+    const currentDate = moment(date);
+    const currentYear = currentDate.year();
+    const currentMonthOfYear = currentDate.month() + 1;
 
-    return !_.some(_.result(_this.monthsPerYearsStatistics, currentYear), entry => entry === currentMonthOfYear);
+    return !_.some(_.result(_this.monthsPerYearsStatistics, currentYear),
+      entry => entry === currentMonthOfYear);
   }
 
   function openDatePicker($event) {
@@ -107,7 +113,8 @@ function DatePickerMonthlyController() {
 
     return _.some(_.keys(_this.monthsPerYearsStatistics), keyEntry => {
       if (_.parseInt(keyEntry) === _.parseInt(currentYear)) {
-        return _.some(_this.monthsPerYearsStatistics[keyEntry], month => _.lt(_.parseInt(month), _.parseInt(currentDate.month() + 1)));
+        return _.some(_this.monthsPerYearsStatistics[keyEntry],
+          month => _.lt(_.parseInt(month), _.parseInt(currentDate.month() + 1)));
       }
 
       return _.lte(_.parseInt(keyEntry), _.parseInt(currentYear));
@@ -119,7 +126,8 @@ function DatePickerMonthlyController() {
 
     return _.some(_.keys(_this.monthsPerYearsStatistics), keyEntry => {
       if (_.parseInt(keyEntry) === _.parseInt(currentYear)) {
-        return _.some(_this.monthsPerYearsStatistics[keyEntry], month => _.gt(_.parseInt(month), _.parseInt(currentDate.month() + 1)));
+        return _.some(_this.monthsPerYearsStatistics[keyEntry],
+          month => _.gt(_.parseInt(month), _.parseInt(currentDate.month() + 1)));
       }
 
       return _.gte(_.parseInt(keyEntry), _.parseInt(currentYear));

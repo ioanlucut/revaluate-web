@@ -25,7 +25,6 @@ function AlertService(ngToast) {
   this.dismissAll = () => {
     ngToast.dismiss();
   };
-
 }
 
 export default AlertService;

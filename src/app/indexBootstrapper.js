@@ -13,7 +13,6 @@ export default deferredBootstrapper
       APP_CONFIG: ['ENV', '$http', '$q', 'CacheFactory', (ENV, $http, $q, CacheFactory) => {
         const APP_CACHE_FACTORY_NAME = 'appCache';
         const APP_CONFIG_RESOURCE_URL = `appconfig/fetchConfig?${ENV.name}&${ENV.cacheResetKey}`;
-        let appCache;
 
         URLTo.apiBase(ENV.apiEndpoint);
 
@@ -29,7 +28,7 @@ export default deferredBootstrapper
             });
         }
 
-        appCache = CacheFactory
+        const appCache = CacheFactory
           .get(APP_CACHE_FACTORY_NAME);
 
         return $http
