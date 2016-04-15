@@ -1,0 +1,81 @@
+.site__home__title {
+    padding: 175px 10px 5px 10px;
+    font-size: 70px;
+    color: $white;
+}
+
+.site__home__section__tour-arrow {
+    width: 100%;
+    max-width: 100%;
+    position: absolute;
+    bottom: -30px;
+    text-align: center;
+    font-size: 50px;
+    padding-bottom: 30px;
+    @include fadeInDown($delay: 1.2s);
+
+    span {
+        color: $color-brand-2;
+    }
+}
+
+.body__loading, .body__maintenance {
+    display: none;
+}
+
+.deferred-bootstrap-loading {
+
+    .body__loading {
+        display: block;
+        position: absolute;
+        width: 150px;
+        height: 50px;
+        top: 50%;
+        left: 50%;
+        margin-left: -50px;
+        margin-top: -25px;
+        font-weight: bold;
+        font-size: 1.8em;
+        z-index: 9998;
+    }
+
+    .body__loading__spinner-loading {
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        top: -40px;
+        z-index: 9999;
+    }
+}
+
+.deferred-bootstrap-error {
+
+    .body__maintenance {
+        display: block;
+        position: absolute;
+        width: 500px;
+        top: 50%;
+        left: 50%;
+        margin-left: -250px;
+        margin-top: -25px;
+        font-weight: bold;
+        font-size: 1.8em;
+        z-index: 9999;
+        text-align: center;
+    }
+}
+
+.dotted-gradient {
+    &:after {
+        content: "........................";
+        color: $color-brand-2;
+        font-size: 8px;
+        display: block;
+        letter-spacing: 5px;
+        width: 100%;
+        text-align: center;
+        padding-top: 7px;
+    }
+}

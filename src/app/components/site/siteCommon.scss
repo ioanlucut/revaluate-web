@@ -1,12 +1,32 @@
 // Common classes
 
-.color__accent__1 {  color: $color-brand-1;  }
-.color__accent__2 {  color: $color-brand-2;  }
-.color__accent__3 {  color: $color-brand-3;  }
-.color__accent__4 {  color: $color-brand-4;  }
-.color__accent__5 {  color: $color-brand-5;  }
-.color__accent__6 {  color: $color-brand-6;  }
-.color__accent__7 {  color: $color-brand-7;  }
+.color__accent__1 {
+    color: $color-brand-1;
+}
+
+.color__accent__2 {
+    color: $color-brand-2;
+}
+
+.color__accent__3 {
+    color: $color-brand-3;
+}
+
+.color__accent__4 {
+    color: $color-brand-4;
+}
+
+.color__accent__5 {
+    color: $color-brand-5;
+}
+
+.color__accent__6 {
+    color: $color-brand-6;
+}
+
+.color__accent__7 {
+    color: $color-brand-7;
+}
 
 // Main container style
 // ----------------------------
@@ -15,10 +35,6 @@
     text-align: center;
     padding: 20px 0;
     background-color: $white;
-
-    &:last-of-type {
-        padding-bottom: $footer__home-height;
-    }
 
     h1 {
         margin: 0;
@@ -36,12 +52,15 @@
     overflow: hidden;
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../assets/img/home/landing_hero.jpg");
     background-size: cover;
-    background-position: 0 -80px;
     color: $white;
+    border-bottom-left-radius: 70% 4%;
+    border-bottom-right-radius: 70% 4%;
 }
 
 .site__container--gray {
     background-color: $color-brand-7;
+    border-top-left-radius: 70% 4%;
+    border-top-right-radius: 70% 4%;
 }
 
 // Section style
@@ -53,17 +72,23 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: 0;
-    padding: 100px 20px;
+    padding: 30px 20px;
     text-align: center;
-
-    button {
-        @include btn($color-brand-1);
-        margin-top: 40px;
-    }
 }
 
-.site__container__section--who {
+.site__container__section--no-gutter-top {
+    padding-top: 0;
+}
+
+.site__container__section--block {
     padding: 50px 250px;
+}
+
+.site__container__section__button {
+    @include btn-big($brand-primary);
+    font-size: $font-size-base;
+    margin: 40px;
+    min-width: 180px;
 }
 
 // Overrides

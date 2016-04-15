@@ -1,27 +1,14 @@
+@media (max-width: 900px) {
+
+    .site__container__section--block {
+        padding: 50px 150px;
+    }
+}
+
 @media (max-width: 600px) {
 
-    .site__container {
-        padding: 50px 0;
-    }
-
-    .site__container__section {
-
-        h2 {
-            font-size: 40px;
-        }
-    }
-
-    .site__container--homemain {
-        padding-top: 10px;
-
-        .site__container__section {
-            width: 100%;
-            max-width: 100%;
-        }
-    }
-
-    .site__container__section--pricing {
-        padding: 10px 0 10px 0;
+    .site__container__section--block {
+        padding: 50px 80px;
     }
 }
 
@@ -44,10 +31,6 @@
             margin-right: auto;
         }
     }
-
-    //.site__container__section--wide {
-    //    max-width: 100%;
-    //}
 
     .site__container--faq {
         padding-bottom: 10px;
