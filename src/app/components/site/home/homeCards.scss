@@ -1,0 +1,140 @@
+// Mixins
+// -------------------------
+@mixin icon-mixin($iconPath) {
+    background: url($iconPath) no-repeat top center;
+    background-size: 50%;
+    float: left;
+    width: 100%;
+    height: 43%;
+    text-align: center;
+    margin-bottom: 15px;
+    position: relative;
+
+    span {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: $font-size-small;
+    }
+}
+
+@mixin card-img-mixin($iconPath) {
+    background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url($iconPath);
+    background-size: cover;
+}
+
+// Cards
+// ----------------------------
+
+.site__container__section__card__img,
+.site__container__section__card__motiv {
+    float: left;
+    padding: 20px;
+    width: 50%;
+    height: 300px;
+}
+
+.site__container__section__card__img {
+    button {
+        @include btn($white);
+        color: $color-brand-1;
+        margin-top: 118px;
+        width: 140px;
+    }
+}
+
+.site__container__section__card__img--1 {
+    @include card-img-mixin("../assets/img/home/card_img_01.jpg");
+}
+
+.site__container__section__card__img--2 {
+    @include card-img-mixin("../assets/img/home/card_img_02.jpg");
+}
+
+.site__container__section__card__img--3 {
+    @include card-img-mixin("../assets/img/home/card_img_03.jpg");
+}
+
+.site__container__section__card__motiv {
+    @include clearfix();
+}
+
+.site__container__section__card__motiv__text,
+.site__container__section__card__motiv__icons {
+    float: left;
+    height: 100%;
+    width: 50%;
+}
+
+.site__container__section__card__motiv__text {
+    padding: 0 50px 0 0;
+    text-align: left;
+    text-transform: uppercase;
+    font-family: $heading-font-family;
+    font-size: 36px;
+    line-height: 42px;
+}
+
+.site__container__section__card__motiv__text--right {
+    text-align: right;
+    padding: 0 0 0 50px;
+}
+
+.site__container__section__card__motiv__icons {
+    @include clearfix();
+
+    .icon__01 {
+        @include icon-mixin("../assets/img/home/icon_01_@2x.png");
+    }
+
+    .icon__02 {
+        @include icon-mixin("../assets/img/home/icon_02_@2x.png");
+
+    }
+    .icon__03 {
+        @include icon-mixin("../assets/img/home/icon_03_@2x.png");
+    }
+
+    .icon__04 {
+        @include icon-mixin("../assets/img/home/icon_04_@2x.png");
+    }
+
+    .icon__05 {
+        @include icon-mixin("../assets/img/home/icon_05_@2x.png");
+    }
+
+    .icon__06 {
+        @include icon-mixin("../assets/img/home/icon_06_@2x.png");
+    }
+
+    .icon__07 {
+        @include icon-mixin("../assets/img/home/icon_07_@2x.png");
+    }
+
+    .icon__08 {
+        @include icon-mixin("../assets/img/home/icon_08_@2x.png");
+    }
+
+    .icon__09 {
+        @include icon-mixin("../assets/img/home/icon_09_@2x.png");
+    }
+
+    .icon__10 {
+        @include icon-mixin("../assets/img/home/icon_10_@2x.png");
+    }
+
+    .icon__11 {
+        @include icon-mixin("../assets/img/home/icon_11_@2x.png");
+    }
+
+    .icon__12 {
+        @include icon-mixin("../assets/img/home/icon_12_@2x.png");
+    }
+
+    .icon__13 {
+        @include icon-mixin("../assets/img/home/icon_13_@2x.png");
+    }
+}
