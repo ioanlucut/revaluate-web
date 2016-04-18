@@ -8,7 +8,6 @@ sidebar {
     overflow-y: auto;
     border-right: 1px solid $gray-light-2;
     background-color: $app-bg;
-    @include fadeInDown(1s);
 }
 
 .sidebar__brand {
