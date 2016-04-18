@@ -1,7 +1,7 @@
 <div class="expenses__list">
 
     <!--Expense list-->
-    <div class="expenses__list__group"
+    <section class="expenses__list__group"
          ng-repeat="expenseGroupEntry in vm.expenses | orderObjectBy : 'localDate' : reverseOrder track by expenseGroupEntry.localDate"
          ng-show="expenseGroupEntry.expenseDTOs.length > 0">
 
@@ -15,5 +15,5 @@
              expense="expense"
              categories="vm.categories">
         </div>
-    </div>
+    </section>
 </div>

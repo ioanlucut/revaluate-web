@@ -1,105 +1,88 @@
 .expenses__list__entry__section {
     @include clearfix();
-    padding: 0;
-    margin: 0;
+    @include border-radius(6px);
+    border: 1px solid $gray-light-1;
+    background: $white;
+    border-left: 2px solid;
+    margin: 20px;
     min-height: 44px;
-    line-height: 40px;
-    border-left: solid 3px transparent;
-
-    & > div {
-        padding: 0 5px;
-        height: 100%;
-        float: left;
-        line-height: 44px;
-    }
+    padding: 20px 30px;
+    position: relative;
 
     &:hover {
         cursor: pointer;
     }
+}
 
-    &.expenses__list__entry__section--bulk-marked {
-        background-color: $brand-warning-light;
-        border-left: solid 3px $brand-warning-accent;
-
-        .expenses__list__entry__section__select {
-            color: $gray-medium;
-        }
-    }
+.expenses__list__entry__section--bulk-marked {
+    background-color: $brand-warning-light;
+    border-left: solid 3px $brand-warning-accent;
 
     .expenses__list__entry__section__select {
-        font-size: 14px;
-        color: $gray-light-2;
-        width: 28px;
-        text-align: center;
-        padding-left: 6px;
-        display: inline-flex;
-        margin-top: 14px;
-
-        &:hover {
-            color: $gray-medium;
-        }
-
-        input {
-            height: 100%;
-            width: 100%;
-        }
-    }
-
-    .expenses__list__entry__section__category {
-        @include clearfix();
-        width: 65%;
-        position: relative;
-        font-size: 15.4px;
-        padding: 0 0 0 30px;
-
-        .expenses__list__entry__section__category__icon {
-            position: absolute;
-            left: 5px;
-            top: 13px;
-            width: 17px;
-            height: 17px;
-            border: solid 2px $gray-medium;
-            @include border-radius(50%);
-        }
-
-        .expenses__list__entry__section__category__label {
-
-        }
-    }
-
-    .expenses__list__entry__section__details {
         color: $gray-medium;
-        font-weight: $font-weight-regular;
-        @include word-wrap();
-        width: 65%;
-        line-height: 15px;
-        margin-left: 28px;
-        font-size: 13px;
-        margin-top: -10px;
-        padding-left: 30px;
-        padding-bottom: 10px;
     }
+}
 
-    .expenses__list__entry__section__price {
-        text-align: right;
-        float: right;
-        width: 30%;
+.expenses__list__entry__section__select {
+    display: none;
+    color: $gray-light-2;
+    font-size: 14px;
+    width: 28px;
+    text-align: center;
+    padding-left: 6px;
+    height: 100%;
+    line-height: 44px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
 
-        .currency__symbol {
-            padding: 0 5px;
-            color: $gray-medium;
-            font-weight: $font-weight-regular;
-        }
-    }
-
-    .expenses__list__entry__section__date {
-        float: right;
+    &:hover {
         color: $gray-medium;
-        text-align: right;
-        font-size: $font-size-small;
-        line-height: 15px;
-        margin-left: 28px;
-        margin-top: -10px;
-        padding-bottom: 10px;
     }
+
+    input {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.expenses__list__entry__section__price {
+    text-align: left;
+    max-width: 90%;
+    font-size: $font-size-h3;
+    font-weight: $font-weight-bold;
+
+    .currency__symbol {
+        padding: 0 5px;
+        font-size: $font-size-h3;
+        font-weight: $font-weight-bold;
+    }
+}
+
+.expenses__list__entry__section__category {
+    @include word-wrap();
+    font-size: 15.4px;
+    max-width: 70%;
+}
+
+.expenses__list__entry__section__details {
+    @include word-wrap();
+    color: $gray-medium;
+    font-weight: $font-weight-regular;
+    max-width: 70%;
+    line-height: 15px;
+    font-size: 13px;
+    padding-top: 10px;
+}
+
+.expenses__list__entry__section__date {
+    float: right;
+    color: $gray-medium;
+    text-align: right;
+    font-size: $font-size-small;
+    line-height: 15px;
+    margin-left: 28px;
+    margin-top: -10px;
+    padding-bottom: 10px;
 }
