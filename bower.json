@@ -19,7 +19,7 @@
     "braintree-angular": "~1.2.6",
     "angular-gravatar": "~0.3.1",
     "angular-ui-select": "git@github.com:ioanlucut/ui-select.git#5c247c7d21d6a55c499a8073b5b00e90e55df42e",
-    "angular-chart.js": "1.0.0-alpha4",
+    "angular-chart.js": "~1.0.0-alpha6",
     "angular-payments": "*",
     "angular-translate": "~2.7.2",
     "angular-bootstrap": "~0.13.0",
@@ -33,7 +33,6 @@
     "angular-deferred-bootstrap": "~0.1.9",
     "angular-loading-bar": "~0.8.0",
     "angular-intercom": "~2.1.1",
-    "Chart.js": "~1.0.2",
     "ngtoast": "~1.5.4",
     "layzr.js": "~1.4.0",
     "hello": "~1.8.4",
@@ -52,8 +51,7 @@
   "resolutions": {
     "angular": "1.5.3",
     "angular-animate": "1.5.3",
-    "angular-sanitize": "1.5.3",
-    "Chart.js": "2.0.0-beta2"
+    "angular-sanitize": "1.5.3"
   },
   "overrides": {
     "font-awesome": {
