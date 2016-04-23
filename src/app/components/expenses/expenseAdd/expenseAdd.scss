@@ -56,19 +56,15 @@ input.expense-add__price__input {
     @include placeholder {
         color: $black;
     }
-    margin: 0;
+    font-size: $add-expense-price-font-size-active;
     height: $add-expense-price-height;
     line-height: $add-expense-price-height;
-    font-size: $add-expense-price-font-size;
-    text-align: left;
-    position: relative;
+    margin: 0;
     padding: 15px;
+    position: relative;
+    text-align: center;
 
     &:focus {
-        @include fadeInLeft(1s);
-        font-size: $add-expense-price-font-size-active;
-        text-align: center;
-
         @include placeholder {
             content: ' ';
         }
