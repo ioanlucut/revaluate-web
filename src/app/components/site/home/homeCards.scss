@@ -39,8 +39,8 @@
 
 .site__container__section__card__img {
     button {
-        @include btn($white);
-        color: $color-brand-1;
+        @include btn($color-brand-2);
+        color: $white;
         margin-top: 118px;
         width: 140px;
     }
@@ -74,6 +74,7 @@
     text-align: left;
     text-transform: uppercase;
     font-family: $heading-font-family;
+    font-weight: $font-weight-heading;
     font-size: 36px;
     line-height: 42px;
 }

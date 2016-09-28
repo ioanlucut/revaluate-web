@@ -6,19 +6,19 @@
     bottom: 0;
     left: 0;
     color: $gray-medium;
-    background-color: $white;
+    background-color: $gray-light-3;
 }
 
 .footer__home__wrapper {
     @include outer-container();
     height: $footer__home-height;
-    background-color: $gray-light-3;
     padding: 10px;
 }
 
 .footer__home__logo {
     @include span-columns(3);
     padding-top: 5px;
+    color: $color-brand-1;
 }
 
 .footer__home__links {

@@ -69,6 +69,7 @@
 .site__container__section {
     @include clearfix();
     @include outer-container();
+    @include outer-container();
     margin-left: auto;
     margin-right: auto;
     margin-top: 0;
@@ -85,7 +86,7 @@
 }
 
 .site__container__section__button {
-    @include btn-big($brand-primary);
+    @include btn-big($color-brand-1);
     font-size: $font-size-base;
     margin: 40px;
     min-width: 180px;
