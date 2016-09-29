@@ -1,13 +1,14 @@
 // Typography
-//$base-font-family: "proxima-nova", "Arial", sans-serif;
+// $base-font-family: "proxima-nova", "Arial", sans-serif;
 $base-font-family: "Catamaran", "Arial", sans-serif;
 $base-font-fa-family: 'proxima-nova', FontAwesome, sans-serif;
 //$heading-font-family: "azo-sans-uber", "Arial", sans-serif;
 $heading-font-family: "Catamaran", "Arial", sans-serif;
+$font-family-monospace: 'Source Code Pro', monospace;
 
 
 // Font Sizes
-$font-size-base: 16px;
+$font-size-base: 15.4px;
 $font-size-small: 12px;
 
 $font-size-h1: 80px;
@@ -16,9 +17,8 @@ $font-size-h3: 24px;
 $font-size-h4: 16px;
 
 // Font Weights
-$font-weight-regular: 500;
-$font-weight-medium: 700;
-$font-weight-bold: 800;
+$font-weight-regular: 400;
+$font-weight-bold: 700;
 $font-weight-heading: 900;
 
 // Line height
@@ -120,11 +120,6 @@ $brand-warning-light: lighten($brand-warning, 31%);
 $header-background-color: $white;
 $landing-page: $color-brand-1;
 
-//$color-purple: #967FA8;
-//$color-green: #03C9A9;
-//$color-blue: #36AAFB;
-//$color-red: #EE8687;
-
 $social-facebook-color: #3b5998;
 $social-google-color: #d34636;
 
@@ -136,7 +131,7 @@ $close-text-shadow: 0 1px 0 #fff !default;
 
 // Font Colors
 $base-background-color: #fff;
-$base-font-color: $color-brand-1;
+$base-font-color: $black;
 $heading-font-color: $color-brand-1;
 $action-color: $color-brand-3;
 

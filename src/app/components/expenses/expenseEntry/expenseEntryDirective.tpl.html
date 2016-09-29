@@ -1,20 +1,23 @@
 <!--Display expense-->
-<section class="expenses__list__entry__section" ng-style="{'border-left-color': vm.expense.category.color.color}" ng-if="! showContent" ng-class="vm.expense.marked ? 'expenses__list__entry__section--bulk-marked' : ''" ng-click="toggleContent();">
+<section class="expenses__list__entry__section" ng-if="! showContent" ng-class="vm.expense.marked ? 'expenses__list__entry__section--bulk-marked' : ''" ng-click="toggleContent();">
 
     <!--Actions on expense-->
     <aside class="expenses__list__entry__section__select icon-checkbox-square-unchecked-1" ng-if="! vm.expense.marked" ng-click="vm.toggleMark();$event.stopPropagation();"></aside>
     <aside class="expenses__list__entry__section__select icon-checkbox-square-1" ng-if="vm.expense.marked" ng-click="vm.toggleMark();$event.stopPropagation();"></aside>
 
-    <!-- Expense price -->
-    <div class="expenses__list__entry__section__price">
-        <span ng-bind-html="vm.expense.value | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
-    </div>
+    <!--Expense icon-->
+    <div class="expenses__list__entry__section__icon" ng-style="{'background-color': vm.expense.category.color.color}"></div>
 
     <!--Expense category-->
     <div class="expenses__list__entry__section__category" ng-bind-html="vm.expense.category.name"></div>
 
     <!--Expense description-->
     <div class="expenses__list__entry__section__details" ng-bind-html="vm.expense.description"></div>
+
+    <!-- Expense price -->
+    <div class="expenses__list__entry__section__price text-monospace">
+        <span ng-bind-html="vm.expense.value | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
+    </div>
 
     <!--Expense date-->
     <div ng-if="showDateDetails" class="expenses__list__entry__section__date">{{vm.expense.spentDate | friendlyDate}}</div>
