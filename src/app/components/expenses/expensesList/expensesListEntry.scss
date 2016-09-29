@@ -1,16 +1,13 @@
 .expenses__list__entry__section {
     @include clearfix();
-    @include border-radius(6px);
-    border: 1px solid $gray-light-1;
     background: $white;
-    border-left: 2px solid;
-    margin: 20px;
-    min-height: 44px;
-    padding: 20px 30px;
+    margin: 0;
+    padding: 10px;
     position: relative;
 
     &:hover {
         cursor: pointer;
+        background-color: $color-brand-7;
     }
 }
 
@@ -47,42 +44,48 @@
     }
 }
 
-.expenses__list__entry__section__price {
-    text-align: left;
-    max-width: 90%;
-    font-size: $font-size-h3;
-    font-weight: $font-weight-bold;
+.expenses__list__entry__section__icon,
+.expenses__list__entry__section__category,
+.expenses__list__entry__section__details {
+  display: block;
+  float: left;
+  line-height: 30px;
+  height: 30px;
+  weight: 30px;
+}
 
-    .currency__symbol {
-        padding: 0 5px;
-        font-size: $font-size-h3;
-        font-weight: $font-weight-bold;
-    }
+.expenses__list__entry__section__icon {
+    @include border-radius(50%);
+    height: 25px;
+    width: 25px;
+    display: block;
+    margin-top: 2px;
 }
 
 .expenses__list__entry__section__category {
     @include word-wrap();
-    font-size: 15.4px;
-    max-width: 70%;
+    width: 250px;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-weight: $font-weight-bold;
 }
 
 .expenses__list__entry__section__details {
+    @include border-radius(3px);
     @include word-wrap();
     color: $gray-medium;
-    font-weight: $font-weight-regular;
-    max-width: 70%;
-    line-height: 15px;
-    font-size: 13px;
-    padding-top: 10px;
 }
 
-.expenses__list__entry__section__date {
-    float: right;
-    color: $gray-medium;
+.expenses__list__entry__section__price {
+    width: 20%;
+    max-width: 180px;
     text-align: right;
-    font-size: $font-size-small;
-    line-height: 15px;
-    margin-left: 28px;
-    margin-top: -10px;
-    padding-bottom: 10px;
+    font-size: 17px;
+    float: right;
+    display: block;
+    margin-top: 3px;
+
+    .currency__symbol {
+        padding: 0 2px 0 5px;
+    }
 }
