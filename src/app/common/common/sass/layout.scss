@@ -6,7 +6,12 @@
 }
 
 .view-container__header {
-    background-color: $white;
+    background-color: $brand-primary;
+    height: $header-height;
+    width: 100%;
+    color: $white;
+
+    //border: solid 1px green;
 }
 
 .view-container__tabs {
@@ -14,6 +19,8 @@
     @include clearfix();
     border-bottom: solid 1px $gray-light-3;
     padding: 0;
+
+    border: solid 1px blue;
 
     li {
         @include border-top-radius($base-border-radius);
@@ -53,8 +60,13 @@
     @include border-radius(3px);
     min-height: 500px;
     position: relative;
-    background-color: $app-bg;
+    background-color: $white;
     padding-top: 20px;
     padding-left: 15px;
     padding-right: 15px;
+
+    margin-top: -70px;
+    max-width: 1200px;
+
+    //border: solid 1px deeppink;
 }

@@ -1,23 +1,19 @@
 sidebar {
     z-index: 1000;
-    position: fixed;
+    position: absolute;
     left: $sidebar-width;
     width: $sidebar-width;
     height: 100%;
     margin-left: -$sidebar-width;
+    margin-top: $header-height;
     overflow-y: auto;
-    border-right: 1px solid $gray-light-2;
     background-color: $app-bg;
-}
-
-.sidebar__bg {
-    background: $color-brand-4;
 }
 
 .sidebar__brand {
     position: relative;
     width: 100%;
-    padding: 20px;
+    padding-top: 10px;
 }
 
 .sidebar__brand--responsive {
@@ -25,30 +21,14 @@ sidebar {
 }
 
 .sidebar__brand--logo {
-    @include size($header-brand-logo-size $header-brand-logo-size);
-    background: url("/assets/img/logo_yellow_blue.svg") no-repeat center;
-    background-size: cover;
-    margin: 0;
     display: block;
+    width: 200px;
     height: 50px;
-    width: 270px;
+    background: url("/assets/img/logo_yellow_white.svg") no-repeat center;
+    background-size: 200px;
+    margin: 0;
 
     &:hover {
-        cursor: pointer;
-    }
-}
-
-.sidebar__brand--name {
-    @include brand-inline($black);
-    color: $white;
-    text-transform: uppercase;
-    font-size: 18px;
-    font-weight: $font-weight-regular;
-    line-height: 45px;
-    padding-left: 5px;
-
-    &:hover {
-        color: $white;
         cursor: pointer;
     }
 }
@@ -76,6 +56,7 @@ sidebar {
     line-height: $header-element-height;
     border-radius: 3px;
     color: $gray-medium;
+    font-weight: $font-weight-medium;
 
     &:hover {
         color: $gray-dark-1;
@@ -95,8 +76,10 @@ sidebar {
 
 .sidebar__user {
     @include clearfix();
-    height: 100px;
-    padding: 30px;
+    height: 110px;
+    width: $sidebar-width;
+    padding: 50px 15px 5px;
+    color: $white;
 }
 
 .sidebar__user__picture {
@@ -131,12 +114,12 @@ sidebar {
         width: 100%;
         padding: 5px 0;
         font-size: 20px;
-        color: $gray-light-1;
+        //color: $gray-light-1;
         text-align: center;
         @include box-sizing(border-box);
 
         &:hover {
-            color: darken($gray-medium, 5%);
+            //color: darken($gray-medium, 5%);
         }
     }
 }
