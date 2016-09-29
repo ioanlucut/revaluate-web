@@ -78,3 +78,7 @@
         color: $brand-primary;
     }
 }
+
+.btn-primary {
+    @include btn($brand-primary);
+}

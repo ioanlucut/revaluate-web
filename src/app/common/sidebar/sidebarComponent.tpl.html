@@ -1,33 +1,46 @@
 <!-- Sidebar -->
 
-<!-- Brand -->
-<div class="sidebar__brand">
-    <div class="sidebar__brand--logo" ui-sref="expenses.regular"></div>
-</div>
+<div class="sidebar__bg">
 
-<!-- User -->
-<section class="sidebar__user">
-    <div class="sidebar__user__picture">
-        <user-profile-picture-header></user-profile-picture-header>
+    <!-- Brand -->
+    <div class="sidebar__brand">
+        <div class="sidebar__brand--logo" ui-sref="expenses.regular"></div>
     </div>
-    <div class="sidebar__user__name">
-        {{$ctrl.user.model.firstName}}
-    </div>
-    <div class="sidebar__user__item simptip-position-bottom simptip-smooth simptip-fade" data-tooltip="Logout">
-        <logout></logout>
-    </div>
-</section>
+
+    <!-- User -->
+    <section class="sidebar__user">
+        <div class="sidebar__user__picture">
+            <user-profile-picture-header></user-profile-picture-header>
+        </div>
+        <div class="sidebar__user__name">
+            {{$ctrl.user.model.firstName}}
+        </div>
+        <div class="sidebar__user__item simptip-position-bottom simptip-smooth simptip-fade" data-tooltip="Logout">
+            <logout></logout>
+        </div>
+    </section>
+
+</div>
 
 <!--Navigation list-->
 <ul class="sidebar__navigation">
     <li ui-sref-active="sidebar__navigation--active">
-        <a class="sidebar__navigation__link" href="javascript:void(0)" ui-sref="expenses.regular">Expenses</a>
+        <a class="sidebar__navigation__link" href="javascript:void(0)" ui-sref="expenses.regular">
+            <span class="fa fa-list-ul"></span>
+            Expenses
+        </a>
     </li>
     <li ng-class="{'sidebar__navigation--active': $ctrl.$state.includes('insights')}">
-        <a class="sidebar__navigation__link" href="javascript:void(0)" ui-sref="insights.monthly">Insights</a>
+        <a class="sidebar__navigation__link" href="javascript:void(0)" ui-sref="insights.monthly">
+            <span class="fa fa-pie-chart"></span>
+            Insights
+        </a>
     </li>
     <li ui-sref-active="sidebar__navigation--active">
-        <a class="sidebar__navigation__link" href="javascript:void(0)" ui-sref="goals.regular">Goals</a>
+        <a class="sidebar__navigation__link" href="javascript:void(0)" ui-sref="goals.regular">
+            <span class="fa fa-bullseye"></span>
+            Goals
+        </a>
     </li>
     <li ng-class="{'sidebar__navigation--active': $ctrl.$state.includes('settings')}">
         <a class="sidebar__navigation__link" href="javascript:void(0)" ui-sref="settings.profile">Settings</a>
