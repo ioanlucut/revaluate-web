@@ -80,7 +80,7 @@ export default angular
   .directive('flashMessages', flashMessagesDirective)
   .directive('footer', footerDirective)
   .directive('footerHome', footerHomeDirective)
-  .directive('header', headerDirective)
+  .directive('headerApp', headerDirective)
   .component('snapToggler', snapToggler)
   .component('sidebar', sidebarComponent)
   .component('spinner', spinnerComponent)

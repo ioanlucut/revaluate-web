@@ -104,5 +104,4 @@ export default angular
         title: 'Expenses - Revaluate',
         stateEventName: USER_ACTIVITY_EVENTS.expensesPage,
       });
-
   });
