@@ -60,7 +60,7 @@ function appConfig($locationProvider,
   // ---
   // Configure general chart settings.
   // ---
-  const MAIN_FONT = '\'proxima-nova\',\'Arial\', sans-serif';
+  const MAIN_FONT = '\'Catamaran\',\'Arial\', sans-serif';
 
   ChartJsProvider.setOptions({
     responsive: true,

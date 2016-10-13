@@ -1,9 +1,7 @@
 // Typography
-// $base-font-family: "proxima-nova", "Arial", sans-serif;
 $base-font-family: "Catamaran", "Arial", sans-serif;
-$base-font-fa-family: 'proxima-nova', FontAwesome, sans-serif;
-//$heading-font-family: "azo-sans-uber", "Arial", sans-serif;
-$heading-font-family: "Catamaran", "Arial", sans-serif;
+$base-font-fa-family: 'Catamaran', FontAwesome, sans-serif;
+$heading-font-family: $base-font-family;
 $font-family-monospace: 'Source Code Pro', monospace;
 
 
