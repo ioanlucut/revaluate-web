@@ -9,7 +9,7 @@ function InsightsAbstractController($scope,
                                     ChartJs) {
   'ngInject';
 
-  const FONT_FAMILY = '\'proxima-nova\',\'Arial\', sans-serif';
+  const FONT_FAMILY = '\'Catamaran\',\'Arial\', sans-serif';
   const _this = this;
 
   /**
