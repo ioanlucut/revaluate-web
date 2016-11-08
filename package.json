@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "dependencies": {
     "connect-modrewrite": "^0.8.1",
-    "gulp-ng-constant": "^0.3.0",
+    "gulp-ng-constant": "0.3.0",
     "yargs": "^3.10.0"
   },
   "scripts": {
