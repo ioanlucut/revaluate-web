@@ -2,7 +2,7 @@ angular.module("config", [])
 
 .constant("ENV", {
 	"name": "production",
-	"apiEndpoint": "https://revaluate-api-prod.herokuapp.com",
+	"apiEndpoint": "http://api.revaluate.io",
 	"mixPanelId": "1e6d81ba283c1393b2dee527e165013f",
 	"intercomAppId": "qy0w35xm",
 	"cacheResetKey": "a3jonsnow",
