@@ -1,0 +1,22 @@
+@media (max-width: $screen-sm-min) {
+
+    .expense-add {
+        padding: 0;
+        margin: 5px auto 10px auto;
+    }
+}
+
+@media (max-width: $screen-xs-min) {
+
+    .expense-add {
+
+        form {
+            padding: 5px;
+        }
+
+        .expense-add__submit__save {
+            width: 100%;
+            margin: 0 auto;
+        }
+    }
+}

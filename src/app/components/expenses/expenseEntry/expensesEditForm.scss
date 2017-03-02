@@ -23,7 +23,7 @@
 
         &:focus {
             border-color: $brand-primary;
-            background-color: lighten($brand-primary, 35%);
+            background-color: lighten($brand-primary, 50%);
         }
 
         &[disabled] {
@@ -175,7 +175,7 @@
             @include transition(none);
 
             &:focus {
-                background-color: lighten($brand-primary, 35%);
+                background-color: lighten($brand-primary, 50%);
             }
         }
     }

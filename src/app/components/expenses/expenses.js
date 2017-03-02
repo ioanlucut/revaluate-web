@@ -3,7 +3,7 @@ import ExpenseGroupedTransformerService from './expenseGrouped/ExpenseGroupedTra
 import expenseGrouped from './expenseGrouped/expenseGrouped';
 import ExpenseService from './expense/ExpenseService';
 import ExpenseTransformerService from './expense/ExpenseTransformerService';
-import expenseAddDirective from './expenseAdd/expenseAddDirective';
+import expenseAdd from './expenseAdd/expenseAdd';
 import ExpensesController from './expenses/ExpensesController';
 import expensesEventsConstants from './expenses/expensesEventsConstants';
 import expensesUrlsConstants from './expenses/expensesUrlsConstants';
@@ -31,7 +31,7 @@ export default angular
   .factory('ExpenseGrouped', expenseGrouped)
   .service('ExpenseService', ExpenseService)
   .service('ExpenseTransformerService', ExpenseTransformerService)
-  .directive('expenseAdd', expenseAddDirective)
+  .component('expenseAdd', expenseAdd)
   .controller('ExpensesController', ExpensesController)
   .constant('EXPENSE_EVENTS', expensesEventsConstants)
   .constant('EXPENSE_URLS', expensesUrlsConstants)
@@ -104,5 +104,4 @@ export default angular
         title: 'Expenses - Revaluate',
         stateEventName: USER_ACTIVITY_EVENTS.expensesPage,
       });
-
   });

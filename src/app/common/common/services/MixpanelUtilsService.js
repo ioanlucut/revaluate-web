@@ -16,7 +16,6 @@ function MixpanelUtilsService($window, ENV) {
   };
 
   this.updateMixpanel = function (user) {
-
     // ---
     // Update mixpanel.
     // ---

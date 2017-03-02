@@ -43,9 +43,6 @@ function InsightsOverviewController($controller,
     $filter,
     monthsPerYearsStatistics,
     resizeOnUpdate: true,
-    getChartSetSize: function getChartSetSize() {
-      return _this.barInsightsPrepared.insightsBarData[0].length;
-    },
   }));
 
   /**

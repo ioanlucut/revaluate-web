@@ -13,7 +13,6 @@ function ErrorInterceptorService($rootScope, $q, ERROR_INTERCEPTOR) {
      * @returns {*}
      */
     responseError(response) {
-
       const INTERNAL_SERVER_ERROR = 500;
       const PAYMENT_REQUIRED = 402;
 
@@ -26,7 +25,6 @@ function ErrorInterceptorService($rootScope, $q, ERROR_INTERCEPTOR) {
       return $q.reject(response);
     },
   };
-
 }
 
 export default ErrorInterceptorService;

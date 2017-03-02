@@ -21,41 +21,45 @@ function IndexController(flash,
                          APP_CONFIG) {
   'ngInject';
 
+  const _this = this;
+
+  _this.$rootScope = $rootScope;
+
   /**
    * Save the state on root scope
    */
-  $rootScope.$state = $state;
+  _this.$rootScope.$state = $state;
 
   /**
    * Environment
    */
-  $rootScope.ENV = ENV;
+  _this.$rootScope.ENV = ENV;
 
   /**
    * App config
    */
-  $rootScope.APP_CONFIG = APP_CONFIG;
+  _this.$rootScope.APP_CONFIG = APP_CONFIG;
 
   /**
    * On app load, retrieve user profile previously saved (if exists).
    */
-  $rootScope.currentUser = User.$new().loadFromSession();
+  _this.$rootScope.currentUser = User.$new().loadFromSession();
 
   // ---
   // Bootstrap intercom & mixpanel.
   // ---
   if (AuthService.isAuthenticated()) {
-    IntercomUtilsService.bootIntercom($rootScope.currentUser);
+    IntercomUtilsService.bootIntercom(_this.$rootScope.currentUser);
 
     if (ENV.isProduction) {
-      MixpanelUtilsService.bootMixpanel($rootScope.currentUser);
+      MixpanelUtilsService.bootMixpanel(_this.$rootScope.currentUser);
     }
   } else {
     MixpanelUtilsService.initMixpanel();
   }
 
   if (!ENV.isProduction) {
-    $log.log('Current user: ', $rootScope.currentUser.model);
+    $log.log('Current user: ', _this.$rootScope.currentUser.model);
   }
 
   /**
@@ -63,23 +67,23 @@ function IndexController(flash,
    * then retrieve its profile this from cookie used for persistence.
    */
   $scope.$on(AUTH_EVENTS.loginSuccess, () => {
-    $rootScope.currentUser = User.$new().loadFromSession();
+    _this.$rootScope.currentUser = User.$new().loadFromSession();
     AuthService.redirectToAttemptedUrl();
 
     // ---
     // Bootstrap intercom.
     // ---
-    IntercomUtilsService.bootIntercom($rootScope.currentUser, { featured: $location.search().ref });
+    IntercomUtilsService.bootIntercom(_this.$rootScope.currentUser, { featured: $location.search().ref });
 
     if (ENV.isProduction) {
       // ---
       // Bootstrap mixpanel people.
       // ---
-      MixpanelUtilsService.bootMixpanel($rootScope.currentUser);
+      MixpanelUtilsService.bootMixpanel(_this.$rootScope.currentUser);
     }
 
     if (!ENV.isProduction) {
-      $log.log('Logged in: ', $rootScope.currentUser.model);
+      $log.log('Logged in: ', _this.$rootScope.currentUser.model);
     }
   });
 
@@ -87,7 +91,7 @@ function IndexController(flash,
    * Sometimes we need to refresh the user from the local storage.
    */
   $scope.$on(AUTH_EVENTS.refreshUser, (event, args) => {
-    $rootScope.currentUser = User.$new().loadFromSession();
+    _this.$rootScope.currentUser = User.$new().loadFromSession();
 
     // ---
     // Refresh intercom user.
@@ -98,11 +102,11 @@ function IndexController(flash,
       // ---
       // Refresh intercom user.
       // ---
-      MixpanelUtilsService.updateMixpanel($rootScope.currentUser);
+      MixpanelUtilsService.updateMixpanel(_this.$rootScope.currentUser);
     }
 
     if (!ENV.isProduction) {
-      $log.log('Refreshed user: ', $rootScope.currentUser.model);
+      $log.log('Refreshed user: ', _this.$rootScope.currentUser.model);
     }
   });
 
@@ -134,7 +138,7 @@ function IndexController(flash,
    * Listen to the logout event
    */
   $scope.$on(AUTH_EVENTS.logoutSuccess, () => {
-    $rootScope.currentUser = User.$new();
+    _this.$rootScope.currentUser = User.$new();
     if (!ENV.isProduction) {
       $log.log('Logged out.');
     }
@@ -143,7 +147,7 @@ function IndexController(flash,
   /**
    * Track events.
    */
-  $rootScope.$on('trackEvent', (event, args) => {
+  _this.$rootScope.$on('trackEvent', (event, args) => {
     if (!ENV.isProduction) {
       return;
     }
@@ -155,18 +159,18 @@ function IndexController(flash,
   /**
    * Track update user events.
    */
-  $rootScope.$on('updateUserStats', (event, args) => {
+  _this.$rootScope.$on('updateUserStats', (event, args) => {
     if (!ENV.isProduction) {
       return;
     }
 
-    IntercomUtilsService.updateIntercom($rootScope.currentUser, args.args);
+    IntercomUtilsService.updateIntercom(_this.$rootScope.currentUser, args.args);
   });
 
   /**
    * Track activity
    */
-  $rootScope.$on('$stateChangeSuccess', (event, toState) => {
+  _this.$rootScope.$on('$stateChangeSuccess', (event, toState) => {
     if (toState.stateEventName) {
       $scope.$emit('trackEvent', toState.stateEventName);
     }
@@ -174,15 +178,15 @@ function IndexController(flash,
     // ---
     // Say HI.
     // ---
-    $rootScope.greet = GreeterService.greet();
+    _this.$rootScope.greet = GreeterService.greet();
   });
 
-  $rootScope.$on('$viewContentLoaded', () => {
+  _this.$rootScope.$on('$viewContentLoaded', () => {
     // ---
     // Close login modal if everything is loaded.
     // ---
     if (AccountModal.isOpen) {
-      $rootScope.$broadcast(AUTH_MODAL.close, {});
+      _this.$rootScope.$broadcast(AUTH_MODAL.close, {});
     }
   });
 

@@ -6,23 +6,26 @@
     bottom: 0;
     left: 0;
     color: $gray-medium;
+    background-color: $gray-light-3;
 }
 
 .footer__home__wrapper {
     @include outer-container();
-
-    &:first-of-type {
-        border-top: solid 1px $gray-light-2;
-    }
+    height: $footer__home-height;
+    padding: 10px;
 }
 
 .footer__home__logo {
     @include span-columns(3);
     padding-top: 5px;
+    color: $color-brand-1;
 }
 
 .footer__home__links {
     @include span-columns(9);
+}
+
+.footer__home__links__entry {
     @include clearfix();
 
     li {
@@ -42,8 +45,6 @@
 }
 
 .footer__home__links--secondary {
-    float: right;
-
     li {
         color: $gray-light-1;
 

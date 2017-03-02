@@ -7,7 +7,7 @@
 
     .header__public__side__top__logo {
         @include size(60px 60px);
-        background: url("/assets/img/logo.svg") no-repeat top left;
+        background: url("/assets/img/logo.png") no-repeat top left;
         background-size: contain;
         //position: absolute;
         margin: 0 auto;
@@ -33,7 +33,7 @@
         background-color: $white;
         height: 50px;
         line-height: 47px;
-        font-size: $font-size-larger;
+        font-size: $font-size-base;
         margin: 1px 0;
         color: $gray-medium;
         position: relative;

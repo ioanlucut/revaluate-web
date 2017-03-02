@@ -1,0 +1,16 @@
+@media (max-width: $header-responsive-breakpoint) {
+    .sidebar__brand--responsive {
+        display: block;
+        padding-top: 12px;
+
+        .sidebar__brand--logo {
+            position: relative;
+            margin: 0 auto;
+            float: none;
+        }
+    }
+
+    sidebar {
+        display: none;
+    }
+}

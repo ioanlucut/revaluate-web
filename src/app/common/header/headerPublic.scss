@@ -7,38 +7,25 @@
     @include clearfix;
     height: 60px;
     line-height: 55px;
+    padding: 40px;
 }
 
 .header-public__brand {
     float: left;
     height: 60px;
+    width: 400px;
     position: relative;
 }
 
-.header-public__brand__logo {
-    @include size(40px 40px);
-    background: url("/assets/img/logo.svg") no-repeat top left;
+.header-public__brand_logo {
+    background: url("../assets/img/logo_yellow_white.svg") no-repeat top left;
+    height: 100px;
+    width: 100%;
     background-size: contain;
     position: absolute;
     display: block;
-    left: 5px;
-    top: 10px;
-}
-
-.header-public__brand__name {
-    @include brand-inline();
-    padding: 3px 0 0 55px;
-    font-size: $font-size-largest;
-    font-weight: $font-weight-regular;
-    position: relative;
-
-    .header-public__brand__name__beta {
-        position: absolute;
-        bottom: -17px;
-        right: 0;
-        color: $gray-light-2;
-        font-size: $font-size-small;
-    }
+    left: 0px;
+    top: -26px;
 }
 
 .header-public__navigation {
@@ -63,13 +50,9 @@
     }
 }
 
-.header-public__navigation__loginbtn {
-    @include btn($gray-light-3);
-    color: $gray-medium;
-    font-size: $font-size-large;
-}
-
+.header-public__navigation__loginbtn,
 .header-public__navigation__signupbtn {
-    @include btn($color-green);
-    font-size: $font-size-large;
+    @include btn-link($white);
+    text-transform: uppercase;
+    font-weight: $font-weight-bold;
 }
