@@ -2,13 +2,6 @@
 function AlertService(ngToast) {
   'ngInject';
 
-  this.addMessage = message => ngToast.create(message);
-
-  this.addMessageWithSettings = (className, content) => ngToast.create({
-    className,
-    content,
-  });
-
   this.addSuccess = content => ngToast.success({
     content,
   });
@@ -32,7 +25,6 @@ function AlertService(ngToast) {
   this.dismissAll = () => {
     ngToast.dismiss();
   };
-
 }
 
 export default AlertService;

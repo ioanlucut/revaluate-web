@@ -1,5 +1,4 @@
 import commonModule from './../../common/common';
-
 import HomePageController from './home/HomePageController';
 import AbstractErrorPageController from './error/AbstractErrorPageController';
 import Error404PageController from './error/404/Error404PageController';
@@ -15,14 +14,15 @@ export default angular
   ])
   .controller('HomePageController', HomePageController)
   .controller('AbstractErrorPageController', AbstractErrorPageController)
-  .controller('AbstractErrorPageController', Error404PageController)
-  .controller('AbstractErrorPageController', Error500PageController)
+  .controller('Error404PageController', Error404PageController)
+  .controller('Error500PageController', Error500PageController)
   .service('SiteService', SiteService)
   .config(($stateProvider, $urlRouterProvider, USER_ACTIVITY_EVENTS) => {
     'ngInject';
 
     // Otherwise
-    $urlRouterProvider.otherwise('/404');
+    $urlRouterProvider
+      .otherwise('/404');
 
     // Home
     $stateProvider

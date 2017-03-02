@@ -6,8 +6,6 @@ function appConfig($locationProvider,
                    ngToastProvider) {
   'ngInject';
 
-  let MAIN_FONT, MAIN_FONT_SIZE;
-
   angular
     .extend(CacheFactoryProvider.defaults, { maxAge: 15 * 60 * 1000 });
 
@@ -19,10 +17,12 @@ function appConfig($locationProvider,
   });
 
   // Enable html5 mode
-  $locationProvider.html5Mode({
-    enabled: true,
-    requireBase: false,
-  });
+  $locationProvider
+    .html5Mode({
+      enabled: true,
+      requireBase: false,
+    })
+    .hashPrefix('!');
 
   // ---
   // Gravatar configs.
@@ -60,165 +60,58 @@ function appConfig($locationProvider,
   // ---
   // Configure general chart settings.
   // ---
-  MAIN_FONT = '\'proxima-nova\',\'Arial\', sans-serif';
-  MAIN_FONT_SIZE = 12;
+  const MAIN_FONT = '\'Catamaran\',\'Arial\', sans-serif';
+
   ChartJsProvider.setOptions({
-    // Boolean - Whether to animate the chart
-    animation: true,
+    responsive: true,
 
-    // Number - Number of animation steps
-    animationSteps: 60,
+    responsiveAnimationDuration: 2500,
 
-    // String - Animation easing effect
-    // Possible effects are:
-    // [easeInOutQuart, linear, easeOutBounce, easeInBack, easeInOutQuad,
-    //  easeOutQuart, easeOutQuad, easeInOutBounce, easeOutSine, easeInOutCubic,
-    //  easeInExpo, easeInOutBack, easeInCirc, easeInOutElastic, easeOutBack,
-    //  easeInQuad, easeInOutExpo, easeInQuart, easeOutQuint, easeInOutCirc,
-    //  easeInSine, easeOutExpo, easeOutCirc, easeOutCubic, easeInQuint,
-    //  easeInElastic, easeInOutSine, easeInOutQuint, easeInBounce,
-    //  easeOutElastic, easeInCubic]
-    animationEasing: 'easeOutQuart',
+    animation: {
+      duration: 1000,
+      easing: 'easeOutExpo',
+    },
 
-    // Boolean - If we should show the scale at all
-    showScale: true,
+    legend: {
+      display: false,
+    },
 
-    // Boolean - If we want to override with a hard coded scale
-    scaleOverride: false,
-
-    // ** Required if scaleOverride is true **
-    // Number - The number of steps in a hard coded scale
-    scaleSteps: null,
-
-    // Number - The value jump in the hard coded scale
-    scaleStepWidth: null,
-
-    // Number - The scale starting value
-    scaleStartValue: null,
-
-    // String - Colour of the scale line
-    scaleLineColor: 'rgba(0,0,0,.1)',
-
-    // Number - Pixel width of the scale line
-    scaleLineWidth: 1,
-
-    // Boolean - Whether to show labels on the scale
-    scaleShowLabels: true,
-
-    // Interpolated JS string - can access value
-    scaleLabel: '<%=value%>',
-
-    // Boolean - Whether the scale should stick to integers, not floats even if drawing space is there
-    scaleIntegersOnly: true,
-
-    // Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
-    scaleBeginAtZero: false,
-
-    // String - Scale label font declaration for the scale label
-    scaleFontFamily: MAIN_FONT,
-
-    // Number - Scale label font size in pixels
-    scaleFontSize: MAIN_FONT_SIZE,
-
-    // String - Scale label font weight style
-    scaleFontStyle: 'normal',
-
-    // String - Scale label font colour
-    scaleFontColor: '#666',
-
-    // Boolean - Determines whether to draw tooltips on the canvas or not
-    showTooltips: true,
-
-    // Function - Determines whether to execute the customTooltips function instead of drawing the built in tooltips (See [Advanced - External Tooltips](#advanced-usage-custom-tooltips))
-    customTooltips: false,
-
-    // Array - Array of string names to attach tooltip events
-    tooltipEvents: ['mousemove', 'touchstart', 'touchmove'],
-
-    // String - Tooltip background colour
-    tooltipFillColor: 'rgba(0,0,0,0.8)',
-
-    // String - Tooltip label font declaration for the scale label
-    tooltipFontFamily: MAIN_FONT,
-
-    // Number - Tooltip label font size in pixels
-    tooltipFontSize: 14,
-
-    // String - Tooltip font weight style
-    tooltipFontStyle: 'normal',
-
-    // String - Tooltip label font colour
-    tooltipFontColor: '#fff',
-
-    // String - Tooltip title font declaration for the scale label
-    tooltipTitleFontFamily: MAIN_FONT,
-
-    // Number - Tooltip title font size in pixels
-    tooltipTitleFontSize: 14,
-
-    // String - Tooltip title font weight style
-    tooltipTitleFontStyle: 'normal',
-
-    // String - Tooltip title font colour
-    tooltipTitleFontColor: '#fff',
-
-    // Number - pixel width of padding around tooltip text
-    tooltipYPadding: 15,
-
-    // Number - pixel width of padding around tooltip text
-    tooltipXPadding: 15,
-
-    // Number - Size of the caret on the tooltip
-    tooltipCaretSize: 8,
-
-    // Number - Pixel radius of the tooltip border
-    tooltipCornerRadius: 6,
-
-    // Number - Pixel offset from point x to tooltip edge
-    tooltipXOffset: 10,
-
-    // String - Template string for single tooltips
-    tooltipTemplate: '<%if (label){%><%=label%>: <%}%><%= value %>',
-
-    // String - Template string for multiple tooltips
-    multiTooltipTemplate: '<%= value %>',
+    tooltips: {
+      enabled: true,
+      tooltipFillColor: 'rgba(0,0,0,0.8)',
+      titleFontFamily: MAIN_FONT,
+      titleFontSize: 16,
+      titleFontStyle: 'bold',
+      titleSpacing: 2,
+      titleMarginBottom: 6,
+      titleColor: '#fff',
+      titleAlign: 'left',
+      bodyFontFamily: MAIN_FONT,
+      bodyFontSize: 14,
+      bodyFontStyle: 'bold',
+      bodySpacing: 2,
+      bodyColor: '#fff',
+      bodyAlign: 'left',
+      footerFontFamily: MAIN_FONT,
+      footerFontSize: 12,
+      footerFontStyle: 'bold',
+      footerSpacing: 2,
+      footerMarginTop: 6,
+      footerColor: '#fff',
+      footerAlign: 'left',
+      yPadding: 15,
+      xPadding: 15,
+      caretSize: 8,
+      cornerRadius: 6,
+      multiKeyBackground: '#fff',
+    },
   });
 
   // ---
   // Configure BAR chart settings.
   // ---
   ChartJsProvider.setOptions('Bar', {
-    colours: ['#FF0000'],
-
-    //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
-    scaleBeginAtZero: true,
-
-    //Boolean - Whether grid lines are shown across the chart
-    scaleShowGridLines: true,
-
-    //String - Colour of the grid lines
-    scaleGridLineColor: '#e8e8e8',
-
-    //Number - Width of the grid lines
-    scaleGridLineWidth: 0.5,
-
-    //Boolean - Whether to show horizontal lines (except X axis)
-    scaleShowHorizontalLines: true,
-
-    //Boolean - Whether to show vertical lines (except Y axis)
-    scaleShowVerticalLines: false,
-
-    //Boolean - If there is a stroke on each bar
-    barShowStroke: true,
-
-    //Number - Pixel width of the bar stroke
-    barStrokeWidth: 1,
-
-    //Number - Spacing between each of the X value sets
-    barValueSpacing: 5,
-
-    //Number - Spacing between data sets within X values
-    barDatasetSpacing: 5,
+    colors: ['#FF0000'],
   });
 }
 

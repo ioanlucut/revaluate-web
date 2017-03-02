@@ -3,7 +3,7 @@ function JWTInterceptor() {
   this.authHeader = 'Authorization';
   this.authPrefix = 'Bearer ';
 
-  const config = this;
+  const _this = this;
 
   /*@ngInject*/
   this.$get = ($q, $injector, $rootScope, SessionService) => ({
@@ -15,7 +15,7 @@ function JWTInterceptor() {
       request.headers = request.headers || {};
 
       // Already has an Authorization header
-      if (request.headers[config.authHeader]) {
+      if (request.headers[_this.authHeader]) {
         return request;
       }
 
@@ -26,7 +26,7 @@ function JWTInterceptor() {
 
       return tokenPromise.then(token => {
         if (token) {
-          request.headers[config.authHeader] = config.authPrefix + token;
+          request.headers[_this.authHeader] = _this.authPrefix + token;
         }
 
         return request;

@@ -35,3 +35,20 @@
     -moz-hyphens: auto;
     hyphens: auto;
 }
+
+@mixin truncate($max:100px) {
+    max-width: $max;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@mixin input-placeholder-content($content:' ') {
+    &::-webkit-input-placeholder,
+    &:-moz-placeholder,
+    &::-moz-placeholder,
+    &:-ms-input-placeholder {
+        content: $content;
+        color: red;
+    }
+}

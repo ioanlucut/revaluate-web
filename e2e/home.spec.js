@@ -12,8 +12,8 @@
         });
 
         it('should contain proper description', function () {
-            expect(page.mainDescription.getText()).toBe('Simplify your personal finance management');
-            expect(page.mainTitle.getText()).toBe('Change the way you spend your money');
+            expect(page.mainDescription.getText()).toBe('Personal finance simplified.');
+            expect(page.mainTitle.getText()).toBe('Don\'t give up on the things you love!');
         });
     });
 }());

@@ -1,0 +1,93 @@
+<!-- Add a new expense form -->
+<div class="expense-add">
+
+    <form name="$ctrl.expenseForm" ng-submit="$ctrl.expenseForm.$valid ? $ctrl.saveExpense() : ''" novalidate focus-first-error>
+
+        <!-- Flash messages. -->
+        <div flash-messages flash="flash" identifier-id="{{$ctrl.alertId}}"></div>
+
+        <!-- Form groups -->
+        <div class="expense-add__price" ng-class="{'has-error': $ctrl.expenseForm.$submitted && ($ctrl.expenseForm.value.$invalid || $ctrl.badPostSubmitResponse)}">
+            <input class="expense-add__price__input"
+                   ng-model="$ctrl.expense.value"
+                   ng-disabled="$ctrl.saveTracker.active()"
+                   type="text"
+                   name="value"
+                   placeholder="Spending"
+                   maxlength="18"
+                   autocomplete="off"
+                   format-price format="number"
+                   required
+                   valid-price
+                   auto-focus
+                   post-add-expense-focus
+                   clear-placeholder="Spending" />
+            <span class="expense-add__price__currency">{{$ctrl.user.model.currency.symbol}}</span>
+
+            <!-- Error messages -->
+            <div class="form-group-input__message" ng-class="{'has-error': $ctrl.expenseForm.value.$invalid && $ctrl.expenseForm.$submitted}" ng-messages="$ctrl.expenseForm.value.$error" ng-if="$ctrl.expenseForm.$submitted">
+                <div ng-message="required">Don't forget the price.</div>
+                <div ng-message="validPrice">Oops, you missed the price.</div>
+            </div>
+        </div>
+
+        <!-- Date input -->
+        <div class="expense-add__date" ng-class="{'has-error': $ctrl.expenseForm.spentDate.$invalid && $ctrl.expenseForm.$submitted}">
+
+            <!--Hidden input of the expense chosen date-->
+            <input type="hidden" name="spentDate" ng-model="$ctrl.expense.spentDate" required valid-date />
+
+            <!--Expense date picker-->
+            <div class="expense-add__date__input">
+                <button type="button"
+                        class="expense-add__date__input__btn"
+                        ng-click="$ctrl.openDatePicker($event)"
+                        ng-model="$ctrl.expense.spentDate"
+                        ng-disabled="$ctrl.saveTracker.active()"
+                        datepicker-popup
+                        is-open="$ctrl.datePickerOpened"
+                        min-date="$ctrl.datePickerMinDate"
+                        max-date="$ctrl.datePickerMaxDate"
+                        datepicker-options="{startingDay:1,showWeeks:false}">
+                    <i class="fa fa-calendar"></i> {{$ctrl.expense.spentDate | friendlyDate}}
+                </button>
+            </div>
+
+            <!--Error messages-->
+            <div class="form-group-input__message" ng-class="{'has-error': $ctrl.expenseForm.spentDate.$invalid && $ctrl.expenseForm.$submitted}" ng-messages="$ctrl.expenseForm.spentDate.$error" ng-if="$ctrl.expenseForm.$submitted">
+                <div ng-message="required">Please add a date.</div>
+                <div ng-message="validDate">Date should be in the past.</div>
+            </div>
+        </div>
+
+        <!-- Description input -->
+        <div class="expense-add__details" ng-class="{'has-error': $ctrl.expenseForm.$submitted && ($ctrl.expenseForm.description.$invalid || $ctrl.badPostSubmitResponse)}">
+            <input class="expense-add__details__input" autocomplete="off" ng-disabled="$ctrl.saveTracker.active()" type="text" name="description" ng-maxlength="100" maxlength="100" placeholder="&#xf040; Description" ng-model="$ctrl.expense.description" escape-html />
+            <!-- Error messages -->
+            <div class="form-group-input__message" ng-class="{'has-error': $ctrl.expenseForm.description.$invalid && $ctrl.expenseForm.$submitted}" ng-messages="$ctrl.expenseForm.description.$error" ng-if="$ctrl.expenseForm.$submitted">
+                <div ng-message="maxlength">Hmm. Too long. Make it shorter.</div>
+            </div>
+        </div>
+
+        <!-- Category select -->
+        <div class="expense-add__category" ng-class="{'has-error': $ctrl.expenseForm.$submitted && ($ctrl.expenseForm.category.$invalid || $ctrl.badPostSubmitResponse)}">
+
+            <ui-select ng-disabled="$ctrl.saveTracker.active()" name="category" class="category-select__input" ng-style="{'background':$select.selected.color.color}" required ng-model="$ctrl.category.selected" theme="selectize">
+                <ui-select-match class="ui-select-match" ng-style="{'background':$select.selected.color.color}" placeholder="Select a category">{{$select.selected.name}}</ui-select-match>
+                <ui-select-choices class="ui-select-choices" repeat="categoryEntry in $ctrl.categories | orderObjectBy : 'model' : false | filter:{name:$select.search} track by categoryEntry.id">
+                    <span class="category__color__preview" ng-style="{'background':categoryEntry.color.color}">C</span>
+                    <span ng-bind-html="categoryEntry.name | highlight: $select.search"></span>
+                </ui-select-choices>
+            </ui-select>
+
+            <!-- Error messages -->
+            <div class="form-group-input__message" ng-class="{'has-error': $ctrl.expenseForm.category.$invalid && $ctrl.expenseForm.$submitted}" ng-messages="$ctrl.expenseForm.category.$error" ng-if="$ctrl.expenseForm.$submitted">
+                <div ng-message="required">Please add a category.</div>
+            </div>
+        </div>
+
+        <!-- Button container -->
+        <button ng-disabled="$ctrl.saveTracker.active()" class="expense-add__submit__save" type="submit">{{$ctrl.saveTracker.active() ? 'ADDING' : 'ADD EXPENSE'}}</button>
+    </form>
+
+</div>

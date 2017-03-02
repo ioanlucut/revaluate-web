@@ -1,6 +1,6 @@
 function headerDirective() {
   return {
-    restrict: 'A',
+    restrict: 'E',
     templateUrl: '/app/common/header/headerDirective.tpl.html',
     controller: 'HeaderController',
     controllerAs: 'vm',

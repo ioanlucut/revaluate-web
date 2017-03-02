@@ -53,29 +53,26 @@ var gulp = require('gulp'),
       })));
   };
 
-module
-  .exports = function () {
-  gulp.task('deploy', function () {
-    deployTask(argv.env || 'local-dev');
-  });
+gulp.task('deploy', function () {
+  deployTask(argv.env || 'local-dev');
+});
 
-  gulp.task('deploy:local', function () {
-    deployTask(argv.env || 'localhost');
-  });
+gulp.task('deploy:local', function () {
+  deployTask(argv.env || 'localhost');
+});
 
-  gulp.task('deploy:local-dev', function () {
-    deployTask(argv.env || 'local-dev');
-  });
+gulp.task('deploy:local-dev', function () {
+  deployTask(argv.env || 'local-dev');
+});
 
-  gulp.task('deploy:dev', function () {
-    deployTask(argv.env || 'development');
-  });
+gulp.task('deploy:dev', function () {
+  deployTask(argv.env || 'development');
+});
 
-  gulp.task('deploy:dev-only', function () {
-    deployTask(argv.env || 'development');
-  });
+gulp.task('deploy:dev-only', function () {
+  deployTask(argv.env || 'development');
+});
 
-  gulp.task('deploy:prod', function () {
-    deployTask(argv.env || 'production');
-  });
-};
+gulp.task('deploy:prod', function () {
+  deployTask(argv.env || 'production');
+});

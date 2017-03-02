@@ -1,0 +1,191 @@
+expense-add {
+    display: block;
+}
+
+.expense-add {
+    @include no-user-select();
+    @include border-radius(6px);
+    background-color: $white;
+    color: $black;
+    font-weight: $font-weight-regular;
+    margin: 0 auto;
+    max-width: $add-expense-form-max-width;
+    position: relative;
+    width: 100%;
+
+    input {
+        border: 0;
+        padding: 0.75em 1em;
+    }
+
+    i {
+        padding: 5px;
+    }
+
+    form {
+        padding: 15px $add-expense-form-padding 0;
+    }
+}
+
+.expense-add__category .category-select__input .selectize-input,
+.expense-add__details__input,
+.expense-add__date__input {
+    margin: 0;
+
+    &:focus {
+        background-color: lighten($gray-light-1, 35%);
+    }
+
+    &[disabled] {
+        cursor: not-allowed;
+    }
+}
+
+// Price input styling
+// ----------------------
+
+.expense-add__price {
+    padding: 0;
+    width: 100%;
+    position: relative;
+    margin-bottom: 30px;
+    border-bottom: 1px solid $gray-light-1;
+}
+
+input.expense-add__price__input {
+    @include placeholder {
+        color: $black;
+    }
+    font-size: $add-expense-price-font-size-active;
+    height: $add-expense-price-height;
+    line-height: $add-expense-price-height;
+    margin: 0;
+    padding: 15px;
+    position: relative;
+    text-align: center;
+
+    &:focus {
+        @include placeholder {
+            content: ' ';
+        }
+    }
+}
+
+.expense-add__price__currency {
+    height: $add-expense-price-height - 4px;
+    line-height: $add-expense-price-height - 4px;
+    position: absolute;
+    right: 0;
+    top: 2px;
+    padding: 0 10px;
+    color: $gray-medium;
+    font-weight: $font-weight-regular;
+    z-index: 999;
+}
+
+// Category input styling
+// ----------------------
+
+.expense-add__category {
+    height: $add-expense-form-height;
+    margin-bottom: 10px;
+    padding: 0;
+    position: relative;
+    width: 100%;
+
+    .category-select__input {
+        height: $add-expense-form-height;
+        background-color: $gray-light-3;
+
+        .selectize-input {
+            height: $add-expense-form-height;
+            line-height: 48px !important;
+            background-color: $gray-light-3;
+
+            & > input {
+                height: 48px;
+                @include border-radius(6px);
+            }
+        }
+    }
+}
+
+.category__color__preview {
+    @include border-radius(50%);
+    @include size(21px 21px);
+    margin: 3px 3px 3px 0;
+    display: inline-block;
+    text-indent: -9999px;
+}
+
+// Details input styling
+// -------------------------
+.expense-add__details {
+    margin-bottom: 10px;
+    position: relative;
+    width: 100%;
+}
+
+input.expense-add__details__input {
+    @include border-radius(6px);
+    background-color: $gray-light-3;
+    font-family: $base-font-fa-family;
+    height: $add-expense-form-height;
+}
+
+// Date input styling
+// -------------------------
+.expense-add__date {
+    display: block;
+    width: 100%;
+    padding: 0 0 10px;
+    position: relative;
+
+    & > .form-group-input__message {
+        top: 0;
+        right: 140px;
+    }
+}
+
+.expense-add__date__input {
+    height: $add-expense-form-height;
+    text-align: right;
+}
+
+.expense-add__date__input__btn {
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    background-color: $gray-light-3;
+    @include border-radius(6px);
+    @include transition(none);
+
+    &:focus {
+        background-color: lighten($gray-light-3, 35%);
+    }
+}
+
+// Submit
+// -------------------------
+.expense-add__submit__save {
+    @include btn-block($color-brand-3);
+    @include border-top-radius(0px);
+    @include border-bottom-radius(6px);
+    font-size: $font-size-base;
+    height: $add-expense-btn-height;
+    margin-right: -$add-expense-form-padding;
+    margin-left: -$add-expense-form-padding;
+    width: $add-expense-form-max-width;
+}
+
+.expense-add__submit__cancel {
+    width: 100%;
+
+    .expense__edit__form__cancelbtn {
+        @include btn-link($brand-primary);
+        float: right;
+        margin-right: 10%;
+        color: $gray-dark-1;
+        font-size: $font-size-small;
+    }
+}

@@ -1,4 +1,10 @@
 // ---
+// Google fonts
+// ---
+@import 'https://fonts.googleapis.com/css?family=Catamaran:400,700,900&subset=latin-ext';
+@import 'https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700';
+
+// ---
 // BOOTSTRAP.
 // ---
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/mixins";
@@ -19,6 +25,11 @@
 @import "bitters/base";
 @import "grid-settings";
 // ---
+// Font awesome.
+// ---
+$fa-font-path: "../../bower_components/font-awesome/fonts";
+@import "../../bower_components/font-awesome/scss/font-awesome";
+// ---
 // NEAT.
 // ---
 @import "../../bower_components/neat/app/assets/stylesheets/neat";
@@ -27,6 +38,7 @@
 // ---
 @import "layouts/normalize";
 @import "layouts/scafolding";
+@import "layouts/scafoldingResponsive";
 // ---
 // Simptip.
 // ---
@@ -57,14 +69,7 @@
 // Odometer
 // ---
 @import "vendor-modified/odometer-theme-plaza";
-// ---
-// Spinner
-// ---
-@import "vendor-modified/spinner";
 
-// Unison
-// ---
-@import "unison/breakpoints";
 // ---
 // Fonts.
 // ---
@@ -75,6 +80,11 @@
 // ---
 @import "img/_sprites.scss";
 // ---
+// Image sprites.
+// ---
+@import "img/_sprites.scss";
+@import '../../bower_components/spinkit/scss/spinkit';
+// ---
 // Revaluate Components.
 // ---
 @import "components/buttons";
@@ -82,6 +92,7 @@
 @import "components/dropdowns";
 @import "components/toggle";
 @import "components/selectize";
+@import "components/utils";
 // ---
 // Revaluate styles.
 // ---

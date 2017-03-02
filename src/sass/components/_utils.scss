@@ -1,0 +1,12 @@
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+.text-heading {
+    text-transform: uppercase;
+    font-weight: $font-weight-heading;
+}
+
+.text-monospace {
+    font-family: $font-family-monospace;
+}

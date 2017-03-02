@@ -1,4 +1,4 @@
-function StatesHandlerService($state, $stateParams, STATES) {
+function StatesHandlerService($state, STATES) {
   'ngInject';
 
   function call(callback) {
@@ -7,23 +7,15 @@ function StatesHandlerService($state, $stateParams, STATES) {
     }
   }
 
-  this.goToProfile = function () {
-    this.go(STATES.profile);
-  };
-
-  this.goToSetUp = function () {
+  this.goToSetUp = () => {
     this.go(STATES.setUp);
   };
 
-  this.goToAddPayment = function () {
+  this.goToAddPayment = () => {
     this.go(STATES.addPayment);
   };
 
-  this.goToLogin = function () {
-    this.go(STATES.account);
-  };
-
-  this.goToResetPassword = function () {
+  this.goToLogin = () => {
     this.go(STATES.account);
   };
 
@@ -31,28 +23,16 @@ function StatesHandlerService($state, $stateParams, STATES) {
     $state.go(state);
   };
 
-  this.goToExpenses = function (callback) {
+  this.goToExpenses = (callback) => {
     this.go(STATES.expenses);
 
     call(callback);
   };
 
-  this.goHome = function (callback) {
+  this.goHome = (callback) => {
     this.go(STATES.home);
 
     call(callback);
-  };
-
-  this.goToIntegrations = function () {
-    this.go(STATES.integrations);
-  };
-
-  this.refreshCurrentState = () => {
-    $state.transitionTo($state.current, $stateParams, {
-      reload: true,
-      inherit: false,
-      notify: true,
-    });
   };
 }
 

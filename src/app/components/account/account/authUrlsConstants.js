@@ -1,9 +1,4 @@
-export default
-
-/**
- * Account related constants.
- */
-{
+export default {
   login: 'account/login',
   connectViaOauth: 'account/connectViaOauth/:email',
   logout: 'account/logout',

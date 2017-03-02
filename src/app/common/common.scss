@@ -7,8 +7,11 @@
 @import "footer/footerHome";
 @import "footer/footerHomeResponsive";
 // Submodules of the main application
-@import "header/headerApp";
-@import "header/headerAppResponsive";
+@import "spinner/spinnerComponent";
+@import "snapToggler/snapToggler";
+@import "snapToggler/snapTogglerResponsive";
+@import "sidebar/sidebarComponent";
+@import "sidebar/sidebarComponentResponsive";
 @import "header/headerAppSide";
 @import "header/headerAppSideResponsive";
 @import "footer/footerApp";

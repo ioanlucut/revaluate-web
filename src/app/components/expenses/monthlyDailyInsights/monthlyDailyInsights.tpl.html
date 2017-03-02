@@ -6,18 +6,14 @@
 
     <div class="insights__chart__bar insights__chart__bar--small" fade-out-in fade-when="vm.loadTracker.active()">
 
-        <div class="spinner insights__loading" ng-if="vm.loadTracker.active()">
-            <div class="double-bounce1"></div>
-            <div class="double-bounce2"></div>
-        </div>
+        <spinner class-name="insights__loading" is-loading="vm.loadTracker.active()"></spinner>
 
         <canvas id="bar"
                 class="chart chart-bar"
                 chart-data="vm.barInsightsPrepared.insightsBarData"
                 chart-series="vm.barInsightsPrepared.insightsBarSeries"
-                chart-legend="false"
-                chart-options="vm.barOptions"
-                chart-colours="vm.barInsightsPrepared.insightsBarColors"
+                chart-options="vm.barOptionsDifferentDataSets"
+                chart-colors="vm.barInsightsPrepared.insightsBarColors"
                 chart-labels="vm.barInsightsPrepared.insightsBarLabels">
         </canvas>
     </div>

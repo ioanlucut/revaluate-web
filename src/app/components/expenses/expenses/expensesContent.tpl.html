@@ -1,4 +1,4 @@
-<div expense-add categories="expensesVm.categories"></div>
+<expense-add categories="expensesVm.categories"></expense-add>
 
 <!--Empty state-->
 <div class="expenses__empty-state" ng-if="expensesVm.expenses.length === 0 && expensesVm.temporaryExpenses.length === 0">
@@ -45,10 +45,7 @@
 
         <div expenses-list expenses="expensesVm.expenses" categories="expensesVm.categories" sort="desc"></div>
 
-        <div class="spinner expenses__list__loading" ng-show="expensesVm.isUpdatingListLayout">
-            <div class="double-bounce1"></div>
-            <div class="double-bounce2"></div>
-        </div>
+        <spinner class-name="expenses__list__loading" is-loading="expensesVm.isUpdatingListLayout"></spinner>
     </div>
 
 </div>

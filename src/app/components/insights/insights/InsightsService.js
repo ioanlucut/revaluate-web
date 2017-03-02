@@ -8,7 +8,8 @@ function InsightsService(INSIGHTS_URLS,
   'ngInject';
 
   this.fetchMonthlyInsightsFromTo = (from, to, tracker) => {
-    const fromFormatted = DatesUtils.formatDate(from), toFormatted = DatesUtils.formatDate(to);
+    const fromFormatted = DatesUtils.formatDate(from);
+    const toFormatted = DatesUtils.formatDate(to);
 
     return $http
       .get(URLTo.api(INSIGHTS_URLS.fetchInsights, {
@@ -19,23 +20,32 @@ function InsightsService(INSIGHTS_URLS,
   };
 
   this.fetchOverviewInsightsFromTo = (from, to) => {
-    const fromFormatted = DatesUtils.formatDate(from), toFormatted = DatesUtils.formatDate(to);
+    const fromFormatted = DatesUtils.formatDate(from);
+    const toFormatted = DatesUtils.formatDate(to);
 
     return $http
-      .get(URLTo.api(INSIGHTS_URLS.fetchOverviewInsights, { ':from': fromFormatted, ':to': toFormatted }))
+      .get(URLTo.api(INSIGHTS_URLS.fetchOverviewInsights, {
+        ':from': fromFormatted,
+        ':to': toFormatted,
+      }))
       .then(InsightsTransformerService.insightsOverviewApiResponseTransformer);
   };
 
   this.fetchProgressInsightsFromTo = (from, to) => {
-    const fromFormatted = DatesUtils.formatDate(from), toFormatted = DatesUtils.formatDate(to);
+    const fromFormatted = DatesUtils.formatDate(from);
+    const toFormatted = DatesUtils.formatDate(to);
 
     return $http
-      .get(URLTo.api(INSIGHTS_URLS.fetchProgressInsights, { ':from': fromFormatted, ':to': toFormatted }))
+      .get(URLTo.api(INSIGHTS_URLS.fetchProgressInsights, {
+        ':from': fromFormatted,
+        ':to': toFormatted,
+      }))
       .then(InsightsTransformerService.insightsProgressApiResponseTransformer);
   };
 
   this.fetchDailyInsightsFromTo = (from, to, tracker) => {
-    const fromFormatted = DatesUtils.formatDate(from), toFormatted = DatesUtils.formatDate(to);
+    const fromFormatted = DatesUtils.formatDate(from);
+    const toFormatted = DatesUtils.formatDate(to);
 
     return $http
       .get(URLTo.api(INSIGHTS_URLS.fetchDailyInsights, {

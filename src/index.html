@@ -1,142 +1,87 @@
 <!doctype html>
 <html ng-controller="IndexController" prefix="og: http://ogp.me/ns#">
-<head>
-    <meta charset="utf-8" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Change the way you spend your money" />
-    <meta property="og:description" content="Personal finance simplified." />
-    <meta property="og:image" content="/assets/img/logo.png" />
-    <meta property="og:url" content="http://www.revaluate.io" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-    <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/favicons/apple-touch-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicons/apple-touch-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicons/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/assets/img/favicons/apple-touch-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/favicons/apple-touch-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/assets/img/favicons/apple-touch-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/favicons/apple-touch-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/assets/img/favicons/apple-touch-icon-152x152.png">
-    <link rel="icon" type="image/png" href="/assets/img/favicons/apple-touch-icon-196x196.png" sizes="196x196">
-    <title ng-bind="$state.current.title" class="ng-binding">Change the way you spend your money - Revaluate</title>
-    <base href="/">
+    <head>
+        <meta charset="utf-8"/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="Don't give up on the things you love!"/>
+        <meta property="og:description" content="Personal finance simplified."/>
+        <meta property="og:image" content="/assets/img/logo.png"/>
+        <meta property="og:url" content="http://www.revaluate.io"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+        <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/favicons/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/favicons/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicons/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/favicons/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicons/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/assets/img/favicons/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/assets/img/favicons/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/assets/img/favicons/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="/assets/img/favicons/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicons/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
+        <meta name="msapplication-TileImage" content="/assets/img/favicons/ms-icon-144x144.png">
+        <title ng-bind="$state.current.title" class="ng-binding">Don't give up on the things you love! - Revaluate</title>
+        <base href="/">
 
-    <!-- Typekit import -->
-    <script src="https://use.typekit.net/tnp6cqt.js"></script>
-    <script>try {
-        Typekit.load({ async: true });
-    } catch ( e ) {
-    }</script>
+        <!-- build:css({.tmp/serve,src}) /styles/app.css defer-->
+        <!-- inject:css -->
+        <!-- css files will be automatically insert here -->
+        <!-- endinject -->
+        <!-- endbuild -->
+    </head>
 
-    <!-- build:css({.tmp/serve,src}) /styles/app.css defer-->
-    <!-- inject:css -->
-    <!-- css files will be automatically insert here -->
-    <!-- endinject -->
-    <!-- endbuild -->
-</head>
+    <body
+        ng-class="$state.current.isPublicPage ? 'body--public' : 'body--app'" intro-bar-listener>
 
-<body class="body--{{$state.current.pageId}}" intro-bar-listener>
+        <div class="body__loading">
+            <spinner class-name="body__loading__spinner-loading" is-loading="true"></spinner>
+        </div>
 
-<div class="body__loading">
+        <div class="body__maintenance">
+            We're currently in maintenance mode.
+            Please check our <a href="http://status.revaluate.io" target="_blank">status page</a> for updates on the service.
+        </div>
 
-    <div class="body__loading__spinner-loading spinner">
-        <div class="double-bounce1"></div>
-        <div class="double-bounce2"></div>
-    </div>
-</div>
+        <!-- Toast template -->
+        <toast></toast>
 
-<div class="body__maintenance">
-    We're currently in maintenance mode.
-    Please check our <a href="http://status.revaluate.io" target="_blank">status page</a> for updates on the service.
-</div>
+        <!-- Start Mixpanel -->
+        <script async type="text/javascript">(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
+                        for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
+        </script>
+        <!-- end Mixpanel -->
 
-<!-- Feedback -->
-<div feedback style="display: none;"></div>
+        <!-- Snap menu -->
+        <snap-drawer class="side__menu">
+            <header-side></header-side>
+        </snap-drawer>
 
-<!-- Toast template -->
-<toast></toast>
+        <!-- View container -->
+        <snap-content snap-opt-disable="'right'">
+            <div class="view-container" ui-view autoscroll="true"></div>
+        </snap-content>
 
-<!-- Start Mixpanel -->
-<script async type="text/javascript">(function (f, b) {
-    if ( !b.__SV ) {
-        var a, e, i, g;
-        window.mixpanel = b;
-        b._i = [];
-        b.init = function (a, e, d) {
-            function f(b, h) {
-                var a = h.split(".");
-                2 == a.length && (b = b[a[0]], h = a[1]);
-                b[h] = function () {
-                    b.push([h].concat(Array.prototype.slice.call(arguments, 0)))
-                }
-            }
+        <!-- Account modal -->
+        <div class="account-modal" account-modal></div>
 
-            var c = b;
-            "undefined" !== typeof d ? c = b[d] = [] : d = "mixpanel";
-            c.people = c.people || [];
-            c.toString = function (b) {
-                var a = "mixpanel";
-                "mixpanel" !== d && (a += "." + d);
-                b || (a += " (stub)");
-                return a
-            };
-            c.people.toString = function () {
-                return c.toString(1) + ".people (stub)"
-            };
-            i = "disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
-            for ( g = 0; g < i.length; g++ )f(c, i[g]);
-            b._i.push([a, e, d])
-        };
-        b.__SV = 1.2;
-        a = f.createElement("script");
-        a.type = "text/javascript";
-        a.async = !0;
-        a.src = "undefined" !== typeof MIXPANEL_CUSTOM_LIB_URL ? MIXPANEL_CUSTOM_LIB_URL : "//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";
-        e = f.getElementsByTagName("script")[0];
-        e.parentNode.insertBefore(a, e)
-    }
-})(document, window.mixpanel || []);
-</script>
-<!-- end Mixpanel -->
 
-<!-- Snap menu -->
-<snap-drawer class="side__menu">
-    <header-side></header-side>
-</snap-drawer>
+        <!-- build:js(src) /assets/scripts/vendor.js defer-->
+        <!-- bower:js -->
+        <!-- run `gulp inject` to automatically populate bower script dependencies -->
+        <!-- endbower -->
+        <!-- endbuild -->
 
-<!-- View container -->
-<snap-content snap-opt-disable="'right'">
-    <div class="view-container" ui-view autoscroll="true"></div>
-</snap-content>
+        <!-- build:js({.tmp/serve,.tmp/partials}) /assets/scripts/app.js defer -->
+        <!-- inject:js -->
+        <!-- js files will be automatically insert here -->
+        <!-- endinject -->
 
-<!-- Account modal -->
-<div class="account-modal" account-modal></div>
+        <!-- inject:partials -->
+        <!-- angular templates will be automatically converted in js and inserted here -->
+        <!-- endinject -->
+        <!-- endbuild -->
 
-<!-- IntroBar.com script-->
-<script>
-    var _intro_bar = window._intro_bar || {};
-    (function () {
-        var i, e;
-        i = document.createElement("script"), i.type = 'text/javascript';
-        i.async = 1, i.src = "//cdn.introbar.com/js/v1.js", e = document.getElementsByTagName("script")[0], e.parentNode.insertBefore(i, e);
-    })();
-    _intro_bar.account_id = '55890b0f7be5b';
-</script>
-
-<!-- build:js(src) /assets/scripts/vendor.js defer-->
-<!-- bower:js -->
-<!-- run `gulp inject` to automatically populate bower script dependencies -->
-<!-- endbower -->
-<!-- endbuild -->
-
-<!-- build:js({.tmp/serve,.tmp/partials}) /assets/scripts/app.js defer -->
-<!-- inject:js -->
-<!-- js files will be automatically insert here -->
-<!-- endinject -->
-
-<!-- inject:partials -->
-<!-- angular templates will be automatically converted in js and inserted here -->
-<!-- endinject -->
-<!-- endbuild -->
-
-</body>
+    </body>
 </html>

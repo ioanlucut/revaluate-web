@@ -1,30 +1,30 @@
 <!--Display expense-->
-<div class="expenses__list__entry__section" ng-if="! showContent" ng-class="vm.expense.marked ? 'expenses__list__entry__section--bulk-marked' : ''" ng-click="toggleContent();">
+<section class="expenses__list__entry__section" ng-if="! showContent" ng-class="vm.expense.marked ? 'expenses__list__entry__section--bulk-marked' : ''" ng-click="toggleContent();">
 
     <!--Actions on expense-->
-    <div class="expenses__list__entry__section__select icon-checkbox-square-unchecked-1" ng-if="! vm.expense.marked" ng-click="vm.toggleMark();$event.stopPropagation();"></div>
-    <div class="expenses__list__entry__section__select icon-checkbox-square-1" ng-if="vm.expense.marked" ng-click="vm.toggleMark();$event.stopPropagation();"></div>
+    <aside class="expenses__list__entry__section__select icon-checkbox-square-unchecked-1" ng-if="! vm.expense.marked" ng-click="vm.toggleMark();$event.stopPropagation();"></aside>
+    <aside class="expenses__list__entry__section__select icon-checkbox-square-1" ng-if="vm.expense.marked" ng-click="vm.toggleMark();$event.stopPropagation();"></aside>
+
+    <!--Expense icon-->
+    <div class="expenses__list__entry__section__icon" ng-style="{'background-color': vm.expense.category.color.color}"></div>
 
     <!--Expense category-->
-    <div class="expenses__list__entry__section__category">
-        <div class="expenses__list__entry__section__category__icon" ng-style="{'border-color': vm.expense.category.color.color, 'background-color': '#fff'}"></div>
-        <div class="expenses__list__entry__section__category__label" ng-bind-html="vm.expense.category.name"></div>
-    </div>
-
-    <!-- Expense price -->
-    <div class="expenses__list__entry__section__price">
-        <span ng-bind-html="vm.expense.value | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
-    </div>
+    <div class="expenses__list__entry__section__category" ng-bind-html="vm.expense.category.name"></div>
 
     <!--Expense description-->
     <div class="expenses__list__entry__section__details" ng-bind-html="vm.expense.description"></div>
 
+    <!-- Expense price -->
+    <div class="expenses__list__entry__section__price text-monospace">
+        <span ng-bind-html="vm.expense.value | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
+    </div>
+
     <!--Expense date-->
     <div ng-if="showDateDetails" class="expenses__list__entry__section__date">{{vm.expense.spentDate | friendlyDate}}</div>
-</div>
+</section>
 
 <!-- Display expense in edit mode -->
-<div class="expense__edit__form" ng-if="showContent">
+<section class="expense__edit__form" ng-if="showContent">
 
     <form name="vm.expenseForm" ng-submit="vm.expenseForm.$valid ? vm.updateExpense() : ''" novalidate focus-first-error>
 
@@ -44,8 +44,8 @@
         <div class="expense__edit__form__category" ng-class="{'has-error': vm.expenseForm.$submitted && (vm.expenseForm.category.$invalid || vm.badPostSubmitResponse)}">
 
             <ui-select name="category" ng-disabled="vm.updateTracker.active()" class="category-select__input" ng-style="{'background':$select.selected.color.color}" required ng-model="vm.category.selected" theme="selectize">
-                <ui-select-match ng-style="{'background':$select.selected.color.color}" placeholder="Select a category">{{$select.selected.name}}</ui-select-match>
-                <ui-select-choices repeat="categoryEntry in vm.categories | orderObjectBy : 'name' : false | filter:{name:$select.search} track by categoryEntry.id">
+                <ui-select-match class="ui-select-match" ng-style="{'background':$select.selected.color.color}" placeholder="Select a category">{{$select.selected.name}}</ui-select-match>
+                <ui-select-choices class="ui-select-choices" repeat="categoryEntry in vm.categories | orderObjectBy : 'name' : false | filter:{name:$select.search} track by categoryEntry.id">
                     <span class="category__color__preview" ng-style="{'background':categoryEntry.color.color}">C</span>
                     <span ng-bind-html="categoryEntry.name | highlight: $select.search"></span>
                 </ui-select-choices>
@@ -59,7 +59,7 @@
 
         <!-- Description input -->
         <div class="expense__edit__form__details" ng-class="{'has-error': vm.expenseForm.$submitted && (vm.expenseForm.description.$invalid || vm.badPostSubmitResponse)}">
-            <input class="expense__edit__form__details__input" ng-disabled="vm.updateTracker.active()" type="text" name="description" ng-maxlength="100" maxlength="100" placeholder="Add details (optional)" ng-model="vm.shownExpense.description" escape-html />
+            <input class="expense__edit__form__details__input" ng-disabled="vm.updateTracker.active()" type="text" name="description" ng-maxlength="100" maxlength="100" placeholder="Description" ng-model="vm.shownExpense.description" escape-html />
 
             <!-- Error messages -->
             <div class="form-group-input__message" ng-class="{'has-error': vm.expenseForm.description.$invalid && vm.expenseForm.$submitted}" ng-messages="vm.expenseForm.description.$error" ng-if="vm.expenseForm.$submitted">
@@ -104,4 +104,4 @@
         </div>
     </form>
 
-</div>
+</section>

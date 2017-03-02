@@ -1,0 +1,57 @@
+// Features
+// ----------------------------
+
+.site__container__section__feature {
+    @include clearfix();
+    padding: 0;
+
+    li {
+        margin: 0;
+        padding: 20px 40px;
+        @include span-columns(4);
+        @include omega(3n);
+
+        h3 {
+            font-family: $base-font-family;
+            font-size: $font-size-base;
+            font-weight: $font-weight-bold;
+            text-transform: uppercase;
+        }
+
+        div:first-child {
+            width: 65px;
+            height: 65px;
+            margin: 0 auto 10px auto;
+        }
+    }
+
+    .circle_icon__01 {
+        background: url("../assets/img/home/circle_icon_01_@2x.png") no-repeat top left;
+        background-size: contain;
+    }
+
+    .circle_icon__02 {
+        background: url("../assets/img/home/circle_icon_02_@2x.png") no-repeat top left;
+        background-size: contain;
+    }
+
+    .circle_icon__03 {
+        background: url("../assets/img/home/circle_icon_03_@2x.png") no-repeat top left;
+        background-size: contain;
+    }
+
+    .circle_icon__04 {
+        background: url("../assets/img/home/circle_icon_04_@2x.png") no-repeat top left;
+        background-size: contain;
+    }
+
+    .circle_icon__05 {
+        background: url("../assets/img/home/circle_icon_05_@2x.png") no-repeat top left;
+        background-size: contain;
+    }
+
+    .circle_icon__06 {
+        background: url("../assets/img/home/circle_icon_06_@2x.png") no-repeat top left;
+        background-size: contain;
+    }
+}

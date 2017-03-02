@@ -122,7 +122,7 @@ function expenseEntryDirective(EXPENSE_EVENTS, $rootScope, $timeout) {
     controllerAs: 'vm',
     templateUrl: '/app/components/expenses/expenseEntry/expenseEntryDirective.tpl.html',
     link(scope, el, attrs, _this) {
-      const EXPENSE_INPUT_SELECTOR = '.expense__form__price__input';
+      const EXPENSE_INPUT_SELECTOR = '.expense-add__price__input';
 
       /**
        * If date details should be shown

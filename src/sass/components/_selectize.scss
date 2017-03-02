@@ -19,13 +19,11 @@
         font-weight: $font-weight-regular;
 
         &.selectize-focus {
-            border-color: $brand-primary;
             background-color: lighten($brand-primary, 35%);
         }
 
         .ui-select-search {
             height: $category-select-height;
-            text-transform: uppercase;
             padding: 0 20px 0 10px;
         }
     }
@@ -64,11 +62,9 @@
         @include border-radius($border-radius-base);
 
         &:hover {
-            border-color: $gray-light-1;
         }
 
         &:focus {
-            border-color: $brand-primary;
             outline: none;
         }
     }

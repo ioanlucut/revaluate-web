@@ -33,10 +33,10 @@ function HeaderController($document,
    */
   this.goToTourPage = () => {
     StatesHandler.goHome(() => {
-
-      // Callback
       $timeout(() => {
-        const duration = 1000, offset = 0, someElement = angular.element(document.getElementById('section__1'));
+        const duration = 1000;
+        const offset = 0;
+        const someElement = angular.element(document.getElementById('section__1'));
 
         $document
           .scrollToElement(someElement, offset, duration);
@@ -60,7 +60,6 @@ function HeaderController($document,
   $scope.$on(AUTH_EVENTS.logoutSuccess, _.bind(function () {
     this.isUserAuthenticated = false;
   }, this));
-
 }
 
 export default HeaderController;

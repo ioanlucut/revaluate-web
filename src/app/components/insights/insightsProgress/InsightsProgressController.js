@@ -1,6 +1,5 @@
 function InsightsProgressController(DatesUtils,
                                     $controller,
-                                    $templateCache,
                                     $scope,
                                     $rootScope,
                                     $filter,
@@ -13,11 +12,11 @@ function InsightsProgressController(DatesUtils,
                                     categories,
                                     InsightsService,
                                     USER_ACTIVITY_EVENTS,
-                                    INSIGHTS_CHARTS,
                                     ALERTS_CONSTANTS) {
   'ngInject';
 
-  const TIMEOUT_DURATION = 150, _this = this;
+  const TIMEOUT_DURATION = 150;
+  const _this = this;
 
   /**
    * Alert identifier
@@ -59,15 +58,13 @@ function InsightsProgressController(DatesUtils,
     $filter,
     monthsPerYearsStatistics,
     resizeOnUpdate: false,
-    getChartSetSize() {
-    },
   }));
 
   // ---
   // Update the options.
   // ---
   _this.lineOptions = _.extend(_this.barOptions, {
-    datasetFill: false, animation: false, animationSteps: 30,
+    datasetFill: false,
   });
 
   /**

@@ -5,24 +5,26 @@
 .expenses__list__entry {
     padding: 0;
     margin: 0 auto;
-    min-height: 45px;
+    min-height: 40px;
     height: 100%;
     width: 100%;
     position: relative;
-    border-bottom: solid 1px $gray-light-2;
+}
 
-    &:nth-child(2) {
-        border-top: solid 1px $gray-light-2 !important;
-    }
+.expenses__list__group {
+    margin-bottom: 15px;
 }
 
 .expenses__list__group__name {
-    padding: 20px 5px 5px 5px;
-    color: $black;
+    padding: 10px 0 5px 10px;
+    border-bottom: solid 1px $color-brand-7;
+    font-size: 14px;
+    color: $gray-medium;
+    text-transform: uppercase;
 }
 
 .expenses__list__group__name--now {
-    background-color: $brand-warning-light;
+    background-color: $brand-warning;
     color: $brand-warning-dark;
 }
 

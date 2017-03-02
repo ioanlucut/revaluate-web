@@ -1,10 +1,10 @@
-@mixin brand {
+@mixin brand($color) {
     font-size: 1em;
-    color: $black;
+    color: $color;
     font-weight: $font-weight-bold;
 }
 
-@mixin brand-inline {
-    @include brand();
+@mixin brand-inline($color) {
+    @include brand($color);
     display: inline-block;
 }
