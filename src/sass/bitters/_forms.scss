@@ -15,7 +15,6 @@ select {
 }
 
 label {
-    font-weight: 600;
     margin-bottom: $small-spacing / 2;
 
     &.required::after {
@@ -44,7 +43,6 @@ textarea {
 
     &:focus {
         border-color: $action-color;
-        //box-shadow: $form-box-shadow-focus;
         outline: none;
     }
 }
@@ -110,7 +108,6 @@ input {
     right: 0;
     font-size: 11px;
     margin: 0;
-    font-weight: bold;
 }
 
 .form-group-input__message--currency {

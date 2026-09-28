@@ -1,39 +1,44 @@
 // Typography
-$base-font-family: "Montserrat", "Arial", sans-serif;
+$base-font-family: "Catamaran", "Arial", sans-serif;
+$base-font-fa-family: 'Catamaran', FontAwesome, sans-serif;
 $heading-font-family: $base-font-family;
+$font-family-monospace: 'Source Code Pro', monospace;
+
 
 // Font Sizes
-$font-size-base: 14px;
+$font-size-base: 15.4px;
 $font-size-small: 12px;
-$font-size-large: 16px;
-$font-size-larger: 18px;
-$font-size-largest: 20px;
-$font-size-h1: 32px;
-$font-size-h2: 24px;
-$font-size-h3: 20px;
+
+$font-size-h1: 80px;
+$font-size-h2: 32px;
+$font-size-h3: 24px;
+$font-size-h4: 16px;
 
 // Font Weights
-$font-weight-extralight: 100;
-$font-weight-light: 200;
-$font-weight-regular: 300;
+$font-weight-regular: 400;
 $font-weight-bold: 700;
+$font-weight-heading: 900;
 
 // Line height
 $base-line-height: 1.5;
 $heading-line-height: 1.2;
 
 // Heights and widths
-$header-height: 100px;
+$header-height: 170px;
 $header-height-responsive: 70px;
-$header-brand-logo-size: 40px;
+$header-brand-logo-size: 50px;
 $header-responsive-breakpoint: 650px;
+
+// Sidebar
+$sidebar-width: 310px;
+$header-element-height: 50px;
+$sidebar-responsive-breakpoint: 650px;
 
 $setup-currency-input-width: 320px;
 $footer-height: 50px;
 $footer__home-height: 150px;
 $settings-aside-width: 180px;
 
-$add-expense-form-height: 60px;
 $edit-expense-form-height: 50px;
 
 // Goals
@@ -46,11 +51,11 @@ $add-category-form-height: 40px;
 $category-select-width: 100%;
 $category-select-height: 35px;
 
-
 $selectize-dropdown-height: 45px;
 
 // Other Sizes
-$base-border-radius: 3px;
+$base-border-radius: 6px;
+$border-radius-base: $base-border-radius;
 $base-spacing: $base-line-height * 1em;
 $small-spacing: $base-spacing / 2;
 $base-z-index: 0;
@@ -62,17 +67,28 @@ $black: #000000;
 $gray-dark-3: #333333;
 $gray-dark-2: #444444;
 $gray-dark-1: #5F5F5F;
-$gray-medium: #999;
+$gray-medium: #AAA;
 $gray-light-1: #ddd;
 $gray-light-2: #e8e8e8;
 $gray-light-3: #f9f9f9;
 $gray-light-4: #fcfcfc;
 
-$brand-primary: #22A7F0;
+$gray-background: $gray-light-4;
+
+$color-brand-1: #222d53;
+$color-brand-2: #d8a66b;
+
+$color-brand-3: #cf6977;
+$color-brand-4: #6cacae;
+$color-brand-5: #d66d20;
+$color-brand-6: #c8d4e9;
+$color-brand-7: #f5f5f5;
+
+$brand-primary: $color-brand-1;
 $brand-primary-light: lighten($brand-primary, 40%);
 $brand-primary-dark: darken($brand-primary, 25%);
 
-$brand-secondary: #ED4B4C;
+$brand-secondary: $color-brand-2;
 $brand-secondary-light: lighten($brand-secondary, 10%);
 $brand-secondary-dark: darken($brand-secondary, 25%);
 
@@ -97,10 +113,10 @@ $brand-danger-light: lighten($brand-danger, 32%);
 $brand-warning: #FFCE54;
 $brand-warning-accent: #F6BB42;
 $brand-warning-dark: darken($brand-warning, 20%);
-$brand-warning-light: lighten($brand-warning, 30%);
+$brand-warning-light: lighten($brand-warning, 31%);
 
-$header-background-color: #2C3E50;
-$landing-page: #363b48;
+$header-background-color: $white;
+$landing-page: $color-brand-1;
 
 $social-facebook-color: #3b5998;
 $social-google-color: #d34636;
@@ -114,16 +130,31 @@ $close-text-shadow: 0 1px 0 #fff !default;
 // Font Colors
 $base-background-color: #fff;
 $base-font-color: $black;
-$action-color: $brand-primary;
+$heading-font-color: $color-brand-1;
+$action-color: $color-brand-3;
 
 // Border
 $base-border-color: $gray-light-1;
 $base-border: 1px solid $base-border-color;
-// DON'T EVEN THINK ABOUT TOUCHING THIS !!!
 
 // Forms
-//$form-box-shadow: inset 0 1px 3px rgba(#000, 0.06);
 $form-box-shadow: none;
 $form-box-shadow-focus: $form-box-shadow, 0 0 5px adjust-color($action-color, $lightness: -5%, $alpha: -0.3);
 $add-expense-form-border-color: $brand-primary;
+$add-expense-form-border-width: 1px;
+
 $add-goal-form-border-color: $gray-light-2;
+
+// LAYOUT
+// -------------------------
+$app-bg: $gray-light-3;
+
+// Add expense
+// -------------------------
+$add-expense-form-height: 50px;
+$add-expense-btn-height: 75px;
+$add-expense-price-height: 60px;
+$add-expense-price-font-size: 20px;
+$add-expense-price-font-size-active: 40px;
+$add-expense-form-max-width: 500px;
+$add-expense-form-padding: 50px;

@@ -1,0 +1,17 @@
+.settings__profile__avatar {
+    text-align: center;
+    padding-top: 50px;
+}
+
+.settings__profile__avatar--picture {
+    @include border-radius(50%);
+}
+
+.settings__profile__avatar--src {
+    color: $gray-medium;
+    font-size: $font-size-small;
+}
+
+.settings__cancel__btn {
+    @include btn-link($brand-danger);
+}

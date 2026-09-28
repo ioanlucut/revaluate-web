@@ -1,0 +1,58 @@
+.header-public__wrapper {
+
+}
+
+.header-public {
+    @include outer-container;
+    @include clearfix;
+    height: 60px;
+    line-height: 55px;
+    padding: 40px;
+}
+
+.header-public__brand {
+    float: left;
+    height: 60px;
+    width: 400px;
+    position: relative;
+}
+
+.header-public__brand_logo {
+    background: url("../assets/img/logo_yellow_white.svg") no-repeat top left;
+    height: 100px;
+    width: 100%;
+    background-size: contain;
+    position: absolute;
+    display: block;
+    left: 0px;
+    top: -26px;
+}
+
+.header-public__navigation {
+    float: right;
+    padding-left: 5px;
+    height: 60px;
+    @include clearfix();
+
+    li {
+        display: block;
+        float: left;
+        padding: 0 10px;
+
+        a {
+            color: $gray-medium;
+            font-size: $font-size-large;
+
+            &:hover {
+                color: $gray-dark-1;
+            }
+        }
+    }
+}
+
+.header-public__navigation__loginbtn,
+.header-public__navigation__signupbtn {
+    @include btn-link($white);
+    text-transform: uppercase;
+    font-weight: $font-weight-bold;
+}

@@ -3,10 +3,11 @@ node_modules/
 bower_components/
 .sass-cache/
 .tmp/
-.divshot-cache/
+coverage/
 dist/
 build
 npm-debug.log
+firebase-debug.log
 .DS_Store
 revaluate-app-config.js
 src/app/revaluate-app/config/revaluate-app-config.js

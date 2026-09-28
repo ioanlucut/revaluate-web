@@ -1,0 +1,51 @@
+.settings__title {
+    text-align: left;
+    font-size: 20px;
+    font-weight: $font-weight-regular;
+    width: 100%;
+}
+
+.settings__title__h2 {
+    margin-top: 40px;
+    font-size: $font-size-base;
+    font-weight: $font-weight-regular;
+}
+
+.settings__box {
+    @include clearfix();
+    @include section(100%);
+    border-bottom: solid 1px $gray-light-2;
+    @include no-user-select();
+
+    &:last-child {
+        margin-bottom: 0;
+        border-color: transparent;
+    }
+}
+
+.settings__box--selectable {
+    @include set-user-select();
+}
+
+.settings__box__section--large,
+.settings__box__section--medium,
+.settings__box__section--small {
+    float: left;
+}
+
+.settings__box__section--large {
+    width: 100%;
+}
+
+.settings__box__section--medium {
+    width: 75%;
+}
+
+.settings__box__section--small {
+    width: 50%;
+}
+
+.settings__btn__save {
+    @include btn-big($brand-primary);
+    margin-top: 10px;
+}

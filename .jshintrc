@@ -45,6 +45,7 @@
         "alert": false,
         "Layzr": false,
         "hello": false,
-        "accounting": false
+        "accounting": false,
+        "Odometer": false
     }
 }

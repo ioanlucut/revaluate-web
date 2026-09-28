@@ -1,0 +1,87 @@
+.insights__controls {
+    width: 100%;
+    padding: 30px 40px 0 40px;
+    @include clearfix();
+
+    .insights__controls__form {
+        height: 50px;
+        float: left;
+
+        .insights__controls__form__arrow {
+            @include border-radius(50%);
+            display: inline-block;
+            height: 40px;
+            width: 40px;
+            padding: 4px 0 0 0;
+            background-color: $white;
+            color: $gray-medium;
+            text-align: center;
+            font-size: 22px;
+            font-weight: $font-weight-bold;
+
+            &:hover {
+                color: $black;
+            }
+
+            &:disabled {
+                opacity: 0 !important;
+            }
+
+            &.insights__controls__form__arrow--left {
+                float: left;
+            }
+
+            &.insights__controls__form__arrow--right {
+                float: right;
+            }
+        }
+
+        .insights__controls__form__month {
+            width: 250px;
+            display: inline-block;
+        }
+
+        .insight__form__date__input__btn {
+            @include btn-big($gray-light-3);
+            width: 100%;
+            color: $black;
+            font-size: 16px;
+            text-transform: none;
+            font-weight: $font-weight-regular;
+            letter-spacing: normal;
+        }
+    }
+
+    .insights__controls__chart-toggle {
+        float: right;
+        min-height: 50px;
+        padding: 7px 0;
+
+        .insights__controls__chart-toggle__entry {
+            float: left;
+            height: 24px;
+            width: 55px;
+            line-height: 24px;
+            padding: 0 15px;
+            margin: 0;
+            text-align: center;
+            color: $gray-medium;
+            border-right: solid 1px $gray-light-1;
+
+            &:last-child {
+                border-right-width: 0;
+            }
+
+            &:hover {
+                color: $gray-dark-1;
+            }
+        }
+
+        .insights__controls__chart-toggle__entry--active,
+        .insights__controls__chart-toggle__entry--active:hover {
+            color: $gray-dark-3;
+            cursor: default;
+            font-weight: bold;
+        }
+    }
+}

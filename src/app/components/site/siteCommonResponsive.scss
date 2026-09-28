@@ -1,0 +1,38 @@
+@media (max-width: 900px) {
+
+    .site__container__section--block {
+        padding: 50px 150px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .site__container__section--block {
+        padding: 50px 80px;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .site__container__section {
+
+        h2 {
+            font-size: 30px;
+        }
+    }
+
+    .site__container__section--ctabtns {
+        display: block;
+
+        .home__section__start__btn,
+        .home__section__learn__btn {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    .site__container--faq {
+        padding-bottom: 10px;
+    }
+}

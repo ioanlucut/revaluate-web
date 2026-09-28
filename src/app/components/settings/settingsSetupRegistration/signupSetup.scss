@@ -1,0 +1,58 @@
+.sign-up {
+    @include outer-container();
+    text-align: center;
+
+    .sign-up__setup {
+        @include span-columns(8);
+        @include shift(2);
+        @include border-radius($base-border-radius);
+        background-color: $white;
+        padding: 40px;
+        font-weight: $font-weight-regular;
+        border: solid 1px $gray-light-2;
+        margin-top: 20px;
+
+        .sign-up__setup__title {
+            margin: 0;
+            padding-bottom: 20px;
+            font-size: $font-size-h2;
+        }
+
+        .sign-up__setup__section {
+
+            .currency-select {
+
+                .currency-select__input {
+                    margin: 0 auto;
+                    width: 100%;
+                }
+            }
+        }
+
+        .sign-up__setup__tip {
+            padding-top: 40px;
+            font-size: $font-size-base;
+            text-align: left;
+        }
+
+        .sign-up__setup__description {
+            padding: 10px 10px 40px 10px;
+            color: $gray-medium;
+            font-size: 22px;
+            font-weight: $font-weight-regular;
+        }
+
+        .sign-up__setup__btn {
+            @include btn-big($brand-primary);
+            margin-top: 55px;
+            font-size: $font-size-base;
+        }
+
+        .form-group-input__message--setup {
+            position: relative;
+            top: -5px;
+        }
+
+    }
+
+}

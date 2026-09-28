@@ -1,0 +1,16 @@
+<!-- Send confirmation email section -->
+<div class="account_send_email_section" ng-controller="EmailConfirmationResendController">
+
+    <!-- Send confirmation email form -->
+    <form name="sendConfirmationEmailForm" ng-submit="sendConfirmationEmail(sendConfirmationEmailForm)" novalidate>
+
+        <!-- Flash messages. -->
+        <div flash-messages flash="flash" identifier-id="{{alertId}}"></div>
+
+        <div class="alert-info account_send_email_section__alert">
+            Please check your inbox at <strong>{{user.model.email}}</strong> to confirm your email address.
+            <button class="btn-primary" type="submit">Resend email</button>
+        </div>
+    </form>
+
+</div>

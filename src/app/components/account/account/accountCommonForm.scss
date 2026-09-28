@@ -1,0 +1,60 @@
+.account__oauth {
+    @include clearfix();
+    padding-bottom: 10px;
+    position: relative;
+    border-bottom: solid 1px $gray-light-2;
+    margin-bottom: 10px;
+
+    .account__oauth__text {
+        color: $gray-medium;
+        margin-bottom: 7px;
+    }
+
+    .account__oauth__btn--facebook {
+        @include btn-block($social-facebook-color);
+    }
+
+    .account__oauth__btn--google {
+        @include btn-block($social-google-color);
+    }
+
+    .account__oauth__btn {
+        position: relative;
+        margin-bottom: 10px;
+        color: $white;
+        width: 47%;
+        margin-right: 5%;
+        display: block;
+        float: left;
+
+        &:last-of-type {
+            margin-right: 0;
+        }
+    }
+
+    .account__oauth__or {
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: $white;
+        width: 50px;
+        text-transform: uppercase;
+        color: $gray-medium;
+    }
+}
+
+.account__btn {
+    @include btn-block($brand-primary);
+    margin-top: 25px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.account-cancel__btn {
+    @include btn-block($brand-danger);
+    margin-top: 25px;
+    font-size: 16px;
+}

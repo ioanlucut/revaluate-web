@@ -1,0 +1,13 @@
+@media (max-width: $screen-xs-min) {
+
+    .expense-add__date .expense-add__date__input {
+
+        .dropdown-menu {
+            margin-left: auto;
+            margin-right: auto;
+            left: 0 !important;
+            right: 0;
+        }
+
+    }
+}

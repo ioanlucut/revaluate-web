@@ -1,0 +1,34 @@
+<h1 class="settings__title">Import</h1>
+
+<div class="section-text">Select the app you want to import from:</div>
+
+<ul class="settings__import__choose">
+    <li class="settings__import__choose__source" ui-sref="settings.import.import({type: 'mint'})">
+        <span class="settings__import__choose__source__logo--mint">LG</span>
+        <span class="settings__import__choose__source__label">Mint</span>
+        <span class="settings__import__choose__source__arrow"> &rang; </span>
+    </li>
+    <li class="settings__import__choose__source" ui-sref="settings.import.import({type: 'spendee'})">
+        <span class="settings__import__choose__source__logo--spendee">LG</span>
+        <span class="settings__import__choose__source__label">Spendee</span>
+        <span class="settings__import__choose__source__arrow"> &rang; </span>
+    </li>
+</ul>
+
+
+<!-- Hiding Wally until the first users ask for it-->
+
+<!--<div class="section-text">Coming soon:</div>-->
+<!--<ul class="settings__import__choose">-->
+<!--<li class="settings__import__choose__source settings__import__choose__source--soon">-->
+<!--<span class="settings__import__choose__source__logo--wally">LG</span>-->
+<!--<span class="settings__import__choose__source__label">Wally</span>-->
+<!--<span class="settings__import__choose__source__arrow"> &rang; </span>-->
+<!--</li>-->
+<!--</ul>-->
+
+<div class="section-text">
+    If you'd like to import your expenses from another app,
+    <a href="#" ng-controller="FeedbackModalController" ng-click="openFeedbackModal()">let us know</a>
+    .
+</div>

@@ -1,0 +1,35 @@
+<div class="settings__box__section--large">
+
+    <!-- Title -->
+    <h1 class="settings__title">Change your currency</h1>
+
+    <!-- Flash messages. -->
+    <div flash-messages flash="flash" identifier-id="{{vm.alertId}}"></div>
+
+    <form name="vm.preferencesForm" ng-submit="vm.updatePreferences()" novalidate>
+
+        <div class="settings__preferences__section">
+
+            <div class="currency-select" ng-class="{'has-error': vm.preferencesForm.$submitted && (vm.preferencesForm.currency.$invalid || vm.badPostSubmitResponse)}">
+
+                <ui-select name="currency" class="currency-select__input" required ng-model="vm.currency.selected" theme="selectize">
+                    <ui-select-match class="ui-select-match" placeholder="Start typing your currency...">{{$select.selected.displayName}} - {{$select.selected.symbol}}</ui-select-match>
+                    <ui-select-choices class="ui-select-choices" repeat="currencyEntry in vm.currencies | orderObjectBy : 'displayName' : false | filter:{$:$select.search} track by currencyEntry.numericCode">
+                        <span ng-bind-html="currencyEntry.displayName | highlight: $select.search"></span>
+                        <span>-</span>
+                        <span ng-bind-html="currencyEntry.symbol | highlight: $select.search"></span>
+                    </ui-select-choices>
+                </ui-select>
+
+                <!-- Error messages -->
+                <div class="form-group-input__message form-group-input__message--currency" ng-class="{'has-error': vm.preferencesForm.currency.$invalid}" ng-messages="vm.preferencesForm.currency.$error" ng-if="vm.preferencesForm.$submitted">
+                    <div ng-message="required">Please add a currency.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Button -->
+        <button class="settings__btn__save" type="submit">{{vm.isSaving ? 'Saving...' : 'Save changes'}}</button>
+    </form>
+
+</div>

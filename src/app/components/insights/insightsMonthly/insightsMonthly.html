@@ -1,0 +1,121 @@
+<div insights-empty-state-toggle show-empty-state="vm.monthsPerYearsStatistics.isOverallTransactionsEmpty()">
+
+    <!-- InsightsMonthly fetch form -->
+    <div class="insights__controls">
+
+        <div class="insights__controls__form__month">
+
+            <!--Insights date picker-->
+            <date-picker-monthly
+                date-model="vm.insightData.yearMonthDate"
+                months-per-years-statistics="vm.monthsPerYearsStatistics.monthsPerYears"
+                perform-on-prev-or-next="vm.loadInsight(yearMonthDate)"
+                load-tracker="vm.loadTracker"
+                show-left-right-arrows="true">
+            </date-picker-monthly>
+        </div>
+
+        <div class="insights__controls__chart-toggle insights__controls__chart-toggle--two">
+            <a class="insights__controls__chart-toggle__entry" ng-class="{'insights__controls__chart-toggle__entry--active': vm.activeChart === vm.INSIGHTS_CHARTS.BAR}" href="javascript:void(0)" ng-click="vm.setActiveChart(vm.INSIGHTS_CHARTS.BAR)">Bar</a>
+            <a class="insights__controls__chart-toggle__entry" ng-class="{'insights__controls__chart-toggle__entry--active': vm.activeChart === vm.INSIGHTS_CHARTS.DOUGHNUT}" href="javascript:void(0)" ng-click="vm.setActiveChart(vm.INSIGHTS_CHARTS.DOUGHNUT)">Pie</a>
+        </div>
+
+    </div>
+
+    <!--Empty state if no expenses for current month-->
+    <div class="insights__empty-state" ng-if="vm.insightsMonthly.isTransactionsEmpty()">
+        <div class="insights__empty-state__title">No expenses on this month yet.</div>
+        <div>You'll get some insights here.</div>
+    </div>
+
+    <div ng-if="! vm.insightsMonthly.isTransactionsEmpty()">
+        <div class="insights__summary">
+            Hey, <span>{{currentUser.model.firstName}}</span>! In
+            <span>{{(vm.insightData.yearMonthDate | friendlyMonthDate)}}</span>
+            you've spent a total of
+            <span class="label-info" ng-bind-html="vm.insightsMonthly.totalAmountSpent | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>.
+        </div>
+
+        <div ng-if="vm.activeChart === vm.INSIGHTS_CHARTS.BAR" class="insights__chart__bar" fade-out-in fade-when="vm.loadTracker.active()">
+            <canvas id="bar"
+                    class="chart chart-bar"
+                    chart-data="vm.barInsightsPrepared.insightsBarData"
+                    chart-series="vm.barInsightsPrepared.insightsBarSeries"
+                    chart-options="vm.barOptions"
+                    chart-labels="vm.barInsightsPrepared.insightsBarLabels"
+                    chart-colors="vm.barInsightsPrepared.insightsBarColors">
+            </canvas>
+        </div>
+
+        <div ng-if="vm.activeChart === vm.INSIGHTS_CHARTS.DOUGHNUT" class="insights__chart__doughnut" fade-out-in fade-when="vm.loadTracker.active()">
+            <canvas class="chart chart-doughnut"
+                    chart-data="vm.donutInsightsPrepared.insightsDonutData"
+                    chart-labels="vm.donutInsightsPrepared.insightsDonutLabels"
+                    chart-options="vm.donutChartOptions"
+                    chart-colors="vm.donutInsightsPrepared.insightsDonutColors">
+            </canvas>
+        </div>
+
+        <div class="insights__table insights__table--monthly">
+            <table>
+                <thead>
+                <tr class="insights__table__total">
+                    <th>TOTAL</th>
+                    <td class="insights__table__total__amount">
+                        <span ng-bind-html="vm.insightsMonthly.totalAmountSpent | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
+                    </td>
+                </tr>
+                </thead>
+                <tbody ng-repeat="totalPerCategory in vm.insightsMonthly.totalPerCategoryInsightsDTOs">
+                <tr>
+                    <th class="insights__table__category label-uppercase">
+                        <span class="insights__table__category__color" ng-style="{'background':totalPerCategory.categoryDTO.color.color}">C</span>
+                        {{totalPerCategory.categoryDTO.name}}
+                    </th>
+                    <td class="insights__table__entry__amount">
+                        <span ng-bind-html="totalPerCategory.totalAmount | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>
+                    </td>
+                </tr>
+                <tr class="insights__table__transactions">
+                    <td colspan="2">
+                        <expenses-of-category total-per-category-insights="totalPerCategory" month-year-date="vm.insightData.yearMonthDate"></expenses-of-category>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="insights__summary">
+
+            <div class="insights__summary__item">
+                You had
+                <span>{{vm.insightsMonthly.numberOfTransactions}} {{vm.insightsMonthly.numberOfTransactions | pluralisationFilter:'transaction':'transactions'}}</span>,
+                in
+                <span>{{vm.insightsMonthly.totalPerCategoryInsightsDTOs.length}} {{vm.insightsMonthly.totalPerCategoryInsightsDTOs.length | pluralisationFilter:'category':'categories'}}</span>.
+            </div>
+
+            <div ng-if="vm.insightsMonthly.isManyTransactions()">
+                <div class="insights__summary__item">
+                    Your biggest transaction was
+                    <span class="label-info" ng-bind-html="vm.insightsMonthly.biggestExpense.value | currencys:vm.user.model.currency.symbol:vm.user.model.currency.fractionSize"></span>,
+                    on
+                    <span class="label-uppercase category__label" ng-style="{'background':vm.insightsMonthly.biggestExpense.category.color.color}">{{vm.insightsMonthly.biggestExpense.category.name}}</span>.
+                </div>
+
+                <div class="insights__summary__item">
+                    You've spent the most on
+                    <span class="label-uppercase category__label" ng-style="{'background':vm.insightsMonthly.highestAmountCategory.color.color}">{{vm.insightsMonthly.highestAmountCategory.name}}</span>.
+                </div>
+
+                <div ng-if="vm.insightsMonthly.categoryWithTheMostTransactionsInsightsDTO.numberOfTransactions > 1" class="insights__summary__item">
+                    The category with the most transactions (<span>{{vm.insightsMonthly.categoryWithTheMostTransactionsInsightsDTO.numberOfTransactions}}</span>)
+                    is
+                    <span class="label-uppercase category__label" ng-style="{'background':vm.insightsMonthly.categoryWithTheMostTransactionsInsightsDTO.categoryDTO.color.color}">{{vm.insightsMonthly.categoryWithTheMostTransactionsInsightsDTO.categoryDTO.name}}</span>.
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

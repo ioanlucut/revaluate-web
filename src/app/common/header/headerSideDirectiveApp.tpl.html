@@ -1,0 +1,31 @@
+<div class="side__menu__user">
+    <user-profile-picture-header class="side__menu__user__avatar"></user-profile-picture-header>
+    <div class="side__menu__user__name">{{vm.currentUser.model.firstName}} {{vm.currentUser.model.lastName}}</div>
+    <div class="side__menu__user__email">{{vm.currentUser.model.email}}</div>
+</div>
+
+<ul class="side__menu__list">
+    <li snap-close ui-sref-active="side__menu--active">
+        <span class="icon-nav-expenses side__menu__icon"></span>
+        <a class="side__menu__link" href="javascript:void(0)" ui-sref="expenses.regular">Expenses</a>
+    </li>
+    <li snap-close ng-class="{'side__menu--active': vm.$state.includes('insights')}">
+        <span class="icon-nav-insights side__menu__icon"></span>
+        <a class="side__menu__link" href="javascript:void(0)" ui-sref="insights.monthly">Insights</a>
+    </li>
+    <li snap-close ui-sref-active="side__menu--active">
+        <span class="icon-nav-goals side__menu__icon"></span>
+        <a class="side__menu__link" href="javascript:void(0)" ui-sref="goals.regular">Goals</a>
+    </li>
+</ul>
+
+<ul class="side__menu__list side__menu__list--secondary">
+    <li snap-close class="side__menu__list__item">
+        <span class="icon-feedback side__menu__icon"></span>
+        <a class="side__menu__link" href="javascript:void(0)" ng-controller="FeedbackModalController" ng-click="openFeedbackModal()">Send us your feedback</a>
+    </li>
+    <li snap-close class="side__menu__list__item">
+        <span class="icon-logout side__menu__icon"></span>
+        <logout class-name="side__menu__link" title="Logout"></logout>
+    </li>
+</ul>
