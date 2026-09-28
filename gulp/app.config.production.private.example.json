@@ -1,0 +1,14 @@
+{
+    "ENV": {
+        "AWS": {
+            "params": {
+                "Bucket": "<s3-bucket>"
+            },
+            "accessKeyId": "<aws-access-key-id>",
+            "secretAccessKey": "<aws-secret-access-key>",
+            "distributionId": "<cloudfront-distribution-id>",
+            "region": "<aws-region>"
+        },
+        "CDN_DOMAIN": "<cloudfront-domain>"
+    }
+}

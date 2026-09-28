@@ -12,3 +12,4 @@ firebase-debug.log
 revaluate-app-config.js
 src/app/revaluate-app/config/revaluate-app-config.js
 .awspublish-*
+gulp/app.config.*.private.json
