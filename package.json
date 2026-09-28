@@ -1,6 +1,32 @@
 {
   "name": "revaluate",
   "version": "1.0.0",
+  "private": true,
+  "description": "Revaluate: a personal finance web app for tracking expenses, setting monthly goals and getting spending insights (AngularJS, 2015–2017).",
+  "keywords": [
+    "personal-finance",
+    "expense-tracker",
+    "budgeting",
+    "angularjs",
+    "es6",
+    "webpack",
+    "gulp",
+    "sass",
+    "single-page-app"
+  ],
+  "homepage": "https://github.com/ioanlucut/revaluate-web#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ioanlucut/revaluate-web.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ioanlucut/revaluate-web/issues"
+  },
+  "license": "MIT",
+  "author": "Ioan Lucuț (https://github.com/ioanlucut)",
+  "contributors": [
+    "Sorin Pantis (https://github.com/sorinpantis)"
+  ],
   "dependencies": {
     "object-assign": "^4.0.1",
     "yargs": "^3.10.0"
