@@ -24,7 +24,7 @@ A personal finance web app for logging expenses in seconds, understanding where 
 
 ## What Revaluate was
 
-Revaluate was a personal finance manager for people who had given up on spreadsheets and bank apps. It launched as a public beta on 28 June 2015 at `revaluate.io`, shipped 15 tagged releases by October 2015, and went on [Product Hunt](https://www.producthunt.com/products/revaluate) in September 2015.
+Revaluate was a personal finance manager for people who had given up on spreadsheets and bank apps. It launched as a public beta on 28 June 2015 at `revaluate.io`, shipped 15 releases by October 2015, and went on [Product Hunt](https://www.producthunt.com/products/revaluate) in September 2015.
 
 Its pitch was simple: logging an expense should take as long as typing one line, and the app should turn those lines into insights you can act on.
 
@@ -49,7 +49,7 @@ This repository is the web front end: a single-page app that talks to the Java [
 <td><sub><b>Goals.</b> "Spend less or more than X on a category in a month", tracked against today.</sub></td>
 </tr>
 <tr>
-<td><img src="docs/images/insights-monthly-doughnut.png" alt="Monthly insights: a doughnut chart of July spending by category with a totals table"></td>
+<td><img src="docs/images/insights-monthly-doughnut.png" alt="Monthly insights: a doughnut chart of one month's spending by category with a totals table"></td>
 <td><img src="docs/images/insights-progress.png" alt="Progress insights: a line chart of selected categories across six months with a month-by-month table"></td>
 </tr>
 <tr>
@@ -74,10 +74,10 @@ This repository is the web front end: a single-page app that talks to the Java [
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Feb 2015            | First commit. The API was started two weeks earlier.                                                                                                                      |
 | May 2015            | Payments (Braintree) and CSV import.                                                                                                                                      |
-| **28 Jun 2015**     | **Public beta, `1.0.0`.**                                                                                                                                                 |
+| **28 Jun 2015**     | **Public beta, version `1.0.0`.**                                                                                                                                         |
 | Jun – Oct 2015      | Fourteen more releases, `1.0.1` to `1.0.9`. From `1.0.5` on, each was codenamed after a TV character: Jon Snow, Phil Dunphy, Chandler Bing, Oliver Queen, Joey Tribbiani. |
 | Aug – Sep 2015      | Goals, then the Slack integration.                                                                                                                                        |
-| **Sep 2015**        | **Launched on Product Hunt** (`1.0.8__oliver-queen__product-hunt-hk`).                                                                                                    |
+| **Sep 2015**        | **Launched on Product Hunt** with version `1.0.8`.                                                                                                                        |
 | Oct 2015            | Redesigned landing page and app header.                                                                                                                                   |
 | Dec 2015 – Apr 2016 | Moved the code base to ES2015 modules, Babel and webpack, then AngularJS 1.5 components.                                                                                  |
 | Sep – Oct 2016      | Visual makeover of the app and the home page.                                                                                                                             |
@@ -85,7 +85,7 @@ This repository is the web front end: a single-page app that talks to the Java [
 | Mar 2017            | Last commit: the redesign merged into `develop`.                                                                                                                          |
 | 2026                | Repository cleaned up and published as a portfolio piece.                                                                                                                 |
 
-In numbers: about **1,800 commits** in two years, **15 tagged releases**, **13 feature modules**, and about **12k lines of JavaScript**, **3k lines of templates** and **9k lines of Sass**.
+In numbers: about **1,800 commits** in two years, **15 releases**, **13 feature modules**, and about **12k lines of JavaScript**, **3k lines of templates** and **9k lines of Sass**.
 
 ## Architecture
 
@@ -136,7 +136,7 @@ Shared UI (header, sidebar, monthly date picker, flash messages, spinner) lives 
 - **A complete build and deploy pipeline.** Gulp drives webpack (Babel, `ng-annotate`, ESLint), Sass with Autoprefixer, template caching, image optimisation, asset revisioning and gzip. [`gulp/deploy.js`](gulp/deploy.js) publishes to S3 and invalidates CloudFront.
 - **Deploys driven by branches.** On CircleCI, `develop` and `master` shipped to `dev.revaluate.io` and `production` shipped to `www.revaluate.io`, each built with its own environment config.
 - **Tests at two levels.** Karma and Jasmine unit specs sit next to the code (`*_test.js`). End-to-end Protractor suites with page objects live in [`e2e`](e2e).
-- **Steady releases.** Semantic version tags with codenames, and Angular-style commit messages such as `feat(goals): …`.
+- **Steady releases.** Semantic versions with codenames, and Angular-style commit messages such as `feat(goals): …`.
 
 ## Project layout
 
@@ -177,9 +177,8 @@ Deploying needs `gulp/app.config.<env>.private.json` with S3 and CloudFront sett
 
 ## About this repository
 
-- **Branches.** `master` holds the latest code: the 2016 redesign and the ES2015 refactor. The tags hold the releases that shipped in 2015 (`1.0.0` to `1.0.9__joey-tribianni`). `production-2016-11-08` is the last deployed state, and `archive/feat-chartist` is an unmerged experiment with Chartist charts.
-- **History.** It was rewritten in 2026 before publishing. Deploy credentials, generated configs, committed build output and the press-kit archive were purged, and commit dates and authors were preserved. The OAuth client IDs and analytics keys left in `gulp/app.config.*.json` are public, browser-side identifiers for apps that no longer exist.
-- **Authors.** [`.mailmap`](.mailmap) merges each contributor's old identities, so `git shortlog -sn` gives an accurate picture.
+- **One branch.** `master` holds the full history: the 2015 releases, then the 2016 redesign and the ES2015 refactor on top.
+- **History.** It was rewritten in 2026 before publishing. Deploy credentials, personal data (email addresses, photos of people, testimonial names), generated configs, committed build output and the press-kit archive were purged. Commit dates and authors were preserved, and author emails now point to GitHub `noreply` addresses. The OAuth client IDs and analytics keys left in `gulp/app.config.*.json` are public, browser-side identifiers for apps that no longer exist.
 
 ## Team
 
