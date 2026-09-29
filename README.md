@@ -66,7 +66,7 @@ This repository is the web front end: a single-page app that talks to the Java [
 </tr>
 </table>
 
-<sub>Screenshots are from the 2015 press kit. The 2016 redesign on <code>master</code> refreshes the layout and navigation.</sub>
+<sub>Screenshots are from the 2015 press kit. The 2016 redesign on <code>main</code> refreshes the layout and navigation.</sub>
 
 ## Timeline
 
@@ -177,7 +177,7 @@ Deploying needs `gulp/app.config.<env>.private.json` with S3 and CloudFront sett
 
 ## About this repository
 
-- **One branch.** `master` holds the full history: the 2015 releases, then the 2016 redesign and the ES2015 refactor on top.
+- **One branch.** `main` holds the full history: the 2015 releases, then the 2016 redesign and the ES2015 refactor on top.
 - **History.** It was rewritten in 2026 before publishing. Deploy credentials, personal data (email addresses, photos of people, testimonial names), generated configs, committed build output and the press-kit archive were purged. Commit dates and authors were preserved, and author emails now point to GitHub `noreply` addresses. The OAuth client IDs and analytics keys left in `gulp/app.config.*.json` are public, browser-side identifiers for apps that no longer exist.
 
 ## Team
