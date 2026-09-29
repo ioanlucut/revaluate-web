@@ -4,228 +4,87 @@
 
 # Revaluate
 
-**Change the way you spend your money.**
+**A side project that made it out into the world.**
 
-A personal finance web app for logging expenses in seconds, understanding where the money goes, and setting monthly spending goals. Launched in 2015 and run in production for over a year.
+Built outside my day job, launched publicly in 2015, and run in production for over a year.
 
-![Product: retired](https://img.shields.io/badge/product-retired-lightgrey)
-![AngularJS 1.5](https://img.shields.io/badge/AngularJS-1.5-dd0031)
-![ES2015](https://img.shields.io/badge/ES2015-Babel%20%2B%20webpack-f7df1e)
-![Sass](https://img.shields.io/badge/Sass-Bourbon%20%2B%20Neat-cc6699)
-![Commits](https://img.shields.io/github/commit-activity/t/ioanlucut/revaluate-web?label=commits)
-![Developed 2015–2017](https://img.shields.io/badge/developed-2015%E2%80%932017-8250df)
 [![Product Hunt: 124 upvotes](https://img.shields.io/badge/Product%20Hunt-124%20upvotes-da552f)](https://www.producthunt.com/products/revaluate)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+![Developed 2015–2017](https://img.shields.io/badge/developed-2015%E2%80%932017-8250df)
+![Product: retired](https://img.shields.io/badge/product-retired-lightgrey)
 
-<img src="docs/images/landing-page.png" alt="Revaluate landing page: 'Change the way you spend your money', with a preview of the expense list and the daily spending chart" width="100%">
-
-[Product Hunt](https://www.producthunt.com/products/revaluate) · [Backend: `revaluate-api`](https://github.com/ioanlucut/revaluate-api) · [Screenshots](#a-tour-of-the-app)
+[The story](#beyond-the-day-job) · [Screenshots](#a-tour-of-the-app) · [Backend](https://github.com/ioanlucut/revaluate-api) · [Technical notes](docs/engineering.md)
 
 </div>
 
-## My contribution
+## Beyond the day job
 
-I built Revaluate in my free time with a product and design partner, taking it from an idea to a publicly launched app that ran in production for over a year.
+Revaluate was a personal finance app I built in my free time with Sorin Pantis, who led product and design. The idea was simple: make logging an expense as quick as typing one line, then help people understand where their money goes.
 
-- **Front-end engineering:** I owned the application architecture and wrote most of the application code, including the move to ES2015 modules and AngularJS components.
+I took on the engineering: the front-end architecture and most of the application code, the whole Java backend, and the build and deployment pipeline. Sorin shaped the product, designed the interface, and contributed much of the styling. Together, we took it beyond a local project and launched it publicly.
 
-- **Back-end engineering:** I built the Java [`revaluate-api`](https://github.com/ioanlucut/revaluate-api), which handled the product's data and integrations.
+That meant building more than the expense tracker itself. The product had account management, subscriptions and payments, imports from other finance apps, spending goals, and a Slack integration. It also meant continuing to ship after launch: new features, releases, and eventually a redesign.
 
-- **Delivery:** I built the front-end build and deployment pipeline and maintained it through the product's releases.
+I’m sharing it now because it was a big part of what I built outside work: not just getting the first version out, but spending the next year making it better.
 
-Sorin Pantis owned product and visual design and contributed much of the styling; Felix wrote the first end-to-end tests. This was a collaborative product, not a solo project. See [Team](#team) for credits.
+## From side project to public launch
 
-## What Revaluate was
+- **February 2015:** work began on the web app, two weeks after the API.
 
-Revaluate was a personal finance manager for people who had given up on spreadsheets and bank apps. It launched as a public beta on 27 June 2015 at `revaluate.io`, was featured on [Product Hunt](https://www.producthunt.com/products/revaluate) on 11 September 2015 with 124 upvotes, and shipped 15 releases by October 2015.
+- **27 June 2015:** we launched the public beta at `revaluate.io`.
 
-Its pitch was simple: logging an expense should take as long as typing one line, and the app should turn those lines into insights you can act on.
+- **11 September 2015:** Revaluate was featured on [Product Hunt](https://www.producthunt.com/products/revaluate), with 124 upvotes.
 
-- **Log an expense in one line.** Amount, category, description and date sit in a single keyboard-first row. The category field autocompletes as you type (`HO` → `HOBBY`, `HOUSE`), and Enter adds the expense.
-- **Use your own categories.** Three or twenty, each with its own colour, which follows it through every chart.
-- **See where the money goes.** Monthly breakdowns by category, 3-, 6- and 12-month overviews, and per-category trends over time.
-- **Set goals that watch themselves.** _"Spend less than 500 € on food in September"_ becomes a progress bar that shows where you should be today.
-- **Bring your history with you.** CSV import from Mint and Spendee, with a step that maps their categories onto yours.
-- **Log from Slack.** An "Add to Slack" integration let teams record expenses with slash commands.
+- **By October 2015:** we had shipped 15 releases, adding features including goals and the Slack integration.
 
-This repository is the web front end: a single-page app that talks to the Java [`revaluate-api`](https://github.com/ioanlucut/revaluate-api) over REST.
+- **Through 2016:** the app stayed in production while we continued development, including a move to ES2015 modules and a visual redesign. The last production deployment was in November 2016; the redesign was merged in March 2017.
+
+<img src="docs/images/landing-page.png" alt="Revaluate's original landing page: Change the way you spend your money" width="100%">
 
 ## A tour of the app
 
+The core experience was keyboard-first expense entry, with custom categories, monthly spending insights, and goals. CSV imports let users bring their history from Mint or Spendee rather than start from scratch.
+
 <table>
 <tr>
-<td width="50%"><img src="docs/images/expenses.png" alt="Expense list: one-line entry form with category autocomplete, expenses grouped by day, and a daily spending chart for the month"></td>
-<td width="50%"><img src="docs/images/goals.png" alt="Goals: a form reading 'Spend less than 200 on clothes in September', and goal cards with progress bars against today"></td>
+<td width="50%"><img src="docs/images/expenses.png" alt="Expense entry with category autocomplete, a day-by-day timeline, and a daily spending chart"></td>
+<td width="50%"><img src="docs/images/goals.png" alt="Monthly spending goals with progress bars"></td>
 </tr>
 <tr>
-<td><sub><b>Expenses.</b> One-line entry with category autocomplete, a day-by-day timeline and this month's daily spending.</sub></td>
-<td><sub><b>Goals.</b> "Spend less or more than X on a category in a month", tracked against today.</sub></td>
+<td><sub><b>Expenses.</b> Log an expense in one line and see the month's spending.</sub></td>
+<td><sub><b>Goals.</b> Set a monthly target and track progress against today.</sub></td>
 </tr>
 <tr>
-<td><img src="docs/images/insights-monthly-doughnut.png" alt="Monthly insights: a doughnut chart of one month's spending by category with a totals table"></td>
-<td><img src="docs/images/insights-progress.png" alt="Progress insights: a line chart of selected categories across six months with a month-by-month table"></td>
+<td><img src="docs/images/insights-monthly-doughnut.png" alt="Monthly spending breakdown by category"></td>
+<td><img src="docs/images/insights-progress.png" alt="Category spending trends across six months"></td>
 </tr>
 <tr>
-<td><sub><b>Monthly insights.</b> Where the month's money went, as a pie or a bar chart.</sub></td>
-<td><sub><b>Progress.</b> Compare any set of categories across 3, 6 or 12 months.</sub></td>
+<td><sub><b>Monthly insights.</b> See where the money went.</sub></td>
+<td><sub><b>Trends.</b> Compare spending across categories and months.</sub></td>
 </tr>
 <tr>
-<td><img src="docs/images/insights-overview.png" alt="Overview insights: monthly totals from March to August as a bar chart and a table"></td>
-<td><img src="docs/images/settings-import.png" alt="Import: nine Spendee categories, each mapped to a Revaluate category or skipped"></td>
+<td><img src="docs/images/insights-overview.png" alt="Monthly spending totals displayed as a bar chart and table"></td>
+<td><img src="docs/images/settings-import.png" alt="Mapping imported Spendee categories to Revaluate categories"></td>
 </tr>
 <tr>
-<td><sub><b>Overview.</b> Month-over-month totals.</sub></td>
-<td><sub><b>Import.</b> Map another app's categories onto yours before importing.</sub></td>
+<td><sub><b>Overview.</b> Compare month-over-month totals.</sub></td>
+<td><sub><b>Import.</b> Review and map categories before bringing in old expenses.</sub></td>
 </tr>
 </table>
 
-<sub>Screenshots are from the 2015 press kit. The 2016 redesign on <code>main</code> refreshes the layout and navigation.</sub>
+<sub>Screenshots are from the 2015 press kit. The code on <code>main</code> includes the later redesign.</sub>
 
-## Timeline
+## The people behind it
 
-| When                | Milestone                                                                                                                                                                 |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Feb 2015            | First commit. The API was started two weeks earlier.                                                                                                                      |
-| May 2015            | Payments (Braintree) and CSV import.                                                                                                                                      |
-| **27 Jun 2015**     | **Public beta, version `1.0.0`.**                                                                                                                                         |
-| Jun – Oct 2015      | Fourteen more releases, `1.0.1` to `1.0.9`. From `1.0.5` on, each was codenamed after a TV character: Jon Snow, Phil Dunphy, Chandler Bing, Oliver Queen, Joey Tribbiani. |
-| Aug – Sep 2015      | Goals, then the Slack integration.                                                                                                                                        |
-| **11 Sep 2015**     | **Featured on Product Hunt**, 124 upvotes, on version `1.0.8`.                                                                                                            |
-| Oct 2015            | Redesigned landing page and app header.                                                                                                                                   |
-| Dec 2015 – Apr 2016 | Moved the code base to ES2015 modules, Babel and webpack, then AngularJS 1.5 components.                                                                                  |
-| Sep – Oct 2016      | Visual makeover of the app and the home page.                                                                                                                             |
-| Nov 2016            | Last production deploy.                                                                                                                                                   |
-| Mar 2017            | Last commit: the redesign merged into `develop`.                                                                                                                          |
-| 2026                | Repository cleaned up and published as a portfolio piece.                                                                                                                 |
+- **[Ioan Lucuț](https://github.com/ioanlucut) — engineering.** Front-end architecture and most application code, the build and deployment pipeline, and the whole [`revaluate-api`](https://github.com/ioanlucut/revaluate-api) backend.
 
-In numbers: about **1,800 commits** in two years, **15 releases**, **13 feature modules**, and about **12k lines of JavaScript**, **3k lines of templates** and **9k lines of Sass**.
+- **[Sorin Pantis](https://github.com/sorinpantis) — product and design.** Visual design, the landing page, and much of the styling; about 40% of this repository's commits.
 
-## Architecture
+- **Felix — early test coverage.** Wrote the first Protractor end-to-end tests.
 
-```mermaid
-flowchart LR
-    U["Browser"]
-    subgraph edge["AWS"]
-        CF["CloudFront"] --> S3[("S3<br/>static build")]
-    end
-    subgraph heroku["Heroku"]
-        API["<b>revaluate-api</b><br/>Dropwizard · Spring · Jersey"]
-        DB[("PostgreSQL")]
-        API --> DB
-    end
-    U -- "HTML, JS, CSS" --> CF
-    U -- "REST + JSON" --> API
-    U -. "OAuth sign-in" .-> OA["Facebook · Google"]
-    API -. "payments" .-> BT["Braintree"]
-    API -. "slash commands" .-> SL["Slack"]
-```
+## Looking back at the code
 
-- **The front end** is an AngularJS single-page app with HTML5 routing (`ui-router`). The build is static, served from S3 behind CloudFront, so the only moving part is the API.
-- **The back end**, [`revaluate-api`](https://github.com/ioanlucut/revaluate-api), is a Java service (Dropwizard, Spring, Jersey, JPA with Hibernate, Flyway migrations) on Heroku with PostgreSQL. It handles accounts, expenses, insights, goals, CSV parsing, Braintree subscriptions, emails and the Slack commands.
-- **Configuration per environment** (`local`, `local-dev`, `development`, `production`) lives in [`gulp/app.config.*.json`](gulp) and is compiled into an Angular constant (`ENV`) at build time.
+Revaluate is retired now. This repository preserves the AngularJS frontend as it was built; the old toolchain no longer installs as-is. The Java backend lives in [`revaluate-api`](https://github.com/ioanlucut/revaluate-api).
 
-### Feature modules
-
-Every feature is a self-contained module under [`src/app/components`](src/app/components) that owns its routes, components, services, templates and styles.
-
-| Module                                                                                                                                                                       | What it does                                                                                                                     |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| [`expenses`](src/app/components/expenses)                                                                                                                                    | One-line entry, day-grouped timeline with infinite scroll, per-category drill-down, the monthly goals and daily insight widgets. |
-| [`categories`](src/app/components/categories)                                                                                                                                | Custom categories with a colour picker, and safe deletion.                                                                       |
-| [`insights`](src/app/components/insights)                                                                                                                                    | Daily, monthly, overview and progress charts (Chart.js).                                                                         |
-| [`goals`](src/app/components/goals)                                                                                                                                          | Monthly spending goals with progress against today.                                                                              |
-| [`import`](src/app/components/import)                                                                                                                                        | CSV upload, parsing and category matching for Mint and Spendee exports.                                                          |
-| [`integrations`](src/app/components/integrations)                                                                                                                            | "Add to Slack" OAuth and the list of connected teams.                                                                            |
-| [`account`](src/app/components/account)                                                                                                                                      | Sign-up, email confirmation, password reset, Facebook and Google sign-in.                                                        |
-| [`settings`](src/app/components/settings)                                                                                                                                    | Profile, preferences (currency), subscription and payment, account deletion.                                                     |
-| [`site`](src/app/components/site)                                                                                                                                            | Home page, pricing, terms, privacy and the error pages.                                                                          |
-| [`feedback`](src/app/components/feedback), [`contact`](src/app/components/contact), [`intercom`](src/app/components/intercom), [`statistics`](src/app/components/statistics) | In-app feedback, contact form, support chat and product analytics.                                                               |
-
-Shared UI (header, sidebar, monthly date picker, flash messages, spinner) lives in [`src/app/common`](src/app/common).
-
-## Engineering highlights
-
-### Migrating an existing app instead of rewriting it
-
-**Problem:** The application started with ES5 and IIFE-wrapped `angular.module` files. Moving to explicit modules meant changing repeated patterns across hundreds of files.
-
-**Approach:** I used [one-off migration scripts](utils) with Lebab for syntax conversion, regex-based structural rewrites, and Recast for printing, alongside the move to Babel and webpack. The application moved to ES2015 modules and AngularJS 1.5 components while retaining AngularJS rather than replacing the framework.
-
-**Trade-off and retrospective:** Automation reduced repetitive editing, but these scripts were tailored to particular source shapes and directories. They are historical tools, not reusable codemods. A safer approach today would use AST-based transformations with before/after fixtures and syntax checks after each step.
-
-### Letting users reconcile imported categories
-
-**Problem:** A CSV export from another finance app carries that app's categories, which may not match the user's Revaluate categories.
-
-**Approach:** The [import controller](src/app/components/import/expenses-import/ImportExpensesController.js) coordinates a staged flow: upload the file for server-side analysis, let the user map or skip source categories, then submit the selected mappings. Parsing stays in the API; the browser owns the review step and shows upload and import failures separately.
-
-**Trade-off and retrospective:** Reviewing mappings adds a step but gives the user control before importing. The controller also exposes a legacy API compromise: skipped entries still need a valid category in the payload. A cleaner contract would represent skipped entries explicitly instead of requiring that placeholder.
-
-### Delivery and historical testing
-
-- **A complete build and deploy pipeline.** Gulp drives webpack (Babel, `ng-annotate`, ESLint), Sass with Autoprefixer, template caching, image optimisation, asset revisioning and gzip. [`gulp/deploy.js`](gulp/deploy.js) publishes to S3 and invalidates CloudFront.
-- **Deploys driven by branches.** On CircleCI, `develop` and `master` shipped to `dev.revaluate.io` and `production` shipped to `www.revaluate.io`, each built with its own environment config.
-- **Historical tests at two levels.** Twelve Karma/Jasmine unit-spec files sit next to the code (`*_test.js`), and two Protractor E2E spec files with page objects live in [`e2e`](e2e). These legacy suites have not been revalidated with the retired toolchain; the current archive check below does not run them.
-- **Steady releases.** Semantic versions with codenames, and Angular-style commit messages such as `feat(goals): …`.
-
-## Project layout
-
-```
-src/
-├── index.html                  app shell, meta tags, analytics snippets
-├── app/
-│   ├── index.module.js         webpack entry
-│   ├── indexApp.js             root module: dependencies, routing, charts, i18n
-│   ├── indexBootstrapper.js    deferred bootstrap: fetches app config before Angular starts
-│   ├── config/                 generated ENV constant
-│   ├── common/                 shared layout and UI components
-│   └── components/             13 feature modules (see above)
-├── sass/                       design system: Bourbon, Neat, Bitters, fonts, icons
-└── assets/                     images, fonts, favicons
-gulp/                           build, serve, test, config and deploy tasks
-e2e/                            Protractor end-to-end suites
-utils/                          one-off ES5 → ES2015 migration scripts
-```
-
-## Running it today
-
-The Revaluate product is **retired**. This repository is maintained as a historical portfolio archive, not a supported application. The code is here to be read, not deployed:
-
-- **The toolchain is from 2015–16.** It needs Node 5, Gulp 3, Bower, Ruby Sass and PhantomJS, and one Bower dependency points to a fork that no longer exists. A modern Node won't install it as is.
-- **The back end runs again.** `revaluate.io` and its Heroku apps are gone, but [`revaluate-api`](https://github.com/ioanlucut/revaluate-api) was revived in 2026 and starts with one command ([quick start](https://github.com/ioanlucut/revaluate-api#quick-start)). It serves on `localhost:8080`, which is where this app's `local` environment points.
-
-With a period-correct environment, this is how it ran:
-
-```bash
-npm install                     # also runs bower install
-gulp serve --env=local          # dev server on :3000, API on localhost:8080
-gulp build:prod                 # static build in dist/
-npm test                        # Karma unit tests
-```
-
-Deploying needs `gulp/app.config.<env>.private.json` with S3 and CloudFront settings; see the [example](gulp/app.config.production.private.example.json).
-
-### Lightweight archive check
-
-With Node.js `24` or newer and Bash, no dependency installation is needed:
-
-```bash
-bash scripts/check-syntax.sh
-```
-
-[Archive checks](.github/workflows/archive-checks.yml) runs the same command on pushes and pull requests using Node.js `24`. It checks the syntax of every JavaScript file under `src/app`, including the historical unit-spec files, without executing them. It does **not** verify imports, build the app, run the legacy test suites, or prove browser/API compatibility.
-
-## About this repository
-
-- **One branch.** `main` holds the full history: the 2015 releases, then the 2016 redesign and the ES2015 refactor on top.
-- **History.** It was rewritten in 2026 before publishing. Deploy credentials, personal data (email addresses, photos of people, testimonial names), generated configs, committed build output and the press-kit archive were purged. Commit dates and authors were preserved, and author emails now point to GitHub `noreply` addresses. The OAuth client IDs and analytics keys left in `gulp/app.config.*.json` are public, browser-side identifiers for apps that no longer exist.
-
-## Team
-
-- **[Ioan Lucuț](https://github.com/ioanlucut)**: engineering. Front-end architecture and most of the application code, the build and deploy pipeline, and the whole [`revaluate-api`](https://github.com/ioanlucut/revaluate-api) back end.
-- **[Sorin Pantis](https://github.com/sorinpantis)**: product and design. Visual design, the landing page and much of the styling; about 40% of this repository's commits.
-- **Felix** wrote the first Protractor end-to-end tests.
-
-## License
+If you're curious about how it worked, the [technical notes](docs/engineering.md) go into the architecture and implementation. Credentials and personal data were removed from the history before publication.
 
 [MIT](LICENSE) © 2015–2026 Ioan Lucuț
