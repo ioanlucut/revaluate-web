@@ -14,6 +14,7 @@ A personal finance web app for logging expenses in seconds, understanding where 
 ![Sass](https://img.shields.io/badge/Sass-Bourbon%20%2B%20Neat-cc6699)
 ![Commits](https://img.shields.io/github/commit-activity/t/ioanlucut/revaluate-web?label=commits)
 ![Years](https://img.shields.io/badge/active-2015%E2%80%932017-8250df)
+[![Product Hunt: 124 upvotes](https://img.shields.io/badge/Product%20Hunt-124%20upvotes-da552f)](https://www.producthunt.com/products/revaluate)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 <img src="docs/images/landing-page.png" alt="Revaluate landing page: 'Change the way you spend your money', with a preview of the expense list and the daily spending chart" width="100%">
@@ -24,7 +25,7 @@ A personal finance web app for logging expenses in seconds, understanding where 
 
 ## What Revaluate was
 
-Revaluate was a personal finance manager for people who had given up on spreadsheets and bank apps. It launched as a public beta on 28 June 2015 at `revaluate.io`, shipped 15 releases by October 2015, and went on [Product Hunt](https://www.producthunt.com/products/revaluate) in September 2015.
+Revaluate was a personal finance manager for people who had given up on spreadsheets and bank apps. It launched as a public beta on 27 June 2015 at `revaluate.io`, was featured on [Product Hunt](https://www.producthunt.com/products/revaluate) on 11 September 2015 with 124 upvotes, and shipped 15 releases by October 2015.
 
 Its pitch was simple: logging an expense should take as long as typing one line, and the app should turn those lines into insights you can act on.
 
@@ -74,10 +75,10 @@ This repository is the web front end: a single-page app that talks to the Java [
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Feb 2015            | First commit. The API was started two weeks earlier.                                                                                                                      |
 | May 2015            | Payments (Braintree) and CSV import.                                                                                                                                      |
-| **28 Jun 2015**     | **Public beta, version `1.0.0`.**                                                                                                                                         |
+| **27 Jun 2015**     | **Public beta, version `1.0.0`.**                                                                                                                                         |
 | Jun – Oct 2015      | Fourteen more releases, `1.0.1` to `1.0.9`. From `1.0.5` on, each was codenamed after a TV character: Jon Snow, Phil Dunphy, Chandler Bing, Oliver Queen, Joey Tribbiani. |
 | Aug – Sep 2015      | Goals, then the Slack integration.                                                                                                                                        |
-| **Sep 2015**        | **Launched on Product Hunt** with version `1.0.8`.                                                                                                                        |
+| **11 Sep 2015**     | **Featured on Product Hunt**, 124 upvotes, on version `1.0.8`.                                                                                                            |
 | Oct 2015            | Redesigned landing page and app header.                                                                                                                                   |
 | Dec 2015 – Apr 2016 | Moved the code base to ES2015 modules, Babel and webpack, then AngularJS 1.5 components.                                                                                  |
 | Sep – Oct 2016      | Visual makeover of the app and the home page.                                                                                                                             |
@@ -132,7 +133,7 @@ Shared UI (header, sidebar, monthly date picker, flash messages, spinner) lives 
 
 ## Engineering highlights
 
-- **An ES5 → ES2015 migration done with codemods, not by hand.** In early 2016 the code base moved from IIFE-wrapped `angular.module` files to ES2015 modules with Babel and webpack. The rewrite was scripted with [Lebab and Recast transforms](utils) that turned module declarations into `import`/`export` graphs. After that the app moved to AngularJS 1.5 `.component()`s.
+- **An ES5 → ES2015 migration, scripted.** In early 2016 the code base moved from IIFE-wrapped `angular.module` files to ES2015 modules with Babel and webpack, then to AngularJS 1.5 `.component()`s. Instead of converting 200+ files by hand, the move ran through [one-off migration scripts](utils): Lebab for the syntax, regex rewrites that turned each module declaration into `import`/`export` statements, and Recast to reprint the result. They are throwaway tools with hardcoded paths, kept as a record of how the move was done.
 - **A complete build and deploy pipeline.** Gulp drives webpack (Babel, `ng-annotate`, ESLint), Sass with Autoprefixer, template caching, image optimisation, asset revisioning and gzip. [`gulp/deploy.js`](gulp/deploy.js) publishes to S3 and invalidates CloudFront.
 - **Deploys driven by branches.** On CircleCI, `develop` and `master` shipped to `dev.revaluate.io` and `production` shipped to `www.revaluate.io`, each built with its own environment config.
 - **Tests at two levels.** Karma and Jasmine unit specs sit next to the code (`*_test.js`). End-to-end Protractor suites with page objects live in [`e2e`](e2e).
@@ -154,7 +155,7 @@ src/
 └── assets/                     images, fonts, favicons
 gulp/                           build, serve, test, config and deploy tasks
 e2e/                            Protractor end-to-end suites
-utils/                          ES5 → ES2015 codemods
+utils/                          one-off ES5 → ES2015 migration scripts
 ```
 
 ## Running it today
@@ -162,7 +163,7 @@ utils/                          ES5 → ES2015 codemods
 Revaluate is **archived**. The code is here to be read, not deployed:
 
 - **The toolchain is from 2015–16.** It needs Node 5, Gulp 3, Bower, Ruby Sass and PhantomJS, and one Bower dependency points to a fork that no longer exists. A modern Node won't install it as is.
-- **The back end is offline.** The Heroku apps and `revaluate.io` were shut down, so everything past the landing page needs a local [`revaluate-api`](https://github.com/ioanlucut/revaluate-api).
+- **The back end runs again.** `revaluate.io` and its Heroku apps are gone, but [`revaluate-api`](https://github.com/ioanlucut/revaluate-api) was revived in 2026 and starts with one command ([quick start](https://github.com/ioanlucut/revaluate-api#quick-start)). It serves on `localhost:8080`, which is where this app's `local` environment points.
 
 With a period-correct environment, this is how it ran:
 
