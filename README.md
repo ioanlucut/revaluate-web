@@ -6,14 +6,14 @@
 
 **Change the way you spend your money.**
 
-A personal finance web app for logging expenses in seconds, understanding where the money goes, and setting monthly spending goals. Built and run in production from 2015 to 2017.
+A personal finance web app for logging expenses in seconds, understanding where the money goes, and setting monthly spending goals. Launched in 2015 and run in production for over a year.
 
 ![Status: archived](https://img.shields.io/badge/status-archived-lightgrey)
 ![AngularJS 1.5](https://img.shields.io/badge/AngularJS-1.5-dd0031)
 ![ES2015](https://img.shields.io/badge/ES2015-Babel%20%2B%20webpack-f7df1e)
 ![Sass](https://img.shields.io/badge/Sass-Bourbon%20%2B%20Neat-cc6699)
 ![Commits](https://img.shields.io/github/commit-activity/t/ioanlucut/revaluate-web?label=commits)
-![Years](https://img.shields.io/badge/active-2015%E2%80%932017-8250df)
+![Developed 2015–2017](https://img.shields.io/badge/developed-2015%E2%80%932017-8250df)
 [![Product Hunt: 124 upvotes](https://img.shields.io/badge/Product%20Hunt-124%20upvotes-da552f)](https://www.producthunt.com/products/revaluate)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
