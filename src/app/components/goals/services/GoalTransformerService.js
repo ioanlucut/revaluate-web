@@ -1,5 +1,3 @@
-export default
-
 function GoalTransformerService(Goal, DatesUtils) {
   'ngInject';
 
