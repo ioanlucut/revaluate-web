@@ -8,7 +8,7 @@
 
 A personal finance web app for logging expenses in seconds, understanding where the money goes, and setting monthly spending goals. Launched in 2015 and run in production for over a year.
 
-![Status: archived](https://img.shields.io/badge/status-archived-lightgrey)
+![Product: retired](https://img.shields.io/badge/product-retired-lightgrey)
 ![AngularJS 1.5](https://img.shields.io/badge/AngularJS-1.5-dd0031)
 ![ES2015](https://img.shields.io/badge/ES2015-Babel%20%2B%20webpack-f7df1e)
 ![Sass](https://img.shields.io/badge/Sass-Bourbon%20%2B%20Neat-cc6699)
@@ -22,6 +22,18 @@ A personal finance web app for logging expenses in seconds, understanding where 
 [Product Hunt](https://www.producthunt.com/products/revaluate) · [Backend: `revaluate-api`](https://github.com/ioanlucut/revaluate-api) · [Screenshots](#a-tour-of-the-app)
 
 </div>
+
+## My contribution
+
+I built Revaluate in my free time with a product and design partner, taking it from an idea to a publicly launched app that ran in production for over a year.
+
+- **Front-end engineering:** I owned the application architecture and wrote most of the application code, including the move to ES2015 modules and AngularJS components.
+
+- **Back-end engineering:** I built the Java [`revaluate-api`](https://github.com/ioanlucut/revaluate-api), which handled the product's data and integrations.
+
+- **Delivery:** I built the front-end build and deployment pipeline and maintained it through the product's releases.
+
+Sorin Pantis owned product and visual design and contributed much of the styling; Felix wrote the first end-to-end tests. This was a collaborative product, not a solo project. See [Team](#team) for credits.
 
 ## What Revaluate was
 
@@ -133,10 +145,27 @@ Shared UI (header, sidebar, monthly date picker, flash messages, spinner) lives 
 
 ## Engineering highlights
 
-- **An ES5 → ES2015 migration, scripted.** In early 2016 the code base moved from IIFE-wrapped `angular.module` files to ES2015 modules with Babel and webpack, then to AngularJS 1.5 `.component()`s. Instead of converting 200+ files by hand, the move ran through [one-off migration scripts](utils): Lebab for the syntax, regex rewrites that turned each module declaration into `import`/`export` statements, and Recast to reprint the result. They are throwaway tools with hardcoded paths, kept as a record of how the move was done.
+### Migrating an existing app instead of rewriting it
+
+**Problem:** The application started with ES5 and IIFE-wrapped `angular.module` files. Moving to explicit modules meant changing repeated patterns across hundreds of files.
+
+**Approach:** I used [one-off migration scripts](utils) with Lebab for syntax conversion, regex-based structural rewrites, and Recast for printing, alongside the move to Babel and webpack. The application moved to ES2015 modules and AngularJS 1.5 components while retaining AngularJS rather than replacing the framework.
+
+**Trade-off and retrospective:** Automation reduced repetitive editing, but these scripts were tailored to particular source shapes and directories. They are historical tools, not reusable codemods. A safer approach today would use AST-based transformations with before/after fixtures and syntax checks after each step.
+
+### Letting users reconcile imported categories
+
+**Problem:** A CSV export from another finance app carries that app's categories, which may not match the user's Revaluate categories.
+
+**Approach:** The [import controller](src/app/components/import/expenses-import/ImportExpensesController.js) coordinates a staged flow: upload the file for server-side analysis, let the user map or skip source categories, then submit the selected mappings. Parsing stays in the API; the browser owns the review step and shows upload and import failures separately.
+
+**Trade-off and retrospective:** Reviewing mappings adds a step but gives the user control before importing. The controller also exposes a legacy API compromise: skipped entries still need a valid category in the payload. A cleaner contract would represent skipped entries explicitly instead of requiring that placeholder.
+
+### Delivery and historical testing
+
 - **A complete build and deploy pipeline.** Gulp drives webpack (Babel, `ng-annotate`, ESLint), Sass with Autoprefixer, template caching, image optimisation, asset revisioning and gzip. [`gulp/deploy.js`](gulp/deploy.js) publishes to S3 and invalidates CloudFront.
 - **Deploys driven by branches.** On CircleCI, `develop` and `master` shipped to `dev.revaluate.io` and `production` shipped to `www.revaluate.io`, each built with its own environment config.
-- **Tests at two levels.** Karma and Jasmine unit specs sit next to the code (`*_test.js`). End-to-end Protractor suites with page objects live in [`e2e`](e2e).
+- **Historical tests at two levels.** Twelve Karma/Jasmine unit-spec files sit next to the code (`*_test.js`), and two Protractor E2E spec files with page objects live in [`e2e`](e2e). These legacy suites have not been revalidated with the retired toolchain; the current archive check below does not run them.
 - **Steady releases.** Semantic versions with codenames, and Angular-style commit messages such as `feat(goals): …`.
 
 ## Project layout
@@ -160,7 +189,7 @@ utils/                          one-off ES5 → ES2015 migration scripts
 
 ## Running it today
 
-Revaluate is **archived**. The code is here to be read, not deployed:
+The Revaluate product is **retired**. This repository is maintained as a historical portfolio archive, not a supported application. The code is here to be read, not deployed:
 
 - **The toolchain is from 2015–16.** It needs Node 5, Gulp 3, Bower, Ruby Sass and PhantomJS, and one Bower dependency points to a fork that no longer exists. A modern Node won't install it as is.
 - **The back end runs again.** `revaluate.io` and its Heroku apps are gone, but [`revaluate-api`](https://github.com/ioanlucut/revaluate-api) was revived in 2026 and starts with one command ([quick start](https://github.com/ioanlucut/revaluate-api#quick-start)). It serves on `localhost:8080`, which is where this app's `local` environment points.
@@ -175,6 +204,16 @@ npm test                        # Karma unit tests
 ```
 
 Deploying needs `gulp/app.config.<env>.private.json` with S3 and CloudFront settings; see the [example](gulp/app.config.production.private.example.json).
+
+### Lightweight archive check
+
+With Node.js `24` or newer and Bash, no dependency installation is needed:
+
+```bash
+bash scripts/check-syntax.sh
+```
+
+[Archive checks](.github/workflows/archive-checks.yml) runs the same command on pushes and pull requests using Node.js `24`. It checks the syntax of every JavaScript file under `src/app`, including the historical unit-spec files, without executing them. It does **not** verify imports, build the app, run the legacy test suites, or prove browser/API compatibility.
 
 ## About this repository
 
